@@ -9,7 +9,7 @@ public class Zombie_Idle : CharacterStateMachineState
     public override void StartState()
     {
         base.StartState();
-        Controller.animation.CrossFade("Walk2");
+        Controller.animation.CrossFade("Idle");
         VerticalSpeed = GroundVerticalSpeed;
         Direction = new Vector3(1, 0, 0);
     }
@@ -18,9 +18,7 @@ public class Zombie_Idle : CharacterStateMachineState
     {
         ZombieStates nextState = ZombieStates.Zombie_Idle;
 
-        float targetSpeed = 10;
-        float accelerationSmoothing = 0.5f * Time.deltaTime;
-        HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
+        HorizontalSpeed = 0;
 
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;

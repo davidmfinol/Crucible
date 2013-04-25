@@ -9,7 +9,7 @@ public class Zombie_Falling : CharacterStateMachineState
     public override void StartState()
     {
         base.StartState();
-        Controller.animation.CrossFade("Climbing");
+        Controller.animation.CrossFade("Falling");
     }
 
     protected override Enum OnUpdate()
