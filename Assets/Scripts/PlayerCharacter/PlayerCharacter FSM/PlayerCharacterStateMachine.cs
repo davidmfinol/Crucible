@@ -71,6 +71,10 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     // How long does it take the character to move between Z-levels?
     public float ZTransitioningDuration = 1.0f;
 
+    public float AttackDuration1 = 25.0f / 100.0f;
+    public float AttackDuration2 = 40.0f / 100.0f;
+    public float AttackDuration3 = 71.0f / 100.0f;
+
     // How far the player fell
     private float _fallHeight = 0;
 

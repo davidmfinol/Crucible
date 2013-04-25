@@ -35,6 +35,8 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
         }
 
         // Determine next state
+        if (Input.GetButton("Primary"))
+            nextState = PlayerCharacterStates.PlayerCharacter_Attacking;
         if (!IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
         else if (Controller.CanClimbObject && (UpDown || DownDown))
