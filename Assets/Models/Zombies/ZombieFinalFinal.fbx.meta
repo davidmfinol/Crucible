@@ -1,11 +1,17 @@
 fileFormatVersion: 2
-guid: 09d941e8c49d8284c8e53e6da55208c5
+guid: b0f6e34bf02c3c64fad8059d93785999
 ModelImporter:
   fileIDToRecycleName:
-    4300000: Plane
-    4300002: Plane_002
-    7400000: Default Take //// runnersCharwalking (1)
-    7400002: metarigAction //// runnersCharwalking (1)
+    4300000: Plane_002
+    7400000: Default Take //// ZombieFinalFinal
+    7400002: Attacking //// ZombieFinalFinal
+    7400004: Climbing //// ZombieFinalFinal
+    7400006: Idle //// ZombieFinalFinal
+    7400008: Jumping //// ZombieFinalFinal
+    7400010: Run //// ZombieFinalFinal
+    7400012: TakingDamage //// ZombieFinalFinal
+    7400014: Walk //// ZombieFinalFinal
+    7400016: Walk2 //// ZombieFinalFinal
   serializedVersion: 10
   materials:
     importMaterials: 1
@@ -43,289 +49,279 @@ ModelImporter:
     //RootNode:
       data:
         first: 1
-        second: a8860100
+        second: e0860100
       data:
         first: 4
-        second: 881a0600
+        second: c01a0600
       data:
         first: 111
         second: 605fa900
     Camera:
       data:
         first: 1
-        second: de860100
+        second: aa860100
       data:
         first: 4
-        second: be1a0600
-    Plane:
-      data:
-        first: 1
-        second: ea860100
-      data:
-        first: 4
-        second: ca1a0600
-      data:
-        first: 137
-        second: a20bd100
+        second: 8a1a0600
     Plane_002:
-      data:
-        first: 1
-        second: e8860100
-      data:
-        first: 4
-        second: c81a0600
-      data:
-        first: 137
-        second: a00bd100
-    Point:
-      data:
-        first: 1
-        second: e2860100
-      data:
-        first: 4
-        second: c21a0600
-    Point_001:
-      data:
-        first: 1
-        second: e4860100
-      data:
-        first: 4
-        second: c41a0600
-    Point_002:
-      data:
-        first: 1
-        second: e6860100
-      data:
-        first: 4
-        second: c61a0600
-    chest:
-      data:
-        first: 1
-        second: c4860100
-      data:
-        first: 4
-        second: a41a0600
-    f_index_01_L:
-      data:
-        first: 1
-        second: cc860100
-      data:
-        first: 4
-        second: ac1a0600
-    f_index_01_R:
-      data:
-        first: 1
-        second: a4860100
-      data:
-        first: 4
-        second: 841a0600
-    f_index_02_L:
-      data:
-        first: 1
-        second: ca860100
-      data:
-        first: 4
-        second: aa1a0600
-    f_index_02_R:
-      data:
-        first: 1
-        second: ce860100
-      data:
-        first: 4
-        second: ae1a0600
-    f_pinky_01_L:
-      data:
-        first: 1
-        second: a2860100
-      data:
-        first: 4
-        second: 821a0600
-    f_pinky_01_R:
-      data:
-        first: 1
-        second: e0860100
-      data:
-        first: 4
-        second: c01a0600
-    f_pinky_02_L:
-      data:
-        first: 1
-        second: a0860100
-      data:
-        first: 4
-        second: 801a0600
-    f_pinky_02_R:
-      data:
-        first: 1
-        second: ac860100
-      data:
-        first: 4
-        second: 8c1a0600
-    foot_IK_L:
-      data:
-        first: 1
-        second: da860100
-      data:
-        first: 4
-        second: ba1a0600
-    foot_IK_R:
-      data:
-        first: 1
-        second: d6860100
-      data:
-        first: 4
-        second: b61a0600
-    foot_L:
-      data:
-        first: 1
-        second: b6860100
-      data:
-        first: 4
-        second: 961a0600
-    foot_R:
-      data:
-        first: 1
-        second: b0860100
-      data:
-        first: 4
-        second: 901a0600
-    forearm_L:
-      data:
-        first: 1
-        second: be860100
-      data:
-        first: 4
-        second: 9e1a0600
-    forearm_R:
-      data:
-        first: 1
-        second: ee860100
-      data:
-        first: 4
-        second: ce1a0600
-    hand_L:
-      data:
-        first: 1
-        second: bc860100
-      data:
-        first: 4
-        second: 9c1a0600
-    hand_R:
-      data:
-        first: 1
-        second: a6860100
-      data:
-        first: 4
-        second: 861a0600
-    hip:
-      data:
-        first: 1
-        second: d2860100
-      data:
-        first: 4
-        second: b21a0600
-    knee_L:
-      data:
-        first: 1
-        second: d8860100
-      data:
-        first: 4
-        second: b81a0600
-    knee_R:
-      data:
-        first: 1
-        second: d4860100
-      data:
-        first: 4
-        second: b41a0600
-    metarig:
-      data:
-        first: 1
-        second: dc860100
-      data:
-        first: 4
-        second: bc1a0600
-    neck:
-      data:
-        first: 1
-        second: c2860100
-      data:
-        first: 4
-        second: a21a0600
-    shin_L:
-      data:
-        first: 1
-        second: b8860100
-      data:
-        first: 4
-        second: 981a0600
-    shin_R:
       data:
         first: 1
         second: b2860100
       data:
         first: 4
         second: 921a0600
-    spine:
+      data:
+        first: 137
+        second: a00bd100
+    Point:
+      data:
+        first: 1
+        second: ac860100
+      data:
+        first: 4
+        second: 8c1a0600
+    Point_001:
       data:
         first: 1
         second: ae860100
       data:
         first: 4
         second: 8e1a0600
-    thigh_L:
+    Point_002:
       data:
         first: 1
-        second: d0860100
+        second: b0860100
       data:
         first: 4
-        second: b01a0600
-    thigh_R:
+        second: 901a0600
+    chest:
       data:
         first: 1
-        second: b4860100
+        second: cc860100
       data:
         first: 4
-        second: 941a0600
-    thumb_02_L:
+        second: ac1a0600
+    f_index_01_L:
       data:
         first: 1
-        second: c8860100
+        second: c2860100
       data:
         first: 4
-        second: a81a0600
-    thumb_02_R:
+        second: a21a0600
+    f_index_01_R:
       data:
         first: 1
-        second: aa860100
+        second: b6860100
       data:
         first: 4
-        second: 8a1a0600
-    thumb_03_L:
-      data:
-        first: 1
-        second: c6860100
-      data:
-        first: 4
-        second: a61a0600
-    thumb_03_R:
-      data:
-        first: 1
-        second: ba860100
-      data:
-        first: 4
-        second: 9a1a0600
-    upper_arm_L:
+        second: 961a0600
+    f_index_02_L:
       data:
         first: 1
         second: c0860100
       data:
         first: 4
         second: a01a0600
-    upper_arm_R:
+    f_index_02_R:
+      data:
+        first: 1
+        second: b8860100
+      data:
+        first: 4
+        second: 981a0600
+    f_pinky_01_L:
+      data:
+        first: 1
+        second: ea860100
+      data:
+        first: 4
+        second: ca1a0600
+    f_pinky_01_R:
+      data:
+        first: 1
+        second: ba860100
+      data:
+        first: 4
+        second: 9a1a0600
+    f_pinky_02_L:
+      data:
+        first: 1
+        second: e8860100
+      data:
+        first: 4
+        second: c81a0600
+    f_pinky_02_R:
+      data:
+        first: 1
+        second: b4860100
+      data:
+        first: 4
+        second: 941a0600
+    foot_IK_L:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+    foot_IK_R:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+    foot_L:
+      data:
+        first: 1
+        second: d6860100
+      data:
+        first: 4
+        second: b61a0600
+    foot_R:
+      data:
+        first: 1
+        second: d0860100
+      data:
+        first: 4
+        second: b01a0600
+    forearm_L:
+      data:
+        first: 1
+        second: c6860100
+      data:
+        first: 4
+        second: a61a0600
+    forearm_R:
+      data:
+        first: 1
+        second: e4860100
+      data:
+        first: 4
+        second: c41a0600
+    hand_L:
+      data:
+        first: 1
+        second: c4860100
+      data:
+        first: 4
+        second: a41a0600
+    hand_R:
+      data:
+        first: 1
+        second: e2860100
+      data:
+        first: 4
+        second: c21a0600
+    hip:
+      data:
+        first: 1
+        second: dc860100
+      data:
+        first: 4
+        second: bc1a0600
+    knee_L:
+      data:
+        first: 1
+        second: a4860100
+      data:
+        first: 4
+        second: 841a0600
+    knee_R:
+      data:
+        first: 1
+        second: de860100
+      data:
+        first: 4
+        second: be1a0600
+    metarig:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
+    neck:
+      data:
+        first: 1
+        second: ca860100
+      data:
+        first: 4
+        second: aa1a0600
+    shin_L:
+      data:
+        first: 1
+        second: d8860100
+      data:
+        first: 4
+        second: b81a0600
+    shin_R:
+      data:
+        first: 1
+        second: d2860100
+      data:
+        first: 4
+        second: b21a0600
+    spine:
+      data:
+        first: 1
+        second: ce860100
+      data:
+        first: 4
+        second: ae1a0600
+    thigh_L:
+      data:
+        first: 1
+        second: da860100
+      data:
+        first: 4
+        second: ba1a0600
+    thigh_R:
+      data:
+        first: 1
+        second: d4860100
+      data:
+        first: 4
+        second: b41a0600
+    thumb_02_L:
+      data:
+        first: 1
+        second: be860100
+      data:
+        first: 4
+        second: 9e1a0600
+    thumb_02_R:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+    thumb_03_L:
+      data:
+        first: 1
+        second: bc860100
+      data:
+        first: 4
+        second: 9c1a0600
+    thumb_03_R:
       data:
         first: 1
         second: ec860100
       data:
         first: 4
         second: cc1a0600
+    upper_arm_L:
+      data:
+        first: 1
+        second: c8860100
+      data:
+        first: 4
+        second: a81a0600
+    upper_arm_R:
+      data:
+        first: 1
+        second: e6860100
+      data:
+        first: 4
+        second: c61a0600
