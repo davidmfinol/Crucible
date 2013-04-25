@@ -1,0 +1,27 @@
+using UnityEngine;
+using System;
+using System.Collections;
+
+public class Zombie_Falling : CharacterStateMachineState
+{
+    public Zombie_Falling(ZombieStateMachine controller) : base(controller) { }
+
+    public override void StartState()
+    {
+        base.StartState();
+        Controller.animation.CrossFade("Climbing");
+    }
+
+    protected override Enum OnUpdate()
+    {
+        ZombieStates nextState = ZombieStates.Zombie_Falling;
+
+        VerticalSpeed = Controller.ApplyGravity();
+
+        if (IsGrounded)
+            nextState = ZombieStates.Zombie_Idle;
+
+        return nextState;
+    }
+
+}

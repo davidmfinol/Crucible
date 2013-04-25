@@ -1,0 +1,272 @@
+using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+[RequireComponent(typeof(CharacterController))]
+// CharacterStateMachineBase runs the finite state machine (FSM) that controls characters in the game
+// Basically, it keeps track of the character's current state and tells that state to do the appropriate processing
+// It also holds appropriate information about platforming
+public abstract class CharacterStateMachineBase : MonoBehaviour
+{
+    // We obviously need to keep track of the current state
+    private Enum _currentState;
+
+    // We need a way to keep moving between z levels
+    public float ZLevel; // current z value
+    private List<float> _zones = new List<float>();
+    private float _Z1; // lower zone
+    private float _Z2; // higher zone
+    private bool _canTransitionZ = false; // does our current location allow us to to move between z levels?
+
+    // We need a way to map the List of all possible states to the class that implements it, so we create this dictionary
+    // In terms of efficiency, this should also prevent wasting resources by creating and deleting new instances of these states
+    // Furthermore, the memory overhead for this dictionary should be very small, and the lookup is very fast
+    private Dictionary<Enum, CharacterStateMachineState> _stateMachine;
+
+    // The following variables are used for the physical movement of a character for each frame
+    // Unity uses CharacterController to move characters
+    private CharacterController _characterController;
+    // How fast does the character want to move on the x-axis?
+    private float _horizontalSpeed = 0.0f;
+    // How fast does the character want to move on the y-axis?
+    private float _verticalSpeed = 0.0f;
+    // The current direction the character is facing in x-y.
+    private Vector3 _direction = Vector3.right;
+    // The last collision flags returned from characterController.Move()
+    private CollisionFlags _collisionFlags = CollisionFlags.None;
+    // The last velocity moved as a result of the characterController.Move()
+    private Vector3 _velocity = Vector3.zero;
+    // How fast does the character rotate?
+    public float RotationSmoothing = 10.0f;
+
+    // How fast does the character move between ZLevels?
+    public float ZLerp = 3.0f;
+
+    // Rate of change of vertical fall speed
+    public float Gravity = 40.0f;
+
+    // Maximum fall speed
+    public float MaxFallSpeed = 20.0f;
+
+    // Moving platform support 
+    private Transform _activePlatform;
+    private Vector3 _activeLocalPlatformPoint;
+    private Vector3 _activeGlobalPlatformPoint;
+
+    public void Awake()
+    {
+        CharacterController = GetComponent<CharacterController>();
+        CreateStateMachine();
+        CurrentState = GetDefaultState();
+        ZLevel = transform.position.z;
+        Z_Down = ZLevel;
+        Z_Up = ZLevel;
+    }
+
+    private void CreateStateMachine()
+    {
+        StateMachine = new Dictionary<Enum, CharacterStateMachineState>();
+        System.Object[] args = { this };
+        foreach (Enum state in Enum.GetValues(GetStateEnumType()))
+        {
+            string stateName = state.ToString();
+            Type stateType = Type.GetType(stateName);
+            CharacterStateMachineState stateClass = (CharacterStateMachineState) Activator.CreateInstance(stateType, args);
+            StateMachine.Add(state, stateClass);
+        }
+    }
+
+    public virtual void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
+    // Update() is called once per frame, and this is where the states are processed by the state machine
+    public void Update()
+    {
+        // Correct our Z value when we are in only one zone
+        if (Zones.Count == 1 && !CanTransitionZ)
+        {
+            Z_Down = Zones[0];
+            Z_Up = Zones[0];
+            ZLevel = Zones[0]; // TODO: REMOVE THIS LINE AND FIX ALL THE PROBLEMS THAT WILL ARISE
+        }
+
+        // Move us toward our specified 2D plane.
+        float z = transform.position.z;
+        //float zChange = Time.deltaTime * ZLerp;
+        //if (transform.position.z != ZLevel) {
+            //if (transform.position.z < ZLevel)
+            //{
+            //    z += zChange;
+            //    if (z > ZLevel) z = ZLevel;
+            //}
+            //else
+            //{
+            //    z -= zChange;
+            //    if (z < ZLevel) z = ZLevel;
+            //}
+        //}
+        z = Mathf.Lerp(transform.position.z, ZLevel, ZLerp * Time.deltaTime);
+        transform.position = new Vector3(transform.position.x, transform.position.y, z);
+        if (Mathf.Abs(z - ZLevel) > 0.9)
+            return; // We don't exist in the game while transitioning
+
+        // Update our state
+        CharacterStateMachineState state;
+        StateMachine.TryGetValue(CurrentState, out state);
+        Enum nextState = state.Update(); // The next state is determined after processing the current state
+        if (!nextState.Equals(CurrentState)) // If we have a new state
+        {
+            state.ExitState();
+            CurrentState = nextState; // move to the new state
+            StateMachine.TryGetValue(CurrentState, out state);
+            state.StartState(); // and start it
+        }
+    }
+
+    // Defines the enum to use for the List of states
+    public abstract Type GetStateEnumType();
+
+    // The default state that the character starts in
+    // This will normally be the character's idle state
+    public abstract Enum GetDefaultState();
+
+    public CharacterStateMachineState GetState()
+    {
+        return StateMachine[CurrentState];
+    }
+    public void SetState(Enum nextState)
+    {
+        if (!nextState.Equals(CurrentState)) // If we have a new state
+        {
+            CharacterStateMachineState state;
+            StateMachine.TryGetValue(CurrentState, out state);
+            state.ExitState(); // exit the previous state
+            CurrentState = nextState; // move to the new state
+            StateMachine.TryGetValue(CurrentState, out state);
+            state.StartState(); // and start it
+        }
+    }
+
+    // Used to check with interactions with platforms
+    public void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // Support for moving platforms
+        if (Mathf.Abs(hit.moveDirection.y) > 0.9 && Mathf.Abs(hit.normal.y) > 0.9)
+        {
+            ActivePlatform = hit.collider.transform;
+        }
+
+        // Support for catching a wall/ledge/rope/etc.
+        if (Mathf.Abs(hit.moveDirection.x) > 0.9 && Mathf.Abs(hit.normal.x) > 0.9)
+        {
+            ActivePlatform = hit.collider.transform;
+        }
+    }
+
+    // Helper method to determine what a character's VerticalSpeed should be while mid-air
+    public float ApplyGravity()
+    {
+        float speed = VerticalSpeed;
+        speed -= Gravity * Time.deltaTime;
+        speed = Mathf.Max(-1.0f * MaxFallSpeed, speed);
+        return speed;
+    }
+
+    // Properties
+    public Enum CurrentState
+    {
+        get { return _currentState; }
+        set { _currentState = value; }
+    }
+    public Dictionary<Enum, CharacterStateMachineState> StateMachine
+    {
+        get { return this._stateMachine; }
+        set { this._stateMachine = value; }
+    }
+
+    public CharacterController CharacterController
+    {
+        get { return _characterController; }
+        set { _characterController = value; }
+    }
+    public float HorizontalSpeed
+    {
+        get { return _horizontalSpeed; }
+        set { _horizontalSpeed = value; }
+    }
+    public float VerticalSpeed
+    {
+        get { return _verticalSpeed; }
+        set { _verticalSpeed = value; }
+    }
+    public Vector3 Direction
+    {
+        get { return _direction; }
+        set { _direction = value; }
+    }
+    public CollisionFlags CollisionFlags
+    {
+        get { return _collisionFlags; }
+        set { _collisionFlags = value; }
+    }
+    public Vector3 Velocity
+    {
+        get { return _velocity; }
+        set { _velocity = value; }
+    }
+
+    public Transform ActivePlatform
+    {
+        get { return _activePlatform; }
+        set { _activePlatform = value; }
+    }
+    public Vector3 ActiveLocalPlatformPoint
+    {
+        get { return _activeLocalPlatformPoint; }
+        set { _activeLocalPlatformPoint = value; }
+    }
+    public Vector3 ActiveGlobalPlatformPoint
+    {
+        get { return _activeGlobalPlatformPoint; }
+        set { _activeGlobalPlatformPoint = value; }
+    }
+    public bool IsGrounded
+    {
+        get { return ActivePlatform != null && CharacterController.isGrounded && "Platform".Equals(ActivePlatform.tag); }
+    }
+    public bool IsTouchingCeiling
+    {
+        get { return ActivePlatform != null && ((CollisionFlags & CollisionFlags.Above) != 0) && "Platform".Equals(ActivePlatform.tag); }
+    }
+    public bool IsTouchingWall
+    {
+        get { return ActivePlatform != null && ((CollisionFlags & CollisionFlags.Sides) != 0) && "Platform".Equals(ActivePlatform.tag); }
+    }
+
+    public float Z_Down
+    {
+        get { return _Z1; }
+        set { _Z1 = value; } 
+    }
+    public float Z_Up
+    {
+        get { return _Z2; }
+        set { _Z2 = value; }
+    }
+    public bool CanTransitionZ
+    {
+        get { return _canTransitionZ; }
+        set { _canTransitionZ = value; }
+    }
+    public List<float> Zones
+    {
+        get { return _zones; }
+    }
+    public virtual float Height
+    {
+        get { return transform.localScale.y * CharacterController.height; }
+    }
+}

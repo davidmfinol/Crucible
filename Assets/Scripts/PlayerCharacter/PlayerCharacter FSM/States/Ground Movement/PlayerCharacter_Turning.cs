@@ -1,0 +1,47 @@
+using UnityEngine;
+using System;
+using System.Collections;
+
+public class PlayerCharacter_Turning : PlayerCharacterStateMachineState
+{
+    public PlayerCharacter_Turning(PlayerCharacterStateMachine controller) : base(controller) { }
+
+    protected override void OnStartState()
+    {
+        HorizontalSpeed = -HorizontalSpeed;
+        Direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
+    }
+
+    protected override Enum OnUpdate()
+    {
+        PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Turning;
+
+        // Determine movement
+        float accelerationSmoothing = Controller.GroundHorizontalAcceleration * Time.deltaTime;
+        HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Controller.MaxRunSpeed, accelerationSmoothing);
+
+        // Determine next state
+        if (!IsGrounded)
+            nextState = PlayerCharacterStates.PlayerCharacter_Falling;
+        else if (Direction.x * RawHorizontalInput < 0) 
+            StartState();
+        else if (Duration > Controller.TurningDuration)
+        {
+            string latestFacePressed = buttonPressedStack.LatestFaceButton();
+            if (latestFacePressed.Equals(strJump) && latestFacePressed != null)
+                nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
+            else
+                nextState = PlayerCharacterStates.PlayerCharacter_Running;
+        }
+        else if (IsPlayerInputZero(RawHorizontalInput))
+            nextState = PlayerCharacterStates.PlayerCharacter_Idle;
+
+        return nextState;
+    }
+
+    public override bool IsGroundState()
+    {
+        return true;
+    }
+
+}
