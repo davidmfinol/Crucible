@@ -6,9 +6,17 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
 {
     public PlayerCharacter_Falling(PlayerCharacterStateMachine controller) : base(controller) { }
 
+    protected override void OnStartState()
+    {
+        Controller.FallHeight = 0;
+        Controller.animation.CrossFade("Falling");
+    }
+
     protected override Enum OnUpdate()
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Falling;
+
+        Controller.FallHeight += -VerticalSpeed * Time.deltaTime; 
 
         // Determine movement
         float targetSpeed = RawHorizontalInput * Controller.MaxRunSpeed * Direction.x;

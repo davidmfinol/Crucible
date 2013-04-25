@@ -10,6 +10,11 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.FallHeight = -1;
+        Controller.animation["Jumping"].wrapMode = WrapMode.Once;
+        Controller.animation["JumpFall"].wrapMode = WrapMode.Once;
+        Controller.animation["JumpLanding"].wrapMode = WrapMode.Once;
+        Controller.animation.CrossFade("Jumping");
         StartHeight = Controller.transform.position.y;
         VerticalSpeed = Mathf.Sqrt(2 * Controller.JumpHeight * Controller.Gravity);
     }
@@ -33,8 +38,11 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         if (Controller.CanClimbObject && (UpHold || DownHold))
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
         else if (Duration > 0 && IsGrounded)
+        {
+            Controller.animation.CrossFade("JumpLanding");
             nextState = PlayerCharacterStates.PlayerCharacter_Landing;
-        else if (VerticalSpeed <= 0.0f)
+        }
+        else if (Controller.transform.position.y < StartHeight)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
         else if (IsTouchingWall && JumpHold)
             nextState = PlayerCharacterStates.PlayerCharacter_WallGrabbing;

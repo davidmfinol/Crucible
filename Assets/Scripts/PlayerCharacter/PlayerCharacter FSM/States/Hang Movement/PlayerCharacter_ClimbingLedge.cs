@@ -8,6 +8,7 @@ public class PlayerCharacter_ClimbingLedge : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation.CrossFade("JumpingDownLeft");
         if (Controller.ActiveHangTarget.IsVertical())
         {
             HorizontalSpeed = 0.0f;

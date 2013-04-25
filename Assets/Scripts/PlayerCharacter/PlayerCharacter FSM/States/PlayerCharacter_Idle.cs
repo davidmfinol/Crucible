@@ -9,6 +9,7 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation.CrossFade("Idle");
         HorizontalSpeed = 0.0f;
     }
 

@@ -6,6 +6,11 @@ public class PlayerCharacter_Running : PlayerCharacterStateMachineState
 {
     public PlayerCharacter_Running(PlayerCharacterStateMachine controller) : base(controller) { }
 
+    protected override void OnStartState()
+    {
+        Controller.animation.CrossFade("Running");
+    }
+
     protected override Enum OnUpdate()
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Running;

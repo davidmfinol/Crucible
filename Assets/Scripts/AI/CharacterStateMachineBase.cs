@@ -235,15 +235,15 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     }
     public bool IsGrounded
     {
-        get { return ActivePlatform != null && CharacterController.isGrounded && "Platform".Equals(ActivePlatform.tag); }
+        get { return CharacterController.isGrounded; }
     }
     public bool IsTouchingCeiling
     {
-        get { return ActivePlatform != null && ((CollisionFlags & CollisionFlags.Above) != 0) && "Platform".Equals(ActivePlatform.tag); }
+        get { return (CollisionFlags & CollisionFlags.Above) != 0; }
     }
     public bool IsTouchingWall
     {
-        get { return ActivePlatform != null && ((CollisionFlags & CollisionFlags.Sides) != 0) && "Platform".Equals(ActivePlatform.tag); }
+        get { return (CollisionFlags & CollisionFlags.Sides) != 0; }
     }
 
     public float Z_Down

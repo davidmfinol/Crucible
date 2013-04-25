@@ -6,6 +6,11 @@ public class PlayerCharacter_Stepping : PlayerCharacterStateMachineState
 {
     public PlayerCharacter_Stepping(PlayerCharacterStateMachine controller) : base(controller) { }
 
+    protected override void OnStartState()
+    {
+        Controller.animation.CrossFade("Walking");
+    }
+
     protected override Enum OnUpdate()
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Stepping;

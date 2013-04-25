@@ -30,7 +30,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     public float TurningDuration = 0.1f;
 
     // How long does it take the character to land?
-    public float LandingDuration = 0.05f;
+    public float LandingDuration = 0.12f;
 
     // How much time are we going to spend kicking off a wall?
     public float WallKickingDuration = 0.3f;
@@ -60,13 +60,16 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     public float LedgeClimbingDuration = 1.5f;
 
     // How fast does the character climb up a ledge?
-    public float LedgeClimbingSpeed = 10.0f;
+    public float LedgeClimbingSpeed = 7.5f;
 
     // How fast does the character climb a ladder?
-    public float LadderClimbingSpeed = 10.0f;
+    public float LadderClimbingSpeed = 5.0f;
 
     // How fast does the character move sideways on a ladder?
-    public float LadderStrafingSpeed = 10.0f;
+    public float LadderStrafingSpeed = 5.0f;
+
+    // How far the player fell
+    private float _fallHeight = 0;
 
     public void Spawn()
     {
@@ -138,5 +141,11 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     public bool IsHangTargetAbove
     {
         get { return (ActiveHangTarget != null) && transform.position.y < ActiveHangTarget.transform.position.y; ; }
+    }
+
+    public float FallHeight
+    {
+        get { return _fallHeight; }
+        set { _fallHeight = value; }
     }
 }

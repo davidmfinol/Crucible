@@ -8,6 +8,7 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation.CrossFade("Climbing");
         HorizontalSpeed = 0.0F;
         VerticalSpeed = 0.0f;
         Direction = new Vector3(0.0f, Direction.y, 0.0f);
@@ -33,6 +34,8 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
             VerticalSpeed = -Controller.LadderClimbingSpeed;
         else
             VerticalSpeed = 0.0f;
+
+        Controller.animation["Climbing"].speed = VerticalSpeed/Controller.LadderClimbingSpeed;
 
         // Determine horizontal movement
         if (LeftHold && !RightHold && Controller.ActiveHangTarget!= null &&
