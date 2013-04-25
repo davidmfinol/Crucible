@@ -68,6 +68,9 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     // How fast does the character move sideways on a ladder?
     public float LadderStrafingSpeed = 5.0f;
 
+    // How long does it take the character to move between Z-levels?
+    public float ZTransitioningDuration = 1.0f;
+
     // How far the player fell
     private float _fallHeight = 0;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class TransitionZone : MonoBehaviour
 {
+    public bool IsRegular = true;
     public bool IsInverse = false;
 
     void OnTriggerEnter(Collider other)
@@ -10,10 +11,12 @@ public class TransitionZone : MonoBehaviour
         CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
         if (character != null)
         {
-            if (!IsInverse)
-                character.CanTransitionZ = character.collider.bounds.center.y - character.Height/2 >= collider.bounds.min.y;
-            else
-                character.CanTransitionZ = character.collider.bounds.center.y + character.Height/2 <= collider.bounds.max.y;
+            bool transit = false;
+            if (IsRegular)
+                transit = transit || (character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y);
+            else if (IsInverse) 
+                transit = transit || (character.collider.bounds.center.y + character.Height/2 <= collider.bounds.max.y);
+            character.CanTransitionZ = transit;
         }
     }
 
@@ -22,10 +25,12 @@ public class TransitionZone : MonoBehaviour
         CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
         if (character != null)
         {
-            if (!IsInverse)
-                character.CanTransitionZ = character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y;
-            else
-                character.CanTransitionZ = character.collider.bounds.center.y + character.Height / 2 <= collider.bounds.max.y;
+            bool transit = false;
+            if (IsRegular)
+                transit = transit || (character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y);
+            else if (IsInverse)
+                transit = transit || (character.collider.bounds.center.y + character.Height / 2 <= collider.bounds.max.y);
+            character.CanTransitionZ = transit;
         }
     }
 

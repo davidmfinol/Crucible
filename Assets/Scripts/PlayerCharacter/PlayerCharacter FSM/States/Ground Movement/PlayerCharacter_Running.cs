@@ -28,6 +28,18 @@ public class PlayerCharacter_Running : PlayerCharacterStateMachineState
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
         else if (IsPlayerInputZero(RawHorizontalInput) || (Direction.x * RawHorizontalInput < 0))
             nextState = PlayerCharacterStates.PlayerCharacter_Skidding;
+        else if (DownHold && Controller.CanTransitionZ)
+        {
+            Controller.ZLevel = Controller.Z_Down;
+            VerticalSpeed = GroundVerticalSpeed;
+            nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
+        }
+        else if (UpHold && Controller.CanTransitionZ)
+        {
+            Controller.ZLevel = Controller.Z_Up;
+            VerticalSpeed = 0;
+            nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
+        }
 
         return nextState;
     }

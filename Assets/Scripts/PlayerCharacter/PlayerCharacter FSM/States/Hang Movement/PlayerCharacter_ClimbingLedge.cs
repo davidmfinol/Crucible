@@ -8,6 +8,7 @@ public class PlayerCharacter_ClimbingLedge : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation["JumpingDownLeft"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("JumpingDownLeft");
         if (Controller.ActiveHangTarget.IsVertical())
         {

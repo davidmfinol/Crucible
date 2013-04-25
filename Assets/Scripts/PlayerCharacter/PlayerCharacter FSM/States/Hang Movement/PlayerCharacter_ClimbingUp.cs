@@ -11,7 +11,6 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
         Controller.animation.CrossFade("Climbing");
         HorizontalSpeed = 0.0F;
         VerticalSpeed = 0.0f;
-        Direction = new Vector3(0.0f, Direction.y, 0.0f);
     }
 
     protected override Enum OnUpdate()
@@ -27,6 +26,14 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
                 return nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLedge;
         }
 
+        // Handle Z-stuff
+        if (DownHold && Controller.CanTransitionZ)
+            Controller.ZLevel = Controller.Z_Down;
+        else if (UpHold && Controller.CanTransitionZ)
+            Controller.ZLevel = Controller.Z_Up;
+
+        Direction = new Vector3(0.0f, Direction.y, 0.0f);
+
         // Determine vertical movement
         if (UpHold && !DownHold)
             VerticalSpeed = Controller.LadderClimbingSpeed;
@@ -35,25 +42,44 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
         else
             VerticalSpeed = 0.0f;
 
-        Controller.animation["Climbing"].speed = VerticalSpeed/Controller.LadderClimbingSpeed;
+        bool insideLeft = Controller.transform.position.x - Controller.collider.bounds.extents.x > 
+                Controller.ActiveHangTarget.transform.position.x - Controller.ActiveHangTarget.collider.bounds.extents.x;
+        bool insideRight = Controller.transform.position.x + Controller.collider.bounds.extents.x < 
+              Controller.ActiveHangTarget.transform.position.x + Controller.ActiveHangTarget.collider.bounds.extents.x;
 
         // Determine horizontal movement
-        if (LeftHold && !RightHold && Controller.ActiveHangTarget!= null &&
-                Controller.transform.position.x - Controller.collider.bounds.extents.x > 
-                Controller.ActiveHangTarget.transform.position.x - Controller.ActiveHangTarget.collider.bounds.extents.x)
+        if (LeftHold && !RightHold && Controller.ActiveHangTarget != null)
+        {
             HorizontalSpeed = -Controller.LadderStrafingSpeed;
-        else if (RightHold && !LeftHold && Controller.ActiveHangTarget != null &&
-              Controller.transform.position.x + Controller.collider.bounds.extents.x < 
-              Controller.ActiveHangTarget.transform.position.x + Controller.ActiveHangTarget.collider.bounds.extents.x)
+            if (!insideLeft)
+            {
+                Direction = new Vector3(-1, Direction.y, Direction.z);
+                return PlayerCharacterStates.PlayerCharacter_Falling;
+            }
+        }
+        else if (RightHold && !LeftHold && Controller.ActiveHangTarget != null)
+        {
             HorizontalSpeed = Controller.LadderStrafingSpeed;
+            if (!insideRight)
+            {
+                Direction = new Vector3(1, Direction.y, Direction.z);
+                return PlayerCharacterStates.PlayerCharacter_Falling;
+            }
+        }
         else
             HorizontalSpeed = 0.0f;
-        //TODO: WHEN PRESSING LEFT AND RIGHT, IT SHOULD MAKE YOU DROP IF YOU WOULD PASS THE BOUNDS
+
+        Controller.animation["Climbing"].speed = VerticalSpeed / Controller.LadderClimbingSpeed;
+
+        if (Mathf.Abs(Controller.transform.position.z - Controller.ZLevel) > 0.1)
+            VerticalSpeed = -GroundVerticalSpeed;
 
         // Determine next state
-        if (JumpDown)
+        if (Controller.CanHangOffObject)
+            nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
+        else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
-        else if(!(Controller.CanClimbObject))
+        else if (!(Controller.CanClimbObject))
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
 
         return nextState;

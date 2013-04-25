@@ -25,14 +25,26 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
         VerticalSpeed = Controller.ApplyGravity();
 
         // Determine next state
-        if (Controller.CanHangOffObject && UpHold)
+        if (Controller.CanHangOffObject)
                 nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (Controller.CanClimbObject && (UpHold || DownHold))
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
         else if (IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Landing;
-        else if (IsTouchingWall && JumpHold)
-            nextState = PlayerCharacterStates.PlayerCharacter_WallGrabbing;
+        else if (DownHold && Controller.CanTransitionZ)
+        {
+            Controller.ZLevel = Controller.Z_Down;
+            VerticalSpeed = GroundVerticalSpeed;
+            nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
+        }
+        else if (UpHold && Controller.CanTransitionZ)
+        {
+            Controller.ZLevel = Controller.Z_Up;
+            VerticalSpeed = 0;
+            nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
+        }
+        //else if (IsTouchingWall && JumpHold)
+        //    nextState = PlayerCharacterStates.PlayerCharacter_WallGrabbing;
         //else if (JumpDown && !HasDoubleJumped)
         //    nextState = PlayerCharacterStates.PlayerCharacter_DoubleJumping;
 

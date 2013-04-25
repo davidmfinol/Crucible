@@ -110,8 +110,8 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
         //}
         z = Mathf.Lerp(transform.position.z, ZLevel, ZLerp * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, transform.position.y, z);
-        if (Mathf.Abs(z - ZLevel) > 0.9)
-            return; // We don't exist in the game while transitioning
+        //if (Mathf.Abs(z - ZLevel) > 0.1)
+        //    return; // We don't exist in the game while transitioning
 
         // Update our state
         CharacterStateMachineState state;

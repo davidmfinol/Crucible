@@ -21,14 +21,15 @@ public enum PlayerCharacterStates : int
     PlayerCharacter_Jumping,
     PlayerCharacter_Falling,
     //PlayerCharacter_DoubleJumping,
-    PlayerCharacter_WallGrabbing,
-    PlayerCharacter_WallKicking,
+    //PlayerCharacter_WallGrabbing,
+    //PlayerCharacter_WallKicking,
 
     // Ledge/ladders
     PlayerCharacter_Hanging,
     PlayerCharacter_ClimbingLedge,
     PlayerCharacter_ClimbingUp,
     
+    PlayerCharacter_TransitioningZ
 };
 
 // PlayerCharacterStateMachineState is used to define the states of the FSM that handles the input and movement of players
@@ -95,17 +96,9 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
         if (RightDown)
             buttonPressedStack.PushOnStack(strRight);
         if (DownHold)
-        {
-            if(Controller.CanTransitionZ)
-                Controller.ZLevel = Controller.Z_Down;
             buttonPressedStack.PushOnStack(strDown);
-        }
         if (UpHold)
-        {
-            if (Controller.CanTransitionZ)
-                Controller.ZLevel = Controller.Z_Up;
             buttonPressedStack.PushOnStack(strUp);
-        }
 
         return nextState;
     }

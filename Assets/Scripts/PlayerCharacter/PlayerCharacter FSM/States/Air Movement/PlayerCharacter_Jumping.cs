@@ -44,8 +44,20 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         }
         else if (Controller.transform.position.y < StartHeight)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
-        else if (IsTouchingWall && JumpHold)
-            nextState = PlayerCharacterStates.PlayerCharacter_WallGrabbing;
+        else if (DownHold && Controller.CanTransitionZ)
+        {
+            Controller.ZLevel = Controller.Z_Down;
+            VerticalSpeed = GroundVerticalSpeed;
+            nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
+        }
+        else if (UpHold && Controller.CanTransitionZ)
+        {
+            Controller.ZLevel = Controller.Z_Up;
+            VerticalSpeed = 0;
+            nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
+        }
+        //else if (IsTouchingWall && JumpHold)
+        //    nextState = PlayerCharacterStates.PlayerCharacter_WallGrabbing;
         //else if (JumpDown /*&& Controller.transform.position.y > StartHeight + Controller.JumpHeight / 2*/)
         //{
         //    nextState = PlayerCharacterStates.PlayerCharacter_DoubleJumping;
