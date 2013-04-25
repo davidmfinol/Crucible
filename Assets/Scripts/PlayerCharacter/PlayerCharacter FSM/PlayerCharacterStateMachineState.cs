@@ -29,7 +29,8 @@ public enum PlayerCharacterStates : int
     PlayerCharacter_ClimbingLedge,
     PlayerCharacter_ClimbingUp,
     
-    PlayerCharacter_TransitioningZ
+    PlayerCharacter_TransitioningZ,
+    PlayerCharacter_Attacking
 };
 
 // PlayerCharacterStateMachineState is used to define the states of the FSM that handles the input and movement of players
