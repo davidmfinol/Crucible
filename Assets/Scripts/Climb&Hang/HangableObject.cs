@@ -13,6 +13,27 @@ public class HangableObject : MonoBehaviour
                 character.ActiveHangTarget = this;
     }
 
+    public virtual void OnTriggerExit(Collider other)
+    {
+        PlayerCharacterStateMachine character = other.GetComponent<PlayerCharacterStateMachine>();
+        if (character != null && character.ActiveHangTarget == this)
+            character.ActiveHangTarget = null;
+    }
+
+    public virtual void OnCollisionStay(Collision collision)
+    {
+        PlayerCharacterStateMachine character = collision.gameObject.GetComponent<PlayerCharacterStateMachine>();
+        if (character != null && character.transform != transform.parent && !character.HasReleasedHangableObject)
+            character.ActiveHangTarget = this;
+    }
+
+    public virtual void OnCollisionExit(Collision collision)
+    {
+        PlayerCharacterStateMachine character = collision.gameObject.GetComponent<PlayerCharacterStateMachine>();
+        if (character != null && character.ActiveHangTarget == this)
+            character.ActiveHangTarget = null;
+    }
+
     public virtual bool IsMultiZone()
     {
         return MultiZone;
@@ -20,12 +41,5 @@ public class HangableObject : MonoBehaviour
     public virtual bool IsSingleZone()
     {
         return !MultiZone;
-    }
-
-    public virtual void OnTriggerExit(Collider other)
-    {
-        PlayerCharacterStateMachine character = other.GetComponent<PlayerCharacterStateMachine>();
-        if (character != null && character.ActiveHangTarget == this)
-            character.ActiveHangTarget = null;
     }
 }

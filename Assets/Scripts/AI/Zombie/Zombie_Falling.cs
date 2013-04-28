@@ -19,7 +19,7 @@ public class Zombie_Falling : CharacterStateMachineState
         VerticalSpeed = Controller.ApplyGravity();
 
         if (IsGrounded)
-            nextState = ZombieStates.Zombie_Idle;
+            nextState = ZombieStates.Zombie_Landing;
 
         return nextState;
     }

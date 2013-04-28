@@ -9,6 +9,7 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
     protected override void OnStartState()
     {
         Controller.FallHeight = 0;
+        Controller.animation["Falling"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("Falling");
         VerticalSpeed = Controller.ApplyGravity();
     }
