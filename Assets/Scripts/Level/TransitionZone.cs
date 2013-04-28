@@ -6,7 +6,7 @@ public class TransitionZone : MonoBehaviour
     public bool IsRegular = true;
     public bool IsInverse = false;
 
-    void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
         if (character != null)
@@ -20,8 +20,11 @@ public class TransitionZone : MonoBehaviour
         }
     }
 
-    void OnTriggerStay(Collider other)
+    public void OnTriggerStay(Collider other)
     {
+        Zone zone = GetComponent<Zone>();
+        if (zone != null)
+            zone.OnTriggerEnter(other);
         CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
         if (character != null)
         {
@@ -34,7 +37,7 @@ public class TransitionZone : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
         if (character != null)

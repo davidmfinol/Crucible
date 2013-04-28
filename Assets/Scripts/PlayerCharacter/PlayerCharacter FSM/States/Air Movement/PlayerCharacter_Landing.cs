@@ -49,13 +49,13 @@ public class PlayerCharacter_Landing : PlayerCharacterStateMachineState
                 else
                     nextState = PlayerCharacterStates.PlayerCharacter_Running;
             }
-            else if (DownHold && Controller.CanTransitionZ)
+            else if (ShouldTransitionZ_Down)
             {
                 Controller.ZLevel = Controller.Z_Down;
                 VerticalSpeed = GroundVerticalSpeed;
                 nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
             }
-            else if (UpHold && Controller.CanTransitionZ)
+            else if (ShouldTransitionZ_Up)
             {
                 Controller.ZLevel = Controller.Z_Up;
                 VerticalSpeed = 0;

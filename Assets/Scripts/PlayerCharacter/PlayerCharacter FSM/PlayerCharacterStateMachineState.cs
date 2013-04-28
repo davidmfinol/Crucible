@@ -270,6 +270,16 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
         get { return _jumpPressed; }
         set { _jumpPressed = value; }
     }
+
+    public bool ShouldTransitionZ_Down
+    {
+        get { return DownHold && Controller.CanTransitionZ; }
+    }
+
+    public bool ShouldTransitionZ_Up
+    {
+        get { return UpHold && Controller.CanTransitionZ; }
+    }
     
     protected class ButtonPressedStack
     {

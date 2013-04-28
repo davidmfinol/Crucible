@@ -12,7 +12,6 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
     {
         Controller.FallHeight = -1;
         Controller.animation["Jumping"].wrapMode = WrapMode.Once;
-        Controller.animation["JumpFall"].wrapMode = WrapMode.Once;
         Controller.animation["JumpLanding"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("Jumping");
         StartHeight = Controller.transform.position.y;
@@ -37,6 +36,8 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         // Determine next state
         if (Controller.CanClimbObject && (UpHold || DownHold))
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
+        else if(Controller.CanHangOffObject && (Mathf.Abs(Controller.transform.position.y - Controller.ActiveHangTarget.transform.position.y) < 0.1))
+            nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (Duration > 0 && IsGrounded)
         {
             Controller.animation.CrossFade("JumpLanding");
@@ -44,13 +45,13 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         }
         else if (Controller.transform.position.y < StartHeight)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
-        else if (DownHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Down)
         {
             Controller.ZLevel = Controller.Z_Down;
             VerticalSpeed = GroundVerticalSpeed;
             nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
         }
-        else if (UpHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Up)
         {
             Controller.ZLevel = Controller.Z_Up;
             VerticalSpeed = 0;

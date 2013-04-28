@@ -5,7 +5,7 @@ public class Zone : MonoBehaviour
 {
     public bool IsInverse = false;
 
-    void OnTriggerEnter (Collider other)
+    public void OnTriggerEnter (Collider other)
     {
         float z = transform.position.z;
         CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
@@ -25,11 +25,11 @@ public class Zone : MonoBehaviour
                 else // coming down to the zone from above
                     character.Z_Down = z;
             }
-            character.Zones.Add(z);
+            character.Zones.Add(this);
         }
     }
 
-    void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
         float z = transform.position.z;
         CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
@@ -39,7 +39,7 @@ public class Zone : MonoBehaviour
                 character.Z_Down = character.ZLevel;
             if (character.Z_Up == z)
                 character.Z_Up = character.ZLevel;
-            character.Zones.Remove(z);
+            character.Zones.Remove(this);
         }
     }
 }

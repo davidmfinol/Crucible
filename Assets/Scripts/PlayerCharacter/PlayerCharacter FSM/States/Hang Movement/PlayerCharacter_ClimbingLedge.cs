@@ -10,12 +10,12 @@ public class PlayerCharacter_ClimbingLedge : PlayerCharacterStateMachineState
     {
         Controller.animation["JumpingDownLeft"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("JumpingDownLeft");
-        if (Controller.ActiveHangTarget.IsVertical())
+        if (Controller.ActiveHangTarget.IsMultiZone())
         {
             HorizontalSpeed = 0.0f;
             VerticalSpeed = Controller.LedgeClimbingSpeed;
         }
-        else if (Controller.ActiveHangTarget.IsHorizontal())
+        else if (Controller.ActiveHangTarget.IsSingleZone())
         {
             HorizontalSpeed = Controller.LedgeClimbingSpeed;
             VerticalSpeed = 0.0f;

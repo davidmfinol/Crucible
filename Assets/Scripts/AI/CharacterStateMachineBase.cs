@@ -14,7 +14,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
 
     // We need a way to keep moving between z levels
     public float ZLevel; // current z value
-    private List<float> _zones = new List<float>();
+    private List<Zone> _zones = new List<Zone>();
     private float _Z1; // lower zone
     private float _Z2; // higher zone
     private bool _canTransitionZ = false; // does our current location allow us to to move between z levels?
@@ -88,9 +88,9 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
         // Correct our Z value when we are in only one zone
         if (Zones.Count == 1 && !CanTransitionZ)
         {
-            Z_Down = Zones[0];
-            Z_Up = Zones[0];
-            ZLevel = Zones[0]; // TODO: REMOVE THIS LINE AND FIX ALL THE PROBLEMS THAT WILL ARISE
+            Z_Down = Zones[0].transform.position.z;
+            Z_Up = Zones[0].transform.position.z;
+            ZLevel = Zones[0].transform.position.z; // TODO: REMOVE THIS LINE AND FIX ALL THE PROBLEMS THAT WILL ARISE
         }
 
         // Move us toward our specified 2D plane.
@@ -261,9 +261,21 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
         get { return _canTransitionZ; }
         set { _canTransitionZ = value; }
     }
-    public List<float> Zones
+    public List<Zone> Zones
     {
-        get { return _zones; }
+        get
+        {
+            // We need a Set. This (horribly) pretends we have a Set.
+            List<Zone> zCopy = new List<Zone>();
+            for (int i = 0; i < _zones.Count; ++i )
+            {
+                Zone zone = _zones[i];
+                if(!zCopy.Contains(zone))
+                    zCopy.Add(zone);
+            }
+            _zones = zCopy;
+            return _zones; 
+        }
     }
     public virtual float Height
     {

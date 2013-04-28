@@ -17,13 +17,16 @@ public class PlayerCharacter_TransitioningZ : PlayerCharacterStateMachineState
             else if (Direction.x > 0)
                 Controller.animation.CrossFade("JumpingDownRight");
         }
+        else
+            Controller.animation.CrossFade("JumpLanding");
     }
+    
 
     protected override Enum OnUpdate()
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
 
-        // Pass-through?
+        // Pass-through Movement?
 
         // Determine next state
         if (!Controller.CanTransitionZ || Duration > Controller.ZTransitioningDuration)

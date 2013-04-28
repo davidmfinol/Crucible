@@ -8,6 +8,7 @@ public class PlayerCharacter_Running : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation["Running"].speed = 1.5f;
         Controller.animation.CrossFade("Running");
     }
 
@@ -32,13 +33,13 @@ public class PlayerCharacter_Running : PlayerCharacterStateMachineState
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
         else if (IsPlayerInputZero(RawHorizontalInput) || (Direction.x * RawHorizontalInput < 0))
             nextState = PlayerCharacterStates.PlayerCharacter_Skidding;
-        else if (DownHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Down)
         {
             Controller.ZLevel = Controller.Z_Down;
             VerticalSpeed = GroundVerticalSpeed;
             nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
         }
-        else if (UpHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Up)
         {
             Controller.ZLevel = Controller.Z_Up;
             VerticalSpeed = 0;

@@ -69,11 +69,10 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     public float LadderStrafingSpeed = 5.0f;
 
     // How long does it take the character to move between Z-levels?
-    public float ZTransitioningDuration = 1.0f;
+    public float ZTransitioningDuration = 0.4f;
 
-    public float AttackDuration1 = 25.0f / 100.0f;
-    public float AttackDuration2 = 40.0f / 100.0f;
-    public float AttackDuration3 = 71.0f / 100.0f;
+    // Player's Weapon!
+    public Transform Whip;
 
     // How far the player fell
     private float _fallHeight = 0;
@@ -135,11 +134,11 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     }
     public bool CanHangOffObjectHorizontally
     {
-        get { return ActiveHangTarget!= null && ActiveHangTarget.IsHorizontal() && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)); }
+        get { return ActiveHangTarget != null && ActiveHangTarget.IsSingleZone() && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)); }
     }
     public bool CanHangOffObjectVertically
     {
-        get { return ActiveHangTarget != null &&  ActiveHangTarget.IsVertical() && !IsGrounded && IsHangTargetAbove; }
+        get { return ActiveHangTarget != null &&  ActiveHangTarget.IsMultiZone() && !IsGrounded && IsHangTargetAbove; }
     }
     public bool IsHangTargetToRight
     {
@@ -155,4 +154,5 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
         get { return _fallHeight; }
         set { _fallHeight = value; }
     }
+
 }

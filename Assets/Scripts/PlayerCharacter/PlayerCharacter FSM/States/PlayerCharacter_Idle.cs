@@ -10,7 +10,8 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
-        Controller.animation.CrossFade("Idle");
+        Controller.animation.CrossFade("Idle_001");
+        Controller.Whip.animation.CrossFade("Idle");
         _idle2 = false;
         HorizontalSpeed = 0.0f;
     }
@@ -31,7 +32,7 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
         if (((int)Duration) % 12 == 0 && _idle2)
         {
             _idle2 = false;
-            Controller.animation.CrossFade("Idle");
+            Controller.animation.CrossFade("Idle_001");
         }
 
         // Determine next state
@@ -45,13 +46,13 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
         else if (!(IsPlayerInputZero(RawHorizontalInput)))
             nextState = PlayerCharacterStates.PlayerCharacter_Stepping;
-        else if (DownHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Down)
         {
             Controller.ZLevel = Controller.Z_Down;
             VerticalSpeed = GroundVerticalSpeed;
             nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
         }
-        else if (UpHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Up)
         {
             Controller.ZLevel = Controller.Z_Up;
             VerticalSpeed = 0;

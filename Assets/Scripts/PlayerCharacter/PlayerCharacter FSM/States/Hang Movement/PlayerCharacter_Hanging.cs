@@ -19,15 +19,23 @@ public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
         HasDoubleJumped = false;
         HorizontalSpeed = 0.0f;
         VerticalSpeed = 0.0f;
-        Direction = new Vector3(0, Direction.y, Direction.z);
+        if (Controller.ActiveHangTarget.IsMultiZone())
+            Direction = new Vector3(0, Direction.y, Direction.z);
+        else
+        {
+            if (Controller.IsHangTargetToRight)
+                Direction = Vector3.right;
+            else
+                Direction = Vector3.left;
+        }
 
         //snap to correct location
         /*
-        if(Controller.ActiveHangTarget.IsVertical())
+        if(Controller.ActiveHangTarget.IsMultiZone())
         {
             Controller.transform.position = new Vector3(Controller.transform.position.x, Controller.ActiveHangTarget.transform.position.y - Controller.collider.bounds.extents.x, Controller.transform.position.z);
         }
-        else if (Controller.ActiveHangTarget.IsHorizontal())
+        else if (Controller.ActiveHangTarget.IsSingleZone())
         {
             if(Direction.x != 0)
             {
@@ -42,6 +50,9 @@ public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
     protected override Enum OnUpdate()
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
+
+        if (!Controller.animation.IsPlaying("Hanging") && !Controller.animation.IsPlaying("HanginLoop"))
+            Controller.animation.CrossFade("HanginLoop");
 
         // Determine next state
         if (Controller.ActiveHangTarget is Ledge && (UpDown || ForwardDown))

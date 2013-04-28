@@ -9,7 +9,7 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
     protected override void OnStartState()
     {
         Controller.animation.CrossFade("Climbing");
-        HorizontalSpeed = 0.0F;
+        HorizontalSpeed = 0.0f;
         VerticalSpeed = 0.0f;
     }
 
@@ -17,20 +17,17 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
 
-        // Check first that we are still on a climbable object
-        if (Controller.ActiveHangTarget == null)
-            return PlayerCharacterStates.PlayerCharacter_Falling;
-        if (!(Controller.ActiveHangTarget is ClimbableObject))
-        {
-            if (Controller.ActiveHangTarget is Ledge)
-                return nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLedge;
-        }
-
-        // Handle Z-stuff
-        if (DownHold && Controller.CanTransitionZ)
+        // First, this special state handles Z-stuff
+        if (ShouldTransitionZ_Down)
             Controller.ZLevel = Controller.Z_Down;
-        else if (UpHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Up)
             Controller.ZLevel = Controller.Z_Up;
+        if (Mathf.Abs(Controller.transform.position.z - Controller.ZLevel) > 0.1)
+            VerticalSpeed = 0.0f;
+
+        // Then check that we are still on a climbable object
+        if (Controller.ActiveHangTarget == null)
+            return PlayerCharacterStates.PlayerCharacter_TransitioningZ;
 
         Direction = new Vector3(0.0f, Direction.y, 0.0f);
 
@@ -52,35 +49,25 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
         {
             HorizontalSpeed = -Controller.LadderStrafingSpeed;
             if (!insideLeft)
-            {
-                Direction = new Vector3(-1, Direction.y, Direction.z);
                 return PlayerCharacterStates.PlayerCharacter_Falling;
-            }
         }
         else if (RightHold && !LeftHold && Controller.ActiveHangTarget != null)
         {
             HorizontalSpeed = Controller.LadderStrafingSpeed;
             if (!insideRight)
-            {
-                Direction = new Vector3(1, Direction.y, Direction.z);
                 return PlayerCharacterStates.PlayerCharacter_Falling;
-            }
         }
         else
             HorizontalSpeed = 0.0f;
 
+        // Make our character animate correctly
         Controller.animation["Climbing"].speed = VerticalSpeed / Controller.LadderClimbingSpeed;
-
-        if (Mathf.Abs(Controller.transform.position.z - Controller.ZLevel) > 0.1)
-            VerticalSpeed = -GroundVerticalSpeed;
 
         // Determine next state
         if (Controller.CanHangOffObject)
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
-        else if (!(Controller.CanClimbObject))
-            nextState = PlayerCharacterStates.PlayerCharacter_Falling;
 
         return nextState;
     }

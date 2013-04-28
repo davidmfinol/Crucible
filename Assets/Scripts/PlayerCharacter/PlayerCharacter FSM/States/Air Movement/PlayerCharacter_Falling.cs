@@ -10,6 +10,7 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
     {
         Controller.FallHeight = 0;
         Controller.animation.CrossFade("Falling");
+        VerticalSpeed = Controller.ApplyGravity();
     }
 
     protected override Enum OnUpdate()
@@ -19,25 +20,27 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
         Controller.FallHeight += -VerticalSpeed * Time.deltaTime; 
 
         // Determine movement
-        float targetSpeed = RawHorizontalInput * Controller.MaxRunSpeed * Direction.x;
+        float targetSpeed = RawHorizontalInput * Controller.MaxRunSpeed;
+        if (Direction.x != 0)
+            HorizontalSpeed *= Direction.x;
         float accelerationSmoothing = Controller.AirHorizontalAcceleration * Time.deltaTime;
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
         VerticalSpeed = Controller.ApplyGravity();
 
         // Determine next state
         if (Controller.CanHangOffObject)
-                nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
+            nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (Controller.CanClimbObject && (UpHold || DownHold))
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
         else if (IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Landing;
-        else if (DownHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Down)
         {
             Controller.ZLevel = Controller.Z_Down;
             VerticalSpeed = GroundVerticalSpeed;
             nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
         }
-        else if (UpHold && Controller.CanTransitionZ)
+        else if (ShouldTransitionZ_Up)
         {
             Controller.ZLevel = Controller.Z_Up;
             VerticalSpeed = 0;
