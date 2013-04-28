@@ -79,6 +79,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
 
     public void Spawn()
     {
+        gameObject.GetComponentInChildren<HeartBox>().HitPoints = gameObject.GetComponentInChildren<HeartBox>().MaxHitPoints;
         transform.position = SpawnPoint.position;
         CurrentState = GetDefaultState();
         ZLevel = transform.position.z;

@@ -5,9 +5,14 @@ using System.Collections;
 public abstract class HeartBox : MonoBehaviour {
 
     public BoxAllegiance Allegiance;
+    [SerializeField]
     protected int heartBoxID;
 
     protected HeartBox() { heartBoxID = GetInstanceID(); }
+    
+    public int MaxHitPoints = 1000;
+    [SerializeField]
+    public int HitPoints;
 
     protected abstract void Start();
     protected abstract void Interpret(HitBox hitbox);

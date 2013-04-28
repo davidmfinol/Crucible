@@ -3,9 +3,6 @@ using System.Collections;
 
 public class PlayerHeartBox : HeartBox
 {
-    public int MaxHitPoints = 1000;
-    [SerializeField]
-    int HitPoints;
     [SerializeField]
     float timeSinceHit;
     public float RegenCoolDown = 3.0f;
@@ -22,28 +19,28 @@ public class PlayerHeartBox : HeartBox
     void Update()
     {
         //Collider[] c = Physics.OverlapSphere(transform.position, 1.0f);
-        RaycastHit[] hits = Physics.SphereCastAll(
-            new Vector3(0,-0.016f,0),
-            0.02f,
-            Vector3.up,
-            0.032f,
-            LayerMaskBuilder.LayerMaskFromAllowed(9)
-            );
-        int length = hits.Length;
-        Collider[] c = new Collider[length];
-        for(int x = 0; x<length; ++x)
-        {
-            c[x] = hits[x].collider;
-        }
-        if (c != null)
-        {
-            foreach (Collider col in c)
-            {
-                HitBox script = col.GetComponent<HitBox>();
-                if (script != null)
-                    Interpret(script);
-            }
-        }
+        //RaycastHit[] hits = Physics.SphereCastAll(
+        //    new Vector3(0,-0.016f,0),
+        //    0.02f,
+        //    Vector3.up,
+        //    0.032f,
+        //    LayerMaskBuilder.LayerMaskFromAllowed(9)
+        //    );
+        //int length = hits.Length;
+        //Collider[] c = new Collider[length];
+        //for(int x = 0; x<length; ++x)
+        //{
+        //    c[x] = hits[x].collider;
+        //}
+        //if (c != null)
+        //{
+        //    foreach (Collider col in c)
+        //    {
+        //        HitBox script = col.GetComponent<HitBox>();
+        //        if (script != null)
+        //            Interpret(script);
+        //    }
+        //}
         timeSinceHit += Time.deltaTime;
         if (RegenRoutine)
         {
@@ -59,12 +56,15 @@ public class PlayerHeartBox : HeartBox
             RegenRoutine = true;
         }
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        //Debug.Log("I've been hit");
-        //HitBox script = other.GetComponent<HitBox>();
-        //if (script != null)
-        //    Interpret(script);
+        if (other.gameObject.layer == 9 || other.gameObject.layer == 8)
+        {
+            Debug.Log("I've been hit");
+            HitBox script = other.GetComponent<HitBox>();
+            if (script != null)
+                Interpret(script);
+        }
     }
     void OnGUI()
     {
@@ -92,7 +92,14 @@ public class PlayerHeartBox : HeartBox
     }
     bool isValidHitbox(HitBox hitbox)
     {
-        //If it is a friendly hitbox, or family seen before, return false
+        //~ If it is a friendly hitbox, or family seen before, return false
+        //~ TODO: If stamp is x seconds old, return true
+        HeartBoxStamp stamp = hitbox.Family.stampRecord.GetLatestHeartBoxStamp(heartBoxID);
+        if (stamp != null) Debug.Log(stamp.TimeStamped);
+        if ((stamp != null) && ((Time.time - stamp.TimeStamped) > 5.0f))
+        {
+            Debug.Log("newhit"); return true;
+        }
         return !((hitbox.Allegiance == this.Allegiance) || hitbox.Family.stampRecord.ContainsKey(heartBoxID));
     }
 }

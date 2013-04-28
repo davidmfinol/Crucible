@@ -85,6 +85,11 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     // Update() is called once per frame, and this is where the states are processed by the state machine
     public void Update()
     {
+        HeartBox heartScript = GetComponentInChildren<HeartBox>();
+        if (heartScript.HitPoints <= 0)
+        {
+            OnDeath();
+        }
         // Correct our Z value when we are in only one zone
         if (Zones.Count == 1 && !CanTransitionZ)
         {
