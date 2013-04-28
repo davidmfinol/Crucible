@@ -8,7 +8,7 @@ public class PlayerCharacter_Landing : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
-        if (Controller.FallHeight != -1)
+        if (!Controller.animation.IsPlaying("JumpLanding"))
             Controller.animation.CrossFade("Landing");
     }
 
@@ -24,7 +24,7 @@ public class PlayerCharacter_Landing : PlayerCharacterStateMachineState
         toLast = Mathf.Max(toLast, Controller.LandingDuration);
         toLast = Mathf.Min(toLast, 5 * Controller.LandingDuration);
 
-        if (Controller.FallHeight == -1)
+        if (Controller.animation.IsPlaying("JumpLanding"))
             toLast = 0.05f;
 
         // Determine next state
@@ -38,7 +38,6 @@ public class PlayerCharacter_Landing : PlayerCharacterStateMachineState
                 if (BackwardHold)
                 {
                     Direction = new Vector3(Direction.x * -1, 0);
-                    HorizontalSpeed = HorizontalSpeed * -1;
                 }
                 nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
             }

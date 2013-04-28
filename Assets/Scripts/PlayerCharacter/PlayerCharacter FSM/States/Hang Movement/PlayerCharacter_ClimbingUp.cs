@@ -45,17 +45,13 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
               Controller.ActiveHangTarget.transform.position.x + Controller.ActiveHangTarget.collider.bounds.extents.x;
 
         // Determine horizontal movement
-        if (LeftHold && !RightHold && Controller.ActiveHangTarget != null)
+        if (LeftHold && !RightHold && Controller.ActiveHangTarget != null && insideLeft)
         {
             HorizontalSpeed = -Controller.LadderStrafingSpeed;
-            if (!insideLeft)
-                return PlayerCharacterStates.PlayerCharacter_Falling;
         }
-        else if (RightHold && !LeftHold && Controller.ActiveHangTarget != null)
+        else if (RightHold && !LeftHold && Controller.ActiveHangTarget != null && insideRight)
         {
             HorizontalSpeed = Controller.LadderStrafingSpeed;
-            if (!insideRight)
-                return PlayerCharacterStates.PlayerCharacter_Falling;
         }
         else
             HorizontalSpeed = 0.0f;

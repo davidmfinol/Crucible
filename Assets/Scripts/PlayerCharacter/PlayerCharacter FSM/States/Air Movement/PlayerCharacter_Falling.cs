@@ -17,12 +17,18 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Falling;
 
-        Controller.FallHeight += -VerticalSpeed * Time.deltaTime; 
+        Controller.FallHeight += -VerticalSpeed * Time.deltaTime;
 
         // Determine movement
-        float targetSpeed = RawHorizontalInput * Controller.MaxRunSpeed;
-        if (Direction.x != 0)
-            HorizontalSpeed *= Direction.x;
+        float targetSpeed;
+        if (Direction.x == 0)
+        {
+            if(!IsPlayerInputZero(RawHorizontalInput))
+                Direction = new Vector3(RawHorizontalInput, 0, 0);
+            targetSpeed = RawHorizontalInput * Controller.MaxRunSpeed;
+        }
+        else
+            targetSpeed = (Direction.x * RawHorizontalInput * Controller.MaxRunSpeed);
         float accelerationSmoothing = Controller.AirHorizontalAcceleration * Time.deltaTime;
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
         VerticalSpeed = Controller.ApplyGravity();

@@ -21,4 +21,11 @@ public class HangableObject : MonoBehaviour
     {
         return !MultiZone;
     }
+
+    public virtual void OnTriggerExit(Collider other)
+    {
+        PlayerCharacterStateMachine character = other.GetComponent<PlayerCharacterStateMachine>();
+        if (character != null && character.ActiveHangTarget == this)
+            character.ActiveHangTarget = null;
+    }
 }

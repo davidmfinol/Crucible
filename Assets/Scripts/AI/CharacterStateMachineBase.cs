@@ -41,7 +41,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     public float RotationSmoothing = 10.0f;
 
     // How fast does the character move between ZLevels?
-    public float ZLerp = 3.0f;
+    public float ZLerp = 1.0f;
 
     // Rate of change of vertical fall speed
     public float Gravity = 40.0f;
@@ -111,7 +111,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
         z = Mathf.Lerp(transform.position.z, ZLevel, ZLerp * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, transform.position.y, z);
         //if (Mathf.Abs(z - ZLevel) > 0.1)
-        //    return; // We don't exist in the game while transitioning
+        //    return; // We wouldn't exist in the game while transitioning
 
         // Update our state
         CharacterStateMachineState state;
@@ -277,7 +277,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
             return _zones; 
         }
     }
-    public virtual float Height
+    public float Height
     {
         get { return transform.localScale.y * CharacterController.height; }
     }

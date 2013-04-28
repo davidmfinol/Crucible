@@ -20,11 +20,8 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Idle;
 
-        // Determine movement
-        if(!IsPlayerInputZero(RawHorizontalInput))
-            Direction = new Vector3(RawHorizontalInput, 0, 0);
-
-        if (((int)Duration) % 10  == 0 && !_idle2)
+        // Process Animations
+        if (((int)Duration) % 10 == 0 && !_idle2)
         {
             _idle2 = true;
             Controller.animation.CrossFade("Idle2");
@@ -34,6 +31,12 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
             _idle2 = false;
             Controller.animation.CrossFade("Idle_001");
         }
+
+        // Determine movement
+        if (!IsPlayerInputZero(RawHorizontalInput))
+            Direction = new Vector3(RawHorizontalInput, 0, 0);
+        else if (UpHold)
+            Direction = Vector3.zero;
 
         // Determine next state
         if (Input.GetButton("Primary"))

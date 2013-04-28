@@ -18,7 +18,7 @@ public class PlayerCharacter_ClimbingLedge : PlayerCharacterStateMachineState
         else if (Controller.ActiveHangTarget.IsSingleZone())
         {
             HorizontalSpeed = Controller.LedgeClimbingSpeed;
-            VerticalSpeed = 0.0f;
+            VerticalSpeed = Controller.LedgeClimbingSpeed;
         }
     }
 

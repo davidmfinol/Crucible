@@ -17,16 +17,19 @@ public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
         Controller.ActiveLocalPlatformPoint = Controller.ActivePlatform.InverseTransformPoint(Controller.transform.position);
 
         HasDoubleJumped = false;
-        HorizontalSpeed = 0.0f;
         VerticalSpeed = 0.0f;
         if (Controller.ActiveHangTarget.IsMultiZone())
+        {
+            HorizontalSpeed = 0.0f;
             Direction = new Vector3(0, Direction.y, Direction.z);
+        }
         else
         {
+            HorizontalSpeed = Controller.LedgeClimbingSpeed;
             if (Controller.IsHangTargetToRight)
-                Direction = Vector3.right;
+                Direction = new Vector3(1, Direction.y, Direction.z);
             else
-                Direction = Vector3.left;
+                Direction = new Vector3(-1, Direction.y, Direction.z);
         }
 
         //snap to correct location

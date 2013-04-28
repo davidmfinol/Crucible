@@ -273,12 +273,12 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
 
     public bool ShouldTransitionZ_Down
     {
-        get { return DownHold && Controller.CanTransitionZ; }
+        get { return DownHold && Controller.CanTransitionZ && Controller.ZLevel != Controller.Z_Down; }
     }
 
     public bool ShouldTransitionZ_Up
     {
-        get { return UpHold && Controller.CanTransitionZ; }
+        get { return UpHold && Controller.CanTransitionZ && Controller.ZLevel != Controller.Z_Up; }
     }
     
     protected class ButtonPressedStack

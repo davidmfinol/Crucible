@@ -57,7 +57,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     public float DoubleJumpHeight = 2.5f;
 
     // How long does it take the character to climb up a ledge?
-    public float LedgeClimbingDuration = 1.5f;
+    public float LedgeClimbingDuration = 0.7f;
 
     // How fast does the character climb up a ledge?
     public float LedgeClimbingSpeed = 7.5f;
@@ -69,7 +69,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     public float LadderStrafingSpeed = 5.0f;
 
     // How long does it take the character to move between Z-levels?
-    public float ZTransitioningDuration = 0.4f;
+    public float ZTransitioningDuration = 0.7f;
 
     // Player's Weapon!
     public Transform Whip;
