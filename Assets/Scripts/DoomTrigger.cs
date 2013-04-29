@@ -18,6 +18,7 @@ public class DoomTrigger : MonoBehaviour
             {
                 MonoBehaviour.Instantiate(Zombie, location.position, Quaternion.identity);
             }
+            Destroy(gameObject);
         }
     }
 }

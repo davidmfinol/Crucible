@@ -13,6 +13,7 @@ public class PlayerHeartBox : HeartBox
     
     protected override void Start()
     {
+        Debug.Log("Starting Player Heartbox");
         HitPoints = MaxHitPoints;
         turnOffRegen();
     }
@@ -44,6 +45,7 @@ public class PlayerHeartBox : HeartBox
         timeSinceHit += Time.deltaTime;
         if (RegenRoutine)
         {
+            Debug.Log("Regen Activated");
             HitPoints = Mathf.CeilToInt(Mathf.Lerp((float)HitPoints, (float)MaxHitPoints, Time.deltaTime*regenSpeed));
             HitPoints = Mathf.Clamp(HitPoints, 0, MaxHitPoints);
 

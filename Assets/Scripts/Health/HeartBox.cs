@@ -11,7 +11,6 @@ public abstract class HeartBox : MonoBehaviour {
     protected HeartBox() { heartBoxID = GetInstanceID(); }
     
     public int MaxHitPoints = 1000;
-    [SerializeField]
     public int HitPoints;
 
     protected abstract void Start();
