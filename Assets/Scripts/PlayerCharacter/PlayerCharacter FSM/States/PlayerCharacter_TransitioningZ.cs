@@ -10,8 +10,8 @@ public class PlayerCharacter_TransitioningZ : PlayerCharacterStateMachineState
     {
         if (IsGrounded)
         {
-            Controller.animation["JumpingDownLeft"].time = 1.5f;
-            Controller.animation["JumpingDownRight"].time = 1.5f;
+            Controller.animation["JumpingDownLeft"].time = 0.0f;
+            Controller.animation["JumpingDownRight"].time = 0.0f;
             Controller.animation["JumpingDownLeft"].speed = 1.5f;
             Controller.animation["JumpingDownRight"].speed =  1.5f;
             if (Direction.x < 0)
