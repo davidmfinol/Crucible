@@ -8,6 +8,7 @@ public class PlayerCharacter_Stepping : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation["Walking"].time = 0;
         Controller.animation.CrossFade("Walking");
     }
 

@@ -19,6 +19,8 @@ public class ZombieStateMachine : CharacterStateMachineBase
     // How high the zombie jumps
     public float JumpHeight = 4.0f;
 
+    public Transform ZombieHitBox;
+
     public override Type GetStateEnumType()
     {
         return typeof(ZombieStates);

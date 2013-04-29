@@ -10,10 +10,10 @@ public class PlayerCharacter_TransitioningZ : PlayerCharacterStateMachineState
     {
         if (IsGrounded)
         {
+            Controller.animation["JumpingDownLeft"].time = 1.5f;
+            Controller.animation["JumpingDownRight"].time = 1.5f;
             Controller.animation["JumpingDownLeft"].speed = 1.5f;
             Controller.animation["JumpingDownRight"].speed =  1.5f;
-            Controller.animation["JumpingDownLeft"].wrapMode = WrapMode.Once;
-            Controller.animation["JumpingDownRight"].wrapMode = WrapMode.Once;
             if (Direction.x < 0)
                 Controller.animation.CrossFade("JumpingDownLeft");
             else if (Direction.x > 0)

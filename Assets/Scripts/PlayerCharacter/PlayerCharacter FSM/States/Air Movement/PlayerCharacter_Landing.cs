@@ -8,6 +8,7 @@ public class PlayerCharacter_Landing : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation["Landing"].time = 0;
         if (!Controller.animation.IsPlaying("JumpLanding"))
             Controller.animation.CrossFade("Landing");
     }

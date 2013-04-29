@@ -6,6 +6,7 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
 {
     private int _attackNumber;
     private bool _attackPressed;
+    private Transform hitBox;
 
     public PlayerCharacter_Attacking(PlayerCharacterStateMachine controller) : base(controller) { }
 
@@ -13,11 +14,16 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
     {
         Controller.animation["AttackingFirst"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("AttackingFirst");
-        Controller.Whip.animation.CrossFade("Whip");
+        Controller.Whip.animation.CrossFade("Whip_Attack");
         _attackNumber = 1;
         _attackPressed = false;
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
+
+        // Set up the hit boxes
+        Transform bone = SearchHierarchyForBone(Controller.transform, "hand_L");
+        hitBox = (Transform)MonoBehaviour.Instantiate(Controller.WhipHitBox, bone.position, bone.transform.rotation);
+        hitBox.transform.parent = bone;
     }
 
     protected override Enum OnUpdate()
@@ -71,11 +77,38 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
             if (!Controller.animation.IsPlaying("AttackingLast"))
                 nextState = PlayerCharacterStates.PlayerCharacter_Idle;
         }
+
+        // Remove the hitbox
+        if (nextState != PlayerCharacterStates.PlayerCharacter_Attacking)
+            MonoBehaviour.Destroy(hitBox.gameObject);
+
         return nextState;
     }
 
     public override bool IsGroundState()
     {
         return true;
+    }
+
+    public Transform SearchHierarchyForBone(Transform current, string name)
+    {
+        // check if the current bone is the bone we're looking for, if so return it
+        if (current.name == name)
+            return current;
+
+        // search through child bones for the bone we're looking for
+        for (int i = 0; i < current.GetChildCount(); ++i)
+        {
+            // the recursive step; repeat the search one step deeper in the hierarchy
+            Transform found = SearchHierarchyForBone(current.GetChild(i), name);
+
+            // a transform was returned by the search above that is not null,
+            // it must be the bone we're looking for
+            if (found != null)
+                return found;
+        }
+
+        // bone with name was not found
+        return null;
     }
 }

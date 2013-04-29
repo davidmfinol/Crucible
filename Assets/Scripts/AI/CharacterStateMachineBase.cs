@@ -41,7 +41,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     public float RotationSmoothing = 10.0f;
 
     // How fast does the character move between ZLevels?
-    public float ZLerp = 1.0f;
+    public float ZLerp = 3.0f;
 
     // Rate of change of vertical fall speed
     public float Gravity = 40.0f;
@@ -100,19 +100,6 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
 
         // Move us toward our specified 2D plane.
         float z = transform.position.z;
-        //float zChange = Time.deltaTime * ZLerp;
-        //if (transform.position.z != ZLevel) {
-            //if (transform.position.z < ZLevel)
-            //{
-            //    z += zChange;
-            //    if (z > ZLevel) z = ZLevel;
-            //}
-            //else
-            //{
-            //    z -= zChange;
-            //    if (z < ZLevel) z = ZLevel;
-            //}
-        //}
         z = Mathf.Lerp(transform.position.z, ZLevel, ZLerp * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, transform.position.y, z);
         //if (Mathf.Abs(z - ZLevel) > 0.1)

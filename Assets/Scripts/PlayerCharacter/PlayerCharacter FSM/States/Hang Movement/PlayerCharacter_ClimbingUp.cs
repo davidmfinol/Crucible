@@ -8,6 +8,7 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation["Climbing"].time = 0;
         Controller.animation.CrossFade("Climbing");
         HorizontalSpeed = 0.0f;
         VerticalSpeed = 0.0f;

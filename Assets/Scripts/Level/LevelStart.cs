@@ -15,7 +15,7 @@ public class LevelStart : MonoBehaviour
         Transform whip = (Transform)Instantiate(Whip, bone.position, Quaternion.identity);
         whip.parent = bone;
         whip.Rotate(new Vector3(90, 0, 0));
-        whip.Translate(new Vector3(0.27f, 0.1f, 0.1f));
+        whip.Translate(new Vector3(0.2f, 0.1f, 0.1f));
         playerController.Whip = whip;
         playerController.SpawnPoint = StartPoint;
         playerController.Spawn();

@@ -10,7 +10,8 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
-        Controller.animation["Jumping"].wrapMode = WrapMode.Once;
+        Controller.animation["Jumping"].time = 0;
+        Controller.animation["JumpFall"].time = 0;
         Controller.animation.CrossFade("Jumping");
         StartHeight = Controller.transform.position.y;
         VerticalSpeed = Mathf.Sqrt(2 * Controller.JumpHeight * Controller.Gravity);
@@ -45,7 +46,7 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (Duration > 0 && IsGrounded)
         {
-            Controller.animation["JumpLanding"].wrapMode = WrapMode.Once;
+            Controller.animation["JumpLanding"].time = 0;
             Controller.animation.CrossFade("JumpLanding");
             nextState = PlayerCharacterStates.PlayerCharacter_Landing;
         }

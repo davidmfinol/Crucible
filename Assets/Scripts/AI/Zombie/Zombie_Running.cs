@@ -25,6 +25,8 @@ public class Zombie_Running : CharacterStateMachineState
         // Determine next state
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
+        else if (Duration > 1)
+            nextState = ZombieStates.Zombie_Idle;
 
         return nextState;
     }

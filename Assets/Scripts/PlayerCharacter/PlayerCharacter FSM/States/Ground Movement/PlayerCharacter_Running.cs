@@ -8,6 +8,7 @@ public class PlayerCharacter_Running : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation["Running"].time = 0;
         Controller.animation["Running"].speed = 1.5f;
         Controller.animation.CrossFade("Running");
     }

@@ -10,8 +10,11 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation["Idle_001"].time = 0;
         Controller.animation.CrossFade("Idle_001");
-        Controller.Whip.animation.CrossFade("Idle");
+        Controller.Whip.animation["Whip_Idle"].time = 0;
+        Controller.Whip.animation.Stop();
+        Controller.Whip.animation.Play("Whip_Idle");
         _idle2 = false;
         HorizontalSpeed = 0.0f;
     }
@@ -24,11 +27,13 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
         if (((int)Duration) % 10 == 0 && !_idle2)
         {
             _idle2 = true;
+            Controller.animation["Idle2"].time = 0;
             Controller.animation.CrossFade("Idle2");
         }
         if (((int)Duration) % 12 == 0 && _idle2)
         {
             _idle2 = false;
+            Controller.animation["Idle_001"].time = 0;
             Controller.animation.CrossFade("Idle_001");
         }
 

@@ -73,6 +73,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
 
     // Player's Weapon!
     public Transform Whip;
+    public Transform WhipHitBox;
 
     // How far the player fell
     private float _fallHeight = 0;

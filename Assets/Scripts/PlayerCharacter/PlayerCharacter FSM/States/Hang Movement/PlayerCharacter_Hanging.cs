@@ -8,8 +8,9 @@ public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
+        Controller.animation["Hanging"].time = 0;
+        Controller.animation["HangingPipe"].time = 0;
         Controller.animation["Hanging"].wrapMode = WrapMode.Once;
-        Controller.animation["HangingPipe"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("HangingPipe");
 
         Controller.ActivePlatform = Controller.ActiveHangTarget.transform;
