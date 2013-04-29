@@ -11,8 +11,8 @@ public class DoomTrigger : MonoBehaviour
     {
         if (other.gameObject.GetComponent<PlayerCharacterStateMachine>() != null)
         {
-            audio.Play(15);
-            Clock.animation["Take 001"].speed = Clock.animation["Take 001"].length / 15;
+            audio.Play(600000);
+            Clock.animation["Take 001"].speed = Clock.animation["Take 001"].length / 175;
             Clock.animation.Play("Take 001");
             foreach (Transform location in Locations)
             {
