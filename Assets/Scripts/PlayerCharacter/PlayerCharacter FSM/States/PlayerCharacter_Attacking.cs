@@ -29,6 +29,7 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
 
         // Sound effects
         audioSources = Controller.Whip.GetComponents<AudioSource>();
+		audioSources[0].Play(16000);
     }
 
     protected override Enum OnUpdate()
@@ -44,7 +45,6 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
             if (Controller.animation["AttackingFirst"].normalizedTime > 0.6f)
             {
                 HorizontalSpeed = 1;
-                audioSources[0].Play();
             }
             if (!Controller.animation.IsPlaying("AttackingFirst"))
             {
@@ -54,7 +54,7 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
                 {
                     Controller.animation["AttackingSecond"].wrapMode = WrapMode.Once;
                     Controller.animation.CrossFade("AttackingSecond");
-                    audioSources[1].Play();
+					audioSources[1].Play();
                     _attackPressed = false;
                     _attackNumber++;
                 }
@@ -73,7 +73,7 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
                 {
                     Controller.animation["AttackingLast"].wrapMode = WrapMode.Once;
                     Controller.animation.CrossFade("AttackingLast");
-                    audioSources[2].Play();
+					audioSources[2].Play();
                     _attackPressed = false;
                     _attackNumber++;
                 }
