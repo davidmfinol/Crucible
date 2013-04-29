@@ -1,0 +1,336 @@
+fileFormatVersion: 2
+guid: 8b20cd1961157f44381e107085923b73
+ModelImporter:
+  fileIDToRecycleName:
+    4300000: Plane_001
+    4300002: Armguard
+    4300004: Char
+    7400000: Default Take //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400002: AttackingFirst //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400004: AttackingLast //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400006: AttackingSecond //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400008: Climbing //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400010: Climbing2 //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400012: Death //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400014: Falling //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400016: Hanging //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400018: HangingPipe //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400020: HangingStrafe //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400022: HanginLoop //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400024: HanginLoopasdf //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400026: Idle_001 //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400028: Idle2 //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400030: JumpFall //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400032: Jumping //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400034: JumpingDownLeft //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400036: JumpingDownRight //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400038: JumpLanding //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400040: Landing //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400042: Running //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400044: RunningNinja //// THEULTIMATEFINALRunningCharFinalfinalfinal
+    7400046: Walking //// THEULTIMATEFINALRunningCharFinalfinalfinal
+  serializedVersion: 10
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    generateAnimations: 3
+    bakeSimulation: 0
+    splitAnimations: 1
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 2
+    clipAnimations: []
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMesh: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  textMetaNamesToFileIDs:
+    //RootNode:
+      data:
+        first: 1
+        second: e4860100
+      data:
+        first: 4
+        second: c41a0600
+      data:
+        first: 111
+        second: 605fa900
+    Armguard:
+      data:
+        first: 1
+        second: e0860100
+      data:
+        first: 4
+        second: c01a0600
+      data:
+        first: 137
+        second: a20bd100
+    Char:
+      data:
+        first: 1
+        second: de860100
+      data:
+        first: 4
+        second: be1a0600
+      data:
+        first: 137
+        second: a00bd100
+    Plane_001:
+      data:
+        first: 1
+        second: e2860100
+      data:
+        first: 4
+        second: c21a0600
+      data:
+        first: 137
+        second: a40bd100
+    chest:
+      data:
+        first: 1
+        second: c2860100
+      data:
+        first: 4
+        second: a21a0600
+    f_index_01_L:
+      data:
+        first: 1
+        second: b8860100
+      data:
+        first: 4
+        second: 981a0600
+    f_index_01_R:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+    f_index_02_L:
+      data:
+        first: 1
+        second: b6860100
+      data:
+        first: 4
+        second: 961a0600
+    f_index_02_R:
+      data:
+        first: 1
+        second: e8860100
+      data:
+        first: 4
+        second: c81a0600
+    f_pinky_01_L:
+      data:
+        first: 1
+        second: b0860100
+      data:
+        first: 4
+        second: 901a0600
+    f_pinky_01_R:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+    f_pinky_02_L:
+      data:
+        first: 1
+        second: ae860100
+      data:
+        first: 4
+        second: 8e1a0600
+    f_pinky_02_R:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+    foot_IK_L:
+      data:
+        first: 1
+        second: da860100
+      data:
+        first: 4
+        second: ba1a0600
+    foot_IK_R:
+      data:
+        first: 1
+        second: d6860100
+      data:
+        first: 4
+        second: b61a0600
+    foot_L:
+      data:
+        first: 1
+        second: cc860100
+      data:
+        first: 4
+        second: ac1a0600
+    foot_R:
+      data:
+        first: 1
+        second: c6860100
+      data:
+        first: 4
+        second: a61a0600
+    forearm_L:
+      data:
+        first: 1
+        second: bc860100
+      data:
+        first: 4
+        second: 9c1a0600
+    forearm_R:
+      data:
+        first: 1
+        second: aa860100
+      data:
+        first: 4
+        second: 8a1a0600
+    hand_L:
+      data:
+        first: 1
+        second: ba860100
+      data:
+        first: 4
+        second: 9a1a0600
+    hand_R:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
+    hip:
+      data:
+        first: 1
+        second: d2860100
+      data:
+        first: 4
+        second: b21a0600
+    knee_L:
+      data:
+        first: 1
+        second: d8860100
+      data:
+        first: 4
+        second: b81a0600
+    knee_R:
+      data:
+        first: 1
+        second: d4860100
+      data:
+        first: 4
+        second: b41a0600
+    metarig:
+      data:
+        first: 1
+        second: dc860100
+      data:
+        first: 4
+        second: bc1a0600
+    neck:
+      data:
+        first: 1
+        second: c0860100
+      data:
+        first: 4
+        second: a01a0600
+    shin_L:
+      data:
+        first: 1
+        second: ce860100
+      data:
+        first: 4
+        second: ae1a0600
+    shin_R:
+      data:
+        first: 1
+        second: c8860100
+      data:
+        first: 4
+        second: a81a0600
+    spine:
+      data:
+        first: 1
+        second: c4860100
+      data:
+        first: 4
+        second: a41a0600
+    thigh_L:
+      data:
+        first: 1
+        second: d0860100
+      data:
+        first: 4
+        second: b01a0600
+    thigh_R:
+      data:
+        first: 1
+        second: ca860100
+      data:
+        first: 4
+        second: aa1a0600
+    thumb_02_L:
+      data:
+        first: 1
+        second: b4860100
+      data:
+        first: 4
+        second: 941a0600
+    thumb_02_R:
+      data:
+        first: 1
+        second: a4860100
+      data:
+        first: 4
+        second: 841a0600
+    thumb_03_L:
+      data:
+        first: 1
+        second: b2860100
+      data:
+        first: 4
+        second: 921a0600
+    thumb_03_R:
+      data:
+        first: 1
+        second: e6860100
+      data:
+        first: 4
+        second: c61a0600
+    upper_arm_L:
+      data:
+        first: 1
+        second: be860100
+      data:
+        first: 4
+        second: 9e1a0600
+    upper_arm_R:
+      data:
+        first: 1
+        second: ac860100
+      data:
+        first: 4
+        second: 8c1a0600

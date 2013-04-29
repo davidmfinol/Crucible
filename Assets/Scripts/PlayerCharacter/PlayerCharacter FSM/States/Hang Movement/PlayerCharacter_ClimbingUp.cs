@@ -59,14 +59,14 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
         else
             HorizontalSpeed = 0.0f;
 
-        if (HorizontalSpeed > 0.0f && !Controller.animation.IsPlaying("Climbing2"))
-            Controller.animation.CrossFade("Climbing2");
-        else if (VerticalSpeed > 0.0f && !Controller.animation.IsPlaying("Climbing"))
+        if (HorizontalSpeed > 0.0f && !Controller.animation.IsPlaying("HangingStrafe"))
+            Controller.animation.CrossFade("HangingStrafe");
+        else if (VerticalSpeed != 0.0f && !Controller.animation.IsPlaying("Climbing"))
             Controller.animation.CrossFade("Climbing");
 
         // Make our character animate correctly
         Controller.animation["Climbing"].speed = VerticalSpeed / Controller.LadderClimbingSpeed;
-        Controller.animation["Climbing2"].speed = HorizontalSpeed / Controller.LadderClimbingSpeed;
+        Controller.animation["HangingStrafe"].speed = 3 * HorizontalSpeed / Controller.LadderClimbingSpeed;
 
         // Determine next state
         if (Controller.CanHangOffObject)

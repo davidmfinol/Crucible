@@ -9,12 +9,15 @@ public class DoomTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        audio.Play(15);
-        Clock.animation["Take 001"].speed = Clock.animation["Take 001"].length / 15;
-        Clock.animation.Play("Take 001");
-        foreach(Transform location in Locations)
+        if (other.gameObject.GetComponent<PlayerCharacterStateMachine>() != null)
         {
-            MonoBehaviour.Instantiate(Zombie, location.position, Quaternion.identity);
+            audio.Play(15);
+            Clock.animation["Take 001"].speed = Clock.animation["Take 001"].length / 15;
+            Clock.animation.Play("Take 001");
+            foreach (Transform location in Locations)
+            {
+                MonoBehaviour.Instantiate(Zombie, location.position, Quaternion.identity);
+            }
         }
     }
 }
