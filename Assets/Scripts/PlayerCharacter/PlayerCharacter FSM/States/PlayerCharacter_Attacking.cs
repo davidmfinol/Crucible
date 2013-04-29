@@ -7,11 +7,13 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
     private int _attackNumber;
     private bool _attackPressed;
     private Transform hitBox;
+    private AudioSource[] audioSources;
 
     public PlayerCharacter_Attacking(PlayerCharacterStateMachine controller) : base(controller) { }
 
     protected override void OnStartState()
     {
+        // Basic animation/movement stuff
         Controller.animation["AttackingFirst"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("AttackingFirst");
         Controller.Whip.animation.CrossFade("Whip_Attack");
@@ -24,6 +26,9 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
         Transform bone = SearchHierarchyForBone(Controller.transform, "hand_L");
         hitBox = (Transform)MonoBehaviour.Instantiate(Controller.WhipHitBox, bone.position, bone.transform.rotation);
         hitBox.transform.parent = bone;
+
+        // Sound effects
+        audioSources = Controller.Whip.GetComponents<AudioSource>();
     }
 
     protected override Enum OnUpdate()
@@ -36,8 +41,11 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
         else if (_attackNumber == 1)
         {
             _attackPressed = _attackPressed || Input.GetButtonDown("Primary");
-            if(Controller.animation["AttackingFirst"].normalizedTime > 0.6f)
+            if (Controller.animation["AttackingFirst"].normalizedTime > 0.6f)
+            {
                 HorizontalSpeed = 1;
+                audioSources[0].Play();
+            }
             if (!Controller.animation.IsPlaying("AttackingFirst"))
             {
                 if (!_attackPressed)
@@ -46,6 +54,7 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
                 {
                     Controller.animation["AttackingSecond"].wrapMode = WrapMode.Once;
                     Controller.animation.CrossFade("AttackingSecond");
+                    audioSources[1].Play();
                     _attackPressed = false;
                     _attackNumber++;
                 }
@@ -64,6 +73,7 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
                 {
                     Controller.animation["AttackingLast"].wrapMode = WrapMode.Once;
                     Controller.animation.CrossFade("AttackingLast");
+                    audioSources[2].Play();
                     _attackPressed = false;
                     _attackNumber++;
                 }

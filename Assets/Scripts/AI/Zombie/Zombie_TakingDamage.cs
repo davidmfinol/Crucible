@@ -10,6 +10,7 @@ public class Zombie_TakingDamage : CharacterStateMachineState
     {
         base.StartState();
         Controller.animation["TakingDamage"].wrapMode = WrapMode.Once;
+        Controller.animation["TakingDamage"].speed = 2.0f;
         Controller.animation.CrossFade("TakingDamage");
         VerticalSpeed = GroundVerticalSpeed;
     }

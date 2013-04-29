@@ -3,9 +3,6 @@ using System.Collections;
 
 public class ZombieHeartBox : HeartBox
 {
-    [SerializeField]
-    float timeSinceHit;
-
     protected override void Start()
     {
         HitPoints = MaxHitPoints;
@@ -30,7 +27,8 @@ public class ZombieHeartBox : HeartBox
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
 
             HitPoints -= hitbox.Damage;
-            timeSinceHit = 0;
+            ZombieStateMachine zombie = transform.parent.GetComponent<ZombieStateMachine>();
+            zombie.SetState(ZombieStates.Zombie_TakingDamage);
         }
     }
     bool isValidHitbox(HitBox hitbox)

@@ -59,7 +59,6 @@ public class PlayerHeartBox : HeartBox
     {
         if (other.gameObject.layer == 9 || other.gameObject.layer == 8)
         {
-            Debug.Log("Registered collision");
             HitBox script = other.GetComponent<HitBox>();
             if (script != null)
                 Interpret(script);
@@ -79,7 +78,6 @@ public class PlayerHeartBox : HeartBox
     {
         if (isValidHitbox(hitbox))
         {
-            Debug.Log("Interpreting hit");
             hitbox.stampRecord.Imprint(createHeartBoxStamp());
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
 
@@ -90,14 +88,12 @@ public class PlayerHeartBox : HeartBox
     }
     bool isValidHitbox(HitBox hitbox)
     {
-        Debug.Log("Checking valid hitbox");
         //~ If it is a friendly hitbox, or family seen before, return false
         //~ TODO: If stamp is x seconds old, return true
         HeartBoxStamp stamp = hitbox.Family.stampRecord.GetLatestHeartBoxStamp(heartBoxID);
         //if (stamp != null) Debug.Log(stamp.TimeStamped);
         if ((stamp != null) && ((Time.time - stamp.TimeStamped) > 1.0f))
             return true;
-        Debug.Log("Checking valid hitbox");
         return !((hitbox.Allegiance == this.Allegiance) || hitbox.Family.stampRecord.ContainsKey(heartBoxID));
     }
 }
