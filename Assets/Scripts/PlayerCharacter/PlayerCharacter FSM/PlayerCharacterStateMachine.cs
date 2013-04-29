@@ -78,6 +78,8 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     // How far the player fell
     private float _fallHeight = 0;
 
+    public bool HasPackage = false;
+
     public void Spawn()
     {
         gameObject.GetComponentInChildren<HeartBox>().HitPoints = gameObject.GetComponentInChildren<HeartBox>().MaxHitPoints;
@@ -107,6 +109,16 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
         ActivePlatform = null;
         ActiveHangTarget = null;
         HasReleasedHangableObject = true;
+    }
+
+    public virtual void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        base.OnControllerColliderHit(hit);
+        if (hit.gameObject.tag == "Package")
+        {
+            HasPackage = true;
+            Destroy(hit.gameObject);
+        }
     }
 
     // Properties

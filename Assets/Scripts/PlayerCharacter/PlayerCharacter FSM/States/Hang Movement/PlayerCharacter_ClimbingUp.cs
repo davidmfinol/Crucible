@@ -59,7 +59,7 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
         else
             HorizontalSpeed = 0.0f;
 
-        if (HorizontalSpeed > 0.0f && !Controller.animation.IsPlaying("HangingStrafe"))
+        if (HorizontalSpeed != 0.0f && !Controller.animation.IsPlaying("HangingStrafe"))
             Controller.animation.CrossFade("HangingStrafe");
         else if (VerticalSpeed != 0.0f && !Controller.animation.IsPlaying("Climbing"))
             Controller.animation.CrossFade("Climbing");

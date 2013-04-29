@@ -143,7 +143,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     }
 
     // Used to check with interactions with platforms
-    public void OnControllerColliderHit(ControllerColliderHit hit)
+    public virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // Support for moving platforms
         if (Mathf.Abs(hit.moveDirection.y) > 0.9 && Mathf.Abs(hit.normal.y) > 0.9)
