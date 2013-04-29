@@ -8,7 +8,6 @@ public class ZombieHeartBox : HeartBox
 
     protected override void Start()
     {
-        Debug.Log("Starting Zombie Heartbox");
         HitPoints = MaxHitPoints;
     }
 

@@ -3,8 +3,7 @@ using System.Collections;
 
 public class PlayerHeartBox : HeartBox
 {
-    [SerializeField]
-    float timeSinceHit;
+    public float TimeSinceHit;
     public float RegenCoolDown = 3.0f;
     [SerializeField]
     bool RegenRoutine;
@@ -13,7 +12,6 @@ public class PlayerHeartBox : HeartBox
     
     protected override void Start()
     {
-        Debug.Log("Starting Player Heartbox");
         HitPoints = MaxHitPoints;
         turnOffRegen();
     }
@@ -42,10 +40,9 @@ public class PlayerHeartBox : HeartBox
         //            Interpret(script);
         //    }
         //}
-        timeSinceHit += Time.deltaTime;
+        TimeSinceHit += Time.deltaTime;
         if (RegenRoutine)
         {
-            Debug.Log("Regen Activated");
             HitPoints = Mathf.CeilToInt(Mathf.Lerp((float)HitPoints, (float)MaxHitPoints, Time.deltaTime*regenSpeed));
             HitPoints = Mathf.Clamp(HitPoints, 0, MaxHitPoints);
 
@@ -53,7 +50,7 @@ public class PlayerHeartBox : HeartBox
             if (HitPoints == MaxHitPoints)
                 turnOffRegen();
         }
-        else if ((timeSinceHit > RegenCoolDown) && (HitPoints != MaxHitPoints))
+        else if ((TimeSinceHit > RegenCoolDown) && (HitPoints != MaxHitPoints))
         {
             RegenRoutine = true;
         }
@@ -62,7 +59,7 @@ public class PlayerHeartBox : HeartBox
     {
         if (other.gameObject.layer == 9 || other.gameObject.layer == 8)
         {
-            //Debug.Log("I've been hit");
+            Debug.Log("Registered collision");
             HitBox script = other.GetComponent<HitBox>();
             if (script != null)
                 Interpret(script);
@@ -82,23 +79,25 @@ public class PlayerHeartBox : HeartBox
     {
         if (isValidHitbox(hitbox))
         {
-            //Debug.Log("I've been hit");
+            Debug.Log("Interpreting hit");
             hitbox.stampRecord.Imprint(createHeartBoxStamp());
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
 
             turnOffRegen();
             HitPoints -= hitbox.Damage;
-            timeSinceHit = 0;
+            TimeSinceHit = 0;
         }
     }
     bool isValidHitbox(HitBox hitbox)
     {
+        Debug.Log("Checking valid hitbox");
         //~ If it is a friendly hitbox, or family seen before, return false
         //~ TODO: If stamp is x seconds old, return true
         HeartBoxStamp stamp = hitbox.Family.stampRecord.GetLatestHeartBoxStamp(heartBoxID);
         //if (stamp != null) Debug.Log(stamp.TimeStamped);
         if ((stamp != null) && ((Time.time - stamp.TimeStamped) > 1.0f))
             return true;
+        Debug.Log("Checking valid hitbox");
         return !((hitbox.Allegiance == this.Allegiance) || hitbox.Family.stampRecord.ContainsKey(heartBoxID));
     }
 }
