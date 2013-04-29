@@ -14,7 +14,7 @@ public class DoomTrigger : MonoBehaviour
         if (other.gameObject.GetComponent<PlayerCharacterStateMachine>() != null && !done)
         {
             done = true;
-            Clock.audio.Play(600000);
+            Clock.audio.Play(300000);
             Clock.animation["Take 001"].speed = Clock.animation["Take 001"].length / 175;
             Clock.animation.Play("Take 001");
             foreach (Transform location in Locations)
@@ -28,14 +28,26 @@ public class DoomTrigger : MonoBehaviour
 
     private IEnumerator ChangeMusic()
     {
-        float v0 = backgroundSongs[0].volume; // keep the original volume
-        backgroundSongs[1].Play(); // make sure a2 is playing
+        float v0 = backgroundSongs[0].volume;
         float t = 0;
 
         while (t < 1)
         {
-            t = Mathf.Clamp01(t + Time.deltaTime / 30);
+            t = Mathf.Clamp01(t + Time.deltaTime / 2);
             backgroundSongs[0].volume = (1 - t) * v0;
+            yield return null;
+        }
+        t = 0;
+        while (t < 1)
+        {
+            t = Mathf.Clamp01(t + Time.deltaTime / 9);
+            yield return null;
+        }
+        t = 0;
+        backgroundSongs[1].Play();
+        while (t < 1)
+        {
+            t = Mathf.Clamp01(t + Time.deltaTime);
             backgroundSongs[1].volume = t * v0;
             yield return null;
         }
