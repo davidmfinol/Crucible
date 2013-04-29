@@ -36,7 +36,10 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
 
         // Determine next state
         if (Controller.CanHangOffObject)
+        {
+            VerticalSpeed = 0;
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
+        }
         else if (Controller.CanClimbObject && (UpHold || DownHold))
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
         else if (IsGrounded)

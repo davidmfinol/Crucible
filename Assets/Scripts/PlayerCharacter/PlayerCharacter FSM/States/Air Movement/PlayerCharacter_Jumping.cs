@@ -42,8 +42,11 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         // Determine next state
         if (Controller.CanClimbObject && (UpHold || DownHold))
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
-        else if(Controller.CanHangOffObject && (Mathf.Abs(Controller.transform.position.y - Controller.ActiveHangTarget.transform.position.y) < 0.1))
+        else if (Controller.CanHangOffObject && (Mathf.Abs(Controller.transform.position.y - Controller.ActiveHangTarget.transform.position.y) < 0.1))
+        {
+            VerticalSpeed = 0;
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
+        }
         else if (Duration > 0 && IsGrounded)
         {
             Controller.animation["JumpLanding"].time = 0;
@@ -61,7 +64,7 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         else if (ShouldTransitionZ_Up)
         {
             Controller.ZLevel = Controller.Z_Up;
-            VerticalSpeed = 0;
+            VerticalSpeed = -GroundVerticalSpeed;
             nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
         }
         //else if (IsTouchingWall && JumpHold)

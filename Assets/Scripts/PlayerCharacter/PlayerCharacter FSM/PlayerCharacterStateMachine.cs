@@ -128,7 +128,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     }
     public bool CanHangOffObject
     {
-        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject); }
+        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject) && ActiveHangTarget.transform.position.z == ZLevel; }
     }
     public bool CanClimbObject
     {

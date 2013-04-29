@@ -11,6 +11,8 @@ public class PlayerCharacter_Landing : PlayerCharacterStateMachineState
         Controller.animation["Landing"].time = 0;
         if (!Controller.animation.IsPlaying("JumpLanding"))
             Controller.animation.CrossFade("Landing");
+        if (Controller.FallHeight > 10)
+            Controller.transform.GetComponentInChildren<HeartBox>().HitPoints -= (int)Controller.FallHeight * 50;
     }
 
     protected override Enum OnUpdate()
