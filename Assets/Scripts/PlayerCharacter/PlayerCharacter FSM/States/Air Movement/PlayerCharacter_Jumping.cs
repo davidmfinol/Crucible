@@ -77,11 +77,6 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         return nextState;
     }
 
-    public override bool IsAirState()
-    {
-        return true;
-    }
-
     // Properties
     public float StartHeight
     {

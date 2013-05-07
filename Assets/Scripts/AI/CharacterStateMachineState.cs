@@ -47,18 +47,30 @@ public abstract class CharacterStateMachineState
         // Update the time spent on this state
         Duration += Time.deltaTime;
 
-        // Calculate motion for the frame
-        float horizontal = Mathf.Abs(Direction.x*Direction.x) > 0.01 ? Direction.x * HorizontalSpeed : 1 * HorizontalSpeed;
-        Vector3 currentMovementOffset = new Vector3(horizontal, VerticalSpeed, 0);
+        // Keep track of where we started out this frame
+        Vector3 lastPosition = Controller.transform.position;
+
+        // Calculate horizontal velocity for the frame
+        float horizontalVelocity = Mathf.Abs(Direction.x * Direction.x) > 0.01 ? Direction.x * HorizontalSpeed : 1 * HorizontalSpeed;
+
+        // Calculate total movement
+        Vector3 currentMovementOffset = new Vector3(horizontalVelocity, VerticalSpeed, 0);
 
         // Make the motion be time-based instead of frame-based
         currentMovementOffset *= Time.deltaTime;
 
-        // Keep track of where we started out this frame, to be used to calculate velocity
-        Vector3 lastPosition = Controller.transform.position;
+        // Determine the correct Z-offset
+        float currentZ = Controller.transform.position.z;
+        float newZ = Mathf.Lerp(Controller.transform.position.z, Controller.ZLevel, Controller.ZLerp * Time.deltaTime);
+        float zOffset = newZ - currentZ;
+        currentMovementOffset = new Vector3(currentMovementOffset.x, currentMovementOffset.y, zOffset);
 
         // Move our character!
         CharacterCollisionFlags = Controller.CharacterController.Move(currentMovementOffset);
+
+        // Prevent the physics engine from moving us incorrectly 
+        if (Controller.transform.position.z != newZ && IsGrounded)
+            Controller.transform.position = lastPosition;
 
         // Calculate the velocity based on the current and previous position.  
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
@@ -143,16 +155,6 @@ public abstract class CharacterStateMachineState
     protected bool IsTouchingCeiling
     {
         get { return Controller.IsTouchingCeiling; }
-    }
-    protected bool isNearCeiling
-    {
-        get
-        {
-            Ray ray = new Ray(Controller.transform.position, Vector3.up);
-            RaycastHit hit;
-
-            return Physics.Raycast(ray, out hit, 3.0f) && (hit.transform.gameObject.layer == 9);
-        }
     }
     // Whether the character is touching a wall
     protected bool IsTouchingWall

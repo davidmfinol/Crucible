@@ -11,6 +11,7 @@ public class Zombie_Idle : CharacterStateMachineState
     {
         base.StartState();
         Controller.animation.CrossFade("Idle");
+        Controller.animation.Stop();
         Direction = Vector3.right;
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
@@ -20,7 +21,7 @@ public class Zombie_Idle : CharacterStateMachineState
     {
         ZombieStates nextState = ZombieStates.Zombie_Idle;
 
-        Direction = -Direction;
+        Direction = Vector3.zero;
 
         player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)

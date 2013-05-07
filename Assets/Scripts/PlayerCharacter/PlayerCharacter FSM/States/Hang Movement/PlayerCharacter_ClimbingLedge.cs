@@ -4,6 +4,8 @@ using System.Collections;
 
 public class PlayerCharacter_ClimbingLedge : PlayerCharacterStateMachineState
 {
+    private Ledge _ledge; 
+
     public PlayerCharacter_ClimbingLedge(PlayerCharacterStateMachine controller) : base(controller) { }
 
     protected override void OnStartState()
@@ -20,30 +22,26 @@ public class PlayerCharacter_ClimbingLedge : PlayerCharacterStateMachineState
             HorizontalSpeed = Controller.LedgeClimbingSpeed;
             VerticalSpeed = Controller.LedgeClimbingSpeed;
         }
+        _ledge = (Ledge) Controller.ActiveHangTarget;
     }
 
     protected override Enum OnUpdate()
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLedge;
 
-        // Check first that we are still on a ledge
-        if (Controller.ActiveHangTarget == null || !(Controller.ActiveHangTarget is Ledge))
+        // Check first that we are still holding on to something
+        if (Controller.ActiveHangTarget == null)
             return PlayerCharacterStates.PlayerCharacter_Falling;
 
         // Determine movement
-        if (Controller.transform.position.y > Controller.ActiveHangTarget.transform.position.y + Controller.ActiveHangTarget.collider.bounds.extents.y + Controller.Height / 2 )
+        if (Controller.transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Controller.Height / 2)
             VerticalSpeed = GroundVerticalSpeed;
 
         // Determine next state
-        if (Duration >= Controller.LedgeClimbingDuration)
+        if ( (!(Controller.ActiveHangTarget is Ledge) && VerticalSpeed == GroundVerticalSpeed) || Duration >= Controller.LedgeClimbingDuration)
             nextState = PlayerCharacterStates.PlayerCharacter_Idle;
 
         return nextState;
-    }
-
-    protected override void OnExitState()
-    {
-        Controller.ReleaseHangableObject();
     }
 
     public override bool IsWallHangState()

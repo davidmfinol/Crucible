@@ -39,7 +39,6 @@ public enum PlayerCharacterStates : int
 public abstract class PlayerCharacterStateMachineState : CharacterStateMachineState
 {
     // We keep track of whether the jump button was pressed during this state to prevent from "gobbling" it
-    private bool _jumpPressed;
     protected ButtonPressedStack buttonPressedStack = new ButtonPressedStack();
 
     //Input constants
@@ -57,9 +56,6 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
     sealed public override void StartState()
     {
         base.StartState();
-
-        //reset trackers here
-        JumpPressed = false;
 
         if (IsGroundState())
         {
@@ -87,10 +83,7 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
         
         // ButtonPressedStack management
         if (JumpDown)
-        {
-            JumpPressed = true;
             buttonPressedStack.PushOnStack(strJump);
-        }
         // Movement gets priority. Remember, Stacks are LIFO
         if (LeftDown)
             buttonPressedStack.PushOnStack(strLeft);
@@ -122,10 +115,6 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
         return false;
     }
     public virtual bool IsWallHangState()
-    {
-        return false;
-    }
-    public virtual bool IsAirState()
     {
         return false;
     }
@@ -264,11 +253,6 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
     protected bool JumpDown
     {
         get { return Input.GetButtonDown(strJump); }
-    }
-    public bool JumpPressed
-    {
-        get { return _jumpPressed; }
-        set { _jumpPressed = value; }
     }
 
     public bool ShouldTransitionZ_Down

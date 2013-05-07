@@ -38,10 +38,10 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     // The last velocity moved as a result of the characterController.Move()
     private Vector3 _velocity = Vector3.zero;
     // How fast does the character rotate?
-    public float RotationSmoothing = 10.0f;
+    public float RotationSmoothing = 3.0f;
 
     // How fast does the character move between ZLevels?
-    public float ZLerp = 3.0f;
+    public float ZLerp = 10.0f;
 
     // Rate of change of vertical fall speed
     public float Gravity = 40.0f;
@@ -56,14 +56,21 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
 
     public void Awake()
     {
+        // Statemachine setup
         CharacterController = GetComponent<CharacterController>();
         CreateStateMachine();
         CurrentState = GetDefaultState();
+        CharacterStateMachineState state;
+        StateMachine.TryGetValue(CurrentState, out state);
+        state.StartState();
+
+        // Zlevel setup
         ZLevel = transform.position.z;
         Z_Down = ZLevel;
         Z_Up = ZLevel;
     }
 
+    // Map state machine Enum to corresponding Class
     private void CreateStateMachine()
     {
         StateMachine = new Dictionary<Enum, CharacterStateMachineState>();
@@ -85,25 +92,21 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     // Update() is called once per frame, and this is where the states are processed by the state machine
     public void Update()
     {
+        // check our health first
         HeartBox heartScript = GetComponentInChildren<HeartBox>();
-        if (heartScript.HitPoints <= 0)
+        if (heartScript != null && heartScript.HitPoints <= 0)
         {
             OnDeath();
+            return;
         }
+
         // Correct our Z value when we are in only one zone
         if (Zones.Count == 1 && !CanTransitionZ)
         {
             Z_Down = Zones[0].transform.position.z;
             Z_Up = Zones[0].transform.position.z;
-            ZLevel = Zones[0].transform.position.z; // TODO: REMOVE THIS LINE AND FIX ALL THE PROBLEMS THAT WILL ARISE
+            ZLevel = Zones[0].transform.position.z;
         }
-
-        // Move us toward our specified 2D plane.
-        float z = transform.position.z;
-        z = Mathf.Lerp(transform.position.z, ZLevel, ZLerp * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x, transform.position.y, z);
-        //if (Mathf.Abs(z - ZLevel) > 0.1)
-        //    return; // We wouldn't exist in the game while transitioning
 
         // Update our state
         CharacterStateMachineState state;
@@ -158,6 +161,29 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
         }
     }
 
+    // Helper Method to find a bone attached to a character
+    public static Transform SearchHierarchyForBone(Transform current, string name)
+    {
+        // check if the current bone is the bone we're looking for, if so return it
+        if (current.name == name)
+            return current;
+
+        // search through child bones for the bone we're looking for
+        for (int i = 0; i < current.GetChildCount(); ++i)
+        {
+            // the recursive step; repeat the search one step deeper in the hierarchy
+            Transform found = SearchHierarchyForBone(current.GetChild(i), name);
+
+            // a transform was returned by the search above that is not null,
+            // it must be the bone we're looking for
+            if (found != null)
+                return found;
+        }
+
+        // bone with name was not found
+        return null;
+    }
+
     // Helper method to determine what a character's VerticalSpeed should be while mid-air
     public float ApplyGravity()
     {
@@ -197,7 +223,13 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     public Vector3 Direction
     {
         get { return _direction; }
-        set { _direction = value; }
+        set
+        {
+            Vector3 prevDirection = _direction;
+            _direction = value;
+            if (_direction.x * prevDirection.x < 0)
+                HorizontalSpeed = -HorizontalSpeed;
+        }
     }
     public CollisionFlags CollisionFlags
     {

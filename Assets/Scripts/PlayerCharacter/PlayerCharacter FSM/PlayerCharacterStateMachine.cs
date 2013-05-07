@@ -73,7 +73,6 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
 
     // Player's Weapon!
     public Transform Whip;
-    public Transform WhipHitBox;
 
     // How far the player fell
     private float _fallHeight = 0;
@@ -114,7 +113,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     public virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
         base.OnControllerColliderHit(hit);
-        if (hit.gameObject.tag == "Package")
+        if (hit.gameObject.tag == "Item")
         {
             HasPackage = true;
             Destroy(hit.gameObject);

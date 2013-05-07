@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-
+[RequireComponent(typeof(Collider))]
 public abstract class HeartBox : MonoBehaviour {
 
     public BoxAllegiance Allegiance;

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(CharacterStateMachineBase))]
 public class VisualDebug : MonoBehaviour
 {
 
@@ -22,19 +23,19 @@ public class VisualDebug : MonoBehaviour
         {
             if (ShowCharacterState)
             {
-                GUI.Box(new Rect(10, 10, 300, 20), GetComponent<PlayerCharacterStateMachine>().CurrentState.ToString().Substring(16));
-                GUI.Box(new Rect(10, 35, 300, 20), ((PlayerCharacterStateMachineState)GetComponent<PlayerCharacterStateMachine>().GetState()).Duration.ToString());
+                GUI.Box(new Rect(10, 10, 300, 20), GetComponent<CharacterStateMachineBase>().CurrentState.ToString());
+                GUI.Box(new Rect(10, 35, 300, 20), ((CharacterStateMachineState)GetComponent<CharacterStateMachineBase>().GetState()).Duration.ToString());
             }
             if (ShowZLevels)
             {
-                GUI.Box(new Rect(10, 60, 300, 20), "Current Z: " + GetComponent<PlayerCharacterStateMachine>().ZLevel.ToString());
-                GUI.Box(new Rect(10, 85, 300, 20), "Z_Down: " + GetComponent<PlayerCharacterStateMachine>().Z_Down.ToString());
-                GUI.Box(new Rect(10, 110, 300, 20), "Z_Up: " + GetComponent<PlayerCharacterStateMachine>().Z_Up.ToString());
+                GUI.Box(new Rect(10, 60, 300, 20), "Current Z: " + GetComponent<CharacterStateMachineBase>().ZLevel.ToString());
+                GUI.Box(new Rect(10, 85, 300, 20), "Z_Down: " + GetComponent<CharacterStateMachineBase>().Z_Down.ToString());
+                GUI.Box(new Rect(10, 110, 300, 20), "Z_Up: " + GetComponent<CharacterStateMachineBase>().Z_Up.ToString());
                 string zones = "";
-                foreach (Zone z in GetComponent<PlayerCharacterStateMachine>().Zones)
+                foreach (Zone z in GetComponent<CharacterStateMachineBase>().Zones)
                     zones += z.transform.position.z.ToString() + " ";
                 GUI.Box(new Rect(10, 135, 300, 20), "Zones: " + zones);
-                GUI.Box(new Rect(10, 160, 300, 20), "Can Transition Z: " + GetComponent<PlayerCharacterStateMachine>().CanTransitionZ.ToString());
+                GUI.Box(new Rect(10, 160, 300, 20), "Can Transition Z: " + GetComponent<CharacterStateMachineBase>().CanTransitionZ.ToString());
             }
         }
     }

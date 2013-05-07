@@ -21,6 +21,7 @@ public class PlayerCharacter_TransitioningZ : PlayerCharacterStateMachineState
         }
         else
             Controller.animation.CrossFade("JumpLanding");
+        HorizontalSpeed = 0;
     }
     
 

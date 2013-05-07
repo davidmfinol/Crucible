@@ -12,9 +12,6 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
     {
         Controller.animation["Idle_001"].time = 0;
         Controller.animation.CrossFade("Idle_001");
-        Controller.Whip.animation["Whip_Idle"].time = 0;
-        Controller.Whip.animation.Stop();
-        Controller.Whip.animation.Play("Whip_Idle");
         _idle2 = false;
         HorizontalSpeed = 0.0f;
     }

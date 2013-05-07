@@ -60,7 +60,7 @@ public class PlayerHeartBox : HeartBox
         if (other.gameObject.layer == 9 || other.gameObject.layer == 8)
         {
             HitBox script = other.GetComponent<HitBox>();
-            if (script != null)
+            if (script != null && script.enabled)
                 Interpret(script);
         }
     }

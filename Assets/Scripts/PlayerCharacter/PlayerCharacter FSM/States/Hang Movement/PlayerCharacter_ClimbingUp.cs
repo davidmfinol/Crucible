@@ -30,7 +30,8 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
         if (Controller.ActiveHangTarget == null)
             return PlayerCharacterStates.PlayerCharacter_TransitioningZ;
 
-        Direction = new Vector3(0.0f, Direction.y, 0.0f);
+        // We face forward while climbing
+        Direction = Vector3.zero;
 
         // Determine vertical movement
         if (UpHold && !DownHold)
@@ -40,6 +41,7 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
         else
             VerticalSpeed = 0.0f;
 
+        // Determine the bounds of the object we are climbing
         bool insideLeft = Controller.transform.position.x - Controller.collider.bounds.extents.x > 
                 Controller.ActiveHangTarget.transform.position.x - Controller.ActiveHangTarget.collider.bounds.extents.x;
         bool insideRight = Controller.transform.position.x + Controller.collider.bounds.extents.x < 
@@ -59,12 +61,12 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
         else
             HorizontalSpeed = 0.0f;
 
+        // Make our character animate correctly
         if (HorizontalSpeed != 0.0f && !Controller.animation.IsPlaying("HangingStrafe"))
             Controller.animation.CrossFade("HangingStrafe");
         else if (VerticalSpeed != 0.0f && !Controller.animation.IsPlaying("Climbing"))
             Controller.animation.CrossFade("Climbing");
 
-        // Make our character animate correctly
         Controller.animation["Climbing"].speed = VerticalSpeed / Controller.LadderClimbingSpeed;
         Controller.animation["HangingStrafe"].speed = 3 * HorizontalSpeed / Controller.LadderClimbingSpeed;
 
@@ -73,8 +75,8 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
-        //else if (LeftHold || RightHold && IsGrounded)
-        //    nextState = PlayerCharacterStates.PlayerCharacter_Idle;
+        else if ((LeftHold || RightHold) && IsGrounded)
+            nextState = PlayerCharacterStates.PlayerCharacter_Idle;
 
         return nextState;
     }

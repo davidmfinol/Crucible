@@ -14,7 +14,7 @@ public class ZombieHeartBox : HeartBox
         {
             //Debug.Log("I've been hit");
             HitBox script = other.GetComponent<HitBox>();
-            if (script != null)
+            if (script != null && script.enabled)
                 Interpret(script);
         }
     }

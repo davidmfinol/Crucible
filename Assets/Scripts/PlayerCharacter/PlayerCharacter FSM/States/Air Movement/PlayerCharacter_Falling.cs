@@ -63,9 +63,4 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
 
         return nextState;
     }
-
-    public override bool IsAirState()
-    {
-        return true;
-    }
 }

@@ -19,7 +19,7 @@ public class Zombie_Running : CharacterStateMachineState
 
         // Determine movement
         float targetSpeed = 10;
-        float accelerationSmoothing = 0.5f * Time.deltaTime;
+        float accelerationSmoothing = 3.0f * Time.deltaTime;
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
 
         // Determine next state

@@ -4,10 +4,15 @@ using System.Collections;
 
 public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
 {
+    // whether the player continues holding to the ActiveHangTarget after this state
+    private bool _continueHolding;
+
     public PlayerCharacter_Hanging(PlayerCharacterStateMachine controller) : base(controller) { }
 
     protected override void OnStartState()
     {
+        _continueHolding = false;
+
         Controller.animation["Hanging"].time = 0;
         Controller.animation["HangingPipe"].time = 0;
         Controller.animation["Hanging"].wrapMode = WrapMode.Once;
@@ -61,24 +66,21 @@ public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
         // Determine next state
         if (Controller.ActiveHangTarget is Ledge && (UpDown || ForwardDown))
         {
+            _continueHolding = true;
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLedge;
         }
-        //else if (Controller.ActiveHangTarget is ClimbableObject && UpDown)
-        //{
-        //    nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
-        //}
         else if (JumpDown)
-        {
-            Controller.ReleaseHangableObject();
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
-        }
         else if (DownDown || UpDown || RightDown || LeftDown)
-        {
-            Controller.ReleaseHangableObject();
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
-        }
 
         return nextState;
+    }
+
+    protected override void OnExitState()
+    {
+        if(!_continueHolding)
+            Controller.ReleaseHangableObject();
     }
 
     public override bool IsWallHangState()

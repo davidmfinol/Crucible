@@ -19,8 +19,6 @@ public class ZombieStateMachine : CharacterStateMachineBase
     // How high the zombie jumps
     public float JumpHeight = 4.0f;
 
-    public Transform ZombieHitBox;
-
     public override Type GetStateEnumType()
     {
         return typeof(ZombieStates);
@@ -31,4 +29,31 @@ public class ZombieStateMachine : CharacterStateMachineBase
         return ZombieStates.Zombie_Idle;
     }
 
+    public override void OnDeath()
+    {
+        animation.Stop();
+        ActivateRagDoll(transform);
+        VisualDebug debug = GetComponent<VisualDebug>();
+        if (debug != null)
+            Destroy(debug);
+        Destroy(this);
+        Destroy(CharacterController);
+    }
+
+    // Helper Method to activate the ragdoll of the zombie
+    public void ActivateRagDoll(Transform current)
+    {
+        // activate the ragdoll for all child bones
+        for (int i = 0; i < current.GetChildCount(); ++i)
+            ActivateRagDoll(current.GetChild(i));
+
+        // activate the ragdoll for the bone we're on
+        if (current.GetComponent<ZombieHeartBox>() != null)
+            Destroy(current.gameObject);
+        else if (current.rigidbody != null && current.collider != null)
+        {
+            current.collider.enabled = true;
+            current.rigidbody.isKinematic = false;
+        }
+    }
 }

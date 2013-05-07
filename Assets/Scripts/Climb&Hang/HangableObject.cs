@@ -9,7 +9,7 @@ public class HangableObject : MonoBehaviour
     public virtual void OnTriggerStay(Collider other)
     {
         PlayerCharacterStateMachine character = other.GetComponent<PlayerCharacterStateMachine>();
-        if (character != null && character.transform != transform.parent && !character.HasReleasedHangableObject)
+        if (character != null && !character.HasReleasedHangableObject && character.ZLevel == transform.position.z)
                 character.ActiveHangTarget = this;
     }
 
@@ -23,7 +23,7 @@ public class HangableObject : MonoBehaviour
     public virtual void OnCollisionStay(Collision collision)
     {
         PlayerCharacterStateMachine character = collision.gameObject.GetComponent<PlayerCharacterStateMachine>();
-        if (character != null && character.transform != transform.parent && !character.HasReleasedHangableObject)
+        if (character != null && !character.HasReleasedHangableObject && character.ZLevel == transform.position.z)
             character.ActiveHangTarget = this;
     }
 

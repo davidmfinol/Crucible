@@ -10,14 +10,17 @@ public class Zombie_Falling : CharacterStateMachineState
     {
         base.StartState();
         Controller.animation.CrossFade("Falling");
+        VerticalSpeed = Controller.ApplyGravity();
     }
 
     protected override Enum OnUpdate()
     {
         ZombieStates nextState = ZombieStates.Zombie_Falling;
 
+        // Determine movement
         VerticalSpeed = Controller.ApplyGravity();
 
+        // Determine next state
         if (IsGrounded)
             nextState = ZombieStates.Zombie_Landing;
 

@@ -6,7 +6,6 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
 {
     private int _attackNumber;
     private bool _attackPressed;
-    private Transform hitBox;
     private AudioSource[] audioSources;
 
     public PlayerCharacter_Attacking(PlayerCharacterStateMachine controller) : base(controller) { }
@@ -23,9 +22,7 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
         VerticalSpeed = GroundVerticalSpeed;
 
         // Set up the hit boxes
-        Transform bone = SearchHierarchyForBone(Controller.transform, "hand_L");
-        hitBox = (Transform)MonoBehaviour.Instantiate(Controller.WhipHitBox, bone.position, bone.transform.rotation);
-        hitBox.transform.parent = bone;
+        ActivateWhipHitBox(Controller.Whip, true);
 
         // Sound effects
         audioSources = Controller.Whip.GetComponents<AudioSource>();
@@ -88,10 +85,6 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
                 nextState = PlayerCharacterStates.PlayerCharacter_Idle;
         }
 
-        // Remove the hitbox
-        if (nextState != PlayerCharacterStates.PlayerCharacter_Attacking)
-            MonoBehaviour.Destroy(hitBox.gameObject);
-
         return nextState;
     }
 
@@ -100,25 +93,26 @@ public class PlayerCharacter_Attacking : PlayerCharacterStateMachineState
         return true;
     }
 
-    public Transform SearchHierarchyForBone(Transform current, string name)
+    protected override void OnExitState()
     {
-        // check if the current bone is the bone we're looking for, if so return it
-        if (current.name == name)
-            return current;
-
-        // search through child bones for the bone we're looking for
-        for (int i = 0; i < current.GetChildCount(); ++i)
+        Controller.Whip.animation["Whip_Idle"].time = 0;
+        Controller.Whip.animation.Stop();
+        Controller.Whip.animation.Play("Whip_Idle");
+        ActivateWhipHitBox(Controller.Whip, false);
+    }
+    public void ActivateWhipHitBox(Transform current, bool active)
+    {
+        // activate the whip hitbox for the bone we're on
+        BoxCollider collider = current.GetComponent<BoxCollider>();
+        HitBox hitBox = current.GetComponent<HitBox>();
+        if (collider != null && hitBox != null)
         {
-            // the recursive step; repeat the search one step deeper in the hierarchy
-            Transform found = SearchHierarchyForBone(current.GetChild(i), name);
-
-            // a transform was returned by the search above that is not null,
-            // it must be the bone we're looking for
-            if (found != null)
-                return found;
+            collider.enabled = active;
+            hitBox.enabled = active;
         }
 
-        // bone with name was not found
-        return null;
+        // activate the whip hit box for all child bones
+        for (int i = 0; i < current.GetChildCount(); ++i)
+            ActivateWhipHitBox(current.GetChild(i), active);
     }
 }
