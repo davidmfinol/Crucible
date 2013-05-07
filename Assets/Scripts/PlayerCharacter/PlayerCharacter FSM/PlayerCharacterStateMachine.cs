@@ -113,11 +113,34 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     public virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
         base.OnControllerColliderHit(hit);
+
+        // We can pick up the package here, for now
         if (hit.gameObject.tag == "Item")
         {
             HasPackage = true;
             Destroy(hit.gameObject);
         }
+
+        // Let's push ragdolls around!
+        Rigidbody body = hit.collider.attachedRigidbody;
+        // no rigidbody
+        if (body == null || body.isKinematic)
+           return;
+ 
+        // Only push rigidbodies in the ragdoll layer
+        if (body.gameObject.layer != 10)
+           return;
+ 
+        // We dont want to push objects below us
+        if (hit.moveDirection.y < -0.3) 
+           return;
+ 
+        // Calculate push direction from move direction, we only push objects to the sides
+        // never up and down
+        var pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
+ 
+        // Pushing! Yeah!
+        body.velocity = pushDir * 2 * HorizontalSpeed;
     }
 
     // Properties
