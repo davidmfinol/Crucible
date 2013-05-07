@@ -75,7 +75,7 @@ public class PlayerCharacter_ClimbingUp : PlayerCharacterStateMachineState
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
-        else if ((LeftHold || RightHold) && IsGrounded)
+        else if ((LeftHold || RightHold || DownHold) && IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Idle;
 
         return nextState;
