@@ -9,11 +9,25 @@ public class PlayerHeartBox : HeartBox
     bool RegenRoutine;
     [SerializeField]
     float regenSpeed;
+	
+	Rect box = new Rect(10, 10, 100, 20);
+	
+	private Texture2D background;
+	private Texture2D foreground;
     
     protected override void Start()
     {
         HitPoints = MaxHitPoints;
         turnOffRegen();
+		
+		background = new Texture2D(1, 1, TextureFormat.RGB24, false);
+		foreground = new Texture2D(1, 1, TextureFormat.RGB24, false);
+		
+		background.SetPixel(0, 0, Color.red);
+		foreground.SetPixel(0, 0, Color.green);
+		
+		background.Apply();
+		foreground.Apply();
     }
     void Update()
     {
@@ -66,9 +80,12 @@ public class PlayerHeartBox : HeartBox
     }
     void OnGUI()
     {
-        GUI.Box(new Rect(10, 10,
-            Mathf.CeilToInt(Mathf.Lerp(1, Screen.width/5, ((float)HitPoints)/((float)MaxHitPoints))),
-            20), " ");
+		GUI.BeginGroup(box);
+		{
+			GUI.DrawTexture(new Rect(0, 0, box.width, box.height), background, ScaleMode.StretchToFill);
+			GUI.DrawTexture(new Rect(0, 0, box.width*HitPoints/MaxHitPoints, box.height), foreground, ScaleMode.StretchToFill);
+		}
+		GUI.EndGroup();
     }
     void turnOffRegen()
     {

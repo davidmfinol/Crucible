@@ -91,7 +91,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
 
     public override void OnDeath()
     {
-        Spawn();
+        Application.LoadLevel("DeathScreen");
     }
 
     public override Type GetStateEnumType()
