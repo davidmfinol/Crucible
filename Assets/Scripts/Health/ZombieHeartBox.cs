@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ZombieHeartBox : HeartBox
 {
+    public float TimeSinceHit;
     protected override void Start()
     {
         HitPoints = MaxHitPoints;
@@ -29,16 +30,18 @@ public class ZombieHeartBox : HeartBox
             HitPoints -= hitbox.Damage;
             ZombieStateMachine zombie = transform.parent.GetComponent<ZombieStateMachine>();
             zombie.SetState(ZombieStates.Zombie_TakingDamage);
+            TimeSinceHit = 0;
         }
     }
+	void Update()
+	{
+		TimeSinceHit+= Time.deltaTime;
+	}
+	
     bool isValidHitbox(HitBox hitbox)
     {
-        //~ If it is a friendly hitbox, or family seen before, return false
-        //~ TODO: If stamp is x seconds old, return true
-        HeartBoxStamp stamp = hitbox.Family.stampRecord.GetLatestHeartBoxStamp(heartBoxID);
-        //if (stamp != null) Debug.Log(stamp.TimeStamped);
-        if ((stamp != null) && ((Time.time - stamp.TimeStamped) > 1.0f))
-            return true;
+        if (TimeSinceHit < 1.0f)
+            return false;
         return !((hitbox.Allegiance == this.Allegiance) || hitbox.Family.stampRecord.ContainsKey(heartBoxID));
     }
 }
