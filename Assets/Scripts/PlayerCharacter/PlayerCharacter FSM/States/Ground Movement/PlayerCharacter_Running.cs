@@ -24,12 +24,14 @@ public class PlayerCharacter_Running : PlayerCharacterStateMachineState
         // Determine next state
         if(Input.GetButton("Primary"))
         {
-            nextState = PlayerCharacterStates.PlayerCharacter_Attacking;
+            nextState = PlayerCharacterStates.PlayerCharacter_AttackCombo1;
         }
         if (!IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
-        else if (Controller.CanClimbObject && (UpHold || DownHold))
-            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
+        else if (Controller.CanClimbLadder && (UpHold || DownHold))
+            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLadder;
+        else if (Controller.CanClimbPipe && (UpHold || DownHold))
+            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingPipe;
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
         else if (IsPlayerInputZero(RawHorizontalInput) || (Direction.x * RawHorizontalInput < 0))

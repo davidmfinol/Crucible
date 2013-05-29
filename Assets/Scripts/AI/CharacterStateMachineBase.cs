@@ -134,15 +134,12 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     }
     public void SetState(Enum nextState)
     {
-        if (!nextState.Equals(CurrentState)) // If we have a new state
-        {
-            CharacterStateMachineState state;
-            StateMachine.TryGetValue(CurrentState, out state);
-            state.ExitState(); // exit the previous state
-            CurrentState = nextState; // move to the new state
-            StateMachine.TryGetValue(CurrentState, out state);
-            state.StartState(); // and start it
-        }
+        CharacterStateMachineState state;
+        StateMachine.TryGetValue(CurrentState, out state);
+        state.ExitState(); // exit the previous state
+        CurrentState = nextState; // move to the new state
+        StateMachine.TryGetValue(CurrentState, out state);
+        state.StartState(); // and start it
     }
 
     // Used to check with interactions with platforms

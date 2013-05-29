@@ -27,15 +27,15 @@ public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
         if (Controller.ActiveHangTarget.IsMultiZone())
         {
             HorizontalSpeed = 0.0f;
-            Direction = new Vector3(0, Direction.y, Direction.z);
+            Direction = Vector3.zero;
         }
         else
         {
             HorizontalSpeed = Controller.LedgeClimbingSpeed;
             if (Controller.IsHangTargetToRight)
-                Direction = new Vector3(1, Direction.y, Direction.z);
+                Direction = Vector3.right;
             else
-                Direction = new Vector3(-1, Direction.y, Direction.z);
+                Direction = Vector3.left;
         }
 
         //snap to correct location

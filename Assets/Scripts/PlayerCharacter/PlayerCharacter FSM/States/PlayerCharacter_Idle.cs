@@ -42,11 +42,13 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
 
         // Determine next state
         if (Input.GetButton("Primary"))
-            nextState = PlayerCharacterStates.PlayerCharacter_Attacking;
+            nextState = PlayerCharacterStates.PlayerCharacter_AttackCombo1;
         if (!IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
-        else if (Controller.CanClimbObject && (UpDown || DownDown))
-            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
+        else if (Controller.CanClimbLadder && (UpDown || DownDown))
+            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLadder;
+        else if (Controller.CanClimbPipe && (UpDown || DownDown))
+            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingPipe;
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
         else if (!(IsPlayerInputZero(RawHorizontalInput)))

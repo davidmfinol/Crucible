@@ -19,6 +19,11 @@ public class Zombie_TakingDamage : CharacterStateMachineState
     {
         ZombieStates nextState = ZombieStates.Zombie_TakingDamage;
 
+        HorizontalSpeed = -1;
+        VerticalSpeed = Controller.ApplyGravity();
+        if (IsGrounded)
+            VerticalSpeed = GroundVerticalSpeed;
+
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
         else if (!Controller.animation.IsPlaying("TakingDamage"))

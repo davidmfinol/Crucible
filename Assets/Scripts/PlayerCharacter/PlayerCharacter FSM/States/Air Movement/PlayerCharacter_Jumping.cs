@@ -13,6 +13,7 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         Controller.animation["Jumping"].time = 0;
         Controller.animation["JumpFall"].time = 0;
         Controller.animation.CrossFade("Jumping");
+        Controller.FallHeight = 0;
         StartHeight = Controller.transform.position.y;
         VerticalSpeed = Mathf.Sqrt(2 * Controller.JumpHeight * Controller.Gravity);
     }
@@ -40,8 +41,10 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
         VerticalSpeed = Controller.ApplyGravity();
 
         // Determine next state
-        if (Controller.CanClimbObject && (UpHold || DownHold))
-            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
+        if (Controller.CanClimbLadder && (UpHold || DownHold))
+            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLadder;
+        else if (Controller.CanClimbPipe && (UpHold || DownHold))
+            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingPipe;
         else if (Controller.CanHangOffObject && (Mathf.Abs(Controller.transform.position.y - Controller.ActiveHangTarget.transform.position.y) < 0.3))
         {
             VerticalSpeed = 0;

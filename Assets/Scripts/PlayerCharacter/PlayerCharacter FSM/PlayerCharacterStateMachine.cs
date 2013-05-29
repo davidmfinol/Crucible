@@ -71,8 +71,9 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     // How long does it take the character to move between Z-levels?
     public float ZTransitioningDuration = 0.7f;
 
-    // Player's Weapon!
+    // Player's Weapon Arsenal!
     public Transform Whip;
+    public Transform Weapon;
 
     // How far the player fell
     private float _fallHeight = 0;
@@ -110,14 +111,14 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
         HasReleasedHangableObject = true;
     }
 
-    public virtual void OnControllerColliderHit(ControllerColliderHit hit)
+    public override void OnControllerColliderHit(ControllerColliderHit hit)
     {
         base.OnControllerColliderHit(hit);
 
-        // We can pick up the package here, for now
+        // We can pick up items
         if (hit.gameObject.tag == "Item")
         {
-            HasPackage = true;
+            HasPackage = true; // TODO: seperate script for inventory
             Destroy(hit.gameObject);
         }
 
@@ -164,9 +165,13 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     {
         get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject) && ActiveHangTarget.transform.position.z == ZLevel; }
     }
-    public bool CanClimbObject
+    public bool CanClimbLadder
     {
-        get { return ActiveHangTarget != null && ActiveHangTarget is ClimbableObject && ActiveHangTarget.transform.position.z == ZLevel; } 
+        get { return ActiveHangTarget != null && ActiveHangTarget is Ladder && ActiveHangTarget.transform.position.z == ZLevel; } 
+    }
+    public bool CanClimbPipe
+    {
+        get { return ActiveHangTarget != null && ActiveHangTarget is Pipe && ActiveHangTarget.transform.position.z == ZLevel; }
     }
     public bool CanHangOffObjectHorizontally
     {

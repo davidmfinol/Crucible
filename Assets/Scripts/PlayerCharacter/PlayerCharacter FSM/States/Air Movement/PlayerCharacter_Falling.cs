@@ -40,8 +40,10 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
             VerticalSpeed = 0;
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         }
-        else if (Controller.CanClimbObject && (UpHold || DownHold))
-            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingUp;
+        else if (Controller.CanClimbLadder && (UpHold || DownHold))
+            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLadder;
+        else if (Controller.CanClimbPipe && (UpHold || DownHold))
+            nextState = PlayerCharacterStates.PlayerCharacter_ClimbingPipe;
         else if (IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Landing;
         else if (ShouldTransitionZ_Down)
