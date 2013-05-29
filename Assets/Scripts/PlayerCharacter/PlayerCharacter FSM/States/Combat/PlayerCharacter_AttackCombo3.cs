@@ -11,20 +11,19 @@ public class PlayerCharacter_AttackCombo3 : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
-        // Basic animation/movement stuff
-        Controller.animation["AttackingFirst"].wrapMode = WrapMode.Once;
-        Controller.animation.CrossFade("AttackingFirst");
-        Controller.Whip.animation.CrossFade("Whip_Attack");
+        // Keep track of the weapon
         _attackPressed = false;
-        HorizontalSpeed = 0;
+        _weapon = Controller.Weapon.GetComponent<Weapon>();
+        _weapon.ActivateAttack(2);
+
+        // Character Speed
+        HorizontalSpeed = 2;
         VerticalSpeed = GroundVerticalSpeed;
 
-        // Set up the hit boxes
-        //ActivateWhipHitBox(Controller.Whip, true);
-
-        // Sound effects
-        //audioSources = Controller.Whip.GetComponents<AudioSource>();
-        //audioSources[0].Play(16000);
+        // Character Animation
+        Controller.animation["AttackingLast"].wrapMode = WrapMode.Once;
+        Controller.animation["AttackingLast"].time = 0;
+        Controller.animation.CrossFade("AttackingLast");
     }
 
     protected override Enum OnUpdate()
@@ -33,7 +32,6 @@ public class PlayerCharacter_AttackCombo3 : PlayerCharacterStateMachineState
         if (!IsGrounded)
             return PlayerCharacterStates.PlayerCharacter_Falling;
 
-        HorizontalSpeed = 2;
         if (Controller.animation["AttackingLast"].normalizedTime > 0.4f)
             HorizontalSpeed = 0.0f;
         if (!Controller.animation.IsPlaying("AttackingLast"))
@@ -49,9 +47,6 @@ public class PlayerCharacter_AttackCombo3 : PlayerCharacterStateMachineState
 
     protected override void OnExitState()
     {
-        Controller.Whip.animation["Whip_Idle"].time = 0;
-        Controller.Whip.animation.Stop();
-        Controller.Whip.animation.Play("Whip_Idle");
-        //ActivateWhipHitBox(Controller.Whip, false);
+        _weapon.Deactivate();
     }
 }

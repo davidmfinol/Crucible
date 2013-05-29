@@ -3,29 +3,40 @@ using System.Collections;
 
 public class Weapon : MonoBehaviour
 {
-    public AnimationClip IdleAnimation = null;
-    public AnimationClip AttackAnimation = null;
+    private bool _hitBoxesActive = false;
 
-    public AudioSource AttackSound1 = null;
-    public AudioSource AttackSound2 = null;
-    public AudioSource AttackSound3 = null;
+    public string IdleAnimationName = "Idle";
+    public string AttackAnimationName = "Attack";
+    public AudioSource[] AttackSoundEffects = new AudioSource[3];
 
-    public AudioSource[] SoundGroupX;
-    public AudioSource[] SoundGroupY;
-
-    public int soundGroupNum;
-
-    public void Activate()
+    void Start()
     {
-        SetHitBoxes(transform, true);
+        SetHitBoxes(transform, _hitBoxesActive);
+    }
+
+    public void ActivateAttack(int attackID)
+    {
+        ActivateHitBox(true);
+        if(animation != null)
+            animation.CrossFade(AttackAnimationName);
+        AttackSoundEffects[attackID].Play();
     }
 
     public void Deactivate()
     {
-        SetHitBoxes(transform, false);
+        ActivateHitBox(false);
+        if (animation != null)
+            animation.CrossFade(IdleAnimationName);
     }
 
-    private void SetHitBoxes(Transform current, bool active)
+    private void ActivateHitBox(bool activate)
+    {
+        if (activate != _hitBoxesActive)
+            SetHitBoxes(transform, activate);
+        _hitBoxesActive = activate;
+    }
+
+    public static void SetHitBoxes(Transform current, bool active)
     {
         // activate the hitbox for the bone we're on
         BoxCollider collider = current.GetComponent<BoxCollider>();

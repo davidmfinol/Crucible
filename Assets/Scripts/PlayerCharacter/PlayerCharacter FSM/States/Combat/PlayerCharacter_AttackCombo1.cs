@@ -11,20 +11,19 @@ public class PlayerCharacter_AttackCombo1 : PlayerCharacterStateMachineState
 
     protected override void OnStartState()
     {
-        // Basic animation/movement stuff
-        Controller.animation["AttackingFirst"].wrapMode = WrapMode.Once;
-        Controller.animation.CrossFade("AttackingFirst");
-        Controller.Whip.animation.CrossFade("Whip_Attack");
+        // Keep track of the weapon
         _attackPressed = false;
+        _weapon = Controller.Weapon.GetComponent<Weapon>();
+        _weapon.ActivateAttack(0);
+
+        // Character Speed
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
 
-        // Set up the hit boxes
-        //ActivateWhipHitBox(Controller.Whip, true);
-
-        // Sound effects
-        //audioSources = Controller.Whip.GetComponents<AudioSource>();
-        //audioSources[0].Play(16000);
+        // Character Animation
+        Controller.animation["AttackingFirst"].wrapMode = WrapMode.Once;
+        Controller.animation["AttackingFirst"].time = 0;
+        Controller.animation.CrossFade("AttackingFirst");
     }
 
     protected override Enum OnUpdate()
@@ -33,7 +32,7 @@ public class PlayerCharacter_AttackCombo1 : PlayerCharacterStateMachineState
         if (!IsGrounded)
             return PlayerCharacterStates.PlayerCharacter_Falling;
 
-        _attackPressed = _attackPressed || Input.GetButtonDown("Primary");
+        _attackPressed = _attackPressed || PrimaryWeaponDown;
         if (Controller.animation["AttackingFirst"].normalizedTime > 0.6f)
             HorizontalSpeed = 1;
         if (!Controller.animation.IsPlaying("AttackingFirst"))
@@ -41,28 +40,19 @@ public class PlayerCharacter_AttackCombo1 : PlayerCharacterStateMachineState
             if (!_attackPressed)
                 return PlayerCharacterStates.PlayerCharacter_Idle;
             else
-            {
-                Controller.animation["AttackingSecond"].wrapMode = WrapMode.Once;
-                Controller.animation.CrossFade("AttackingSecond");
-                //audioSources[1].Play();
-                _attackPressed = false;
                 return PlayerCharacterStates.PlayerCharacter_AttackCombo2;
-            }
         }
 
         return PlayerCharacterStates.PlayerCharacter_AttackCombo1;
     }
 
+    protected override void OnExitState()
+    {
+        _weapon.Deactivate();
+    }
+
     public override bool IsGroundState()
     {
         return true;
-    }
-
-    protected override void OnExitState()
-    {
-        Controller.Whip.animation["Whip_Idle"].time = 0;
-        Controller.Whip.animation.Stop();
-        Controller.Whip.animation.Play("Whip_Idle");
-        //ActivateWhipHitBox(Controller.Whip, false);
     }
 }

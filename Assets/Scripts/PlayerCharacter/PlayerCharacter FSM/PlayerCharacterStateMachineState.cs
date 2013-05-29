@@ -261,6 +261,32 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
         get { return Input.GetButtonDown(strJump); }
     }
 
+    protected bool PrimaryWeaponUp
+    {
+        get { return Input.GetButtonUp("Primary"); }
+    }
+    protected bool PrimaryWeaponHold
+    {
+        get { return Input.GetButton("Primary"); }
+    }
+    protected bool PrimaryWeaponDown
+    {
+        get { return Input.GetButtonDown("Primary"); }
+    }
+
+    protected bool SecondaryWeaponUp
+    {
+        get { return Input.GetButtonUp("Secondary"); }
+    }
+    protected bool SecondaryWeaponHold
+    {
+        get { return Input.GetButton("Secondary"); }
+    }
+    protected bool SecondaryWeaponDown
+    {
+        get { return Input.GetButtonDown("Secondary"); }
+    }
+
     public bool ShouldTransitionZ_Down
     {
         get { return DownHold && Controller.CanTransitionZ && Controller.ZLevel != Controller.Z_Down; }
@@ -305,20 +331,11 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
         }
         public string LatestButton(string[] filter)
         {
-            string latestMovementButtonName = "";
             foreach (string buttonName in buttonsPressed)
-            {
                 foreach (string filterEntry in filter)
-                {
                     if (buttonName.Equals(filterEntry))
-                    {
-                        latestMovementButtonName = buttonName;
-                        goto Finish;
-                    }
-                }
-            }
-            Finish:
-            return latestMovementButtonName;
+                        return buttonName;
+            return "";
         }
         /// <summary>
         /// Returns name of latest movement button pressed. Returns empty string if no latest found

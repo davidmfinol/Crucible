@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
 {
-    private bool _idle2;
+    private bool _idle2ShouldPlay;
     public PlayerCharacter_Idle(PlayerCharacterStateMachine controller) : base(controller) { }
 
     protected override void OnStartState()
     {
         Controller.animation["Idle_001"].time = 0;
         Controller.animation.CrossFade("Idle_001");
-        _idle2 = false;
+        _idle2ShouldPlay = false;
         HorizontalSpeed = 0.0f;
     }
 
@@ -21,15 +21,15 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Idle;
 
         // Process Animations
-        if (((int)Duration) % 10 == 0 && !_idle2)
+        if (((int)Duration) % 10 == 0 && !_idle2ShouldPlay)
         {
-            _idle2 = true;
+            _idle2ShouldPlay = true;
             Controller.animation["Idle2"].time = 0;
             Controller.animation.CrossFade("Idle2");
         }
-        if (((int)Duration) % 12 == 0 && _idle2)
+        if (((int)Duration) % 12 == 0 && _idle2ShouldPlay)
         {
-            _idle2 = false;
+            _idle2ShouldPlay = false;
             Controller.animation["Idle_001"].time = 0;
             Controller.animation.CrossFade("Idle_001");
         }
@@ -41,7 +41,7 @@ public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
             Direction = Vector3.zero;
 
         // Determine next state
-        if (Input.GetButton("Primary"))
+        if (PrimaryWeaponDown)
             nextState = PlayerCharacterStates.PlayerCharacter_AttackCombo1;
         if (!IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;

@@ -33,19 +33,23 @@ public class PlayerCharacter_ClimbingPipe : PlayerCharacterStateMachineState
         // We face forward while climbing
         Direction = Vector3.zero;
 
-        // Determine vertical movement
-        if (UpHold && !DownHold)
-            VerticalSpeed = Controller.LadderClimbingSpeed;
-        else if (DownHold && !UpHold)
-            VerticalSpeed = -Controller.LadderClimbingSpeed;
-        else
-            VerticalSpeed = 0.0f;
-
         // Determine the bounds of the object we are climbing
+        bool insideDown = Controller.transform.position.y - Controller.collider.bounds.extents.y >
+                Controller.ActiveHangTarget.transform.position.y - Controller.ActiveHangTarget.collider.bounds.extents.y;
+        bool insideUp = Controller.transform.position.y + Controller.collider.bounds.extents.y <
+              Controller.ActiveHangTarget.transform.position.y + Controller.ActiveHangTarget.collider.bounds.extents.y;
         bool insideLeft = Controller.transform.position.x - Controller.collider.bounds.extents.x >
                 Controller.ActiveHangTarget.transform.position.x - Controller.ActiveHangTarget.collider.bounds.extents.x;
         bool insideRight = Controller.transform.position.x + Controller.collider.bounds.extents.x <
               Controller.ActiveHangTarget.transform.position.x + Controller.ActiveHangTarget.collider.bounds.extents.x;
+
+        // Determine vertical movement
+        if (UpHold && !DownHold && Controller.ActiveHangTarget != null && insideUp)
+            VerticalSpeed = Controller.LadderClimbingSpeed;
+        else if (DownHold && !UpHold && Controller.ActiveHangTarget != null && insideDown)
+            VerticalSpeed = -Controller.LadderClimbingSpeed;
+        else
+            VerticalSpeed = 0.0f;
 
         // Determine horizontal movement
         if (LeftHold && !RightHold && Controller.ActiveHangTarget != null && insideLeft)
