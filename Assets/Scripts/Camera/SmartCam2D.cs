@@ -105,7 +105,7 @@ public class SmartCam2D : MonoBehaviour
         public class InterpolateBuffer
         {
             public Vector3 Position;
-            public float FieldOfView;
+            //public float FieldOfView;
         }
         public struct FilterSetSettings
         {

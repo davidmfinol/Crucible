@@ -4,7 +4,6 @@ using System.Collections;
 
 public class PlayerCharacter_AttackCombo3 : PlayerCharacterStateMachineState
 {
-    private bool _attackPressed;
     private Weapon _weapon;
 
     public PlayerCharacter_AttackCombo3(PlayerCharacterStateMachine controller) : base(controller) { }
@@ -12,7 +11,6 @@ public class PlayerCharacter_AttackCombo3 : PlayerCharacterStateMachineState
     protected override void OnStartState()
     {
         // Keep track of the weapon
-        _attackPressed = false;
         _weapon = Controller.Weapon.GetComponent<Weapon>();
         _weapon.ActivateAttack(2);
 
