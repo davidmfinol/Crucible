@@ -11,7 +11,7 @@ using System.Collections;
 // Mono/.NET has functions to get special paths... see discussion page. --Aarku
 
  
-public class TakeScreenshot : MonoBehaviour
+public class TakeScreenshots : MonoBehaviour
 {    
     private int screenshotCount = 0;
  
