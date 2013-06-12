@@ -30,6 +30,7 @@ public class Mine : MonoBehaviour { // PlayerCharacterStateMachineState { // Mon
 			//GameObject mineCreate = (GameObject)Instantiate(Resources.Load("FloatingMine3"));
 			//GameObject mineCreate = (GameObject)MonoBehaviour.Instantiate(Resources.Load ("FloatingMine3"), Controller.rigidbody.position, Quaternion.identity);
 			GameObject mineCreate = (GameObject)MonoBehaviour.Instantiate(Resources.Load ("FloatingMine3"), player.transform.position + (player.transform.forward * 2), Quaternion.identity);
+			//mineCreate.animation.Play("FloatingMine3");
 		}
 		
 		//return nextState;
