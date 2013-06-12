@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-// This script must be attached to a game object to tell Unity where the boundaries to the level are
-public class LevelBoundaries : MonoBehaviour
+public class LevelAttributes : MonoBehaviour
 {
+    // Keep track of the player and where he starts in the level
+    public Transform Player;
+    public Transform StartPoint;
 
     // Size of the level
     public Rect Bounds;
@@ -13,38 +15,23 @@ public class LevelBoundaries : MonoBehaviour
     // Sea-green color border
     private Color _sceneViewDisplayColor = new Color(.20f, 0.74f, 0.27f, 0.50f);
 
-    // Each scence should correspond to a level, and each level should have exactly one LevelBoundaries
-    private static LevelBoundaries _instance;
-    public static LevelBoundaries Instance
-    {
-        get
-        {
-            if (!_instance)
-            {
-                _instance = FindObjectOfType(typeof(LevelBoundaries)) as LevelBoundaries;
-                if (!_instance)
-                {
-                    Debug.LogError("There needs to be one LevelBoundaries on a GameObject in your scene");
-                }
-            }
-            return _instance;
-        }
-        set { LevelBoundaries._instance = value; }
-    }
+    // Each scence should correspond to a level, and each level should have exactly one LevelAttributes
+    private static LevelAttributes _instance;
 
-    // Knowing where the bounds to the level are is important, so we'll draw them
-    void OnDrawGizmos()
+    // Create the player when the level starts
+    void Awake()
     {
-        Gizmos.color = _sceneViewDisplayColor;
-        Vector3 lowerLeft = new Vector3(Bounds.xMin, Bounds.yMax, 0);
-        Vector3 upperLeft = new Vector3(Bounds.xMin, Bounds.yMin, 0);
-        Vector3 lowerRight = new Vector3(Bounds.xMax, Bounds.yMax, 0);
-        Vector3 upperRight = new Vector3(Bounds.xMax, Bounds.yMin, 0);
-
-        Gizmos.DrawLine(lowerLeft, upperLeft);
-        Gizmos.DrawLine(upperLeft, upperRight);
-        Gizmos.DrawLine(upperRight, lowerRight);
-        Gizmos.DrawLine(lowerRight, lowerLeft);
+        Player = (Transform)Instantiate(Player, StartPoint.position, Quaternion.identity);
+        PlayerCharacterStateMachine playerController = Player.GetComponent<PlayerCharacterStateMachine>();
+        Transform bone = CharacterStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
+        Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
+        whip.parent = bone;
+        whip.Rotate(new Vector3(90, 0, 90));
+        whip.Translate(new Vector3(0.2f, 0.1f, 0.1f));
+        playerController.Weapon = whip;
+        playerController.SpawnPoint = StartPoint;
+        playerController.Spawn();
+        Camera.main.GetComponent<CameraScrolling>().Target = Player.transform;
     }
 
     // Create the boundaries
@@ -78,5 +65,38 @@ public class LevelBoundaries : MonoBehaviour
         boxCollider.center = new Vector3(Bounds.x + Bounds.width * 0.5f, Bounds.yMin - ColliderThickness * 0.5f - FallOutBuffer, 0.0f);
 
         Instance = this;
+    }
+
+    // Knowing where the bounds to the level are is important, so we'll draw them
+    void OnDrawGizmos()
+    {
+        Gizmos.color = _sceneViewDisplayColor;
+        Vector3 lowerLeft = new Vector3(Bounds.xMin, Bounds.yMax, 0);
+        Vector3 upperLeft = new Vector3(Bounds.xMin, Bounds.yMin, 0);
+        Vector3 lowerRight = new Vector3(Bounds.xMax, Bounds.yMax, 0);
+        Vector3 upperRight = new Vector3(Bounds.xMax, Bounds.yMin, 0);
+
+        Gizmos.DrawLine(lowerLeft, upperLeft);
+        Gizmos.DrawLine(upperLeft, upperRight);
+        Gizmos.DrawLine(upperRight, lowerRight);
+        Gizmos.DrawLine(lowerRight, lowerLeft);
+    }
+
+    // Keep track of the instance of the level
+    public static LevelAttributes Instance
+    {
+        get
+        {
+            if (!_instance)
+            {
+                _instance = FindObjectOfType(typeof(LevelAttributes)) as LevelAttributes;
+                if (!_instance)
+                {
+                    Debug.LogError("There needs to be one LevelAttributes on a GameObject in your scene");
+                }
+            }
+            return _instance;
+        }
+        set { LevelAttributes._instance = value; }
     }
 }

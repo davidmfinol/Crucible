@@ -4,7 +4,6 @@ using System.Collections;
 
 public class Zombie_Idle : CharacterStateMachineState
 {
-    private GameObject player = null; 
     public Zombie_Idle(ZombieStateMachine controller) : base(controller) { }
 
     public override void StartState()
@@ -12,7 +11,7 @@ public class Zombie_Idle : CharacterStateMachineState
         base.StartState();
         Controller.animation.CrossFade("Idle");
         Controller.animation.Stop();
-        Direction = Vector3.right;
+        Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
     }
@@ -20,17 +19,6 @@ public class Zombie_Idle : CharacterStateMachineState
     protected override Enum OnUpdate()
     {
         ZombieStates nextState = ZombieStates.Zombie_Idle;
-
-        Direction = Vector3.zero;
-
-        player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            if (player.transform.position.x > Controller.transform.position.x)
-                Direction = Vector3.right;
-            else
-                Direction = Vector3.left;
-        }
 
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
@@ -44,8 +32,8 @@ public class Zombie_Idle : CharacterStateMachineState
 
     private bool PlayerIsInRange()
     {
-        if (player != null)
-            return Mathf.Abs(Controller.transform.position.x - player.transform.position.x) < 10;
+        if (LevelAttributes.Instance.Player != null)
+            return Mathf.Abs(Controller.transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < 10;
         return false;
     }
 

@@ -11,13 +11,17 @@ public enum ZombieStates : int
     Zombie_Landing,
     Zombie_Climbing,
     Zombie_Attacking, 
-    Zombie_TakingDamage
+    Zombie_TakingDamage,
+    Zombie_Noticing
 };
 
 public class ZombieStateMachine : CharacterStateMachineBase
 {
     // How high the zombie jumps
     public float JumpHeight = 4.0f;
+
+    // How fast the zombie runs
+    public float MaxHorizontalSpeed = 7.0f;
 
     public override Type GetStateEnumType()
     {
