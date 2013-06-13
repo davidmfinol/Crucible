@@ -33,3 +33,15 @@ build
 Icon?
 ehthumbs.db
 Thumbs.db
+
+Assets/Models/Mine/Box.fbx.meta
+
+Assets/Models/Mine/Box.fbx
+
+Assets/Models/Mine/Box2.mb
+
+*.meta
+
+Assets/Models/PlayerCharacter/Materials/FloatingMineUV2.mat
+
+Assets/New Animation.anim
