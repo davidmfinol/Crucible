@@ -23,6 +23,9 @@ public class ZombieStateMachine : CharacterStateMachineBase
     // How fast the zombie runs
     public float MaxHorizontalSpeed = 7.0f;
 
+    // How fast the zombie accelerates
+    public float HorizontalAcceleration = 6.0f;
+
     public override Type GetStateEnumType()
     {
         return typeof(ZombieStates);
@@ -59,5 +62,12 @@ public class ZombieStateMachine : CharacterStateMachineBase
             current.collider.enabled = true;
             current.rigidbody.isKinematic = false;
         }
+    }
+
+    public bool PlayerIsInRange()
+    {
+        if (LevelAttributes.Instance.Player != null)
+            return Mathf.Abs(transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < 10;
+        return false;
     }
 }

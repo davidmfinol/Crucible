@@ -9,8 +9,8 @@ public class Zombie_Noticing : CharacterStateMachineState
     public override void StartState()
     {
         base.StartState();
-        Controller.animation["Attacking"].wrapMode = WrapMode.Once;
-        Controller.animation.CrossFade("Attacking");
+        Controller.animation["Default Take"].wrapMode = WrapMode.Once;
+        Controller.animation.CrossFade("Default Take");
         Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
         VerticalSpeed = GroundVerticalSpeed;
     }
@@ -19,16 +19,16 @@ public class Zombie_Noticing : CharacterStateMachineState
     {
         ZombieStates nextState = ZombieStates.Zombie_Attacking;
 
-        // Do movement
-        float targetSpeed = 5;
-        float accelerationSmoothing = 3.0f * Time.deltaTime;
+        // Do movemement
+        float targetSpeed = 0;
+        float accelerationSmoothing = ((ZombieStateMachine)Controller).HorizontalAcceleration * Time.deltaTime;
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
 
         // Determine next state
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
-        else if (!Controller.animation.IsPlaying("Attacking"))
-            nextState = ZombieStates.Zombie_Idle;
+        else if (!Controller.animation.IsPlaying("Default Take"))
+            nextState = ZombieStates.Zombie_Attacking;
 
         return nextState;
     }

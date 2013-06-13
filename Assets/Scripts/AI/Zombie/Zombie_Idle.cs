@@ -22,19 +22,12 @@ public class Zombie_Idle : CharacterStateMachineState
 
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
-        else if (PlayerIsInRange())
-            nextState = ZombieStates.Zombie_Attacking;
+        else if (((ZombieStateMachine)Controller).PlayerIsInRange())
+            nextState = ZombieStates.Zombie_Noticing;
         else
             nextState = ZombieStates.Zombie_Running;
 
         return nextState;
-    }
-
-    private bool PlayerIsInRange()
-    {
-        if (LevelAttributes.Instance.Player != null)
-            return Mathf.Abs(Controller.transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < 10;
-        return false;
     }
 
 }

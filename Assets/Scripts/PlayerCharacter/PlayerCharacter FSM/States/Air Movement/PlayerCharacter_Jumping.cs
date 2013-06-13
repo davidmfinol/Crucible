@@ -28,14 +28,9 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
 
         // Determine movement
         float targetSpeed;
-        if (Direction.x == 0)
-        {
-            if(!IsPlayerInputZero(RawHorizontalInput))
-                Direction = new Vector3(RawHorizontalInput, 0, 0);
-            targetSpeed = RawHorizontalInput * Controller.MaxRunSpeed;
-        }
-        else
-            targetSpeed = (Direction.x * RawHorizontalInput * Controller.MaxRunSpeed);
+        if ( (Direction.x == 0 || Duration < 1) && (!IsPlayerInputZero(RawHorizontalInput)) )
+            Direction = new Vector3(RawHorizontalInput, 0, 0);
+        targetSpeed = Direction.x * RawHorizontalInput * Controller.MaxRunSpeed;
         float accelerationSmoothing = Controller.AirHorizontalAcceleration * Time.deltaTime;
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
         VerticalSpeed = Controller.ApplyGravity();
@@ -45,7 +40,7 @@ public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLadder;
         else if (Controller.CanClimbPipe && (UpHold || DownHold))
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingPipe;
-        else if (Controller.CanHangOffObject && (Mathf.Abs(Controller.transform.position.y - Controller.ActiveHangTarget.transform.position.y) < 0.3))
+        else if (Controller.CanHangOffObject && (Mathf.Abs(Controller.transform.position.y + Controller.Height/2 - Controller.ActiveHangTarget.transform.position.y) < 0.3))
         {
             VerticalSpeed = 0;
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;

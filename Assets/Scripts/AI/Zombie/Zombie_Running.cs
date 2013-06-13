@@ -20,25 +20,17 @@ public class Zombie_Running : CharacterStateMachineState
 
         // Determine movement
         float targetSpeed = ((ZombieStateMachine)Controller).MaxHorizontalSpeed;
-        float accelerationSmoothing = 3.0f * Time.deltaTime;
+        float accelerationSmoothing = ((ZombieStateMachine)Controller).HorizontalAcceleration * Time.deltaTime;
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
 
         // Determine next state
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
-        else if (PlayerIsInRange())
-            nextState = ZombieStates.Zombie_Attacking;
+        else if (((ZombieStateMachine)Controller).PlayerIsInRange())
+            nextState = ZombieStates.Zombie_Noticing;
         else if (Duration > 5)
             nextState = ZombieStates.Zombie_Idle;
 
         return nextState;
     }
-
-    private bool PlayerIsInRange()
-    {
-        if (LevelAttributes.Instance.Player != null)
-            return Mathf.Abs(Controller.transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < 10;
-        return false;
-    }
-    
 }

@@ -12,7 +12,7 @@ public class PlayerCharacter_Landing : PlayerCharacterStateMachineState
         if (!Controller.animation.IsPlaying("JumpLanding"))
         {
             Controller.animation.CrossFade("Landing");
-            HorizontalSpeed = Mathf.Min(HorizontalSpeed * 3 / Controller.FallHeight, HorizontalSpeed);
+            HorizontalSpeed = Mathf.Min(Mathf.Abs(HorizontalSpeed * 3 / Controller.FallHeight), Mathf.Abs(HorizontalSpeed));
             if (Controller.FallHeight > 10)
             {
                 Controller.transform.GetComponentInChildren<HeartBox>().HitPoints -= (int)Controller.FallHeight * 20;
