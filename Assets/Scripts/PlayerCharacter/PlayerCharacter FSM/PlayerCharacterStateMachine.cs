@@ -10,9 +10,7 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
 
     // Support for hanging off of objects
     private HangableObject _activeHangTarget;
-
-    // Has the character released a ledge, so that it can't grab it again?
-    private bool _hasReleasedLedge = false;
+    private HangableObject _previousHangTarget;
 
     // Has the character already jumped from mid-air?
     private bool _hasDoubleJumped = false;
@@ -104,12 +102,6 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
     {
         return PlayerCharacterStates.PlayerCharacter_Idle;
     }
-    public void ReleaseHangableObject()
-    {
-        ActivePlatform = null;
-        ActiveHangTarget = null;
-        HasReleasedHangableObject = true;
-    }
 
     public override void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -150,20 +142,20 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
         get { return _hasDoubleJumped; }
         set { _hasDoubleJumped = value; }
     }
-    public bool HasReleasedHangableObject
-    {
-        get { return _hasReleasedLedge; }
-        set { _hasReleasedLedge = value; }
-    }
 
     public HangableObject ActiveHangTarget
     {
         get { return _activeHangTarget; }
         set { _activeHangTarget = value; }
     }
+    public HangableObject PreviousHangTarget
+    {
+        get { return _previousHangTarget; }
+        set { _previousHangTarget = value; }
+    }
     public bool CanHangOffObject
     {
-        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject) && ActiveHangTarget.transform.position.z == ZLevel; }
+        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject) && ActiveHangTarget.transform.position.z == ZLevel && (Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < 0.3); }
     }
     public bool CanClimbLadder
     {
