@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Gui : MonoBehaviour {
+public class WeaponsGui : MonoBehaviour {
 
 	int CenterSlot = 1;
 	bool Animating = false;

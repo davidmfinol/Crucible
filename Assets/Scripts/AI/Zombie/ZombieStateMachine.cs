@@ -38,6 +38,7 @@ public class ZombieStateMachine : CharacterStateMachineBase
 
     public override void OnDeath()
     {
+		LevelingSystem.UpdateExp();		
         animation.Stop();
         ActivateRagDoll(transform);
         VisualDebug debug = GetComponent<VisualDebug>();
