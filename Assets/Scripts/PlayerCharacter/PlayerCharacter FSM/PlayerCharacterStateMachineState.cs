@@ -67,7 +67,7 @@ public abstract class PlayerCharacterStateMachineState : CharacterStateMachineSt
         {
             VerticalSpeed = GroundVerticalSpeed;
             HasDoubleJumped = false;
-            Controller.HasReleasedHangableObject = false;
+            Controller.PreviousHangTarget = null;
         }
         
         OnStartState();

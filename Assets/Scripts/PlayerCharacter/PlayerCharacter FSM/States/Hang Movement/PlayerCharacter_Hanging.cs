@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
 {
     // whether the player continues holding to the ActiveHangTarget after this state
+    // for example, you continue holding the ledge if you enter the ledge climbing state
     private bool _continueHolding;
 
     public PlayerCharacter_Hanging(PlayerCharacterStateMachine controller) : base(controller) { }
@@ -64,23 +65,30 @@ public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
             Controller.animation.CrossFade("HanginLoop");
 
         // Determine next state
+        Debug.Log(Controller.ActiveHangTarget);
         if (Controller.ActiveHangTarget is Ledge && (UpDown || ForwardDown))
         {
+            Debug.Log("Should hold");
             _continueHolding = true;
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLedge;
         }
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
-        else if (DownDown || UpDown || RightDown || LeftDown)
+        else if (DownDown || RightDown || LeftDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
 
+        Debug.Log(nextState);
         return nextState;
     }
 
     protected override void OnExitState()
     {
-        if(!_continueHolding)
-            Controller.ReleaseHangableObject();
+        if (!_continueHolding)
+        {
+            Debug.Log("Not holding");
+            Controller.PreviousHangTarget = Controller.ActiveHangTarget;
+            Controller.ActiveHangTarget = null;
+        }
     }
 
     public override bool IsWallHangState()

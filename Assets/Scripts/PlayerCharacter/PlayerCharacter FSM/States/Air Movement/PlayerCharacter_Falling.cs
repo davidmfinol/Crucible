@@ -35,7 +35,7 @@ public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
         VerticalSpeed = Controller.ApplyGravity();
 
         // Determine next state
-        if (Controller.CanHangOffObject && (Mathf.Abs(Controller.transform.position.y + Controller.Height/2 - Controller.ActiveHangTarget.transform.position.y) < 0.3))
+        if (Controller.CanHangOffObject)
         {
             VerticalSpeed = 0;
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
