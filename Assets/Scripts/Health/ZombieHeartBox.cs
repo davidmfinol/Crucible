@@ -28,7 +28,7 @@ public class ZombieHeartBox : HeartBox
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
 
             HitPoints -= hitbox.Damage;
-            ZombieStateMachine zombie = transform.parent.GetComponent<ZombieStateMachine>();
+            ZombieFSM zombie = transform.parent.GetComponent<ZombieFSM>();
             zombie.SetState(ZombieStates.Zombie_TakingDamage);
             TimeSinceHit = 0;
         }

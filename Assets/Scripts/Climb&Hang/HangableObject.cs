@@ -8,28 +8,28 @@ public class HangableObject : MonoBehaviour
 
     public virtual void OnTriggerStay(Collider other)
     {
-        PlayerCharacterStateMachine character = other.GetComponent<PlayerCharacterStateMachine>();
+        PlayerCharacterFSM character = other.GetComponent<PlayerCharacterFSM>();
         if (character != null && character.PreviousHangTarget != this && character.ZLevel == transform.position.z)
                 character.ActiveHangTarget = this;
     }
 
     public virtual void OnTriggerExit(Collider other)
     {
-        PlayerCharacterStateMachine character = other.GetComponent<PlayerCharacterStateMachine>();
+        PlayerCharacterFSM character = other.GetComponent<PlayerCharacterFSM>();
         if (character != null && character.ActiveHangTarget == this)
             character.ActiveHangTarget = null;
     }
 
     public virtual void OnCollisionStay(Collision collision)
     {
-        PlayerCharacterStateMachine character = collision.gameObject.GetComponent<PlayerCharacterStateMachine>();
+        PlayerCharacterFSM character = collision.gameObject.GetComponent<PlayerCharacterFSM>();
         if (character != null && character.PreviousHangTarget != this && character.ZLevel == transform.position.z)
             character.ActiveHangTarget = this;
     }
 
     public virtual void OnCollisionExit(Collision collision)
     {
-        PlayerCharacterStateMachine character = collision.gameObject.GetComponent<PlayerCharacterStateMachine>();
+        PlayerCharacterFSM character = collision.gameObject.GetComponent<PlayerCharacterFSM>();
         if (character != null && character.ActiveHangTarget == this)
             character.ActiveHangTarget = null;
     }

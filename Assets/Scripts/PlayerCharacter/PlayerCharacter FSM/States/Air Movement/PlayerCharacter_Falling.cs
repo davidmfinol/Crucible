@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_Falling : PlayerCharacterStateMachineState
+public class PlayerCharacter_Falling : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_Falling(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_Falling(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

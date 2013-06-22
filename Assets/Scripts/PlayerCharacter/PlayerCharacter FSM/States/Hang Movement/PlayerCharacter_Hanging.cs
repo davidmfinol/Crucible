@@ -2,13 +2,13 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_Hanging : PlayerCharacterStateMachineState
+public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
 {
     // whether the player continues holding to the ActiveHangTarget after this state
     // for example, you continue holding the ledge if you enter the ledge climbing state
     private bool _continueHolding;
 
-    public PlayerCharacter_Hanging(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_Hanging(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

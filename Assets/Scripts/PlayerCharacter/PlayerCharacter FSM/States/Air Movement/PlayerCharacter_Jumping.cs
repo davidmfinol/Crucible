@@ -2,11 +2,11 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_Jumping : PlayerCharacterStateMachineState
+public class PlayerCharacter_Jumping : PlayerCharacterFSM_IState
 {
     private float _startHeight;
 
-    public PlayerCharacter_Jumping(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_Jumping(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

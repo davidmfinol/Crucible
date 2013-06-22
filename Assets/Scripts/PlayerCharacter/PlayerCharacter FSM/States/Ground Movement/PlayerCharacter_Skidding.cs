@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_Skidding : PlayerCharacterStateMachineState
+public class PlayerCharacter_Skidding : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_Skidding(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_Skidding(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override Enum OnUpdate()
     {

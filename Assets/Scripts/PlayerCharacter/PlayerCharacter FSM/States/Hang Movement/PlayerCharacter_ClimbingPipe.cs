@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_ClimbingPipe : PlayerCharacterStateMachineState
+public class PlayerCharacter_ClimbingPipe : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_ClimbingPipe(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_ClimbingPipe(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

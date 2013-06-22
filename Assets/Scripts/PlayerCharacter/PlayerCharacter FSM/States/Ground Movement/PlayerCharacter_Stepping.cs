@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_Stepping : PlayerCharacterStateMachineState
+public class PlayerCharacter_Stepping : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_Stepping(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_Stepping(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

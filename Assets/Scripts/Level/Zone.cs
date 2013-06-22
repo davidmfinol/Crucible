@@ -8,7 +8,7 @@ public class Zone : MonoBehaviour
     public void OnTriggerEnter (Collider other)
     {
         float z = transform.position.z;
-        CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null)
         {
             if (!IsInverse)
@@ -32,7 +32,7 @@ public class Zone : MonoBehaviour
     public void OnTriggerExit(Collider other)
     {
         float z = transform.position.z;
-        CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null)
         {
             if (character.Z_Down == z)

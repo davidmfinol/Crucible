@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 // Restructure this Code
 
-public class Mine : MonoBehaviour { // PlayerCharacterStateMachineState { // MonoBehaviour {
+public class Mine : MonoBehaviour { // PlayerCharacterFSM_IState { // MonoBehaviour {
 	
-	// public Mine(PlayerCharacterStateMachine controller) : base(controller) { }
+	// public Mine(PlayerCharacterFSM controller) : base(controller) { }
 	
 	GameObject player;
 	//CharacterController player;

@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_ClimbingLadder : PlayerCharacterStateMachineState
+public class PlayerCharacter_ClimbingLadder : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_ClimbingLadder(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_ClimbingLadder(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

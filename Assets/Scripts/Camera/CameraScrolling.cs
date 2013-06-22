@@ -81,7 +81,7 @@ public class CameraScrolling : MonoBehaviour
             targetVelocity = targetRigidbody.velocity;
 
         // If we find a platformerController with a velocity, we use that velocity
-        PlayerCharacterStateMachine targetController = Target.GetComponent<PlayerCharacterStateMachine>();
+        PlayerCharacterFSM targetController = Target.GetComponent<PlayerCharacterFSM>();
         if (targetController)
             targetVelocity = targetController.Velocity;
 

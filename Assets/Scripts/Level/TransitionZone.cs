@@ -8,7 +8,7 @@ public class TransitionZone : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null)
         {
             bool transit = false;
@@ -25,7 +25,7 @@ public class TransitionZone : MonoBehaviour
         Zone zone = GetComponent<Zone>();
         if (zone != null)
             zone.OnTriggerEnter(other);
-        CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null)
         {
             bool transit = false;
@@ -39,7 +39,7 @@ public class TransitionZone : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        CharacterStateMachineBase character = other.GetComponent<CharacterStateMachineBase>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null)
             character.CanTransitionZ = false;
     }

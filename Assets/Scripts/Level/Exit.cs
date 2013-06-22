@@ -5,7 +5,7 @@ public class Exit : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        PlayerCharacterStateMachine player = other.GetComponent<PlayerCharacterStateMachine>();
+        PlayerCharacterFSM player = other.GetComponent<PlayerCharacterFSM>();
         if (player != null && player.HasPackage)
             Application.LoadLevel("DemoEnd");
     }

@@ -12,7 +12,7 @@ public class DoomTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerCharacterStateMachine>() != null && !done)
+        if (other.gameObject.GetComponent<PlayerCharacterFSM>() != null && !done)
         {
             done = true;
             Clock.audio.Play(300000);

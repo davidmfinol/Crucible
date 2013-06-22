@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_Landing : PlayerCharacterStateMachineState 
+public class PlayerCharacter_Landing : PlayerCharacterFSM_IState 
 {
-    public PlayerCharacter_Landing(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_Landing(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

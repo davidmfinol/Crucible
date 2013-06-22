@@ -7,7 +7,7 @@ public class SpawnPoint : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        PlayerCharacterStateMachine character = other.GetComponent<PlayerCharacterStateMachine>();
+        PlayerCharacterFSM character = other.GetComponent<PlayerCharacterFSM>();
         if (character != null)
         {
             character.SpawnPoint.GetComponent<ParticleSystem>().Stop();

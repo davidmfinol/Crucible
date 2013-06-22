@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_TransitioningZ : PlayerCharacterStateMachineState
+public class PlayerCharacter_TransitioningZ : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_TransitioningZ(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_TransitioningZ(PlayerCharacterFSM controller) : base(controller) { }
     
     protected override void OnStartState()
     {

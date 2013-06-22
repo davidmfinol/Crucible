@@ -2,11 +2,11 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_ClimbingLedge : PlayerCharacterStateMachineState
+public class PlayerCharacter_ClimbingLedge : PlayerCharacterFSM_IState
 {
     private Ledge _ledge; 
 
-    public PlayerCharacter_ClimbingLedge(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_ClimbingLedge(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

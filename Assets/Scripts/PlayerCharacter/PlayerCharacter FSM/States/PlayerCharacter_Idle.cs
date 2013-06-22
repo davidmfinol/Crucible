@@ -3,10 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerCharacter_Idle : PlayerCharacterStateMachineState
+public class PlayerCharacter_Idle : PlayerCharacterFSM_IState
 {
     private bool _idle2ShouldPlay;
-    public PlayerCharacter_Idle(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_Idle(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

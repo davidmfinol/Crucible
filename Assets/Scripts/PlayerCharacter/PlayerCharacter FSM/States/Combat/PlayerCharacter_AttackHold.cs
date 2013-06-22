@@ -2,13 +2,13 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_AttackHold : PlayerCharacterStateMachineState
+public class PlayerCharacter_AttackHold : PlayerCharacterFSM_IState
 {
     private int _attackNumber;
     private bool _attackPressed;
     private AudioSource[] audioSources;
 
-    public PlayerCharacter_AttackHold(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_AttackHold(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

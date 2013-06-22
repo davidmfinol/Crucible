@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_Running : PlayerCharacterStateMachineState
+public class PlayerCharacter_Running : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_Running(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_Running(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

@@ -22,8 +22,8 @@ public class LevelAttributes : MonoBehaviour
     void Awake()
     {
         Player = (Transform)Instantiate(Player, StartPoint.position, Quaternion.identity);
-        PlayerCharacterStateMachine playerController = Player.GetComponent<PlayerCharacterStateMachine>();
-        Transform bone = CharacterStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
+        PlayerCharacterFSM playerController = Player.GetComponent<PlayerCharacterFSM>();
+        Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
         Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
         whip.parent = bone;
         whip.Rotate(new Vector3(90, 0, 90));

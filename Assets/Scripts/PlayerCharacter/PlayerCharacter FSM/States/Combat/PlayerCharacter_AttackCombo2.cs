@@ -2,12 +2,12 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_AttackCombo2 : PlayerCharacterStateMachineState
+public class PlayerCharacter_AttackCombo2 : PlayerCharacterFSM_IState
 {
     private bool _attackPressed;
     private Weapon _weapon;
 
-    public PlayerCharacter_AttackCombo2(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_AttackCombo2(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override void OnStartState()
     {

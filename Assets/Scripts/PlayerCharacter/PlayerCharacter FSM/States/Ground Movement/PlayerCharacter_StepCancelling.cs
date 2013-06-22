@@ -2,9 +2,9 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class PlayerCharacter_StepCancelling : PlayerCharacterStateMachineState
+public class PlayerCharacter_StepCancelling : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_StepCancelling(PlayerCharacterStateMachine controller) : base(controller) { }
+    public PlayerCharacter_StepCancelling(PlayerCharacterFSM controller) : base(controller) { }
 
     protected override Enum OnUpdate()
     {
