@@ -128,12 +128,19 @@ public class PlayerCharacterStateMachine : CharacterStateMachineBase
         if (hit.moveDirection.y < -0.3) 
            return;
  
-        // Calculate push direction from move direction, we only push objects to the sides
-        // never up and down
-        var pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
+        // Calculate push direction from move direction
+        Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
+        /*
+        Vector3 force;
+        if (hit.moveDirection.y < -0.3)
+            force = new Vector3(0, -0.5f, 0) * Gravity * 10;
+        else
+            force = hit.controller.velocity * 10;
+         * */
  
         // Pushing! Yeah!
         body.velocity = pushDir * 2 * HorizontalSpeed;
+        //body.AddForceAtPosition(force, hit.point);
     }
 
     // Properties

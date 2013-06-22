@@ -42,7 +42,7 @@ public class HitBoxFamily
 
 public class StampDictionary
 {
-    private Dictionary<int, List<HeartBoxStamp>> _stampDict = new Dictionary<int, List<HeartBoxStamp>>();
+    private System.Collections.Generic.Dictionary<int, List<HeartBoxStamp>> _stampDict = new System.Collections.Generic.Dictionary<int, List<HeartBoxStamp>>();
 
     public void Imprint(HeartBoxStamp stamp)
     {

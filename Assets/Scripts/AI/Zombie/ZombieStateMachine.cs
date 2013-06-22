@@ -12,7 +12,8 @@ public enum ZombieStates : int
     Zombie_Climbing,
     Zombie_Attacking, 
     Zombie_TakingDamage,
-    Zombie_Noticing
+    Zombie_Noticing,
+    Zombie_TransitioningZ
 };
 
 public class ZombieStateMachine : CharacterStateMachineBase

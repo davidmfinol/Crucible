@@ -130,12 +130,12 @@ public class SmartCam2D : MonoBehaviour
                 }
             }
             public LayerMask FactorBoundsMask;
-            Dictionary<System.Type, bool> filterStatus;
+            System.Collections.Generic.Dictionary<System.Type, bool> filterStatus;
 
             public bool IsFilterOn(System.Type filterType)
             {
                 if (filterStatus == null)
-                    filterStatus = new Dictionary<System.Type, bool>();
+                    filterStatus = new System.Collections.Generic.Dictionary<System.Type, bool>();
 
                 bool val = false;
                 filterStatus.TryGetValue(filterType, out val);

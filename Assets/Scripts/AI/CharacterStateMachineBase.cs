@@ -14,7 +14,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
 
     // We need a way to keep moving between z levels
     public float ZLevel; // current z value
-    private List<Zone> _zones = new List<Zone>();
+    private HashSet<Zone> _zones = new HashSet<Zone>();
     private float _Z1; // lower zone
     private float _Z2; // higher zone
     private bool _canTransitionZ = false; // does our current location allow us to to move between z levels?
@@ -22,7 +22,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     // We need a way to map the List of all possible states to the class that implements it, so we create this dictionary
     // In terms of efficiency, this should also prevent wasting resources by creating and deleting new instances of these states
     // Furthermore, the memory overhead for this dictionary should be very small, and the lookup is very fast
-    private Dictionary<Enum, CharacterStateMachineState> _stateMachine;
+    private System.Collections.Generic.Dictionary<Enum, CharacterStateMachineState> _stateMachine;
 
     // The following variables are used for the physical movement of a character for each frame
     // Unity uses CharacterController to move characters
@@ -73,7 +73,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
     // Map state machine Enum to corresponding Class
     private void CreateStateMachine()
     {
-        StateMachine = new Dictionary<Enum, CharacterStateMachineState>();
+        StateMachine = new System.Collections.Generic.Dictionary<Enum, CharacterStateMachineState>();
         System.Object[] args = { this };
         foreach (Enum state in Enum.GetValues(GetStateEnumType()))
         {
@@ -103,9 +103,11 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
         // Correct our Z value when we are in only one zone
         if (Zones.Count == 1 && !CanTransitionZ)
         {
-            Z_Down = Zones[0].transform.position.z;
-            Z_Up = Zones[0].transform.position.z;
-            ZLevel = Zones[0].transform.position.z;
+            IEnumerator<Zone> it = Zones.GetEnumerator();
+            it.MoveNext();
+            Z_Down = it.Current.transform.position.z;
+            Z_Up = it.Current.transform.position.z;
+            ZLevel = it.Current.transform.position.z;
         }
 
         // Update our state
@@ -196,7 +198,7 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
         get { return _currentState; }
         set { _currentState = value; }
     }
-    public Dictionary<Enum, CharacterStateMachineState> StateMachine
+    public System.Collections.Generic.Dictionary<Enum, CharacterStateMachineState> StateMachine
     {
         get { return this._stateMachine; }
         set { this._stateMachine = value; }
@@ -282,21 +284,9 @@ public abstract class CharacterStateMachineBase : MonoBehaviour
         get { return _canTransitionZ; }
         set { _canTransitionZ = value; }
     }
-    public List<Zone> Zones
+    public HashSet<Zone> Zones
     {
-        get
-        {
-            // We need a Set. This (horribly) pretends we have a Set.
-            List<Zone> zCopy = new List<Zone>();
-            for (int i = 0; i < _zones.Count; ++i )
-            {
-                Zone zone = _zones[i];
-                if(!zCopy.Contains(zone))
-                    zCopy.Add(zone);
-            }
-            _zones = zCopy;
-            return _zones; 
-        }
+        get { return _zones; }
     }
     public float Height
     {
