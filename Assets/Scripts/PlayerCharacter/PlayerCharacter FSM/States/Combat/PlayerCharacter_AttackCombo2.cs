@@ -32,7 +32,7 @@ public class PlayerCharacter_AttackCombo2 : PlayerCharacterFSM_IState
         if (!IsGrounded)
             return PlayerCharacterStates.PlayerCharacter_Falling;
 
-        _attackPressed = _attackPressed || PrimaryWeaponDown;
+        _attackPressed = _attackPressed || WeaponPrimaryDown;
         if (!Controller.animation.IsPlaying("AttackingSecond"))
         {
             if (!_attackPressed)

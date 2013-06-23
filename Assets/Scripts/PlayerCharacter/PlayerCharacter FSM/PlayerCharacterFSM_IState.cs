@@ -225,17 +225,29 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
         get { return Input.GetButtonDown(strJump); }
     }
 
-    protected bool PrimaryWeaponUp
-    {
-        get { return Input.GetButtonUp("Primary"); }
-    }
-    protected bool PrimaryWeaponHold
+    protected bool WeaponPrimaryUp
     {
         get { return Input.GetButton("Primary"); }
     }
-    protected bool PrimaryWeaponDown
+    protected bool WeaponPrimaryDown
     {
-        get { return Input.GetButtonDown("Primary"); }
+        get { return Input.GetButton("Primary"); }
+    }
+    protected bool WeaponPrimaryLeft
+    {
+        get { return Input.GetButton("Primary"); }
+    }
+    protected bool WeaponPrimaryRight
+    {
+        get { return Input.GetButton("Primary"); }
+    }
+    protected float WeaponPrimaryHorizontal
+    {
+        get { return Input.GetAxis("Horizontal"); }
+    }
+    protected float WeaponPrimaryVertical
+    {
+        get { return Input.GetAxis("Vertical"); }
     }
 
     protected bool SecondaryWeaponUp

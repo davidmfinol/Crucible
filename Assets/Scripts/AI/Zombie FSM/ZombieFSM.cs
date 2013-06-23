@@ -13,7 +13,23 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     // How fast the zombie accelerates
     public float HorizontalAcceleration = 6.0f;
 
+    // How far away the zombie can notice and become aware of the player
+    public float AwarenessRange;
+
+    // Is the zombie aware of the player?
+    private bool awareOfPlayer = false;
+
+    // Making zombie sounds
     private ZombieAudioSource _zombieAudioSource;
+
+    // Current brain of the Zombie(tells it what to do)
+    private ZombieBrain _brain;
+
+    void Start()
+    {
+        _zombieAudioSource = GetComponentInChildren<ZombieAudioSource>();
+        _brain = new ZombieBrain(this);
+    }
 
     public override Type GetStateEnumType()
     {
@@ -55,19 +71,28 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         }
     }
 
+    // Is the player in the range that a zombie can notice?
     public bool PlayerIsInRange()
     {
         if (LevelAttributes.Instance.Player != null)
-            return Mathf.Abs(transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < 10;
+            return Mathf.Abs(transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < AwarenessRange;
         return false;
+    }
+
+    public bool AwareOfPlayer
+    {
+        get { return awareOfPlayer; }
+        set { awareOfPlayer = value; }
     }
 
     public ZombieAudioSource ZombieAudioSource
     {
-        get {
-            if (_zombieAudioSource == null)
-                _zombieAudioSource = GetComponentInChildren<ZombieAudioSource>();
-            return _zombieAudioSource;
-        }
+        get { return _zombieAudioSource; }
+    }
+
+    public ZombieBrain Brain
+    {
+        get { return _brain; }
+        set { _brain = value; }
     }
 }

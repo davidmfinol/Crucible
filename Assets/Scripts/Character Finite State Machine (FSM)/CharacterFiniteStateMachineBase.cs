@@ -54,7 +54,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     private Vector3 _activeLocalPlatformPoint;
     private Vector3 _activeGlobalPlatformPoint;
 
-    public void Awake()
+    void Awake()
     {
         // Statemachine setup
         CharacterController = GetComponent<CharacterController>();

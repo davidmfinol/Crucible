@@ -32,7 +32,7 @@ public class PlayerCharacter_AttackCombo1 : PlayerCharacterFSM_IState
         if (!IsGrounded)
             return PlayerCharacterStates.PlayerCharacter_Falling;
 
-        _attackPressed = _attackPressed || PrimaryWeaponDown;
+        _attackPressed = _attackPressed || WeaponPrimaryDown;
         if (Controller.animation["AttackingFirst"].normalizedTime > 0.6f)
             HorizontalSpeed = 1;
         if (!Controller.animation.IsPlaying("AttackingFirst"))

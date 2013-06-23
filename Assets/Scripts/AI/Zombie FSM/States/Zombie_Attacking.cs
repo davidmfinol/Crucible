@@ -48,7 +48,14 @@ public class Zombie_Attacking : ZombieFSM_IState
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
         else if (!Controller.animation.IsPlaying("Attacking"))
-            nextState = ZombieStates.Zombie_Idle;
+        {
+            if (Attack)
+                nextState = ZombieStates.Zombie_Attacking;
+            else if (Left || Right)
+                nextState = ZombieStates.Zombie_Running;
+            else
+                nextState = ZombieStates.Zombie_Idle;
+        }
 
         return nextState;
     }

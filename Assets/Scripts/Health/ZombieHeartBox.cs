@@ -11,13 +11,10 @@ public class ZombieHeartBox : HeartBox
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 9 || other.gameObject.layer == 8)
-        {
-            //Debug.Log("I've been hit");
-            HitBox script = other.GetComponent<HitBox>();
-            if (script != null && script.enabled)
-                Interpret(script);
-        }
+        //Debug.Log("I've been hit");
+        HitBox script = other.GetComponent<HitBox>();
+        if (script != null && script.enabled)
+            Interpret(script);
     }
     protected override void Interpret(HitBox hitbox)
     {

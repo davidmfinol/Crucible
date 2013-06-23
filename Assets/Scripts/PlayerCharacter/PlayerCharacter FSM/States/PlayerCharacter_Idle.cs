@@ -41,7 +41,7 @@ public class PlayerCharacter_Idle : PlayerCharacterFSM_IState
             Direction = Vector3.zero;
 
         // Determine next state
-        if (PrimaryWeaponDown)
+        if (WeaponPrimaryDown)
             nextState = PlayerCharacterStates.PlayerCharacter_AttackCombo1;
         if (!IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
