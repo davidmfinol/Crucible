@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Zombie_Climbing : CharacterFiniteStateMachineState
+public class Zombie_Climbing : ZombieFSM_IState
 {
     public Zombie_Climbing(ZombieFSM controller) : base(controller) { }
 
@@ -10,6 +10,7 @@ public class Zombie_Climbing : CharacterFiniteStateMachineState
     {
         base.StartState();
         Controller.animation.CrossFade("ClimbingUp");
+        Controller.ZombieAudioSource.PlayRunning();
     }
 
     protected override Enum OnUpdate()

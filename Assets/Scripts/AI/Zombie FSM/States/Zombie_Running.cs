@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Zombie_Running : CharacterFiniteStateMachineState
+public class Zombie_Running : ZombieFSM_IState
 {
     public Zombie_Running(ZombieFSM controller) : base(controller) { }
 
@@ -10,6 +10,7 @@ public class Zombie_Running : CharacterFiniteStateMachineState
     {
         base.StartState();
         Controller.animation.CrossFade("Run");
+        Controller.ZombieAudioSource.PlayRunning();
         Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
         VerticalSpeed = GroundVerticalSpeed;
     }

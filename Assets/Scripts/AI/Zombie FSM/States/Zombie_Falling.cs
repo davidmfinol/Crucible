@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Zombie_Falling : CharacterFiniteStateMachineState
+public class Zombie_Falling : ZombieFSM_IState
 {
     public Zombie_Falling(ZombieFSM controller) : base(controller) { }
 

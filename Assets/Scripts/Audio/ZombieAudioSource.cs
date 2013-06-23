@@ -9,8 +9,45 @@ public class ZombieAudioSource : AudioPlayer
     public AudioClipGroup NoticeAudio;
     public AudioClipGroup RunningAudio;
 
-    public void Play(ZombieFSM_IState state)
+    private System.Random _random = new System.Random();
+
+    public override void Play()
     {
-        //if(
+        PlayIdle();
+    }
+
+    public void PlayAttack()
+    {
+        int clipNumber = _random.Next(0, AttackAudio.Clips.Length);
+        audio.clip = AttackAudio.Clips[clipNumber];
+        audio.Play();
+    }
+
+    public void PlayDeath()
+    {
+        int clipNumber = _random.Next(0, DeathAudio.Clips.Length);
+        audio.clip = DeathAudio.Clips[clipNumber];
+        audio.Play();
+    }
+
+    public void PlayIdle()
+    {
+        int clipNumber = _random.Next(0, IdleAudio.Clips.Length);
+        audio.clip = IdleAudio.Clips[clipNumber];
+        audio.Play();
+    }
+
+    public void PlayNotice()
+    {
+        int clipNumber = _random.Next(0, NoticeAudio.Clips.Length);
+        audio.clip = NoticeAudio.Clips[clipNumber];
+        audio.Play();
+    }
+
+    public void PlayRunning()
+    {
+        int clipNumber = _random.Next(0, RunningAudio.Clips.Length);
+        audio.clip = RunningAudio.Clips[clipNumber];
+        audio.Play();
     }
 }

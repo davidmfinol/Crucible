@@ -13,6 +13,8 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     // How fast the zombie accelerates
     public float HorizontalAcceleration = 6.0f;
 
+    private ZombieAudioSource _zombieAudioSource;
+
     public override Type GetStateEnumType()
     {
         return typeof(ZombieStates);
@@ -27,6 +29,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     {
 		LevelingSystem.UpdateExp();		
         animation.Stop();
+        ZombieAudioSource.PlayDeath();
         ActivateRagDoll(transform);
         VisualDebug debug = GetComponent<VisualDebug>();
         if (debug != null)
@@ -57,5 +60,14 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         if (LevelAttributes.Instance.Player != null)
             return Mathf.Abs(transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < 10;
         return false;
+    }
+
+    public ZombieAudioSource ZombieAudioSource
+    {
+        get {
+            if (_zombieAudioSource == null)
+                _zombieAudioSource = GetComponentInChildren<ZombieAudioSource>();
+            return _zombieAudioSource;
+        }
     }
 }

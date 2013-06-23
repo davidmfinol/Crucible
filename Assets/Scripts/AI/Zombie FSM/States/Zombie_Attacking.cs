@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Zombie_Attacking : CharacterFiniteStateMachineState
+public class Zombie_Attacking : ZombieFSM_IState
 {
     Transform _bone_L;
     Transform _bone_R;
@@ -14,12 +14,17 @@ public class Zombie_Attacking : CharacterFiniteStateMachineState
         base.StartState();
         Controller.animation["Attacking"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("Attacking");
+        Controller.ZombieAudioSource.PlayAttack();
         Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
         VerticalSpeed = GroundVerticalSpeed;
 
-        // TODO: ACTUALLY Set up the hit boxes
-        _bone_L = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Controller.transform, "forearm_L");
-        _bone_R = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Controller.transform, "forearm_R");
+        // We need to load the bone the first time
+        if(_bone_L == null)
+            _bone_L = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Controller.transform, "forearm_L");
+        if (_bone_R == null)
+            _bone_R = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Controller.transform, "forearm_R");
+
+        // Set up hitboxed only while attacking
         _bone_L.GetComponent<Collider>().enabled = true;
         _bone_L.GetComponent<HitBox>().enabled = true;
         _bone_R.GetComponent<Collider>().enabled = true;
@@ -50,16 +55,10 @@ public class Zombie_Attacking : CharacterFiniteStateMachineState
 
     public override void ExitState()
     {
+        // Disable hitboxed while not attacking
         _bone_L.GetComponent<Collider>().enabled = false;
         _bone_L.GetComponent<HitBox>().enabled = false;
         _bone_R.GetComponent<Collider>().enabled = false;
         _bone_R.GetComponent<HitBox>().enabled = false;
-    }
-
-    private bool PlayerIsInRange()
-    {
-        if (LevelAttributes.Instance.Player != null)
-            return Mathf.Abs(Controller.transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < 10;
-        return false;
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Zombie_Idle : CharacterFiniteStateMachineState
+public class Zombie_Idle : ZombieFSM_IState
 {
     public Zombie_Idle(ZombieFSM controller) : base(controller) { }
 
@@ -10,7 +10,7 @@ public class Zombie_Idle : CharacterFiniteStateMachineState
     {
         base.StartState();
         Controller.animation.CrossFade("Idle");
-        Controller.animation.Stop();
+        Controller.ZombieAudioSource.PlayIdle();
         Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
@@ -22,7 +22,7 @@ public class Zombie_Idle : CharacterFiniteStateMachineState
 
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
-        else if (((ZombieFSM)Controller).PlayerIsInRange())
+        else if (Controller.PlayerIsInRange())
             nextState = ZombieStates.Zombie_Noticing;
         else
             nextState = ZombieStates.Zombie_Running;

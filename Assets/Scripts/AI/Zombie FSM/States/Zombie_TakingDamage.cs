@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Zombie_TakingDamage : CharacterFiniteStateMachineState
+public class Zombie_TakingDamage : ZombieFSM_IState
 {
     public Zombie_TakingDamage(ZombieFSM controller) : base(controller) { }
 
@@ -13,6 +13,7 @@ public class Zombie_TakingDamage : CharacterFiniteStateMachineState
         Controller.animation["TakingDamage"].speed = 2.0f;
         Controller.animation.Stop();
         Controller.animation.Play("TakingDamage");
+        Controller.ZombieAudioSource.PlayAttack();
         VerticalSpeed = GroundVerticalSpeed;
     }
 

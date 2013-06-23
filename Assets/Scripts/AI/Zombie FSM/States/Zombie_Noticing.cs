@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Zombie_Noticing : CharacterFiniteStateMachineState
+public class Zombie_Noticing : ZombieFSM_IState
 {
     public Zombie_Noticing (ZombieFSM controller) : base(controller) { }
 
@@ -11,6 +11,7 @@ public class Zombie_Noticing : CharacterFiniteStateMachineState
         base.StartState();
         Controller.animation["Default Take"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("Default Take");
+        Controller.ZombieAudioSource.PlayNotice();
         Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
         VerticalSpeed = GroundVerticalSpeed;
     }
