@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
 
     public string IdleAnimationName = "Idle";
     public string AttackAnimationName = "Attack";
-    public AudioSource[] AttackSoundEffects = new AudioSource[3];
+    public WeaponAudioSource sound = null;
 
     void Start()
     {
@@ -19,7 +19,8 @@ public class Weapon : MonoBehaviour
         ActivateHitBox(true);
         if(animation != null)
             animation.CrossFade(AttackAnimationName);
-        AttackSoundEffects[attackID].Play();
+        if(sound != null)
+            sound.Play(attackID);
     }
 
     public void Deactivate()
