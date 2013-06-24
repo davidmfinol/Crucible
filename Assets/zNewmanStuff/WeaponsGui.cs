@@ -62,7 +62,6 @@ public class WeaponsGui : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		print ("slot Y rotation: " + rotToSlot1Y);
 		//print ("rot amount: " + Mathf.Abs((Slot2.transform.rotation.y - Slot3.transform.rotation.y)));
 		KeyboardControl();
 		AnimateGui();
