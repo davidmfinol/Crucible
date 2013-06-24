@@ -11,7 +11,9 @@ public class Zombie_Running : ZombieFSM_IState
         base.StartState();
         Controller.animation.CrossFade("Run");
         Controller.ZombieAudioSource.PlayRunning();
-        Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
+
+        //FIXME:
+       // Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
         VerticalSpeed = GroundVerticalSpeed;
     }
 
@@ -27,7 +29,7 @@ public class Zombie_Running : ZombieFSM_IState
         // Determine next state
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
-        else if (((ZombieFSM)Controller).PlayerIsInRange())
+        else if (((ZombieFSM)Controller).PlayerIsInNoticeRange())
             nextState = ZombieStates.Zombie_Noticing;
         else if (Duration > 5)
             nextState = ZombieStates.Zombie_Idle;

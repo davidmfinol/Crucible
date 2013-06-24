@@ -9,10 +9,10 @@ public class Zombie_Noticing : ZombieFSM_IState
     public override void StartState()
     {
         base.StartState();
-        Controller.animation["Default Take"].wrapMode = WrapMode.Once;
-        Controller.animation.CrossFade("Default Take");
+        Controller.animation["JumpFall"].wrapMode = WrapMode.Once;
+        Controller.animation.CrossFade("JumpFall");
         Controller.ZombieAudioSource.PlayNotice();
-        Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
+        //Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
         VerticalSpeed = GroundVerticalSpeed;
     }
 
@@ -28,7 +28,7 @@ public class Zombie_Noticing : ZombieFSM_IState
         // Determine next state
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
-        else if (!Controller.animation.IsPlaying("Default Take"))
+        else if (!Controller.animation.IsPlaying("JumpFall"))
             nextState = ZombieStates.Zombie_Attacking;
 
         return nextState;

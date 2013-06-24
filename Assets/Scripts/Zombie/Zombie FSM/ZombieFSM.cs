@@ -14,7 +14,10 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     public float HorizontalAcceleration = 6.0f;
 
     // How far away the zombie can notice and become aware of the player
-    public float AwarenessRange;
+    public float AwarenessRange = 10.0f;
+
+    //How far away can an opponent be and still be in range of a zombie's attack?
+    public float AttackRange = 1.0f;
 
     // Is the zombie aware of the player?
     private bool awareOfPlayer = false;
@@ -72,10 +75,19 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     }
 
     // Is the player in the range that a zombie can notice?
-    public bool PlayerIsInRange()
+    public bool PlayerIsInNoticeRange()
     {
         if (LevelAttributes.Instance.Player != null)
-            return Mathf.Abs(transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < AwarenessRange;
+            return (Mathf.Abs(transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < AwarenessRange)
+                && (Mathf.Abs(transform.position.y - LevelAttributes.Instance.Player.transform.position.y) < AwarenessRange);
+        return false;
+    }
+    // Is the player in the range that a zombie could feasibly hit him?
+    public bool PlayerIsInAttackRange()
+    {
+        if (LevelAttributes.Instance.Player != null)
+            return (Mathf.Abs(transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < AttackRange)
+                && (Mathf.Abs(transform.position.y - LevelAttributes.Instance.Player.transform.position.y) < AttackRange);
         return false;
     }
 

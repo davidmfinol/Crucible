@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 public class TransitionZone : MonoBehaviour
 {
-    public bool IsRegular = true;
-    public bool IsInverse = false;
+    // Whether the character must be above the floor of this transition zone in order to be able to transition
+    public bool UsesFloorCheck = true;
+    // Whether the character must be below the ceiling of this transition zone in order to be able to transition
+    public bool UsesCeilingCheck = false;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -12,9 +14,9 @@ public class TransitionZone : MonoBehaviour
         if (character != null)
         {
             bool transit = false;
-            if (IsRegular)
+            if (UsesFloorCheck)
                 transit = transit || (character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y);
-            else if (IsInverse) 
+            if (UsesCeilingCheck) 
                 transit = transit || (character.collider.bounds.center.y + character.Height/2 <= collider.bounds.max.y);
             character.CanTransitionZ = transit;
         }
@@ -29,9 +31,9 @@ public class TransitionZone : MonoBehaviour
         if (character != null)
         {
             bool transit = false;
-            if (IsRegular)
+            if (UsesFloorCheck)
                 transit = transit || (character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y);
-            else if (IsInverse)
+            if (UsesCeilingCheck)
                 transit = transit || (character.collider.bounds.center.y + character.Height / 2 <= collider.bounds.max.y);
             character.CanTransitionZ = transit;
         }

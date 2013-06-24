@@ -10,7 +10,7 @@ public abstract class ZombieFSM_IState : CharacterFiniteStateMachineState
     public override void StartState()
     {
         base.StartState();
-        if (Controller.AwareOfPlayer && !Controller.PlayerIsInRange())
+        if (Controller.AwareOfPlayer && !Controller.PlayerIsInNoticeRange())
             Controller.AwareOfPlayer = false;
     }
 
@@ -45,5 +45,9 @@ public abstract class ZombieFSM_IState : CharacterFiniteStateMachineState
     protected bool Attack
     {
         get { return Controller.Brain.Attack; }
+    }
+    protected bool Jump
+    {
+        get { return Controller.Brain.Jump; }
     }
 }
