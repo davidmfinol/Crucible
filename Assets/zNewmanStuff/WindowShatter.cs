@@ -25,10 +25,11 @@ public class WindowShatter : MonoBehaviour {
 		
 		if(isZombieBreakoutWindow && !isBroken && other.tag.Equals("Player")){
 				isBroken = true;
-				this.transform.FindChild("Window").gameObject.SetActive(false);
+				this.transform.FindChild("Glass1").gameObject.SetActive(false);
+				this.transform.FindChild("Glass3").gameObject.SetActive(true);
 				//this.transform.FindChild("Shatter Effect").gameObject.SetActive(true);	
 				Vector3 spawnPosition = this.gameObject.transform.position;
-				spawnPosition.z += 40;
+				spawnPosition.z += 10;
 				spawnPosition.y += 3;
 				MonoBehaviour.Instantiate(Zombie, spawnPosition, Quaternion.identity);			
 		}
