@@ -19,7 +19,6 @@ public class LevelAttributes : MonoBehaviour
     private static LevelAttributes _instance;
 
     // Create the player when the level starts
-    /*
     void Awake()
     {
         Player = (Transform)Instantiate(Player, StartPoint.position, Quaternion.identity);
@@ -34,7 +33,7 @@ public class LevelAttributes : MonoBehaviour
         playerController.Spawn();
         Camera.main.GetComponent<CameraScrolling>().Target = Player.transform;
     }
-    */
+
     // Create the boundaries
     void Start()
     {
