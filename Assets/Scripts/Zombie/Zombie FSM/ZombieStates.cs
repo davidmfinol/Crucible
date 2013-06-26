@@ -1,4 +1,4 @@
-public enum ZombieStates
+public enum ZombieStates : int
 {
     Zombie_Idle,
     Zombie_Running,

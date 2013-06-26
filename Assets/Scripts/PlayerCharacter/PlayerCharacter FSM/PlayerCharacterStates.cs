@@ -1,4 +1,4 @@
-public enum PlayerCharacterStates
+public enum PlayerCharacterStates : int
 {
     // Ground Basic
     PlayerCharacter_Idle,

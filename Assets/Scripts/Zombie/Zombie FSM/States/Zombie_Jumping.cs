@@ -10,14 +10,20 @@ public class Zombie_Jumping : ZombieFSM_IState
     {
         base.StartState();
         Controller.animation.CrossFade("Jumping");
-        VerticalSpeed = Mathf.Sqrt(2 * ((ZombieFSM)Controller).JumpHeight * Controller.Gravity);
+        VerticalSpeed = Mathf.Sqrt(2 * Controller.JumpHeight * Controller.Gravity);
     }
 
     protected override Enum OnUpdate()
     {
         ZombieStates nextState = ZombieStates.Zombie_Jumping;
 
+        Debug.Log("Spent a frame jumping");
+
         // Determine movement
+        float targetRunSpeed = 0;
+        if (Left ^ Right)
+            targetRunSpeed = Right ? Direction.x * Controller.MaxHorizontalSpeed : -Direction.x * Controller.MaxHorizontalSpeed;
+        HorizontalSpeed = Controller.ApplyRunning(targetRunSpeed);
         VerticalSpeed = Controller.ApplyGravity();
 
         // Determine next state

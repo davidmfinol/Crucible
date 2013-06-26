@@ -17,7 +17,13 @@ public class Zombie_Falling : ZombieFSM_IState
     {
         ZombieStates nextState = ZombieStates.Zombie_Falling;
 
+        Debug.Log("Spent a frame falling");
+
         // Determine movement
+        float targetRunSpeed = 0;
+        if (Left ^ Right)
+            targetRunSpeed = Right ? Direction.x * Controller.MaxHorizontalSpeed : -Direction.x * Controller.MaxHorizontalSpeed;
+        HorizontalSpeed = Controller.ApplyRunning(targetRunSpeed);
         VerticalSpeed = Controller.ApplyGravity();
 
         // Determine next state

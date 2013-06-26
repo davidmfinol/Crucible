@@ -91,6 +91,12 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         return false;
     }
 
+    public float ApplyRunning(float targetSpeed)
+    {
+        float accelerationSmoothing = HorizontalAcceleration * Time.deltaTime;
+        return Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
+    }
+
     public bool AwareOfPlayer
     {
         get { return awareOfPlayer; }

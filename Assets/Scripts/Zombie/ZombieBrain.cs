@@ -1,13 +1,22 @@
 using UnityEngine;
 using System.Collections;
 using Pathfinding;
+using System;
 
 public class ZombieBrain
 {
-    //The point to move to
-    public Vector3 targetPosition;
+    // Zombie Brain Memory
+    public Vector3 Target = new Vector3(-22f, 1.4f, 10f); // where the zombie wants to go
+    public Path Path = null; // how it plans to get there
+    private int _currentPathWaypoint = 0; // where it is on that path
+    private float _pathLeniency = 10.0f; // how close to a node on the path the zombie must get before moving to the next node
+    private bool _searchingForPath = false; // Is the zombie currently looking for a path?
 
+    // Zombie Brain componenents
+    private Seeker _seeker; // A* PathFinding
     private ZombieFSM _zombieController;
+
+    // Zombie Brain outputs
     private float _horizontal = 0;
     private float _vertical = 0;
     private bool _attack = false;
@@ -16,12 +25,60 @@ public class ZombieBrain
     public ZombieBrain(ZombieFSM zombie)
     {
         _zombieController = zombie;
+        _seeker = _zombieController.GetComponent<Seeker>();
     }
 
-    //TODO
+    // Zombie using it's brain, yo
     public void Update()
     {
+        //Debug.Log("Thinking...");
+        // We do this by default
+        _attack = _zombieController.PlayerIsInAttackRange();
+        _horizontal = 0;
+        _vertical = 0;
+        _jump = false;
 
+        // Zombie doesn't need to think when player is too far away
+        //if (!_zombieController.AwareOfPlayer)
+        //    return;
+
+        // We need to make sure we have a plan for reaching our target
+        if (Path == null || (Target - Path.vectorPath[Path.vectorPath.Count-1]).sqrMagnitude > _pathLeniency )
+        {
+            if(!_searchingForPath)
+            {
+                _seeker.StartPath(_zombieController.transform.position, Target, OnPathFound);
+                _searchingForPath = true;
+            }
+            return;
+        }
+
+        // Move on if we reached our waypoint
+        if ((_zombieController.transform.position - Path.vectorPath[_currentPathWaypoint]).sqrMagnitude < _pathLeniency)
+            _currentPathWaypoint++;
+        //Debug.Log(_currentPathWaypoint);
+
+        if (_currentPathWaypoint >= Path.vectorPath.Count) // that's the end of the line for you, jack!
+            return;
+
+        // Jump if we need to get up
+        _jump = Path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y;
+        // Go left or right based on horizontal position
+        _horizontal = Path.vectorPath[_currentPathWaypoint].x > _zombieController.transform.position.x ? 1 : -1;
+        // Press up or down based on z values
+        _vertical = Path.vectorPath[_currentPathWaypoint].z > _zombieController.transform.position.z ? 1 : -1;
+    }
+
+    public void OnPathFound(Path p)
+    {
+        _searchingForPath = false;
+        if (!p.error)
+        {
+            Path = p;
+            foreach (Vector3 point in p.vectorPath)
+                Debug.Log(point);
+            _currentPathWaypoint = 0;
+        }
     }
 
     public float Horizontal
