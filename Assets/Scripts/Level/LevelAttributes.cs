@@ -4,8 +4,8 @@ using System.Collections;
 public class LevelAttributes : MonoBehaviour
 {
     // Keep track of the player and where he starts in the level
-    public Transform Player;
-    public Transform StartPoint;
+    public Transform Player = null;
+    public Transform StartPoint = null;
 
     // Size of the level
     public Rect Bounds;
@@ -21,17 +21,26 @@ public class LevelAttributes : MonoBehaviour
     // Create the player when the level starts
     void Awake()
     {
-        Player = (Transform)Instantiate(Player, StartPoint.position, Quaternion.identity);
-        PlayerCharacterFSM playerController = Player.GetComponent<PlayerCharacterFSM>();
-        Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
-        Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-        whip.parent = bone;
-        whip.Rotate(new Vector3(90, 0, 90));
-        whip.Translate(new Vector3(0.2f, 0.1f, 0.1f));
-        playerController.Weapon = whip;
-        playerController.SpawnPoint = StartPoint;
-        playerController.Spawn();
-        Camera.main.GetComponent<CameraScrolling>().Target = Player.transform;
+        if (Player != null)
+        {
+            Player = (Transform)Instantiate(Player, StartPoint.position, Quaternion.identity);
+            PlayerCharacterFSM playerController = Player.GetComponent<PlayerCharacterFSM>();
+            Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
+            Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
+            whip.parent = bone;
+            whip.Rotate(new Vector3(90, 0, 90));
+            whip.Translate(new Vector3(0.2f, 0.1f, 0.1f));
+            playerController.Weapon = whip;
+            playerController.SpawnPoint = StartPoint;
+            playerController.Spawn();
+        }
+        else
+            Debug.Log("Load Level without player");
+        CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
+        if (cameraScript != null && Player != null)
+            cameraScript.Target = Player.transform;
+        else
+            Debug.Log("Camera not pointed at level load");
     }
 
     // Create the boundaries

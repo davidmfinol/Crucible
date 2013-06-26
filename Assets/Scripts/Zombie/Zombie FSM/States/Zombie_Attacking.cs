@@ -15,7 +15,7 @@ public class Zombie_Attacking : ZombieFSM_IState
         Controller.animation["Attacking"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("Attacking");
         Controller.ZombieAudioSource.PlayAttack();
-        Direction = LevelAttributes.Instance.Player.transform.position.x > Controller.transform.position.x ? Vector3.right : Vector3.left;
+        // Direction does not change while attacking
         VerticalSpeed = GroundVerticalSpeed;
 
         // We need to load the bone the first time

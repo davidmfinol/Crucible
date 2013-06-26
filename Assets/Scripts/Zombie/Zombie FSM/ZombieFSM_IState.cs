@@ -10,8 +10,8 @@ public abstract class ZombieFSM_IState : CharacterFiniteStateMachineState
     public override void StartState()
     {
         base.StartState();
-        if (Controller.AwareOfPlayer && !Controller.PlayerIsInNoticeRange())
-            Controller.AwareOfPlayer = false;
+        //if (Controller.AwareOfPlayer && !Controller.PlayerIsInNoticeRange())
+        //    Controller.AwareOfPlayer = false;
     }
 
     public sealed override Enum Update()
@@ -28,26 +28,26 @@ public abstract class ZombieFSM_IState : CharacterFiniteStateMachineState
 
     protected bool Left
     {
-        get { return Controller.Brain.Horizontal < 0; }
+        get { return Controller.Brain != null && Controller.Brain.Horizontal < 0; }
     }
     protected bool Right
     {
-        get { return Controller.Brain.Horizontal > 0; }
+        get { return Controller.Brain != null && Controller.Brain.Horizontal > 0; }
     }
     protected bool Up
     {
-        get { return Controller.Brain.Vertical > 0 ; }
+        get { return Controller.Brain != null && Controller.Brain.Vertical > 0; }
     }
     protected bool Down
     {
-        get { return Controller.Brain.Vertical < 0; }
+        get { return Controller.Brain != null && Controller.Brain.Vertical < 0; }
     }
     protected bool Attack
     {
-        get { return Controller.Brain.Attack; }
+        get { return Controller.Brain != null && Controller.Brain.Attack; }
     }
     protected bool Jump
     {
-        get { return Controller.Brain.Jump; }
+        get { return Controller.Brain != null && Controller.Brain.Jump; }
     }
 }

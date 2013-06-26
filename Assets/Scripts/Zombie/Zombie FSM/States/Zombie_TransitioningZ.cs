@@ -9,6 +9,7 @@ public class Zombie_TransitioningZ : ZombieFSM_IState
 
     public override void StartState()
     {
+        base.StartState();
         //TODO:
     }
 
