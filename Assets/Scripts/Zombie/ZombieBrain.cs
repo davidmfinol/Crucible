@@ -56,7 +56,7 @@ public class ZombieBrain
         // Move on if we reached our waypoint
         if ((_zombieController.transform.position - Path.vectorPath[_currentPathWaypoint]).sqrMagnitude < _pathLeniency)
             _currentPathWaypoint++;
-        //Debug.Log(_currentPathWaypoint);
+        Debug.Log("On Step " + _currentPathWaypoint + ", which is " + Path.vectorPath[_currentPathWaypoint]);
 
         if (_currentPathWaypoint >= Path.vectorPath.Count) // that's the end of the line for you, jack!
             return;
@@ -75,8 +75,6 @@ public class ZombieBrain
         if (!p.error)
         {
             Path = p;
-            foreach (Vector3 point in p.vectorPath)
-                Debug.Log(point);
             _currentPathWaypoint = 0;
         }
     }

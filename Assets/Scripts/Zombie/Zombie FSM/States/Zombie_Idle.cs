@@ -22,15 +22,13 @@ public class Zombie_Idle : ZombieFSM_IState
     {
         ZombieStates nextState = ZombieStates.Zombie_Idle;
 
-        Debug.Log("Spent a frame idling");
-
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
         else if (Controller.PlayerIsInNoticeRange())
             nextState = ZombieStates.Zombie_Noticing;
         else if (Jump)
             nextState = ZombieStates.Zombie_Jumping;
-        else if ((Up || Down) && Controller.CanTransitionZ)
+        else if ( ((Up && Controller.ZLevel != Controller.Z_Up) || (Down && Controller.ZLevel != Controller.Z_Down)) && Controller.CanTransitionZ)
             nextState = ZombieStates.Zombie_TransitioningZ;
         else if(Left || Right)
             nextState = ZombieStates.Zombie_Running;

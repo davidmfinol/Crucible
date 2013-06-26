@@ -2,10 +2,11 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+[RequireComponent(typeof(Seeker))]
 public class ZombieFSM : CharacterFiniteStateMachineBase
 {
     // How high the zombie jumps
-    public float JumpHeight = 4.0f;
+    public float JumpHeight = 6.0f;
 
     // How fast the zombie runs
     public float MaxHorizontalSpeed = 7.0f;
@@ -74,7 +75,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         }
     }
 
-    // Is the player in the range that a zombie can notice?
+    // Is the player in the range that the zombie can notice?
     public bool PlayerIsInNoticeRange()
     {
         if (LevelAttributes.Instance.Player != null)
@@ -82,7 +83,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
                 && (Mathf.Abs(transform.position.y - LevelAttributes.Instance.Player.transform.position.y) < AwarenessRange);
         return false;
     }
-    // Is the player in the range that a zombie could feasibly hit him?
+    // Is the player in the range that the zombie could feasibly hit him?
     public bool PlayerIsInAttackRange()
     {
         if (LevelAttributes.Instance.Player != null)

@@ -9,6 +9,7 @@ public class Zombie_Landing : ZombieFSM_IState
     public override void StartState()
     {
         base.StartState();
+        Controller.animation["JumpLanding"].speed = 10; //TODO: MAYBE A BETTER WAY?
         Controller.animation["JumpLanding"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("JumpLanding");
         HorizontalSpeed = 0;
@@ -18,8 +19,6 @@ public class Zombie_Landing : ZombieFSM_IState
     protected override Enum OnUpdate()
     {
         ZombieStates nextState = ZombieStates.Zombie_Landing;
-
-        Debug.Log("Spent a frame Landing");
 
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;

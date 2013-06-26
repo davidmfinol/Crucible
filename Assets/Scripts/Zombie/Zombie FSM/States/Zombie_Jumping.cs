@@ -17,8 +17,6 @@ public class Zombie_Jumping : ZombieFSM_IState
     {
         ZombieStates nextState = ZombieStates.Zombie_Jumping;
 
-        Debug.Log("Spent a frame jumping");
-
         // Determine movement
         float targetRunSpeed = 0;
         if (Left ^ Right)
@@ -27,7 +25,7 @@ public class Zombie_Jumping : ZombieFSM_IState
         VerticalSpeed = Controller.ApplyGravity();
 
         // Determine next state
-        if (IsGrounded)
+        if (Duration > 0 && IsGrounded)
             nextState = ZombieStates.Zombie_Landing;
         else if (VerticalSpeed < 0)
             nextState = ZombieStates.Zombie_Falling;
