@@ -67,7 +67,7 @@ public class ZombieBrain
             return;
 
         // Jump if we need to get up
-        _jump = Path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y;
+        _jump = (_currentPathWaypoint < Path.vectorPath.Count - 1) && Path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y;
         // Go left or right based on horizontal position
         _horizontal = Path.vectorPath[_currentPathWaypoint].x > _zombieController.transform.position.x ? 1 : -1;
         // Press up or down based on z values
