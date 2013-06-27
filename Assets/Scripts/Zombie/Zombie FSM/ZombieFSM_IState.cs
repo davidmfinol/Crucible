@@ -7,13 +7,6 @@ public abstract class ZombieFSM_IState : CharacterFiniteStateMachineState
 {
     public ZombieFSM_IState(ZombieFSM controller) : base(controller) { }
 
-    public override void StartState()
-    {
-        base.StartState();
-        if (Controller.AwareOfPlayer && !Controller.PlayerIsInNoticeRange())
-            Controller.AwareOfPlayer = false;
-    }
-
     public sealed override Enum Update()
     {
         Controller.Brain.Update();

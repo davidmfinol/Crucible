@@ -21,18 +21,20 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     public float AttackRange = 1.0f;
 
     // Is the zombie aware of the player?
-    private bool awareOfPlayer = false;
+    private bool _awareOfPlayer = false;
 
     // Making zombie sounds
     private ZombieAudioSource _zombieAudioSource;
 
     // Current brain of the Zombie(tells it what to do)
     private ZombieBrain _brain;
+    private PlayerCharacterFSM _playerController;
 
     void Start()
     {
         _zombieAudioSource = GetComponentInChildren<ZombieAudioSource>();
         _brain = new ZombieBrain(this);
+        _playerController = LevelAttributes.Instance.Player.GetComponent<PlayerCharacterFSM>();
     }
 
     public override Type GetStateEnumType()
@@ -82,15 +84,17 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         if (player != null)
             return (Mathf.Abs(transform.position.x - player.transform.position.x) < AwarenessRange)
                 && (Mathf.Abs(transform.position.y - player.transform.position.y) < AwarenessRange)
-                && ZLevel == player.GetComponent<PlayerCharacterFSM>().ZLevel;
+                && ZLevel == _playerController.ZLevel;
         return false;
     }
     // Is the player in the range that the zombie could feasibly hit him?
     public bool PlayerIsInAttackRange()
     {
-        if (LevelAttributes.Instance.Player != null)
-            return (Mathf.Abs(transform.position.x - LevelAttributes.Instance.Player.transform.position.x) < AttackRange)
-                && (Mathf.Abs(transform.position.y - LevelAttributes.Instance.Player.transform.position.y) < AttackRange);
+        Transform player = LevelAttributes.Instance.Player;
+        if (player != null)
+            return (Mathf.Abs(transform.position.x - player.transform.position.x) < AttackRange)
+                && (Mathf.Abs(transform.position.y - player.transform.position.y) < AttackRange)
+                && ZLevel == _playerController.ZLevel;
         return false;
     }
 
@@ -102,8 +106,8 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
 
     public bool AwareOfPlayer
     {
-        get { return awareOfPlayer; }
-        set { awareOfPlayer = value; }
+        get { return _awareOfPlayer; }
+        set { _awareOfPlayer = value; }
     }
 
     public ZombieAudioSource ZombieAudioSource
