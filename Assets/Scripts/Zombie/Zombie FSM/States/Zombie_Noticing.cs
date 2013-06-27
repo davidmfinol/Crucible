@@ -12,6 +12,7 @@ public class Zombie_Noticing : ZombieFSM_IState
         Controller.animation["JumpFall"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("JumpFall");
         Controller.ZombieAudioSource.PlayNotice();
+        Controller.AwareOfPlayer = true;
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
     }

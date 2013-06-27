@@ -16,7 +16,7 @@ public class TransitionZone : MonoBehaviour
             bool transit = false;
             if (UsesFloorCheck)
                 transit = transit || (character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y);
-            if (UsesCeilingCheck) 
+            else if (UsesCeilingCheck) 
                 transit = transit || (character.collider.bounds.center.y + character.Height/2 <= collider.bounds.max.y);
             character.CanTransitionZ = transit;
         }
@@ -33,7 +33,7 @@ public class TransitionZone : MonoBehaviour
             bool transit = false;
             if (UsesFloorCheck)
                 transit = transit || (character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y);
-            if (UsesCeilingCheck)
+            else if (UsesCeilingCheck)
                 transit = transit || (character.collider.bounds.center.y + character.Height / 2 <= collider.bounds.max.y);
             character.CanTransitionZ = transit;
         }
