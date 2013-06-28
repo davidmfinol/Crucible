@@ -7,7 +7,6 @@ using UnityEditor;
 using System.Collections;
 using Pathfinding;
 
-/**
 [CustomGraphEditor (typeof(ZoneGraph), "Zone Graph")]
 public class ZoneGraphEditor : GraphEditor
 {
@@ -21,4 +20,3 @@ public class ZoneGraphEditor : GraphEditor
         graph.CollisionMask = EditorGUILayoutx.LayerMaskField("Mask", graph.CollisionMask);
     }
 }
-*/
