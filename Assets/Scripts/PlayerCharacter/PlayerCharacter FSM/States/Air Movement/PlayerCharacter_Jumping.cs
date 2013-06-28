@@ -40,8 +40,9 @@ public class PlayerCharacter_Jumping : PlayerCharacterFSM_IState
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLadder;
         else if (Controller.CanClimbPipe && (UpHold || DownHold))
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingPipe;
-        else if (Controller.CanHangOffObject && (Controller.ActiveHangTarget is Ledge || UpDown) )
+        else if (Controller.CanHangOffObject && ( Controller.CanHangOffLedge || UpDown) )
         {
+            HorizontalSpeed = 0;
             VerticalSpeed = 0;
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         }

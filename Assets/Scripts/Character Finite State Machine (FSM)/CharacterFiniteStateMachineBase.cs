@@ -282,7 +282,11 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     }
     public bool CanHangOffObject
     {
-        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject) && ActiveHangTarget.transform.position.z == ZLevel /*&& (Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < 0.3)*/; } //TODO: CHECK WITHIN RANGE
+        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject) && ActiveHangTarget.transform.position.z == ZLevel; }
+    }
+    public bool CanHangOffLedge
+    {
+        get { return (ActiveHangTarget is Ledge && (Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < 0.3)); }
     }
     public bool CanClimbLadder
     {
