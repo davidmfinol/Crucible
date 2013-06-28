@@ -27,10 +27,11 @@ public class LevelAttributes : MonoBehaviour
             PlayerCharacterFSM playerController = Player.GetComponent<PlayerCharacterFSM>();
             Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
             Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-            whip.parent = bone;
-            whip.Rotate(new Vector3(90, 0, 90));
-            whip.Translate(new Vector3(0.2f, 0.1f, 0.1f));
-            playerController.Weapon = whip;
+			Transform mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
+            mine.parent = bone;
+            mine.Rotate(new Vector3(90, 0, 90));
+            mine.Translate(new Vector3(0.2f, 0.1f, 0.1f));
+            playerController.Weapon = mine;
             playerController.SpawnPoint = StartPoint;
             playerController.Spawn();
         }

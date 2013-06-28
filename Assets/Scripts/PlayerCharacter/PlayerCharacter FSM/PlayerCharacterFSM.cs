@@ -65,6 +65,7 @@ public class PlayerCharacterFSM : CharacterFiniteStateMachineBase
 
     // Player's Weapon Arsenal!
     public Transform Whip;
+	public Transform Mine;
     public Transform Weapon;
 
     // How far the player fell
