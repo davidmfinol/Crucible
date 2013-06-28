@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
         SetHitBoxes(transform, _hitBoxesActive);
     }
 
-    public void ActivateAttack(int attackID)
+    public virtual void ActivateAttack(int attackID)
     {
         ActivateHitBox(true);
         if(animation != null)
@@ -23,14 +23,14 @@ public class Weapon : MonoBehaviour
             sound.Play(attackID);
     }
 
-    public void Deactivate()
+    public virtual void Deactivate()
     {
         ActivateHitBox(false);
         if (animation != null)
             animation.CrossFade(IdleAnimationName);
     }
 
-    private void ActivateHitBox(bool activate)
+    public virtual void ActivateHitBox(bool activate)
     {
         if (activate != _hitBoxesActive)
             SetHitBoxes(transform, activate);

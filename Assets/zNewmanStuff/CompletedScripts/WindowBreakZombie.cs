@@ -5,6 +5,7 @@ using System.Collections;
 public class WindowBreakZombie : MonoBehaviour {
 	
     public Transform Zombie;
+	ZombieCollider ZC;
 	
 	private bool isZombieBreakoutWindow; // = false;	
 	private bool isBroken;
@@ -25,7 +26,8 @@ public class WindowBreakZombie : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		//if(isBroken)
+			//Zombie.GetComponent<CharacterController>().enabled = false;			
 	}
 	
     void OnTriggerStay(Collider other){	
@@ -38,7 +40,14 @@ public class WindowBreakZombie : MonoBehaviour {
 			Vector3 spawnPosition = this.transform.FindChild("Glass1").position;
 			spawnPosition.z += 1;
 			spawnPosition.y += 1;
-			MonoBehaviour.Instantiate(Zombie, spawnPosition, Quaternion.identity);			
+
+			MonoBehaviour.Instantiate(Zombie, spawnPosition, Quaternion.identity);
+			//Zombie.collider.isTrigger = true;
+			//Zombie.transform.collider.isTrigger = true;
+			//Zombie.GetComponent<ZombieFSM>().enabled = true;
+			//Zombie.gameObject.collider.isTrigger = true;
+
+
 		}
 	}	
 	
