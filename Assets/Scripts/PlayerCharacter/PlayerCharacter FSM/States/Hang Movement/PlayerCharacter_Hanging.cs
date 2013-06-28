@@ -72,7 +72,7 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
         }
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
-        else if (DownDown || RightDown || LeftDown)
+        else if (DownDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
 
         return nextState;
