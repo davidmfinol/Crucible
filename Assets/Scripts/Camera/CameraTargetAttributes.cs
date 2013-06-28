@@ -20,14 +20,27 @@ public class CameraTargetAttributes : MonoBehaviour
     // How much should the camera shake based off the amount of "action" surrounding this target?
     public float Chaos = 0.0f;
 
+    private float prevHeight;
+    private float prevDist;
+    private bool needed = false;
+
     // We will likely need to find the surrounding amount of "chaos" here
     void Update()
     {
         // @TODO CALCULATE CHAOS
         if (transform.GetComponent<PlayerCharacterFSM>().ZLevel == 16)
         {
-            HeightOffset = 10;
-            DistanceModifier = 25;
+            prevHeight = HeightOffset;
+            prevDist = DistanceModifier;
+            HeightOffset = 5;
+            DistanceModifier = 1.6f;
+            needed = true;
+        }
+        else 
+        {
+            needed = false;
+            HeightOffset = 0;
+            DistanceModifier = 1;
         }
     }
 }
