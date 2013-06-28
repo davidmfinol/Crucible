@@ -24,5 +24,10 @@ public class CameraTargetAttributes : MonoBehaviour
     void Update()
     {
         // @TODO CALCULATE CHAOS
+        if (transform.GetComponent<PlayerCharacterFSM>().ZLevel == 16)
+        {
+            HeightOffset = 10;
+            DistanceModifier = 25;
+        }
     }
 }
