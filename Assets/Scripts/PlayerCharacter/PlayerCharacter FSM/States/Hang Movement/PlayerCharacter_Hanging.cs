@@ -19,13 +19,9 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
         Controller.animation["Hanging"].wrapMode = WrapMode.Once;
         Controller.animation.CrossFade("HangingPipe");
 
-        Controller.ActivePlatform = Controller.ActiveHangTarget.transform;
-        Controller.ActiveGlobalPlatformPoint = Controller.transform.position;
-        Controller.ActiveLocalPlatformPoint = Controller.ActivePlatform.InverseTransformPoint(Controller.transform.position);
-
         HasDoubleJumped = false;
         VerticalSpeed = 0.0f;
-        if (Controller.ActiveHangTarget.IsMultiZone())
+        if (Controller.ActiveHangTarget.DoesFaceZAxis())
         {
             HorizontalSpeed = 0.0f;
             Direction = Vector3.zero;
@@ -41,11 +37,11 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
 
         //snap to correct location
         /*
-        if(Controller.ActiveHangTarget.IsMultiZone())
+        if(Controller.ActiveHangTarget.DoesFaceZAxis())
         {
             Controller.transform.position = new Vector3(Controller.transform.position.x, Controller.ActiveHangTarget.transform.position.y - Controller.collider.bounds.extents.x, Controller.transform.position.z);
         }
-        else if (Controller.ActiveHangTarget.IsSingleZone())
+        else if (Controller.ActiveHangTarget.DoesFaceXAxis())
         {
             if(Direction.x != 0)
             {
@@ -64,11 +60,14 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
         if (!Controller.animation.IsPlaying("Hanging") && !Controller.animation.IsPlaying("HanginLoop"))
             Controller.animation.CrossFade("HanginLoop");
 
+        // Allow us to move with the target
+        if (Controller.ActiveHangTarget != null)
+            Controller.ActivePlatform = Controller.ActiveHangTarget.transform;
+
         // Determine next state
         Debug.Log(Controller.ActiveHangTarget);
         if (Controller.ActiveHangTarget is Ledge && (UpDown || ForwardDown))
         {
-            Debug.Log("Should hold");
             _continueHolding = true;
             nextState = PlayerCharacterStates.PlayerCharacter_ClimbingLedge;
         }
@@ -84,11 +83,7 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
     protected override void OnExitState()
     {
         if (!_continueHolding)
-        {
-            Debug.Log("Not holding");
-            Controller.PreviousHangTarget = Controller.ActiveHangTarget;
             Controller.ActiveHangTarget = null;
-        }
     }
 
     public override bool IsWallHangState()

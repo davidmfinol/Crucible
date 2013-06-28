@@ -54,6 +54,10 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     private Vector3 _activeLocalPlatformPoint;
     private Vector3 _activeGlobalPlatformPoint;
 
+    // Support for hanging off of objects
+    private HangableObject _activeHangTarget;
+    private HangableObject _previousHangTarget;
+
     void Awake()
     {
         // Statemachine setup
@@ -147,6 +151,10 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     // Used to check with interactions with platforms
     public virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        // We only check for platforms if we don't already have one
+        if (ActivePlatform != null)
+            return;
+
         // Support for moving platforms
         if (Mathf.Abs(hit.moveDirection.y) > 0.9 && Mathf.Abs(hit.normal.y) > 0.9)
         {
@@ -256,6 +264,51 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
         get { return _activeGlobalPlatformPoint; }
         set { _activeGlobalPlatformPoint = value; }
     }
+    public HangableObject ActiveHangTarget
+    {
+        get { return _activeHangTarget; }
+        set
+        {
+            _previousHangTarget = _activeHangTarget;
+            _activeHangTarget = value;
+            if (_activeHangTarget == null)
+                _activePlatform = null;
+        }
+    }
+    public HangableObject PreviousHangTarget
+    {
+        get { return _previousHangTarget; }
+        set { _previousHangTarget = value; }
+    }
+    public bool CanHangOffObject
+    {
+        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject) && ActiveHangTarget.transform.position.z == ZLevel && (Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < 0.3); }
+    }
+    public bool CanClimbLadder
+    {
+        get { return ActiveHangTarget != null && ActiveHangTarget is Ladder && ActiveHangTarget.transform.position.z == ZLevel; }
+    }
+    public bool CanClimbPipe
+    {
+        get { return ActiveHangTarget != null && ActiveHangTarget is Pipe && ActiveHangTarget.transform.position.z == ZLevel; }
+    }
+    public bool CanHangOffObjectHorizontally
+    {
+        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceXAxis() && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)); }
+    }
+    public bool CanHangOffObjectVertically
+    {
+        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceZAxis() && !IsGrounded && IsHangTargetAbove; }
+    }
+    public bool IsHangTargetToRight
+    {
+        get { return (ActiveHangTarget != null) && transform.position.x < ActiveHangTarget.transform.position.x; }
+    }
+    public bool IsHangTargetAbove
+    {
+        get { return (ActiveHangTarget != null) && transform.position.y < ActiveHangTarget.transform.position.y; ; }
+    }
+
     public bool IsGrounded
     {
         get { return CharacterController.isGrounded; }

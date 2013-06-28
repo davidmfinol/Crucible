@@ -37,12 +37,12 @@ public abstract class CharacterFiniteStateMachineState
             Controller.transform.position = Controller.transform.position + moveDistance;
         }
 
+        // Recheck platform every frame
+        if (Controller.ActivePlatform != null)
+            Controller.ActivePlatform = null;
+
         // We let the individual state do their processing and set the desired Direction, VerticalSpeed, and HorizontalSpeed
         nextState = OnUpdate();
-
-        // Recheck platform every frame
-        if (Controller.ActivePlatform != null && !"Hangable".Equals(Controller.ActivePlatform.tag))
-            Controller.ActivePlatform = null;
 
         // Update the time spent on this state
         Duration += Time.deltaTime;
@@ -82,7 +82,7 @@ public abstract class CharacterFiniteStateMachineState
         else
             Controller.transform.rotation = Quaternion.Slerp(Controller.transform.rotation, Quaternion.Euler(Vector3.zero), Time.deltaTime * Controller.RotationSmoothing);
 
-        // Moving platforms support
+        // Moving Platform support
         if (Controller.ActivePlatform != null)
         {
             Controller.ActiveGlobalPlatformPoint = Controller.transform.position;

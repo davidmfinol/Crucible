@@ -12,12 +12,12 @@ public class PlayerCharacter_ClimbingLedge : PlayerCharacterFSM_IState
     {
         Controller.animation["JumpingDownLeft"].time = 0;
         Controller.animation.CrossFade("JumpingDownLeft");
-        if (Controller.ActiveHangTarget.IsMultiZone())
+        if (Controller.ActiveHangTarget.DoesFaceZAxis())
         {
             HorizontalSpeed = 0.0f;
             VerticalSpeed = Controller.LedgeClimbingSpeed;
         }
-        else if (Controller.ActiveHangTarget.IsSingleZone())
+        else if (Controller.ActiveHangTarget.DoesFaceXAxis())
         {
             HorizontalSpeed = Controller.LedgeClimbingSpeed;
             VerticalSpeed = Controller.LedgeClimbingSpeed;

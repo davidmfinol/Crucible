@@ -77,8 +77,7 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
 
     public override bool ShouldMoveWithPlatform()
     {
-        // TODO: WHATS WITH THE TWO WALLHANG CHECKS?
-        return IsWallHangState() || (IsGroundState() && IsGrounded) || (IsWallHangState() && IsTouchingWall);
+        return IsWallHangState() || (IsGroundState() && IsGrounded);
     }
 
     public virtual bool IsGroundState()

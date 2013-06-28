@@ -66,12 +66,14 @@ public class ZombieBrain
         if (_currentPathWaypoint >= Path.vectorPath.Count) // that's the end of the line for you, jack!
             return;
 
-        // Jump if we need to get up
-        _jump = (_currentPathWaypoint < Path.vectorPath.Count - 1) && Path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y;
+        // We check if the player is our next target
+        if(_currentPathWaypoint < Path.vectorPath.Count - 1)
+        {
+            _jump = Path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y;
+            _vertical = Path.vectorPath[_currentPathWaypoint].z > _zombieController.ZLevel ? 1 : -1;
+        }
         // Go left or right based on horizontal position
         _horizontal = Path.vectorPath[_currentPathWaypoint].x > _zombieController.transform.position.x ? 1 : -1;
-        // Press up or down based on z values
-        _vertical = Path.vectorPath[_currentPathWaypoint].z > _zombieController.transform.position.z ? 1 : -1;
     }
 
     public void OnPathFound(Path p)

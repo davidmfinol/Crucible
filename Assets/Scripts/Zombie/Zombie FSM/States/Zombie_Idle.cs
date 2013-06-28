@@ -22,8 +22,6 @@ public class Zombie_Idle : ZombieFSM_IState
     {
         ZombieStates nextState = ZombieStates.Zombie_Idle;
 
-        Debug.Log(Controller.AwareOfPlayer);
-
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
         else if (!Controller.AwareOfPlayer && Controller.PlayerIsInNoticeRange())

@@ -4,42 +4,42 @@ using System.Collections.Generic;
 // This script must be attached to an object that a player can hang off
 public class HangableObject : MonoBehaviour
 {
-    public bool MultiZone = true;
+    public bool FacesZAxis = true;
 
     public virtual void OnTriggerStay(Collider other)
     {
-        PlayerCharacterFSM character = other.GetComponent<PlayerCharacterFSM>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null && character.PreviousHangTarget != this && character.ZLevel == transform.position.z)
                 character.ActiveHangTarget = this;
     }
 
     public virtual void OnTriggerExit(Collider other)
     {
-        PlayerCharacterFSM character = other.GetComponent<PlayerCharacterFSM>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null && character.ActiveHangTarget == this)
             character.ActiveHangTarget = null;
     }
 
     public virtual void OnCollisionStay(Collision collision)
     {
-        PlayerCharacterFSM character = collision.gameObject.GetComponent<PlayerCharacterFSM>();
+        CharacterFiniteStateMachineBase character = collision.gameObject.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null && character.PreviousHangTarget != this && character.ZLevel == transform.position.z)
             character.ActiveHangTarget = this;
     }
 
     public virtual void OnCollisionExit(Collision collision)
     {
-        PlayerCharacterFSM character = collision.gameObject.GetComponent<PlayerCharacterFSM>();
+        CharacterFiniteStateMachineBase character = collision.gameObject.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null && character.ActiveHangTarget == this)
             character.ActiveHangTarget = null;
     }
 
-    public virtual bool IsMultiZone()
+    public virtual bool DoesFaceZAxis()
     {
-        return MultiZone;
+        return FacesZAxis;
     }
-    public virtual bool IsSingleZone()
+    public virtual bool DoesFaceXAxis()
     {
-        return !MultiZone;
+        return !FacesZAxis;
     }
 }
