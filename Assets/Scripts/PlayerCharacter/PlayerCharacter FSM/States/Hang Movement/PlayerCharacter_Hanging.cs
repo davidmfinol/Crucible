@@ -65,7 +65,6 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
             Controller.ActivePlatform = Controller.ActiveHangTarget.transform;
 
         // Determine next state
-        Debug.Log(Controller.ActiveHangTarget);
         if (Controller.ActiveHangTarget is Ledge && (UpDown || ForwardDown))
         {
             _continueHolding = true;
@@ -76,7 +75,6 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
         else if (DownDown || RightDown || LeftDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
 
-        Debug.Log(nextState);
         return nextState;
     }
 

@@ -9,8 +9,8 @@ public class HangableObject : MonoBehaviour
     public virtual void OnTriggerStay(Collider other)
     {
         CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
-        if (character != null && character.PreviousHangTarget != this && character.ZLevel == transform.position.z)
-                character.ActiveHangTarget = this;
+        if (character != null && character.ZLevel == transform.position.z)
+            character.ActiveHangTarget = this;
     }
 
     public virtual void OnTriggerExit(Collider other)
@@ -23,7 +23,7 @@ public class HangableObject : MonoBehaviour
     public virtual void OnCollisionStay(Collision collision)
     {
         CharacterFiniteStateMachineBase character = collision.gameObject.GetComponent<CharacterFiniteStateMachineBase>();
-        if (character != null && character.PreviousHangTarget != this && character.ZLevel == transform.position.z)
+        if (character != null && character.ZLevel == transform.position.z)
             character.ActiveHangTarget = this;
     }
 

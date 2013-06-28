@@ -27,10 +27,4 @@ public class Mine : Weapon {
 		
 	}
 	
-    public override void ActivateHitBox(bool activate)
-    {
-		
-	}
-		
-	
 }
