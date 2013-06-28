@@ -9,7 +9,7 @@ public class WeaponsGui : MonoBehaviour {
 	bool Animating = false;
 	bool LeftSelect = false;
 	bool RightSelect = false;
-	int AnimationSteps = 16; // Needs to be even number
+	int AnimationSteps = 32; // Needs to be even number
 	int CurrentAnimationStep;
 	
 	GameObject Slot1; // = GameObject.Find("GuiSlot1");
@@ -34,9 +34,14 @@ public class WeaponsGui : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Slot1 = GameObject.Find("GuiSlot1");
-		Slot2 = GameObject.Find("GuiSlot2");
-		Slot3 = GameObject.Find("GuiSlot3");	
+		
+		Slot1 = this.transform.FindChild("GuiSlot1").gameObject;
+		Slot2 = this.transform.FindChild("GuiSlot2").gameObject;
+		Slot3 = this.transform.FindChild("GuiSlot3").gameObject;
+		
+		//Slot1 = GameObject.Find("GuiSlot1");
+		//Slot2 = GameObject.Find("GuiSlot2");
+		//Slot3 = GameObject.Find("GuiSlot3");	
 		
 		Slots = new ArrayList(){Slot1, Slot2, Slot3};
 		
@@ -71,7 +76,7 @@ public class WeaponsGui : MonoBehaviour {
 		
 		if(!Animating){
 			// Select Left Slot
-			if(Input.GetKeyDown(KeyCode.O)){
+			if(Input.GetKeyDown(KeyCode.Q)){
 				Animating = true;
 				LeftSelect = true;
 				
@@ -87,7 +92,7 @@ public class WeaponsGui : MonoBehaviour {
 				
 			}
 			// Select Right Slot
-			else if(Input.GetKeyDown(KeyCode.P)){
+			else if(Input.GetKeyDown(KeyCode.E)){
 				Animating = true;
 				RightSelect = true;
 				
