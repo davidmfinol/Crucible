@@ -35,7 +35,7 @@ public class PlayerCharacter_Falling : PlayerCharacterFSM_IState
         VerticalSpeed = Controller.ApplyGravity();
 
         // Determine next state
-        if (Controller.CanHangOffObject && (Controller.ActiveHangTarget is Ledge || UpDown))
+        if (Controller.CanHangOffObject && (Controller.ActiveHangTarget is Ledge || UpHold))
         {
             VerticalSpeed = 0;
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
