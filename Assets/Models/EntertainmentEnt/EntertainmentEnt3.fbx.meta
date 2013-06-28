@@ -832,6 +832,11 @@ ModelImporter:
     101652: transform3
     101654: transform4
     101656: transform5
+    101658: group
+    101660: group60
+    101662: LRPipe
+    101664: pasted__LRPipe
+    101666: pasted__LRPipe 1
     400000: BLProjector
     400002: BMProjector
     400004: BRProjector
@@ -1661,6 +1666,11 @@ ModelImporter:
     401652: transform3
     401654: transform4
     401656: transform5
+    401658: group
+    401660: group60
+    401662: LRPipe
+    401664: pasted__LRPipe
+    401666: pasted__LRPipe 1
     2300000: Circle
     2300002: pCube7
     2300004: pCube8
@@ -1759,6 +1769,9 @@ ModelImporter:
     2300190: pPlane3
     2300192: ProjectorCaseUR
     2300194: ProjectorUR
+    2300196: LRPipe
+    2300198: pasted__LRPipe
+    2300200: pasted__LRPipe 1
     3300000: Circle
     3300002: pCube7
     3300004: pCube8
@@ -1857,6 +1870,9 @@ ModelImporter:
     3300190: pPlane3
     3300192: ProjectorCaseUR
     3300194: ProjectorUR
+    3300196: LRPipe
+    3300198: pasted__LRPipe
+    3300200: pasted__LRPipe 1
     4300000: polySurface149
     4300002: polySurface152
     4300004: polySurface153
@@ -1955,6 +1971,9 @@ ModelImporter:
     4300190: polySurface198
     4300192: polySurface214
     4300194: polySurface213
+    4300196: LRPipe
+    4300198: pasted__LRPipe
+    4300200: pasted__LRPipe
     7400000: Take 001
     9500000: //RootNode
     11100000: //RootNode
