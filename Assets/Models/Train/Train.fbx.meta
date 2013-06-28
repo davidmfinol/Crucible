@@ -106,6 +106,99 @@ ModelImporter:
     100200: transform7
     100202: transform8
     100204: transform9
+    100206: polySurface100
+    100208: polySurface101
+    100210: polySurface102
+    100212: polySurface103
+    100214: polySurface104
+    100216: polySurface105
+    100218: polySurface52
+    100220: polySurface53
+    100222: polySurface54
+    100224: polySurface55
+    100226: polySurface56
+    100228: polySurface57
+    100230: polySurface58
+    100232: polySurface59
+    100234: polySurface60
+    100236: polySurface61
+    100238: polySurface62
+    100240: polySurface63
+    100242: polySurface64
+    100244: polySurface65
+    100246: polySurface66
+    100248: polySurface67
+    100250: polySurface68
+    100252: polySurface69
+    100254: polySurface70
+    100256: polySurface71
+    100258: polySurface72
+    100260: polySurface73
+    100262: polySurface74
+    100264: polySurface75
+    100266: polySurface76
+    100268: polySurface77
+    100270: polySurface78
+    100272: polySurface79
+    100274: polySurface80
+    100276: polySurface81
+    100278: polySurface82
+    100280: polySurface83
+    100282: polySurface84
+    100284: polySurface85
+    100286: polySurface86
+    100288: polySurface87
+    100290: polySurface88
+    100292: polySurface89
+    100294: polySurface90
+    100296: polySurface91
+    100298: polySurface92
+    100300: polySurface93
+    100302: polySurface94
+    100304: polySurface95
+    100306: polySurface96
+    100308: polySurface97
+    100310: polySurface98
+    100312: polySurface99
+    100314: transform34
+    100316: transform35
+    100318: transform36
+    100320: transform37
+    100322: transform38
+    100324: transform39
+    100326: transform40
+    100328: transform41
+    100330: transform42
+    100332: transform43
+    100334: transform44
+    100336: transform45
+    100338: transform46
+    100340: transform47
+    100342: transform48
+    100344: transform49
+    100346: transform50
+    100348: transform51
+    100350: transform52
+    100352: transform53
+    100354: transform54
+    100356: transform55
+    100358: transform56
+    100360: transform57
+    100362: transform58
+    100364: transform59
+    100366: transform60
+    100368: transform61
+    100370: transform62
+    100372: transform63
+    100374: transform64
+    100376: transform65
+    100378: transform66
+    100380: transform67
+    100382: transform68
+    100384: transform69
+    100386: transform70
+    100388: transform71
+    100390: transform72
     400000: group
     400002: group1
     400004: group2
@@ -209,6 +302,99 @@ ModelImporter:
     400200: transform7
     400202: transform8
     400204: transform9
+    400206: polySurface100
+    400208: polySurface101
+    400210: polySurface102
+    400212: polySurface103
+    400214: polySurface104
+    400216: polySurface105
+    400218: polySurface52
+    400220: polySurface53
+    400222: polySurface54
+    400224: polySurface55
+    400226: polySurface56
+    400228: polySurface57
+    400230: polySurface58
+    400232: polySurface59
+    400234: polySurface60
+    400236: polySurface61
+    400238: polySurface62
+    400240: polySurface63
+    400242: polySurface64
+    400244: polySurface65
+    400246: polySurface66
+    400248: polySurface67
+    400250: polySurface68
+    400252: polySurface69
+    400254: polySurface70
+    400256: polySurface71
+    400258: polySurface72
+    400260: polySurface73
+    400262: polySurface74
+    400264: polySurface75
+    400266: polySurface76
+    400268: polySurface77
+    400270: polySurface78
+    400272: polySurface79
+    400274: polySurface80
+    400276: polySurface81
+    400278: polySurface82
+    400280: polySurface83
+    400282: polySurface84
+    400284: polySurface85
+    400286: polySurface86
+    400288: polySurface87
+    400290: polySurface88
+    400292: polySurface89
+    400294: polySurface90
+    400296: polySurface91
+    400298: polySurface92
+    400300: polySurface93
+    400302: polySurface94
+    400304: polySurface95
+    400306: polySurface96
+    400308: polySurface97
+    400310: polySurface98
+    400312: polySurface99
+    400314: transform34
+    400316: transform35
+    400318: transform36
+    400320: transform37
+    400322: transform38
+    400324: transform39
+    400326: transform40
+    400328: transform41
+    400330: transform42
+    400332: transform43
+    400334: transform44
+    400336: transform45
+    400338: transform46
+    400340: transform47
+    400342: transform48
+    400344: transform49
+    400346: transform50
+    400348: transform51
+    400350: transform52
+    400352: transform53
+    400354: transform54
+    400356: transform55
+    400358: transform56
+    400360: transform57
+    400362: transform58
+    400364: transform59
+    400366: transform60
+    400368: transform61
+    400370: transform62
+    400372: transform63
+    400374: transform64
+    400376: transform65
+    400378: transform66
+    400380: transform67
+    400382: transform68
+    400384: transform69
+    400386: transform70
+    400388: transform71
+    400390: transform72
     2300000: polySurface20
     2300002: polySurface21
     2300004: polySurface22
@@ -240,6 +426,44 @@ ModelImporter:
     2300056: polySurface49
     2300058: polySurface50
     2300060: polySurface51
+    2300062: polySurface100
+    2300064: polySurface101
+    2300066: polySurface102
+    2300068: polySurface103
+    2300070: polySurface104
+    2300072: polySurface105
+    2300074: polySurface68
+    2300076: polySurface69
+    2300078: polySurface70
+    2300080: polySurface71
+    2300082: polySurface72
+    2300084: polySurface73
+    2300086: polySurface74
+    2300088: polySurface75
+    2300090: polySurface76
+    2300092: polySurface77
+    2300094: polySurface78
+    2300096: polySurface79
+    2300098: polySurface80
+    2300100: polySurface81
+    2300102: polySurface82
+    2300104: polySurface83
+    2300106: polySurface84
+    2300108: polySurface85
+    2300110: polySurface86
+    2300112: polySurface87
+    2300114: polySurface88
+    2300116: polySurface89
+    2300118: polySurface90
+    2300120: polySurface91
+    2300122: polySurface92
+    2300124: polySurface93
+    2300126: polySurface94
+    2300128: polySurface95
+    2300130: polySurface96
+    2300132: polySurface97
+    2300134: polySurface98
+    2300136: polySurface99
     3300000: polySurface20
     3300002: polySurface21
     3300004: polySurface22
@@ -271,6 +495,44 @@ ModelImporter:
     3300056: polySurface49
     3300058: polySurface50
     3300060: polySurface51
+    3300062: polySurface100
+    3300064: polySurface101
+    3300066: polySurface102
+    3300068: polySurface103
+    3300070: polySurface104
+    3300072: polySurface105
+    3300074: polySurface68
+    3300076: polySurface69
+    3300078: polySurface70
+    3300080: polySurface71
+    3300082: polySurface72
+    3300084: polySurface73
+    3300086: polySurface74
+    3300088: polySurface75
+    3300090: polySurface76
+    3300092: polySurface77
+    3300094: polySurface78
+    3300096: polySurface79
+    3300098: polySurface80
+    3300100: polySurface81
+    3300102: polySurface82
+    3300104: polySurface83
+    3300106: polySurface84
+    3300108: polySurface85
+    3300110: polySurface86
+    3300112: polySurface87
+    3300114: polySurface88
+    3300116: polySurface89
+    3300118: polySurface90
+    3300120: polySurface91
+    3300122: polySurface92
+    3300124: polySurface93
+    3300126: polySurface94
+    3300128: polySurface95
+    3300130: polySurface96
+    3300132: polySurface97
+    3300134: polySurface98
+    3300136: polySurface99
     4300000: polySurface20
     4300002: polySurface21
     4300004: polySurface22
@@ -302,7 +564,47 @@ ModelImporter:
     4300056: polySurface49
     4300058: polySurface50
     4300060: polySurface51
+    4300062: polySurface68
+    4300064: polySurface69
+    4300066: polySurface70
+    4300068: polySurface71
+    4300070: polySurface72
+    4300072: polySurface73
+    4300074: polySurface74
+    4300076: polySurface75
+    4300078: polySurface76
+    4300080: polySurface77
+    4300082: polySurface78
+    4300084: polySurface79
+    4300086: polySurface80
+    4300088: polySurface81
+    4300090: polySurface82
+    4300092: polySurface83
+    4300094: polySurface84
+    4300096: polySurface85
+    4300098: polySurface86
+    4300100: polySurface87
+    4300102: polySurface88
+    4300104: polySurface89
+    4300106: polySurface90
+    4300108: polySurface91
+    4300110: polySurface92
+    4300112: polySurface93
+    4300114: polySurface94
+    4300116: polySurface95
+    4300118: polySurface96
+    4300120: polySurface97
+    4300122: polySurface98
+    4300124: polySurface99
+    4300126: polySurface100
+    4300128: polySurface101
+    4300130: polySurface102
+    4300132: polySurface103
+    4300134: polySurface104
+    4300136: polySurface105
+    7400000: Take 001
     9500000: //RootNode
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -315,7 +617,28 @@ ModelImporter:
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
-    clipAnimations: []
+    clipAnimations:
+    - name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 500
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -353,5 +676,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   additionalBone: 1
-  animationType: 2
+  animationType: 1
   userData: 
