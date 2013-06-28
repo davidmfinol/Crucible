@@ -13,6 +13,6 @@ public class ExplosionCollision : MonoBehaviour {
 	
 	}
 	
-    void OnTriggerStay(Collider other){	
+    //void OnTriggerStay(Collider other){	
 	
 }
