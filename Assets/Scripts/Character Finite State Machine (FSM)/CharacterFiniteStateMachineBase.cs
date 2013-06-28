@@ -286,7 +286,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     }
     public bool CanHangOffLedge
     {
-        get { return (ActiveHangTarget is Ledge && (Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < 0.3)); }
+        get { return (ActiveHangTarget is Ledge && (Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < 0.3)) && PreviousHangTarget != ActiveHangTarget; }
     }
     public bool CanClimbLadder
     {
