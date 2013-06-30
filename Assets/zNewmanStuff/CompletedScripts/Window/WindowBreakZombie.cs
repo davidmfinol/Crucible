@@ -40,7 +40,7 @@ public class WindowBreakZombie : MonoBehaviour {
 			spawnPosition.z += 1;
 			spawnPosition.y += 1;
 			MonoBehaviour.Instantiate(Zombie, spawnPosition, Quaternion.identity);
-			this.transform.GetComponent<ZombieCollider>().startCollisionTimer(Zombie, 0.1f);	
+			this.transform.GetComponent<ZombieCollider>().startCollisionTimer(Zombie, 2.0f);	
 		}
 	}	
 	
