@@ -837,6 +837,14 @@ ModelImporter:
     101662: LRPipe
     101664: pasted__LRPipe
     101666: pasted__LRPipe 1
+    101668: AboveRing1
+    101670: group61
+    101672: group62
+    101674: pasted__AboveRing1
+    101676: pasted__group61
+    101678: pasted__pPlane4
+    101680: pPipe2
+    101682: pPlane4
     400000: BLProjector
     400002: BMProjector
     400004: BRProjector
@@ -1671,6 +1679,14 @@ ModelImporter:
     401662: LRPipe
     401664: pasted__LRPipe
     401666: pasted__LRPipe 1
+    401668: AboveRing1
+    401670: group61
+    401672: group62
+    401674: pasted__AboveRing1
+    401676: pasted__group61
+    401678: pasted__pPlane4
+    401680: pPipe2
+    401682: pPlane4
     2300000: Circle
     2300002: pCube7
     2300004: pCube8
@@ -1772,6 +1788,11 @@ ModelImporter:
     2300196: LRPipe
     2300198: pasted__LRPipe
     2300200: pasted__LRPipe 1
+    2300202: AboveRing1
+    2300204: pasted__AboveRing1
+    2300206: pasted__pPlane4
+    2300208: pPipe2
+    2300210: pPlane4
     3300000: Circle
     3300002: pCube7
     3300004: pCube8
@@ -1873,6 +1894,11 @@ ModelImporter:
     3300196: LRPipe
     3300198: pasted__LRPipe
     3300200: pasted__LRPipe 1
+    3300202: AboveRing1
+    3300204: pasted__AboveRing1
+    3300206: pasted__pPlane4
+    3300208: pPipe2
+    3300210: pPlane4
     4300000: polySurface149
     4300002: polySurface152
     4300004: polySurface153
@@ -1974,6 +2000,11 @@ ModelImporter:
     4300196: LRPipe
     4300198: pasted__LRPipe
     4300200: pasted__LRPipe
+    4300202: pPlane4
+    4300204: pPipe2
+    4300206: AboveRing1
+    4300208: pasted__pPlane4
+    4300210: pasted__AboveRing1
     7400000: Take 001
     9500000: //RootNode
     11100000: //RootNode
