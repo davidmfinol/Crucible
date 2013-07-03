@@ -96,6 +96,15 @@ ModelImporter:
     100180: transform7
     100182: transform8
     100184: transform9
+    100186: polySurface58
+    100188: polySurface59
+    100190: polySurface60
+    100192: polySurface61
+    100194: polySurface62
+    100196: polySurface63
+    100198: polySurface64
+    100200: polySurface65
+    100202: transform26
     400000: Mesh_polySurface31_000
     400002: Mesh_polySurface31_001
     400004: Point
@@ -189,6 +198,15 @@ ModelImporter:
     400180: transform7
     400182: transform8
     400184: transform9
+    400186: polySurface58
+    400188: polySurface59
+    400190: polySurface60
+    400192: polySurface61
+    400194: polySurface62
+    400196: polySurface63
+    400198: polySurface64
+    400200: polySurface65
+    400202: transform26
     2300000: Mesh_polySurface31_001
     2300002: polySurface10
     2300004: polySurface11
@@ -217,6 +235,14 @@ ModelImporter:
     2300050: polySurface53
     2300052: polySurface8
     2300054: polySurface9
+    2300056: polySurface58
+    2300058: polySurface59
+    2300060: polySurface60
+    2300062: polySurface61
+    2300064: polySurface62
+    2300066: polySurface63
+    2300068: polySurface64
+    2300070: polySurface65
     3300000: Mesh_polySurface31_001
     3300002: polySurface10
     3300004: polySurface11
@@ -245,6 +271,14 @@ ModelImporter:
     3300050: polySurface53
     3300052: polySurface8
     3300054: polySurface9
+    3300056: polySurface58
+    3300058: polySurface59
+    3300060: polySurface60
+    3300062: polySurface61
+    3300064: polySurface62
+    3300066: polySurface63
+    3300068: polySurface64
+    3300070: polySurface65
     4300000: Mesh_polySurface31_001
     4300002: polySurface8
     4300004: polySurface9
@@ -273,6 +307,14 @@ ModelImporter:
     4300050: polySurface44
     4300052: polySurface52
     4300054: polySurface53
+    4300056: polySurface58
+    4300058: polySurface59
+    4300060: polySurface60
+    4300062: polySurface61
+    4300064: polySurface62
+    4300066: polySurface63
+    4300068: polySurface64
+    4300070: polySurface65
     7400000: Take 001
     9500000: //RootNode
   materials:
