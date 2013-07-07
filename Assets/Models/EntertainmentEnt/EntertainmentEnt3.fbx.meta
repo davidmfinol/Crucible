@@ -845,6 +845,24 @@ ModelImporter:
     101678: pasted__pPlane4
     101680: pPipe2
     101682: pPlane4
+    101684: AllinOneBuilding
+    101686: group63
+    101688: pasted__pCube9
+    101690: pPlane5
+    101692: group64
+    101694: group65
+    101696: group66
+    101698: pasted__group65
+    101700: pasted__pasted__pPlane5
+    101702: pasted__pasted__pPlane5 1
+    101704: pasted__pasted__pPlane6
+    101706: pasted__pasted__Stars
+    101708: pasted__pPlane5
+    101710: pasted__pPlane6
+    101712: pasted__Stars
+    101714: pasted__Stars1
+    101716: Stars
+    101718: Stars 1
     400000: BLProjector
     400002: BMProjector
     400004: BRProjector
@@ -1687,6 +1705,24 @@ ModelImporter:
     401678: pasted__pPlane4
     401680: pPipe2
     401682: pPlane4
+    401684: AllinOneBuilding
+    401686: group63
+    401688: pasted__pCube9
+    401690: pPlane5
+    401692: group64
+    401694: group65
+    401696: group66
+    401698: pasted__group65
+    401700: pasted__pasted__pPlane5
+    401702: pasted__pasted__pPlane5 1
+    401704: pasted__pasted__pPlane6
+    401706: pasted__pasted__Stars
+    401708: pasted__pPlane5
+    401710: pasted__pPlane6
+    401712: pasted__Stars
+    401714: pasted__Stars1
+    401716: Stars
+    401718: Stars 1
     2300000: Circle
     2300002: pCube7
     2300004: pCube8
@@ -1793,6 +1829,13 @@ ModelImporter:
     2300206: pasted__pPlane4
     2300208: pPipe2
     2300210: pPlane4
+    2300212: pasted__pCube9
+    2300214: pPlane5
+    2300216: pasted__pasted__pPlane5
+    2300218: pasted__pasted__pPlane5 1
+    2300220: pasted__pasted__pPlane6
+    2300222: pasted__pPlane5
+    2300224: pasted__pPlane6
     3300000: Circle
     3300002: pCube7
     3300004: pCube8
@@ -1899,6 +1942,13 @@ ModelImporter:
     3300206: pasted__pPlane4
     3300208: pPipe2
     3300210: pPlane4
+    3300212: pasted__pCube9
+    3300214: pPlane5
+    3300216: pasted__pasted__pPlane5
+    3300218: pasted__pasted__pPlane5 1
+    3300220: pasted__pasted__pPlane6
+    3300222: pasted__pPlane5
+    3300224: pasted__pPlane6
     4300000: polySurface149
     4300002: polySurface152
     4300004: polySurface153
@@ -2005,6 +2055,13 @@ ModelImporter:
     4300206: AboveRing1
     4300208: pasted__pPlane4
     4300210: pasted__AboveRing1
+    4300212: pasted__pCube9
+    4300214: pPlane5
+    4300216: pasted__pasted__pPlane5
+    4300218: pasted__pasted__pPlane5
+    4300220: pasted__pPlane5
+    4300222: pasted__pasted__pPlane6
+    4300224: pasted__pPlane6
     7400000: Take 001
     9500000: //RootNode
     11100000: //RootNode
