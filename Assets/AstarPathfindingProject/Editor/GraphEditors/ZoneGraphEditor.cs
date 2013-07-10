@@ -15,8 +15,12 @@ public class ZoneGraphEditor : GraphEditor
     public override void OnInspectorGUI(NavGraph target)
     {
         ZoneGraph graph = target as ZoneGraph;
-
-        graph.SearchTag = EditorGUILayout.TagField("Search Tag", graph.SearchTag);
+		
+        graph.WaypointTag = EditorGUILayout.TagField("Waypoint Tag", graph.WaypointTag);
+        graph.ZonesTag = EditorGUILayout.TagField("Zones Tag", graph.ZonesTag);
+        graph.TransitionZonesTag = EditorGUILayout.TagField("Zones Tag", graph.TransitionZonesTag);
         graph.CollisionMask = EditorGUILayoutx.LayerMaskField("Mask", graph.CollisionMask);
+		graph.MaxJump = EditorGUILayout.FloatField("Max Jump", graph.MaxJump);
+		graph.WaypointSubdivisionSize = EditorGUILayout.FloatField("Waypoint Subdivison", graph.WaypointSubdivisionSize);
     }
 }

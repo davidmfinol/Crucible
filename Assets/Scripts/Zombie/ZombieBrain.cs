@@ -9,7 +9,6 @@ public class ZombieBrain
     public Vector3 Target = Vector3.zero; // where the zombie wants to go
     public Path Path = null; // how it plans to get there
     private int _currentPathWaypoint = 0; // where it is on that path
-    private float _pathLeniency = 10.0f; // how close to a node on the path the zombie must get before moving to the next node
     private bool _searchingForPath = false; // Is the zombie currently looking for a path?
 
     // Zombie Brain componenents
@@ -46,7 +45,7 @@ public class ZombieBrain
             Target = LevelAttributes.Instance.Player.transform.position;
 
         // We need to make sure we have a plan for reaching our target
-        if (Path == null || (Target - Path.vectorPath[Path.vectorPath.Count-1]).sqrMagnitude > _pathLeniency )
+        if (Path == null || (Target - Path.vectorPath[Path.vectorPath.Count-1]).sqrMagnitude > 10 ) //TODO: MAKE ZOMBIE REPATH BASED ON TIME, NOT MOVEMENT OF TARGET
         {
             if(!_searchingForPath)
             {
@@ -60,7 +59,7 @@ public class ZombieBrain
             return;
 
         // Move on if we reached our waypoint
-        if ((_zombieController.transform.position - Path.vectorPath[_currentPathWaypoint]).sqrMagnitude < _pathLeniency)
+        if (_zombieController.CharacterController.bounds.Contains(Path.vectorPath[_currentPathWaypoint]))
             _currentPathWaypoint++;
 
         if (_currentPathWaypoint >= Path.vectorPath.Count) // that's the end of the line for you, jack!
