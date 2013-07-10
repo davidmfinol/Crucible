@@ -93,83 +93,43 @@ public class WeaponsGui : MonoBehaviour {
 				Animating = true;
 				LeftSelect = true;
 				
-				Destroy(playerController.Weapon.gameObject);
-
-				whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-				whip.parent = bone;				
-				playerController.Weapon = whip;
-				
-				/*
-				CenterSlot--;
-				if(CenterSlot < 0)
-					CenterSlot = 2;
-				
-				Destroy(playerController.Weapon.gameObject);
-				
-				if(CenterSlot == 2)
-					CenterSlot--;
-				if(CenterSlot == 1){
-					whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-					whip.parent = bone;				
-					playerController.Weapon = whip;					
-				}
-					
-				if(CenterSlot == 0){
-					mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
-					mine.parent = bone;				
-					playerController.Weapon = mine;					
-				}*/
-				
-				
-				/*if(CenterSlot == 0)
-					CenterSlot = 2;
-				else
-					CenterSlot--;*/
-				
 			}
 			// Select Right Slot
 			else if(Input.GetKeyDown(KeyCode.E)){
 				Animating = true;
 				RightSelect = true;
-				
+				/*
 				Destroy(playerController.Weapon.gameObject);
 
 				mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
 				mine.parent = bone;				
 				playerController.Weapon = mine;				
+				*/
 				
-				
-				
-				/*
-				CenterSlot++;
-				if(CenterSlot > 2)
-					CenterSlot = 0;
-
+			}
+		}		
+	}
+	
+	void WeaponSelect(){
 				Destroy(playerController.Weapon.gameObject);
 				
-				if(CenterSlot == 2)
-					CenterSlot++;
-				if(CenterSlot == 1){
+				if(CenterSlot == 2){/*
+					//CenterSlot--;
+					whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
+					whip.parent = bone;				
+					playerController.Weapon = whip;	*/					
+				}
+				else if(CenterSlot == 1){
 					whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
 					whip.parent = bone;				
 					playerController.Weapon = whip;					
 				}
 					
-				if(CenterSlot == 0){
+				else if(CenterSlot == 0){
 					mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
 					mine.parent = bone;				
 					playerController.Weapon = mine;					
-				}				
-				*/
-				
-				/*
-				if(CenterSlot == 2)
-					CenterSlot = 0;
-				else
-					CenterSlot++;*/
-				
-			}
-		}		
+				}			
 	}
 				
 	void AnimateGui(){
@@ -248,17 +208,33 @@ public class WeaponsGui : MonoBehaviour {
 				if(LeftSelect){
 					LeftSelect = false;
 					CenterSlot--;
-					if(CenterSlot < 0)
+					if(CenterSlot < 0){
 						CenterSlot = 2;
+						
+						Animating = true;
+						LeftSelect = true;
+						
+					}
+					else{
+						WeaponSelect();	
+					}
 				}
 				else if(RightSelect){
 					RightSelect = false;
 					CenterSlot++;
-					if(CenterSlot > 2)
+					if(CenterSlot > 2){
 						CenterSlot = 0;
+					}
+					if(CenterSlot == 2){
+						Animating = true;
+						RightSelect = true;
+					}
+					else{
+						WeaponSelect();	
+					}
 				}
-
-
+				
+				//WeaponSelect();
 			}			
 	
 		}

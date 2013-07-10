@@ -10,7 +10,7 @@ public class Mine : Weapon {
 	private bool minePlaced = false;
 	Transform mineCopy;
 	
-	ArrayList allMines = new ArrayList();
+	static ArrayList allPlacedMines = new ArrayList();
 	int mineAmount = 5;
 	bool allMinesExploded = false;
 	Vector3 minePos;
@@ -34,6 +34,25 @@ public class Mine : Weapon {
 	
     public override void ActivateAttack(int attackID)
     {
+		if(attackID == 0){
+			//place mine
+			if(mineAmount > 0){
+				minePos = this.gameObject.transform.position;
+				mineCopy = (Transform) Instantiate(mineObject, minePos, Quaternion.identity);
+				mineAmount--;
+				allPlacedMines.Add(mineCopy.gameObject);
+			}
+		}
+		else if(attackID == 1){
+			//blow all up	
+			for(int i = 0; i < allPlacedMines.Count; i++){
+				MonoBehaviour.Instantiate(explosion1, minePos, Quaternion.identity);
+				MonoBehaviour.Instantiate(explosion2, minePos, Quaternion.identity);				
+				Destroy((GameObject) allPlacedMines[i]);
+				
+			}
+		}
+		/*
 		Debug.Log (" Mine Attack ");
 		if(!minePlaced && mineAmount > 0){
 			//minePos = new Vector3(0,0,0);
@@ -53,7 +72,7 @@ public class Mine : Weapon {
 					allMinesExploded = true;
 			}
 			
-		}
+		}*/
 	}
 	
     public override void Deactivate()

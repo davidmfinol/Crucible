@@ -46,7 +46,8 @@ public class PlayerCharacter_AttackCombo2 : PlayerCharacterFSM_IState
 
     protected override void OnExitState()
     {
-        _weapon.Deactivate();
+		if(Controller.Weapon != null && Controller.Weapon.GetComponent<Weapon>() != null)
+        	Controller.Weapon.GetComponent<Weapon>().Deactivate();
     }
 
     public override bool IsGroundState()

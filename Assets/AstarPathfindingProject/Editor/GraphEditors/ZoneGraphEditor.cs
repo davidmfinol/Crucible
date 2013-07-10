@@ -13,10 +13,11 @@ public class ZoneGraphEditor : GraphEditor
 
     //Here goes the GUI
     public override void OnInspectorGUI(NavGraph target)
-    {
+    {/*
         ZoneGraph graph = target as ZoneGraph;
 
         graph.SearchTag = EditorGUILayout.TagField("Search Tag", graph.SearchTag);
         graph.CollisionMask = EditorGUILayoutx.LayerMaskField("Mask", graph.CollisionMask);
+        */
     }
 }

@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using Pathfinding.Serialization.JsonFx;
 ///  Creates a custom A* graph to be used to traverse through zones in the game
 /// </summary>
 [JsonOptIn]
-public class ZoneGraph : NavGraph, ISerializableGraph, IUpdatableGraph
+public class ZoneGraph : NavGraph, ISerializableGraph
 {
     [JsonMember]
     // Game Objects tagged with this tag will be considered nodes on the ZoneGraph
@@ -41,7 +42,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph, IUpdatableGraph
 	
 	// Scans the scene and creates the zone graph to be used by A* for pathfinding
     public override void Scan()
-    {
+    {/*
         GameObject[] waypointGOs = GameObject.FindGameObjectsWithTag(WaypointTag);
         GameObject[] zoneGOs = GameObject.FindGameObjectsWithTag(ZonesTag);
         GameObject[] transitionZoneGOs = GameObject.FindGameObjectsWithTag(TransitionZonesTag);
@@ -140,7 +141,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph, IUpdatableGraph
 
             node.connections = connections.ToArray();
             node.connectionCosts = costs.ToArray();
-        }
+        }*/
     }
 	
 	// Takes the bounds of a waypoint and subdivides it into a set of waypoints
@@ -157,9 +158,10 @@ public class ZoneGraph : NavGraph, ISerializableGraph, IUpdatableGraph
 		float top = waypointBounds.min.y;
 		float bottom = waypointBounds.max.y;
 		
-		for(int x = left; x <= right; x += WaypointSubdivisionSize)
-			for(int y = top; y >= bottom; y -= WaypointSubdivisionSize)
+		for(float x = left; x <= right; x += WaypointSubdivisionSize)
+			for(float y = top; y >= bottom; y -= WaypointSubdivisionSize)
 				subdividedWaypoints.Add(new Vector3(x, y, z));
+		return subdividedWaypoints;
 	}
 	
 	// Checks if going from Node A to Node B is a valid movement for a character

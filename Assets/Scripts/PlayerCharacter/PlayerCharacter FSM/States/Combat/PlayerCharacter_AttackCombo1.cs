@@ -5,7 +5,6 @@ using System.Collections;
 public class PlayerCharacter_AttackCombo1 : PlayerCharacterFSM_IState
 {
     private bool _attackPressed;
-    private Weapon _weapon;
 
     public PlayerCharacter_AttackCombo1(PlayerCharacterFSM controller) : base(controller) { }
 
@@ -13,8 +12,8 @@ public class PlayerCharacter_AttackCombo1 : PlayerCharacterFSM_IState
     {
         // Keep track of the weapon
         _attackPressed = false;
-        _weapon = Controller.Weapon.GetComponent<Weapon>();
-        _weapon.ActivateAttack(0);
+        //_weapon = Controller.Weapon.GetComponent<Weapon>();
+        Controller.Weapon.GetComponent<Weapon>().ActivateAttack(0);
 
         // Character Speed
         HorizontalSpeed = 0;
@@ -48,7 +47,8 @@ public class PlayerCharacter_AttackCombo1 : PlayerCharacterFSM_IState
 
     protected override void OnExitState()
     {
-        _weapon.Deactivate();
+		if(Controller.Weapon != null && Controller.Weapon.GetComponent<Weapon>() != null)
+        	Controller.Weapon.GetComponent<Weapon>().Deactivate();
     }
 
     public override bool IsGroundState()
