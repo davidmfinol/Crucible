@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,11 @@ using Pathfinding.Serialization.JsonFx;
 ///  Creates a custom A* graph to be used to traverse through zones in the game
 /// </summary>
 [JsonOptIn]
+<<<<<<< HEAD
 public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
+=======
+public class ZoneGraph : NavGraph, ISerializableGraph
+>>>>>>> 02e4fbeb60244287643e817398524a26e8e428c6
 {
     [JsonMember]
     // Game Objects tagged with this tag will be considered nodes on the ZoneGraph
@@ -44,7 +49,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 	
 	// Scans the scene and creates the zone graph to be used by A* for pathfinding
     public override void Scan()
-    {
+    {/*
         GameObject[] waypointGOs = GameObject.FindGameObjectsWithTag(WaypointTag);
         GameObject[] zoneGOs = GameObject.FindGameObjectsWithTag(ZonesTag);
         GameObject[] transitionZoneGOs = GameObject.FindGameObjectsWithTag(TransitionZonesTag);
@@ -120,6 +125,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         // To avoid too many allocations, these lists are reused for each node
         List<Node> connections = new List<Node>(3);
         List<int> costs = new List<int>(3);
+<<<<<<< HEAD
 		
 		// Create a graph for each zone
 		foreach(KeyValuePair<Bounds, HashSet<Node> > zonewaypointspair in ZonesWithWaypoints)
@@ -172,6 +178,34 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 	            node.connectionCosts = costs.ToArray();
 	        }
 		}
+=======
+
+        // Loop through all nodes and add connections to other nodes
+        for (int i = 0; i < nodes.Length; i++)
+        {
+            connections.Clear();
+            costs.Clear();
+
+            Node node = nodes[i];
+			
+            for (int j = 0; j < nodes.Length; j++)
+            {
+                if (i == j) continue;
+
+                Node other = nodes[j];
+
+                float dist = 0;
+                if (IsValidConnection(node, other, out dist))
+                {
+                    connections.Add(other);
+                    costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                }
+            }
+
+            node.connections = connections.ToArray();
+            node.connectionCosts = costs.ToArray();
+        }*/
+>>>>>>> 02e4fbeb60244287643e817398524a26e8e428c6
     }
 	
 	// Takes the bounds of a waypoint and subdivides it into a set of waypoints
@@ -192,6 +226,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 			for(float y = top; y >= bottom; y -= WaypointSubdivisionSize)
 				subdividedWaypoints.Add(new Vector3(x, y, z));
 		return subdividedWaypoints;
+<<<<<<< HEAD
 	}
 	
 	// Takes the bounds of a waypoint and returns points directly above it
@@ -207,6 +242,8 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 		for(float x = left; x <= right; x += WaypointSubdivisionSize)
 			aboveWaypoints.Add(new Vector3(x, top + WaypointSubdivisionSize, z));
 		return aboveWaypoints;
+=======
+>>>>>>> 02e4fbeb60244287643e817398524a26e8e428c6
 	}
 	
 	// Checks if going from Node A to Node B is a valid movement for a character

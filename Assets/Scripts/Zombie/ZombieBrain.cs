@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using System.Collections;
 using Pathfinding;
 using System;
@@ -102,3 +102,4 @@ public class ZombieBrain
         get { return _jump; }
     }
 }
+ */

@@ -45,6 +45,7 @@ public class PlayerCharacter_AttackCombo3 : PlayerCharacterFSM_IState
 
     protected override void OnExitState()
     {
-        _weapon.Deactivate();
+		if(Controller.Weapon != null && Controller.Weapon.GetComponent<Weapon>() != null)
+        	Controller.Weapon.GetComponent<Weapon>().Deactivate();
     }
 }
