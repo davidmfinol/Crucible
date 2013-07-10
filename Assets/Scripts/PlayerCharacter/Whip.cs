@@ -5,8 +5,8 @@ public class Whip : Weapon
 {
     private bool _hitBoxesActive = false;
 
-    public string IdleAnimationName = "Idle";
-    public string AttackAnimationName = "Attack";
+    public string IdleAnimationName = "Whip_Idle";
+    public string AttackAnimationName = "Whip_Attack";
 
     void Start()
     {

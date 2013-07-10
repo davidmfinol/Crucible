@@ -32,6 +32,13 @@ public class WeaponsGui : MonoBehaviour {
 	float rotToSlot2Y;
 	float rotToSlot3Y;
 	
+	public Transform Player;
+	PlayerCharacterFSM playerController;
+    Transform whip;
+	Transform mine;
+	Transform bone;	
+	
+	
 	// Use this for initialization
 	void Start () {
 		
@@ -63,6 +70,12 @@ public class WeaponsGui : MonoBehaviour {
 		//Vector3 Slot3Pos = new Vector3(Slot3.transform.position());
 		
 		CurrentAnimationStep = AnimationSteps;
+		
+		Player = LevelAttributes.Instance.Player;
+		playerController = LevelAttributes.Instance.Player.GetComponent<PlayerCharacterFSM>();
+
+		bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
+		
 	}
 	
 	// Update is called once per frame
@@ -80,10 +93,33 @@ public class WeaponsGui : MonoBehaviour {
 				Animating = true;
 				LeftSelect = true;
 				
+				Destroy(playerController.Weapon.gameObject);
+
+				whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
+				whip.parent = bone;				
+				playerController.Weapon = whip;
+				
 				/*
 				CenterSlot--;
 				if(CenterSlot < 0)
-					CenterSlot = 2;*/
+					CenterSlot = 2;
+				
+				Destroy(playerController.Weapon.gameObject);
+				
+				if(CenterSlot == 2)
+					CenterSlot--;
+				if(CenterSlot == 1){
+					whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
+					whip.parent = bone;				
+					playerController.Weapon = whip;					
+				}
+					
+				if(CenterSlot == 0){
+					mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
+					mine.parent = bone;				
+					playerController.Weapon = mine;					
+				}*/
+				
 				
 				/*if(CenterSlot == 0)
 					CenterSlot = 2;
@@ -96,10 +132,36 @@ public class WeaponsGui : MonoBehaviour {
 				Animating = true;
 				RightSelect = true;
 				
+				Destroy(playerController.Weapon.gameObject);
+
+				mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
+				mine.parent = bone;				
+				playerController.Weapon = mine;				
+				
+				
+				
 				/*
 				CenterSlot++;
 				if(CenterSlot > 2)
 					CenterSlot = 0;
+
+				Destroy(playerController.Weapon.gameObject);
+				
+				if(CenterSlot == 2)
+					CenterSlot++;
+				if(CenterSlot == 1){
+					whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
+					whip.parent = bone;				
+					playerController.Weapon = whip;					
+				}
+					
+				if(CenterSlot == 0){
+					mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
+					mine.parent = bone;				
+					playerController.Weapon = mine;					
+				}				
+				*/
+				
 				/*
 				if(CenterSlot == 2)
 					CenterSlot = 0;

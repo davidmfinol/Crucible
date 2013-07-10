@@ -7,7 +7,7 @@ public class WindowBreakPlayer : MonoBehaviour {
     public Transform Zombie;	
 	
 	private bool isBroken = false;
-	private float zombieChance = 0.05f;
+	public float zombieChance = 0.05f;
 	
 	// Use this for initialization
 	void Start () {		

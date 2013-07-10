@@ -9,7 +9,7 @@ public class WindowBreakZombie : MonoBehaviour {
 	private bool isZombieBreakoutWindow; // = false;	
 	private bool isBroken;
 	
-	private float zombieChance = 1.00f;
+	public float zombieChance = 0.15f;
 
 	void Awake () {
 		if(Random.value < zombieChance)
