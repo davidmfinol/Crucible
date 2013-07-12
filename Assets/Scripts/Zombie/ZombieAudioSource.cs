@@ -47,6 +47,7 @@ public class ZombieAudioSource : AudioPlayer
     public void PlayRunning()
     {
         int clipNumber = _random.Next(0, RunningAudio.Clips.Length);
+		audio.loop = true;
         audio.clip = RunningAudio.Clips[clipNumber];
         audio.Play();
     }

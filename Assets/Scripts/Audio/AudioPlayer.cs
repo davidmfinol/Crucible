@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
+[AddComponentMenu("Audio/Audio Player")]
 public class AudioPlayer : MonoBehaviour
 {
     public AudioSettings.AudioTypes type;
