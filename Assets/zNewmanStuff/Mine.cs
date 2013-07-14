@@ -11,7 +11,7 @@ public class Mine : Weapon {
 	Transform mineCopy;
 	
 	static ArrayList allPlacedMines = new ArrayList();
-	int mineAmount = 5;
+	int mineAmount = 100000;
 	bool allMinesExploded = false;
 	Vector3 minePos;
 	
