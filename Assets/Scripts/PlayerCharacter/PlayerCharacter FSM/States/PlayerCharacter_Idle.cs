@@ -66,6 +66,9 @@ public class PlayerCharacter_Idle : PlayerCharacterFSM_IState
             nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
         }
 
+        if (Input.GetButtonDown("Secondary"))
+            Controller.Weapon.GetComponent<Weapon>().ActivateAttack(1);
+
         return nextState;
     }
 

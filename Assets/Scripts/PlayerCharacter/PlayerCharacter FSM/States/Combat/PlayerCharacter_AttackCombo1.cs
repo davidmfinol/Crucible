@@ -38,8 +38,10 @@ public class PlayerCharacter_AttackCombo1 : PlayerCharacterFSM_IState
         {
             if (!_attackPressed)
                 return PlayerCharacterStates.PlayerCharacter_Idle;
-            else
+            else if (Controller.Weapon.GetComponent<Mine>() == null)
                 return PlayerCharacterStates.PlayerCharacter_AttackCombo2;
+            else
+                return PlayerCharacterStates.PlayerCharacter_Idle;
         }
 
         return PlayerCharacterStates.PlayerCharacter_AttackCombo1;
