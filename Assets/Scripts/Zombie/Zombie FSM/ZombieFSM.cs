@@ -34,7 +34,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     {
         _zombieAudioSource = GetComponentInChildren<ZombieAudioSource>();
         _brain = new ZombieBrain(this);
-        _playerController = LevelAttributes.Instance.Player.GetComponent<PlayerCharacterFSM>();
+        _playerController = GameLevel.Instance.Player.GetComponent<PlayerCharacterFSM>();
     }
 
     public override Type GetStateEnumType()
@@ -53,7 +53,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         animation.Stop();
         ZombieAudioSource.PlayDeath();
         ActivateRagDoll(transform);
-        VisualDebug debug = GetComponent<VisualDebug>();
+        CharacterFSMVisualDebugger debug = GetComponent<CharacterFSMVisualDebugger>();
         if (debug != null)
             Destroy(debug);
         Destroy(this);
@@ -80,7 +80,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     // Is the player in the range that the zombie can notice?
     public bool PlayerIsInNoticeRange()
     {
-        Transform player = LevelAttributes.Instance.Player;
+        Transform player = GameLevel.Instance.Player;
         if (player != null)
             return (Mathf.Abs(transform.position.x - player.transform.position.x) < AwarenessRange)
                 && (Mathf.Abs(transform.position.y - player.transform.position.y) < AwarenessRange)
@@ -90,7 +90,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     // Is the player in the range that the zombie could feasibly hit him?
     public bool PlayerIsInAttackRange()
     {
-        Transform player = LevelAttributes.Instance.Player;
+        Transform player = GameLevel.Instance.Player;
         if (player != null)
             return (Mathf.Abs(transform.position.x - player.transform.position.x) < AttackRange)
                 && (Mathf.Abs(transform.position.y - player.transform.position.y) < AttackRange)

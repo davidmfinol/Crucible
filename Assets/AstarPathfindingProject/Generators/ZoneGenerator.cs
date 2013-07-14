@@ -1,0 +1,347 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using Pathfinding;
+using Pathfinding.Serialization.JsonFx;
+
+/// <summary>
+///  Creates a custom A* graph to be used to traverse through zones in the game
+/// </summary>
+[JsonOptIn]
+public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
+{
+    public override Node[] CreateNodes(int number)
+    {
+        ZoneNode[] tmp = new ZoneNode[number];
+        for (int i = 0; i < number; i++)
+        {
+            tmp[i] = new ZoneNode();
+            tmp[i].penalty = initialPenalty;
+        }
+        nodes = tmp;
+        return tmp as Node[];
+    }
+
+    [JsonMember]
+    // Game Objects tagged with this tag will be considered nodes on the ZoneGraph
+    public string WaypointTag = "Waypoint";
+
+    [JsonMember]
+    // Game Objects tagged with this tag will be considered areas on the ZoneGraph
+	// These game objects must contain colliders with bounds indicating the area of the zone
+    public string ZonesTag = "Zone";
+
+    [JsonMember]
+    // Game Objects tagged with this tag will be considered transition areas on the ZoneGraph
+	// These game objects must contain colliders with bounds indicating the area of the transition zone
+    public string TransitionZonesTag = "TransitionZone";
+
+    [JsonMember]
+    // Game Objects on this layer will be considered objects we can't pass through
+    public LayerMask CollisionMask = 1 << 12;
+
+    [JsonMember]
+    // Waypoints with bounds will be subdivided into more points that are this distance away from each other for fidelity of traversal
+    public float WaypointSubdivisionSize = 5;
+
+    // Map of all the waypoints (as nodes on the node graph) to their respective zones (areas indicated by Bounds)
+    Dictionary<Bounds, HashSet<Node>> ZonesWithWaypoints;
+
+    // Map of all the transition waypoints (as nodes on the node graph) to their respective transition zones (areas indicated by Bounds)
+    Dictionary<Bounds, HashSet<Node>> TransitionZonesWithWaypoints;
+
+    // TODO: remove this:
+    public float MaxJump = 3;
+	
+	/// <summary>
+    /// Scans the scene and creates the zone graph to be used by A* for pathfinding
+	/// </summary>
+    public override void Scan()
+    {
+        GenerateNodes();
+        ConnectNodes();
+    }
+
+    /// <summary>
+    /// Finds all the waypoints in the scenes and creates nodes on the node graph for them
+    /// </summary>
+    public void GenerateNodes()
+    {
+        // Find all the relevant game objects in the scene
+        GameObject[] waypointGOs = GameObject.FindGameObjectsWithTag(WaypointTag);
+        GameObject[] zoneGOs = GameObject.FindGameObjectsWithTag(ZonesTag);
+        GameObject[] transitionZoneGOs = GameObject.FindGameObjectsWithTag(TransitionZonesTag);
+
+        // Gotta have something to work with
+        if (zoneGOs == null || waypointGOs == null)
+        {
+            Debug.LogWarning("Zones or waypoints not found. Zone graph not generated.");
+            CreateNodes(0);
+            return;
+        }
+
+        // Get all the waypoints as Vector3 points
+        Dictionary<Vector3, GameObject> ZoneWaypoints = new Dictionary<Vector3, GameObject>();
+        foreach (GameObject waypointGO in waypointGOs)
+        {
+            // Get the way point, subdivide it, and use the resulting waypoints
+            Vector3 waypoint = waypointGO.transform.position;
+            Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
+            if (waypointGO.collider != null)
+                waypointBounds = waypointGO.collider.bounds;
+            HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(waypointBounds);
+            foreach (Vector3 subWaypoint in subdividedWaypoints)
+                ZoneWaypoints.Add(subWaypoint, waypointGO);
+
+            // Ledges get additional waypoints above them
+            Ledge ledge = waypointGO.GetComponent<Ledge>();
+            if (ledge != null)
+            {
+                List<Vector3> waypointsAbove = getWaypointsAbove(waypointBounds);
+                foreach (Vector3 aboveWaypoint in waypointsAbove)
+                    ZoneWaypoints.Add(aboveWaypoint, waypointGO);
+            }
+            // Pipes, ladders, and regular hangables don't need any special waypoints?
+        }
+
+        // Create waypoints from transition zones
+        Dictionary<Vector3, GameObject> TransitionWaypoints = new Dictionary<Vector3, GameObject>();
+        TransitionZonesWithWaypoints = new Dictionary<Bounds, HashSet<Node>>();
+        foreach (GameObject transitionZoneGO in transitionZoneGOs)
+        {
+            Bounds transitionZoneBounds = transitionZoneGO.collider.bounds;
+            TransitionZonesWithWaypoints.Add(transitionZoneBounds, new HashSet<Node>());
+            HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(transitionZoneBounds);
+            foreach (Vector3 subWaypoint in subdividedWaypoints)
+                TransitionWaypoints.Add(subWaypoint, transitionZoneGO);
+        }
+
+        // Set up the ZonesToWaypoint mapping
+        ZonesWithWaypoints = new Dictionary<Bounds, HashSet<Node>>();
+        foreach (GameObject zoneGO in zoneGOs)
+            ZonesWithWaypoints.Add(zoneGO.collider.bounds, new HashSet<Node>());
+
+        // Create and set up the nodes based off the organized waypoints
+        nodes = CreateNodes(ZoneWaypoints.Count + TransitionWaypoints.Count);
+        int nodeNum = 0;
+        foreach (KeyValuePair<Vector3, GameObject> waypoint in ZoneWaypoints)
+        {
+            nodes[nodeNum].position = (Int3)waypoint.Key;
+            nodes[nodeNum].walkable = !Physics.CheckSphere(waypoint.Key, 0.1f, CollisionMask.value);
+            ((ZoneNode)nodes[nodeNum]).GO = waypoint.Value;
+            nodeNum++;
+        }
+        foreach (KeyValuePair<Vector3, GameObject> waypoint in TransitionWaypoints)
+        {
+            nodes[nodeNum].position = (Int3)waypoint.Key;
+            nodes[nodeNum].walkable = !Physics.CheckSphere(waypoint.Key, 0.1f, CollisionMask.value);
+            ((ZoneNode)nodes[nodeNum]).GO = waypoint.Value;
+            nodeNum++;
+        }
+
+        // Organize all the waypoints into their respective zones
+        foreach (Node node in nodes)
+        {
+            foreach (Bounds zoneBounds in ZonesWithWaypoints.Keys)
+                if (zoneBounds.Contains((Vector3)node.position))
+                    ZonesWithWaypoints[zoneBounds].Add(node);
+            foreach (Bounds transitionZoneBounds in TransitionZonesWithWaypoints.Keys)
+                if (transitionZoneBounds.Contains((Vector3)node.position))
+                    TransitionZonesWithWaypoints[transitionZoneBounds].Add(node);
+        }
+    }
+	
+	/// <summary>
+    /// Takes the bounds of a waypoint and subdivides it into a set of waypoints
+	/// </summary>
+	/// <param name="waypointBounds"></param>
+	/// <returns></returns>
+    public HashSet<Vector3> subdivideWaypoint(Bounds waypointBounds)
+	{
+        HashSet<Vector3> subdividedWaypoints = new HashSet<Vector3>();
+        subdividedWaypoints.Add(waypointBounds.center);
+        if (waypointBounds.size == Vector3.zero)
+            return subdividedWaypoints;
+
+		float z = waypointBounds.center.z;
+        float left = waypointBounds.center.x - waypointBounds.extents.x;
+        float right = waypointBounds.center.x + waypointBounds.extents.x;
+        float top = waypointBounds.center.y + waypointBounds.extents.y;
+        float bottom = waypointBounds.center.y - waypointBounds.extents.y;
+
+        for (float x = left; x <= right; x += WaypointSubdivisionSize)
+        {
+            for (float y = top; y >= bottom; y -= WaypointSubdivisionSize)
+                subdividedWaypoints.Add(new Vector3(x, y, z));
+            subdividedWaypoints.Add(new Vector3(x, bottom, z));
+        }
+        subdividedWaypoints.Add(new Vector3(right, bottom, z));
+		return subdividedWaypoints;
+	}
+	
+	/// <summary>
+    /// Takes the bounds of a waypoint and returns points directly above it
+	/// </summary>
+	/// <param name="waypointBounds"></param>
+	/// <returns></returns>
+	public List<Vector3> getWaypointsAbove(Bounds waypointBounds)
+	{
+		List<Vector3> aboveWaypoints = new List<Vector3>();
+
+        float z = waypointBounds.center.z;
+        float left = waypointBounds.center.x - waypointBounds.extents.x;
+        float right = waypointBounds.center.x + waypointBounds.extents.x;
+        float top = waypointBounds.center.y + waypointBounds.extents.y;
+		
+		for(float x = left; x <= right; x += WaypointSubdivisionSize)
+			aboveWaypoints.Add(new Vector3(x, top + WaypointSubdivisionSize, z));
+		return aboveWaypoints;
+	}
+
+    /// <summary>
+    /// Connects all the nodes in the graph
+    /// </summary>
+    public void ConnectNodes()
+    {
+        // To avoid too many allocations, these lists are reused for each node
+        List<Node> connections = new List<Node>(3);
+        List<int> costs = new List<int>(3);
+
+        // Get the transition zones ready
+        foreach (KeyValuePair<Bounds, HashSet<Node>> transitionZoneWaypointsPair in TransitionZonesWithWaypoints)
+        {
+            foreach (Node node in transitionZoneWaypointsPair.Value)
+            {
+                connections.Clear();
+                costs.Clear();
+
+                foreach (KeyValuePair<Bounds, HashSet<Node>> zoneWaypointsPair in ZonesWithWaypoints)
+                {
+                    if (!zoneWaypointsPair.Key.Intersects(transitionZoneWaypointsPair.Key)) continue;
+
+                    foreach (Node other in zoneWaypointsPair.Value)
+                    {
+                        if (!transitionZoneWaypointsPair.Key.Contains((Vector3)other.position)) continue;
+
+                        float dist = 0;
+                        if (IsValidConnection(node, other, out dist))
+                        {
+                            connections.Add(other);
+                            costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                        }
+                    }
+                }
+                foreach (Node other in transitionZoneWaypointsPair.Value)
+                {
+                    if (node == other) continue;
+
+                    float dist = 0;
+                    if (IsValidConnection(node, other, out dist))
+                    {
+                        connections.Add(other);
+                        costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                    }
+                }
+
+                node.connections = connections.ToArray();
+                node.connectionCosts = costs.ToArray();
+            }
+        }
+
+        // Build the graph based for each zone, using the transitionZoneWaypoints to link them together
+        foreach (KeyValuePair<Bounds, HashSet<Node>> zoneWaypointsPair in ZonesWithWaypoints)
+        {
+            foreach (Node node in zoneWaypointsPair.Value)
+            {
+                connections.Clear();
+                costs.Clear();
+
+                connections = node.connections != null ? new List<Node>(node.connections) : new List<Node>(3);
+                costs = node.connectionCosts != null ? new List<int>(node.connectionCosts) : new List<int>(3);
+
+                foreach (Node other in zoneWaypointsPair.Value)
+                {
+                    if (node == other) continue;
+
+                    float dist = 0;
+                    if (IsValidConnection(node, other, out dist))
+                    {
+                        connections.Add(other);
+                        costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                    }
+                }
+                foreach (KeyValuePair<Bounds, HashSet<Node>> transitionZoneWaypointsPair in TransitionZonesWithWaypoints)
+                {
+                    if (!zoneWaypointsPair.Key.Intersects(transitionZoneWaypointsPair.Key)) continue;
+
+                    foreach (Node other in transitionZoneWaypointsPair.Value)
+                    {
+                        if (!zoneWaypointsPair.Key.Contains((Vector3)other.position)) continue;
+
+                        float dist = 0;
+                        if (IsValidConnection(node, other, out dist))
+                        {
+                            connections.Add(other);
+                            costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                        }
+                    }
+                }
+
+                node.connections = connections.ToArray();
+                node.connectionCosts = costs.ToArray();
+            }
+        }
+    }
+	
+	/// <summary>
+    /// Checks if going from Node A to Node B is a valid movement for a character
+	/// </summary>
+	/// <param name="A"></param>
+	/// <param name="B"></param>
+	/// <param name="dist"></param>
+	/// <returns></returns>
+    public bool IsValidConnection(Node A, Node B, out float dist)
+    {
+        dist = 0;
+
+        if (!A.walkable || !B.walkable)
+            return false;
+		
+		if(B.position.y - A.position.y > MaxJump)
+			return false;
+
+        Vector3 dir = (Vector3)(A.position - B.position);
+        dist = dir.magnitude;
+
+        Ray ray = new Ray((Vector3)A.position, (Vector3)(B.position - A.position));
+        Ray invertRay = new Ray((Vector3)B.position, (Vector3)(A.position - B.position));
+
+        bool obstructedByGround = Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
+        bool pathExists = false;
+        RaycastHit[] hits = Physics.RaycastAll(ray, dist);
+        foreach (RaycastHit hit in hits)
+            pathExists = pathExists || (hit.collider.tag == WaypointTag && hit.collider.gameObject != ((ZoneNode)A).GO && hit.collider.gameObject != ((ZoneNode)B).GO);
+
+        return !obstructedByGround && !pathExists;
+    }
+
+    // Deprecated Serialization?
+    public void SerializeNodes(Node[] nodes, AstarSerializer serializer){}
+    public void DeSerializeNodes(Node[] nodes, AstarSerializer serializer){}
+    public void SerializeSettings(AstarSerializer serializer)
+    {
+        serializer.AddValue("ZonesTag", ZonesTag);
+        serializer.AddValue("WaypointTag", WaypointTag);
+        serializer.AddValue("CollisionMask", CollisionMask.value);
+        serializer.AddValue("MaxJump", MaxJump);
+        serializer.AddValue("WaypointSubdivisionSize", WaypointSubdivisionSize);
+    }
+    public void DeSerializeSettings(AstarSerializer serializer)
+    {
+        ZonesTag = (string)serializer.GetValue("ZonesTag", typeof(string));
+        WaypointTag = (string)serializer.GetValue("WaypointTag", typeof(string));
+        CollisionMask.value = (int)serializer.GetValue("CollisionMask", typeof(int));
+        MaxJump = (float)serializer.GetValue("MaxJump", typeof(float));
+        WaypointSubdivisionSize = (float)serializer.GetValue("WaypointSubdivisionSize", typeof(float));
+    }
+}

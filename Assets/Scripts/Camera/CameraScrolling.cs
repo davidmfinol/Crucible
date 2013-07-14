@@ -16,12 +16,12 @@ public class CameraScrolling : MonoBehaviour
 
 
     // Keep track of the boundaries of the level we're in
-    private LevelAttributes _levelBoundaries;
+    private GameLevel _levelBoundaries;
     private Rect _levelBounds;
 
     void Awake()
     {
-        _levelBoundaries = LevelAttributes.Instance;
+        _levelBoundaries = GameLevel.Instance;
         _levelBounds = _levelBoundaries.Bounds;
     }
 

@@ -1,4 +1,4 @@
-/*using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using Pathfinding;
 using System;
@@ -41,8 +41,8 @@ public class ZombieBrain
             return;
 
         // Hunt that player down
-        if (LevelAttributes.Instance.Player != null)
-            Target = LevelAttributes.Instance.Player.transform.position;
+        if (GameLevel.Instance.Player != null)
+            Target = GameLevel.Instance.Player.transform.position;
 
         // We need to make sure we have a plan for reaching our target
         if (Path == null || (Target - Path.vectorPath[Path.vectorPath.Count-1]).sqrMagnitude > 10 ) //TODO: MAKE ZOMBIE REPATH BASED ON TIME, NOT MOVEMENT OF TARGET
@@ -102,4 +102,3 @@ public class ZombieBrain
         get { return _jump; }
     }
 }
- */
