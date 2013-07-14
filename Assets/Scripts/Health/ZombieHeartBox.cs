@@ -11,7 +11,7 @@ public class ZombieHeartBox : HeartBox
 
     void OnTriggerStay(Collider other)
     {
-        //Debug.Log("I've been hit");
+        Debug.LogWarning("I've been hit 1");
         HitBox script = other.GetComponent<HitBox>();
         if (script != null && script.enabled)
             Interpret(script);
@@ -20,7 +20,7 @@ public class ZombieHeartBox : HeartBox
     {
         if (isValidHitbox(hitbox))
         {
-            //Debug.Log("I've been hit");
+            Debug.LogWarning("I've been hit 2");
             hitbox.stampRecord.Imprint(createHeartBoxStamp());
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
 

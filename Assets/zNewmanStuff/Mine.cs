@@ -44,13 +44,18 @@ public class Mine : Weapon {
 			}
 		}
 		else if(attackID == 1){
+       		//base.ActivateAttack(1);
+        	//ActivateHitBox(true);			
 			//blow all up	
 			for(int i = 0; i < allPlacedMines.Count; i++){
+				//((GameObject) allPlacedMines[i]).rigidbody.AddExplosionForce(5, this.transform.position, 10000f);
+				//((GameObject) allPlacedMines[i]).rigidbody.AddForce(new Vector3(500,500,500));
 				MonoBehaviour.Instantiate(explosion1, minePos, Quaternion.identity);
-				MonoBehaviour.Instantiate(explosion2, minePos, Quaternion.identity);				
-				Destroy((GameObject) allPlacedMines[i]);
-				
+				MonoBehaviour.Instantiate(explosion2, minePos, Quaternion.identity);
+				Destroy((GameObject) allPlacedMines[i]);				
 			}
+			allPlacedMines = new ArrayList();
+
 		}
 		/*
 		Debug.Log (" Mine Attack ");

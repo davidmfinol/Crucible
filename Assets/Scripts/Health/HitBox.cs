@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public enum BoxAllegiance { Team1, Team2 };
 
 [RequireComponent(typeof(Collider))]
-//[RequireComponent(typeof(BoxCollider))]
 public class HitBox : MonoBehaviour
 {
     //~Origin Data
