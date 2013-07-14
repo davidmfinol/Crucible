@@ -50,8 +50,12 @@ public class Mine : Weapon {
 			for(int i = 0; i < allPlacedMines.Count; i++){
 				//((GameObject) allPlacedMines[i]).rigidbody.AddExplosionForce(5, this.transform.position, 10000f);
 				//((GameObject) allPlacedMines[i]).rigidbody.AddForce(new Vector3(500,500,500));
-				MonoBehaviour.Instantiate(explosion1, minePos, Quaternion.identity);
-				MonoBehaviour.Instantiate(explosion2, minePos, Quaternion.identity);
+				
+				Transform explo1Copy = (Transform) Instantiate(explosion1, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);
+				Transform explo2Copy = (Transform) Instantiate(explosion2, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);
+				
+				//MonoBehaviour.Instantiate(explosion1, minePos, Quaternion.identity);
+				//MonoBehaviour.Instantiate(explosion2, minePos, Quaternion.identity);
 				Destroy((GameObject) allPlacedMines[i]);				
 			}
 			allPlacedMines = new ArrayList();
