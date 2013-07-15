@@ -53,7 +53,7 @@ namespace Pathfinding {
 		protected bool hasEndPoint = true;
 		
 		public Int3 startIntPoint; /**< Start point in integer coordinates */
-		public Int3 hTarget; /**< Target to use for H score calculations. \see Pathfinding.Node.h */
+		public Int3 hTarget; /**< _target to use for H score calculations. \see Pathfinding.Node.h */
 		
 		/** Calculate partial path if the target node cannot be reached.
 		 * If the target node cannot be reached, the node which was closest (given by heuristic) will be chosen as target node

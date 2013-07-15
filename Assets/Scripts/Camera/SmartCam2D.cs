@@ -264,7 +264,7 @@ public class SmartCam2D : MonoBehaviour
     }
 }
 //~ Pipes and Filter architecture
-//~ ~ Camera -> { --[Basic Filtering ---Basic Target ---ActionFocus ---Bounds] --[Chaos Filtering] } -> Camera
+//~ ~ Camera -> { --[Basic Filtering ---Basic _target ---ActionFocus ---Bounds] --[Chaos Filtering] } -> Camera
 /*
  *Packet -> [FilterSet                                           (Interpolate)] ->Packet
  *           |`-> InterpolateBuffer -> Filter -> InterpolateBuffer -^|
