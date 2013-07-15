@@ -21,7 +21,6 @@ public class ZoneGraphEditor : GraphEditor
         graph.ZonesTag = EditorGUILayout.TagField("Zones Tag", graph.ZonesTag);
         graph.TransitionZonesTag = EditorGUILayout.TagField("Transition Zones Tag", graph.TransitionZonesTag);
         graph.CollisionMask = EditorGUILayoutx.LayerMaskField("Collision Mask", graph.CollisionMask);
-		graph.MaxJump = EditorGUILayout.FloatField("Max Jump", graph.MaxJump);
 		graph.WaypointSubdivisionSize = EditorGUILayout.FloatField("Waypoint Subdivison", graph.WaypointSubdivisionSize);
     }
 

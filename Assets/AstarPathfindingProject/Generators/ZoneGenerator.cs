@@ -49,9 +49,6 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 
     // Map of all the transition waypoints (as nodes on the node graph) to their respective transition zones (areas indicated by Bounds)
     Dictionary<Bounds, HashSet<ZoneNode>> TransitionZonesWithWaypoints;
-
-    // TODO: remove this:
-    public float MaxJump = 20;
 	
 	/// <summary>
     /// Scans the scene and creates the zone graph to be used by A* for pathfinding
@@ -320,8 +317,9 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         if (!A.walkable || !B.walkable)
             return false;
 		
-		if(B.position.y - A.position.y > MaxJump)
-			return false;
+        // account for jump distances
+		//if(B.position.y - A.position.y > MaxJump)
+		//	return false;
 
         Vector3 dir = (Vector3)(A.position - B.position);
         dist = dir.magnitude;
@@ -378,7 +376,6 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         serializer.AddValue("ZonesTag", ZonesTag);
         serializer.AddValue("WaypointTag", WaypointTag);
         serializer.AddValue("CollisionMask", CollisionMask.value);
-        serializer.AddValue("MaxJump", MaxJump);
         serializer.AddValue("WaypointSubdivisionSize", WaypointSubdivisionSize);
     }
     public void DeSerializeSettings(AstarSerializer serializer)
@@ -386,7 +383,6 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         ZonesTag = (string)serializer.GetValue("ZonesTag", typeof(string));
         WaypointTag = (string)serializer.GetValue("WaypointTag", typeof(string));
         CollisionMask.value = (int)serializer.GetValue("CollisionMask", typeof(int));
-        MaxJump = (float)serializer.GetValue("MaxJump", typeof(float));
         WaypointSubdivisionSize = (float)serializer.GetValue("WaypointSubdivisionSize", typeof(float));
     }
 }
