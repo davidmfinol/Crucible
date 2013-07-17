@@ -48,8 +48,6 @@ public class Mine : Weapon {
         	//ActivateHitBox(true);			
 			//blow all up	
 			for(int i = 0; i < allPlacedMines.Count; i++){
-				//((GameObject) allPlacedMines[i]).rigidbody.AddExplosionForce(5, this.transform.position, 10000f);
-				//((GameObject) allPlacedMines[i]).rigidbody.AddForce(new Vector3(500,500,500));
 				
 				Transform explo1Copy = (Transform) Instantiate(explosion1, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);
 				Transform explo2Copy = (Transform) Instantiate(explosion2, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);
@@ -61,27 +59,6 @@ public class Mine : Weapon {
 			allPlacedMines = new ArrayList();
 
 		}
-		/*
-		Debug.Log (" Mine Attack ");
-		if(!minePlaced && mineAmount > 0){
-			//minePos = new Vector3(0,0,0);
-			minePos = this.gameObject.transform.position;
-			//MonoBehaviour.Instantiate(mineObject, minePos, Quaternion.identity);
-			mineCopy = (Transform) Instantiate(mineObject, minePos, Quaternion.identity);
-			mineAmount--;
-			minePlaced = true;
-		}
-		else{
-			if(!allMinesExploded){
-				MonoBehaviour.Instantiate(explosion1, minePos, Quaternion.identity);
-				MonoBehaviour.Instantiate(explosion2, minePos, Quaternion.identity);
-				Destroy(mineCopy.gameObject);
-				minePlaced = false;
-				if(mineAmount == 0)
-					allMinesExploded = true;
-			}
-			
-		}*/
 	}
 	
     public override void Deactivate()

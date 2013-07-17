@@ -4,12 +4,14 @@ using UnityEngine;
 using System.Collections;
 
 public class WeaponsGui : MonoBehaviour {
-
+	
+	public int AnimationSteps = 14; // Needs to be even number	
+	
 	int CenterSlot = 1;
 	bool Animating = false;
 	bool LeftSelect = false;
 	bool RightSelect = false;
-	int AnimationSteps = 32; // Needs to be even number
+
 	int CurrentAnimationStep;
 	
 	GameObject Slot1; // = GameObject.Find("GuiSlot1");
@@ -32,7 +34,7 @@ public class WeaponsGui : MonoBehaviour {
 	float rotToSlot2Y;
 	float rotToSlot3Y;
 	
-	public Transform Player;
+	Transform Player;
 	PlayerCharacterFSM playerController;
     Transform whip;
 	Transform mine;

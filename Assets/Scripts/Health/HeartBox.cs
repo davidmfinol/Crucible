@@ -5,7 +5,7 @@ using System.Collections;
 public abstract class HeartBox : MonoBehaviour {
 
     public BoxAllegiance Allegiance;
-    [SerializeField]
+    //[SerializeField]
     protected int heartBoxID;
 
     protected HeartBox() { heartBoxID = GetInstanceID(); }
