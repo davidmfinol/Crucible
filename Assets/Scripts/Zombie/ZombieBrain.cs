@@ -68,12 +68,15 @@ public class ZombieBrain
         if (_currentPathWaypoint >= _path.vectorPath.Count) // that's the end of the line for you, jack!
             return;
 
-        // We check if the player is our next target
-        if (_currentPathWaypoint < _path.vectorPath.Count - 1)
-        {
-            _jump = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y;
-            _vertical = _path.vectorPath[_currentPathWaypoint].z > _zombieController.ZLevel ? 1 : -1;
-        }
+        // Jump selectively
+        _jump = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y;
+
+        // Going up or down depends on both y and z positions
+        if(_path.vectorPath[_currentPathWaypoint].z == _zombieController.ZLevel)
+            _vertical = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y ? 1 : -1;
+        else
+            _vertical = 
+
         // Go left or right based on horizontal position
         _horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombieController.transform.position.x ? 1 : -1;
 

@@ -28,6 +28,8 @@ public abstract class CharacterFiniteStateMachineState
     public virtual Enum Update()
     {
         Enum nextState = Controller.CurrentState;
+        if (GameTime.Paused)
+            return nextState;
 
         // Moving platform support
         if (Controller.ActivePlatform != null && ShouldMoveWithPlatform())
@@ -45,7 +47,7 @@ public abstract class CharacterFiniteStateMachineState
         nextState = OnUpdate();
 
         // Update the time spent on this state
-        Duration += GameTime.DeltaTime;
+        Duration += Time.DeltaTime;
 
         // Keep track of where we started out this frame
         Vector3 lastPosition = Controller.transform.position;
