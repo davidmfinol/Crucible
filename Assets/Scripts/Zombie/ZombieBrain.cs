@@ -48,7 +48,7 @@ public class ZombieBrain
             _target = GameLevel.Instance.Player.transform.position;
 
         // We need to make sure we have a plan for reaching our target
-        if (_path == null || _timeSinceRepath > 2 )
+        if (_path == null)
         {
             if(!_searchingForPath)
             {
@@ -56,6 +56,13 @@ public class ZombieBrain
                 _searchingForPath = true;
             }
             return;
+        }
+
+        // Repath once a second
+        if (_timeSinceRepath > 1 && !_searchingForPath)
+        {
+            _seeker.StartPath(_zombieController.transform.position, _target);
+            _searchingForPath = true;
         }
 
         if (_currentPathWaypoint >= _path.vectorPath.Count) // that's the end of the line for you, jack!
@@ -69,13 +76,13 @@ public class ZombieBrain
             return;
 
         // Jump selectively
-        _jump = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y;
+        _jump = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y && _zombieController.VerticalSpeed <= 0;
 
         // Going up or down depends on both y and z positions
-        if(_path.vectorPath[_currentPathWaypoint].z == _zombieController.ZLevel)
+        if(_path.vectorPath[_currentPathWaypoint].z == _zombieController.ZLevel && !_zombieController.CanTransitionZ)
             _vertical = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y ? 1 : -1;
         else
-            _vertical = 
+            _vertical = _path.vectorPath[_currentPathWaypoint].z - _zombieController.ZLevel;
 
         // Go left or right based on horizontal position
         _horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombieController.transform.position.x ? 1 : -1;
@@ -87,6 +94,7 @@ public class ZombieBrain
     public void OnPathFound(Path p)
     {
         _searchingForPath = false;
+        _timeSinceRepath = 0;
         if (!p.error)
         {
             _path = p;

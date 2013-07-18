@@ -6,14 +6,14 @@ public class ClimbableObject : HangableObject
 {
     public override void OnTriggerStay(Collider other)
     {
-        PlayerCharacterFSM character = other.GetComponent<PlayerCharacterFSM>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null && character.ZLevel == transform.position.z)
             character.ActiveHangTarget = this;
     }
 
     public override void OnTriggerExit(Collider other)
     {
-        PlayerCharacterFSM character = other.GetComponent<PlayerCharacterFSM>();
+        CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null && character.ActiveHangTarget == this)
             character.ActiveHangTarget = null;
     }

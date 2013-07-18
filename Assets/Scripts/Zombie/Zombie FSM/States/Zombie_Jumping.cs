@@ -9,6 +9,7 @@ public class Zombie_Jumping : ZombieFSM_IState
     public override void StartState()
     {
         base.StartState();
+        Controller.animation.wrapMode = WrapMode.Loop;
         Controller.animation.CrossFade("Jumping");
         VerticalSpeed = Mathf.Sqrt(2 * Controller.JumpHeight * Controller.Gravity);
     }
@@ -29,6 +30,10 @@ public class Zombie_Jumping : ZombieFSM_IState
             nextState = ZombieStates.Zombie_Landing;
         else if (VerticalSpeed < 0)
             nextState = ZombieStates.Zombie_Falling;
+        else if (Controller.CanHangOffObject)
+            nextState = ZombieStates.Zombie_Hanging;
+        else if (Controller.CanClimbPipe || Controller.CanClimbLadder)
+            nextState = ZombieStates.Zombie_Climbing;
 
         return nextState;
     }

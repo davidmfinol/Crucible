@@ -41,7 +41,6 @@ public class PlayerCharacter_ClimbingLedge : PlayerCharacterFSM_IState
         if ( (!(Controller.ActiveHangTarget is Ledge) && VerticalSpeed == GroundVerticalSpeed) || Duration >= Controller.LedgeClimbingDuration)
             nextState = PlayerCharacterStates.PlayerCharacter_Idle;
 
-        Debug.Log(nextState);
         return nextState;
     }
 

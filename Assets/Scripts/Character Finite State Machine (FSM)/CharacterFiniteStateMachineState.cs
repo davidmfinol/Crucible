@@ -47,7 +47,7 @@ public abstract class CharacterFiniteStateMachineState
         nextState = OnUpdate();
 
         // Update the time spent on this state
-        Duration += Time.DeltaTime;
+        Duration += Time.deltaTime;
 
         // Keep track of where we started out this frame
         Vector3 lastPosition = Controller.transform.position;

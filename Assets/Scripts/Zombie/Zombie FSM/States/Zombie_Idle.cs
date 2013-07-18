@@ -9,6 +9,7 @@ public class Zombie_Idle : ZombieFSM_IState
     public override void StartState()
     {
         base.StartState();
+        Controller.animation.wrapMode = WrapMode.Loop;
         Controller.animation.CrossFade("Idle");
         if(Controller.ZombieAudioSource != null)
             Controller.ZombieAudioSource.PlayIdle();
@@ -30,6 +31,8 @@ public class Zombie_Idle : ZombieFSM_IState
             nextState = ZombieStates.Zombie_Jumping;
         else if ( ((Up && Controller.ZLevel != Controller.Z_Up) || (Down && Controller.ZLevel != Controller.Z_Down)) && Controller.CanTransitionZ)
             nextState = ZombieStates.Zombie_TransitioningZ;
+        else if ((Controller.CanClimbPipe || Controller.CanClimbLadder) && (Up || Down))
+            nextState = ZombieStates.Zombie_Climbing;
         else if (Left || Right)
             nextState = ZombieStates.Zombie_Running;
 
