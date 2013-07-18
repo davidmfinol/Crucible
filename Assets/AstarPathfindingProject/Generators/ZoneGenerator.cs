@@ -42,7 +42,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 
     [JsonMember]
     // Waypoints with bounds will be subdivided into more points that are this distance away from each other for fidelity of traversal
-    public float WaypointSubdivisionSize = 5;
+    public float WaypointSubdivisionSize = 7;
 
     // Map of all the waypoints (as nodes on the node graph) to their respective zones (areas indicated by Bounds)
     Dictionary<Bounds, HashSet<ZoneNode>> ZonesWithWaypoints;
@@ -318,8 +318,8 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
             return false;
 		
         // account for jump distances
-		//if(B.position.y - A.position.y > MaxJump)
-		//	return false;
+	    if( !ZombieFSM.CanJump((Vector3)A.position, (Vector3)B.position) )
+			return false;
 
         Vector3 dir = (Vector3)(A.position - B.position);
         dist = dir.magnitude;

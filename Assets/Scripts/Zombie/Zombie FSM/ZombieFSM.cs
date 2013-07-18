@@ -5,6 +5,11 @@ using System.Collections;
 [RequireComponent(typeof(Seeker))]
 public class ZombieFSM : CharacterFiniteStateMachineBase
 {
+    // TODO: Constants to calculate jumping elsewhere?...
+    public static float MaxJump = 10.0f;
+    public static float MaxSpeed = 7.0f;
+    public static float MaxGravity = 40.0f;
+
     // How high the zombie jumps
     public float JumpHeight = 6.0f;
 
@@ -45,6 +50,27 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     public override Enum GetDefaultState()
     {
         return ZombieStates.Zombie_Idle;
+    }
+
+    /// <summary>
+    /// Returns whether a zombie can jump from one position to another
+    /// </summary>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <returns></returns>
+    public static bool CanJump(Vector3 from, Vector3 to)
+    {
+        float xDist = Mathf.Abs(to.x - from.x);
+        float yDist = to.y - from.y;
+        float yVel = Mathf.Sqrt(2 * MaxJump * MaxGravity);
+        float t = yVel / MaxGravity;
+        float yMax = MaxJump;
+        if (xDist > MaxSpeed * t)
+        {
+            t = xDist / MaxSpeed;
+            yMax = (yVel * t) + ((-MaxGravity * t * t) / 2);
+        }
+        return yDist < yMax;
     }
 
     public override void OnDeath()
