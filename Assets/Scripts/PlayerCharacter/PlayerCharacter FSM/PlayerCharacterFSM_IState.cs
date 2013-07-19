@@ -64,6 +64,12 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
         if (UpHold)
             buttonPressedStack.PushOnStack(strUp);
 
+        Weapon weapon = Controller.Weapon.GetComponent<Weapon>();
+        if (WeaponPrimaryDown && weapon is Mine)
+            weapon.ActivateAttack(0);
+        if (SecondaryWeaponDown)
+            weapon.ActivateAttack(1);
+
         return nextState;
     }
 
@@ -231,7 +237,7 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
     }
     protected bool WeaponPrimaryDown
     {
-        get { return Input.GetButton("Primary"); }
+        get { return Input.GetButtonDown("Primary"); }
     }
     protected bool WeaponPrimaryLeft
     {
