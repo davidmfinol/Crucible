@@ -157,15 +157,11 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
 
         // Support for moving platforms
         if (Mathf.Abs(hit.moveDirection.y) > 0.9 && Mathf.Abs(hit.normal.y) > 0.9)
-        {
             ActivePlatform = hit.collider.transform;
-        }
 
         // Support for catching a wall/ledge/rope/etc.
         if (Mathf.Abs(hit.moveDirection.x) > 0.9 && Mathf.Abs(hit.normal.x) > 0.9)
-        {
             ActivePlatform = hit.collider.transform;
-        }
     }
 
     // Helper Method to find a bone attached to a character

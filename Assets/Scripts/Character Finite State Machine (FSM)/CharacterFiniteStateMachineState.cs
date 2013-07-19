@@ -32,7 +32,7 @@ public abstract class CharacterFiniteStateMachineState
             return nextState;
 
         // Moving platform support
-        if (Controller.ActivePlatform != null && ShouldMoveWithPlatform())
+        if (Controller.ActivePlatform != null) // &&ShouldMoveWithPlatform()?
         {
             Vector3 newGlobalPlatformPoint = Controller.ActivePlatform.TransformPoint(Controller.ActiveLocalPlatformPoint);
             Vector3 moveDistance = (newGlobalPlatformPoint - Controller.ActiveGlobalPlatformPoint);
@@ -71,8 +71,8 @@ public abstract class CharacterFiniteStateMachineState
         CharacterCollisionFlags = Controller.CharacterController.Move(currentMovementOffset);
 
         // Prevent the physics engine from moving us incorrectly 
-        if (Controller.transform.position.z != newZ && IsGrounded)
-            Controller.transform.position = lastPosition;
+        //if (Controller.transform.position.z != newZ && IsGrounded)
+        //    Controller.transform.position = lastPosition;
 
         // Calculate the velocity based on the current and previous position.  
         // This means our velocity will only be the amount the character actually moved as a result of collisions.

@@ -83,7 +83,8 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
 
     public override bool ShouldMoveWithPlatform()
     {
-        return IsWallHangState() || (IsGroundState() && IsGrounded);
+        //return IsWallHangState() || (IsGroundState() && IsGrounded);
+        return true;
     }
 
     public virtual bool IsGroundState()

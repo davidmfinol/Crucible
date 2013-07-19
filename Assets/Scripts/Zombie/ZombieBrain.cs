@@ -40,8 +40,8 @@ public class ZombieBrain
         _attack = false;
 
         // Zombie doesn't need to think when player is too far away
-        //if (!_zombieController.AwareOfPlayer)
-         //   return;
+        if (!_zombieController.AwareOfPlayer)
+            return;
 
         // Hunt that player down
         if (GameLevel.Instance.Player != null)
@@ -79,7 +79,7 @@ public class ZombieBrain
         _jump = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y && _zombieController.VerticalSpeed <= 0;
 
         // Going up or down depends on both y and z positions
-        if(_path.vectorPath[_currentPathWaypoint].z == _zombieController.ZLevel && !_zombieController.CanTransitionZ)
+        if(_path.vectorPath[_currentPathWaypoint].z == _zombieController.ZLevel)
             _vertical = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y ? 1 : -1;
         else
             _vertical = _path.vectorPath[_currentPathWaypoint].z - _zombieController.ZLevel;
