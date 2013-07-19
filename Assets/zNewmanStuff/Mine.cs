@@ -12,7 +12,7 @@ public class Mine : Weapon {
 	Transform mineCopy;
 	
 	static ArrayList allPlacedMines = new ArrayList();
-	int mineAmount = 100000;
+	int mineAmount = 100;
 	bool allMinesExploded = false;
 	Vector3 minePos;
 	
@@ -28,13 +28,13 @@ public class Mine : Weapon {
 		//PlayerCharacterFSM playerController = Player.GetComponent<PlayerCharacterFSM>();
         SetHitBoxes(transform, _hitBoxesActive);
 		MineAmountText = GameObject.Find("MineAmountText");
+		MineAmountText.GetComponent<TextMesh>().text = mineAmount.ToString();
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//string gg = "gg";
-		//((MineAmountText.transform.GetComponent(TextMesh)) as TextMesh).text = "gg"; // ).text = gg;
-		//MineAmountText.transform.GetComponent(Text
+		
 	}
 	
     public override void ActivateAttack(int attackID)
@@ -47,8 +47,10 @@ public class Mine : Weapon {
 					//minePos = this.gameObject.transform.position;
 					minePos = new Vector3(transform.position.x, transform.position.y, transform.position.z);// + 1.5f);
 					mineCopy = (Transform) Instantiate(mineObject, minePos, Quaternion.identity);
+					mineCopy.animation["MineAboutToExplode"].speed = 2.0f;
 					mineAmount--;
 					allPlacedMines.Add(mineCopy.gameObject);
+					MineAmountText.GetComponent<TextMesh>().text = mineAmount.ToString();
 				}
 			}
 		}
@@ -66,7 +68,7 @@ public class Mine : Weapon {
 					//Destroy((GameObject) allPlacedMines[i]);				
 				}
 				minesCurrentlyExploding = true;
-				StartCoroutine(AnimateExplosions(0.88f));  // Time it takes to animate mine before exploding
+				StartCoroutine(AnimateExplosions(0.44f));  // Time it takes to animate mine before exploding
 			}
 			
 			// allPlacedMines = new ArrayList();
