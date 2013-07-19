@@ -2377,6 +2377,7 @@ ModelImporter:
     104742: transform1 1
     104744: transform2
     104746: transform3
+    104748: LoveBirds
     400000: AboveLight
     400002: AboveLight 1
     400004: AboveLight1
@@ -4751,6 +4752,7 @@ ModelImporter:
     404742: transform1 1
     404744: transform2
     404746: transform3
+    404748: LoveBirds
     2300000: Armguard
     2300002: BackDoorLeft
     2300004: BackDoorRight
