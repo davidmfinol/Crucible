@@ -302,7 +302,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     }
     public bool CanHangOffObjectVertically
     {
-        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceZAxis() && !IsGrounded; }
+        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceZAxis() && !IsGrounded && IsHangTargetAbove; }
     }
     public bool IsHangTargetToRight
     {
