@@ -32,7 +32,7 @@ public abstract class CharacterFiniteStateMachineState
             return nextState;
 
         // Moving platform support
-        if (Controller.ActivePlatform != null) // &&ShouldMoveWithPlatform()?
+        if (Controller.ActivePlatform != null && Controller.transform.parent == null) // &&ShouldMoveWithPlatform()?
         {
             Vector3 newGlobalPlatformPoint = Controller.ActivePlatform.TransformPoint(Controller.ActiveLocalPlatformPoint);
             Vector3 moveDistance = (newGlobalPlatformPoint - Controller.ActiveGlobalPlatformPoint);
