@@ -41,7 +41,7 @@ public class PlayerCharacter_Idle : PlayerCharacterFSM_IState
             Direction = Vector3.zero;
 
         // Determine next state
-        if (WeaponPrimaryDown)
+        if (WeaponPrimaryDown && Controller.Weapon.GetComponent<Mine>() == null)
             nextState = PlayerCharacterStates.PlayerCharacter_AttackCombo1;
         if (!IsGrounded)
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
@@ -65,9 +65,6 @@ public class PlayerCharacter_Idle : PlayerCharacterFSM_IState
             VerticalSpeed = 0;
             nextState = PlayerCharacterStates.PlayerCharacter_TransitioningZ;
         }
-
-        if (Input.GetButtonDown("Secondary"))
-            Controller.Weapon.GetComponent<Weapon>().ActivateAttack(1);
 
         return nextState;
     }
