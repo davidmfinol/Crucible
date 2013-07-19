@@ -6,7 +6,10 @@ public class SpriteSheet : MonoBehaviour
 	public int _uvTieX = 1;
 	public int _uvTieY = 1;
 	public int _fps = 10;
+	public bool _loop = true;
  
+	private bool _stopAnimation = false;
+	
 	private Vector2 _size;
 	private Renderer _myRenderer;
 	private int _lastIndex = -1;
@@ -23,20 +26,29 @@ public class SpriteSheet : MonoBehaviour
 	{
 		// Calculate index
 		int index = (int)(Time.timeSinceLevelLoad * _fps) % (_uvTieX * _uvTieY);
-    	if(index != _lastIndex)
-		{
-			// split into horizontal and vertical index
-			int uIndex = index % _uvTieX;
-			int vIndex = index / _uvTieY;
- 
-			// build offset
-			// v coordinate is the bottom of the image in opengl so we need to invert.
-			Vector2 offset = new Vector2 (uIndex * _size.x, 1.0f - _size.y - vIndex * _size.y);
- 
-			_myRenderer.material.SetTextureOffset ("_MainTex", offset);
-			_myRenderer.material.SetTextureScale ("_MainTex", _size);
- 
-			_lastIndex = index;
-		}
+		if(!_stopAnimation){
+	    	if(index != _lastIndex)
+			{
+				// split into horizontal and vertical index
+				int uIndex = index % _uvTieX;
+				int vIndex = index / _uvTieY;
+	 
+				// build offset
+				// v coordinate is the bottom of the image in opengl so we need to invert.
+				Vector2 offset = new Vector2 (uIndex * _size.x, 1.0f - _size.y - vIndex * _size.y);
+	 
+				_myRenderer.material.SetTextureOffset ("_MainTex", offset);
+				_myRenderer.material.SetTextureScale ("_MainTex", _size);
+	 
+				_lastIndex = index;
+				
+				if(uIndex % _uvTieX == 0 && vIndex % _uvTieY == 0 && !_loop){
+				//if(uIndex == _uvTieX && vIndex == _uvTieY && !_loop){
+					_stopAnimation = true;
+				}
+			}
+		}	
+		
+
 	}
 }
