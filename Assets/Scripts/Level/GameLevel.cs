@@ -7,6 +7,7 @@ public class GameLevel : MonoBehaviour
     // Keep track of the player and where he starts in the level
     public Transform Player = null;
     public Transform StartPoint = null;
+    public Transform Elevator = null;
 
     // TODO: FIX THIS
     // Size of the level
@@ -42,6 +43,25 @@ public class GameLevel : MonoBehaviour
             cameraScript.Target = Player.transform;
         else
             Debug.Log("Camera not pointed at level load");
+
+        IntroScene();
+    }
+
+    //TODO: MOVE THIS
+    void IntroScene()
+    {
+        Player.parent = Elevator;
+        Camera.main.GetComponent<CameraScrolling>().Springiness = 100;
+        StartCoroutine("EndIntro");
+    }
+
+    IEnumerator EndIntro()
+    {
+        while (Player.position.y < -1)
+            yield return null;
+        Player.parent = null;
+        Camera.main.GetComponent<CameraScrolling>().Springiness = 4;
+        StopCoroutine("EndIntro");
     }
 
     // Create the boundaries
