@@ -19,7 +19,6 @@ public class ZombieAudioSource : AudioPlayer
     public void PlayAttack()
     {
         int clipNumber = _random.Next(0, AttackAudio.Clips.Length);
-        audio.loop = false;
         audio.clip = AttackAudio.Clips[clipNumber];
         audio.Play();
     }
@@ -27,7 +26,6 @@ public class ZombieAudioSource : AudioPlayer
     public void PlayDeath()
     {
         int clipNumber = _random.Next(0, DeathAudio.Clips.Length);
-        audio.loop = false;
         audio.clip = DeathAudio.Clips[clipNumber];
         audio.Play();
     }
@@ -35,7 +33,6 @@ public class ZombieAudioSource : AudioPlayer
     public void PlayIdle()
     {
         int clipNumber = _random.Next(0, IdleAudio.Clips.Length);
-        audio.loop = true;
         audio.clip = IdleAudio.Clips[clipNumber];
         audio.Play();
     }
@@ -43,7 +40,6 @@ public class ZombieAudioSource : AudioPlayer
     public void PlayNotice()
     {
         int clipNumber = _random.Next(0, NoticeAudio.Clips.Length);
-        audio.loop = false;
         audio.clip = NoticeAudio.Clips[clipNumber];
         audio.Play();
     }
