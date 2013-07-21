@@ -15,7 +15,8 @@ public class PlayerCharacter_AttackCombo3 : PlayerCharacterFSM_IState
         _weapon.ActivateAttack(2);
 
         // Character Speed
-        HorizontalSpeed = 2;
+        if (Direction.x != 0)
+            HorizontalSpeed = 2;
         VerticalSpeed = GroundVerticalSpeed;
 
         // Character Animation
