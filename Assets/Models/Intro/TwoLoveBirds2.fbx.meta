@@ -1,0 +1,739 @@
+fileFormatVersion: 2
+guid: 03cc5b4939b0c43969d6e51f1d2daad6
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: All4FloatingRings
+    100002: annotation1
+    100004: annotation1 1
+    100006: annotationLocator1
+    100008: annotationLocator1 1
+    100010: BackDoorLeft
+    100012: BackDoorRight
+    100014: BackProjector
+    100016: Base
+    100018: Base 1
+    100020: BLFrameHolder
+    100022: BLFrameHolder 1
+    100024: BottomElevator
+    100026: BottomElevator1
+    100028: Camera
+    100030: Camera 1
+    100032: Camera 2
+    100034: Camera 3
+    100036: camera1
+    100038: CameraHead
+    100040: CameraHead 1
+    100042: Elevator
+    100044: ElevatorFraming
+    100046: ElevatorGlass
+    100048: ElevatorShaft_TwoLovebirds
+    100050: Extension
+    100052: Extension 1
+    100054: Frame
+    100056: Frame 1
+    100058: FrontDoorLeft
+    100060: FrontDoorRight
+    100062: group
+    100064: group3
+    100066: group4
+    100068: group5
+    100070: group7
+    100072: group8
+    100074: ikHandle1
+    100076: ikHandle1 1
+    100078: InnerLeft
+    100080: InnerLIght
+    100082: InnerRight
+    100084: InnerSphere
+    100086: InnerSphere 1
+    100088: joint1
+    100090: joint1 1
+    100092: joint2
+    100094: joint2 1
+    100096: joint3
+    100098: joint3 1
+    100100: joint4
+    100102: joint4 1
+    100104: Left
+    100106: LeftArm
+    100108: LeftArm 1
+    100110: LeftArm1
+    100112: LeftElevator2
+    100114: LeftElevator2 1
+    100116: LeftElevator3
+    100118: LeftElevator3 1
+    100120: Marshal_s_Projector
+    100122: MidPiece
+    100124: MidPiece 1
+    100126: OuterLeft
+    100128: OuterRight
+    100130: pasted__FloatingRings
+    100132: pasted__FloatingRings 1
+    100134: pasted__FloatingRings 2
+    100136: pasted__FloatingRings 3
+    100138: pasted__Frame
+    100140: pasted__Frame 1
+    100142: pasted__group
+    100144: pasted__group 1
+    100146: pasted__group 2
+    100148: pasted__group 3
+    100150: pasted__group1
+    100152: pasted__group1 1
+    100154: pasted__group1 2
+    100156: pasted__group1 3
+    100158: pasted__group2
+    100160: pasted__group2 1
+    100162: pasted__group2 2
+    100164: pasted__group2 3
+    100166: pasted__pasted__Frame
+    100168: pasted__pasted__Frame 1
+    100170: pasted__pasted__Frame1
+    100172: pasted__pasted__Frame1 1
+    100174: pasted__pasted__group
+    100176: pasted__pasted__group 1
+    100178: pasted__pasted__group 2
+    100180: pasted__pasted__group 3
+    100182: pasted__pasted__pasted__pTorus3
+    100184: pasted__pasted__pasted__pTorus3 1
+    100186: pasted__pasted__pasted__pTorus3 2
+    100188: pasted__pasted__pasted__pTorus3 3
+    100190: pasted__pasted__pasted__pTorus4
+    100192: pasted__pasted__pasted__pTorus4 1
+    100194: pasted__pasted__pasted__pTorus4 2
+    100196: pasted__pasted__pasted__pTorus4 3
+    100198: pasted__pasted__pasted__pTorus5
+    100200: pasted__pasted__pasted__pTorus5 1
+    100202: pasted__pasted__pasted__pTorus5 2
+    100204: pasted__pasted__pasted__pTorus5 3
+    100206: pasted__pasted__pCylinder1
+    100208: pasted__pasted__pCylinder1 1
+    100210: pasted__pasted__pPipe1
+    100212: pasted__pasted__pPipe1 1
+    100214: pasted__pasted__pTorus3
+    100216: pasted__pasted__pTorus3 1
+    100218: pasted__pasted__pTorus3 2
+    100220: pasted__pasted__pTorus3 3
+    100222: pasted__pasted__pTorus3 4
+    100224: pasted__pasted__pTorus3 5
+    100226: pasted__pasted__pTorus3 6
+    100228: pasted__pasted__pTorus3 7
+    100230: pasted__pasted__pTorus4
+    100232: pasted__pasted__pTorus4 1
+    100234: pasted__pasted__pTorus4 2
+    100236: pasted__pasted__pTorus4 3
+    100238: pasted__pasted__pTorus4 4
+    100240: pasted__pasted__pTorus4 5
+    100242: pasted__pasted__pTorus4 6
+    100244: pasted__pasted__pTorus4 7
+    100246: pasted__pasted__pTorus5
+    100248: pasted__pasted__pTorus5 1
+    100250: pasted__pasted__pTorus5 2
+    100252: pasted__pasted__pTorus5 3
+    100254: pasted__pasted__pTorus5 4
+    100256: pasted__pasted__pTorus5 5
+    100258: pasted__pasted__pTorus5 6
+    100260: pasted__pasted__pTorus5 7
+    100262: pasted__pCylinder1
+    100264: pasted__pCylinder1 1
+    100266: pasted__pCylinder2
+    100268: pasted__pCylinder2 1
+    100270: pasted__pPipe1
+    100272: pasted__pPipe1 1
+    100274: pasted__pPipe2
+    100276: pasted__pPipe2 1
+    100278: pasted__pPipe3
+    100280: pasted__pPipe3 1
+    100282: pasted__pSphere4
+    100284: pasted__pSphere4 1
+    100286: pasted__pTorus3
+    100288: pasted__pTorus3 1
+    100290: pasted__pTorus3 2
+    100292: pasted__pTorus3 3
+    100294: pasted__pTorus4
+    100296: pasted__pTorus4 1
+    100298: pasted__pTorus4 2
+    100300: pasted__pTorus4 3
+    100302: pasted__pTorus5
+    100304: pasted__pTorus5 1
+    100306: pasted__pTorus5 2
+    100308: pasted__pTorus5 3
+    100310: pCube2
+    100312: pCube3
+    100314: pCube4
+    100316: pCube5
+    100318: polySurface1
+    100320: polySurface2
+    100322: Posts
+    100324: Posts 1
+    100326: ProjectorBack
+    100328: ProjectorLeft
+    100330: ProjectorRiht
+    100332: pSphere3
+    100334: pSphere3 1
+    100336: pSphere4
+    100338: pTorus1
+    100340: pTorus1 1
+    100342: Right
+    100344: RightArm
+    100346: Rotator
+    100348: Rotator 1
+    100350: SideDoors
+    100352: Support
+    100354: transform1
+    100356: //RootNode
+    400000: All4FloatingRings
+    400002: annotation1
+    400004: annotation1 1
+    400006: annotationLocator1
+    400008: annotationLocator1 1
+    400010: BackDoorLeft
+    400012: BackDoorRight
+    400014: BackProjector
+    400016: Base
+    400018: Base 1
+    400020: BLFrameHolder
+    400022: BLFrameHolder 1
+    400024: BottomElevator
+    400026: BottomElevator1
+    400028: Camera
+    400030: Camera 1
+    400032: Camera 2
+    400034: Camera 3
+    400036: camera1
+    400038: CameraHead
+    400040: CameraHead 1
+    400042: Elevator
+    400044: ElevatorFraming
+    400046: ElevatorGlass
+    400048: ElevatorShaft_TwoLovebirds
+    400050: Extension
+    400052: Extension 1
+    400054: Frame
+    400056: Frame 1
+    400058: FrontDoorLeft
+    400060: FrontDoorRight
+    400062: group
+    400064: group3
+    400066: group4
+    400068: group5
+    400070: group7
+    400072: group8
+    400074: ikHandle1
+    400076: ikHandle1 1
+    400078: InnerLeft
+    400080: InnerLIght
+    400082: InnerRight
+    400084: InnerSphere
+    400086: InnerSphere 1
+    400088: joint1
+    400090: joint1 1
+    400092: joint2
+    400094: joint2 1
+    400096: joint3
+    400098: joint3 1
+    400100: joint4
+    400102: joint4 1
+    400104: Left
+    400106: LeftArm
+    400108: LeftArm 1
+    400110: LeftArm1
+    400112: LeftElevator2
+    400114: LeftElevator2 1
+    400116: LeftElevator3
+    400118: LeftElevator3 1
+    400120: Marshal_s_Projector
+    400122: MidPiece
+    400124: MidPiece 1
+    400126: OuterLeft
+    400128: OuterRight
+    400130: pasted__FloatingRings
+    400132: pasted__FloatingRings 1
+    400134: pasted__FloatingRings 2
+    400136: pasted__FloatingRings 3
+    400138: pasted__Frame
+    400140: pasted__Frame 1
+    400142: pasted__group
+    400144: pasted__group 1
+    400146: pasted__group 2
+    400148: pasted__group 3
+    400150: pasted__group1
+    400152: pasted__group1 1
+    400154: pasted__group1 2
+    400156: pasted__group1 3
+    400158: pasted__group2
+    400160: pasted__group2 1
+    400162: pasted__group2 2
+    400164: pasted__group2 3
+    400166: pasted__pasted__Frame
+    400168: pasted__pasted__Frame 1
+    400170: pasted__pasted__Frame1
+    400172: pasted__pasted__Frame1 1
+    400174: pasted__pasted__group
+    400176: pasted__pasted__group 1
+    400178: pasted__pasted__group 2
+    400180: pasted__pasted__group 3
+    400182: pasted__pasted__pasted__pTorus3
+    400184: pasted__pasted__pasted__pTorus3 1
+    400186: pasted__pasted__pasted__pTorus3 2
+    400188: pasted__pasted__pasted__pTorus3 3
+    400190: pasted__pasted__pasted__pTorus4
+    400192: pasted__pasted__pasted__pTorus4 1
+    400194: pasted__pasted__pasted__pTorus4 2
+    400196: pasted__pasted__pasted__pTorus4 3
+    400198: pasted__pasted__pasted__pTorus5
+    400200: pasted__pasted__pasted__pTorus5 1
+    400202: pasted__pasted__pasted__pTorus5 2
+    400204: pasted__pasted__pasted__pTorus5 3
+    400206: pasted__pasted__pCylinder1
+    400208: pasted__pasted__pCylinder1 1
+    400210: pasted__pasted__pPipe1
+    400212: pasted__pasted__pPipe1 1
+    400214: pasted__pasted__pTorus3
+    400216: pasted__pasted__pTorus3 1
+    400218: pasted__pasted__pTorus3 2
+    400220: pasted__pasted__pTorus3 3
+    400222: pasted__pasted__pTorus3 4
+    400224: pasted__pasted__pTorus3 5
+    400226: pasted__pasted__pTorus3 6
+    400228: pasted__pasted__pTorus3 7
+    400230: pasted__pasted__pTorus4
+    400232: pasted__pasted__pTorus4 1
+    400234: pasted__pasted__pTorus4 2
+    400236: pasted__pasted__pTorus4 3
+    400238: pasted__pasted__pTorus4 4
+    400240: pasted__pasted__pTorus4 5
+    400242: pasted__pasted__pTorus4 6
+    400244: pasted__pasted__pTorus4 7
+    400246: pasted__pasted__pTorus5
+    400248: pasted__pasted__pTorus5 1
+    400250: pasted__pasted__pTorus5 2
+    400252: pasted__pasted__pTorus5 3
+    400254: pasted__pasted__pTorus5 4
+    400256: pasted__pasted__pTorus5 5
+    400258: pasted__pasted__pTorus5 6
+    400260: pasted__pasted__pTorus5 7
+    400262: pasted__pCylinder1
+    400264: pasted__pCylinder1 1
+    400266: pasted__pCylinder2
+    400268: pasted__pCylinder2 1
+    400270: pasted__pPipe1
+    400272: pasted__pPipe1 1
+    400274: pasted__pPipe2
+    400276: pasted__pPipe2 1
+    400278: pasted__pPipe3
+    400280: pasted__pPipe3 1
+    400282: pasted__pSphere4
+    400284: pasted__pSphere4 1
+    400286: pasted__pTorus3
+    400288: pasted__pTorus3 1
+    400290: pasted__pTorus3 2
+    400292: pasted__pTorus3 3
+    400294: pasted__pTorus4
+    400296: pasted__pTorus4 1
+    400298: pasted__pTorus4 2
+    400300: pasted__pTorus4 3
+    400302: pasted__pTorus5
+    400304: pasted__pTorus5 1
+    400306: pasted__pTorus5 2
+    400308: pasted__pTorus5 3
+    400310: pCube2
+    400312: pCube3
+    400314: pCube4
+    400316: pCube5
+    400318: polySurface1
+    400320: polySurface2
+    400322: Posts
+    400324: Posts 1
+    400326: ProjectorBack
+    400328: ProjectorLeft
+    400330: ProjectorRiht
+    400332: pSphere3
+    400334: pSphere3 1
+    400336: pSphere4
+    400338: pTorus1
+    400340: pTorus1 1
+    400342: Right
+    400344: RightArm
+    400346: Rotator
+    400348: Rotator 1
+    400350: SideDoors
+    400352: Support
+    400354: transform1
+    400356: //RootNode
+    2300000: BackDoorLeft
+    2300002: BackDoorRight
+    2300004: BLFrameHolder
+    2300006: BLFrameHolder 1
+    2300008: BottomElevator
+    2300010: BottomElevator1
+    2300012: Camera 2
+    2300014: Camera 3
+    2300016: Frame
+    2300018: Frame 1
+    2300020: FrontDoorLeft
+    2300022: FrontDoorRight
+    2300024: InnerLeft
+    2300026: InnerLIght
+    2300028: InnerRight
+    2300030: LeftElevator2
+    2300032: LeftElevator2 1
+    2300034: LeftElevator3
+    2300036: LeftElevator3 1
+    2300038: OuterLeft
+    2300040: OuterRight
+    2300042: pasted__Frame
+    2300044: pasted__Frame 1
+    2300046: pasted__pasted__Frame
+    2300048: pasted__pasted__Frame 1
+    2300050: pasted__pasted__Frame1
+    2300052: pasted__pasted__Frame1 1
+    2300054: pasted__pasted__pasted__pTorus3
+    2300056: pasted__pasted__pasted__pTorus3 1
+    2300058: pasted__pasted__pasted__pTorus3 2
+    2300060: pasted__pasted__pasted__pTorus3 3
+    2300062: pasted__pasted__pasted__pTorus4
+    2300064: pasted__pasted__pasted__pTorus4 1
+    2300066: pasted__pasted__pasted__pTorus4 2
+    2300068: pasted__pasted__pasted__pTorus4 3
+    2300070: pasted__pasted__pasted__pTorus5
+    2300072: pasted__pasted__pasted__pTorus5 1
+    2300074: pasted__pasted__pasted__pTorus5 2
+    2300076: pasted__pasted__pasted__pTorus5 3
+    2300078: pasted__pasted__pCylinder1
+    2300080: pasted__pasted__pCylinder1 1
+    2300082: pasted__pasted__pPipe1
+    2300084: pasted__pasted__pPipe1 1
+    2300086: pasted__pasted__pTorus3
+    2300088: pasted__pasted__pTorus3 1
+    2300090: pasted__pasted__pTorus3 2
+    2300092: pasted__pasted__pTorus3 3
+    2300094: pasted__pasted__pTorus3 4
+    2300096: pasted__pasted__pTorus3 5
+    2300098: pasted__pasted__pTorus3 6
+    2300100: pasted__pasted__pTorus3 7
+    2300102: pasted__pasted__pTorus4
+    2300104: pasted__pasted__pTorus4 1
+    2300106: pasted__pasted__pTorus4 2
+    2300108: pasted__pasted__pTorus4 3
+    2300110: pasted__pasted__pTorus4 4
+    2300112: pasted__pasted__pTorus4 5
+    2300114: pasted__pasted__pTorus4 6
+    2300116: pasted__pasted__pTorus4 7
+    2300118: pasted__pasted__pTorus5
+    2300120: pasted__pasted__pTorus5 1
+    2300122: pasted__pasted__pTorus5 2
+    2300124: pasted__pasted__pTorus5 3
+    2300126: pasted__pasted__pTorus5 4
+    2300128: pasted__pasted__pTorus5 5
+    2300130: pasted__pasted__pTorus5 6
+    2300132: pasted__pasted__pTorus5 7
+    2300134: pasted__pCylinder1
+    2300136: pasted__pCylinder1 1
+    2300138: pasted__pCylinder2
+    2300140: pasted__pCylinder2 1
+    2300142: pasted__pPipe1
+    2300144: pasted__pPipe1 1
+    2300146: pasted__pPipe2
+    2300148: pasted__pPipe2 1
+    2300150: pasted__pPipe3
+    2300152: pasted__pPipe3 1
+    2300154: pasted__pSphere4
+    2300156: pasted__pSphere4 1
+    2300158: pasted__pTorus3
+    2300160: pasted__pTorus3 1
+    2300162: pasted__pTorus3 2
+    2300164: pasted__pTorus3 3
+    2300166: pasted__pTorus4
+    2300168: pasted__pTorus4 1
+    2300170: pasted__pTorus4 2
+    2300172: pasted__pTorus4 3
+    2300174: pasted__pTorus5
+    2300176: pasted__pTorus5 1
+    2300178: pasted__pTorus5 2
+    2300180: pasted__pTorus5 3
+    2300182: pCube2
+    2300184: pCube3
+    2300186: pCube4
+    2300188: pCube5
+    2300190: polySurface1
+    2300192: polySurface2
+    2300194: ProjectorBack
+    2300196: ProjectorLeft
+    2300198: ProjectorRiht
+    2300200: pSphere3
+    2300202: pSphere3 1
+    2300204: pTorus1
+    2300206: pTorus1 1
+    2300208: Rotator
+    2300210: Rotator 1
+    2300212: Support
+    3300000: BackDoorLeft
+    3300002: BackDoorRight
+    3300004: BLFrameHolder
+    3300006: BLFrameHolder 1
+    3300008: BottomElevator
+    3300010: BottomElevator1
+    3300012: Camera 2
+    3300014: Camera 3
+    3300016: Frame
+    3300018: Frame 1
+    3300020: FrontDoorLeft
+    3300022: FrontDoorRight
+    3300024: InnerLeft
+    3300026: InnerLIght
+    3300028: InnerRight
+    3300030: LeftElevator2
+    3300032: LeftElevator2 1
+    3300034: LeftElevator3
+    3300036: LeftElevator3 1
+    3300038: OuterLeft
+    3300040: OuterRight
+    3300042: pasted__Frame
+    3300044: pasted__Frame 1
+    3300046: pasted__pasted__Frame
+    3300048: pasted__pasted__Frame 1
+    3300050: pasted__pasted__Frame1
+    3300052: pasted__pasted__Frame1 1
+    3300054: pasted__pasted__pasted__pTorus3
+    3300056: pasted__pasted__pasted__pTorus3 1
+    3300058: pasted__pasted__pasted__pTorus3 2
+    3300060: pasted__pasted__pasted__pTorus3 3
+    3300062: pasted__pasted__pasted__pTorus4
+    3300064: pasted__pasted__pasted__pTorus4 1
+    3300066: pasted__pasted__pasted__pTorus4 2
+    3300068: pasted__pasted__pasted__pTorus4 3
+    3300070: pasted__pasted__pasted__pTorus5
+    3300072: pasted__pasted__pasted__pTorus5 1
+    3300074: pasted__pasted__pasted__pTorus5 2
+    3300076: pasted__pasted__pasted__pTorus5 3
+    3300078: pasted__pasted__pCylinder1
+    3300080: pasted__pasted__pCylinder1 1
+    3300082: pasted__pasted__pPipe1
+    3300084: pasted__pasted__pPipe1 1
+    3300086: pasted__pasted__pTorus3
+    3300088: pasted__pasted__pTorus3 1
+    3300090: pasted__pasted__pTorus3 2
+    3300092: pasted__pasted__pTorus3 3
+    3300094: pasted__pasted__pTorus3 4
+    3300096: pasted__pasted__pTorus3 5
+    3300098: pasted__pasted__pTorus3 6
+    3300100: pasted__pasted__pTorus3 7
+    3300102: pasted__pasted__pTorus4
+    3300104: pasted__pasted__pTorus4 1
+    3300106: pasted__pasted__pTorus4 2
+    3300108: pasted__pasted__pTorus4 3
+    3300110: pasted__pasted__pTorus4 4
+    3300112: pasted__pasted__pTorus4 5
+    3300114: pasted__pasted__pTorus4 6
+    3300116: pasted__pasted__pTorus4 7
+    3300118: pasted__pasted__pTorus5
+    3300120: pasted__pasted__pTorus5 1
+    3300122: pasted__pasted__pTorus5 2
+    3300124: pasted__pasted__pTorus5 3
+    3300126: pasted__pasted__pTorus5 4
+    3300128: pasted__pasted__pTorus5 5
+    3300130: pasted__pasted__pTorus5 6
+    3300132: pasted__pasted__pTorus5 7
+    3300134: pasted__pCylinder1
+    3300136: pasted__pCylinder1 1
+    3300138: pasted__pCylinder2
+    3300140: pasted__pCylinder2 1
+    3300142: pasted__pPipe1
+    3300144: pasted__pPipe1 1
+    3300146: pasted__pPipe2
+    3300148: pasted__pPipe2 1
+    3300150: pasted__pPipe3
+    3300152: pasted__pPipe3 1
+    3300154: pasted__pSphere4
+    3300156: pasted__pSphere4 1
+    3300158: pasted__pTorus3
+    3300160: pasted__pTorus3 1
+    3300162: pasted__pTorus3 2
+    3300164: pasted__pTorus3 3
+    3300166: pasted__pTorus4
+    3300168: pasted__pTorus4 1
+    3300170: pasted__pTorus4 2
+    3300172: pasted__pTorus4 3
+    3300174: pasted__pTorus5
+    3300176: pasted__pTorus5 1
+    3300178: pasted__pTorus5 2
+    3300180: pasted__pTorus5 3
+    3300182: pCube2
+    3300184: pCube3
+    3300186: pCube4
+    3300188: pCube5
+    3300190: polySurface1
+    3300192: polySurface2
+    3300194: ProjectorBack
+    3300196: ProjectorLeft
+    3300198: ProjectorRiht
+    3300200: pSphere3
+    3300202: pSphere3 1
+    3300204: pTorus1
+    3300206: pTorus1 1
+    3300208: Rotator
+    3300210: Rotator 1
+    3300212: Support
+    4300000: pCube5
+    4300002: pCube4
+    4300004: pCube3
+    4300006: pCube2
+    4300008: BackDoorRight
+    4300010: BackDoorLeft
+    4300012: FrontDoorLeft
+    4300014: FrontDoorRight
+    4300016: BottomElevator1
+    4300018: BottomElevator
+    4300020: LeftElevator2
+    4300022: LeftElevator3
+    4300024: LeftElevator2
+    4300026: LeftElevator3
+    4300028: pasted__pasted__pTorus3
+    4300030: pasted__pasted__pTorus4
+    4300032: pasted__pasted__pasted__pTorus3
+    4300034: pasted__pasted__pasted__pTorus4
+    4300036: pasted__pasted__pasted__pTorus5
+    4300038: pasted__pasted__pTorus5
+    4300040: pasted__pasted__pTorus3
+    4300042: pasted__pasted__pTorus4
+    4300044: pasted__pasted__pTorus5
+    4300046: pasted__pTorus5
+    4300048: pasted__pTorus4
+    4300050: pasted__pTorus3
+    4300052: pasted__pasted__pTorus3
+    4300054: pasted__pasted__pTorus4
+    4300056: pasted__pasted__pasted__pTorus3
+    4300058: pasted__pasted__pasted__pTorus4
+    4300060: pasted__pasted__pasted__pTorus5
+    4300062: pasted__pasted__pTorus5
+    4300064: pasted__pasted__pTorus3
+    4300066: pasted__pasted__pTorus4
+    4300068: pasted__pasted__pTorus5
+    4300070: pasted__pTorus5
+    4300072: pasted__pTorus4
+    4300074: pasted__pTorus3
+    4300076: pasted__pasted__pTorus3
+    4300078: pasted__pasted__pTorus4
+    4300080: pasted__pasted__pasted__pTorus3
+    4300082: pasted__pasted__pasted__pTorus4
+    4300084: pasted__pasted__pasted__pTorus5
+    4300086: pasted__pasted__pTorus5
+    4300088: pasted__pasted__pTorus3
+    4300090: pasted__pasted__pTorus4
+    4300092: pasted__pasted__pTorus5
+    4300094: pasted__pTorus5
+    4300096: pasted__pTorus4
+    4300098: pasted__pTorus3
+    4300100: pasted__pasted__pTorus3
+    4300102: pasted__pasted__pTorus4
+    4300104: pasted__pasted__pasted__pTorus3
+    4300106: pasted__pasted__pasted__pTorus4
+    4300108: pasted__pasted__pasted__pTorus5
+    4300110: pasted__pasted__pTorus5
+    4300112: pasted__pasted__pTorus3
+    4300114: pasted__pasted__pTorus4
+    4300116: pasted__pasted__pTorus5
+    4300118: pasted__pTorus5
+    4300120: pasted__pTorus4
+    4300122: pasted__pTorus3
+    4300124: InnerLIght
+    4300126: polySurface1
+    4300128: polySurface2
+    4300130: pasted__pasted__Frame1
+    4300132: pasted__pasted__Frame
+    4300134: pasted__Frame
+    4300136: Frame
+    4300138: Camera
+    4300140: pSphere3
+    4300142: pTorus1
+    4300144: pasted__pasted__pCylinder1
+    4300146: pasted__pCylinder1
+    4300148: BLFrameHolder
+    4300150: pasted__pCylinder2
+    4300152: ProjectorLeft
+    4300154: pasted__pSphere4
+    4300156: pasted__pPipe1
+    4300158: Rotator
+    4300160: pasted__pasted__pPipe1
+    4300162: pasted__pPipe2
+    4300164: pasted__pPipe3
+    4300166: pasted__pasted__Frame1
+    4300168: pasted__pasted__Frame
+    4300170: pasted__Frame
+    4300172: Frame
+    4300174: Camera
+    4300176: pSphere3
+    4300178: pTorus1
+    4300180: pasted__pasted__pCylinder1
+    4300182: pasted__pCylinder1
+    4300184: BLFrameHolder
+    4300186: pasted__pCylinder2
+    4300188: ProjectorRiht
+    4300190: pasted__pSphere4
+    4300192: pasted__pPipe1
+    4300194: Rotator
+    4300196: pasted__pasted__pPipe1
+    4300198: pasted__pPipe2
+    4300200: pasted__pPipe3
+    4300202: Support
+    4300204: ProjectorBack
+    4300206: OuterRight
+    4300208: InnerRight
+    4300210: OuterLeft
+    4300212: InnerLeft
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 1
+  userData: 
