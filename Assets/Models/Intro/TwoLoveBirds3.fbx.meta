@@ -1,0 +1,1492 @@
+fileFormatVersion: 2
+guid: 54ddb14c79c9543a4bb617ba6e51bfd9
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: All4FloatingRings
+    100002: annotation1
+    100004: annotation1 1
+    100006: annotationLocator1
+    100008: annotationLocator1 1
+    100010: BackDoorLeft
+    100012: BackDoorLeft 1
+    100014: BackDoorLeft 2
+    100016: BackDoorRight
+    100018: BackDoorRight 1
+    100020: BackDoorRight 2
+    100022: BackPlane
+    100024: BackProjector
+    100026: Base
+    100028: Base 1
+    100030: BLFrameHolder
+    100032: BLFrameHolder 1
+    100034: BottomElevator
+    100036: BottomElevator 1
+    100038: BottomElevator 2
+    100040: BottomElevator1
+    100042: BottomElevator1 1
+    100044: BottomElevator1 2
+    100046: Camera
+    100048: Camera 1
+    100050: Camera 2
+    100052: Camera 3
+    100054: camera1
+    100056: CameraHead
+    100058: CameraHead 1
+    100060: Elevator
+    100062: ElevatorFraming
+    100064: ElevatorGlass
+    100066: ElevatorUI
+    100068: ElevatorUI 1
+    100070: ElevatorUI 2
+    100072: Extension
+    100074: Extension 1
+    100076: Frame
+    100078: Frame 1
+    100080: FrontDoorLeft
+    100082: FrontDoorLeft 1
+    100084: FrontDoorLeft 2
+    100086: FrontDoorRight
+    100088: FrontDoorRight 1
+    100090: FrontDoorRight 2
+    100092: group
+    100094: group3
+    100096: group4
+    100098: group5
+    100100: group7
+    100102: group8
+    100104: group9
+    100106: ikHandle1
+    100108: ikHandle1 1
+    100110: InnerLeft
+    100112: InnerLIght
+    100114: InnerRight
+    100116: InnerSphere
+    100118: InnerSphere 1
+    100120: joint1
+    100122: joint1 1
+    100124: joint2
+    100126: joint2 1
+    100128: joint3
+    100130: joint3 1
+    100132: joint4
+    100134: joint4 1
+    100136: Left
+    100138: LeftArm
+    100140: LeftArmControl
+    100142: LeftArmControl 1
+    100144: LeftElevator
+    100146: LeftElevator2
+    100148: LeftElevator2 1
+    100150: LeftElevator2 2
+    100152: LeftElevator2 3
+    100154: LeftElevator3
+    100156: LeftElevator3 1
+    100158: LeftElevator3 2
+    100160: LeftElevator3 3
+    100162: LeftElevator4
+    100164: LeftElevator4 1
+    100166: LeftElevator5
+    100168: LeftElevator5 1
+    100170: LeftElevator6
+    100172: LeftGuyStuff
+    100174: MidPiece
+    100176: MidPiece 1
+    100178: NewIntroProjector
+    100180: Newman___LoveBirdsPt2
+    100182: null1
+    100184: OuterLeft
+    100186: OuterRight
+    100188: pasted__FloatingRings
+    100190: pasted__FloatingRings 1
+    100192: pasted__FloatingRings 2
+    100194: pasted__FloatingRings 3
+    100196: pasted__Frame
+    100198: pasted__Frame 1
+    100200: pasted__group
+    100202: pasted__group 1
+    100204: pasted__group 2
+    100206: pasted__group 3
+    100208: pasted__group1
+    100210: pasted__group1 1
+    100212: pasted__group1 2
+    100214: pasted__group1 3
+    100216: pasted__group2
+    100218: pasted__group2 1
+    100220: pasted__group2 2
+    100222: pasted__group2 3
+    100224: pasted__pasted__Frame
+    100226: pasted__pasted__Frame 1
+    100228: pasted__pasted__Frame1
+    100230: pasted__pasted__Frame1 1
+    100232: pasted__pasted__group
+    100234: pasted__pasted__group 1
+    100236: pasted__pasted__group 2
+    100238: pasted__pasted__group 3
+    100240: pasted__pasted__pasted__pTorus10
+    100242: pasted__pasted__pasted__pTorus10 1
+    100244: pasted__pasted__pasted__pTorus11
+    100246: pasted__pasted__pasted__pTorus11 1
+    100248: pasted__pasted__pasted__pTorus12
+    100250: pasted__pasted__pasted__pTorus12 1
+    100252: pasted__pasted__pasted__pTorus13
+    100254: pasted__pasted__pasted__pTorus13 1
+    100256: pasted__pasted__pasted__pTorus14
+    100258: pasted__pasted__pasted__pTorus14 1
+    100260: pasted__pasted__pasted__pTorus3
+    100262: pasted__pasted__pasted__pTorus3 1
+    100264: pasted__pasted__pasted__pTorus3 2
+    100266: pasted__pasted__pasted__pTorus3 3
+    100268: pasted__pasted__pasted__pTorus3 4
+    100270: pasted__pasted__pasted__pTorus3 5
+    100272: pasted__pasted__pasted__pTorus4
+    100274: pasted__pasted__pasted__pTorus4 1
+    100276: pasted__pasted__pasted__pTorus4 2
+    100278: pasted__pasted__pasted__pTorus4 3
+    100280: pasted__pasted__pasted__pTorus4 4
+    100282: pasted__pasted__pasted__pTorus4 5
+    100284: pasted__pasted__pasted__pTorus5
+    100286: pasted__pasted__pasted__pTorus5 1
+    100288: pasted__pasted__pasted__pTorus5 2
+    100290: pasted__pasted__pasted__pTorus5 3
+    100292: pasted__pasted__pasted__pTorus5 4
+    100294: pasted__pasted__pasted__pTorus5 5
+    100296: pasted__pasted__pasted__pTorus6
+    100298: pasted__pasted__pasted__pTorus6 1
+    100300: pasted__pasted__pasted__pTorus7
+    100302: pasted__pasted__pasted__pTorus7 1
+    100304: pasted__pasted__pasted__pTorus8
+    100306: pasted__pasted__pasted__pTorus8 1
+    100308: pasted__pasted__pasted__pTorus9
+    100310: pasted__pasted__pasted__pTorus9 1
+    100312: pasted__pasted__pCylinder1
+    100314: pasted__pasted__pCylinder1 1
+    100316: pasted__pasted__pPipe1
+    100318: pasted__pasted__pPipe1 1
+    100320: pasted__pasted__pTorus10
+    100322: pasted__pasted__pTorus10 1
+    100324: pasted__pasted__pTorus11
+    100326: pasted__pasted__pTorus11 1
+    100328: pasted__pasted__pTorus12
+    100330: pasted__pasted__pTorus12 1
+    100332: pasted__pasted__pTorus13
+    100334: pasted__pasted__pTorus13 1
+    100336: pasted__pasted__pTorus14
+    100338: pasted__pasted__pTorus14 1
+    100340: pasted__pasted__pTorus15
+    100342: pasted__pasted__pTorus15 1
+    100344: pasted__pasted__pTorus16
+    100346: pasted__pasted__pTorus16 1
+    100348: pasted__pasted__pTorus17
+    100350: pasted__pasted__pTorus17 1
+    100352: pasted__pasted__pTorus18
+    100354: pasted__pasted__pTorus18 1
+    100356: pasted__pasted__pTorus19
+    100358: pasted__pasted__pTorus19 1
+    100360: pasted__pasted__pTorus20
+    100362: pasted__pasted__pTorus20 1
+    100364: pasted__pasted__pTorus21
+    100366: pasted__pasted__pTorus21 1
+    100368: pasted__pasted__pTorus22
+    100370: pasted__pasted__pTorus22 1
+    100372: pasted__pasted__pTorus23
+    100374: pasted__pasted__pTorus23 1
+    100376: pasted__pasted__pTorus24
+    100378: pasted__pasted__pTorus24 1
+    100380: pasted__pasted__pTorus25
+    100382: pasted__pasted__pTorus25 1
+    100384: pasted__pasted__pTorus26
+    100386: pasted__pasted__pTorus26 1
+    100388: pasted__pasted__pTorus3
+    100390: pasted__pasted__pTorus3 1
+    100392: pasted__pasted__pTorus3 2
+    100394: pasted__pasted__pTorus3 3
+    100396: pasted__pasted__pTorus3 4
+    100398: pasted__pasted__pTorus3 5
+    100400: pasted__pasted__pTorus3 6
+    100402: pasted__pasted__pTorus3 7
+    100404: pasted__pasted__pTorus3 8
+    100406: pasted__pasted__pTorus3 9
+    100408: pasted__pasted__pTorus4
+    100410: pasted__pasted__pTorus4 1
+    100412: pasted__pasted__pTorus4 2
+    100414: pasted__pasted__pTorus4 3
+    100416: pasted__pasted__pTorus4 4
+    100418: pasted__pasted__pTorus4 5
+    100420: pasted__pasted__pTorus4 6
+    100422: pasted__pasted__pTorus4 7
+    100424: pasted__pasted__pTorus4 8
+    100426: pasted__pasted__pTorus4 9
+    100428: pasted__pasted__pTorus5
+    100430: pasted__pasted__pTorus5 1
+    100432: pasted__pasted__pTorus5 2
+    100434: pasted__pasted__pTorus5 3
+    100436: pasted__pasted__pTorus5 4
+    100438: pasted__pasted__pTorus5 5
+    100440: pasted__pasted__pTorus5 6
+    100442: pasted__pasted__pTorus5 7
+    100444: pasted__pasted__pTorus5 8
+    100446: pasted__pasted__pTorus5 9
+    100448: pasted__pasted__pTorus6
+    100450: pasted__pasted__pTorus6 1
+    100452: pasted__pasted__pTorus7
+    100454: pasted__pasted__pTorus7 1
+    100456: pasted__pasted__pTorus8
+    100458: pasted__pasted__pTorus8 1
+    100460: pasted__pasted__pTorus9
+    100462: pasted__pasted__pTorus9 1
+    100464: pasted__pCylinder1
+    100466: pasted__pCylinder1 1
+    100468: pasted__pCylinder2
+    100470: pasted__pCylinder2 1
+    100472: pasted__pPipe1
+    100474: pasted__pPipe1 1
+    100476: pasted__pPipe2
+    100478: pasted__pPipe2 1
+    100480: pasted__pPipe3
+    100482: pasted__pPipe3 1
+    100484: pasted__pSphere4
+    100486: pasted__pSphere4 1
+    100488: pasted__pTorus10
+    100490: pasted__pTorus10 1
+    100492: pasted__pTorus11
+    100494: pasted__pTorus11 1
+    100496: pasted__pTorus12
+    100498: pasted__pTorus12 1
+    100500: pasted__pTorus13
+    100502: pasted__pTorus13 1
+    100504: pasted__pTorus14
+    100506: pasted__pTorus14 1
+    100508: pasted__pTorus3
+    100510: pasted__pTorus3 1
+    100512: pasted__pTorus3 2
+    100514: pasted__pTorus3 3
+    100516: pasted__pTorus3 4
+    100518: pasted__pTorus3 5
+    100520: pasted__pTorus4
+    100522: pasted__pTorus4 1
+    100524: pasted__pTorus4 2
+    100526: pasted__pTorus4 3
+    100528: pasted__pTorus4 4
+    100530: pasted__pTorus4 5
+    100532: pasted__pTorus5
+    100534: pasted__pTorus5 1
+    100536: pasted__pTorus5 2
+    100538: pasted__pTorus5 3
+    100540: pasted__pTorus5 4
+    100542: pasted__pTorus5 5
+    100544: pasted__pTorus6
+    100546: pasted__pTorus6 1
+    100548: pasted__pTorus7
+    100550: pasted__pTorus7 1
+    100552: pasted__pTorus8
+    100554: pasted__pTorus8 1
+    100556: pasted__pTorus9
+    100558: pasted__pTorus9 1
+    100560: pCube2
+    100562: pCube2 1
+    100564: pCube2 2
+    100566: pCube3
+    100568: pCube3 1
+    100570: pCube3 2
+    100572: pCube4
+    100574: pCube4 1
+    100576: pCube4 2
+    100578: pCube5
+    100580: pCube5 1
+    100582: pCube5 2
+    100584: polySurface1
+    100586: polySurface2
+    100588: Posts
+    100590: Posts 1
+    100592: pPlane1
+    100594: pPlane1 1
+    100596: Projector1
+    100598: pSphere3
+    100600: pSphere3 1
+    100602: pSphere4
+    100604: pTorus1
+    100606: pTorus1 1
+    100608: Right
+    100610: RightARm
+    100612: RightElevator
+    100614: RightGuyStuff
+    100616: Rotator
+    100618: Rotator 1
+    100620: SideDoors
+    100622: Support
+    100624: transform1
+    100626: //RootNode
+    100628: Newman_s_Rings3
+    100630: pCube22
+    100632: pCube23
+    100634: pCube25
+    100636: pCube8
+    100638: pTorus11
+    100640: pTorus11 1
+    100642: pTorus13
+    100644: pTorus13 1
+    100646: pTorus15
+    100648: pTorus15 1
+    100650: pTorus17
+    100652: pTorus17 1
+    100654: pTorus3
+    100656: pTorus3 1
+    100658: pTorus5
+    100660: pTorus5 1
+    100662: pTorus7
+    100664: pTorus7 1
+    100666: pTorus9
+    100668: pTorus9 1
+    400000: All4FloatingRings
+    400002: annotation1
+    400004: annotation1 1
+    400006: annotationLocator1
+    400008: annotationLocator1 1
+    400010: BackDoorLeft
+    400012: BackDoorLeft 1
+    400014: BackDoorLeft 2
+    400016: BackDoorRight
+    400018: BackDoorRight 1
+    400020: BackDoorRight 2
+    400022: BackPlane
+    400024: BackProjector
+    400026: Base
+    400028: Base 1
+    400030: BLFrameHolder
+    400032: BLFrameHolder 1
+    400034: BottomElevator
+    400036: BottomElevator 1
+    400038: BottomElevator 2
+    400040: BottomElevator1
+    400042: BottomElevator1 1
+    400044: BottomElevator1 2
+    400046: Camera
+    400048: Camera 1
+    400050: Camera 2
+    400052: Camera 3
+    400054: camera1
+    400056: CameraHead
+    400058: CameraHead 1
+    400060: Elevator
+    400062: ElevatorFraming
+    400064: ElevatorGlass
+    400066: ElevatorUI
+    400068: ElevatorUI 1
+    400070: ElevatorUI 2
+    400072: Extension
+    400074: Extension 1
+    400076: Frame
+    400078: Frame 1
+    400080: FrontDoorLeft
+    400082: FrontDoorLeft 1
+    400084: FrontDoorLeft 2
+    400086: FrontDoorRight
+    400088: FrontDoorRight 1
+    400090: FrontDoorRight 2
+    400092: group
+    400094: group3
+    400096: group4
+    400098: group5
+    400100: group7
+    400102: group8
+    400104: group9
+    400106: ikHandle1
+    400108: ikHandle1 1
+    400110: InnerLeft
+    400112: InnerLIght
+    400114: InnerRight
+    400116: InnerSphere
+    400118: InnerSphere 1
+    400120: joint1
+    400122: joint1 1
+    400124: joint2
+    400126: joint2 1
+    400128: joint3
+    400130: joint3 1
+    400132: joint4
+    400134: joint4 1
+    400136: Left
+    400138: LeftArm
+    400140: LeftArmControl
+    400142: LeftArmControl 1
+    400144: LeftElevator
+    400146: LeftElevator2
+    400148: LeftElevator2 1
+    400150: LeftElevator2 2
+    400152: LeftElevator2 3
+    400154: LeftElevator3
+    400156: LeftElevator3 1
+    400158: LeftElevator3 2
+    400160: LeftElevator3 3
+    400162: LeftElevator4
+    400164: LeftElevator4 1
+    400166: LeftElevator5
+    400168: LeftElevator5 1
+    400170: LeftElevator6
+    400172: LeftGuyStuff
+    400174: MidPiece
+    400176: MidPiece 1
+    400178: NewIntroProjector
+    400180: Newman___LoveBirdsPt2
+    400182: null1
+    400184: OuterLeft
+    400186: OuterRight
+    400188: pasted__FloatingRings
+    400190: pasted__FloatingRings 1
+    400192: pasted__FloatingRings 2
+    400194: pasted__FloatingRings 3
+    400196: pasted__Frame
+    400198: pasted__Frame 1
+    400200: pasted__group
+    400202: pasted__group 1
+    400204: pasted__group 2
+    400206: pasted__group 3
+    400208: pasted__group1
+    400210: pasted__group1 1
+    400212: pasted__group1 2
+    400214: pasted__group1 3
+    400216: pasted__group2
+    400218: pasted__group2 1
+    400220: pasted__group2 2
+    400222: pasted__group2 3
+    400224: pasted__pasted__Frame
+    400226: pasted__pasted__Frame 1
+    400228: pasted__pasted__Frame1
+    400230: pasted__pasted__Frame1 1
+    400232: pasted__pasted__group
+    400234: pasted__pasted__group 1
+    400236: pasted__pasted__group 2
+    400238: pasted__pasted__group 3
+    400240: pasted__pasted__pasted__pTorus10
+    400242: pasted__pasted__pasted__pTorus10 1
+    400244: pasted__pasted__pasted__pTorus11
+    400246: pasted__pasted__pasted__pTorus11 1
+    400248: pasted__pasted__pasted__pTorus12
+    400250: pasted__pasted__pasted__pTorus12 1
+    400252: pasted__pasted__pasted__pTorus13
+    400254: pasted__pasted__pasted__pTorus13 1
+    400256: pasted__pasted__pasted__pTorus14
+    400258: pasted__pasted__pasted__pTorus14 1
+    400260: pasted__pasted__pasted__pTorus3
+    400262: pasted__pasted__pasted__pTorus3 1
+    400264: pasted__pasted__pasted__pTorus3 2
+    400266: pasted__pasted__pasted__pTorus3 3
+    400268: pasted__pasted__pasted__pTorus3 4
+    400270: pasted__pasted__pasted__pTorus3 5
+    400272: pasted__pasted__pasted__pTorus4
+    400274: pasted__pasted__pasted__pTorus4 1
+    400276: pasted__pasted__pasted__pTorus4 2
+    400278: pasted__pasted__pasted__pTorus4 3
+    400280: pasted__pasted__pasted__pTorus4 4
+    400282: pasted__pasted__pasted__pTorus4 5
+    400284: pasted__pasted__pasted__pTorus5
+    400286: pasted__pasted__pasted__pTorus5 1
+    400288: pasted__pasted__pasted__pTorus5 2
+    400290: pasted__pasted__pasted__pTorus5 3
+    400292: pasted__pasted__pasted__pTorus5 4
+    400294: pasted__pasted__pasted__pTorus5 5
+    400296: pasted__pasted__pasted__pTorus6
+    400298: pasted__pasted__pasted__pTorus6 1
+    400300: pasted__pasted__pasted__pTorus7
+    400302: pasted__pasted__pasted__pTorus7 1
+    400304: pasted__pasted__pasted__pTorus8
+    400306: pasted__pasted__pasted__pTorus8 1
+    400308: pasted__pasted__pasted__pTorus9
+    400310: pasted__pasted__pasted__pTorus9 1
+    400312: pasted__pasted__pCylinder1
+    400314: pasted__pasted__pCylinder1 1
+    400316: pasted__pasted__pPipe1
+    400318: pasted__pasted__pPipe1 1
+    400320: pasted__pasted__pTorus10
+    400322: pasted__pasted__pTorus10 1
+    400324: pasted__pasted__pTorus11
+    400326: pasted__pasted__pTorus11 1
+    400328: pasted__pasted__pTorus12
+    400330: pasted__pasted__pTorus12 1
+    400332: pasted__pasted__pTorus13
+    400334: pasted__pasted__pTorus13 1
+    400336: pasted__pasted__pTorus14
+    400338: pasted__pasted__pTorus14 1
+    400340: pasted__pasted__pTorus15
+    400342: pasted__pasted__pTorus15 1
+    400344: pasted__pasted__pTorus16
+    400346: pasted__pasted__pTorus16 1
+    400348: pasted__pasted__pTorus17
+    400350: pasted__pasted__pTorus17 1
+    400352: pasted__pasted__pTorus18
+    400354: pasted__pasted__pTorus18 1
+    400356: pasted__pasted__pTorus19
+    400358: pasted__pasted__pTorus19 1
+    400360: pasted__pasted__pTorus20
+    400362: pasted__pasted__pTorus20 1
+    400364: pasted__pasted__pTorus21
+    400366: pasted__pasted__pTorus21 1
+    400368: pasted__pasted__pTorus22
+    400370: pasted__pasted__pTorus22 1
+    400372: pasted__pasted__pTorus23
+    400374: pasted__pasted__pTorus23 1
+    400376: pasted__pasted__pTorus24
+    400378: pasted__pasted__pTorus24 1
+    400380: pasted__pasted__pTorus25
+    400382: pasted__pasted__pTorus25 1
+    400384: pasted__pasted__pTorus26
+    400386: pasted__pasted__pTorus26 1
+    400388: pasted__pasted__pTorus3
+    400390: pasted__pasted__pTorus3 1
+    400392: pasted__pasted__pTorus3 2
+    400394: pasted__pasted__pTorus3 3
+    400396: pasted__pasted__pTorus3 4
+    400398: pasted__pasted__pTorus3 5
+    400400: pasted__pasted__pTorus3 6
+    400402: pasted__pasted__pTorus3 7
+    400404: pasted__pasted__pTorus3 8
+    400406: pasted__pasted__pTorus3 9
+    400408: pasted__pasted__pTorus4
+    400410: pasted__pasted__pTorus4 1
+    400412: pasted__pasted__pTorus4 2
+    400414: pasted__pasted__pTorus4 3
+    400416: pasted__pasted__pTorus4 4
+    400418: pasted__pasted__pTorus4 5
+    400420: pasted__pasted__pTorus4 6
+    400422: pasted__pasted__pTorus4 7
+    400424: pasted__pasted__pTorus4 8
+    400426: pasted__pasted__pTorus4 9
+    400428: pasted__pasted__pTorus5
+    400430: pasted__pasted__pTorus5 1
+    400432: pasted__pasted__pTorus5 2
+    400434: pasted__pasted__pTorus5 3
+    400436: pasted__pasted__pTorus5 4
+    400438: pasted__pasted__pTorus5 5
+    400440: pasted__pasted__pTorus5 6
+    400442: pasted__pasted__pTorus5 7
+    400444: pasted__pasted__pTorus5 8
+    400446: pasted__pasted__pTorus5 9
+    400448: pasted__pasted__pTorus6
+    400450: pasted__pasted__pTorus6 1
+    400452: pasted__pasted__pTorus7
+    400454: pasted__pasted__pTorus7 1
+    400456: pasted__pasted__pTorus8
+    400458: pasted__pasted__pTorus8 1
+    400460: pasted__pasted__pTorus9
+    400462: pasted__pasted__pTorus9 1
+    400464: pasted__pCylinder1
+    400466: pasted__pCylinder1 1
+    400468: pasted__pCylinder2
+    400470: pasted__pCylinder2 1
+    400472: pasted__pPipe1
+    400474: pasted__pPipe1 1
+    400476: pasted__pPipe2
+    400478: pasted__pPipe2 1
+    400480: pasted__pPipe3
+    400482: pasted__pPipe3 1
+    400484: pasted__pSphere4
+    400486: pasted__pSphere4 1
+    400488: pasted__pTorus10
+    400490: pasted__pTorus10 1
+    400492: pasted__pTorus11
+    400494: pasted__pTorus11 1
+    400496: pasted__pTorus12
+    400498: pasted__pTorus12 1
+    400500: pasted__pTorus13
+    400502: pasted__pTorus13 1
+    400504: pasted__pTorus14
+    400506: pasted__pTorus14 1
+    400508: pasted__pTorus3
+    400510: pasted__pTorus3 1
+    400512: pasted__pTorus3 2
+    400514: pasted__pTorus3 3
+    400516: pasted__pTorus3 4
+    400518: pasted__pTorus3 5
+    400520: pasted__pTorus4
+    400522: pasted__pTorus4 1
+    400524: pasted__pTorus4 2
+    400526: pasted__pTorus4 3
+    400528: pasted__pTorus4 4
+    400530: pasted__pTorus4 5
+    400532: pasted__pTorus5
+    400534: pasted__pTorus5 1
+    400536: pasted__pTorus5 2
+    400538: pasted__pTorus5 3
+    400540: pasted__pTorus5 4
+    400542: pasted__pTorus5 5
+    400544: pasted__pTorus6
+    400546: pasted__pTorus6 1
+    400548: pasted__pTorus7
+    400550: pasted__pTorus7 1
+    400552: pasted__pTorus8
+    400554: pasted__pTorus8 1
+    400556: pasted__pTorus9
+    400558: pasted__pTorus9 1
+    400560: pCube2
+    400562: pCube2 1
+    400564: pCube2 2
+    400566: pCube3
+    400568: pCube3 1
+    400570: pCube3 2
+    400572: pCube4
+    400574: pCube4 1
+    400576: pCube4 2
+    400578: pCube5
+    400580: pCube5 1
+    400582: pCube5 2
+    400584: polySurface1
+    400586: polySurface2
+    400588: Posts
+    400590: Posts 1
+    400592: pPlane1
+    400594: pPlane1 1
+    400596: Projector1
+    400598: pSphere3
+    400600: pSphere3 1
+    400602: pSphere4
+    400604: pTorus1
+    400606: pTorus1 1
+    400608: Right
+    400610: RightARm
+    400612: RightElevator
+    400614: RightGuyStuff
+    400616: Rotator
+    400618: Rotator 1
+    400620: SideDoors
+    400622: Support
+    400624: transform1
+    400626: //RootNode
+    400628: Newman_s_Rings3
+    400630: pCube22
+    400632: pCube23
+    400634: pCube25
+    400636: pCube8
+    400638: pTorus11
+    400640: pTorus11 1
+    400642: pTorus13
+    400644: pTorus13 1
+    400646: pTorus15
+    400648: pTorus15 1
+    400650: pTorus17
+    400652: pTorus17 1
+    400654: pTorus3
+    400656: pTorus3 1
+    400658: pTorus5
+    400660: pTorus5 1
+    400662: pTorus7
+    400664: pTorus7 1
+    400666: pTorus9
+    400668: pTorus9 1
+    2300000: BackDoorLeft
+    2300002: BackDoorLeft 1
+    2300004: BackDoorLeft 2
+    2300006: BackDoorRight
+    2300008: BackDoorRight 1
+    2300010: BackDoorRight 2
+    2300012: BackPlane
+    2300014: BLFrameHolder
+    2300016: BLFrameHolder 1
+    2300018: BottomElevator
+    2300020: BottomElevator 1
+    2300022: BottomElevator 2
+    2300024: BottomElevator1
+    2300026: BottomElevator1 1
+    2300028: BottomElevator1 2
+    2300030: Camera 2
+    2300032: Camera 3
+    2300034: ElevatorUI
+    2300036: ElevatorUI 1
+    2300038: ElevatorUI 2
+    2300040: Frame
+    2300042: Frame 1
+    2300044: FrontDoorLeft
+    2300046: FrontDoorLeft 1
+    2300048: FrontDoorLeft 2
+    2300050: FrontDoorRight
+    2300052: FrontDoorRight 1
+    2300054: FrontDoorRight 2
+    2300056: InnerLeft
+    2300058: InnerLIght
+    2300060: InnerRight
+    2300062: LeftElevator2
+    2300064: LeftElevator2 1
+    2300066: LeftElevator2 2
+    2300068: LeftElevator2 3
+    2300070: LeftElevator3
+    2300072: LeftElevator3 1
+    2300074: LeftElevator3 2
+    2300076: LeftElevator3 3
+    2300078: LeftElevator4
+    2300080: LeftElevator4 1
+    2300082: LeftElevator5
+    2300084: LeftElevator5 1
+    2300086: OuterLeft
+    2300088: OuterRight
+    2300090: pasted__Frame
+    2300092: pasted__Frame 1
+    2300094: pasted__pasted__Frame
+    2300096: pasted__pasted__Frame 1
+    2300098: pasted__pasted__Frame1
+    2300100: pasted__pasted__Frame1 1
+    2300102: pasted__pasted__pasted__pTorus10
+    2300104: pasted__pasted__pasted__pTorus10 1
+    2300106: pasted__pasted__pasted__pTorus11
+    2300108: pasted__pasted__pasted__pTorus11 1
+    2300110: pasted__pasted__pasted__pTorus12
+    2300112: pasted__pasted__pasted__pTorus12 1
+    2300114: pasted__pasted__pasted__pTorus13
+    2300116: pasted__pasted__pasted__pTorus13 1
+    2300118: pasted__pasted__pasted__pTorus14
+    2300120: pasted__pasted__pasted__pTorus14 1
+    2300122: pasted__pasted__pasted__pTorus3
+    2300124: pasted__pasted__pasted__pTorus3 1
+    2300126: pasted__pasted__pasted__pTorus3 2
+    2300128: pasted__pasted__pasted__pTorus3 3
+    2300130: pasted__pasted__pasted__pTorus3 4
+    2300132: pasted__pasted__pasted__pTorus3 5
+    2300134: pasted__pasted__pasted__pTorus4
+    2300136: pasted__pasted__pasted__pTorus4 1
+    2300138: pasted__pasted__pasted__pTorus4 2
+    2300140: pasted__pasted__pasted__pTorus4 3
+    2300142: pasted__pasted__pasted__pTorus4 4
+    2300144: pasted__pasted__pasted__pTorus4 5
+    2300146: pasted__pasted__pasted__pTorus5
+    2300148: pasted__pasted__pasted__pTorus5 1
+    2300150: pasted__pasted__pasted__pTorus5 2
+    2300152: pasted__pasted__pasted__pTorus5 3
+    2300154: pasted__pasted__pasted__pTorus5 4
+    2300156: pasted__pasted__pasted__pTorus5 5
+    2300158: pasted__pasted__pasted__pTorus6
+    2300160: pasted__pasted__pasted__pTorus6 1
+    2300162: pasted__pasted__pasted__pTorus7
+    2300164: pasted__pasted__pasted__pTorus7 1
+    2300166: pasted__pasted__pasted__pTorus8
+    2300168: pasted__pasted__pasted__pTorus8 1
+    2300170: pasted__pasted__pasted__pTorus9
+    2300172: pasted__pasted__pasted__pTorus9 1
+    2300174: pasted__pasted__pCylinder1
+    2300176: pasted__pasted__pCylinder1 1
+    2300178: pasted__pasted__pPipe1
+    2300180: pasted__pasted__pPipe1 1
+    2300182: pasted__pasted__pTorus10
+    2300184: pasted__pasted__pTorus10 1
+    2300186: pasted__pasted__pTorus11
+    2300188: pasted__pasted__pTorus11 1
+    2300190: pasted__pasted__pTorus12
+    2300192: pasted__pasted__pTorus12 1
+    2300194: pasted__pasted__pTorus13
+    2300196: pasted__pasted__pTorus13 1
+    2300198: pasted__pasted__pTorus14
+    2300200: pasted__pasted__pTorus14 1
+    2300202: pasted__pasted__pTorus15
+    2300204: pasted__pasted__pTorus15 1
+    2300206: pasted__pasted__pTorus16
+    2300208: pasted__pasted__pTorus16 1
+    2300210: pasted__pasted__pTorus17
+    2300212: pasted__pasted__pTorus17 1
+    2300214: pasted__pasted__pTorus18
+    2300216: pasted__pasted__pTorus18 1
+    2300218: pasted__pasted__pTorus19
+    2300220: pasted__pasted__pTorus19 1
+    2300222: pasted__pasted__pTorus20
+    2300224: pasted__pasted__pTorus20 1
+    2300226: pasted__pasted__pTorus21
+    2300228: pasted__pasted__pTorus21 1
+    2300230: pasted__pasted__pTorus22
+    2300232: pasted__pasted__pTorus22 1
+    2300234: pasted__pasted__pTorus23
+    2300236: pasted__pasted__pTorus23 1
+    2300238: pasted__pasted__pTorus24
+    2300240: pasted__pasted__pTorus24 1
+    2300242: pasted__pasted__pTorus25
+    2300244: pasted__pasted__pTorus25 1
+    2300246: pasted__pasted__pTorus26
+    2300248: pasted__pasted__pTorus26 1
+    2300250: pasted__pasted__pTorus3
+    2300252: pasted__pasted__pTorus3 1
+    2300254: pasted__pasted__pTorus3 2
+    2300256: pasted__pasted__pTorus3 3
+    2300258: pasted__pasted__pTorus3 4
+    2300260: pasted__pasted__pTorus3 5
+    2300262: pasted__pasted__pTorus3 6
+    2300264: pasted__pasted__pTorus3 7
+    2300266: pasted__pasted__pTorus3 8
+    2300268: pasted__pasted__pTorus3 9
+    2300270: pasted__pasted__pTorus4
+    2300272: pasted__pasted__pTorus4 1
+    2300274: pasted__pasted__pTorus4 2
+    2300276: pasted__pasted__pTorus4 3
+    2300278: pasted__pasted__pTorus4 4
+    2300280: pasted__pasted__pTorus4 5
+    2300282: pasted__pasted__pTorus4 6
+    2300284: pasted__pasted__pTorus4 7
+    2300286: pasted__pasted__pTorus4 8
+    2300288: pasted__pasted__pTorus4 9
+    2300290: pasted__pasted__pTorus5
+    2300292: pasted__pasted__pTorus5 1
+    2300294: pasted__pasted__pTorus5 2
+    2300296: pasted__pasted__pTorus5 3
+    2300298: pasted__pasted__pTorus5 4
+    2300300: pasted__pasted__pTorus5 5
+    2300302: pasted__pasted__pTorus5 6
+    2300304: pasted__pasted__pTorus5 7
+    2300306: pasted__pasted__pTorus5 8
+    2300308: pasted__pasted__pTorus5 9
+    2300310: pasted__pasted__pTorus6
+    2300312: pasted__pasted__pTorus6 1
+    2300314: pasted__pasted__pTorus7
+    2300316: pasted__pasted__pTorus7 1
+    2300318: pasted__pasted__pTorus8
+    2300320: pasted__pasted__pTorus8 1
+    2300322: pasted__pasted__pTorus9
+    2300324: pasted__pasted__pTorus9 1
+    2300326: pasted__pCylinder1
+    2300328: pasted__pCylinder1 1
+    2300330: pasted__pCylinder2
+    2300332: pasted__pCylinder2 1
+    2300334: pasted__pPipe1
+    2300336: pasted__pPipe1 1
+    2300338: pasted__pPipe2
+    2300340: pasted__pPipe2 1
+    2300342: pasted__pPipe3
+    2300344: pasted__pPipe3 1
+    2300346: pasted__pSphere4
+    2300348: pasted__pSphere4 1
+    2300350: pasted__pTorus10
+    2300352: pasted__pTorus10 1
+    2300354: pasted__pTorus11
+    2300356: pasted__pTorus11 1
+    2300358: pasted__pTorus12
+    2300360: pasted__pTorus12 1
+    2300362: pasted__pTorus13
+    2300364: pasted__pTorus13 1
+    2300366: pasted__pTorus14
+    2300368: pasted__pTorus14 1
+    2300370: pasted__pTorus3
+    2300372: pasted__pTorus3 1
+    2300374: pasted__pTorus3 2
+    2300376: pasted__pTorus3 3
+    2300378: pasted__pTorus3 4
+    2300380: pasted__pTorus3 5
+    2300382: pasted__pTorus4
+    2300384: pasted__pTorus4 1
+    2300386: pasted__pTorus4 2
+    2300388: pasted__pTorus4 3
+    2300390: pasted__pTorus4 4
+    2300392: pasted__pTorus4 5
+    2300394: pasted__pTorus5
+    2300396: pasted__pTorus5 1
+    2300398: pasted__pTorus5 2
+    2300400: pasted__pTorus5 3
+    2300402: pasted__pTorus5 4
+    2300404: pasted__pTorus5 5
+    2300406: pasted__pTorus6
+    2300408: pasted__pTorus6 1
+    2300410: pasted__pTorus7
+    2300412: pasted__pTorus7 1
+    2300414: pasted__pTorus8
+    2300416: pasted__pTorus8 1
+    2300418: pasted__pTorus9
+    2300420: pasted__pTorus9 1
+    2300422: pCube2
+    2300424: pCube2 1
+    2300426: pCube2 2
+    2300428: pCube3
+    2300430: pCube3 1
+    2300432: pCube3 2
+    2300434: pCube4
+    2300436: pCube4 1
+    2300438: pCube4 2
+    2300440: pCube5
+    2300442: pCube5 1
+    2300444: pCube5 2
+    2300446: polySurface1
+    2300448: polySurface2
+    2300450: pPlane1
+    2300452: pPlane1 1
+    2300454: pSphere3
+    2300456: pSphere3 1
+    2300458: pTorus1
+    2300460: pTorus1 1
+    2300462: Rotator
+    2300464: Rotator 1
+    2300466: Support
+    2300468: pCube22
+    2300470: pCube23
+    2300472: pCube25
+    2300474: pCube8
+    2300476: pTorus11
+    2300478: pTorus11 1
+    2300480: pTorus13
+    2300482: pTorus13 1
+    2300484: pTorus15
+    2300486: pTorus15 1
+    2300488: pTorus17
+    2300490: pTorus17 1
+    2300492: pTorus3
+    2300494: pTorus3 1
+    2300496: pTorus5
+    2300498: pTorus5 1
+    2300500: pTorus7
+    2300502: pTorus7 1
+    2300504: pTorus9
+    2300506: pTorus9 1
+    3300000: BackDoorLeft
+    3300002: BackDoorLeft 1
+    3300004: BackDoorLeft 2
+    3300006: BackDoorRight
+    3300008: BackDoorRight 1
+    3300010: BackDoorRight 2
+    3300012: BackPlane
+    3300014: BLFrameHolder
+    3300016: BLFrameHolder 1
+    3300018: BottomElevator
+    3300020: BottomElevator 1
+    3300022: BottomElevator 2
+    3300024: BottomElevator1
+    3300026: BottomElevator1 1
+    3300028: BottomElevator1 2
+    3300030: Camera 2
+    3300032: Camera 3
+    3300034: ElevatorUI
+    3300036: ElevatorUI 1
+    3300038: ElevatorUI 2
+    3300040: Frame
+    3300042: Frame 1
+    3300044: FrontDoorLeft
+    3300046: FrontDoorLeft 1
+    3300048: FrontDoorLeft 2
+    3300050: FrontDoorRight
+    3300052: FrontDoorRight 1
+    3300054: FrontDoorRight 2
+    3300056: InnerLeft
+    3300058: InnerLIght
+    3300060: InnerRight
+    3300062: LeftElevator2
+    3300064: LeftElevator2 1
+    3300066: LeftElevator2 2
+    3300068: LeftElevator2 3
+    3300070: LeftElevator3
+    3300072: LeftElevator3 1
+    3300074: LeftElevator3 2
+    3300076: LeftElevator3 3
+    3300078: LeftElevator4
+    3300080: LeftElevator4 1
+    3300082: LeftElevator5
+    3300084: LeftElevator5 1
+    3300086: OuterLeft
+    3300088: OuterRight
+    3300090: pasted__Frame
+    3300092: pasted__Frame 1
+    3300094: pasted__pasted__Frame
+    3300096: pasted__pasted__Frame 1
+    3300098: pasted__pasted__Frame1
+    3300100: pasted__pasted__Frame1 1
+    3300102: pasted__pasted__pasted__pTorus10
+    3300104: pasted__pasted__pasted__pTorus10 1
+    3300106: pasted__pasted__pasted__pTorus11
+    3300108: pasted__pasted__pasted__pTorus11 1
+    3300110: pasted__pasted__pasted__pTorus12
+    3300112: pasted__pasted__pasted__pTorus12 1
+    3300114: pasted__pasted__pasted__pTorus13
+    3300116: pasted__pasted__pasted__pTorus13 1
+    3300118: pasted__pasted__pasted__pTorus14
+    3300120: pasted__pasted__pasted__pTorus14 1
+    3300122: pasted__pasted__pasted__pTorus3
+    3300124: pasted__pasted__pasted__pTorus3 1
+    3300126: pasted__pasted__pasted__pTorus3 2
+    3300128: pasted__pasted__pasted__pTorus3 3
+    3300130: pasted__pasted__pasted__pTorus3 4
+    3300132: pasted__pasted__pasted__pTorus3 5
+    3300134: pasted__pasted__pasted__pTorus4
+    3300136: pasted__pasted__pasted__pTorus4 1
+    3300138: pasted__pasted__pasted__pTorus4 2
+    3300140: pasted__pasted__pasted__pTorus4 3
+    3300142: pasted__pasted__pasted__pTorus4 4
+    3300144: pasted__pasted__pasted__pTorus4 5
+    3300146: pasted__pasted__pasted__pTorus5
+    3300148: pasted__pasted__pasted__pTorus5 1
+    3300150: pasted__pasted__pasted__pTorus5 2
+    3300152: pasted__pasted__pasted__pTorus5 3
+    3300154: pasted__pasted__pasted__pTorus5 4
+    3300156: pasted__pasted__pasted__pTorus5 5
+    3300158: pasted__pasted__pasted__pTorus6
+    3300160: pasted__pasted__pasted__pTorus6 1
+    3300162: pasted__pasted__pasted__pTorus7
+    3300164: pasted__pasted__pasted__pTorus7 1
+    3300166: pasted__pasted__pasted__pTorus8
+    3300168: pasted__pasted__pasted__pTorus8 1
+    3300170: pasted__pasted__pasted__pTorus9
+    3300172: pasted__pasted__pasted__pTorus9 1
+    3300174: pasted__pasted__pCylinder1
+    3300176: pasted__pasted__pCylinder1 1
+    3300178: pasted__pasted__pPipe1
+    3300180: pasted__pasted__pPipe1 1
+    3300182: pasted__pasted__pTorus10
+    3300184: pasted__pasted__pTorus10 1
+    3300186: pasted__pasted__pTorus11
+    3300188: pasted__pasted__pTorus11 1
+    3300190: pasted__pasted__pTorus12
+    3300192: pasted__pasted__pTorus12 1
+    3300194: pasted__pasted__pTorus13
+    3300196: pasted__pasted__pTorus13 1
+    3300198: pasted__pasted__pTorus14
+    3300200: pasted__pasted__pTorus14 1
+    3300202: pasted__pasted__pTorus15
+    3300204: pasted__pasted__pTorus15 1
+    3300206: pasted__pasted__pTorus16
+    3300208: pasted__pasted__pTorus16 1
+    3300210: pasted__pasted__pTorus17
+    3300212: pasted__pasted__pTorus17 1
+    3300214: pasted__pasted__pTorus18
+    3300216: pasted__pasted__pTorus18 1
+    3300218: pasted__pasted__pTorus19
+    3300220: pasted__pasted__pTorus19 1
+    3300222: pasted__pasted__pTorus20
+    3300224: pasted__pasted__pTorus20 1
+    3300226: pasted__pasted__pTorus21
+    3300228: pasted__pasted__pTorus21 1
+    3300230: pasted__pasted__pTorus22
+    3300232: pasted__pasted__pTorus22 1
+    3300234: pasted__pasted__pTorus23
+    3300236: pasted__pasted__pTorus23 1
+    3300238: pasted__pasted__pTorus24
+    3300240: pasted__pasted__pTorus24 1
+    3300242: pasted__pasted__pTorus25
+    3300244: pasted__pasted__pTorus25 1
+    3300246: pasted__pasted__pTorus26
+    3300248: pasted__pasted__pTorus26 1
+    3300250: pasted__pasted__pTorus3
+    3300252: pasted__pasted__pTorus3 1
+    3300254: pasted__pasted__pTorus3 2
+    3300256: pasted__pasted__pTorus3 3
+    3300258: pasted__pasted__pTorus3 4
+    3300260: pasted__pasted__pTorus3 5
+    3300262: pasted__pasted__pTorus3 6
+    3300264: pasted__pasted__pTorus3 7
+    3300266: pasted__pasted__pTorus3 8
+    3300268: pasted__pasted__pTorus3 9
+    3300270: pasted__pasted__pTorus4
+    3300272: pasted__pasted__pTorus4 1
+    3300274: pasted__pasted__pTorus4 2
+    3300276: pasted__pasted__pTorus4 3
+    3300278: pasted__pasted__pTorus4 4
+    3300280: pasted__pasted__pTorus4 5
+    3300282: pasted__pasted__pTorus4 6
+    3300284: pasted__pasted__pTorus4 7
+    3300286: pasted__pasted__pTorus4 8
+    3300288: pasted__pasted__pTorus4 9
+    3300290: pasted__pasted__pTorus5
+    3300292: pasted__pasted__pTorus5 1
+    3300294: pasted__pasted__pTorus5 2
+    3300296: pasted__pasted__pTorus5 3
+    3300298: pasted__pasted__pTorus5 4
+    3300300: pasted__pasted__pTorus5 5
+    3300302: pasted__pasted__pTorus5 6
+    3300304: pasted__pasted__pTorus5 7
+    3300306: pasted__pasted__pTorus5 8
+    3300308: pasted__pasted__pTorus5 9
+    3300310: pasted__pasted__pTorus6
+    3300312: pasted__pasted__pTorus6 1
+    3300314: pasted__pasted__pTorus7
+    3300316: pasted__pasted__pTorus7 1
+    3300318: pasted__pasted__pTorus8
+    3300320: pasted__pasted__pTorus8 1
+    3300322: pasted__pasted__pTorus9
+    3300324: pasted__pasted__pTorus9 1
+    3300326: pasted__pCylinder1
+    3300328: pasted__pCylinder1 1
+    3300330: pasted__pCylinder2
+    3300332: pasted__pCylinder2 1
+    3300334: pasted__pPipe1
+    3300336: pasted__pPipe1 1
+    3300338: pasted__pPipe2
+    3300340: pasted__pPipe2 1
+    3300342: pasted__pPipe3
+    3300344: pasted__pPipe3 1
+    3300346: pasted__pSphere4
+    3300348: pasted__pSphere4 1
+    3300350: pasted__pTorus10
+    3300352: pasted__pTorus10 1
+    3300354: pasted__pTorus11
+    3300356: pasted__pTorus11 1
+    3300358: pasted__pTorus12
+    3300360: pasted__pTorus12 1
+    3300362: pasted__pTorus13
+    3300364: pasted__pTorus13 1
+    3300366: pasted__pTorus14
+    3300368: pasted__pTorus14 1
+    3300370: pasted__pTorus3
+    3300372: pasted__pTorus3 1
+    3300374: pasted__pTorus3 2
+    3300376: pasted__pTorus3 3
+    3300378: pasted__pTorus3 4
+    3300380: pasted__pTorus3 5
+    3300382: pasted__pTorus4
+    3300384: pasted__pTorus4 1
+    3300386: pasted__pTorus4 2
+    3300388: pasted__pTorus4 3
+    3300390: pasted__pTorus4 4
+    3300392: pasted__pTorus4 5
+    3300394: pasted__pTorus5
+    3300396: pasted__pTorus5 1
+    3300398: pasted__pTorus5 2
+    3300400: pasted__pTorus5 3
+    3300402: pasted__pTorus5 4
+    3300404: pasted__pTorus5 5
+    3300406: pasted__pTorus6
+    3300408: pasted__pTorus6 1
+    3300410: pasted__pTorus7
+    3300412: pasted__pTorus7 1
+    3300414: pasted__pTorus8
+    3300416: pasted__pTorus8 1
+    3300418: pasted__pTorus9
+    3300420: pasted__pTorus9 1
+    3300422: pCube2
+    3300424: pCube2 1
+    3300426: pCube2 2
+    3300428: pCube3
+    3300430: pCube3 1
+    3300432: pCube3 2
+    3300434: pCube4
+    3300436: pCube4 1
+    3300438: pCube4 2
+    3300440: pCube5
+    3300442: pCube5 1
+    3300444: pCube5 2
+    3300446: polySurface1
+    3300448: polySurface2
+    3300450: pPlane1
+    3300452: pPlane1 1
+    3300454: pSphere3
+    3300456: pSphere3 1
+    3300458: pTorus1
+    3300460: pTorus1 1
+    3300462: Rotator
+    3300464: Rotator 1
+    3300466: Support
+    3300468: pCube22
+    3300470: pCube23
+    3300472: pCube25
+    3300474: pCube8
+    3300476: pTorus11
+    3300478: pTorus11 1
+    3300480: pTorus13
+    3300482: pTorus13 1
+    3300484: pTorus15
+    3300486: pTorus15 1
+    3300488: pTorus17
+    3300490: pTorus17 1
+    3300492: pTorus3
+    3300494: pTorus3 1
+    3300496: pTorus5
+    3300498: pTorus5 1
+    3300500: pTorus7
+    3300502: pTorus7 1
+    3300504: pTorus9
+    3300506: pTorus9 1
+    4300000: pCube5
+    4300002: pCube4
+    4300004: pCube3
+    4300006: pCube2
+    4300008: BackDoorRight
+    4300010: BackDoorLeft
+    4300012: FrontDoorLeft
+    4300014: FrontDoorRight
+    4300016: BottomElevator1
+    4300018: BottomElevator
+    4300020: LeftElevator2
+    4300022: LeftElevator3
+    4300024: LeftElevator2
+    4300026: LeftElevator3
+    4300028: ElevatorUI
+    4300030: pasted__pasted__pTorus3
+    4300032: pasted__pasted__pTorus4
+    4300034: pasted__pasted__pasted__pTorus3
+    4300036: pasted__pasted__pasted__pTorus4
+    4300038: pasted__pasted__pasted__pTorus5
+    4300040: pasted__pasted__pTorus5
+    4300042: pasted__pasted__pTorus3
+    4300044: pasted__pasted__pTorus4
+    4300046: pasted__pasted__pTorus5
+    4300048: pasted__pTorus5
+    4300050: pasted__pTorus4
+    4300052: pasted__pTorus3
+    4300054: pasted__pasted__pTorus3
+    4300056: pasted__pasted__pTorus4
+    4300058: pasted__pasted__pasted__pTorus3
+    4300060: pasted__pasted__pasted__pTorus4
+    4300062: pasted__pasted__pasted__pTorus5
+    4300064: pasted__pasted__pTorus5
+    4300066: pasted__pasted__pTorus3
+    4300068: pasted__pasted__pTorus4
+    4300070: pasted__pasted__pTorus5
+    4300072: pasted__pTorus5
+    4300074: pasted__pTorus4
+    4300076: pasted__pTorus3
+    4300078: pasted__pasted__pTorus3
+    4300080: pasted__pasted__pTorus4
+    4300082: pasted__pasted__pasted__pTorus3
+    4300084: pasted__pasted__pasted__pTorus4
+    4300086: pasted__pasted__pasted__pTorus5
+    4300088: pasted__pasted__pTorus5
+    4300090: pasted__pasted__pTorus3
+    4300092: pasted__pasted__pTorus4
+    4300094: pasted__pasted__pTorus5
+    4300096: pasted__pTorus5
+    4300098: pasted__pTorus4
+    4300100: pasted__pTorus3
+    4300102: pasted__pasted__pTorus3
+    4300104: pasted__pasted__pTorus4
+    4300106: pasted__pasted__pasted__pTorus3
+    4300108: pasted__pasted__pasted__pTorus4
+    4300110: pasted__pasted__pasted__pTorus5
+    4300112: pasted__pasted__pTorus5
+    4300114: pasted__pasted__pTorus3
+    4300116: pasted__pasted__pTorus4
+    4300118: pasted__pasted__pTorus5
+    4300120: pasted__pTorus5
+    4300122: pasted__pTorus4
+    4300124: pasted__pTorus3
+    4300126: InnerLIght
+    4300128: polySurface1
+    4300130: polySurface2
+    4300132: Support
+    4300134: OuterRight
+    4300136: InnerRight
+    4300138: OuterLeft
+    4300140: InnerLeft
+    4300142: BackPlane
+    4300144: pasted__pasted__Frame1
+    4300146: pasted__pasted__Frame
+    4300148: pasted__Frame
+    4300150: Frame
+    4300152: Camera
+    4300154: pSphere3
+    4300156: pTorus1
+    4300158: pasted__pasted__pCylinder1
+    4300160: pasted__pCylinder1
+    4300162: BLFrameHolder
+    4300164: pasted__pCylinder2
+    4300166: pPlane1
+    4300168: pasted__pSphere4
+    4300170: pasted__pPipe1
+    4300172: Rotator
+    4300174: pasted__pasted__pPipe1
+    4300176: pasted__pPipe2
+    4300178: pasted__pPipe3
+    4300180: pasted__pasted__Frame1
+    4300182: pasted__pasted__Frame
+    4300184: pasted__Frame
+    4300186: Frame
+    4300188: Camera
+    4300190: pSphere3
+    4300192: pTorus1
+    4300194: pasted__pasted__pCylinder1
+    4300196: pasted__pCylinder1
+    4300198: BLFrameHolder
+    4300200: pasted__pCylinder2
+    4300202: pPlane1
+    4300204: pasted__pSphere4
+    4300206: pasted__pPipe1
+    4300208: Rotator
+    4300210: pasted__pasted__pPipe1
+    4300212: pasted__pPipe2
+    4300214: pasted__pPipe3
+    4300216: pCube5
+    4300218: pCube4
+    4300220: pCube3
+    4300222: pCube2
+    4300224: BackDoorRight
+    4300226: BackDoorLeft
+    4300228: FrontDoorLeft
+    4300230: FrontDoorRight
+    4300232: BottomElevator1
+    4300234: BottomElevator
+    4300236: LeftElevator2
+    4300238: LeftElevator3
+    4300240: LeftElevator4
+    4300242: LeftElevator5
+    4300244: ElevatorUI
+    4300246: pasted__pasted__pTorus3
+    4300248: pasted__pasted__pTorus4
+    4300250: pasted__pasted__pasted__pTorus3
+    4300252: pasted__pasted__pasted__pTorus4
+    4300254: pasted__pasted__pasted__pTorus5
+    4300256: pasted__pasted__pTorus5
+    4300258: pasted__pasted__pTorus6
+    4300260: pasted__pasted__pTorus7
+    4300262: pasted__pasted__pTorus8
+    4300264: pasted__pTorus5
+    4300266: pasted__pTorus4
+    4300268: pasted__pTorus3
+    4300270: pasted__pasted__pTorus9
+    4300272: pasted__pasted__pTorus10
+    4300274: pasted__pasted__pasted__pTorus6
+    4300276: pasted__pasted__pasted__pTorus7
+    4300278: pasted__pasted__pasted__pTorus8
+    4300280: pasted__pasted__pTorus11
+    4300282: pasted__pasted__pTorus12
+    4300284: pasted__pasted__pTorus13
+    4300286: pasted__pasted__pTorus14
+    4300288: pasted__pTorus6
+    4300290: pasted__pTorus7
+    4300292: pasted__pTorus8
+    4300294: pasted__pasted__pTorus15
+    4300296: pasted__pasted__pTorus16
+    4300298: pasted__pasted__pasted__pTorus9
+    4300300: pasted__pasted__pasted__pTorus10
+    4300302: pasted__pasted__pasted__pTorus11
+    4300304: pasted__pasted__pTorus17
+    4300306: pasted__pasted__pTorus18
+    4300308: pasted__pasted__pTorus19
+    4300310: pasted__pasted__pTorus20
+    4300312: pasted__pTorus9
+    4300314: pasted__pTorus10
+    4300316: pasted__pTorus11
+    4300318: pasted__pasted__pTorus21
+    4300320: pasted__pasted__pTorus22
+    4300322: pasted__pasted__pasted__pTorus12
+    4300324: pasted__pasted__pasted__pTorus13
+    4300326: pasted__pasted__pasted__pTorus14
+    4300328: pasted__pasted__pTorus23
+    4300330: pasted__pasted__pTorus24
+    4300332: pasted__pasted__pTorus25
+    4300334: pasted__pasted__pTorus26
+    4300336: pasted__pTorus12
+    4300338: pasted__pTorus13
+    4300340: pasted__pTorus14
+    4300342: pCube5
+    4300344: pCube4
+    4300346: pCube3
+    4300348: pCube2
+    4300350: BackDoorRight
+    4300352: BackDoorLeft
+    4300354: FrontDoorLeft
+    4300356: FrontDoorRight
+    4300358: BottomElevator1
+    4300360: BottomElevator
+    4300362: LeftElevator2
+    4300364: LeftElevator3
+    4300366: LeftElevator4
+    4300368: LeftElevator5
+    4300370: ElevatorUI
+    4300372: pasted__pasted__pTorus3
+    4300374: pasted__pasted__pTorus4
+    4300376: pasted__pasted__pasted__pTorus3
+    4300378: pasted__pasted__pasted__pTorus4
+    4300380: pasted__pasted__pasted__pTorus5
+    4300382: pasted__pasted__pTorus5
+    4300384: pasted__pasted__pTorus6
+    4300386: pasted__pasted__pTorus7
+    4300388: pasted__pasted__pTorus8
+    4300390: pasted__pTorus5
+    4300392: pasted__pTorus4
+    4300394: pasted__pTorus3
+    4300396: pasted__pasted__pTorus9
+    4300398: pasted__pasted__pTorus10
+    4300400: pasted__pasted__pasted__pTorus6
+    4300402: pasted__pasted__pasted__pTorus7
+    4300404: pasted__pasted__pasted__pTorus8
+    4300406: pasted__pasted__pTorus11
+    4300408: pasted__pasted__pTorus12
+    4300410: pasted__pasted__pTorus13
+    4300412: pasted__pasted__pTorus14
+    4300414: pasted__pTorus6
+    4300416: pasted__pTorus7
+    4300418: pasted__pTorus8
+    4300420: pasted__pasted__pTorus15
+    4300422: pasted__pasted__pTorus16
+    4300424: pasted__pasted__pasted__pTorus9
+    4300426: pasted__pasted__pasted__pTorus10
+    4300428: pasted__pasted__pasted__pTorus11
+    4300430: pasted__pasted__pTorus17
+    4300432: pasted__pasted__pTorus18
+    4300434: pasted__pasted__pTorus19
+    4300436: pasted__pasted__pTorus20
+    4300438: pasted__pTorus9
+    4300440: pasted__pTorus10
+    4300442: pasted__pTorus11
+    4300444: pasted__pasted__pTorus21
+    4300446: pasted__pasted__pTorus22
+    4300448: pasted__pasted__pasted__pTorus12
+    4300450: pasted__pasted__pasted__pTorus13
+    4300452: pasted__pasted__pasted__pTorus14
+    4300454: pasted__pasted__pTorus23
+    4300456: pasted__pasted__pTorus24
+    4300458: pasted__pasted__pTorus25
+    4300460: pasted__pasted__pTorus26
+    4300462: pasted__pTorus12
+    4300464: pasted__pTorus13
+    4300466: pasted__pTorus14
+    4300468: pCube23
+    4300470: pTorus3
+    4300472: pTorus5
+    4300474: pTorus7
+    4300476: pTorus9
+    4300478: pTorus11
+    4300480: pTorus13
+    4300482: pTorus15
+    4300484: pTorus17
+    4300486: pCube8
+    4300488: pTorus3
+    4300490: pTorus5
+    4300492: pTorus7
+    4300494: pTorus9
+    4300496: pTorus11
+    4300498: pTorus13
+    4300500: pTorus15
+    4300502: pTorus17
+    4300504: pCube22
+    4300506: pCube25
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 1
+  userData: 
