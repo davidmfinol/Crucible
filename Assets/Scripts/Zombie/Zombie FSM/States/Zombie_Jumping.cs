@@ -30,7 +30,7 @@ public class Zombie_Jumping : ZombieFSM_IState
             nextState = ZombieStates.Zombie_Landing;
         else if (VerticalSpeed < 0)
             nextState = ZombieStates.Zombie_Falling;
-        else if (Controller.CanHangOffObject)
+        else if (Controller.CanHangOffObject && Up)
             nextState = ZombieStates.Zombie_Hanging;
         else if (Controller.CanClimbPipe || Controller.CanClimbLadder)
             nextState = ZombieStates.Zombie_Climbing;

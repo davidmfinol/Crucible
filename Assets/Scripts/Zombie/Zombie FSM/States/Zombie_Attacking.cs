@@ -39,8 +39,6 @@ public class Zombie_Attacking : ZombieFSM_IState
         float targetSpeed = ((ZombieFSM)Controller).MaxHorizontalSpeed/2;
         if (Controller.animation["Attacking"].time > 0.2 && Controller.animation["Attacking"].time < 0.7)
             targetSpeed = ((ZombieFSM)Controller).MaxHorizontalSpeed;
-        else
-            targetSpeed = 0;
         float accelerationSmoothing = ((ZombieFSM)Controller).HorizontalAcceleration * Time.deltaTime;
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, targetSpeed, accelerationSmoothing);
 

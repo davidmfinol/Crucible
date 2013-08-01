@@ -7,6 +7,7 @@ public enum ZombieStates : int
     Zombie_Landing,
     Zombie_Hanging,
     Zombie_Climbing,
+    Zombie_ClimbingLedge,
     Zombie_Attacking,
     Zombie_TakingDamage,
     Zombie_Noticing,

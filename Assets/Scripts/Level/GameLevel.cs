@@ -50,6 +50,7 @@ public class GameLevel : MonoBehaviour
     //TODO: MOVE THIS
     void IntroScene()
     {
+		Application.LoadLevelAdditive("Demo");
         Player.parent = Elevator;
         Camera.main.GetComponent<CameraScrolling>().Springiness = 1000;
         StartCoroutine("EndIntro");

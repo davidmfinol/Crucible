@@ -6,11 +6,13 @@ using System;
 public class ZombieBrain
 {
     // Zombie Brain Memory
+	private PlayerCharacterFSM _player = null;
     private Vector3 _target = Vector3.zero; // where the zombie wants to go
     private Path _path = null; // how it plans to get there
     private int _currentPathWaypoint = 0; // where it is on that path
     private bool _searchingForPath = false; // Is the zombie currently looking for a path?
     private float _timeSinceRepath = 0;
+	private bool _hasTransitionRecent = false;
 
     // Zombie Brain componenents
     private Seeker _seeker; // A* PathFinding
@@ -45,13 +47,17 @@ public class ZombieBrain
 
         // Hunt that player down
         if (GameLevel.Instance.Player != null)
-            _target = GameLevel.Instance.Player.transform.position;
+		{
+			_player = GameLevel.Instance.Player.GetComponent<PlayerCharacterFSM>();
+            _target = _player.transform.position;
+		}
 
         // We need to make sure we have a plan for reaching our target
         if (_path == null)
         {
             if(!_searchingForPath)
             {
+				_hasTransitionRecent = false;
                 _seeker.StartPath(_zombieController.transform.position, _target);
                 _searchingForPath = true;
             }
@@ -61,6 +67,7 @@ public class ZombieBrain
         // Repath once a second
         if (_timeSinceRepath > 1 && !_searchingForPath)
         {
+			_hasTransitionRecent = false;
             _seeker.StartPath(_zombieController.transform.position, _target);
             _searchingForPath = true;
         }
@@ -79,10 +86,23 @@ public class ZombieBrain
         _jump = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y && _zombieController.VerticalSpeed <= 0;
 
         // Going up or down depends on both y and z positions
-        if(_path.vectorPath[_currentPathWaypoint].z == _zombieController.ZLevel)
-            _vertical = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y ? 1 : -1;
+        if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _zombieController.ZLevel) < 1 || (_player != null && _player.ZLevel == _zombieController.ZLevel))
+		{
+			if(!_zombieController.CanTransitionZ)
+            	_vertical = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y ? 1 : -1;
+			else
+				_vertical = 0;
+		}
         else
-            _vertical = _path.vectorPath[_currentPathWaypoint].z - _zombieController.ZLevel;
+		{
+			if(!_hasTransitionRecent)
+			{
+            	_vertical = _path.vectorPath[_currentPathWaypoint].z - _zombieController.ZLevel;
+				_hasTransitionRecent = true;
+			}
+			else
+				_vertical = 0;
+		}
 
         // Go left or right based on horizontal position
         _horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombieController.transform.position.x ? 1 : -1;

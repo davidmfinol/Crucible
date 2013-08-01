@@ -346,19 +346,21 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         a.walkable = true;
         a.GO = null;
         Node nearestNode = a;
-        float minDist = float.PositiveInfinity;
+        float minDist = float.MaxValue / 1100;
         foreach (KeyValuePair<Bounds, HashSet<ZoneNode>> zoneWithWaypoints in ZonesWithWaypoints)
         {
             if(!zoneWithWaypoints.Key.Contains(position))
                 continue;
 
             HashSet<ZoneNode>.Enumerator nodesInZone = zoneWithWaypoints.Value.GetEnumerator();
-            nodesInZone.MoveNext();
             while (nodesInZone.MoveNext())
             {
-                float dist = float.PositiveInfinity;
-
-                if (IsValidConnection(a, (ZoneNode)nodesInZone.Current, out dist) && dist < minDist)
+                float dist = float.MaxValue / 1100;
+				
+				bool isValid = IsValidConnection(a, (ZoneNode)nodesInZone.Current, out dist);
+				float zPenalty = 1000 * Mathf.Max(Mathf.Abs(position.z - nodesInZone.Current.position.z), 1);
+				dist*= zPenalty;
+                if (isValid && dist < minDist)
                 {
                     minDist = dist;
                     nearestNode = nodesInZone.Current;

@@ -28,7 +28,7 @@ public class Zombie_Falling : ZombieFSM_IState
         // Determine next state
         if (IsGrounded)
             nextState = ZombieStates.Zombie_Landing;
-        else if (Controller.CanHangOffObject)
+        else if (Controller.CanHangOffObject && Up)
             nextState = ZombieStates.Zombie_Hanging;
         else if (Controller.CanClimbPipe || Controller.CanClimbLadder)
             nextState = ZombieStates.Zombie_Climbing;

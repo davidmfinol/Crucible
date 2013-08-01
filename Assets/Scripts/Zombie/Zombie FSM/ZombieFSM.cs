@@ -6,18 +6,24 @@ using System.Collections;
 public class ZombieFSM : CharacterFiniteStateMachineBase
 {
     // TODO: Constants to calculate jumping elsewhere?...
-    public static float MaxJump = 10.0f;
+    public static float MaxJump = 9.0f;
     public static float MaxSpeed = 7.0f;
     public static float MaxGravity = 40.0f;
 
     // How high the zombie jumps
-    public float JumpHeight = 6.0f;
+    public float JumpHeight = 4.0f;
 
     // How fast the zombie runs
     public float MaxHorizontalSpeed = 7.0f;
 
     // How fast the zombie accelerates
     public float HorizontalAcceleration = 6.0f;
+	
+	// How fast the zombie climbs ledges
+	public float LedgeClimbingSpeed = 7.5f;
+	
+	// How long it takes the zombie to climb a ledge
+    public float LedgeClimbingDuration = 0.7f;
 
     // How far away the zombie can notice and become aware of the player
     public float AwarenessRange = 100.0f;
