@@ -22,6 +22,7 @@ public class GameLevel : MonoBehaviour
     // Create the player when the level starts
     void Awake()
     {
+		// if(GameLevel._instance != null) //TODO: CHECKS FOR MULTIPLE GAMELEVELS (FROM LOADLEVEL ADDITIVE)_
         if (Player != null)
         {
             Player = (Transform)Instantiate(Player, StartPoint.position, Quaternion.identity);
@@ -45,14 +46,18 @@ public class GameLevel : MonoBehaviour
             Debug.Log("Camera not pointed at level load");
 
         IntroScene();
+		GameLevel.Instance = this;
     }
 
     //TODO: MOVE THIS
     void IntroScene()
     {
-		Application.LoadLevelAdditive("Demo");
-        Player.parent = Elevator;
-        Camera.main.GetComponent<CameraScrolling>().Springiness = 1000;
+        if (Player.position.y < -1)
+		{
+			Application.LoadLevelAdditive("Demo");
+	        Player.parent = Elevator;
+	        Camera.main.GetComponent<CameraScrolling>().Springiness = 1000;
+		}
         StartCoroutine("EndIntro");
     }
     IEnumerator EndIntro()

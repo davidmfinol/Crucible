@@ -31,10 +31,10 @@ public class Zombie_Idle : ZombieFSM_IState
             nextState = ZombieStates.Zombie_Jumping;
         else if (Attack)
             nextState = ZombieStates.Zombie_Attacking;
-        else if ( ((Up && Controller.ZLevel != Controller.Z_Up) || (Down && Controller.ZLevel != Controller.Z_Down)) && Controller.CanTransitionZ)
-            nextState = ZombieStates.Zombie_TransitioningZ;
         else if ((Controller.CanClimbPipe || Controller.CanClimbLadder) && (Up || Down))
             nextState = ZombieStates.Zombie_Climbing;
+        else if ( ((Up && Controller.ZLevel != Controller.Z_Up) || (Down && Controller.ZLevel != Controller.Z_Down)) && Controller.CanTransitionZ)
+            nextState = ZombieStates.Zombie_TransitioningZ;
         else if (Left || Right)
             nextState = ZombieStates.Zombie_Running;
 
