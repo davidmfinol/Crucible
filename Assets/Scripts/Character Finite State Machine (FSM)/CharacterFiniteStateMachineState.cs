@@ -39,9 +39,8 @@ public abstract class CharacterFiniteStateMachineState
             Controller.transform.position = Controller.transform.position + moveDistance;
         }
 
-        // Recheck platform every frame
-        if (Controller.ActivePlatform != null)
-            Controller.ActivePlatform = null;
+        // Reset platform every frame
+		Controller.ActivePlatform = null;
 
         // We let the individual state do their processing and set the desired Direction, VerticalSpeed, and HorizontalSpeed
         nextState = OnUpdate();

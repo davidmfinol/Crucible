@@ -29,7 +29,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     public float AwarenessRange = 100.0f;
 
     //How far away can an opponent be and still be in range of a zombie's attack?
-    public float AttackRange = 100.0f;
+    public float AttackRange = 10.0f;
 
     // Is the zombie aware of the player?
     private bool _awareOfPlayer = false;

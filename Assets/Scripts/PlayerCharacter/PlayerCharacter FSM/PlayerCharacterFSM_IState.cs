@@ -63,11 +63,12 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
             buttonPressedStack.PushOnStack(strDown);
         if (UpHold)
             buttonPressedStack.PushOnStack(strUp);
-
+		
+		// FIXME: There should be a better way to do this.
         Weapon weapon = Controller.Weapon.GetComponent<Weapon>();
         if (WeaponPrimaryDown && weapon is Mine)
             weapon.ActivateAttack(0);
-        if (SecondaryWeaponDown)
+        if (SecondaryWeaponDown && weapon is Mine)
             weapon.ActivateAttack(1);
 
         return nextState;
