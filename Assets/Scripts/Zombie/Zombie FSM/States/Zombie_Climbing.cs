@@ -54,20 +54,20 @@ public class Zombie_Climbing : ZombieFSM_IState
 		}
 
         // Determine vertical movement
-        if (Up && !Down && Controller.ActiveHangTarget != null && insideUp)
+        if (Up && !Down && insideUp)
             VerticalSpeed = Controller.MaxHorizontalSpeed;
-        else if (Down && !Up && Controller.ActiveHangTarget != null && insideDown)
+        else if (Down && !Up && insideDown)
             VerticalSpeed = -Controller.MaxHorizontalSpeed;
         else
             VerticalSpeed = 0.0f;
 
         // Determine horizontal movement
-        if (Left && !Right && Controller.ActiveHangTarget != null && insideLeft)
+        if (Left && !Right && insideLeft)
         {
             HorizontalSpeed = -Controller.MaxHorizontalSpeed;
             VerticalSpeed = 0.0f;
         }
-        else if (Right && !Left && Controller.ActiveHangTarget != null && insideRight)
+        else if (Right && !Left && insideRight)
         {
             HorizontalSpeed = Controller.MaxHorizontalSpeed;
             VerticalSpeed = 0.0f;

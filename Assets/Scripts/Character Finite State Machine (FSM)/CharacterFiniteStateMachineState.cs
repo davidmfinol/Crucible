@@ -32,16 +32,15 @@ public abstract class CharacterFiniteStateMachineState
             return nextState;
 
         // Moving platform support
-        if (Controller.ActivePlatform != null && Controller.transform.parent == null) // &&ShouldMoveWithPlatform()?
+        if (Controller.ActivePlatform != null && Controller.transform.parent == null && IsGrounded) // &&ShouldMoveWithPlatform()?
         {
             Vector3 newGlobalPlatformPoint = Controller.ActivePlatform.TransformPoint(Controller.ActiveLocalPlatformPoint);
             Vector3 moveDistance = (newGlobalPlatformPoint - Controller.ActiveGlobalPlatformPoint);
             Controller.transform.position = Controller.transform.position + moveDistance;
         }
 
-        // Recheck platform every frame
-        if (Controller.ActivePlatform != null)
-            Controller.ActivePlatform = null;
+        // Reset platform every frame
+		Controller.ActivePlatform = null;
 
         // We let the individual state do their processing and set the desired Direction, VerticalSpeed, and HorizontalSpeed
         nextState = OnUpdate();
