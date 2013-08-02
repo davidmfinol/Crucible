@@ -49,7 +49,7 @@ public class Fader : MonoBehaviour
 		if(FadeInAtStart)
 			StartCoroutine("Stay");
 	}
-	private IEnumerator DoFadeOut()
+	private IEnumerator Stay()
 	{
 		float elapsedTime = 0;
 		while (elapsedTime < StaySeconds)
@@ -59,7 +59,7 @@ public class Fader : MonoBehaviour
 		}
         StopCoroutine("Stay");
 		if(FadeInAtStart)
-			StartCoroutine("FadeOut");
+			StartCoroutine("DoFadeOut");
 	}
 	void FadeOut(float time = 0)
 	{
