@@ -6,32 +6,32 @@ public class HangableObject : MonoBehaviour
 {
     public bool FacesZAxis = true;
 
-    public virtual void OnTriggerStay(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
-        if (character != null && character.ZLevel == transform.position.z)
-            character.ActiveHangTarget = this;
+        if (character != null)
+            character.AddHangTarget(this);
     }
 
     public virtual void OnTriggerExit(Collider other)
     {
         CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
-        if (character != null && character.ActiveHangTarget == this)
-            character.ActiveHangTarget = null;
+        if (character != null)
+            character.RemoveHangTarget(this);
     }
 
-    public virtual void OnCollisionStay(Collision collision)
+    public virtual void OnCollisionEnter(Collision collision)
     {
         CharacterFiniteStateMachineBase character = collision.gameObject.GetComponent<CharacterFiniteStateMachineBase>();
-        if (character != null && character.ZLevel == transform.position.z)
-            character.ActiveHangTarget = this;
+        if (character != null)
+            character.AddHangTarget(this);
     }
 
     public virtual void OnCollisionExit(Collision collision)
     {
         CharacterFiniteStateMachineBase character = collision.gameObject.GetComponent<CharacterFiniteStateMachineBase>();
-        if (character != null && character.ActiveHangTarget == this)
-            character.ActiveHangTarget = null;
+        if (character != null)
+            character.RemoveHangTarget(this);
     }
 
     public virtual bool DoesFaceZAxis()

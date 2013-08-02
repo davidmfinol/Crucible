@@ -55,8 +55,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     private Vector3 _activeGlobalPlatformPoint;
 
     // Support for hanging off of objects
-	private Queue<HangableObject> _hangQueue;
-    private HangableObject _activeHangTarget;
+	private List<HangableObject> _hangQueue;
     private HangableObject _previousHangTarget;
 
     void Awake()
@@ -75,7 +74,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
         Z_Up = ZLevel;
 		
 		// Get hang queue ready
-		_hangQueue = new Queue<HangableObject>();
+		_hangQueue = new List<HangableObject>();
     }
 
     // Map state machine Enum to corresponding Class
@@ -202,17 +201,34 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
 	
 	public void AddHangTarget(HangableObject hangTarget)
 	{
-        _previousHangTarget = _activeHangTarget;
-        _activeHangTarget = value;
-        if (_activeHangTarget == null)
-            _activePlatform = null;
+		if(_hangQueue.Contains(hangTarget))
+			return;
+		
+		_hangQueue.Add(hangTarget);
+	}
+	
+	public void RemoveHangTarget(HangableObject hangTarget)
+	{
+		if(!_hangQueue.Contains(hangTarget))
+			return;
+		
+		if(ActiveHangTarget == hangTarget)
+	        _previousHangTarget = ActiveHangTarget;
+		
+		_hangQueue.Remove(hangTarget);
+	    
+		if (ActiveHangTarget == null)
+        	_activePlatform = null;
 	}
 	
 	public void DropHangTarget()
 	{
-        _previousHangTarget = _activeHangTarget;
-        _activeHangTarget = value;
-        if (_activeHangTarget == null)
+		if(ActiveHangTarget == null)
+			return;
+		
+        _previousHangTarget = ActiveHangTarget;
+		_hangQueue.RemoveAt(0);
+        if (ActiveHangTarget == null)
             _activePlatform = null;
 	}
 
@@ -282,7 +298,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     }
     public HangableObject ActiveHangTarget
     {
-        get { return _activeHangTarget; }
+        get { return _hangQueue.Count > 0 ? _hangQueue[0] : null; }
     }
     public HangableObject PreviousHangTarget
     {

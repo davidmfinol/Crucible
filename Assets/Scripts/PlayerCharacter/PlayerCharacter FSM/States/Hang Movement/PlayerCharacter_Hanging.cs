@@ -81,7 +81,7 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
     protected override void OnExitState()
     {
         if (!_continueHolding)
-            Controller.ActiveHangTarget = null;
+            Controller.DropHangTarget();
     }
 
     public override bool IsWallHangState()

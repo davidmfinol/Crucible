@@ -58,6 +58,6 @@ public class Zombie_Hanging : ZombieFSM_IState
     {
         base.ExitState();
         if (!_continueHolding)
-        	Controller.ActiveHangTarget = null;
+            Controller.DropHangTarget();
     }
 }
