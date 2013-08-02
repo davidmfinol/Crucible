@@ -300,6 +300,11 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     {
         get { return _hangQueue.Count > 0 ? _hangQueue[0] : null; }
     }
+    public List<HangableObject> HangQueue
+    {
+        get { return _hangQueue; }
+    }
+	// FIXME: THIS MAY NOT BE NECESSARY
     public HangableObject PreviousHangTarget
     {
         get { return _previousHangTarget; }
@@ -311,7 +316,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     }
     public bool CanHangOffLedge
     {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Ledge && Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < 0.3 && PreviousHangTarget != ActiveHangTarget; }
+        get { return ActiveHangTarget != null && ActiveHangTarget is Ledge && Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < 0.3;}// && PreviousHangTarget != ActiveHangTarget; }
     }
     public bool CanClimbLadder
     {

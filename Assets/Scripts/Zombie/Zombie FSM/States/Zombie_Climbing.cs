@@ -36,15 +36,22 @@ public class Zombie_Climbing : ZombieFSM_IState
         // We face forward while climbing
         Direction = Vector3.zero;
 
-        // Determine the bounds of the object we are climbing
-        bool insideDown = Controller.transform.position.y - Controller.collider.bounds.extents.y >
-                Controller.ActiveHangTarget.transform.position.y - Controller.ActiveHangTarget.collider.bounds.extents.y;
-        bool insideUp = Controller.transform.position.y + Controller.collider.bounds.extents.y <
-              Controller.ActiveHangTarget.transform.position.y + Controller.ActiveHangTarget.collider.bounds.extents.y;
-        bool insideLeft = Controller.transform.position.x - Controller.collider.bounds.extents.x >
-                Controller.ActiveHangTarget.transform.position.x - Controller.ActiveHangTarget.collider.bounds.extents.x;
-        bool insideRight = Controller.transform.position.x + Controller.collider.bounds.extents.x <
-              Controller.ActiveHangTarget.transform.position.x + Controller.ActiveHangTarget.collider.bounds.extents.x;
+        // Determine the bounds of the object(s) we are climbing
+		bool insideDown = false;
+		bool insideUp = false;
+		bool insideLeft = false;
+		bool insideRight = false;
+		foreach(HangableObject obj in Controller.HangQueue)
+		{
+	        insideDown = insideDown || Controller.transform.position.y - Controller.collider.bounds.extents.y >
+	                obj.transform.position.y - obj.collider.bounds.extents.y;
+	        insideUp = insideUp || Controller.transform.position.y + Controller.collider.bounds.extents.y <
+	              obj.transform.position.y + obj.collider.bounds.extents.y;
+	        insideLeft = insideLeft || Controller.transform.position.x - Controller.collider.bounds.extents.x >
+	                obj.transform.position.x - obj.collider.bounds.extents.x;
+	        insideRight = insideRight || Controller.transform.position.x + Controller.collider.bounds.extents.x <
+	              obj.transform.position.x + obj.collider.bounds.extents.x;
+		}
 
         // Determine vertical movement
         if (Up && !Down && Controller.ActiveHangTarget != null && insideUp)
@@ -69,12 +76,12 @@ public class Zombie_Climbing : ZombieFSM_IState
             HorizontalSpeed = 0.0f;
 
         // Determine next state
-        if (Controller.CanHangOffObject)
+        if ((Left || Right || Down) && IsGrounded)
+            nextState = ZombieStates.Zombie_Idle;
+        else if (Controller.CanHangOffObject)
             nextState = ZombieStates.Zombie_Hanging;
         else if (Jump || (!(insideUp && insideDown && insideLeft && insideRight)))
             nextState = ZombieStates.Zombie_Jumping;
-        else if ((Left || Right || Down) && IsGrounded)
-            nextState = ZombieStates.Zombie_Idle;
 
         return nextState;
     }

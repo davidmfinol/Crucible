@@ -33,20 +33,27 @@ public class PlayerCharacter_ClimbingPipe : PlayerCharacterFSM_IState
         // We face forward while climbing
         Direction = Vector3.zero;
 
-        // Determine the bounds of the object we are climbing
-        bool insideDown = Controller.transform.position.y - Controller.collider.bounds.extents.y >
-                Controller.ActiveHangTarget.transform.position.y - Controller.ActiveHangTarget.collider.bounds.extents.y;
-        bool insideUp = Controller.transform.position.y + Controller.collider.bounds.extents.y <
-              Controller.ActiveHangTarget.transform.position.y + Controller.ActiveHangTarget.collider.bounds.extents.y;
-        bool insideLeft = Controller.transform.position.x - Controller.collider.bounds.extents.x >
-                Controller.ActiveHangTarget.transform.position.x - Controller.ActiveHangTarget.collider.bounds.extents.x;
-        bool insideRight = Controller.transform.position.x + Controller.collider.bounds.extents.x <
-              Controller.ActiveHangTarget.transform.position.x + Controller.ActiveHangTarget.collider.bounds.extents.x;
+        // Determine the bounds of the object(s) we are climbing
+		bool insideDown = false;
+		bool insideUp = false;
+		bool insideLeft = false;
+		bool insideRight = false;
+		foreach(HangableObject obj in Controller.HangQueue)
+		{
+	        insideDown = insideDown || Controller.transform.position.y - Controller.collider.bounds.extents.y >
+	                obj.transform.position.y - obj.collider.bounds.extents.y;
+	        insideUp = insideUp || Controller.transform.position.y + Controller.collider.bounds.extents.y <
+	              obj.transform.position.y + obj.collider.bounds.extents.y;
+	        insideLeft = insideLeft || Controller.transform.position.x - Controller.collider.bounds.extents.x >
+	                obj.transform.position.x - obj.collider.bounds.extents.x;
+	        insideRight = insideRight || Controller.transform.position.x + Controller.collider.bounds.extents.x <
+	              obj.transform.position.x + obj.collider.bounds.extents.x;
+		}
 
         // Determine vertical movement
-        if (UpHold && !DownHold && Controller.ActiveHangTarget != null && insideUp)
+        if (UpHold && !DownHold && insideUp)
             VerticalSpeed = Controller.LadderClimbingSpeed;
-        else if (DownHold && !UpHold && Controller.ActiveHangTarget != null && insideDown)
+        else if (DownHold && !UpHold && insideDown)
             VerticalSpeed = -Controller.LadderClimbingSpeed;
         else
             VerticalSpeed = 0.0f;
@@ -75,12 +82,12 @@ public class PlayerCharacter_ClimbingPipe : PlayerCharacterFSM_IState
         Controller.animation["HangingStrafe"].speed = 3 * HorizontalSpeed / Controller.LadderClimbingSpeed;
 
         // Determine next state
-        if (Controller.CanHangOffObject)
+        if ((LeftHold || RightHold || DownHold) && IsGrounded)
+            nextState = PlayerCharacterStates.PlayerCharacter_Idle;
+        else if (Controller.CanHangOffObject)
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
-        else if ((LeftHold || RightHold || DownHold) && IsGrounded)
-            nextState = PlayerCharacterStates.PlayerCharacter_Idle;
 
         return nextState;
     }
