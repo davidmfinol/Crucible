@@ -63,15 +63,9 @@ public class Zombie_Climbing : ZombieFSM_IState
 
         // Determine horizontal movement
         if (Left && !Right && insideLeft)
-        {
             HorizontalSpeed = -Controller.MaxHorizontalSpeed;
-            VerticalSpeed = 0.0f;
-        }
         else if (Right && !Left && insideRight)
-        {
             HorizontalSpeed = Controller.MaxHorizontalSpeed;
-            VerticalSpeed = 0.0f;
-        }
         else
             HorizontalSpeed = 0.0f;
 

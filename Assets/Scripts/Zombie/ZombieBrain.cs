@@ -76,7 +76,7 @@ public class ZombieBrain
             return;
 
         // Move on if we reached our waypoint
-        if (_zombieController.CharacterController.bounds.Contains(_path.vectorPath[_currentPathWaypoint]))
+        if (Mathf.Abs((_zombieController.transform.position - _path.vectorPath[_currentPathWaypoint]).magnitude) < 10)
             _currentPathWaypoint++;
 
         if (_currentPathWaypoint >= _path.vectorPath.Count) // that's the end of the line for you, jack!
@@ -88,8 +88,11 @@ public class ZombieBrain
         // Going up or down depends on both y and z positions
         if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _zombieController.ZLevel) < 1 || (_player != null && _player.ZLevel == _zombieController.ZLevel))
 		{
-			if(!_zombieController.CanTransitionZ)
+			if(!_zombieController.CanTransitionZ && !_hasTransitionRecent)
+			{
             	_vertical = _path.vectorPath[_currentPathWaypoint].y > _zombieController.transform.position.y ? 1 : -1;
+				_hasTransitionRecent = true;
+			}
 			else
 				_vertical = 0;
 		}
