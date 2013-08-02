@@ -61,13 +61,13 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     /// <summary>
     /// Returns whether a zombie can jump from one position to another
     /// </summary>
-    /// <param name="from"></param>
-    /// <param name="to"></param>
+    /// <param name="a">the starting position of the zombie</param>
+    /// <param name="b">the ending position the zombie is considering</param>
     /// <returns></returns>
-    public static bool CanJump(Vector3 from, Vector3 to)
+    public static bool CanJump(Vector3 a, Vector3 b)
     {
-        float xDist = Mathf.Abs(to.x - from.x);
-        float yDist = to.y - from.y;
+        float xDist = Mathf.Abs(b.x - a.x);
+        float yDist = a.y - b.y;
         float yVel = Mathf.Sqrt(2 * MaxJump * MaxGravity);
         float t = yVel / MaxGravity;
         float yMax = MaxJump;

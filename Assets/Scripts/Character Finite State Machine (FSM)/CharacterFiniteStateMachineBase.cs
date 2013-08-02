@@ -55,6 +55,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     private Vector3 _activeGlobalPlatformPoint;
 
     // Support for hanging off of objects
+	private Queue<HangableObject> _hangQueue;
     private HangableObject _activeHangTarget;
     private HangableObject _previousHangTarget;
 
@@ -72,6 +73,9 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
         ZLevel = transform.position.z;
         Z_Down = ZLevel;
         Z_Up = ZLevel;
+		
+		// Get hang queue ready
+		_hangQueue = new Queue<HangableObject>();
     }
 
     // Map state machine Enum to corresponding Class
@@ -195,6 +199,22 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
         speed = Mathf.Max(-1.0f * MaxFallSpeed, speed);
         return speed;
     }
+	
+	public void AddHangTarget(HangableObject hangTarget)
+	{
+        _previousHangTarget = _activeHangTarget;
+        _activeHangTarget = value;
+        if (_activeHangTarget == null)
+            _activePlatform = null;
+	}
+	
+	public void DropHangTarget()
+	{
+        _previousHangTarget = _activeHangTarget;
+        _activeHangTarget = value;
+        if (_activeHangTarget == null)
+            _activePlatform = null;
+	}
 
     // Properties
     public Enum CurrentState
@@ -263,13 +283,6 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     public HangableObject ActiveHangTarget
     {
         get { return _activeHangTarget; }
-        set
-        {
-            _previousHangTarget = _activeHangTarget;
-            _activeHangTarget = value;
-            if (_activeHangTarget == null)
-                _activePlatform = null;
-        }
     }
     public HangableObject PreviousHangTarget
     {
@@ -278,7 +291,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     }
     public bool CanHangOffObject
     {
-        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject);}// && ActiveHangTarget.transform.position.z == ZLevel; }
+        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject);}
     }
     public bool CanHangOffLedge
     {
