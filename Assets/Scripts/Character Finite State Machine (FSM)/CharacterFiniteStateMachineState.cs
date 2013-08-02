@@ -71,9 +71,14 @@ public abstract class CharacterFiniteStateMachineState
         CharacterCollisionFlags = Controller.CharacterController.Move(currentMovementOffset);
 
         // Prevent the physics engine from moving us incorrectly 
+		/*
         if (Controller.transform.position.z != newZ && IsGrounded)
+		{
+			Debug.Log("Moved back to position");
             Controller.transform.position = lastPosition;
-
+		}
+		*/
+		
         // Calculate the velocity based on the current and previous position.  
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
         Velocity = (Controller.transform.position - lastPosition) / Time.deltaTime;
