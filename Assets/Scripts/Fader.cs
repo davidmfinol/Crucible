@@ -7,15 +7,12 @@ using System.Collections;
 /// </summary>
 public class Fader : MonoBehaviour
 {
-	/// <summary>
-	/// Whether or not the object should start invisible
-	/// </summary>
-	public bool InvisibleAtStart = true;
+	public bool FadeInAtStart = true;
 	
-	/// <summary>
 	/// How many seconds the fading takes.
-	/// </summary>
-	public float FadeSeconds = 5;
+	public float FadeInSeconds = 5;
+	public float StaySeconds = 5;
+	public float FadeOutSeconds = 5;
 	
 	// We can set the ranges for the opacity
 	public float MaxAlpha = 1;
@@ -23,17 +20,19 @@ public class Fader : MonoBehaviour
 	
 	void Start ()
 	{
+		if(!FadeInAtStart)
+			return;
+		
 		Color alphaed = renderer.material.color;
-		if(InvisibleAtStart)
-			alphaed.a = 0;
+		alphaed.a = 0;
 		renderer.material.color = alphaed;
-		FadeOut ();
+		FadeIn ();
 	}
 	
 	void FadeIn(float time = 0)
 	{
 		if(time > 0)
-			FadeSeconds = time;
+			FadeInSeconds = time;
 		StartCoroutine("DoFadeIn");
 	}
 	private IEnumerator DoFadeIn()
@@ -42,17 +41,30 @@ public class Fader : MonoBehaviour
 		{
 			yield return null;
  			Color temp = renderer.material.color;
- 			temp.a += Time.deltaTime/FadeSeconds;
+ 			temp.a += Time.deltaTime/FadeInSeconds;
 			temp.a = Mathf.Min (temp.a, MaxAlpha);
 			renderer.material.color = temp;
 		}
         StopCoroutine("DoFadeIn");
+		if(FadeInAtStart)
+			StartCoroutine("Stay");
 	}
-	
+	private IEnumerator DoFadeOut()
+	{
+		float elapsedTime = 0;
+		while (elapsedTime < StaySeconds)
+		{
+			elapsedTime += Time.deltaTime;
+			yield return null;
+		}
+        StopCoroutine("Stay");
+		if(FadeInAtStart)
+			StartCoroutine("FadeOut");
+	}
 	void FadeOut(float time = 0)
 	{
 		if(time > 0)
-			FadeSeconds = time;
+			FadeOutSeconds = time;
 		StartCoroutine("DoFadeOut");
 	}
 	private IEnumerator DoFadeOut()
@@ -61,10 +73,10 @@ public class Fader : MonoBehaviour
 		{
 			yield return null;
  			Color temp = renderer.material.color;
- 			temp.a -= Time.deltaTime/FadeSeconds;
+ 			temp.a -= Time.deltaTime/FadeOutSeconds;
 			temp.a = Mathf.Max (temp.a, MinAlpha);
 			renderer.material.color = temp;
 		}
-        StopCoroutine("DoFadeOut");
+		StopCoroutine("DoFadeOut");
 	}
 }
