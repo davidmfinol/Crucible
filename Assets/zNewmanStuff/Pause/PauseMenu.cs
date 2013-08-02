@@ -15,10 +15,10 @@ public class PauseMenu : MonoBehaviour {
 	
 	void KeyboardControl(){
 		if(Input.GetKeyDown(KeyCode.Escape)){
-			//GameTime.Paused = !GameTime.Paused;
-			//transform.FindChild("FG").transform.gameObject.SetActive(GameTime.Paused);
-			//transform.FindChild("MG").transform.gameObject.SetActive(GameTime.Paused);
-			//transform.FindChild("BG").transform.gameObject.SetActive(GameTime.Paused);
+			GameTime.Paused = !GameTime.Paused;
+			transform.FindChild("FG").transform.gameObject.SetActive(GameTime.Paused);
+			transform.FindChild("MG").transform.gameObject.SetActive(GameTime.Paused);
+			transform.FindChild("BG").transform.gameObject.SetActive(GameTime.Paused);
 			
 		}
 	}

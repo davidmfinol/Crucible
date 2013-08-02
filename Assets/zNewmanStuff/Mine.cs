@@ -25,6 +25,8 @@ public class Mine : Weapon {
 	
 	// Use this for initialization
 	void Start () {
+		
+		
 		//PlayerCharacterFSM playerController = Player.GetComponent<PlayerCharacterFSM>();
         SetHitBoxes(transform, _hitBoxesActive);
 		MineAmountText = GameObject.Find("MineAmountText");
