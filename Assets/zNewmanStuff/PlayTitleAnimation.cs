@@ -14,7 +14,7 @@ public class PlayTitleAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(!hasPlayedAnimation && (GameLevel.Instance.Player.transform.position.y > YPosTriggerAnimation)){
+		if(!hasPlayedAnimation && (GameLevel.Player.transform.position.y > YPosTriggerAnimation)){
 			transform.FindChild("TitleAnimPlane").transform.gameObject.SetActive(true);
 			hasPlayedAnimation = true;
 		}
@@ -25,7 +25,7 @@ public class PlayTitleAnimation : MonoBehaviour {
 	
 	/* //Needs to be rigidbody moving object
 	void OnTriggerEnter(Collider other){
-		if(other.Equals(GameLevel.Instance.Player)){
+		if(other.Equals(GameLevel.Player)){
 			transform.FindChild("TitleAnimPlane").transform.gameObject.SetActive(true);				
 		}
 	}*/

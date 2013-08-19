@@ -3,13 +3,12 @@ using System.Collections;
 
 public class GameLevel : MonoBehaviour
 {
-    // TODO: MOVE THIS
-    // Keep track of the player and where he starts in the level
-    public Transform Player = null;
+    // Keep track of the player, his camera, and where he starts in the level
+    public Transform PlayerPrefab = null;
+	public Camera CameraPrefab = null;
     public Transform StartPoint = null;
-    public Transform Elevator = null;
 
-    // TODO: FIX THIS
+    // TODO: FIX THIS so it borders in all zones
     // Size of the level
     public Rect Bounds;
     public float FallOutBuffer = 5.0f;
@@ -17,17 +16,25 @@ public class GameLevel : MonoBehaviour
     private Color _sceneViewDisplayColor = new Color(.20f, 0.74f, 0.27f, 0.50f); // Sea-green color border for the boundaries
 
     // Each scene should correspond to a level, and each level should have exactly one GameLevel
-    private static GameLevel _instance;
+    private static GameLevel _instance = null;
+	private static Transform _player = null;
 
     // Create the player when the level starts
     void Awake()
     {
-		// if(GameLevel._instance != null) //TODO: CHECKS FOR MULTIPLE GAMELEVELS (FROM LOADLEVEL ADDITIVE)_
-        if (Player != null)
+		if(GameLevel._instance != null)
+		{
+			// We need to keep only one GameLevel
+			Destroy(gameObject);
+			return;
+		}
+        
+		
+		if (PlayerPrefab != null)
         {
-            Player = (Transform)Instantiate(Player, StartPoint.position, Quaternion.identity);
-            PlayerCharacterFSM playerController = Player.GetComponent<PlayerCharacterFSM>();
-            Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
+            _player = (Transform)Instantiate(PlayerPrefab, StartPoint.position, Quaternion.identity);
+            PlayerCharacterFSM playerController = _player.GetComponent<PlayerCharacterFSM>();
+            Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(_player, "hand_R");
             Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
 			Transform mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
             whip.parent = bone;
@@ -38,35 +45,16 @@ public class GameLevel : MonoBehaviour
             playerController.Spawn();
         }
         else
-            Debug.Log("Load Level without player");
+            Debug.LogError("No player set in the GameLevel");
+		
+        Instantiate(CameraPrefab, CameraPrefab.transform.position, CameraPrefab.transform.rotation);
         CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
         if (cameraScript != null && Player != null)
             cameraScript.Target = Player.transform;
         else
-            Debug.Log("Camera not pointed at level load");
+            Debug.LogError("Camera not pointed at level load");
 
-        IntroScene();
 		GameLevel.Instance = this;
-    }
-
-    //TODO: MOVE THIS
-    void IntroScene()
-    {
-        if (Player.position.y < -1)
-		{
-			Application.LoadLevelAdditive("Demo");
-	        Player.parent = Elevator;
-	        Camera.main.GetComponent<CameraScrolling>().Springiness = 1000;
-		}
-        StartCoroutine("EndIntro");
-    }
-    IEnumerator EndIntro()
-    {
-        while (Player.position.y < -1)
-            yield return null;
-        Player.parent = null;
-        Camera.main.GetComponent<CameraScrolling>().Springiness = 4;
-        StopCoroutine("EndIntro");
     }
 
     // Create the boundaries
@@ -132,4 +120,10 @@ public class GameLevel : MonoBehaviour
         }
         set { GameLevel._instance = value; }
     }
+	
+	public static Transform Player
+	{
+		get { return _player; }
+		set { _player = value; }
+	}
 }

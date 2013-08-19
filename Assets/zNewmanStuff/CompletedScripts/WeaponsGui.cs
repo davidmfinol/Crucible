@@ -73,8 +73,8 @@ public class WeaponsGui : MonoBehaviour {
 		
 		CurrentAnimationStep = AnimationSteps;
 		
-		Player = GameLevel.Instance.Player;
-		playerController = GameLevel.Instance.Player.GetComponent<PlayerCharacterFSM>();
+		Player = GameLevel.Player;
+		playerController = GameLevel.Player.GetComponent<PlayerCharacterFSM>();
 
 		bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
 		

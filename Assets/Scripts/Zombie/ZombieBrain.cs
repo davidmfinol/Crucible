@@ -46,9 +46,9 @@ public class ZombieBrain
             return;
 
         // Hunt that player down
-        if (GameLevel.Instance.Player != null)
+        if (GameLevel.Player != null)
 		{
-			_player = GameLevel.Instance.Player.GetComponent<PlayerCharacterFSM>();
+			_player = GameLevel.Player.GetComponent<PlayerCharacterFSM>();
             _target = _player.transform.position;
 		}
 
