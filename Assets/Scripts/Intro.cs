@@ -9,7 +9,6 @@ public class Intro : MonoBehaviour
 
 	void Start ()
 	{
-		Application.LoadLevelAdditive("Sewer");
 		Transform titleAnim = (Transform) Instantiate(TitlePrefab, TitlePrefab.position, TitlePrefab.rotation);
 		titleAnim.parent = Camera.main.transform;
 		titleAnim.position = new Vector3(0f, 0f, 3.9f);
@@ -25,6 +24,7 @@ public class Intro : MonoBehaviour
             yield return null;
         GameLevel.Player.parent = null;
         Camera.main.GetComponent<CameraScrolling>().Springiness = 4;
+		Application.LoadLevelAdditive("Sewer");
         StopCoroutine("EndIntro");
     }
 }
