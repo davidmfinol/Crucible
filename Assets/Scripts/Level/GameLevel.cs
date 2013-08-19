@@ -7,8 +7,17 @@ public class GameLevel : MonoBehaviour
     public Transform PlayerPrefab = null;
 	public Camera CameraPrefab = null;
     public Transform StartPoint = null;
+	
+	// Render settings to be changed between scenes
+	public bool fog;
+	public Color fogColor;
+	public float fogDensity;
+	public Color ambientLight;
+	public float haloStrength;
+	public float flareStrength;
+	public Material skybox;
 
-    // TODO: FIX THIS so it borders in all zones
+    // TODO: FIX THIS so it borders in all zones, and we keep track of the boundary GOs so we delete them on new scene
     // Size of the level
     public Rect Bounds;
     public float FallOutBuffer = 5.0f;
@@ -22,10 +31,11 @@ public class GameLevel : MonoBehaviour
     // Create the player when the level starts
     void Awake()
     {
+		// We need to keep only one GameLevel instance
 		if(GameLevel._instance != null)
 		{
-			// We need to keep only one GameLevel
-			Destroy(gameObject);
+			Destroy(GameLevel._instance);
+			GameLevel._instance = this;
 			return;
 		}
         
@@ -60,6 +70,14 @@ public class GameLevel : MonoBehaviour
     // Create the boundaries
     void Start()
     {
+	    RenderSettings.fog = fog;
+	    RenderSettings.fogColor = fogColor;
+	    RenderSettings.fogDensity = fogDensity;
+	    RenderSettings.ambientLight = ambientLight;
+	    RenderSettings.haloStrength = haloStrength;
+	    RenderSettings.flareStrength = flareStrength;
+	    RenderSettings.skybox = skybox;
+		
         GameObject createdBoundaries = new GameObject("Created Boundaries");
         createdBoundaries.transform.parent = transform;
 
@@ -86,8 +104,6 @@ public class GameLevel : MonoBehaviour
         boxCollider = bottomBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3(Bounds.width + ColliderThickness * 2.0f, ColliderThickness, 1000);
         boxCollider.center = new Vector3(Bounds.x + Bounds.width * 0.5f, Bounds.yMin - ColliderThickness * 0.5f - FallOutBuffer, 0.0f);
-
-        Instance = this;
     }
 
     // Knowing where the bounds to the level are is important, so we'll draw them
