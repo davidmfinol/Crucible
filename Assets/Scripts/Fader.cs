@@ -29,7 +29,7 @@ public class Fader : MonoBehaviour
 		FadeIn ();
 	}
 	
-	void FadeIn(float time = 0)
+	 public void FadeIn(float time = 0)
 	{
 		if(time > 0)
 			FadeInSeconds = time;
@@ -58,7 +58,7 @@ public class Fader : MonoBehaviour
 			yield return null;
 		}
         StopCoroutine("Stay");
-		if(FadeInAtStart)
+		if(FadeInAtStart) // && StaySeconds >= 0)
 			StartCoroutine("DoFadeOut");
 	}
 	void FadeOut(float time = 0)
@@ -73,7 +73,7 @@ public class Fader : MonoBehaviour
 		{
 			yield return null;
  			Color temp = renderer.material.color;
- 			temp.a -= Time.deltaTime/FadeOutSeconds;
+// 			temp.a -= Time.deltaTime/FadeOutSeconds;
 			temp.a = Mathf.Max (temp.a, MinAlpha);
 			renderer.material.color = temp;
 		}
