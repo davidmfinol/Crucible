@@ -15,17 +15,6 @@ public class CameraScrolling : MonoBehaviour
     public float Springiness = 4.0f;
 
 
-    // Keep track of the boundaries of the level we're in
-    private GameLevel _levelBoundaries;
-    private Rect _levelBounds;
-
-    void Awake()
-    {
-        _levelBoundaries = GameLevel.Instance;
-        _levelBounds = _levelBoundaries.Bounds;
-    }
-
-
     // You almost always want camera motion to go inside of LateUpdate (), so that the camera follows
     // the target _after_ it has moved.  Otherwise, the camera may lag one frame behind.
     void LateUpdate()
@@ -122,8 +111,8 @@ public class CameraScrolling : MonoBehaviour
         Vector3 upperRightCameraInWorld = camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
-        clampOffset.x = Mathf.Min(_levelBounds.xMax - upperRightCameraInWorld.x, 0.0f);
-        clampOffset.y = Mathf.Min((_levelBounds.yMax - upperRightCameraInWorld.y), 0.0f);
+        clampOffset.x = Mathf.Min(GameLevel.Instance.Bounds.xMax - upperRightCameraInWorld.x, 0.0f);
+        clampOffset.y = Mathf.Min((GameLevel.Instance.Bounds.yMax - upperRightCameraInWorld.y), 0.0f);
 
         // Now we apply our clamping to our goalPosition.  Now our camera won't go past the right and top boundaries of the level!
         goalPosition += clampOffset;
@@ -136,8 +125,8 @@ public class CameraScrolling : MonoBehaviour
         Vector3 lowerLeftCameraInWorld = camera.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
-        clampOffset.x = Mathf.Max((_levelBounds.xMin - lowerLeftCameraInWorld.x), 0.0f);
-        clampOffset.y = Mathf.Max((_levelBounds.yMin - lowerLeftCameraInWorld.y), 0.0f);
+        clampOffset.x = Mathf.Max((GameLevel.Instance.Bounds.xMin - lowerLeftCameraInWorld.x), 0.0f);
+        clampOffset.y = Mathf.Max((GameLevel.Instance.Bounds.yMin - lowerLeftCameraInWorld.y), 0.0f);
 
         // Now we apply our clamping to our goalPosition once again.  Now our camera won't go past the left and bottom boundaries of the level!
         goalPosition += clampOffset;
