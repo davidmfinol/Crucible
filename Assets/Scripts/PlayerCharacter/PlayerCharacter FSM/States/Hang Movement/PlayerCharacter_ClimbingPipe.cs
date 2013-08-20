@@ -88,6 +88,8 @@ public class PlayerCharacter_ClimbingPipe : PlayerCharacterFSM_IState
             nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
         else if (JumpDown)
             nextState = PlayerCharacterStates.PlayerCharacter_Jumping;
+        else if (DownHold && !insideDown)
+            nextState = PlayerCharacterStates.PlayerCharacter_Falling;
 
         return nextState;
     }
