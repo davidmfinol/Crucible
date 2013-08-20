@@ -23,6 +23,12 @@ public class GameLevel : MonoBehaviour
     public float FallOutBuffer = 5.0f;
     public float ColliderThickness = 10.0f;
     private Color _sceneViewDisplayColor = new Color(.20f, 0.74f, 0.27f, 0.50f); // Sea-green color border for the boundaries
+	private GameObject createdBoundaries;
+	private GameObject leftBoundary;
+	private GameObject rightBoundary;
+	private GameObject topBoundary;
+	private GameObject bottomBoundary;
+			
 
     // Each scene should correspond to a level, and each level should have exactly one GameLevel
     private static GameLevel _instance = null;
@@ -34,6 +40,11 @@ public class GameLevel : MonoBehaviour
 		// We need to keep only one GameLevel instance
 		if(GameLevel._instance != null)
 		{
+			Destroy(GameLevel._instance.leftBoundary);
+			Destroy(GameLevel._instance.rightBoundary);
+			Destroy(GameLevel._instance.topBoundary);
+			Destroy(GameLevel._instance.bottomBoundary);
+			Destroy(GameLevel._instance.createdBoundaries);
 			Destroy(GameLevel._instance);
 			GameLevel._instance = this;
 			return;
@@ -78,28 +89,28 @@ public class GameLevel : MonoBehaviour
 	    RenderSettings.flareStrength = flareStrength;
 	    RenderSettings.skybox = skybox;
 		
-        GameObject createdBoundaries = new GameObject("Created Boundaries");
+        createdBoundaries = new GameObject("Created Boundaries");
         createdBoundaries.transform.parent = transform;
 
-        GameObject leftBoundary = new GameObject("Left Boundary");
+        leftBoundary = new GameObject("Left Boundary");
         leftBoundary.transform.parent = createdBoundaries.transform;
         BoxCollider boxCollider = leftBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3(ColliderThickness, Bounds.height + ColliderThickness * 2.0f + FallOutBuffer, 1000);
         boxCollider.center = new Vector3(Bounds.xMin - ColliderThickness * 0.5f, Bounds.y + Bounds.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
 
-        GameObject rightBoundary = new GameObject("Right Boundary");
+        rightBoundary = new GameObject("Right Boundary");
         rightBoundary.transform.parent = createdBoundaries.transform;
         boxCollider = rightBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3(ColliderThickness, Bounds.height + ColliderThickness * 2.0f + FallOutBuffer, 1000);
         boxCollider.center = new Vector3(Bounds.xMax + ColliderThickness * 0.5f, Bounds.y + Bounds.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
 
-        GameObject topBoundary = new GameObject("Top Boundary");
+        topBoundary = new GameObject("Top Boundary");
         topBoundary.transform.parent = createdBoundaries.transform;
         boxCollider = topBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3(Bounds.width + ColliderThickness * 2.0f, ColliderThickness, ColliderThickness);
         boxCollider.center = new Vector3(Bounds.x + Bounds.width * 0.5f, Bounds.yMax + ColliderThickness * 0.5f, 0.0f);
 
-        GameObject bottomBoundary = new GameObject("Bottom Boundary (Including Fallout Buffer)");
+        bottomBoundary = new GameObject("Bottom Boundary (Including Fallout Buffer)");
         bottomBoundary.transform.parent = createdBoundaries.transform;
         boxCollider = bottomBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3(Bounds.width + ColliderThickness * 2.0f, ColliderThickness, 1000);
