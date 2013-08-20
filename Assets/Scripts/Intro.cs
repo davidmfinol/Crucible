@@ -9,10 +9,8 @@ public class Intro : MonoBehaviour
 
 	void Start ()
 	{
-		Transform titleAnim = (Transform) Instantiate(TitlePrefab, TitlePrefab.position, TitlePrefab.rotation);
+		Transform titleAnim = (Transform) Instantiate(TitlePrefab, Camera.main.transform.position, TitlePrefab.rotation);
 		titleAnim.parent = Camera.main.transform;
-		titleAnim.position = new Vector3(0f, 0f, 3.9f);
-		titleAnim.GetChild(0).position = Vector3.zero;
         GameLevel.Player.parent = Elevator;
         Camera.main.GetComponent<CameraScrolling>().Springiness = 1000;
         StartCoroutine("EndIntro");
