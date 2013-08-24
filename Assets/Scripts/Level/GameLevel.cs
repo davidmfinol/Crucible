@@ -8,7 +8,7 @@ public class GameLevel : MonoBehaviour
 	public Camera CameraPrefab = null;
     public Transform StartPoint = null;
 	
-	// Render settings to be changed between scenes
+	// Render settings to be set when this scene loads
 	public bool fog;
 	public Color fogColor;
 	public float fogDensity;
