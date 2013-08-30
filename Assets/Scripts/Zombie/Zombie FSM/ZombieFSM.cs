@@ -14,7 +14,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     public float JumpHeight = 4.0f;
 
     // How fast the zombie runs
-    public float MaxHorizontalSpeed = 7.0f;
+    public float MaxHorizontalSpeed = 16.0f;
 
     // How fast the zombie accelerates
     public float HorizontalAcceleration = 6.0f;
@@ -29,7 +29,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     public float AwarenessRange = 100.0f;
 
     //How far away can an opponent be and still be in range of a zombie's attack?
-    public float AttackRange = 10.0f;
+    public float AttackRange = 5.0f;
 
     // Is the zombie aware of the player?
     private bool _awareOfPlayer = false;

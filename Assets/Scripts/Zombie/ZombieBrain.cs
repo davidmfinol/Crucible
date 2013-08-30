@@ -34,14 +34,14 @@ public class ZombieBrain
     // Zombie using it's brain, yo
     public void Update()
     {
-        // Update variables
+		// By default, have the zombie do nothing
         _timeSinceRepath += Time.deltaTime;
         _horizontal = 0;
         _vertical = 0;
         _jump = false;
-        _attack = false;
+		_attack = false;
 
-        // Zombie doesn't need to think when player is too far away
+        // Zombie doesn't need to think when unaware of player
         if (!_zombieController.AwareOfPlayer)
             return;
 
@@ -51,6 +51,11 @@ public class ZombieBrain
 			_player = GameLevel.Player.GetComponent<PlayerCharacterFSM>();
             _target = _player.transform.position;
 		}
+		
+        // attack if we're facing the player and are close enough
+		bool facingPlayer = _zombieController.Direction.x > 0 && _zombieController.transform.position.x < _player.transform.position.x;
+		facingPlayer = facingPlayer || _zombieController.Direction.x < 0 && _zombieController.transform.position.x > _player.transform.position.x;
+        _attack = facingPlayer && _zombieController.PlayerIsInAttackRange();
 
         // We need to make sure we have a plan for reaching our target
         if (_path == null)
@@ -109,9 +114,6 @@ public class ZombieBrain
 
         // Go left or right based on horizontal position
         _horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombieController.transform.position.x ? 1 : -1;
-
-        // attack if we're close enough
-        _attack = _zombieController.PlayerIsInAttackRange();
     }
 
     public void OnPathFound(Path p)
@@ -145,4 +147,38 @@ public class ZombieBrain
     {
         get { return _jump; }
     }
+
+	public int CurrentPathWaypoint
+	{
+		get { return this._currentPathWaypoint; }
+		set { _currentPathWaypoint = value; }
+	}
+
+	public bool HasTransitionRecent
+	{
+		get { return this._hasTransitionRecent; }
+		set { _hasTransitionRecent = value; }
+	}
+
+	public Path Path
+	{
+		get { return this._path; }
+		set { _path = value; }
+	}
+
+	public bool SearchingForPath
+	{
+		get { return this._searchingForPath; }
+	}
+
+	public Seeker Seeker
+	{
+		get { return this._seeker; }
+	}
+
+	public float TimeSinceRepath
+	{
+		get { return this._timeSinceRepath; }
+		set { _timeSinceRepath = value; }
+	}
 }

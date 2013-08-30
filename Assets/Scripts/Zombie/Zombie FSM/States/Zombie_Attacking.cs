@@ -24,7 +24,7 @@ public class Zombie_Attacking : ZombieFSM_IState
         if (_bone_R == null)
             _bone_R = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Controller.transform, "forearm_R");
 
-        // Set up hitboxed only while attacking
+        // Set up hitboxes only while attacking
         _bone_L.GetComponent<Collider>().enabled = true;
         _bone_L.GetComponent<HitBox>().enabled = true;
         _bone_R.GetComponent<Collider>().enabled = true;
@@ -60,7 +60,7 @@ public class Zombie_Attacking : ZombieFSM_IState
 
     public override void ExitState()
     {
-        // Disable hitboxed while not attacking
+        // Disable hitboxes while not attacking
         _bone_L.GetComponent<Collider>().enabled = false;
         _bone_L.GetComponent<HitBox>().enabled = false;
         _bone_R.GetComponent<Collider>().enabled = false;
