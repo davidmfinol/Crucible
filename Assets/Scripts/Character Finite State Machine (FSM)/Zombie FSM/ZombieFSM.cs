@@ -31,7 +31,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     // How far away the zombie can notice and become aware of the player
     public float AwarenessRange = 100.0f;
 
-    //How far away can an opponent be and still be in range of a zombie's attack?
+    // How far away can an opponent be and still be in range of a zombie's attack?
     public float AttackRange = 5.0f;
 
     // Is the zombie aware of the player?
@@ -43,8 +43,12 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     // Current brain of the Zombie(tells it what to do)
     private ZombieBrain _brain;
     private PlayerCharacterFSM _playerController;
+	
+	// A* Settings
+	public float RepathTime = 1.0f; // How many seconds between every calculation of a new path
+	public float PathLeniency = 10.0f; // How close a zombie should be to a pathnode in order to move on to the next one
 
-    void Start()
+    public void Start()
     {
         _zombieAudioSource = GetComponentInChildren<ZombieAudioSource>();
         _brain = new ZombieBrain(this);

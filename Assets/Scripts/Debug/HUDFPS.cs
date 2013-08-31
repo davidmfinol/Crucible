@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-[AddComponentMenu("Debug/HUDFPS")]
+[AddComponentMenu("Utilities/HUDFPS")]
 public class HUDFPS : MonoBehaviour
 {
     // Attach this to any object to make a frames/second indicator.
