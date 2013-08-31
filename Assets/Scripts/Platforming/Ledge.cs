@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-// This script must be attached to a ledge that a character can climb up
+/// <summary>
+/// Ledge defines a ledge that a character can climb up.
+/// </summary>
 public class Ledge : HangableObject 
 {
 }

@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// This script must be attached to an object that a player can hang off
+/// <summary>
+/// Hangable object defines an object that a player can hang off.
+/// </summary>
 public class HangableObject : MonoBehaviour
 {
     public bool FacesZAxis = true;

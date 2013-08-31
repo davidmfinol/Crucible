@@ -1,7 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-// A GameObject that uses this script has properties that affect how the camera follows it
+/// <summary>
+/// Camera target attributes defines how the CameraScrolling script follows its target.
+/// Attach this script to a game object that you want CameraScrolling to be able to follow.
+/// This entire script may end up being replaced.
+/// </summary>
 public class CameraTargetAttributes : MonoBehaviour
 {
     // How high in world space should the camera look above the target?
@@ -18,6 +22,7 @@ public class CameraTargetAttributes : MonoBehaviour
     public Vector2 MaxLookAhead = new Vector2(3.0f, 3.0f);
 
     // How much should the camera shake based off the amount of "action" surrounding this target?
+	/*
     public float Chaos = 0.0f;
 
     private float prevHeight;
@@ -43,4 +48,5 @@ public class CameraTargetAttributes : MonoBehaviour
             DistanceModifier = 1;
         }
     }
+    */
 }

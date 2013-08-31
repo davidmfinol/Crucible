@@ -1,15 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Time scaler is used to make the keyboard 0-9 keys slow down time from 0-90%, for debugging only.
+/// </summary>
+[AddComponentMenu("Debug/Time Scaler")]
 public class TimeScaler : MonoBehaviour
 {
     public bool UseTimeScaleMultiplier = false;
     public float TimeScaleMultiplier = 1.0f;
+	
     private bool _timeScaleIsModified;
     private float _realTimeScaleMultiplier;
+	private int _originialFrameRate;
 	
-	// Update is called once per frame
-	void Update ()
+	public void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Alpha0))
 		{
@@ -87,7 +92,7 @@ public class TimeScaler : MonoBehaviour
         TimeScaleDebug();
 	}
 
-    void TimeScaleDebug()
+    private void TimeScaleDebug()
     {
         //Checking and unchecking UseTimeScaleMultiplier
         if (UseTimeScaleMultiplier && !TimeScaleIsModified) //If box is checked and script has not acted yet
@@ -102,18 +107,21 @@ public class TimeScaler : MonoBehaviour
             startTimeScaleDebug();
         }
     }
-    void startTimeScaleDebug()
+    private void startTimeScaleDebug()
     {
         RealTimeScaleMultiplier = TimeScaleMultiplier;
         Time.timeScale *= RealTimeScaleMultiplier;
+		_originialFrameRate = Application.targetFrameRate;
+		Application.targetFrameRate = (int)(RealTimeScaleMultiplier*_originialFrameRate);
         TimeScaleIsModified = true;
     }
-    void stopTimeScaleDebug()
+    private void stopTimeScaleDebug()
     {
 		if(RealTimeScaleMultiplier == 0f)
 			Time.timeScale = 1.0f;
 		else
         	Time.timeScale /= RealTimeScaleMultiplier;
+		Application.targetFrameRate = _originialFrameRate;
         TimeScaleIsModified = false;
     }
 

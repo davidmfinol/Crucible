@@ -2,29 +2,40 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ZombieAIDebugger : CharacterFSMVisualDebugger
+/// <summary>
+/// Zombie AI debugger displays AI information for the zombie.
+/// In particular, it displays the AI Output and A* Path, with option of rendering path nodes on-screen at runtime.
+/// It also works with the FSM Debugger by showing the information right below the FSM Debugger's location.
+/// </summary>
+[RequireComponent(typeof(ZombieFSM))]
+[AddComponentMenu("Debug/Zombie AI")]
+public class ZombieAIDebugger : MonoBehaviour
 {
-	public Transform Node;
-	public bool HighlightCurrentNode = false;
+	public bool ShowAI = false;
 	public bool ShowNodes = false;
-	//private ArrayList<GameObject> _nodes;
+	public bool HighlightCurrentNode = false;
 	
-	// We could also show other variables OnGUI
-	//public bool ShowTransitionRecent = true;
-	//public bool ShowTimeSinceRepath = true;
+	public Transform Node;
+	public Transform HighlightNode;
 	
-	public void Update ()
+	public void Update()
 	{
-		// Check for input\
-		if(Input.GetKey(KeyCode.I))
-			HighlightCurrentNode = !HighlightCurrentNode;
-		if(Input.GetKey(KeyCode.O))
-			ShowNodes = !ShowNodes;
-
-			
-		//Update visualization
-		//if(ShowPath)
-			
+		ZombieBrain brain = GetComponent<ZombieFSM>().Brain;
+		//TODO: Update visualization
+		List<GameObject> nodes;
+		//if(ShowNodes)
+		//if(HighlightCurrentNode)
 	}
-			
+	
+    public void OnGUI()
+    {
+        if (!ShowAI)
+			return;
+		
+		ZombieBrain brain = GetComponent<ZombieFSM>().Brain;
+        GUI.Box(new Rect(10, 135, 300, 20), "Vertical: " + brain.Vertical + ", Horizontal: " + brain.Horizontal + ", Jump: " + brain.Jump + ", Attack:" + brain.Attack);
+        GUI.Box(new Rect(10, 160, 300, 20), "Transition Recent: " + brain.HasTransitionRecent + ", Repathed: " + brain.TimeSinceRepath);
+		if(brain.Path != null)
+        	GUI.Box(new Rect(10, 185, 300, 20), "At node " + (brain.CurrentPathWaypoint + 1) + " of path length " + brain.Path.vectorPath.Count);
+    }
 }

@@ -6,8 +6,7 @@ public class Intro : MonoBehaviour
 	public Transform TitlePrefab;
     public Transform Elevator;
     
-
-	void Start ()
+	public void Start()
 	{
 		Transform titleAnim = (Transform) Instantiate(TitlePrefab, Camera.main.transform.position, TitlePrefab.rotation);
 		titleAnim.parent = Camera.main.transform;

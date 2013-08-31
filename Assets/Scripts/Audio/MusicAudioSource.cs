@@ -1,10 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Music audio source represents the background music.
+/// </summary>
 public class MusicAudioSource : AudioPlayer
 {
     public AudioSource[] backgroundSongs;
-
+	
+	// TODO: UPDATE THIS
     private IEnumerator ChangeMusic()
     {
         float v0 = backgroundSongs[0].volume;

@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-// This script must be attached to a ladder that the player can climb
+/// <summary>
+/// Ladder defines a ladder that the player can climb.
+/// </summary>
 public class Ladder : ClimbableObject
 {
 }

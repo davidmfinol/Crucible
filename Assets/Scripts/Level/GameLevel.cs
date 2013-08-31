@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Game level is a global class used to keep track of the attributes of the level in the scene.
+/// Main things: Player, render settings, and boundary of scene.
+/// </summary>
 public class GameLevel : MonoBehaviour
 {
     // Keep track of the player, his camera, and where he starts in the level

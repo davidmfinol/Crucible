@@ -1,8 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Audio manager is the central controller for all audio sources in a scene.
+/// </summary>
+[AddComponentMenu("Audio/Audio Manager")]
 public class AudioManager : MonoBehaviour
 {
+	// TODO: ATTACH THIS TO THE GAMELEVEL PREFAB/MAKE ANOTHER?
     public enum AudioTypes
     {
         SPEECH,
@@ -17,6 +22,6 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         allAudioSources = FindObjectsOfType(typeof(AudioPlayer)) as AudioPlayer[];// slow....
-        // set them up correctly
+        // TODO: set them up correctly
     }
 }

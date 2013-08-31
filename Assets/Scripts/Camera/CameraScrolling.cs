@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Camera scrolling is the main camera script used to make the camera follow the player character.
+/// This entire script may be replaced.
+/// </summary>
 [RequireComponent(typeof(Transform))]
 public class CameraScrolling : MonoBehaviour
 {
-
     // The object being tracked
     public Transform Target;
 

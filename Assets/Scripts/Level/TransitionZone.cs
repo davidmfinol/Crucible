@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Transition zone defines an area in which a character can move between Zones.
+/// </summary>
 public class TransitionZone : MonoBehaviour
 {
     // Whether the character must be above the floor of this transition zone in order to be able to transition

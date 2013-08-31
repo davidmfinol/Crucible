@@ -3,10 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Character finite state machine base runs the finite state machine (FSM) that controls characters in the game.
+/// Basically, it keeps track of the character's current state and tells that state to do the appropriate processing.
+/// It also holds appropriate information about platforming/ZLevel/character-physics.
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
-// CharacterFiniteStateMachineBase runs the finite state machine (FSM) that controls characters in the game
-// Basically, it keeps track of the character's current state and tells that state to do the appropriate processing
-// It also holds appropriate information about platforming
 public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
 {
     // We obviously need to keep track of the current state
@@ -61,7 +63,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     void Awake()
     {
         // Statemachine setup
-        CharacterController = GetComponent<CharacterController>();
+        Controller = GetComponent<CharacterController>();
         CreateStateMachine();
         CurrentState = GetDefaultState();
         CharacterFiniteStateMachineState state;
@@ -129,14 +131,12 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
             state.StartState(); // and start it
         }
     }
-
+	
+	//FIXME: should replace these 4 methods with 3 properties
     // Defines the enum to use for the List of states
     public abstract Type GetStateEnumType();
-
-    // The default state that the character starts in
-    // This will normally be the character's idle state
+    // The default state that the character starts in (normally idle state)
     public abstract Enum GetDefaultState();
-
     public CharacterFiniteStateMachineState GetState()
     {
         return StateMachine[CurrentState];
@@ -206,7 +206,6 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
 		
 		_hangQueue.Add(hangTarget);
 	}
-	
 	public void RemoveHangTarget(HangableObject hangTarget)
 	{
 		if(!_hangQueue.Contains(hangTarget))
@@ -220,7 +219,6 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
 		if (ActiveHangTarget == null)
         	_activePlatform = null;
 	}
-	
 	public void DropHangTarget()
 	{
 		if(ActiveHangTarget == null)
@@ -244,7 +242,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
         set { this._stateMachine = value; }
     }
 
-    public CharacterController CharacterController
+    public CharacterController Controller
     {
         get { return _characterController; }
         set { _characterController = value; }
@@ -270,7 +268,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
                 HorizontalSpeed = -HorizontalSpeed;
         }
     }
-    public CollisionFlags CollisionFlags
+    public CollisionFlags ControllerCollisionFlags
     {
         get { return _collisionFlags; }
         set { _collisionFlags = value; }
@@ -345,15 +343,15 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
 
     public bool IsGrounded
     {
-        get { return CharacterController.isGrounded; }
+        get { return Controller.isGrounded; }
     }
     public bool IsTouchingCeiling
     {
-        get { return (CollisionFlags & CollisionFlags.Above) != 0; }
+        get { return (ControllerCollisionFlags & CollisionFlags.Above) != 0; }
     }
     public bool IsTouchingWall
     {
-        get { return (CollisionFlags & CollisionFlags.Sides) != 0; }
+        get { return (ControllerCollisionFlags & CollisionFlags.Sides) != 0; }
     }
 
     public float Z_Down
@@ -377,6 +375,6 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     }
     public float Height
     {
-        get { return transform.localScale.y * CharacterController.height; }
+        get { return transform.localScale.y * Controller.height; }
     }
 }
