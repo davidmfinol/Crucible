@@ -46,7 +46,6 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
 	
 	// A* Settings
 	public float RepathTime = 1.0f; // How many seconds between every calculation of a new path
-	public float PathLeniency = 10.0f; // How close a zombie should be to a pathnode in order to move on to the next one
 
     public void Start()
     {
@@ -95,6 +94,9 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         CharacterFSMVisualDebugger debug = GetComponent<CharacterFSMVisualDebugger>();
         if (debug != null)
             Destroy(debug);
+        ZombieAIDebugger debug2 = GetComponent<ZombieAIDebugger>();
+        if (debug2 != null)
+            Destroy(debug2);
         Destroy(this);
         Destroy(Controller);
     }

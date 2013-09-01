@@ -154,7 +154,8 @@ public class ZombieBrain
             return false;
 
         // Move on if we reached our waypoint
-        if (Mathf.Abs((_zombie.transform.position - _path.vectorPath[_currentPathWaypoint]).magnitude) < _zombie.PathLeniency)
+        //if (Mathf.Abs((_zombie.transform.position - _path.vectorPath[_currentPathWaypoint]).magnitude) < _zombie.PathLeniency)
+		if (_zombie.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]))
             _currentPathWaypoint++;
 
         return _currentPathWaypoint < _path.vectorPath.Count;
