@@ -7,7 +7,7 @@ using System.Collections;
 [AddComponentMenu("Audio/Audio Manager")]
 public class AudioManager : MonoBehaviour
 {
-	// TODO: ATTACH THIS TO THE GAMELEVEL PREFAB/MAKE ANOTHER?
+	// TODO: ATTACH THIS TO THE GAMELEVEL PREFAB/MAKE IT STATIC LIKE GAMETIME?
     public enum AudioTypes
     {
         SPEECH,
@@ -23,5 +23,6 @@ public class AudioManager : MonoBehaviour
     {
         allAudioSources = FindObjectsOfType(typeof(AudioPlayer)) as AudioPlayer[];// slow....
         // TODO: set them up correctly
+		// should also look up all audio sources and make sure they have a corresponding audioplayer
     }
 }

@@ -3,8 +3,9 @@ using System.Collections;
 
 /// <summary>
 /// Climbable object defines an object that a character can climb up.
+/// Climbable object must be further specified (i.e. extended by ladder, pipe).
 /// </summary>
-public class ClimbableObject : HangableObject
+public abstract class ClimbableObject : HangableObject
 {
     public override void OnTriggerEnter(Collider other)
     {

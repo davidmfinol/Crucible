@@ -133,18 +133,23 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         // Create and set up the nodes based off the organized waypoints
         nodes = CreateNodes(ZoneWaypoints.Count + TransitionWaypoints.Count);
         int nodeNum = 0;
-        foreach (KeyValuePair<Vector3, GameObject> waypoint in ZoneWaypoints)
+        foreach (KeyValuePair<Vector3, GameObject> waypointKV in ZoneWaypoints)
         {
-            nodes[nodeNum].position = (Int3)waypoint.Key;
-            nodes[nodeNum].walkable = !Physics.CheckSphere(waypoint.Key, 0.1f, CollisionMask.value);
-            ((ZoneNode)nodes[nodeNum]).GO = waypoint.Value;
+			Vector3 waypoint = new Vector3(waypointKV.Key.x, waypointKV.Key.y, waypointKV.Value.transform.position.z);
+            nodes[nodeNum].position = (Int3)waypoint;
+            ((ZoneNode)nodes[nodeNum]).GO = waypointKV.Value;
+            ((ZoneNode)nodes[nodeNum]).isTransition = false;
+            ((ZoneNode)nodes[nodeNum]).isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
             nodeNum++;
         }
-        foreach (KeyValuePair<Vector3, GameObject> waypoint in TransitionWaypoints)
+        foreach (KeyValuePair<Vector3, GameObject> waypointKV in TransitionWaypoints)
         {
-            nodes[nodeNum].position = (Int3)waypoint.Key;
-            nodes[nodeNum].walkable = !Physics.CheckSphere(waypoint.Key, 0.1f, CollisionMask.value);
-            ((ZoneNode)nodes[nodeNum]).GO = waypoint.Value;
+			Vector3 waypoint = new Vector3(waypointKV.Key.x, waypointKV.Key.y, waypointKV.Value.transform.position.z);
+            nodes[nodeNum].position = (Int3)waypoint;
+            nodes[nodeNum].walkable = !Physics.CheckSphere(waypoint, 0.01f, CollisionMask.value);
+            ((ZoneNode)nodes[nodeNum]).GO = waypointKV.Value;
+            ((ZoneNode)nodes[nodeNum]).isTransition = true;
+            ((ZoneNode)nodes[nodeNum]).isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
             nodeNum++;
         }
 
@@ -152,8 +157,17 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         foreach (ZoneNode node in nodes)
         {
             foreach (Bounds zoneBounds in ZonesWithWaypoints.Keys)
-                if (zoneBounds.Contains((Vector3)node.position))
+			{
+				Vector3 nodePos = (Vector3) node.position;
+                if (zoneBounds.Contains(nodePos))
+				{
+					if(!node.isTransition)
+						nodePos.z = zoneBounds.center.z;
+					node.position = (Int3)nodePos;
+            		node.walkable = !Physics.CheckSphere(nodePos, 0.01f, CollisionMask.value);
                     ZonesWithWaypoints[zoneBounds].Add(node);
+				}
+			}
             foreach (Bounds transitionZoneBounds in TransitionZonesWithWaypoints.Keys)
                 if (transitionZoneBounds.Contains((Vector3)node.position))
                     TransitionZonesWithWaypoints[transitionZoneBounds].Add(node);
@@ -184,8 +198,10 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
                 subdividedWaypoints.Add(new Vector3(x, y, z));
             subdividedWaypoints.Add(new Vector3(x, bottom, z));
         }
-        subdividedWaypoints.Add(new Vector3(right, top, z));
+        for (float y = top; y >= bottom; y -= WaypointSubdivisionSize)
+        	subdividedWaypoints.Add(new Vector3(right, y, z));
         subdividedWaypoints.Add(new Vector3(right, bottom, z));
+		
 		return subdividedWaypoints;
 	}
 	
@@ -205,6 +221,8 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 		
 		for(float x = left; x <= right; x += WaypointSubdivisionSize)
 			aboveWaypoints.Add(new Vector3(x, top + 1, z));
+        aboveWaypoints.Add(new Vector3(right, top + 1, z));
+		
 		return aboveWaypoints;
 	}
 
@@ -318,7 +336,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
             return false;
 		
         // account for jump distances
-	    if( !ZombieFSM.CanJump((Vector3)A.position, (Vector3)B.position) )
+	    if(!ZombieFSM.CanJump((Vector3)A.position, (Vector3)B.position) )
 			return false;
 
         Vector3 dir = (Vector3)(A.position - B.position);
@@ -333,7 +351,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         {
             RaycastHit[] hits = Physics.RaycastAll(ray, dist);
             foreach (RaycastHit hit in hits)
-                pathExists = pathExists || (hit.collider.tag == WaypointTag && hit.collider.gameObject != A.GO && hit.collider.gameObject != B.GO);
+                pathExists = hit.collider.CompareTag(WaypointTag) && hit.collider.gameObject != A.GO && hit.collider.gameObject != B.GO;
         }
 
         return !obstructedByGround && !pathExists;
@@ -369,21 +387,59 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         }
         return new NNInfo(nearestNode);
     }
+	
+	public override void OnDrawGizmos (bool drawNodes)
+	{
+		if(AstarPath.active.debugMode != GraphDebugMode.Areas && AstarPath.active.debugMode != GraphDebugMode.Connections)
+		{
+			base.OnDrawGizmos(drawNodes);
+			return;
+		}
+		
+		if (!drawNodes)
+			return;
+		
+		if (nodes == null)
+			Scan ();
+		
+		if (nodes == null)
+			return;
+		
+		
+		for (int i=0;i<nodes.Length;i++) {
+			
+			ZoneNode node = (ZoneNode)nodes[i];
+			if (node.connections != null) {
+				
+				for (int q=0;q<node.connections.Length;q++) {
+					bool doublyLinked = node.connections[q].ContainsConnection(node);
+					if(AstarPath.active.debugMode == GraphDebugMode.Areas || doublyLinked)
+					{
+						Gizmos.color = doublyLinked ? AstarColor.MeshColor : AstarColor.MeshEdgeColor;
+						Gizmos.DrawLine ((Vector3)node.position,(Vector3)node.connections[q].position);
+					}
+				}
+			}
+			
+		}
+	}
 
-    // Deprecated Serialization?
+    // Deprecated Serialization
     public void SerializeNodes(Node[] nodes, AstarSerializer serializer){}
     public void DeSerializeNodes(Node[] nodes, AstarSerializer serializer){}
     public void SerializeSettings(AstarSerializer serializer)
     {
-        serializer.AddValue("ZonesTag", ZonesTag);
         serializer.AddValue("WaypointTag", WaypointTag);
+        serializer.AddValue("ZonesTag", ZonesTag);
+        serializer.AddValue("TransitionZonesTag", TransitionZonesTag);
         serializer.AddValue("CollisionMask", CollisionMask.value);
         serializer.AddValue("WaypointSubdivisionSize", WaypointSubdivisionSize);
     }
     public void DeSerializeSettings(AstarSerializer serializer)
     {
-        ZonesTag = (string)serializer.GetValue("ZonesTag", typeof(string));
         WaypointTag = (string)serializer.GetValue("WaypointTag", typeof(string));
+        ZonesTag = (string)serializer.GetValue("ZonesTag", typeof(string));
+        TransitionZonesTag = (string)serializer.GetValue("TransitionZonesTag", typeof(string));
         CollisionMask.value = (int)serializer.GetValue("CollisionMask", typeof(int));
         WaypointSubdivisionSize = (float)serializer.GetValue("WaypointSubdivisionSize", typeof(float));
     }

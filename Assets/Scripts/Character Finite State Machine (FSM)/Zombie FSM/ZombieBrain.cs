@@ -56,10 +56,10 @@ public class ZombieBrain
         // Jump selectively
         _jump = _path.vectorPath[_currentPathWaypoint].y > _zombie.transform.position.y && _zombie.VerticalSpeed <= 0;
 
-        // Going up or down depends on both y and z positions
+        // Pressing up or down depends on both y and z positions
         if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _zombie.ZLevel) < 1 || (_player != null && _player.ZLevel == _zombie.ZLevel))
 		{
-			if(!_zombie.CanTransitionZ && !_hasTransitionRecent)
+			if(!_zombie.CanTransitionZ)
 			{
             	_vertical = _path.vectorPath[_currentPathWaypoint].y > _zombie.transform.position.y ? 1 : -1;
 				_hasTransitionRecent = true;
@@ -78,7 +78,7 @@ public class ZombieBrain
 				_vertical = 0;
 		}
 
-        // Go left or right based on horizontal position
+        // Pressing left or right based on horizontal position
         _horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombie.transform.position.x ? 1 : -1;
     }
 	
@@ -143,7 +143,7 @@ public class ZombieBrain
         }
 
         // Repath after a certain amount of time
-        if (_timeSinceRepath > _zombie.RepathTime && !_searchingForPath)
+        if ((_timeSinceRepath > _zombie.RepathTime || _currentPathWaypoint >= _path.vectorPath.Count)&& !_searchingForPath)
         {
 			_hasTransitionRecent = false;
             _seeker.StartPath(_zombie.transform.position, _target, OnPathFound);
@@ -154,9 +154,10 @@ public class ZombieBrain
             return false;
 
         // Move on if we reached our waypoint
-        //if (Mathf.Abs((_zombie.transform.position - _path.vectorPath[_currentPathWaypoint]).magnitude) < _zombie.PathLeniency)
-		if (_zombie.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]))
+		if (_zombie.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) )
             _currentPathWaypoint++;
+		
+		// && ( !((ZoneNode)_path.path[_currentPathWaypoint]).isGround || _zombie.IsGrounded)
 
         return _currentPathWaypoint < _path.vectorPath.Count;
 	}
@@ -172,8 +173,26 @@ public class ZombieBrain
         _searchingForPath = false;
         _timeSinceRepath = 0;
         _path = p;
-        _currentPathWaypoint = 0;
+		_currentPathWaypoint = 1;
+		// We may have moved from the startpoint. We should determine the node nearest to our current position.
+		//DetermineNearestNode();
     }
+	
+	public void DetermineNearestNode()
+	{
+		int nearestNode = 0;
+		float smallestDist = float.MaxValue;
+		for(int i = 0; i < _path.vectorPath.Count; i++)
+		{
+			float dist = (_zombie.transform.position - _path.vectorPath[i]).magnitude;
+			if(dist < smallestDist)
+			{
+				nearestNode = 0;
+				smallestDist = dist;
+			}
+		}
+		_currentPathWaypoint = nearestNode;
+	}
 	
 	// Output Properties
     public float Horizontal

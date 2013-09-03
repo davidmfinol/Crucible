@@ -4,6 +4,8 @@ using System.Collections.Generic;
 /// <summary>
 /// Hangable object defines an object that a player can hang off.
 /// </summary>
+[RequireComponent(typeof(Collider))]
+[AddComponentMenu("Platforming/Hangable Object")]
 public class HangableObject : MonoBehaviour
 {
     public bool FacesZAxis = true;

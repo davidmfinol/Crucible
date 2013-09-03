@@ -22,7 +22,7 @@ public class Zombie_Landing : ZombieFSM_IState
 
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
-        else if (!FSM.animation.IsPlaying("JumpLanding"))
+        else if (Duration > FSM.LandingDuration)
             nextState = ZombieStates.Zombie_Idle;
 
         return nextState;

@@ -74,8 +74,10 @@ public class Zombie_Climbing : ZombieFSM_IState
             nextState = ZombieStates.Zombie_Idle;
         else if (FSM.CanHangOffObject)
             nextState = ZombieStates.Zombie_Hanging;
-        else if (Jump || (!(insideUp && insideDown && insideLeft && insideRight)))
+        else if (Jump)
             nextState = ZombieStates.Zombie_Jumping;
+		else if(Down && !insideDown)
+			nextState = ZombieStates.Zombie_Falling;
 
         return nextState;
     }

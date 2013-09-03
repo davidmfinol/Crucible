@@ -9,12 +9,12 @@ using System.Collections;
 public class ZombieFSM : CharacterFiniteStateMachineBase
 {
     // TODO: Constants to calculate jumping elsewhere (used by A*)?...
-    public static float MaxJump = 9.0f;
-    public static float MaxSpeed = 7.0f;
+    public static float MaxJump = 7.0f;
+    public static float MaxSpeed = 16.0f;
     public static float MaxGravity = 40.0f;
 
     // How high the zombie jumps
-    public float JumpHeight = 4.0f;
+    public float JumpHeight = 5.0f;
 
     // How fast the zombie runs
     public float MaxHorizontalSpeed = 16.0f;
@@ -27,12 +27,18 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
 	
 	// How long it takes the zombie to climb a ledge
     public float LedgeClimbingDuration = 0.7f;
-
-    // How far away the zombie can notice and become aware of the player
-    public float AwarenessRange = 100.0f;
+	
+	// How long it takes the zombie to land
+	public float LandingDuration = 0.12f;
+	
+	// How long it takes the zombie to attack
+	public float AttackDuration = 0.75f;
 
     // How far away can an opponent be and still be in range of a zombie's attack?
     public float AttackRange = 5.0f;
+
+    // How far away the zombie can notice and become aware of the player
+    public float AwarenessRange = 100.0f;
 
     // Is the zombie aware of the player?
     private bool _awareOfPlayer = false;
@@ -45,7 +51,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     private PlayerCharacterFSM _playerController;
 	
 	// A* Settings
-	public float RepathTime = 1.0f; // How many seconds between every calculation of a new path
+	public float RepathTime = 0.75f; // How many seconds between every calculation of a new path
 
     public void Start()
     {
@@ -73,7 +79,7 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     public static bool CanJump(Vector3 a, Vector3 b)
     {
         float xDist = Mathf.Abs(b.x - a.x);
-        float yDist = a.y - b.y;
+        float yDist = b.y - a.y;
         float yVel = Mathf.Sqrt(2 * MaxJump * MaxGravity);
         float t = yVel / MaxGravity;
         float yMax = MaxJump;

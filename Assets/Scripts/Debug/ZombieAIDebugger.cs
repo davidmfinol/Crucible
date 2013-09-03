@@ -11,15 +11,16 @@ using System.Collections.Generic;
 [AddComponentMenu("Debug/Zombie AI")]
 public class ZombieAIDebugger : MonoBehaviour
 {
-	public bool ShowAI = false;
-	public bool HighlightCurrentNode = false;
+	public bool Hide = true;
+	public bool ShowAI = true;
+	public bool HighlightCurrentNode = true;
 	
 	public Transform HighlightNode;
 	private GameObject _node;
 	private ZombieFSM _fsm;
 	private ZombieBrain _brain;
 	
-	public void Awake()
+	public void Start()
 	{
 		_fsm = GetComponent<ZombieFSM>();
 		_brain = _fsm.Brain;
@@ -29,20 +30,18 @@ public class ZombieAIDebugger : MonoBehaviour
 	
 	public void Update()
 	{
-		if(HighlightCurrentNode && _brain.Path != null && _brain.CurrentPathWaypoint < _brain.Path.vectorPath.Count)
+		if(!Hide && HighlightCurrentNode && _brain!= null && _brain.Path != null && !_brain.Path.error && _brain.CurrentPathWaypoint < _brain.Path.vectorPath.Count)
 		{
-			_node.renderer.enabled = false;
+			_node.renderer.enabled = true;
 			_node.transform.position = _brain.Path.vectorPath[_brain.CurrentPathWaypoint];
 		}
 		else
-		{
 			_node.renderer.enabled = false;
-		}
 	}
 	
     public void OnGUI()
     {
-        if (!ShowAI)
+        if (Hide || !ShowAI)
 			return;
 		
 		if(_brain == null)
@@ -55,6 +54,6 @@ public class ZombieAIDebugger : MonoBehaviour
         GUI.Box(new Rect(10, 160, 300, 20), "Transition Recent: " + _brain.HasTransitionRecent + ", Repathed: " + _brain.TimeSinceRepath);
     	GUI.Box(new Rect(10, 185, 300, 20), "Target: " + _brain.Target + ", Searching: " + _brain.SearchingForPath);
 		if(_brain.Path != null)
-        	GUI.Box(new Rect(10, 210, 300, 20), "At node " + (_brain.CurrentPathWaypoint + 1) + " of path length " + _brain.Path.vectorPath.Count);
+        	GUI.Box(new Rect(10, 210, 300, 20), "At node " + (_brain.CurrentPathWaypoint) + " of path length " + _brain.Path.vectorPath.Count);
     }
 }

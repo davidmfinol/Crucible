@@ -26,6 +26,8 @@ public class Zombie_Running : ZombieFSM_IState
             nextState = ZombieStates.Zombie_Falling;
         else if (Attack)
             nextState = ZombieStates.Zombie_Attacking;
+        else if (Jump)
+            nextState = ZombieStates.Zombie_Jumping;
         else if (((Up && FSM.ZLevel != FSM.Z_Up) || (Down && FSM.ZLevel != FSM.Z_Down)) && FSM.CanTransitionZ)
             nextState = ZombieStates.Zombie_TransitioningZ;
         else if ((Direction.x > 0 && !Right) || (Direction.x < 0 && !Left))

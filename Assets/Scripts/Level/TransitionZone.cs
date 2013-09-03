@@ -6,6 +6,8 @@ using System.Collections.Generic;
 /// </summary>
 public class TransitionZone : MonoBehaviour
 {
+	// Whether this transistion is only used for AI calculation. This overrides the next two options.
+	public bool AIOnly = false;
     // Whether the character must be above the floor of this transition zone in order to be able to transition
     public bool UsesFloorCheck = true;
     // Whether the character must be below the ceiling of this transition zone in order to be able to transition
@@ -13,6 +15,9 @@ public class TransitionZone : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+		if(AIOnly)
+			return;
+		
         CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null)
         {
@@ -24,9 +29,12 @@ public class TransitionZone : MonoBehaviour
             character.CanTransitionZ = transit;
         }
     }
-
+	
     public void OnTriggerStay(Collider other)
     {
+		if(AIOnly)
+			return;
+		
         Zone zone = GetComponent<Zone>();
         if (zone != null)
             zone.OnTriggerEnter(other);
@@ -44,6 +52,9 @@ public class TransitionZone : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
+		if(AIOnly)
+			return;
+		
         CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
         if (character != null)
             character.CanTransitionZ = false;

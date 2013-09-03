@@ -45,7 +45,7 @@ public class Zombie_Attacking : ZombieFSM_IState
         // Determine next state
         if (!IsGrounded)
             nextState = ZombieStates.Zombie_Falling;
-        else if (!FSM.animation.IsPlaying("Attacking"))
+        else if (Duration > FSM.AttackDuration)
         {
             if (Attack)
                 nextState = ZombieStates.Zombie_Attacking;

@@ -31,10 +31,19 @@ public class ZoneGraphEditor : GraphEditor
         if (graph == null)
             return;
 
-        Gizmos.color = new Color(0.161F, 0.341F, 1F, 0.5F);
-
         if (graph.nodes != null)
-            foreach(Node node in graph.nodes)
+		{
+            foreach(ZoneNode node in graph.nodes)
+			{
+				Gizmos.color = AstarColor.NodeConnection;
+				if(node.isTransition)
+					Gizmos.color = AstarColor.BoundsHandles;
+				if(node.isGround)
+					Gizmos.color = AstarColor.ConnectionLowLerp;
+				if(!node.walkable)
+					Gizmos.color = AstarColor.UnwalkableNode;
                 Gizmos.DrawCube((Vector3)node.position, Vector3.one * HandleUtility.GetHandleSize((Vector3)node.position) * 0.1F);
+			}
+		}
     }
 }
