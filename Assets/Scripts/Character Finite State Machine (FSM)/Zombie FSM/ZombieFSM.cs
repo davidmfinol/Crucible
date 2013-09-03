@@ -9,7 +9,7 @@ using System.Collections;
 public class ZombieFSM : CharacterFiniteStateMachineBase
 {
     // TODO: Constants to calculate jumping elsewhere (used by A*)?...
-    public static float MaxJump = 7.0f;
+    public static float MaxJump = 7.0f; // jumpheight + capsulecollider.height/2
     public static float MaxSpeed = 16.0f;
     public static float MaxGravity = 40.0f;
 

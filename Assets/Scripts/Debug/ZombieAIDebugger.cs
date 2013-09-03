@@ -54,6 +54,6 @@ public class ZombieAIDebugger : MonoBehaviour
         GUI.Box(new Rect(10, 160, 300, 20), "Transition Recent: " + _brain.HasTransitionRecent + ", Repathed: " + _brain.TimeSinceRepath);
     	GUI.Box(new Rect(10, 185, 300, 20), "Target: " + _brain.Target + ", Searching: " + _brain.SearchingForPath);
 		if(_brain.Path != null)
-        	GUI.Box(new Rect(10, 210, 300, 20), "At node " + (_brain.CurrentPathWaypoint) + " of path length " + _brain.Path.vectorPath.Count);
+        	GUI.Box(new Rect(10, 210, 300, 20), "At node " + (_brain.CurrentPathWaypoint) + " of vectorPath length " + _brain.Path.vectorPath.Count + "& path length " + _brain.Path.path.Count);
     }
 }

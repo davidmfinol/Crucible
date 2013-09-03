@@ -150,14 +150,12 @@ public class ZombieBrain
             _searchingForPath = true;
         }
 
-        if (_currentPathWaypoint >= _path.vectorPath.Count) // that's the end of the line for you, jack!
+        if (_currentPathWaypoint >= _path.vectorPath.Count ) // that's the end of the line for you, jack!
             return false;
 
         // Move on if we reached our waypoint
-		if (_zombie.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) )
+		if (_zombie.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && ( _currentPathWaypoint < _path.path.Count && (!((ZoneNode)_path.path[_currentPathWaypoint]).isGround||_zombie.IsGrounded) ) )
             _currentPathWaypoint++;
-		
-		// && ( !((ZoneNode)_path.path[_currentPathWaypoint]).isGround || _zombie.IsGrounded)
 
         return _currentPathWaypoint < _path.vectorPath.Count;
 	}
@@ -174,10 +172,11 @@ public class ZombieBrain
         _timeSinceRepath = 0;
         _path = p;
 		_currentPathWaypoint = 1;
-		// We may have moved from the startpoint. We should determine the node nearest to our current position.
 		//DetermineNearestNode();
     }
 	
+	// We may have moved from the startpoint while searching. 
+	// We should determine the node nearest to our current position.
 	public void DetermineNearestNode()
 	{
 		int nearestNode = 0;
