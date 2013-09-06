@@ -13,12 +13,6 @@ public abstract class ZombieFSM_IState : CharacterFiniteStateMachineState
     public sealed override Enum Update()
     {
         FSM.Brain.Update();
-		if(Left && !Right)
-			Direction = Vector3.left;
-		else if(Right && !Left)
-			Direction = Vector3.right;
-		else
-			Direction = Vector3.zero;
         return base.Update();
     }
 

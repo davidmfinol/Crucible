@@ -35,7 +35,8 @@ public class PlayerCharacter_Falling : PlayerCharacterFSM_IState
         VerticalSpeed = FSM.ApplyGravity();
 
         // Determine next state
-        if (FSM.CanHangOffObject && UpHold)
+        if ((FSM.CanHangOffObject && FSM.ActiveHangTarget.DoesFaceXAxis()) 
+			|| (FSM.CanHangOffObject && FSM.ActiveHangTarget.DoesFaceZAxis() && UpHold))
         {
             if (!FSM.CanHangOffLedge)
                 HorizontalSpeed = 0;

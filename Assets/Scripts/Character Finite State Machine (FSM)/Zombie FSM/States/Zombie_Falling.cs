@@ -17,6 +17,14 @@ public class Zombie_Falling : ZombieFSM_IState
     protected override Enum OnUpdate()
     {
         ZombieStates nextState = ZombieStates.Zombie_Falling;
+		
+		// Determine direction
+		if(Left && !Right)
+			Direction = Vector3.left;
+		else if(Right && !Left)
+			Direction = Vector3.right;
+		else
+			Direction = Vector3.zero;
 
         // Determine movement
         float targetRunSpeed = 0;
