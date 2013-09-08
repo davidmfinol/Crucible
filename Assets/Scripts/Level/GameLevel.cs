@@ -3,14 +3,14 @@ using System.Collections;
 
 /// <summary>
 /// Game level is a global class used to keep track of the attributes of the level in the scene.
-/// Main things: Player, render settings, and boundary of scene.
+/// Main things: Player, render settings, and boundaries of scene.
 /// </summary>
 public class GameLevel : MonoBehaviour
 {
     // Keep track of the player, his camera, and where he starts in the level
-    public Transform PlayerPrefab = null;
-	public Camera CameraPrefab = null;
-    public Transform StartPoint = null;
+    public Transform PlayerPrefab;
+	public Camera CameraPrefab;
+    public Transform StartPoint;
 	
 	// Render settings to be set when this scene loads
 	public bool fog;
@@ -21,11 +21,11 @@ public class GameLevel : MonoBehaviour
 	public float flareStrength;
 	public Material skybox;
 
-    // TODO: FIX THIS so it borders in all zones, and we keep track of the boundary GOs so we delete them on new scene
-    // Size of the level
-    public Rect Bounds;
+    // The boundaries of the level
+    public Rect Boundaries;
     public float FallOutBuffer = 5.0f;
     public float ColliderThickness = 10.0f;
+	public float ZLength = 100.0f;
     private Color _sceneViewDisplayColor = new Color(.20f, 0.74f, 0.27f, 0.50f); // Sea-green color border for the boundaries
 	private GameObject createdBoundaries;
 	private GameObject leftBoundary;
@@ -38,53 +38,65 @@ public class GameLevel : MonoBehaviour
     private static GameLevel _instance = null;
 	private static Transform _player = null;
 
-    // Create the player when the level starts
+    // Set up the scene/level before anything else
+	// This includes replacing any previous GameLevel, creating the player, pointing the camera at him, setting the correct render settings, and creating the boundaries
     void Awake()
     {
 		// We need to keep only one GameLevel instance
 		if(GameLevel._instance != null)
-		{
-			Destroy(GameLevel._instance.leftBoundary);
-			Destroy(GameLevel._instance.rightBoundary);
-			Destroy(GameLevel._instance.topBoundary);
-			Destroy(GameLevel._instance.bottomBoundary);
-			Destroy(GameLevel._instance.createdBoundaries);
-			Destroy(GameLevel._instance);
-			GameLevel._instance = this;
-			return;
-		}
+			DestroyPreviousGameLevel();
         
+		SetupPlayer();
 		
-		if (PlayerPrefab != null)
-        {
-            _player = (Transform)Instantiate(PlayerPrefab, StartPoint.position, Quaternion.identity);
-            PlayerCharacterFSM playerController = _player.GetComponent<PlayerCharacterFSM>();
-            Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(_player, "hand_R");
-            Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-			Transform mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
-            whip.parent = bone;
-            whip.Rotate(new Vector3(90, 0, 90));
-            whip.Translate(new Vector3(0.2f, 0.1f, 0.1f));
-            playerController.Weapon = whip;
-            playerController.SpawnPoint = StartPoint;
-            playerController.Spawn();
-        }
-        else
-            Debug.LogError("No player set in the GameLevel");
+		SetupCamera();
 		
-        Instantiate(CameraPrefab, CameraPrefab.transform.position, CameraPrefab.transform.rotation);
+		SetupRenderSettings();
+		
+		CreateBoundaries();
+
+		GameLevel._instance = this;
+    }
+	
+	private void DestroyPreviousGameLevel()
+	{
+		Destroy(GameLevel._instance.leftBoundary);
+		Destroy(GameLevel._instance.rightBoundary);
+		Destroy(GameLevel._instance.topBoundary);
+		Destroy(GameLevel._instance.bottomBoundary);
+		Destroy(GameLevel._instance.createdBoundaries);
+		Destroy(GameLevel._instance.gameObject);
+	}
+	
+	private void SetupPlayer()
+	{
+		if(_player == null)
+        	_player = (Transform)Instantiate(PlayerPrefab, StartPoint.position, Quaternion.identity);
+        PlayerCharacterFSM playerController = _player.GetComponent<PlayerCharacterFSM>();
+		//TODO: MOVE THIS INITIALIZATION ELSEWHERE
+        Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(_player, "hand_R");
+        Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
+		Transform mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
+        whip.parent = bone;
+        whip.Rotate(new Vector3(90, 0, 90));
+        whip.Translate(new Vector3(0.2f, 0.1f, 0.1f));
+        playerController.Weapon = whip;
+        playerController.SpawnPoint = StartPoint;
+        playerController.Spawn();
+	}
+	
+	private void SetupCamera()
+	{
+		if(Camera.main == null)
+        	Instantiate(CameraPrefab, CameraPrefab.transform.position, CameraPrefab.transform.rotation);
         CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
         if (cameraScript != null && Player != null)
             cameraScript.Target = Player.transform;
         else
-            Debug.LogError("Camera not pointed at level load");
-
-		GameLevel.Instance = this;
-    }
-
-    // Create the boundaries
-    void Start()
-    {
+            Debug.LogError("Camera not pointed at Player");
+	}
+	
+	private void SetupRenderSettings()
+	{
 	    RenderSettings.fog = fog;
 	    RenderSettings.fogColor = fogColor;
 	    RenderSettings.fogDensity = fogDensity;
@@ -92,43 +104,46 @@ public class GameLevel : MonoBehaviour
 	    RenderSettings.haloStrength = haloStrength;
 	    RenderSettings.flareStrength = flareStrength;
 	    RenderSettings.skybox = skybox;
-		
-        createdBoundaries = new GameObject("Created Boundaries");
-        createdBoundaries.transform.parent = transform;
+	}
+	
+	private void CreateBoundaries()
+	{
+	    createdBoundaries = new GameObject("Created Boundaries");
+	    createdBoundaries.transform.parent = transform;
+	
+	    leftBoundary = new GameObject("Left Boundary");
+	    leftBoundary.transform.parent = createdBoundaries.transform;
+	    BoxCollider boxCollider = leftBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
+	    boxCollider.size = new Vector3(ColliderThickness, Boundaries.height + ColliderThickness * 2.0f + FallOutBuffer, ZLength);
+	    boxCollider.center = new Vector3(Boundaries.xMin - ColliderThickness * 0.5f, Boundaries.y + Boundaries.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
+	
+	    rightBoundary = new GameObject("Right Boundary");
+	    rightBoundary.transform.parent = createdBoundaries.transform;
+	    boxCollider = rightBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
+	    boxCollider.size = new Vector3(ColliderThickness, Boundaries.height + ColliderThickness * 2.0f + FallOutBuffer, ZLength);
+	    boxCollider.center = new Vector3(Boundaries.xMax + ColliderThickness * 0.5f, Boundaries.y + Boundaries.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
+	
+	    topBoundary = new GameObject("Top Boundary");
+	    topBoundary.transform.parent = createdBoundaries.transform;
+	    boxCollider = topBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
+	    boxCollider.size = new Vector3(Boundaries.width + ColliderThickness * 2.0f, ColliderThickness, ZLength);
+	    boxCollider.center = new Vector3(Boundaries.x + Boundaries.width * 0.5f, Boundaries.yMax + ColliderThickness * 0.5f, 0.0f);
+	
+	    bottomBoundary = new GameObject("Bottom Boundary (Including Fallout Buffer)");
+	    bottomBoundary.transform.parent = createdBoundaries.transform;
+	    boxCollider = bottomBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
+	    boxCollider.size = new Vector3(Boundaries.width + ColliderThickness * 2.0f, ColliderThickness, ZLength);
+	    boxCollider.center = new Vector3(Boundaries.x + Boundaries.width * 0.5f, Boundaries.yMin - ColliderThickness * 0.5f - FallOutBuffer, 0.0f);
+	}
 
-        leftBoundary = new GameObject("Left Boundary");
-        leftBoundary.transform.parent = createdBoundaries.transform;
-        BoxCollider boxCollider = leftBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
-        boxCollider.size = new Vector3(ColliderThickness, Bounds.height + ColliderThickness * 2.0f + FallOutBuffer, 1000);
-        boxCollider.center = new Vector3(Bounds.xMin - ColliderThickness * 0.5f, Bounds.y + Bounds.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
-
-        rightBoundary = new GameObject("Right Boundary");
-        rightBoundary.transform.parent = createdBoundaries.transform;
-        boxCollider = rightBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
-        boxCollider.size = new Vector3(ColliderThickness, Bounds.height + ColliderThickness * 2.0f + FallOutBuffer, 1000);
-        boxCollider.center = new Vector3(Bounds.xMax + ColliderThickness * 0.5f, Bounds.y + Bounds.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
-
-        topBoundary = new GameObject("Top Boundary");
-        topBoundary.transform.parent = createdBoundaries.transform;
-        boxCollider = topBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
-        boxCollider.size = new Vector3(Bounds.width + ColliderThickness * 2.0f, ColliderThickness, ColliderThickness);
-        boxCollider.center = new Vector3(Bounds.x + Bounds.width * 0.5f, Bounds.yMax + ColliderThickness * 0.5f, 0.0f);
-
-        bottomBoundary = new GameObject("Bottom Boundary (Including Fallout Buffer)");
-        bottomBoundary.transform.parent = createdBoundaries.transform;
-        boxCollider = bottomBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
-        boxCollider.size = new Vector3(Bounds.width + ColliderThickness * 2.0f, ColliderThickness, 1000);
-        boxCollider.center = new Vector3(Bounds.x + Bounds.width * 0.5f, Bounds.yMin - ColliderThickness * 0.5f - FallOutBuffer, 0.0f);
-    }
-
-    // Knowing where the bounds to the level are is important, so we'll draw them
+    // Knowing where the boundaries to the level are is important, so we'll draw them
     void OnDrawGizmos()
     {
         Gizmos.color = _sceneViewDisplayColor;
-        Vector3 lowerLeft = new Vector3(Bounds.xMin, Bounds.yMax, 0);
-        Vector3 upperLeft = new Vector3(Bounds.xMin, Bounds.yMin, 0);
-        Vector3 lowerRight = new Vector3(Bounds.xMax, Bounds.yMax, 0);
-        Vector3 upperRight = new Vector3(Bounds.xMax, Bounds.yMin, 0);
+        Vector3 lowerLeft = new Vector3(Boundaries.xMin, Boundaries.yMax, 0);
+        Vector3 upperLeft = new Vector3(Boundaries.xMin, Boundaries.yMin, 0);
+        Vector3 lowerRight = new Vector3(Boundaries.xMax, Boundaries.yMax, 0);
+        Vector3 upperRight = new Vector3(Boundaries.xMax, Boundaries.yMin, 0);
 
         Gizmos.DrawLine(lowerLeft, upperLeft);
         Gizmos.DrawLine(upperLeft, upperRight);
@@ -149,9 +164,9 @@ public class GameLevel : MonoBehaviour
             }
             return _instance;
         }
-        set { GameLevel._instance = value; }
     }
 	
+	// It's also useful to keep track of the player here
 	public static Transform Player
 	{
 		get { return _player; }

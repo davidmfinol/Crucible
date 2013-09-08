@@ -13,7 +13,12 @@ public class CharacterFSMVisualDebugger : MonoBehaviour
     public bool ShowCharacterState = true;
     public bool ShowZLevels = true;
 	
-    public virtual void OnGUI()
+	void Awake()
+	{
+		enabled = Debug.isDebugBuild;
+	}
+	
+    void OnGUI()
     {
         if (Hide)
 			return;

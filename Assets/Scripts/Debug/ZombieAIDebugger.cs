@@ -20,7 +20,7 @@ public class ZombieAIDebugger : MonoBehaviour
 	private ZombieFSM _fsm;
 	private ZombieBrain _brain;
 	
-	public void Start()
+	void Start()
 	{
 		_fsm = GetComponent<ZombieFSM>();
 		_brain = _fsm.Brain;
@@ -28,7 +28,7 @@ public class ZombieAIDebugger : MonoBehaviour
 		_node.renderer.enabled = false;
 	}
 	
-	public void Update()
+	void Update()
 	{
 		if(!Hide && HighlightCurrentNode && _brain!= null && _brain.Path != null && !_brain.Path.error && _brain.CurrentPathWaypoint < _brain.Path.vectorPath.Count)
 		{
@@ -39,7 +39,7 @@ public class ZombieAIDebugger : MonoBehaviour
 			_node.renderer.enabled = false;
 	}
 	
-    public void OnGUI()
+    void OnGUI()
     {
         if (Hide || !ShowAI)
 			return;

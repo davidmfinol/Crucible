@@ -31,7 +31,7 @@ public class CameraScrolling : MonoBehaviour
 
     // Based on the camera attributes and the target's special camera attributes, find out where the
     // camera should move to.
-    Vector3 GetGoalPosition()
+    public Vector3 GetGoalPosition()
     {
         // Our camera script can take attributes from the target.  If there are no attributes attached, we have
         // the following defaults.
@@ -114,8 +114,8 @@ public class CameraScrolling : MonoBehaviour
         Vector3 upperRightCameraInWorld = camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
-        clampOffset.x = Mathf.Min(GameLevel.Instance.Bounds.xMax - upperRightCameraInWorld.x, 0.0f);
-        clampOffset.y = Mathf.Min((GameLevel.Instance.Bounds.yMax - upperRightCameraInWorld.y), 0.0f);
+        clampOffset.x = Mathf.Min(GameLevel.Instance.Boundaries.xMax - upperRightCameraInWorld.x, 0.0f);
+        clampOffset.y = Mathf.Min((GameLevel.Instance.Boundaries.yMax - upperRightCameraInWorld.y), 0.0f);
 
         // Now we apply our clamping to our goalPosition.  Now our camera won't go past the right and top boundaries of the level!
         goalPosition += clampOffset;
@@ -128,8 +128,8 @@ public class CameraScrolling : MonoBehaviour
         Vector3 lowerLeftCameraInWorld = camera.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
-        clampOffset.x = Mathf.Max((GameLevel.Instance.Bounds.xMin - lowerLeftCameraInWorld.x), 0.0f);
-        clampOffset.y = Mathf.Max((GameLevel.Instance.Bounds.yMin - lowerLeftCameraInWorld.y), 0.0f);
+        clampOffset.x = Mathf.Max((GameLevel.Instance.Boundaries.xMin - lowerLeftCameraInWorld.x), 0.0f);
+        clampOffset.y = Mathf.Max((GameLevel.Instance.Boundaries.yMin - lowerLeftCameraInWorld.y), 0.0f);
 
         // Now we apply our clamping to our goalPosition once again.  Now our camera won't go past the left and bottom boundaries of the level!
         goalPosition += clampOffset;

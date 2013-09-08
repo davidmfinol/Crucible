@@ -14,7 +14,7 @@ public class TimeScaler : MonoBehaviour
     private float _realTimeScaleMultiplier;
 	private int _originialFrameRate;
 	
-	public void Update()
+	void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Alpha0))
 		{
