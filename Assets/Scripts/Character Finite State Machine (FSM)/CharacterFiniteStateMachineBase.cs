@@ -11,103 +11,19 @@ using System.Collections.Generic;
 [RequireComponent(typeof(CharacterController))]
 public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
 {
-    // We obviously need to keep track of the current state
-    private Enum _currentState;
-
-    // We need a way to keep moving between z levels
-    public float ZLevel; // current z value
-    private HashSet<Zone> _zones = new HashSet<Zone>();
-    private float _Z1; // lower zone
-    private float _Z2; // higher zone
-    private bool _canTransitionZ = false; // does our current location allow us to to move between z levels?
-
-    // We need a way to map the List of all possible states to the class that implements it, so we create this dictionary
-    // In terms of efficiency, this should also prevent wasting resources by creating and deleting new instances of these states
-    // Furthermore, the memory overhead for this dictionary should be very small, and the lookup is very fast
-    private System.Collections.Generic.Dictionary<Enum, CharacterFiniteStateMachineState> _stateMachine;
-
-    // The following variables are used for the physical movement of a character for each frame
-    // Unity uses CharacterController to move characters
-    private CharacterController _characterController;
-    // How fast does the character want to move on the x-axis?
-    private float _horizontalSpeed = 0.0f;
-    // How fast does the character want to move on the y-axis?
-    private float _verticalSpeed = 0.0f;
-    // The current direction the character is facing in x-y.
-    private Vector3 _direction = Vector3.right;
-    // The last collision flags returned from characterController.Move()
-    private CollisionFlags _collisionFlags = CollisionFlags.None;
-    // The last velocity moved as a result of the characterController.Move()
-    private Vector3 _velocity = Vector3.zero;
-    // How fast does the character rotate?
-    public float RotationSmoothing = 3.0f;
-
-    // How fast does the character move between ZLevels?
-    public float ZLerp = 10.0f;
-
-    // Rate of change of vertical fall speed
-    public float Gravity = 40.0f;
-
-    // Maximum fall speed
-    public float MaxFallSpeed = 20.0f;
-
-    // Moving platform support 
-    private Transform _activePlatform;
-    private Vector3 _activeLocalPlatformPoint;
-    private Vector3 _activeGlobalPlatformPoint;
-
-    // Support for hanging off of objects
-	private List<HangableObject> _hangQueue;
-    private HangableObject _previousHangTarget;
 
     void Awake()
     {
-        // Statemachine setup
-        Controller = GetComponent<CharacterController>();
-        CreateStateMachine();
-        CurrentState = GetDefaultState();
-        CharacterFiniteStateMachineState state;
-        StateMachine.TryGetValue(CurrentState, out state);
-        state.StartState();
-
         // Zlevel setup
         ZLevel = transform.position.z;
         Z_Down = ZLevel;
         Z_Up = ZLevel;
-		
-		// Get hang queue ready
-		_hangQueue = new List<HangableObject>();
-    }
-
-    // Map state machine Enum to corresponding Class
-    private void CreateStateMachine()
-    {
-        StateMachine = new System.Collections.Generic.Dictionary<Enum, CharacterFiniteStateMachineState>();
-        System.Object[] args = { this };
-        foreach (Enum state in Enum.GetValues(GetStateEnumType()))
-        {
-            string stateName = state.ToString();
-            Type stateType = Type.GetType(stateName);
-            CharacterFiniteStateMachineState stateClass = (CharacterFiniteStateMachineState) Activator.CreateInstance(stateType, args);
-            StateMachine.Add(state, stateClass);
-        }
-    }
-
-    public virtual void OnDeath()
-    {
-        Destroy(gameObject);
     }
 
     // Update() is called once per frame, and this is where the states are processed by the state machine
     public void Update()
     {
-        // check our health first
         HeartBox heartScript = GetComponentInChildren<HeartBox>();
-        if (heartScript != null && heartScript.HitPoints <= 0)
-        {
-            OnDeath();
-            return;
-        }
 
         // Correct our Z value when we are in only one zone
         if (Zones.Count == 1 && !CanTransitionZ)
@@ -130,41 +46,6 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
             StateMachine.TryGetValue(CurrentState, out state);
             state.StartState(); // and start it
         }
-    }
-	
-	//FIXME: should replace these 4 methods with 3 properties
-    // Defines the enum to use for the List of states
-    public abstract Type GetStateEnumType();
-    // The default state that the character starts in (normally idle state)
-    public abstract Enum GetDefaultState();
-    public CharacterFiniteStateMachineState GetState()
-    {
-        return StateMachine[CurrentState];
-    }
-    public void SetState(Enum nextState)
-    {
-        CharacterFiniteStateMachineState state;
-        StateMachine.TryGetValue(CurrentState, out state);
-        state.ExitState(); // exit the previous state
-        CurrentState = nextState; // move to the new state
-        StateMachine.TryGetValue(CurrentState, out state);
-        state.StartState(); // and start it
-    }
-
-    // Used to check with interactions with platforms
-    public virtual void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        // We only check for platforms if we don't already have one
-        if (ActivePlatform != null)
-            return;
-
-        // Support for moving platforms
-        if (Mathf.Abs(hit.moveDirection.y) > 0.9 && Mathf.Abs(hit.normal.y) > 0.9)
-            ActivePlatform = hit.collider.transform;
-
-        // Support for catching a wall/ledge/rope/etc.
-        if (Mathf.Abs(hit.moveDirection.x) > 0.9 && Mathf.Abs(hit.normal.x) > 0.9)
-            ActivePlatform = hit.collider.transform;
     }
 
     // Helper Method to find a bone attached to a character
@@ -229,18 +110,6 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
         if (ActiveHangTarget == null)
             _activePlatform = null;
 	}
-
-    // Properties
-    public Enum CurrentState
-    {
-        get { return _currentState; }
-        set { _currentState = value; }
-    }
-    public System.Collections.Generic.Dictionary<Enum, CharacterFiniteStateMachineState> StateMachine
-    {
-        get { return this._stateMachine; }
-        set { this._stateMachine = value; }
-    }
 
     public CharacterController Controller
     {
@@ -353,26 +222,7 @@ public abstract class CharacterFiniteStateMachineBase : MonoBehaviour
     {
         get { return (ControllerCollisionFlags & CollisionFlags.Sides) != 0; }
     }
-
-    public float Z_Down
-    {
-        get { return _Z1; }
-        set { _Z1 = value; } 
-    }
-    public float Z_Up
-    {
-        get { return _Z2; }
-        set { _Z2 = value; }
-    }
-    public bool CanTransitionZ
-    {
-        get { return _canTransitionZ; }
-        set { _canTransitionZ = value; }
-    }
-    public HashSet<Zone> Zones
-    {
-        get { return _zones; }
-    }
+	
     public float Height
     {
         get { return transform.localScale.y * Controller.height; }
