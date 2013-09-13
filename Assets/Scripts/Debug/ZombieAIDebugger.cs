@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+/*
 /// <summary>
 /// Zombie AI debugger displays AI information for the zombie.
 /// In particular, it displays the AI Output and A* Path, with option of rendering path nodes on-screen at runtime.
@@ -57,3 +58,4 @@ public class ZombieAIDebugger : MonoBehaviour
         	GUI.Box(new Rect(10, 210, 300, 20), "At node " + (_brain.CurrentPathWaypoint) + " of vectorPath length " + _brain.Path.vectorPath.Count + "& path length " + _brain.Path.path.Count);
     }
 }
+ */

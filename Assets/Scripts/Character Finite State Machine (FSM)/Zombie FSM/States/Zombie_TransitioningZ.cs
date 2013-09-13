@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class Zombie_TransitioningZ : ZombieFSM_IState
 {
 
@@ -23,4 +24,4 @@ public class Zombie_TransitioningZ : ZombieFSM_IState
 
         return nextState;
     }
-}
+}*/

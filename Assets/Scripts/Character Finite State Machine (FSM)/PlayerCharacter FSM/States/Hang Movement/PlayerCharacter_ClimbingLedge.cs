@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_ClimbingLedge : PlayerCharacterFSM_IState
 {
     private Ledge _ledge; 
@@ -49,3 +50,4 @@ public class PlayerCharacter_ClimbingLedge : PlayerCharacterFSM_IState
         return true;
     }
 }
+ */

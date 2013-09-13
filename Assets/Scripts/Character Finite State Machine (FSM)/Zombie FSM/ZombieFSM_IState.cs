@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 /// <summary>
 /// ZombieFSM_IState defines the input for the Zombie FSM.
 /// These inputs are defined as the output of the Zombie FSM's Brain.
@@ -46,4 +47,4 @@ public abstract class ZombieFSM_IState : CharacterFiniteStateMachineState
     {
         get { return FSM.Brain != null && FSM.Brain.Jump; }
     }
-}
+}*/

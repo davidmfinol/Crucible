@@ -48,7 +48,7 @@ public class Whip : Weapon
         }
 
         // activate the hit box for all child bones
-        for (int i = 0; i < current.GetChildCount(); ++i)
+        for (int i = 0; i < current.childCount; ++i)
             SetHitBoxes(current.GetChild(i), active);
     }
 }

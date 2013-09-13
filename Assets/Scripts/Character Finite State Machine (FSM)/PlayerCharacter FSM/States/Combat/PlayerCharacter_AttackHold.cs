@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_AttackHold : PlayerCharacterFSM_IState
 {
     private int _attackNumber;
@@ -116,3 +117,4 @@ public class PlayerCharacter_AttackHold : PlayerCharacterFSM_IState
             ActivateWhipHitBox(current.GetChild(i), active);
     }
 }
+ */

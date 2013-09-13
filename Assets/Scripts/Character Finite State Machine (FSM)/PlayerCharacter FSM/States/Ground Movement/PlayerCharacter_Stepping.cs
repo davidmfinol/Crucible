@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_Stepping : PlayerCharacterFSM_IState
 {
     public PlayerCharacter_Stepping(PlayerCharacterFSM controller) : base(controller) { }
@@ -38,3 +39,4 @@ public class PlayerCharacter_Stepping : PlayerCharacterFSM_IState
         return true;
     }
 }
+ */

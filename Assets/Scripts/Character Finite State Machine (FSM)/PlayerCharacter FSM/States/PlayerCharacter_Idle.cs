@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/*
 public class PlayerCharacter_Idle : PlayerCharacterFSM_IState
 {
     private bool _idle2ShouldPlay;
@@ -74,3 +75,4 @@ public class PlayerCharacter_Idle : PlayerCharacterFSM_IState
         return true;
     }
 }
+ */

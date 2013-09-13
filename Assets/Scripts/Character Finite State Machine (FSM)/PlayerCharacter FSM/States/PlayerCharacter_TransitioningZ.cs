@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_TransitioningZ : PlayerCharacterFSM_IState
 {
     public PlayerCharacter_TransitioningZ(PlayerCharacterFSM controller) : base(controller) { }
@@ -38,3 +39,4 @@ public class PlayerCharacter_TransitioningZ : PlayerCharacterFSM_IState
         return nextState;
     }
 }
+ */

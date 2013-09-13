@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/*
 /// <summary>
 /// PlayerCharacterFSM_IState is used to define the states of the FSM that handles the input and movement of players.
 /// Every state possible is a subclass of this abstract class.
@@ -341,3 +342,5 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
         }
     }
 }
+
+*/

@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class Zombie_Attacking : ZombieFSM_IState
 {
     Transform _bone_L;
@@ -66,4 +67,4 @@ public class Zombie_Attacking : ZombieFSM_IState
         _bone_R.GetComponent<Collider>().enabled = false;
         _bone_R.GetComponent<HitBox>().enabled = false;
     }
-}
+}*/

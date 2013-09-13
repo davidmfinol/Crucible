@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+/*
 /// <summary>
 /// Exit moves the player to a different scene.
 /// </summary>
@@ -16,3 +17,4 @@ public class Exit : MonoBehaviour
             Application.LoadLevel(NextLevel);
     }
 }
+ */

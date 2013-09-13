@@ -9,7 +9,8 @@ using System.Collections.Generic;
 public class HangableObject : MonoBehaviour
 {
     public bool FacesZAxis = true;
-
+	
+	/*
     public virtual void OnTriggerEnter(Collider other)
     {
         CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
@@ -37,6 +38,7 @@ public class HangableObject : MonoBehaviour
         if (character != null)
             character.RemoveHangTarget(this);
     }
+ */
 
     public virtual bool DoesFaceZAxis()
     {

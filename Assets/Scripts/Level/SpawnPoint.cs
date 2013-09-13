@@ -2,11 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Spawn point defines a location where in the scene a player can (re)spawn.
+/// Spawn point defines a location where in the scene the player can (re)spawn.
 /// </summary>
 [RequireComponent(typeof(ParticleSystem))]
 public class SpawnPoint : MonoBehaviour 
 {
+	/*TODO: USE THIS
 	// We can update the player's defined spawnpoint if it collides with this object
     public void OnTriggerEnter(Collider other)
     {
@@ -18,4 +19,5 @@ public class SpawnPoint : MonoBehaviour
             GetComponent<ParticleSystem>().Play();
         }
     }
+    */
 }

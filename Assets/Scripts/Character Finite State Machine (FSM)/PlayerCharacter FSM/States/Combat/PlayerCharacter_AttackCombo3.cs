@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_AttackCombo3 : PlayerCharacterFSM_IState
 {
     private Weapon _weapon;
@@ -50,3 +51,4 @@ public class PlayerCharacter_AttackCombo3 : PlayerCharacterFSM_IState
         	FSM.Weapon.GetComponent<Weapon>().Deactivate();
     }
 }
+ */

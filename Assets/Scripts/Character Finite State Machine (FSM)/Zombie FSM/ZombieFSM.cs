@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 /// <summary>
 /// Zombie FSM controls zombies.
 /// </summary>
@@ -12,27 +13,9 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
     public static float MaxJump = 9.0f; // jumpheight + capsulecollider.height/2
     public static float MaxSpeed = 16.0f;
     public static float MaxGravity = 40.0f;
-
-    // How high the zombie jumps
-    public float JumpHeight = 5.0f;
-
-    // How fast the zombie runs
-    public float MaxHorizontalSpeed = 16.0f;
-
-    // How fast the zombie accelerates
-    public float HorizontalAcceleration = 6.0f;
-	
-	// How fast the zombie climbs ledges
-	public float LedgeClimbingSpeed = 7.5f;
 	
 	// How long it takes the zombie to climb a ledge
     public float LedgeClimbingDuration = 0.7f;
-	
-	// How long it takes the zombie to land
-	public float LandingDuration = 0.12f;
-	
-	// How long it takes the zombie to attack
-	public float AttackDuration = 0.75f;
 
     // How far away can an opponent be and still be in range of a zombie's attack?
     public float AttackRange = 5.0f;
@@ -58,16 +41,6 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         _zombieAudioSource = GetComponentInChildren<ZombieAudioSource>();
         _brain = new ZombieBrain(this);
         _playerController = GameLevel.Player.GetComponent<PlayerCharacterFSM>();
-    }
-
-    public override Type GetStateEnumType()
-    {
-        return typeof(ZombieStates);
-    }
-
-    public override Enum GetDefaultState()
-    {
-        return ZombieStates.Zombie_Idle;
     }
 
     /// <summary>
@@ -168,3 +141,4 @@ public class ZombieFSM : CharacterFiniteStateMachineBase
         set { _brain = value; }
     }
 }
+*/

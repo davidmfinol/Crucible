@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+/*
 /// <summary>
 /// Character FSM visual debugger debugs CharacterFiniteStateMachineBase.
 /// In particular, it displays the Current State and Z Zones of the FSM on-screen during runtime.
@@ -39,3 +40,4 @@ public class CharacterFSMVisualDebugger : MonoBehaviour
         }
     }
 }
+*/

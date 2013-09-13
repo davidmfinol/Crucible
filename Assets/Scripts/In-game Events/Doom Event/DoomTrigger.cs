@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+/*
 public class DoomTrigger : MonoBehaviour
 {
     public Transform Clock;
@@ -26,3 +26,4 @@ public class DoomTrigger : MonoBehaviour
         }
     }
 }
+*/

@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_Jumping : PlayerCharacterFSM_IState
 {
     private float _startHeight;
@@ -70,11 +71,12 @@ public class PlayerCharacter_Jumping : PlayerCharacterFSM_IState
         }
         //else if (IsTouchingWall && JumpHold)
         //    nextState = PlayerCharacterStates.PlayerCharacter_WallGrabbing;
-        //else if (JumpDown /*&& Controller.transform.position.y > StartHeight + Controller.JumpHeight / 2*/)
+        //else if (JumpDown /*&& Controller.transform.position.y > StartHeight + Controller.JumpHeight / 2*/ //)
         //{
         //    nextState = PlayerCharacterStates.PlayerCharacter_DoubleJumping;
         //}
-
+	
+/*
         return nextState;
     }
 
@@ -85,3 +87,4 @@ public class PlayerCharacter_Jumping : PlayerCharacterFSM_IState
         set { _startHeight = value; }
     }
 }
+	 */

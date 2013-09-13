@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+/*
 /// <summary>
 /// Transition zone defines an area in which a character can move between Zones.
 /// </summary>
@@ -60,3 +60,4 @@ public class TransitionZone : MonoBehaviour
             character.CanTransitionZ = false;
     }
 }
+ */

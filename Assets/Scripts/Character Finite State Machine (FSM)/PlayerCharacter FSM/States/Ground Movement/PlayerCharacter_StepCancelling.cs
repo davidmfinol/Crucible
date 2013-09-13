@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_StepCancelling : PlayerCharacterFSM_IState
 {
     public PlayerCharacter_StepCancelling(PlayerCharacterFSM controller) : base(controller) { }
@@ -39,3 +40,4 @@ public class PlayerCharacter_StepCancelling : PlayerCharacterFSM_IState
         return true;
     }
 }
+ */

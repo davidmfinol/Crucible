@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CharacterInput : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+/// <summary>
+/// Character input is an interface to store the input for a character.
+/// Used by CharacterAnimator.cs
+/// </summary>
+[AddComponentMenu("CharacterAnimator/Input")]
+public class CharacterInput : MonoBehaviour
+{
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

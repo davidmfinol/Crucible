@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class Zombie_Climbing : ZombieFSM_IState
 {
     public Zombie_Climbing(ZombieFSM controller) : base(controller) { }
@@ -82,4 +83,4 @@ public class Zombie_Climbing : ZombieFSM_IState
         return nextState;
     }
 
-}
+}*/

@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class Zombie_Hanging : ZombieFSM_IState
 {
     private bool _continueHolding;
@@ -61,3 +62,4 @@ public class Zombie_Hanging : ZombieFSM_IState
             FSM.DropHangTarget();
     }
 }
+ */

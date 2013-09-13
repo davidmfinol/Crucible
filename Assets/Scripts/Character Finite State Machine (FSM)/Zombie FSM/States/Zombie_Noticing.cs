@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class Zombie_Noticing : ZombieFSM_IState
 {
     public Zombie_Noticing (ZombieFSM controller) : base(controller) { }
@@ -29,4 +30,4 @@ public class Zombie_Noticing : ZombieFSM_IState
 
         return nextState;
     }
-}
+}*/

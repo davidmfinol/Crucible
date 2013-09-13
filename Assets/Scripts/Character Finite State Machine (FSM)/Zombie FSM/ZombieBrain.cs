@@ -1,6 +1,7 @@
 using UnityEngine;
 using Pathfinding;
 
+/*
 /// <summary>
 /// Zombie brain interfaces with A* and the Zombie FSM to provide Zombie AI.
 /// </summary>
@@ -242,3 +243,5 @@ public class ZombieBrain
 		get { return this._timeSinceRepath; }
 	}
 }
+ 
+*/

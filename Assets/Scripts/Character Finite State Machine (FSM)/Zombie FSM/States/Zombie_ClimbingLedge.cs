@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
+/*
 public class Zombie_ClimbingLedge : ZombieFSM_IState
 {
     private Ledge _ledge; 
@@ -44,3 +45,4 @@ public class Zombie_ClimbingLedge : ZombieFSM_IState
         return nextState;
     }
 }
+ */

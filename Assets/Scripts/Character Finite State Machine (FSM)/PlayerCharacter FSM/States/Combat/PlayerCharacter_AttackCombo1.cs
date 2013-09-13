@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_AttackCombo1 : PlayerCharacterFSM_IState
 {
     private bool _attackPressed;
@@ -58,3 +59,4 @@ public class PlayerCharacter_AttackCombo1 : PlayerCharacterFSM_IState
         return true;
     }
 }
+ */

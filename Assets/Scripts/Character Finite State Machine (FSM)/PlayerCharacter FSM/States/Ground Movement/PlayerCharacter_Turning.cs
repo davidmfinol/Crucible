@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_Turning : PlayerCharacterFSM_IState
 {
     public PlayerCharacter_Turning(PlayerCharacterFSM controller) : base(controller) { }
@@ -45,3 +46,4 @@ public class PlayerCharacter_Turning : PlayerCharacterFSM_IState
     }
 
 }
+ */

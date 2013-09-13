@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+/*
 public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
 {
     // whether the player continues holding to the ActiveHangTarget after this state
@@ -51,8 +52,9 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
             }
         }
           * */
-    }
+ //   }
 
+/*
     protected override Enum OnUpdate()
     {
         PlayerCharacterStates nextState = PlayerCharacterStates.PlayerCharacter_Hanging;
@@ -86,8 +88,10 @@ public class PlayerCharacter_Hanging : PlayerCharacterFSM_IState
     }
 	*/
 
+/*
     public override bool IsWallHangState()
     {
         return true;
     }
 }
+*/

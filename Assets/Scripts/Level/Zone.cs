@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
-
 /// <summary>
 /// Zone refers to a "Z Zone", effectively defining a 2D plane aligned to a z-axis value in which characters move.
 /// </summary>
 public class Zone : MonoBehaviour
 {
+/*
 	// If inverse, pressing up means you go down in ZLevel
     public bool IsInverse = false;
 
@@ -46,4 +46,5 @@ public class Zone : MonoBehaviour
             character.Zones.Remove(this);
         }
     }
+ */
 }

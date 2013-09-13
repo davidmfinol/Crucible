@@ -23,8 +23,8 @@ public class ZombieHeartBox : HeartBox
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
 
             HitPoints -= hitbox.Damage;
-            ZombieFSM zombie = transform.parent.GetComponent<ZombieFSM>();
-            zombie.SetState(ZombieStates.Zombie_TakingDamage);
+      //   TODO: MOVE THIS?:    ZombieFSM zombie = transform.parent.GetComponent<ZombieFSM>();
+        //    zombie.SetState(ZombieStates.Zombie_TakingDamage);
             TimeSinceHit = 0;
         }
     }

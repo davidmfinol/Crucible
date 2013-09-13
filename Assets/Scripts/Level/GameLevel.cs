@@ -71,8 +71,11 @@ public class GameLevel : MonoBehaviour
 	{
 		if(_player == null)
         	_player = (Transform)Instantiate(PlayerPrefab, StartPoint.position, Quaternion.identity);
-        PlayerCharacterFSM playerController = _player.GetComponent<PlayerCharacterFSM>();
+		
+/*
 		//TODO: MOVE THIS INITIALIZATION ELSEWHERE
+        PlayerCharacterFSM playerController = _player.GetComponent<PlayerCharacterFSM>();
+		
         Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(_player, "hand_R");
         Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
 		Transform mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
@@ -82,6 +85,7 @@ public class GameLevel : MonoBehaviour
         playerController.Weapon = whip;
         playerController.SpawnPoint = StartPoint;
         playerController.Spawn();
+        */
 	}
 	
 	private void SetupCamera()

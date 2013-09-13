@@ -35,7 +35,7 @@ public class WeaponsGui : MonoBehaviour {
 	float rotToSlot3Y;
 	
 	Transform Player;
-	PlayerCharacterFSM playerController;
+	//PlayerCharacterFSM playerController;
     Transform whip;
 	Transform mine;
 	Transform bone;	
@@ -74,9 +74,9 @@ public class WeaponsGui : MonoBehaviour {
 		CurrentAnimationStep = AnimationSteps;
 		
 		Player = GameLevel.Player;
-		playerController = GameLevel.Player.GetComponent<PlayerCharacterFSM>();
+		//playerController = GameLevel.Player.GetComponent<PlayerCharacterFSM>();
 
-		bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
+		//bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
 		
 	}
 	
@@ -113,7 +113,7 @@ public class WeaponsGui : MonoBehaviour {
 	}
 	
 	void WeaponSelect(){
-				Destroy(playerController.Weapon.gameObject);
+				//Destroy(playerController.Weapon.gameObject);
 				
 				if(CenterSlot == 2){/*
 					//CenterSlot--;
@@ -122,15 +122,15 @@ public class WeaponsGui : MonoBehaviour {
 					playerController.Weapon = whip;	*/					
 				}
 				else if(CenterSlot == 1){
-					whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-					whip.parent = bone;				
-					playerController.Weapon = whip;					
+					//whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
+					//whip.parent = bone;				
+					//playerController.Weapon = whip;					
 				}
 					
 				else if(CenterSlot == 0){
-					mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
-					mine.parent = bone;				
-					playerController.Weapon = mine;					
+					//mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
+					//mine.parent = bone;				
+					//playerController.Weapon = mine;					
 				}			
 	}
 				

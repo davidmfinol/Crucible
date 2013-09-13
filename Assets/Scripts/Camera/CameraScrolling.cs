@@ -73,9 +73,9 @@ public class CameraScrolling : MonoBehaviour
             targetVelocity = targetRigidbody.velocity;
 
         // If we find a platformerController with a velocity, we use that velocity
-        PlayerCharacterFSM targetController = Target.GetComponent<PlayerCharacterFSM>();
-        if (targetController)
-            targetVelocity = targetController.Velocity;
+       //TODO: USE THIS?:  PlayerCharacterFSM targetController = Target.GetComponent<PlayerCharacterFSM>();
+       // if (targetController)
+      //      targetVelocity = targetController.Velocity;
 
         // Estimate what the target's position will be in velocityLookAhead seconds (position = velocity * time).
         Vector3 lookAhead = targetVelocity * velocityLookAhead;

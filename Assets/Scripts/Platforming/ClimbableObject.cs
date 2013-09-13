@@ -7,6 +7,7 @@ using System.Collections;
 /// </summary>
 public abstract class ClimbableObject : HangableObject
 {
+	/*
     public override void OnTriggerEnter(Collider other)
     {
         CharacterFiniteStateMachineBase character = other.GetComponent<CharacterFiniteStateMachineBase>();
@@ -20,4 +21,5 @@ public abstract class ClimbableObject : HangableObject
         if (character != null)
             character.RemoveHangTarget(this);
     }
+    */
 }
