@@ -17,6 +17,7 @@ public class CharacterAnimator : MonoBehaviour
 	private CharacterSettings _characterSettings;
 	private CharacterInput _characterInput;
 	private HeartBox _heartBox;
+	private System.Random _random;
 	
 	// This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
 	protected delegate void ProcessState();
@@ -54,16 +55,26 @@ public class CharacterAnimator : MonoBehaviour
 		_heartBox = GetComponentInChildren<HeartBox>();
 		
 		_stateMachine = new Dictionary<int, ProcessState>();
+		_random = new System.Random();
 		CreateStateMachine();
 	}
 	
 	protected virtual void CreateStateMachine()
 	{
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
+		//StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 	}
 	
 	protected virtual void Idle()
 	{
+		//TODO: SET THIS CORRECTLY: MecanimAnimator.SetFloat("RandomIdle", (float) _random.NextDouble());
+		HorizontalSpeed = 0.0f;
+		VerticalSpeed = GroundVerticalSpeed;
+	}
+	
+	protected virtual void Running()
+	{
+		//TODO: SET THIS CORRECTLY: MecanimAnimator.SetFloat("RandomIdle", (float) _random.NextDouble());
 		HorizontalSpeed = 0.0f;
 		VerticalSpeed = GroundVerticalSpeed;
 	}
@@ -264,7 +275,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     protected float GroundVerticalSpeed
     {
-        get { return (_characterSettings.Gravity * Time.fixedDeltaTime); }
+        get { return (-_characterSettings.Gravity * Time.fixedDeltaTime); }
     }
     protected Vector3 Direction
     {
