@@ -11,17 +11,6 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineState
 {
-    // We keep track of whether the jump button was pressed during this state to prevent from "gobbling" it
-    protected ButtonPressedStack buttonPressedStack = new ButtonPressedStack();
-
-    //Input constants
-    protected const string strLeft = "Left";
-    protected const string strUp = "Up";
-    protected const string strRight = "Right";
-    protected const string strDown = "Down";
-    protected const string strJump = "Jump";
-
-    public PlayerCharacterFSM_IState(PlayerCharacterFSM controller) : base(controller){}
 
     /// <summary>
     /// Because of the way we're storing states (see PlayerCharacterFSM), we need a way to simulate creating a new state
@@ -40,32 +29,8 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
         OnStartState();
     }
 
-    /// <summary>
-    /// States can override OnStartState() to start their own instance variables
-    /// They should set the animation for the state
-    /// And they can also set the desired HorizontalSpeed, VerticalSpeed, and Direction if that remains constant for the entire state
-    /// </summary>
-    protected virtual void OnStartState() {}
-
     sealed public override Enum Update()
     {
-        Enum nextState;
-
-        // We let the individual state do their processing and set the desired Direction, VerticalSpeed, and HorizontalSpeed
-        nextState = base.Update();
-        
-        // ButtonPressedStack management
-        if (JumpDown)
-            buttonPressedStack.PushOnStack(strJump);
-        // Movement gets priority. Remember, Stacks are LIFO
-        if (LeftDown)
-            buttonPressedStack.PushOnStack(strLeft);
-        if (RightDown)
-            buttonPressedStack.PushOnStack(strRight);
-        if (DownHold)
-            buttonPressedStack.PushOnStack(strDown);
-        if (UpHold)
-            buttonPressedStack.PushOnStack(strUp);
 		
 		// FIXME: There should be a better way to do this.
         Weapon weapon = FSM.Weapon.GetComponent<Weapon>();
@@ -73,14 +38,6 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
             weapon.ActivateAttack(0);
         if (SecondaryWeaponDown && weapon is Mine)
             weapon.ActivateAttack(1);
-
-        return nextState;
-    }
-
-    sealed public override void ExitState()
-    {
-        buttonPressedStack.Clear();
-        OnExitState();
     }
 
     protected virtual void OnExitState() {}
@@ -109,170 +66,13 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
     {
         return Mathf.Abs(input) < 0.1f;
     }
-    /// <summary>
-    /// Check if a buttonName refers to the 'forward' direction
-    /// </summary>
-    protected bool equalsForward(string buttonName)
-    {
-        return (Direction.x > 0 && buttonName.Equals(strRight)) || (Direction.x < 0 && buttonName.Equals(strLeft));
-    }
-    /// <summary>
-    /// Check if a buttonName refers to the 'backward' direction
-    /// </summary>
-    protected bool equalsBackward(string buttonName)
-    {
-        return (Direction.x < 0 && buttonName.Equals(strRight)) || (Direction.x > 0 && buttonName.Equals(strLeft));
-    }
     // Properties
-    protected new PlayerCharacterFSM FSM
-    {
-        get { return (PlayerCharacterFSM)base.FSM; }
-        set { base.FSM = value; }
-    }
     protected bool HasDoubleJumped
     {
         get { return FSM.HasDoubleJumped; }
         set { FSM.HasDoubleJumped = value; }
     }
 
-    // Input is handled below
-    protected float RawHorizontalInput
-    {
-        get { return Input.GetAxisRaw("Horizontal"); }
-    }
-    protected float RawVerticalInput
-    {
-        get { return Input.GetAxisRaw("Vertical"); }
-    }
-
-    protected bool LeftUp
-    {
-        get { return Input.GetButtonUp("Horizontal") && RawHorizontalInput < 0; }
-    }
-    protected bool LeftHold
-    {
-        get { return Input.GetButton("Horizontal") && RawHorizontalInput < 0; }
-    }
-    protected bool LeftDown
-    {
-        get { return Input.GetButtonDown("Horizontal") && RawHorizontalInput < 0; }
-    }
-
-    protected bool UpUp
-    {
-        get { return Input.GetButtonUp("Vertical") && RawVerticalInput > 0; }
-    }
-    protected bool UpHold
-    {
-        get { return Input.GetButton("Vertical") && RawVerticalInput > 0; }
-    }
-    protected bool UpDown
-    {
-        get { return Input.GetButtonDown("Vertical") && RawVerticalInput > 0; }
-    }
-
-    protected bool RightUp
-    {
-        get { return Input.GetButtonUp("Horizontal") && RawHorizontalInput > 0; }
-    }
-    protected bool RightHold
-    {
-        get { return Input.GetButton("Horizontal") && RawHorizontalInput > 0; }
-    }
-    protected bool RightDown
-    {
-        get { return Input.GetButtonDown("Horizontal") && RawHorizontalInput > 0; }
-    }
-
-    protected bool DownUp
-    {
-        get { return Input.GetButtonUp("Vertical") && RawVerticalInput < 0; }
-    }
-    protected bool DownHold
-    {
-        get { return Input.GetButton("Vertical") && RawVerticalInput < 0; }
-    }
-    protected bool DownDown
-    {
-        get { return Input.GetButtonDown("Vertical") && RawVerticalInput < 0; }
-    }
-
-    protected bool ForwardUp
-    {
-        get { return (Direction.x > 0 && RightUp) || (Direction.x < 0 && LeftUp); }
-    }
-    protected bool ForwardHold
-    {
-        get { return (Direction.x > 0 && RightHold) || (Direction.x < 0 && LeftHold); }
-    }
-    protected bool ForwardDown
-    {
-        get { return (Direction.x > 0 && RightDown) || (Direction.x < 0 && LeftDown); }
-    }
-
-    protected bool BackwardUp
-    {
-        get { return (Direction.x > 0 && LeftUp) || (Direction.x < 0 && RightUp); }
-    }
-    protected bool BackwardHold
-    {
-        get { return (Direction.x > 0 && LeftHold) || (Direction.x < 0 && RightHold); }
-    }
-    protected bool BackwardDown
-    {
-        get { return (Direction.x > 0 && LeftDown) || (Direction.x < 0 && RightDown); }
-    }
-
-    protected bool JumpUp
-    {
-        get { return Input.GetButtonUp(strJump); }
-    }
-    protected bool JumpHold
-    {
-        get { return Input.GetButton(strJump); }
-    }
-    protected bool JumpDown
-    {
-        get { return Input.GetButtonDown(strJump); }
-    }
-
-    protected bool WeaponPrimaryUp
-    {
-        get { return Input.GetButton("Primary"); }
-    }
-    protected bool WeaponPrimaryDown
-    {
-        get { return Input.GetButtonDown("Primary"); }
-    }
-    protected bool WeaponPrimaryLeft
-    {
-        get { return Input.GetButton("Primary"); }
-    }
-    protected bool WeaponPrimaryRight
-    {
-        get { return Input.GetButton("Primary"); }
-    }
-    protected float WeaponPrimaryHorizontal
-    {
-        get { return Input.GetAxis("Horizontal"); }
-    }
-    protected float WeaponPrimaryVertical
-    {
-        get { return Input.GetAxis("Vertical"); }
-    }
-
-    protected bool SecondaryWeaponUp
-    {
-        get { return Input.GetButtonUp("Secondary"); }
-    }
-    protected bool SecondaryWeaponHold
-    {
-        get { return Input.GetButton("Secondary"); }
-    }
-    protected bool SecondaryWeaponDown
-    {
-        get { return Input.GetButtonDown("Secondary"); }
-    }
 
     public bool ShouldTransitionZ_Down
     {
@@ -284,63 +84,6 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
         get { return UpHold && FSM.CanTransitionZ && FSM.ZLevel != FSM.Z_Up; }
     }
     
-    protected class ButtonPressedStack
-    {
-        private Stack<string> buttonsPressed;
-
-        public ButtonPressedStack()
-        {
-            buttonsPressed = new Stack<string>();
-        }
-
-        /// <summary>
-        /// Wrapper for Stack.Push(). Invalid string names will not get pushed
-        /// </summary>
-        public void PushOnStack(string buttonName)
-        {
-            if (buttonName.Equals(strLeft) || buttonName.Equals(strUp) || buttonName.Equals(strRight) || buttonName.Equals(strDown)
-                || buttonName.Equals(strJump))
-                buttonsPressed.Push(buttonName);
-        }
-        /// <summary>
-        /// Wrapper for Stack.Clear()
-        /// </summary>
-        public void Clear() { buttonsPressed.Clear(); }
-        /// <summary>
-        /// Returns name of latest button pressed. Returns empty string if no latest found
-        /// </summary>
-        public string LatestButton()
-        {
-            if (buttonsPressed.Count > 0)
-                return buttonsPressed.Peek();
-            else
-                return "";
-        }
-        public string LatestButton(string[] filter)
-        {
-            foreach (string buttonName in buttonsPressed)
-                foreach (string filterEntry in filter)
-                    if (buttonName.Equals(filterEntry))
-                        return buttonName;
-            return "";
-        }
-        /// <summary>
-        /// Returns name of latest movement button pressed. Returns empty string if no latest found
-        /// </summary>
-        public string LatestMovementButton()
-        {
-            string[] validMovementStrings = new string[] { strLeft, strUp, strRight, strDown };
-            return LatestButton(validMovementStrings);
-        }
-        /// <summary>
-        /// Returns name of latest face button pressed. Returns empty string if no latest found
-        /// </summary>
-        public string LatestFaceButton()
-        {
-            string[] validFaceStrings = new string[] { strJump };
-            return LatestButton(validFaceStrings);
-        }
-    }
 }
 
 */

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// This CharacterAnimator class works with CharacterController and Mecanim's Animator to move and animate characters.
+/// CharacterAnimator works with CharacterController and Mecanim's Animator to move and animate characters.
+/// CharacterSettings is used to store all settings about how a character moves.
+/// CharacterInput is used to keep track of what input is being passed in during gameplay (ie directional buttons, jump, attack).
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CharacterSettings))]
 [RequireComponent(typeof(CharacterInput))]
-[AddComponentMenu("CharacterAnimator/Base")]
+[AddComponentMenu("Character/Generic Base")]
 public class CharacterAnimator : MonoBehaviour
 {
 	// Components used with movement and animation
@@ -17,10 +19,9 @@ public class CharacterAnimator : MonoBehaviour
 	private CharacterSettings _characterSettings;
 	private CharacterInput _characterInput;
 	private HeartBox _heartBox;
-	private System.Random _random;
 	
 	// This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
-	protected delegate void ProcessState();
+	public delegate void ProcessState(float elapsedTime);
 	private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
 	
 	// We use these to determine movement
@@ -52,31 +53,11 @@ public class CharacterAnimator : MonoBehaviour
 		_animator = GetComponent<Animator>();
 		_characterSettings = GetComponent<CharacterSettings>();
 		_characterInput = GetComponent<CharacterInput>();
+		
 		_heartBox = GetComponentInChildren<HeartBox>();
 		
 		_stateMachine = new Dictionary<int, ProcessState>();
-		_random = new System.Random();
 		CreateStateMachine();
-	}
-	
-	protected virtual void CreateStateMachine()
-	{
-		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
-		//StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
-	}
-	
-	protected virtual void Idle()
-	{
-		//TODO: SET THIS CORRECTLY: MecanimAnimator.SetFloat("RandomIdle", (float) _random.NextDouble());
-		HorizontalSpeed = 0.0f;
-		VerticalSpeed = GroundVerticalSpeed;
-	}
-	
-	protected virtual void Running()
-	{
-		//TODO: SET THIS CORRECTLY: MecanimAnimator.SetFloat("RandomIdle", (float) _random.NextDouble());
-		HorizontalSpeed = 0.0f;
-		VerticalSpeed = GroundVerticalSpeed;
 	}
 	
 	// Check health every frame to make sure we aren't dead
@@ -86,16 +67,123 @@ public class CharacterAnimator : MonoBehaviour
             OnDeath();
 	}
 	
+	protected virtual void CreateStateMachine()
+	{
+		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
+		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
+		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
+		StateMachine[Animator.StringToHash("Jumping.Jumping")] = Jumping;
+		StateMachine[Animator.StringToHash("Jumping.JumpFalling")] = JumpFalling;
+		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = Landing;
+		StateMachine[Animator.StringToHash("Falling.Falling")] = Falling;
+		StateMachine[Animator.StringToHash("Falling.Landing")] = Landing;
+	}
+	
+    public virtual void OnDeath()
+    {
+		MecanimAnimator.SetBool(Settings.Die, true);
+    }
+				
+	protected virtual void Die(float elapsedTime)
+	{
+		MecanimAnimator.SetBool(Settings.Die, false);
+		
+		if(MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+        	Destroy(gameObject);
+	}
+	
+	protected virtual void Idle(float elapsedTime)
+	{
+		//TODO: SET up different idles with MecanimAnimator.SetFloat("RandomIdle", (float) _random.NextDouble());
+		ApplyRunning(elapsedTime);
+		VerticalSpeed = GroundVerticalSpeed;
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+		else if (CharInput.Right && !CharInput.Left)
+			Direction = Vector3.right;
+        else if (CharInput.Up)
+            Direction = Vector3.zero;
+	}
+	
+	protected virtual void Running(float elapsedTime)
+	{
+		ApplyRunning(elapsedTime);
+		VerticalSpeed = GroundVerticalSpeed;
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+		else if (CharInput.Right && !CharInput.Left)
+			Direction = Vector3.right;
+	}
+	
+	protected virtual void Jumping(float elapsedTime)
+	{
+		ApplyRunning(elapsedTime);
+		if(MecanimAnimator.GetBool(Settings.Jump))
+        	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
+		else
+			ApplyGravity(elapsedTime);
+		MecanimAnimator.SetBool(Settings.Jump, false);
+		MecanimAnimator.SetBool(Settings.Fall, false);
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+		else if (CharInput.Right && !CharInput.Left)
+			Direction = Vector3.right;
+	}
+	
+	protected virtual void JumpFalling(float elapsedTime)
+	{
+		ApplyRunning(elapsedTime);
+		ApplyGravity(elapsedTime);
+		if(MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9)
+			MecanimAnimator.SetBool(Settings.Fall, false);
+	}
+	
+	protected virtual void Falling(float elapsedTime)
+	{
+		ApplyRunning(elapsedTime);
+		ApplyGravity(elapsedTime);
+		MecanimAnimator.SetBool(Settings.Fall, false);
+	}
+	
+	protected virtual void Landing(float elapsedTime)
+	{
+		ApplyRunning(elapsedTime);
+		VerticalSpeed = GroundVerticalSpeed;
+	}
+	
+	protected virtual void ApplyRunning(float elapsedTime)
+	{
+		// Horizontal runnning speed is based off horizontal input
+        float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
+		if(CharInput.Left || CharInput.Right)
+        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Direction.x * Settings.MaxHorizontalSpeed, accelerationSmoothing);
+		else
+        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, 0, accelerationSmoothing);
+		MecanimAnimator.SetFloat(Settings.HorizontalSpeed, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
+	}
+    protected virtual void ApplyGravity(float elapsedTime)
+    {
+        VerticalSpeed -= Settings.Gravity * elapsedTime;
+        VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
+    }
+	
 	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
 	void FixedUpdate()
 	{
-		AnimatorStateInfo currentState = _animator.GetCurrentAnimatorStateInfo(0);
-		ProcessState state = null;
-		_stateMachine.TryGetValue(currentState.nameHash, out state);
-		if(state != null)
-			state();
+		// Handle the transitions from any states first, so that they may be overwritten
+		MecanimAnimator.SetBool(Settings.Jump, IsGrounded && CharInput.Jump);
+		MecanimAnimator.SetBool(Settings.Fall, !IsGrounded);
+		
+		// Process the state we are in
+		AnimatorStateInfo currentState = MecanimAnimator.GetCurrentAnimatorStateInfo(0);
+		ProcessState processState;
+		if(StateMachine.TryGetValue(currentState.nameHash, out processState))
+			processState(Time.fixedDeltaTime);
 		else
 			Debug.LogError(currentState + " does not have a corresponding delegate");
+		
+		// Update the Animator
+		MecanimAnimator.SetBool(Settings.IsGrounded, IsGrounded);
 		
 		PerformMotion(Time.fixedDeltaTime);
 	}
@@ -141,10 +229,17 @@ public class CharacterAnimator : MonoBehaviour
         _velocity = (transform.position - lastPosition) / elapsedTime;
 
         // We should finally make our character be able to face the correct way
-        if (_direction.sqrMagnitude > 0.01)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), elapsedTime * _characterSettings.RotationSmoothing);
+        if (_direction.x == 0)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
         else
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(Vector3.zero), elapsedTime * _characterSettings.RotationSmoothing);
+		{
+			// TODO: make it face the front while turning left and right (except when coming from facing zero)
+				// the commented lines don't work when you were previously facing zero from one direction and go to the other
+			//float crotY = transform.rotation.eulerAngles.y;
+			//float drotY = Quaternion.LookRotation(_direction).eulerAngles.y;
+            //transform.rotation = Quaternion.Euler(0, Mathf.Lerp(crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), elapsedTime * _characterSettings.RotationSmoothing);
+		}
 
         // Moving Platform support
         if (_activePlatform != null)
@@ -153,11 +248,6 @@ public class CharacterAnimator : MonoBehaviour
             _activeLocalPlatformPoint = _activePlatform.InverseTransformPoint(transform.position);
         }
 	}
-	
-    public virtual void OnDeath()
-    {
-        Destroy(gameObject);
-    }
 
     // We need to be able to interact with other physical objects in the world
     public virtual void OnControllerColliderHit(ControllerColliderHit hit)
@@ -235,7 +325,7 @@ public class CharacterAnimator : MonoBehaviour
 	}
 	
 	// Movement/Animation Properties
-	protected CharacterController Controller
+	public CharacterController Controller
 	{
 		get { return _characterController; }
 	}
@@ -243,26 +333,37 @@ public class CharacterAnimator : MonoBehaviour
     {
         get { return transform.localScale.y * Controller.height; }
     }
-	protected Animator MecanimAnimator
+	public Animator MecanimAnimator
 	{
 		get { return _animator; } 
 	}
-	protected CharacterSettings Settings
+	public CharacterSettings Settings
 	{
 		get { return _characterSettings; }
 	}
-	protected CharacterInput CharInput
+	public CharacterInput CharInput
 	{
 		get { return _characterInput; }
 	}
-	protected HeartBox Heart
+	public HeartBox Heart
 	{
 		get { return _heartBox; } 
 	}
-	protected Dictionary<int, ProcessState> StateMachine
+	public Dictionary<int, ProcessState> StateMachine
 	{
 		get { return _stateMachine; }
 	}
+    protected Vector3 Direction
+    {
+        get { return _direction; }
+        set
+        {
+            Vector3 prevDirection = _direction;
+            _direction = value;
+            if (_direction.x * prevDirection.x < 0)
+                HorizontalSpeed = -HorizontalSpeed;
+        }
+    }
     protected float HorizontalSpeed
     {
         get { return _horizontalSpeed; }
@@ -277,16 +378,9 @@ public class CharacterAnimator : MonoBehaviour
     {
         get { return (-_characterSettings.Gravity * Time.fixedDeltaTime); }
     }
-    protected Vector3 Direction
+    public Vector3 Velocity
     {
-        get { return _direction; }
-        set
-        {
-            Vector3 prevDirection = _direction;
-            _direction = value;
-            if (_direction.x * prevDirection.x < 0)
-                HorizontalSpeed = -HorizontalSpeed;
-        }
+        get { return _velocity; }
     }
     public bool IsGrounded
     {
@@ -303,10 +397,6 @@ public class CharacterAnimator : MonoBehaviour
     public CollisionFlags ControllerCollisionFlags
     {
         get { return _collisionFlags; }
-    }
-    public Vector3 Velocity
-    {
-        get { return _velocity; }
     }
 
 	// Moving Platform Properties
@@ -345,7 +435,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         get { return ActiveHangTarget != null && ActiveHangTarget is Ledge 
 			&& Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < _characterSettings.LedgeLeniency 
-				&& PreviousHangTarget != ActiveHangTarget; }
+				&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
     }
     public bool CanClimbLadder
     {
