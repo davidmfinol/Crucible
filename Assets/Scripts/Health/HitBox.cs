@@ -2,9 +2,13 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum BoxAllegiance { Team1, Team2 };
+public enum BoxAllegiance { Player, Zombies, Explosions };
 
+/// <summary>
+/// Hit box hits heartboxes to deal damage.
+/// </summary>
 [RequireComponent(typeof(Collider))]
+[AddComponentMenu("Health/Hitbox")]
 public class HitBox : MonoBehaviour
 {
     //~Origin Data

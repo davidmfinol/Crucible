@@ -4,7 +4,7 @@
 /// Character settings stores variables about how this character moves.
 /// Used by CharacterAnimator.cs
 /// </summary>
-[AddComponentMenu("Character/Settings")]
+[AddComponentMenu("Character/Character Settings")]
 public class CharacterSettings : MonoBehaviour
 {
     // How fast the character runs
@@ -33,6 +33,12 @@ public class CharacterSettings : MonoBehaviour
 	
 	// How close the character has to be to the top of a ledge to grab onto it
 	public float LedgeLeniency = 0.3f;
+	
+	// How fast the character climbs ladders
+	public float LadderClimbingSpeed = 5.0f;
+	
+	// How fast the character strafes ladders
+	public float LadderStrafingSpeed = 5.0f;
 	
 	private int _randomIdle;
 	private int _horizontalSpeed;

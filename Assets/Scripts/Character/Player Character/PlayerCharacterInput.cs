@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Player character input stores the buttons that the player presses so that the PlayerCharacterAnimator can move correspondingly.
 /// </summary>
-[AddComponentMenu("Character/Player Character Input")]
+[AddComponentMenu("Character/Player Character/Player Character Input")]
 public class PlayerCharacterInput : CharacterInput
 {
 	private float _verticalInput;

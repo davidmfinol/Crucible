@@ -6,7 +6,7 @@ using System.Collections;
 /// By default, this returns no input; this class should be extended with overrides for the input properties.
 /// Used by CharacterAnimator.cs
 /// </summary>
-[AddComponentMenu("Character/Empty Input")]
+[AddComponentMenu("Character/Character Input (Empty)")]
 public class CharacterInput : MonoBehaviour
 {
 	public virtual float VerticalInput

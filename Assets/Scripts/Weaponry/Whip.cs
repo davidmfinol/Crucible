@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Whip is a melee weapon that uses a set of child colliders to provide variable hitboxes.
+/// </summary>
+[AddComponentMenu("Weaponry/Whip")]
 public class Whip : Weapon
 {
     private bool _hitBoxesActive = false;

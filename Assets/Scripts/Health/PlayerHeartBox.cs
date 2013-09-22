@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// Player heart box indicates where the player can be hit and tracks health.
+/// </summary>
+[AddComponentMenu("Health/Player Character Heartbox")]
 public class PlayerHeartBox : HeartBox
 {
     public float TimeSinceHit;
@@ -75,6 +78,8 @@ public class PlayerHeartBox : HeartBox
         if (script != null && script.enabled)
             Interpret(script);
     }
+	
+	//TODO: DRAW HEALTH ELSEWHERE
     void OnGUI()
     {
 		GUI.BeginGroup(box);

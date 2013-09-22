@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(AudioSource))]
-public class WeaponAudioSource : AudioPlayer
+/// <summary>
+/// Weapon audio player provides an interface for a player's weapon to produce sound.
+/// </summary>
+[AddComponentMenu("Audio/WeaponAudioPlayer")]
+public class WeaponAudioPlayer : AudioPlayer
 {
     public AudioClipGroup WeaponSoundEffects;
 

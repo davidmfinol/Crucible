@@ -18,6 +18,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Smart cam 2D sets up an infrastructure for having a dynamic camera.
+/// </summary>
+[AddComponentMenu("Camera/Smart Cam 2D")]
 public class SmartCam2D : MonoBehaviour
 {
     public GameObject target;

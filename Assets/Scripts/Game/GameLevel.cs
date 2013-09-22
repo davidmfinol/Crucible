@@ -5,6 +5,7 @@ using System.Collections;
 /// Game level is a global class used to keep track of the attributes of the level in the scene.
 /// Main things: Player, render settings, and boundaries of scene.
 /// </summary>
+[AddComponentMenu("Game/Game Level")]
 public class GameLevel : MonoBehaviour
 {
     // Keep track of the player, his camera, and where he starts in the level
@@ -72,20 +73,9 @@ public class GameLevel : MonoBehaviour
 		if(_player == null)
         	_player = (Transform)Instantiate(PlayerPrefab, StartPoint.position, Quaternion.identity);
 		
-/*
-		//TODO: MOVE THIS INITIALIZATION ELSEWHERE
-        PlayerCharacterFSM playerController = _player.GetComponent<PlayerCharacterFSM>();
-		
-        Transform bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(_player, "hand_R");
-        Transform whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-		Transform mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
-        whip.parent = bone;
-        whip.Rotate(new Vector3(90, 0, 90));
-        whip.Translate(new Vector3(0.2f, 0.1f, 0.1f));
-        playerController.Weapon = whip;
-        playerController.SpawnPoint = StartPoint;
-        playerController.Spawn();
-        */
+        PlayerCharacterSettings playerSettings = _player.GetComponent<PlayerCharacterSettings>();
+		playerSettings.Weapon = playerSettings.WhipPrefab;
+        playerSettings.SpawnPoint = StartPoint;
 	}
 	
 	private void SetupCamera()

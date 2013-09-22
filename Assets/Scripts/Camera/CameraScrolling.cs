@@ -6,6 +6,7 @@ using System.Collections;
 /// This entire script may be replaced.
 /// </summary>
 [RequireComponent(typeof(Transform))]
+[AddComponentMenu("Camera/Camera Scrolling")]
 public class CameraScrolling : MonoBehaviour
 {
     // The object being tracked
@@ -20,7 +21,7 @@ public class CameraScrolling : MonoBehaviour
 
     // You almost always want camera motion to go inside of LateUpdate (), so that the camera follows
     // the target _after_ it has moved.  Otherwise, the camera may lag one frame behind.
-    void LateUpdate()
+    void FixedUpdate()
     {
         if (Target)
         {

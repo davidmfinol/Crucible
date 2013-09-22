@@ -7,7 +7,7 @@ using System.Collections;
 [AddComponentMenu("Audio/Audio Manager")]
 public class AudioManager : MonoBehaviour
 {
-	// TODO: ATTACH THIS TO THE GAMELEVEL PREFAB/MAKE IT STATIC LIKE GAMETIME?
+	// TODO: ATTACH THIS TO THE GAMELEVEL PREFAB?
     public enum AudioTypes
     {
         SPEECH,

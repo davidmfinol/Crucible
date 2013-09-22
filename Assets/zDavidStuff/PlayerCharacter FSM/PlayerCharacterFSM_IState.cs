@@ -11,6 +11,35 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineState
 {
+ public enum PlayerCharacterStates : int
+{
+    // Ground Basic
+    PlayerCharacter_Idle,
+    PlayerCharacter_Stepping,
+    PlayerCharacter_Running,
+    PlayerCharacter_Skidding,
+    PlayerCharacter_Turning,
+    PlayerCharacter_StepCancelling,
+
+    // Air Basic
+    PlayerCharacter_Landing,
+    PlayerCharacter_Jumping,
+    PlayerCharacter_Falling,
+
+    // Climbing and Hanging
+    PlayerCharacter_Hanging,
+    PlayerCharacter_ClimbingLedge,
+    PlayerCharacter_ClimbingLadder,
+    PlayerCharacter_ClimbingPipe,
+
+    // Combat
+    PlayerCharacter_AttackCombo1,
+    PlayerCharacter_AttackCombo2,
+    PlayerCharacter_AttackCombo3,
+    PlayerCharacter_AttackHold,
+
+    PlayerCharacter_TransitioningZ,
+};
 
     /// <summary>
     /// Because of the way we're storing states (see PlayerCharacterFSM), we need a way to simulate creating a new state
@@ -65,12 +94,6 @@ public abstract class PlayerCharacterFSM_IState : CharacterFiniteStateMachineSta
     protected bool IsPlayerInputZero(float input)
     {
         return Mathf.Abs(input) < 0.1f;
-    }
-    // Properties
-    protected bool HasDoubleJumped
-    {
-        get { return FSM.HasDoubleJumped; }
-        set { FSM.HasDoubleJumped = value; }
     }
 
 

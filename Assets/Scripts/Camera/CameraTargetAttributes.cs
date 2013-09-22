@@ -6,6 +6,7 @@ using System.Collections;
 /// Attach this script to a game object that you want CameraScrolling to be able to follow.
 /// This entire script may end up being replaced.
 /// </summary>
+[AddComponentMenu("Camera/Camera Target Attributes")]
 public class CameraTargetAttributes : MonoBehaviour
 {
     // How high in world space should the camera look above the target?

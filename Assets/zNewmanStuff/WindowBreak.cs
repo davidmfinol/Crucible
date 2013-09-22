@@ -19,7 +19,7 @@ public class WindowBreak : MonoBehaviour {
     void OnTriggerStay(Collider other){
 		
 		if(other.gameObject.layer == 9 || other.gameObject.layer == 8){		
-			if(other.gameObject.GetComponent<HitBox>().Allegiance == BoxAllegiance.Team1){
+			if(other.gameObject.GetComponent<HitBox>().Allegiance == BoxAllegiance.Player){
 				this.gameObject.SetActive(false);
 				randomSpawner();
 				Debug.Log("I've been hit");

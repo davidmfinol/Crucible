@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Zombie heart box keeps track of the zombie's health and indicates where it can be hit.
+/// </summary>
+[AddComponentMenu("Health/Zombie Heartbox")]
 public class ZombieHeartBox : HeartBox
 {
     public float TimeSinceHit;

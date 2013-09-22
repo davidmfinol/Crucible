@@ -22,7 +22,7 @@ public class WindowBreakPlayer : MonoBehaviour {
     void OnTriggerStay(Collider other){
 		if(!isBroken){
 			if(other.gameObject.layer == 9 || other.gameObject.layer == 8){	
-				if(other.gameObject.GetComponent<HitBox>().Allegiance == BoxAllegiance.Team1){
+				if(other.gameObject.GetComponent<HitBox>().Allegiance == BoxAllegiance.Player){
 				//if(other.tag.Equals("Player")){
 					this.gameObject.SetActive(false);
 					this.transform.parent.FindChild("Glass3").gameObject.SetActive(true);

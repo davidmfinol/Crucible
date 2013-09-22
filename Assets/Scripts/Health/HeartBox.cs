@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Heart box receives hits from hitboxes and keeps track of health.
+/// </summary>
 [RequireComponent(typeof(Collider))]
-public abstract class HeartBox : MonoBehaviour {
+[AddComponentMenu("Health/Heartbox")]
+public abstract class HeartBox : MonoBehaviour
+{
 
     public BoxAllegiance Allegiance;
-    //[SerializeField]
     protected int heartBoxID;
 
     protected HeartBox() { heartBoxID = GetInstanceID(); }
@@ -43,7 +47,6 @@ public abstract class HeartBox : MonoBehaviour {
  * </summary>
  
  */
-
 public class HeartBoxStamp
 {
     private int _heartBoxInstanceID;

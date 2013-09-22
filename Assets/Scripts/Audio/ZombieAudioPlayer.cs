@@ -2,9 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Zombie audio source extends AudioPlayer to provide the ZombieFSM an interface to audio.
+/// Zombie audio player extends AudioPlayer to provide the Zombie an interface to play sounds effects.
 /// </summary>
-public class ZombieAudioSource : AudioPlayer
+[AddComponentMenu("Audio/Zombie Audio Player")]
+public class ZombieAudioPlayer : AudioPlayer
 {
     public AudioClipGroup AttackAudio;
     public AudioClipGroup DeathAudio;

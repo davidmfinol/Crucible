@@ -10,7 +10,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CharacterSettings))]
 [RequireComponent(typeof(CharacterInput))]
-[AddComponentMenu("Character/Generic Base")]
+[AddComponentMenu("Character/Character Animator")]
 public class CharacterAnimator : MonoBehaviour
 {
 	// Components used with movement and animation
@@ -30,6 +30,7 @@ public class CharacterAnimator : MonoBehaviour
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
+	private float _lastGroundHeight;
 	
     // Moving platform support 
     private Transform _activePlatform;
@@ -55,16 +56,26 @@ public class CharacterAnimator : MonoBehaviour
 		_characterInput = GetComponent<CharacterInput>();
 		
 		_heartBox = GetComponentInChildren<HeartBox>();
+		_lastGroundHeight = transform.position.y;
 		
 		_stateMachine = new Dictionary<int, ProcessState>();
 		CreateStateMachine();
 	}
 	
-	// Check health every frame to make sure we aren't dead
 	void Update()
 	{
+		// Check health every frame to make sure we aren't dead
         if (_heartBox != null && _heartBox.HitPoints <= 0)
             OnDeath();
+        // Correct our Z value when we are in only one zone
+        if (Zones.Count == 1 && !CanTransitionZ)
+        {
+            IEnumerator<Zone> it = Zones.GetEnumerator();
+            it.MoveNext();
+            _Zlower = it.Current;
+            _Zhigher = it.Current;
+            _currentZone = it.Current;
+        }
 	}
 	
 	protected virtual void CreateStateMachine()
@@ -74,7 +85,7 @@ public class CharacterAnimator : MonoBehaviour
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
 		StateMachine[Animator.StringToHash("Jumping.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Jumping.JumpFalling")] = JumpFalling;
-		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = Landing;
+		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = JumpLanding;
 		StateMachine[Animator.StringToHash("Falling.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Falling.Landing")] = Landing;
 	}
@@ -103,6 +114,12 @@ public class CharacterAnimator : MonoBehaviour
 			Direction = Vector3.right;
         else if (CharInput.Up)
             Direction = Vector3.zero;
+		
+		if(!MecanimAnimator.GetBool(Settings.Fall) && !IsGrounded)
+		{
+			MecanimAnimator.SetBool(Settings.Fall, true);
+			_lastGroundHeight = transform.position.y;
+		}
 	}
 	
 	protected virtual void Running(float elapsedTime)
@@ -113,16 +130,24 @@ public class CharacterAnimator : MonoBehaviour
             Direction = Vector3.left;
 		else if (CharInput.Right && !CharInput.Left)
 			Direction = Vector3.right;
+		
+		if(!MecanimAnimator.GetBool(Settings.Fall) && !IsGrounded)
+		{
+			MecanimAnimator.SetBool(Settings.Fall, true);
+			_lastGroundHeight = transform.position.y;
+		}
 	}
 	
 	protected virtual void Jumping(float elapsedTime)
 	{
 		ApplyRunning(elapsedTime);
 		if(MecanimAnimator.GetBool(Settings.Jump))
+		{
         	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
+			MecanimAnimator.SetBool(Settings.Jump, false);
+		}
 		else
 			ApplyGravity(elapsedTime);
-		MecanimAnimator.SetBool(Settings.Jump, false);
 		MecanimAnimator.SetBool(Settings.Fall, false);
         if (CharInput.Left && !CharInput.Right)
             Direction = Vector3.left;
@@ -134,7 +159,7 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		ApplyRunning(elapsedTime);
 		ApplyGravity(elapsedTime);
-		if(MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9)
+		if(transform.position.y > _lastGroundHeight)
 			MecanimAnimator.SetBool(Settings.Fall, false);
 	}
 	
@@ -145,9 +170,15 @@ public class CharacterAnimator : MonoBehaviour
 		MecanimAnimator.SetBool(Settings.Fall, false);
 	}
 	
-	protected virtual void Landing(float elapsedTime)
+	protected virtual void JumpLanding(float elapsedTime)
 	{
 		ApplyRunning(elapsedTime);
+		VerticalSpeed = GroundVerticalSpeed;
+	}
+	
+	protected virtual void Landing(float elapsedTime)
+	{
+		ApplyStopping(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 	}
 	
@@ -161,6 +192,13 @@ public class CharacterAnimator : MonoBehaviour
         	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, 0, accelerationSmoothing);
 		MecanimAnimator.SetFloat(Settings.HorizontalSpeed, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
+	protected virtual void ApplyStopping(float elapsedTime)
+	{
+		// Horizontal runnning speed is based off horizontal input
+        float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
+    	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, 0, accelerationSmoothing);
+		MecanimAnimator.SetFloat(Settings.HorizontalSpeed, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
+	}
     protected virtual void ApplyGravity(float elapsedTime)
     {
         VerticalSpeed -= Settings.Gravity * elapsedTime;
@@ -171,10 +209,13 @@ public class CharacterAnimator : MonoBehaviour
 	void FixedUpdate()
 	{
 		// Handle the transitions from any states first, so that they may be overwritten
-		MecanimAnimator.SetBool(Settings.Jump, IsGrounded && CharInput.Jump);
-		MecanimAnimator.SetBool(Settings.Fall, !IsGrounded);
+		if(!MecanimAnimator.GetBool(Settings.Jump) && IsGrounded && CharInput.Jump)
+		{
+			MecanimAnimator.SetBool(Settings.Jump, true);
+			_lastGroundHeight = transform.position.y;
+		}
 		
-		// Process the state we are in
+		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction)
 		AnimatorStateInfo currentState = MecanimAnimator.GetCurrentAnimatorStateInfo(0);
 		ProcessState processState;
 		if(StateMachine.TryGetValue(currentState.nameHash, out processState))
@@ -182,10 +223,13 @@ public class CharacterAnimator : MonoBehaviour
 		else
 			Debug.LogError(currentState + " does not have a corresponding delegate");
 		
+		// Do the movement
+		PerformMotion(Time.fixedDeltaTime);
+		
 		// Update the Animator
 		MecanimAnimator.SetBool(Settings.IsGrounded, IsGrounded);
-		
-		PerformMotion(Time.fixedDeltaTime);
+		MecanimAnimator.SetBool(Settings.Attack1, CharInput.Attack1);
+		MecanimAnimator.SetBool(Settings.Attack2, CharInput.Attack2);
 	}
 	/// <summary>
 	/// Assuming that horizontal speed, vertical speed, and direction have already been set, moves the character correspondingly.
@@ -337,11 +381,11 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		get { return _animator; } 
 	}
-	public CharacterSettings Settings
+	public virtual CharacterSettings Settings
 	{
 		get { return _characterSettings; }
 	}
-	public CharacterInput CharInput
+	public virtual CharacterInput CharInput
 	{
 		get { return _characterInput; }
 	}
@@ -353,7 +397,7 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		get { return _stateMachine; }
 	}
-    protected Vector3 Direction
+    public Vector3 Direction
     {
         get { return _direction; }
         set
@@ -364,17 +408,17 @@ public class CharacterAnimator : MonoBehaviour
                 HorizontalSpeed = -HorizontalSpeed;
         }
     }
-    protected float HorizontalSpeed
+    public float HorizontalSpeed
     {
         get { return _horizontalSpeed; }
         set { _horizontalSpeed = value; }
     }
-    protected float VerticalSpeed
+    public float VerticalSpeed
     {
         get { return _verticalSpeed; }
         set { _verticalSpeed = value; }
     }
-    protected float GroundVerticalSpeed
+    public float GroundVerticalSpeed
     {
         get { return (-_characterSettings.Gravity * Time.fixedDeltaTime); }
     }
@@ -474,18 +518,18 @@ public class CharacterAnimator : MonoBehaviour
 	}
 	public float Z_Down
 	{
-		get { return Zlower != null ? Zlower.transform.position.z : transform.position.z; }
+		get { return Z_Lower != null ? Z_Lower.transform.position.z : transform.position.z; }
 	}
-	public Zone Zlower
+	public Zone Z_Lower
 	{
 		get { return _Zlower; }
 		set { _Zlower = value; }
 	}
 	public float Z_Up
 	{
-		get { return Zhigher != null ? Zhigher.transform.position.z : transform.position.z; }
+		get { return Z_Higher != null ? Z_Higher.transform.position.z : transform.position.z; }
 	}
-	public Zone Zhigher
+	public Zone Z_Higher
 	{
 		get { return _Zhigher; }
 		set { _Zhigher = value; }
