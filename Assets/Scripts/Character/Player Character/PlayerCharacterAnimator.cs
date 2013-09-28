@@ -23,6 +23,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
         	Spawn();
 	}
 	
+	protected override void Update()
+	{
+		base.Update();
+		
+		//TODO ACTIVATE WEAPONS AS NECESSARY
+	}
+	
 	/* TODO: DETERMINE HOW WE PICK STUFF UP
     public override void OnControllerColliderHit(ControllerColliderHit hit)
     {

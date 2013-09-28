@@ -74,7 +74,7 @@ public class GameLevel : MonoBehaviour
         	_player = (Transform)Instantiate(PlayerPrefab, StartPoint.position, Quaternion.identity);
 		
         PlayerCharacterSettings playerSettings = _player.GetComponent<PlayerCharacterSettings>();
-		playerSettings.Weapon = playerSettings.WhipPrefab;
+		playerSettings.Weapon = playerSettings.PipePrefab;
         playerSettings.SpawnPoint = StartPoint;
 	}
 	

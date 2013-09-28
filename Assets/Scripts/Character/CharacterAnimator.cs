@@ -48,7 +48,7 @@ public class CharacterAnimator : MonoBehaviour
     private HashSet<Zone> _zones = new HashSet<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 	
-	void Start()
+	protected virtual void Start()
 	{
 		_characterController = GetComponent<CharacterController>();
 		_animator = GetComponent<Animator>();
@@ -62,7 +62,7 @@ public class CharacterAnimator : MonoBehaviour
 		CreateStateMachine();
 	}
 	
-	void Update()
+	protected virtual void Update()
 	{
 		// Check health every frame to make sure we aren't dead
         if (_heartBox != null && _heartBox.HitPoints <= 0)

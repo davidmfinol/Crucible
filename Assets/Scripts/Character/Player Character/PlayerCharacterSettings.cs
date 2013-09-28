@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Player character settings contains, in addition to the normal platforming settings, information about the spawn point and weapons.
+/// </summary>
 [AddComponentMenu("Character/Player Character/Player Character Settings")]
 public class PlayerCharacterSettings : CharacterSettings
 {
 	public Transform SpawnPoint;
 
     // Player's Weapon Arsenal!
+	public Transform PipePrefab;
     public Transform WhipPrefab;
 	public Transform MinePrefab;
     private Transform _currentWeapon;
@@ -44,8 +48,10 @@ public class PlayerCharacterSettings : CharacterSettings
 	        Transform rightHand = SearchHierarchyForBone(transform, "hand_R");
 			Transform weapon = (Transform)Instantiate(value, rightHand.position, Quaternion.identity);
 	        weapon.parent = rightHand;
-	        weapon.Rotate(new Vector3(90, 0, 90));
-	        weapon.Translate(new Vector3(0.2f, 0.1f, 0.1f));
+			// TO PUT PIPE IN HAND (DIFFERENT VALUES FOR MINE + WHIP)
+			// TODO: STORE ROTATION AND TRANSLATION IN WEAPON
+	        weapon.Rotate(new Vector3(90, 0, 0));
+	        weapon.Translate(new Vector3(-0.1f, 0.7f, 0.1f));
 			_currentWeapon = weapon;
 		}
 	}
