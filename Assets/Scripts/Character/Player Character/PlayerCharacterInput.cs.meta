@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 0285171434f71574ba6bde4f6c9ddef5
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - MoveTouchPad: {fileID: 400000, guid: 297d6f04982963b45b1595e35aadc7cd, type: 2}
+  - JumpTouchPad: {fileID: 400000, guid: ffe871dc728ed984e96c8f896d4fa162, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
