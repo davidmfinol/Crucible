@@ -20,20 +20,32 @@ public class PlayerCharacterInput : CharacterInput
 	
 	void Start()
 	{
-	
+#if UNITY_ANDROID
+		
 		_moveTouchPad = ((Transform) Instantiate(MoveTouchPad)).GetComponent<Joystick>();
 		_jumpTouchPad = ((Transform) Instantiate(JumpTouchPad)).GetComponent<Joystick>();
+		
+#endif
 	}
 	
 	void Update()
 	{
-		Debug.Log("_moveTouchPad: " + _moveTouchPad.position);
-		_verticalInput = _moveTouchPad.position.y; //Input.GetAxis("Vertical");
+#if UNITY_ANDROID
+		_verticalInput = _moveTouchPad.position.y;
+		_horizontalInput = _moveTouchPad.position.x;
+		_jump = _jumpTouchPad.IsFingerDown();
+		//_attack1 = Input.GetButton("Primary");
+		//_attack2 = Input.GetButton("Secondary");
+#endif
 		
-		_horizontalInput = _moveTouchPad.position.x; //Input.GetAxis("Horizontal");
-		_jump = _jumpTouchPad.IsFingerDown(); // Input.GetButton("Jump");
+#if UNITY_STANDALONE
+		_verticalInput = Input.GetAxis("Vertical");
+		_horizontalInput = Input.GetAxis("Horizontal");
+		_jump = Input.GetButton("Jump");
 		_attack1 = Input.GetButton("Primary");
 		_attack2 = Input.GetButton("Secondary");
+#endif		
+		
 	}
 	
 	public override float VerticalInput
