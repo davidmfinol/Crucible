@@ -40,6 +40,7 @@ public class CharacterAnimator : MonoBehaviour
     // Support for hanging off of objects
 	private List<HangableObject> _hangQueue = new List<HangableObject>();
     private HangableObject _previousHangTarget = null;
+	private Ledge _ledge;
 	
     // We need a way to move between zones
     private Zone _currentZone = null; // Zone we are currently in
@@ -88,6 +89,10 @@ public class CharacterAnimator : MonoBehaviour
 		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = JumpLanding;
 		StateMachine[Animator.StringToHash("Falling.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Falling.Landing")] = Landing;
+		StateMachine[Animator.StringToHash("Hanging.Hanging")] = Hanging;
+		StateMachine[Animator.StringToHash("Hanging.ClimbingLedge")] = ClimbingLedge;
+		StateMachine[Animator.StringToHash("Climbing.ClimbingVertical")] = ClimbingVertical;
+		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 	}
 	
     public virtual void OnDeath()
@@ -153,6 +158,10 @@ public class CharacterAnimator : MonoBehaviour
             Direction = Vector3.left;
 		else if (CharInput.Right && !CharInput.Left)
 			Direction = Vector3.right;
+		
+		MecanimAnimator.SetBool(Settings.Hang, 
+			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 	}
 	
 	protected virtual void JumpFalling(float elapsedTime)
@@ -161,6 +170,9 @@ public class CharacterAnimator : MonoBehaviour
 		ApplyGravity(elapsedTime);
 		if(transform.position.y > _lastGroundHeight)
 			MecanimAnimator.SetBool(Settings.Fall, false);
+		MecanimAnimator.SetBool(Settings.Hang, 
+			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 	}
 	
 	protected virtual void Falling(float elapsedTime)
@@ -168,6 +180,9 @@ public class CharacterAnimator : MonoBehaviour
 		ApplyRunning(elapsedTime);
 		ApplyGravity(elapsedTime);
 		MecanimAnimator.SetBool(Settings.Fall, false);
+		MecanimAnimator.SetBool(Settings.Hang, 
+			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 	}
 	
 	protected virtual void JumpLanding(float elapsedTime)
@@ -180,6 +195,78 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		ApplyStopping(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
+	}
+	
+	protected virtual void Hanging(float elapsedTime)
+	{
+		VerticalSpeed = 0;
+		if(MecanimAnimator.GetBool(Settings.Hang))
+		{
+			VerticalSpeed = 0;
+	        if (ActiveHangTarget.DoesFaceZAxis())
+	        {
+	            HorizontalSpeed = 0.0f;
+	            Direction = Vector3.zero;
+	        }
+	        else
+	        {
+	            HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
+	            if (IsHangTargetToRight)
+	                Direction = Vector3.right;
+	            else
+	                Direction = Vector3.left;
+	        }
+			
+			if(ActiveHangTarget is Ledge)
+	        	_ledge = (Ledge) ActiveHangTarget;
+			else
+				_ledge = null;
+			
+			DropHangTarget();
+			MecanimAnimator.SetBool(Settings.Hang, false);
+		}
+		
+        if (_ledge != null && (CharInput.Up || InputForward))
+			MecanimAnimator.SetBool(Settings.ClimbLedge, true);
+		else if(CharInput.Jump)
+			MecanimAnimator.SetBool(Settings.Jump, true);
+		else if(CharInput.Down)
+			MecanimAnimator.SetBool(Settings.Fall, true);
+	}
+	
+	protected virtual void ClimbingLedge(float elapsedTime)
+	{
+		if(MecanimAnimator.GetBool(Settings.ClimbLedge))
+		{
+	        if (_ledge.DoesFaceZAxis())
+	        {
+	            HorizontalSpeed = 0.0f;
+	            VerticalSpeed = Settings.LedgeClimbingSpeed;
+	        }
+	        else if (_ledge.DoesFaceXAxis())
+	        {
+	            HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
+	            VerticalSpeed = Settings.LedgeClimbingSpeed;
+	        }
+			MecanimAnimator.SetBool(Settings.ClimbLedge, false);
+		}
+		else
+		{
+	        if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
+	            VerticalSpeed = GroundVerticalSpeed;
+		}
+	}
+	
+	protected virtual void ClimbingVertical(float elapsedTime)
+	{
+		VerticalSpeed = 0;
+		HorizontalSpeed = 0;
+	}
+	
+	protected virtual void ClimbingStrafe(float elapsedTime)
+	{
+		VerticalSpeed = 0;
+		HorizontalSpeed = 0;
 	}
 	
 	protected virtual void ApplyRunning(float elapsedTime)
@@ -208,12 +295,16 @@ public class CharacterAnimator : MonoBehaviour
 	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
 	void FixedUpdate()
 	{
-		// Handle the transitions from any states first, so that they may be overwritten
+		// Update the Animator (this can be overwritten by processState())
 		if(!MecanimAnimator.GetBool(Settings.Jump) && IsGrounded && CharInput.Jump)
 		{
 			MecanimAnimator.SetBool(Settings.Jump, true);
 			_lastGroundHeight = transform.position.y;
 		}
+		MecanimAnimator.SetBool(Settings.Climb, (CanClimbPipe || CanClimbLadder) && CharInput.Up );
+		MecanimAnimator.SetBool(Settings.IsGrounded, IsGrounded);
+		MecanimAnimator.SetBool(Settings.Attack1, CharInput.Attack1);
+		MecanimAnimator.SetBool(Settings.Attack2, CharInput.Attack2);
 		
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction)
 		AnimatorStateInfo currentState = MecanimAnimator.GetCurrentAnimatorStateInfo(0);
@@ -225,11 +316,6 @@ public class CharacterAnimator : MonoBehaviour
 		
 		// Do the movement
 		PerformMotion(Time.fixedDeltaTime);
-		
-		// Update the Animator
-		MecanimAnimator.SetBool(Settings.IsGrounded, IsGrounded);
-		MecanimAnimator.SetBool(Settings.Attack1, CharInput.Attack1);
-		MecanimAnimator.SetBool(Settings.Attack2, CharInput.Attack2);
 	}
 	/// <summary>
 	/// Assuming that horizontal speed, vertical speed, and direction have already been set, moves the character correspondingly.
@@ -388,6 +474,14 @@ public class CharacterAnimator : MonoBehaviour
 	public virtual CharacterInput CharInput
 	{
 		get { return _characterInput; }
+	}
+	public bool InputForward
+	{
+		get { return (Direction.x > 0 && CharInput.Right) || (Direction.x < 0 && CharInput.Left); }
+	}
+	public bool InputBackward
+	{
+		get { return (Direction.x > 0 && CharInput.Left) || (Direction.x < 0 && CharInput.Right); }
 	}
 	public HeartBox Heart
 	{

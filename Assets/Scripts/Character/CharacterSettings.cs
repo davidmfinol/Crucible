@@ -50,6 +50,7 @@ public class CharacterSettings : MonoBehaviour
 	private int _die;
 	private int _attack1;
 	private int _attack2;
+	private int _climbLedge;
 	
 	void Awake()
 	{
@@ -63,6 +64,7 @@ public class CharacterSettings : MonoBehaviour
 		_die = Animator.StringToHash("Die");
 		_attack1 = Animator.StringToHash("Attack1");
 		_attack2 = Animator.StringToHash("Attack2");
+		_climbLedge = Animator.StringToHash("ClimbLedge");
 	}
 
 	public int Attack1
@@ -104,5 +106,9 @@ public class CharacterSettings : MonoBehaviour
 	public int RandomIdle
 	{
 		get { return this._randomIdle; }
+	}
+	public int ClimbLedge
+	{
+		get { return this._climbLedge; }
 	}
 }
