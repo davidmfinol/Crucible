@@ -15,8 +15,10 @@ public class PlayerCharacterInput : CharacterInput
 	
 	private Joystick _moveTouchPad;
 	private Joystick _jumpTouchPad;
+	private Joystick _attack1TouchPad;
 	public Transform MoveTouchPad;
 	public Transform JumpTouchPad;
+	public Transform Attack1TouchPad;
 	
 	void Start()
 	{
@@ -24,6 +26,7 @@ public class PlayerCharacterInput : CharacterInput
 		
 		_moveTouchPad = ((Transform) Instantiate(MoveTouchPad)).GetComponent<Joystick>();
 		_jumpTouchPad = ((Transform) Instantiate(JumpTouchPad)).GetComponent<Joystick>();
+		_attack1TouchPad = ((Transform) Instantiate(Attack1TouchPad)).GetComponent<Joystick>();		
 		
 #endif
 	}
@@ -34,7 +37,7 @@ public class PlayerCharacterInput : CharacterInput
 		_verticalInput = _moveTouchPad.position.y;
 		_horizontalInput = _moveTouchPad.position.x;
 		_jump = _jumpTouchPad.IsFingerDown();
-		//_attack1 = Input.GetButton("Primary");
+		_attack1 = _attack1TouchPad.IsFingerDown();
 		//_attack2 = Input.GetButton("Secondary");
 #endif
 		
