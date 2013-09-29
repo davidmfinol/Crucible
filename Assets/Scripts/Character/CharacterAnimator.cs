@@ -342,7 +342,7 @@ public class CharacterAnimator : MonoBehaviour
 		if(StateMachine.TryGetValue(currentState.nameHash, out processState))
 			processState(Time.fixedDeltaTime);
 		else
-			Debug.LogError(currentState + " does not have a corresponding delegate");
+			Debug.LogError(currentState.nameHash + " does not have a corresponding delegate");
 		
 		// Do the movement
 		PerformMotion(Time.fixedDeltaTime);
