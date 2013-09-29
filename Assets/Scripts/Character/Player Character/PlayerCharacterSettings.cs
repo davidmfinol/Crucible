@@ -23,7 +23,7 @@ public class PlayerCharacterSettings : CharacterSettings
             return current;
 
         // search through child bones for the bone we're looking for
-        for (int i = 0; i < current.GetChildCount(); ++i)
+        for (int i = 0; i < current.childCount; ++i)
         {
             // the recursive step; repeat the search one step deeper in the hierarchy
             Transform found = SearchHierarchyForBone(current.GetChild(i), name);

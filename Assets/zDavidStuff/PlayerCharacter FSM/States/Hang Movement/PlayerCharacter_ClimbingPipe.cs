@@ -5,15 +5,6 @@ using System.Collections;
 /*
 public class PlayerCharacter_ClimbingPipe : PlayerCharacterFSM_IState
 {
-    public PlayerCharacter_ClimbingPipe(PlayerCharacterFSM controller) : base(controller) { }
-
-    protected override void OnStartState()
-    {
-        FSM.animation["Climbing"].time = 0;
-        FSM.animation.CrossFade("Climbing");
-        HorizontalSpeed = 0.0f;
-        VerticalSpeed = 0.0f;
-    }
 
     protected override Enum OnUpdate()
     {
@@ -30,48 +21,6 @@ public class PlayerCharacter_ClimbingPipe : PlayerCharacterFSM_IState
         // Then check that we are still on a climbable object
         if (FSM.ActiveHangTarget == null)
             return PlayerCharacterStates.PlayerCharacter_TransitioningZ;
-
-        // We face forward while climbing
-        Direction = Vector3.zero;
-
-        // Determine the bounds of the object(s) we are climbing
-		bool insideDown = false;
-		bool insideUp = false;
-		bool insideLeft = false;
-		bool insideRight = false;
-		foreach(HangableObject obj in FSM.HangQueue)
-		{
-	        insideDown = insideDown || FSM.transform.position.y - FSM.collider.bounds.extents.y >
-	                obj.transform.position.y - obj.collider.bounds.extents.y;
-	        insideUp = insideUp || FSM.transform.position.y + FSM.collider.bounds.extents.y <
-	              obj.transform.position.y + obj.collider.bounds.extents.y;
-	        insideLeft = insideLeft || FSM.transform.position.x - FSM.collider.bounds.extents.x >
-	                obj.transform.position.x - obj.collider.bounds.extents.x;
-	        insideRight = insideRight || FSM.transform.position.x + FSM.collider.bounds.extents.x <
-	              obj.transform.position.x + obj.collider.bounds.extents.x;
-		}
-
-        // Determine vertical movement
-        if (UpHold && !DownHold && insideUp)
-            VerticalSpeed = FSM.LadderClimbingSpeed;
-        else if (DownHold && !UpHold && insideDown)
-            VerticalSpeed = -FSM.LadderClimbingSpeed;
-        else
-            VerticalSpeed = 0.0f;
-
-        // Determine horizontal movement
-        if (LeftHold && !RightHold && FSM.ActiveHangTarget != null && insideLeft)
-        {
-            HorizontalSpeed = -FSM.LadderStrafingSpeed;
-            VerticalSpeed = 0.0f;
-        }
-        else if (RightHold && !LeftHold && FSM.ActiveHangTarget != null && insideRight)
-        {
-            HorizontalSpeed = FSM.LadderStrafingSpeed;
-            VerticalSpeed = 0.0f;
-        }
-        else
-            HorizontalSpeed = 0.0f;
 
         // Make our character animate correctly
         if (HorizontalSpeed != 0.0f && !FSM.animation.IsPlaying("HangingStrafe"))
@@ -93,11 +42,6 @@ public class PlayerCharacter_ClimbingPipe : PlayerCharacterFSM_IState
             nextState = PlayerCharacterStates.PlayerCharacter_Falling;
 
         return nextState;
-    }
-
-    public override bool IsWallHangState()
-    {
-        return true;
     }
 }
  */

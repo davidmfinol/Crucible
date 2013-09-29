@@ -259,14 +259,56 @@ public class CharacterAnimator : MonoBehaviour
 	
 	protected virtual void ClimbingVertical(float elapsedTime)
 	{
-		VerticalSpeed = 0;
 		HorizontalSpeed = 0;
+
+        // Determine the vertical bounds of the object(s) we are climbing
+		bool insideDown = false;
+		bool insideUp = false;
+		foreach(HangableObject obj in HangQueue)
+		{
+	        insideDown = insideDown || transform.position.y - Controller.collider.bounds.extents.y >
+	                obj.transform.position.y - obj.collider.bounds.extents.y;
+	        insideUp = insideUp || transform.position.y + Controller.collider.bounds.extents.y <
+	              obj.transform.position.y + obj.collider.bounds.extents.y;
+		}
+
+        // Determine vertical movement
+        if (CharInput.Up && !CharInput.Down && (!(ActiveHangTarget is Pipe) || insideUp))
+            VerticalSpeed = Settings.LadderClimbingSpeed;
+        else if (CharInput.Down && !CharInput.Up && (!(ActiveHangTarget is Pipe) || insideDown))
+            VerticalSpeed = -Settings.LadderClimbingSpeed;
+        else
+            VerticalSpeed = 0.0f;
 	}
 	
 	protected virtual void ClimbingStrafe(float elapsedTime)
 	{
 		VerticalSpeed = 0;
-		HorizontalSpeed = 0;
+
+        // Determine the horizontal bounds of the object(s) we are climbing
+		bool insideLeft = false;
+		bool insideRight = false;
+		foreach(HangableObject obj in HangQueue)
+		{
+	        insideLeft = insideLeft || transform.position.x - Controller.collider.bounds.extents.x >
+	                obj.transform.position.x - obj.collider.bounds.extents.x;
+	        insideRight = insideRight || transform.position.x + Controller.collider.bounds.extents.x <
+	              obj.transform.position.x + obj.collider.bounds.extents.x;
+		}
+
+        // Determine horizontal movement
+        if (CharInput.Left && !CharInput.Right && ActiveHangTarget != null && insideLeft)
+        {
+            HorizontalSpeed = -Settings.LadderStrafingSpeed;
+            VerticalSpeed = 0.0f;
+        }
+        else if (CharInput.Right && !CharInput.Left && ActiveHangTarget != null && insideRight)
+        {
+            HorizontalSpeed = Settings.LadderStrafingSpeed;
+            VerticalSpeed = 0.0f;
+        }
+        else
+            HorizontalSpeed = 0.0f;
 	}
 	
 	protected virtual void ApplyRunning(float elapsedTime)

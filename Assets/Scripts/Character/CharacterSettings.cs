@@ -14,7 +14,7 @@ public class CharacterSettings : MonoBehaviour
     public float HorizontalAcceleration = 6.0f;
 
     // How high the character jumps
-    public float JumpHeight = 5.0f;
+    public float JumpHeight = 6.0f;
 	
     // Rate of change of vertical fall speed
     public float Gravity = 40.0f;
@@ -29,7 +29,7 @@ public class CharacterSettings : MonoBehaviour
     public float ZLerp = 10.0f;
 	
 	// How fast the character climbs ledges
-	public float LedgeClimbingSpeed = 7.5f;
+	public float LedgeClimbingSpeed = 5.0f;
 	
 	// How close the character has to be to the top of a ledge to grab onto it
 	public float LedgeLeniency = 0.3f;
