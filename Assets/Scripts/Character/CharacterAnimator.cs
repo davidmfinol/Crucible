@@ -322,10 +322,8 @@ public class CharacterAnimator : MonoBehaviour
         VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
     }
 	
-	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
-	void FixedUpdate()
+	protected virtual void UpdateMecanimVariables()
 	{
-		// Update the Animator (this can be overwritten by processState())
 		if(!MecanimAnimator.GetBool(Settings.Jump) && IsGrounded && CharInput.Jump)
 		{
 			MecanimAnimator.SetBool(Settings.Jump, true);
@@ -335,7 +333,12 @@ public class CharacterAnimator : MonoBehaviour
 		MecanimAnimator.SetBool(Settings.IsGrounded, IsGrounded);
 		MecanimAnimator.SetBool(Settings.Attack1, CharInput.Attack1);
 		MecanimAnimator.SetBool(Settings.Attack2, CharInput.Attack2);
-		
+	}
+	
+	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
+	void FixedUpdate()
+	{
+		UpdateMecanimVariables();
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction)
 		AnimatorStateInfo currentState = MecanimAnimator.GetCurrentAnimatorStateInfo(0);
 		ProcessState processState;

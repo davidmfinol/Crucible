@@ -7,5 +7,16 @@ using System.Collections;
 [AddComponentMenu("Character/Zombie/Zombie Settings")]
 public class ZombieSettings : CharacterSettings
 {
+	private int _takeHit;
 	
+	protected override void Awake ()
+	{
+		base.Awake ();
+		_takeHit = Animator.StringToHash("TakeHit");
+	}
+	
+	public int TakeHit
+	{
+		get { return _takeHit; }
+	}
 }

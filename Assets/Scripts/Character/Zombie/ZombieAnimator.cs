@@ -14,15 +14,27 @@ public class ZombieAnimator : CharacterAnimator
 	{
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
-		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
-		StateMachine[Animator.StringToHash("Jumping.Jumping")] = Jumping;
-		StateMachine[Animator.StringToHash("Jumping.JumpFalling")] = JumpFalling;
-		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = JumpLanding;
-		StateMachine[Animator.StringToHash("Falling.Falling")] = Falling;
-		StateMachine[Animator.StringToHash("Falling.Landing")] = Landing;
-		StateMachine[Animator.StringToHash("Hanging.Hanging")] = Hanging;
-		StateMachine[Animator.StringToHash("Hanging.ClimbingLedge")] = ClimbingLedge;
-		StateMachine[Animator.StringToHash("Climbing.ClimbingVertical")] = ClimbingVertical;
-		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
+		StateMachine[Animator.StringToHash("Base Layer.TakingDamage")] = TakeHit;
+	}
+	
+	public void TakeHit(float elapsedTime)
+	{
+		HorizontalSpeed = 0;
+		VerticalSpeed = GroundVerticalSpeed;
+	}
+	
+	protected override void UpdateMecanimVariables ()
+	{
+		base.UpdateMecanimVariables ();
+		MecanimAnimator.SetBool(Settings.TakeHit, true);
+	}
+	
+	public new ZombieSettings Settings
+	{
+		get { return (ZombieSettings) base.Settings; }
+	}
+	public new ZombieInput CharInput
+	{
+		get { return (ZombieInput) base.CharInput; }
 	}
 }

@@ -52,7 +52,7 @@ public class CharacterSettings : MonoBehaviour
 	private int _attack2;
 	private int _climbLedge;
 	
-	void Awake()
+	protected virtual void Awake()
 	{
 		_randomIdle = Animator.StringToHash("RandomIdle");
 		_horizontalSpeed = Animator.StringToHash("HorizontalSpeed");
