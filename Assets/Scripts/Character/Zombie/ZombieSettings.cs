@@ -2,21 +2,10 @@
 using System.Collections;
 
 /// <summary>
-/// Zombie settings.
+/// Zombie settings holds the modifiable parameters for a zombie.
 /// </summary>
 [AddComponentMenu("Character/Zombie/Zombie Settings")]
 public class ZombieSettings : CharacterSettings
 {
-	private int _takeHit;
 	
-	protected override void Awake ()
-	{
-		base.Awake ();
-		_takeHit = Animator.StringToHash("TakeHit");
-	}
-	
-	public int TakeHit
-	{
-		get { return _takeHit; }
-	}
 }

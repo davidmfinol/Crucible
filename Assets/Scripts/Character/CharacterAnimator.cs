@@ -30,7 +30,6 @@ public class CharacterAnimator : MonoBehaviour
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
-	private float _lastGroundHeight;
 	
     // Moving platform support 
     private Transform _activePlatform;
@@ -40,7 +39,6 @@ public class CharacterAnimator : MonoBehaviour
     // Support for hanging off of objects
 	private List<HangableObject> _hangQueue = new List<HangableObject>();
     private HangableObject _previousHangTarget = null;
-	private Ledge _ledge;
 	
     // We need a way to move between zones
     private Zone _currentZone = null; // Zone we are currently in
@@ -49,29 +47,41 @@ public class CharacterAnimator : MonoBehaviour
     private HashSet<Zone> _zones = new HashSet<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 	
-	protected virtual void Start()
+	void Awake()
 	{
-		_characterController = GetComponent<CharacterController>();
-		_animator = GetComponent<Animator>();
-		_characterSettings = GetComponent<CharacterSettings>();
-		_characterInput = GetComponent<CharacterInput>();
-		
-		_heartBox = GetComponentInChildren<HeartBox>();
-		_lastGroundHeight = transform.position.y;
-		
 		_stateMachine = new Dictionary<int, ProcessState>();
 		CreateStateMachine();
 	}
 	protected virtual void CreateStateMachine()
 	{
-		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
+		StateMachine[Animator.StringToHash("Base Layer.Idle")] = DoNothing;
+	}
+	public void DoNothing(float elapsedTime)
+	{
+		// Empty method to indicate that a state has no corresponding motion
 	}
 	
-	protected virtual void Update()
+	void Start()
+	{
+		_characterController = GetComponent<CharacterController>();
+		_animator = GetComponent<Animator>();
+		_characterSettings = GetComponent<CharacterSettings>();
+		_characterInput = GetComponent<CharacterInput>();
+		_heartBox = GetComponentInChildren<HeartBox>();
+		
+		Initialize();
+	}
+	protected virtual void Initialize()
+	{
+		// Child classes should override this method if they want to initialize variables on Start()
+	}
+	
+	void Update()
 	{
 		// Check health every frame to make sure we aren't dead
         if (_heartBox != null && _heartBox.HitPoints <= 0)
             OnDeath();
+		
         // Correct our Z value when we are in only one zone
         if (Zones.Count == 1 && !CanTransitionZ)
         {
@@ -81,271 +91,36 @@ public class CharacterAnimator : MonoBehaviour
             _Zhigher = it.Current;
             _currentZone = it.Current;
         }
-	}
-	
-    public virtual void OnDeath()
-    {
-		MecanimAnimator.SetBool(Settings.Die, true);
-    }
-				
-	protected virtual void Die(float elapsedTime)
-	{
-		MecanimAnimator.SetBool(Settings.Die, false);
 		
-		if(MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
-        	Destroy(gameObject);
+		// Let child classes do any additional processing
+		OnUpdate();
 	}
-	
-	protected virtual void Idle(float elapsedTime)
+	protected virtual void OnDeath()
 	{
-		//TODO: SET up different idles with MecanimAnimator.SetFloat("RandomIdle", (float) _random.NextDouble());
-		ApplyRunning(elapsedTime);
-		VerticalSpeed = GroundVerticalSpeed;
-        if (CharInput.Left && !CharInput.Right)
-            Direction = Vector3.left;
-		else if (CharInput.Right && !CharInput.Left)
-			Direction = Vector3.right;
-        else if (CharInput.Up)
-            Direction = Vector3.zero;
-		
-		if(!MecanimAnimator.GetBool(Settings.Fall) && !IsGrounded)
-		{
-			MecanimAnimator.SetBool(Settings.Fall, true);
-			_lastGroundHeight = transform.position.y;
-		}
+		Destroy(gameObject);
 	}
-	
-	protected virtual void Running(float elapsedTime)
+	protected virtual void OnUpdate()
 	{
-		ApplyRunning(elapsedTime);
-		VerticalSpeed = GroundVerticalSpeed;
-        if (CharInput.Left && !CharInput.Right)
-            Direction = Vector3.left;
-		else if (CharInput.Right && !CharInput.Left)
-			Direction = Vector3.right;
-		
-		if(!MecanimAnimator.GetBool(Settings.Fall) && !IsGrounded)
-		{
-			MecanimAnimator.SetBool(Settings.Fall, true);
-			_lastGroundHeight = transform.position.y;
-		}
+		// Child classes may override this method if they want to do things during update
 	}
-	
-	protected virtual void Jumping(float elapsedTime)
-	{
-		ApplyRunning(elapsedTime);
-		if(MecanimAnimator.GetBool(Settings.Jump))
-		{
-        	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
-			MecanimAnimator.SetBool(Settings.Jump, false);
-		}
-		else
-			ApplyGravity(elapsedTime);
-		MecanimAnimator.SetBool(Settings.Fall, false);
-        if (CharInput.Left && !CharInput.Right)
-            Direction = Vector3.left;
-		else if (CharInput.Right && !CharInput.Left)
-			Direction = Vector3.right;
-		
-		MecanimAnimator.SetBool(Settings.Hang, 
-			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
-	}
-	
-	protected virtual void JumpFalling(float elapsedTime)
-	{
-		ApplyRunning(elapsedTime);
-		ApplyGravity(elapsedTime);
-		if(transform.position.y > _lastGroundHeight)
-			MecanimAnimator.SetBool(Settings.Fall, false);
-		MecanimAnimator.SetBool(Settings.Hang, 
-			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
-	}
-	
-	protected virtual void Falling(float elapsedTime)
-	{
-		ApplyRunning(elapsedTime);
-		ApplyGravity(elapsedTime);
-		MecanimAnimator.SetBool(Settings.Fall, false);
-		MecanimAnimator.SetBool(Settings.Hang, 
-			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
-	}
-	
-	protected virtual void JumpLanding(float elapsedTime)
-	{
-		ApplyRunning(elapsedTime);
-		VerticalSpeed = GroundVerticalSpeed;
-	}
-	
-	protected virtual void Landing(float elapsedTime)
-	{
-		ApplyStopping(elapsedTime);
-		VerticalSpeed = GroundVerticalSpeed;
-	}
-	
-	protected virtual void Hanging(float elapsedTime)
-	{
-		VerticalSpeed = 0;
-		if(MecanimAnimator.GetBool(Settings.Hang))
-		{
-			VerticalSpeed = 0;
-	        if (ActiveHangTarget.DoesFaceZAxis())
-	        {
-	            HorizontalSpeed = 0.0f;
-	            Direction = Vector3.zero;
-	        }
-	        else
-	        {
-	            HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
-	            if (IsHangTargetToRight)
-	                Direction = Vector3.right;
-	            else
-	                Direction = Vector3.left;
-	        }
-			
-			if(ActiveHangTarget is Ledge)
-	        	_ledge = (Ledge) ActiveHangTarget;
-			else
-				_ledge = null;
-			
-			DropHangTarget();
-			MecanimAnimator.SetBool(Settings.Hang, false);
-		}
-		
-        if (_ledge != null && (CharInput.Up || InputForward))
-			MecanimAnimator.SetBool(Settings.ClimbLedge, true);
-		else if(CharInput.Jump)
-			MecanimAnimator.SetBool(Settings.Jump, true);
-		else if(CharInput.Down)
-			MecanimAnimator.SetBool(Settings.Fall, true);
-	}
-	
-	protected virtual void ClimbingLedge(float elapsedTime)
-	{
-		if(MecanimAnimator.GetBool(Settings.ClimbLedge))
-		{
-	        if (_ledge.DoesFaceZAxis())
-	        {
-	            HorizontalSpeed = 0.0f;
-	            VerticalSpeed = Settings.LedgeClimbingSpeed;
-	        }
-	        else if (_ledge.DoesFaceXAxis())
-	        {
-	            HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
-	            VerticalSpeed = Settings.LedgeClimbingSpeed;
-	        }
-			MecanimAnimator.SetBool(Settings.ClimbLedge, false);
-		}
-		else
-		{
-	        if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
-	            VerticalSpeed = GroundVerticalSpeed;
-		}
-	}
-	
-	protected virtual void ClimbingVertical(float elapsedTime)
-	{
-		HorizontalSpeed = 0;
-
-        // Determine the vertical bounds of the object(s) we are climbing
-		bool insideDown = false;
-		bool insideUp = false;
-		foreach(HangableObject obj in HangQueue)
-		{
-	        insideDown = insideDown || transform.position.y - Controller.collider.bounds.extents.y >
-	                obj.transform.position.y - obj.collider.bounds.extents.y;
-	        insideUp = insideUp || transform.position.y + Controller.collider.bounds.extents.y <
-	              obj.transform.position.y + obj.collider.bounds.extents.y;
-		}
-
-        // Determine vertical movement
-        if (CharInput.Up && !CharInput.Down && (!(ActiveHangTarget is Pipe) || insideUp))
-            VerticalSpeed = Settings.LadderClimbingSpeed;
-        else if (CharInput.Down && !CharInput.Up && (!(ActiveHangTarget is Pipe) || insideDown))
-            VerticalSpeed = -Settings.LadderClimbingSpeed;
-        else
-            VerticalSpeed = 0.0f;
-	}
-	
-	protected virtual void ClimbingStrafe(float elapsedTime)
-	{
-		VerticalSpeed = 0;
-
-        // Determine the horizontal bounds of the object(s) we are climbing
-		bool insideLeft = false;
-		bool insideRight = false;
-		foreach(HangableObject obj in HangQueue)
-		{
-	        insideLeft = insideLeft || transform.position.x - Controller.collider.bounds.extents.x >
-	                obj.transform.position.x - obj.collider.bounds.extents.x;
-	        insideRight = insideRight || transform.position.x + Controller.collider.bounds.extents.x <
-	              obj.transform.position.x + obj.collider.bounds.extents.x;
-		}
-
-        // Determine horizontal movement
-        if (CharInput.Left && !CharInput.Right && ActiveHangTarget != null && insideLeft)
-        {
-            HorizontalSpeed = -Settings.LadderStrafingSpeed;
-            VerticalSpeed = 0.0f;
-        }
-        else if (CharInput.Right && !CharInput.Left && ActiveHangTarget != null && insideRight)
-        {
-            HorizontalSpeed = Settings.LadderStrafingSpeed;
-            VerticalSpeed = 0.0f;
-        }
-        else
-            HorizontalSpeed = 0.0f;
-	}
-	
-	protected virtual void ApplyRunning(float elapsedTime)
-	{
-		// Horizontal runnning speed is based off horizontal input
-        float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
-		if(CharInput.Left || CharInput.Right)
-        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Direction.x * Settings.MaxHorizontalSpeed, accelerationSmoothing);
-		else
-        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, 0, accelerationSmoothing);
-		MecanimAnimator.SetFloat(Settings.HorizontalSpeed, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
-	}
-	protected virtual void ApplyStopping(float elapsedTime)
-	{
-		// Horizontal runnning speed is based off horizontal input
-        float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
-    	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, 0, accelerationSmoothing);
-		MecanimAnimator.SetFloat(Settings.HorizontalSpeed, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
-	}
-    protected virtual void ApplyGravity(float elapsedTime)
-    {
-        VerticalSpeed -= Settings.Gravity * elapsedTime;
-        VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
-    }
-	
 	protected virtual void UpdateMecanimVariables()
 	{
-		if(!MecanimAnimator.GetBool(Settings.Jump) && IsGrounded && CharInput.Jump)
-		{
-			MecanimAnimator.SetBool(Settings.Jump, true);
-			_lastGroundHeight = transform.position.y;
-		}
-		MecanimAnimator.SetBool(Settings.Climb, (CanClimbPipe || CanClimbLadder) && CharInput.Up );
-		MecanimAnimator.SetBool(Settings.IsGrounded, IsGrounded);
-		MecanimAnimator.SetBool(Settings.Attack1, CharInput.Attack1);
-		MecanimAnimator.SetBool(Settings.Attack2, CharInput.Attack2);
+		// Empty by default; child classes should override
 	}
 	
 	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
 	void FixedUpdate()
 	{
+		// Some variables for mecanim can be updated every frame
 		UpdateMecanimVariables();
-		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction)
+		
+		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
 		AnimatorStateInfo currentState = MecanimAnimator.GetCurrentAnimatorStateInfo(0);
 		ProcessState processState;
 		if(StateMachine.TryGetValue(currentState.nameHash, out processState))
 			processState(Time.fixedDeltaTime);
 		else
-			Debug.LogError(currentState.nameHash + " does not have a corresponding delegate");
+			Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + currentState.nameHash + " does not have a corresponding function delegate.");
 		
 		// Do the movement
 		PerformMotion(Time.fixedDeltaTime);
@@ -454,6 +229,81 @@ public class CharacterAnimator : MonoBehaviour
 	        //body.AddForceAtPosition(force, hit.point);
 		}
     }
+	
+	// Helper methods for motion
+	protected virtual void ApplyRunning(float elapsedTime)
+	{
+        float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
+		if(CharInput.Right)
+        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Settings.MaxHorizontalSpeed, accelerationSmoothing);
+		else if(CharInput.Left)
+        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, -Settings.MaxHorizontalSpeed, accelerationSmoothing);
+		else
+        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, 0, accelerationSmoothing);
+	}
+    protected virtual void ApplyGravity(float elapsedTime)
+    {
+        VerticalSpeed -= Settings.Gravity * elapsedTime;
+        VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
+    }
+	protected virtual void ApplyBiDirection()
+	{
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+		else if (CharInput.Right && !CharInput.Left)
+			Direction = Vector3.right;
+	}
+	protected virtual void ApplyTriDirection()
+	{
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+		else if (CharInput.Right && !CharInput.Left)
+			Direction = Vector3.right;
+        else if (CharInput.Up)
+            Direction = Vector3.zero;
+	}
+	protected virtual void ApplyLadderClimbing()
+	{
+        // Determine the vertical bounds of the object(s) we are climbing
+		bool insideDown = false;
+		bool insideUp = false;
+		foreach(HangableObject obj in HangQueue)
+		{
+	        insideDown = insideDown || transform.position.y - Controller.collider.bounds.extents.y >
+	                obj.transform.position.y - obj.collider.bounds.extents.y;
+	        insideUp = insideUp || transform.position.y + Controller.collider.bounds.extents.y <
+	              obj.transform.position.y + obj.collider.bounds.extents.y;
+		}
+
+        // Determine vertical movement
+        if (CharInput.Up && !CharInput.Down && (!(ActiveHangTarget is Pipe) || insideUp))
+            VerticalSpeed = Settings.LadderClimbingSpeed;
+        else if (CharInput.Down && !CharInput.Up && (!(ActiveHangTarget is Pipe) || insideDown))
+            VerticalSpeed = -Settings.LadderClimbingSpeed;
+        else
+            VerticalSpeed = 0.0f;
+	}
+	protected virtual void ApplyLadderStrafing()
+	{
+        // Determine the horizontal bounds of the object(s) we are climbing
+		bool insideLeft = false;
+		bool insideRight = false;
+		foreach(HangableObject obj in HangQueue)
+		{
+	        insideLeft = insideLeft || transform.position.x - Controller.collider.bounds.extents.x >
+	                obj.transform.position.x - obj.collider.bounds.extents.x;
+	        insideRight = insideRight || transform.position.x + Controller.collider.bounds.extents.x <
+	              obj.transform.position.x + obj.collider.bounds.extents.x;
+		}
+
+        // Determine horizontal movement
+        if (CharInput.Left && !CharInput.Right && ActiveHangTarget != null && insideLeft)
+            HorizontalSpeed = -Settings.LadderStrafingSpeed;
+        else if (CharInput.Right && !CharInput.Left && ActiveHangTarget != null && insideRight)
+            HorizontalSpeed = Settings.LadderStrafingSpeed;
+        else
+            HorizontalSpeed = 0.0f;
+	}
 	
 	// Methods for hanging
 	public void AddHangTarget(HangableObject hangTarget)

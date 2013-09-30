@@ -16,18 +16,16 @@ public class PlayerCharacterInput : CharacterInput
 	private Joystick _moveTouchPad;
 	private Joystick _jumpTouchPad;
 	private Joystick _attack1TouchPad;
-	public Transform MoveTouchPad;
-	public Transform JumpTouchPad;
-	public Transform Attack1TouchPad;
+	public Transform MoveTouchPadPrefab;
+	public Transform JumpTouchPadPrefab;
+	public Transform Attack1TouchPadPrefab;
 	
 	void Start()
 	{
 #if UNITY_ANDROID
-		
-		_moveTouchPad = ((Transform) Instantiate(MoveTouchPad)).GetComponent<Joystick>();
-		_jumpTouchPad = ((Transform) Instantiate(JumpTouchPad)).GetComponent<Joystick>();
-		_attack1TouchPad = ((Transform) Instantiate(Attack1TouchPad)).GetComponent<Joystick>();		
-		
+		_moveTouchPad = ((Transform) Instantiate(MoveTouchPadPrefab)).GetComponent<Joystick>();
+		_jumpTouchPad = ((Transform) Instantiate(JumpTouchPadPrefab)).GetComponent<Joystick>();
+		_attack1TouchPad = ((Transform) Instantiate(Attack1TouchPadPrefab)).GetComponent<Joystick>();
 #endif
 	}
 	
@@ -49,6 +47,13 @@ public class PlayerCharacterInput : CharacterInput
 		_attack2 = Input.GetButton("Secondary");
 #endif		
 		
+#if UNITY_EDITOR
+		_verticalInput = Input.GetAxis("Vertical");
+		_horizontalInput = Input.GetAxis("Horizontal");
+		_jump = Input.GetButton("Jump");
+		_attack1 = Input.GetButton("Primary");
+		_attack2 = Input.GetButton("Secondary");
+#endif	
 	}
 	
 	public override float VerticalInput
