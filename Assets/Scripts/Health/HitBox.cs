@@ -8,6 +8,7 @@ public enum BoxAllegiance { Player, Zombies, Explosions };
 /// Hit box hits heartboxes to deal damage.
 /// </summary>
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 [AddComponentMenu("Health/Hitbox")]
 public class HitBox : MonoBehaviour
 {

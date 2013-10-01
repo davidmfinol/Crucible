@@ -15,12 +15,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _jumpHash;
 	private int _fallHash;
 	private int _hangHash;
-	private int _climbHash;
+	private int _climbLadderHash;
 	private int _isGroundedHash;
 	private int _dieHash;
 	private int _attack1Hash;
 	private int _attack2Hash;
 	private int _climbLedgeHash;
+	private int _climbPipeHash;
 	private int _randomIdleHash;
 	
 	// Used to keep track of the last y position at which the player was grounded
@@ -45,10 +46,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = Running;
 		StateMachine[Animator.StringToHash("Falling.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Falling.Landing")] = Running;
-		StateMachine[Animator.StringToHash("Hanging.Hanging")] = Hanging;
-		StateMachine[Animator.StringToHash("Hanging.ClimbingLedge")] = ClimbingLedge;
-		StateMachine[Animator.StringToHash("Climbing.ClimbingVertical")] = ClimbingVertical;
+		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
+		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
+		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
+		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
 		
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
@@ -56,12 +58,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_jumpHash = Animator.StringToHash("Jump");
 		_fallHash = Animator.StringToHash("Fall");
 		_hangHash = Animator.StringToHash("Hang");
-		_climbHash = Animator.StringToHash("Climb");
+		_climbLadderHash = Animator.StringToHash("ClimbLadder");
 		_isGroundedHash = Animator.StringToHash("IsGrounded");
 		_dieHash = Animator.StringToHash("Die");
 		_attack1Hash = Animator.StringToHash("Attack1");
 		_attack2Hash = Animator.StringToHash("Attack2");
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
+		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_randomIdleHash = Animator.StringToHash("RandomIdle");
 	}
 	
@@ -77,7 +80,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_jumpHash, true);
 			_lastGroundHeight = transform.position.y;
 		}
-		MecanimAnimator.SetBool(_climbHash, (CanClimbPipe || CanClimbLadder) && CharInput.Up );
+		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.Up || CharInput.Down) );
+		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		MecanimAnimator.SetBool(_attack1Hash, CharInput.Attack1);
 		MecanimAnimator.SetBool(_attack2Hash, CharInput.Attack2);
@@ -85,10 +89,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected override void OnUpdate()
 	{
-		//TODO: ACTIVATE WEAPONS AS NECESSARY
+		// FIXME: THERE SHOULD BE A FASTER/MORE EFFICIENT WAY TO KEEP TRACK OF WEAPONS
+		// AKA, ANIMATION EVENTS ON START AND END OF ATTACK ANIMATION
+		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		if(weapon is Mine)
+		{
+			if(CharInput.Attack1)
+				weapon.ActivateAttack(0);
+			if(CharInput.Attack2)
+				weapon.ActivateAttack(1);
+		}
+		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Melee.None") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5)
+			weapon.ActivateAttack(0);
+		else
+			weapon.Deactivate();
+		// TODO: REDO EVERYTHING ABOUT THE PRECEDING TO MAKE IT TRULY EVENT-BASED 
 	}
 	
-    void OnDeath()
+    public override void OnDeath()
     {
 		MecanimAnimator.SetBool(_dieHash, true);
     }
@@ -180,6 +198,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(MecanimAnimator.GetBool(_hangHash))
 		{
 			VerticalSpeed = 0;
+			
+			if(ActiveHangTarget == null)
+			{
+				MecanimAnimator.SetBool(_fallHash, true);
+				return;
+			}
+			
 	        if (ActiveHangTarget.DoesFaceZAxis())
 	        {
 	            HorizontalSpeed = 0.0f;
@@ -243,20 +268,26 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		else
 			HorizontalSpeed = 0;
 		
-		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+		Direction = Vector3.zero;
 	}
 	
 	protected void ClimbingStrafe(float elapsedTime)
 	{
 		ApplyLadderStrafing();
 		
-		// Determine Vertical Movement
 		if(HorizontalSpeed != 0)
 			ApplyLadderClimbing();
 		else
 			VerticalSpeed = 0.0f;
 		
-		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
+		Direction = Vector3.zero;
+		
+		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+		if(CharInput.Jump)
+		{
+			MecanimAnimator.SetBool(_jumpHash, true);
+			_lastGroundHeight = transform.position.y;
+		}
 	}
 	
 	

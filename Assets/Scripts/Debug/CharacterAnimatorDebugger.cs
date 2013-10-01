@@ -29,16 +29,17 @@ public class CharacterAnimatorDebugger : MonoBehaviour
         if (ShowCharacterMotion)
         {
             GUI.Box(new Rect(10, 10, 300, 20), "Direction: " + _character.Direction.ToString());
-            GUI.Box(new Rect(10, 35, 300, 20), "Horizontal: " + _character.HorizontalSpeed + ", Vertical: " + GetComponent<CharacterAnimator>().VerticalSpeed);
+            GUI.Box(new Rect(10, 35, 300, 20), "Horizontal: " + _character.HorizontalSpeed + ", Vertical: " + _character.VerticalSpeed);
+            GUI.Box(new Rect(10, 60, 300, 20), "Hang: " + _character.CanHangOffObject + ", Grab Pipe: " + _character.CanClimbPipe + ", Grab Ladder: " + _character.CanClimbLadder);
         }
         if (ShowZLevels)
         {
-            GUI.Box(new Rect(10, 60, 300, 20), "Current Z: " + _character.CurrentZone.ToString());
+            GUI.Box(new Rect(10, 85, 300, 20), "Current Zone: " + _character.CurrentZone.ToString());
             string zones = "";
             foreach (Zone z in _character.Zones)
                 zones += z.transform.position.z.ToString() + " ";
-            GUI.Box(new Rect(10, 85, 300, 20), "Zones: " + zones);
-            GUI.Box(new Rect(10, 110, 300, 20), "Z_Down: " + _character.Z_Down.ToString() + ", Z_Up: " + _character.Z_Up.ToString() + ", TransitionZ: " + _character.CanTransitionZ.ToString());
+            GUI.Box(new Rect(10, 110, 300, 20), "Zones: " + zones);
+            GUI.Box(new Rect(10, 135, 300, 20), "Z_Down: " + _character.Z_Down.ToString() + ", Z_Up: " + _character.Z_Up.ToString() + ", TransitionZ: " + _character.CanTransitionZ.ToString());
         }
     }
 }

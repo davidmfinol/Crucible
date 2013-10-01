@@ -7,6 +7,8 @@ using System.Collections;
 [AddComponentMenu("Weaponry/Whip")]
 public class Whip : Weapon
 {
+    public WeaponAudioPlayer sound;
+	
     private bool _hitBoxesActive = false;
 
     public string IdleAnimationName = "Whip_Idle";
@@ -19,7 +21,9 @@ public class Whip : Weapon
 
     public override void ActivateAttack(int attackID)
     {
-        base.ActivateAttack(attackID);
+        if(sound != null)
+            sound.Play(attackID);
+		
         ActivateHitBox(true);
         if (animation != null)
             animation.CrossFade(AttackAnimationName);
@@ -27,7 +31,6 @@ public class Whip : Weapon
 
     public override void Deactivate()
     {
-        base.Deactivate();
         ActivateHitBox(false);
         if (animation != null)
             animation.CrossFade(IdleAnimationName);

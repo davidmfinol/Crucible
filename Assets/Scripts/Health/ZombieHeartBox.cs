@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Zombie heart box keeps track of the zombie's health and indicates where it can be hit.
 /// </summary>
-[AddComponentMenu("Health/Zombie Heartbox")]
+[AddComponentMenu("Health/Zombie Heart Box")]
 public class ZombieHeartBox : HeartBox
 {
     public float TimeSinceHit;
@@ -25,10 +25,9 @@ public class ZombieHeartBox : HeartBox
         {
             hitbox.stampRecord.Imprint(createHeartBoxStamp());
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
-
+			Debug.Log("We took a hit");
             HitPoints -= hitbox.Damage;
-      //   TODO: MOVE THIS?:    ZombieFSM zombie = transform.parent.GetComponent<ZombieFSM>();
-        //    zombie.SetState(ZombieStates.Zombie_TakingDamage);
+			transform.parent.GetComponent<Animator>().SetBool("TakeHit", true); //FIXME: THIS IS SLOW
             TimeSinceHit = 0;
         }
     }
@@ -41,6 +40,6 @@ public class ZombieHeartBox : HeartBox
     {
         if (TimeSinceHit < 1.0f)
             return false;
-        return !((hitbox.Allegiance == this.Allegiance) || hitbox.Family.stampRecord.ContainsKey(heartBoxID));
+        return !((hitbox.Allegiance == this.Allegiance) /*|| hitbox.Family.stampRecord.ContainsKey(heartBoxID)*/); //TODO: PUT THIS BACK IN ONCE HITBOXES ARE DYNAMICALLY GENERATED
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 /// <summary>
 /// Player heart box indicates where the player can be hit and tracks health.
 /// </summary>
-[AddComponentMenu("Health/Player Character Heartbox")]
+[AddComponentMenu("Health/Player Character Heart Box")]
 public class PlayerHeartBox : HeartBox
 {
     public float TimeSinceHit;

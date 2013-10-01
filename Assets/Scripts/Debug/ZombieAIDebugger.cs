@@ -2,13 +2,13 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-/*
 /// <summary>
 /// Zombie AI debugger displays AI information for the zombie.
 /// In particular, it displays the AI Output and A* Path, with option of rendering path nodes on-screen at runtime.
-/// It also works with the FSM Debugger by showing the information right below the FSM Debugger's location.
+/// It also works with the CharacterAnimator Debugger by showing the information right below that debugger's location.
 /// </summary>
-[RequireComponent(typeof(ZombieFSM))]
+[RequireComponent(typeof(ZombieAnimator))]
+[RequireComponent(typeof(ZombieInput))]
 [AddComponentMenu("Debug/Zombie AI")]
 public class ZombieAIDebugger : MonoBehaviour
 {
@@ -18,13 +18,13 @@ public class ZombieAIDebugger : MonoBehaviour
 	
 	public Transform HighlightNode;
 	private GameObject _node;
-	private ZombieFSM _fsm;
-	private ZombieBrain _brain;
+	private ZombieAnimator _fsm;
+	private ZombieInput _brain;
 	
 	void Start()
 	{
-		_fsm = GetComponent<ZombieFSM>();
-		_brain = _fsm.Brain;
+		_fsm = GetComponent<ZombieAnimator>();
+		_brain = GetComponent<ZombieInput>();
 		_node = ((Transform) Instantiate(HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
 		_node.renderer.enabled = false;
 	}
@@ -47,15 +47,14 @@ public class ZombieAIDebugger : MonoBehaviour
 		
 		if(_brain == null)
 		{
-			_fsm = GetComponent<ZombieFSM>();
-			_brain = _fsm.Brain;
+			_fsm = GetComponent<ZombieAnimator>();
+			_brain = GetComponent<ZombieInput>();
 		}
 		
-        GUI.Box(new Rect(10, 135, 300, 20), "Vertical: " + _brain.Vertical + ", Horizontal: " + _brain.Horizontal + ", Jump: " + _brain.Jump + ", Attack:" + _brain.Attack);
+        GUI.Box(new Rect(10, 135, 300, 20), "Vertical: " + _brain.VerticalInput + ", Horizontal: " + _brain.HorizontalInput + ", Jump: " + _brain.Jump + ", Attack:" + _brain.Attack1);
         GUI.Box(new Rect(10, 160, 300, 20), "Transition Recent: " + _brain.HasTransitionRecent + ", Repathed: " + _brain.TimeSinceRepath);
     	GUI.Box(new Rect(10, 185, 300, 20), "Target: " + _brain.Target + ", Searching: " + _brain.SearchingForPath);
 		if(_brain.Path != null)
         	GUI.Box(new Rect(10, 210, 300, 20), "At node " + (_brain.CurrentPathWaypoint) + " of vectorPath length " + _brain.Path.vectorPath.Count + "& path length " + _brain.Path.path.Count);
     }
 }
- */

@@ -92,10 +92,25 @@ public class CharacterAnimator : MonoBehaviour
             _currentZone = it.Current;
         }
 		
+		// Handle movement between zones
+		if(CanTransitionZ)
+		{
+			if(CharInput.Up && !CharInput.Down)
+			{
+				_Zlower = _currentZone;
+				_currentZone = _Zhigher;
+			}
+			else if(CharInput.Down && !CharInput.Up)
+			{
+				_Zhigher = _currentZone;
+				_currentZone = _Zlower;
+			}
+		}
+		
 		// Let child classes do any additional processing
 		OnUpdate();
 	}
-	protected virtual void OnDeath()
+	public virtual void OnDeath()
 	{
 		Destroy(gameObject);
 	}
