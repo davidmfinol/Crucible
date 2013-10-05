@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// CharacterAnimator works with CharacterController and Mecanim's Animator to move and animate characters.
@@ -44,7 +45,7 @@ public class CharacterAnimator : MonoBehaviour
     private Zone _currentZone = null; // Zone we are currently in
     private Zone _Zlower = null; // Zone we go to if we press down
     private Zone _Zhigher = null; // Zone we go to if we press up
-    private HashSet<Zone> _zones = new HashSet<Zone>(); // All the zones we could currently be in
+    private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 	
 	void Awake()
@@ -85,24 +86,21 @@ public class CharacterAnimator : MonoBehaviour
         // Correct our Z value when we are in only one zone
         if (Zones.Count == 1 && !CanTransitionZ)
         {
-            IEnumerator<Zone> it = Zones.GetEnumerator();
+            IEnumerator it = Zones.GetEnumerator();
             it.MoveNext();
-            _Zlower = it.Current;
-            _Zhigher = it.Current;
-            _currentZone = it.Current;
+            _currentZone = (Zone)it.Current;
         }
 		
 		// Handle movement between zones
 		if(CanTransitionZ)
 		{
+			DetermineZOrder();
 			if(CharInput.Up && !CharInput.Down)
 			{
-				_Zlower = _currentZone;
 				_currentZone = _Zhigher;
 			}
 			else if(CharInput.Down && !CharInput.Up)
 			{
-				_Zhigher = _currentZone;
 				_currentZone = _Zlower;
 			}
 		}
@@ -351,7 +349,16 @@ public class CharacterAnimator : MonoBehaviour
         if (ActiveHangTarget == null)
             _activePlatform = null;
 	}
-	
+	// Determines the adjacent Z zones
+	public void DetermineZOrder()
+	{
+		int position = Zones.BinarySearch(CurrentZone, new Zone.CompareZonesByZValue());
+		
+		if(position-1 >= 0)
+			_Zlower = Zones[position-1];
+		if(position+1 < Zones.Count)
+			_Zhigher = Zones[position+1];
+	}
 	// Movement/Animation Properties
 	public CharacterController Controller
 	{
@@ -479,7 +486,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     public bool CanClimbPipe
     {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Pipe && ActiveHangTarget.transform.position.z == DesiredZ; }
+        get { return ActiveHangTarget != null && ActiveHangTarget is Pipe; } //&& ActiveHangTarget.transform.position.z == DesiredZ; }
     }
     public bool CanHangOffObjectHorizontally
     {
@@ -526,7 +533,7 @@ public class CharacterAnimator : MonoBehaviour
 		get { return _Zhigher; }
 		set { _Zhigher = value; }
 	}
-    public HashSet<Zone> Zones
+    public List<Zone> Zones
     {
         get { return _zones; }
     }

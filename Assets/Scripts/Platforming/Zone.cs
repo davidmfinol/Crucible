@@ -16,21 +16,8 @@ public class Zone : MonoBehaviour
         CharacterAnimator character = other.GetComponent<CharacterAnimator>();
         if (character != null)
         {
-            if (!IsInverse)
-            {
-                if (character.DesiredZ > transform.position.z)
-                    character.Z_Lower = this;
-                else if (character.DesiredZ < transform.position.z)
-                    character.Z_Higher = this;
-            }
-            else
-            {
-                if (character.transform.position.y < transform.position.y) // reaching the zone from below
-                    character.Z_Higher = this;
-                else // coming down to the zone from above
-                    character.Z_Lower = this;
-            }
             character.Zones.Add(this);
+			character.Zones.Sort(new CompareZonesByZValue());
         }
     }
 
@@ -39,11 +26,16 @@ public class Zone : MonoBehaviour
         CharacterAnimator character = other.GetComponent<CharacterAnimator>();
         if (character != null)
         {
-            if (character.Z_Lower == this)
-                character.Z_Lower = null;
-            if (character.Z_Higher == this)
-                character.Z_Higher = null;
             character.Zones.Remove(this);
         }
     }
+	
+	public class CompareZonesByZValue : IComparer<Zone>
+	{
+		public int Compare(Zone zone1, Zone zone2)
+		{
+			return (int)(zone1.transform.position.z - zone2.transform.position.z);
+		}
+	}
+	
 }
