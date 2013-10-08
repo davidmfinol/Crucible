@@ -8,7 +8,7 @@ using System.Collections.Generic;
 [AddComponentMenu("Platforming/Zone")]
 public class Zone : MonoBehaviour
 {
-	// If inverse, pressing up means you go down in ZLevel
+	// TODO: If inverse, pressing up means you go down in ZLevel
     public bool IsInverse = false;
 
     public void OnTriggerEnter (Collider other)
@@ -25,9 +25,7 @@ public class Zone : MonoBehaviour
     {
         CharacterAnimator character = other.GetComponent<CharacterAnimator>();
         if (character != null)
-        {
             character.Zones.Remove(this);
-        }
     }
 	
 	public class CompareZonesByZValue : IComparer<Zone>

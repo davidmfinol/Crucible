@@ -29,7 +29,7 @@ public class PlayerCharacterInput : CharacterInput
 #endif
 	}
 	
-	void Update()
+	protected override void UpdateInput()
 	{
 #if UNITY_ANDROID
 		_verticalInput = _moveTouchPad.position.y;

@@ -41,7 +41,7 @@ public class ZombieInput : CharacterInput
 		UpdateAStarTarget(Vector3.zero);
 	}
 	
-	void Update()
+	protected override void UpdateInput()
     {
 		// By default, have the zombie do nothing
         _horizontal = 0;

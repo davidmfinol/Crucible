@@ -83,30 +83,41 @@ public class CharacterAnimator : MonoBehaviour
         if (_heartBox != null && _heartBox.HitPoints <= 0)
             OnDeath();
 		
-        // Correct our Z value when we are in only one zone
-        if (Zones.Count == 1 && !CanTransitionZ)
-        {
-            IEnumerator it = Zones.GetEnumerator();
-            it.MoveNext();
-            _currentZone = (Zone)it.Current;
-        }
-		
-		// Handle movement between zones
-		if(CanTransitionZ)
-		{
-			DetermineZOrder();
-			if(CharInput.Up && !CharInput.Down)
-			{
-				_currentZone = _Zhigher;
-			}
-			else if(CharInput.Down && !CharInput.Up)
-			{
-				_currentZone = _Zlower;
-			}
-		}
+		// Handle all the z-zone stuff in one location
+		UpdateZones();
 		
 		// Let child classes do any additional processing
 		OnUpdate();
+	}
+	private void UpdateZones()
+	{
+		// Do nothing if we're not in any zones
+		if (Zones.Count < 1)
+			return;
+		
+        // Correct our Z value when we are in a zone outside our list of zones
+		// We do this by justing move to the lowest zone available
+		if(CurrentZone == null)
+			CurrentZone = Zones[0];
+		int position = Zones.BinarySearch(CurrentZone, new Zone.CompareZonesByZValue());
+        if (position < 0)
+			CurrentZone = Zones[0];
+		
+		// Handle movement between zones
+		if(CanTransitionZ && Zones.Count > 0)
+		{
+			// Determine what z up and down are
+			if(position-1 >= 0)
+				_Zlower = Zones[position-1];
+			if(position+1 < Zones.Count)
+				_Zhigher = Zones[position+1];
+			
+			// Move to the z zone requested
+			if(CharInput.UpPressed && !CharInput.Down)
+				_currentZone = _Zhigher;
+			else if(CharInput.DownPressed && !CharInput.Up)
+				_currentZone = _Zlower;
+		}
 	}
 	public virtual void OnDeath()
 	{
@@ -124,7 +135,7 @@ public class CharacterAnimator : MonoBehaviour
 	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
 	void FixedUpdate()
 	{
-		// Some variables for mecanim can be updated every frame
+		// Some variables for mecanim are updated every frame
 		UpdateMecanimVariables();
 		
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
@@ -349,16 +360,7 @@ public class CharacterAnimator : MonoBehaviour
         if (ActiveHangTarget == null)
             _activePlatform = null;
 	}
-	// Determines the adjacent Z zones
-	public void DetermineZOrder()
-	{
-		int position = Zones.BinarySearch(CurrentZone, new Zone.CompareZonesByZValue());
-		
-		if(position-1 >= 0)
-			_Zlower = Zones[position-1];
-		if(position+1 < Zones.Count)
-			_Zhigher = Zones[position+1];
-	}
+	
 	// Movement/Animation Properties
 	public CharacterController Controller
 	{
