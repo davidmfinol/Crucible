@@ -96,7 +96,7 @@ public class CharacterAnimator : MonoBehaviour
 			return;
 		
         // Correct our Z value when we are in a zone outside our list of zones
-		// We do this by justing move to the lowest zone available
+		// We do this by just moving to the lowest zone available
 		if(CurrentZone == null)
 			CurrentZone = Zones[0];
 		int position = Zones.BinarySearch(CurrentZone, new Zone.CompareZonesByZValue());
@@ -139,7 +139,7 @@ public class CharacterAnimator : MonoBehaviour
 		UpdateMecanimVariables();
 		
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
-		AnimatorStateInfo currentState = MecanimAnimator.GetCurrentAnimatorStateInfo(0);
+		AnimatorStateInfo currentState = MecanimAnimator.IsInTransition(0) ? MecanimAnimator.GetNextAnimatorStateInfo(0) : MecanimAnimator.GetCurrentAnimatorStateInfo(0);
 		ProcessState processState;
 		if(StateMachine.TryGetValue(currentState.nameHash, out processState))
 			processState(Time.fixedDeltaTime);
