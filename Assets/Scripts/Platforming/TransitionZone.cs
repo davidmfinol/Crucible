@@ -37,11 +37,6 @@ public class TransitionZone : MonoBehaviour
 		if(AIOnly)
 			return;
 		
-		// If this transition zone is also a regular zone, upgrade it's zone
-        Zone zone = GetComponent<Zone>();
-        if (zone != null)
-            zone.OnTriggerEnter(other);
-		
         CharacterAnimator character = other.GetComponent<CharacterAnimator>();
         if (character != null)
         {
