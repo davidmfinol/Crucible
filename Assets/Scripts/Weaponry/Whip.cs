@@ -61,11 +61,11 @@ public class Whip : Weapon
     
     public override Vector3 Rotation
     {
-        get { return base.Rotation; }
+        get { return new Vector3(90, 0, 90); }
     }
     
     public override Vector3 Translation
     {
-        get { return base.Translation; }
+        get { return new Vector3(0.2f, 0.1f, 0.1f); }
     }
 }
