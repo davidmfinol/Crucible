@@ -29,7 +29,7 @@ public class CharacterAnimator : MonoBehaviour
     private float _horizontalSpeed = 0.0f; // How fast does the character want to move on the x-axis?
     private float _verticalSpeed = 0.0f; // How fast does the character want to move on the y-axis?
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
-	private Vector3 _prevDirection = Vector3.right; // The direction that the player was facing before the current direction
+	private Vector3 _prevDirection = Vector3.right; // The last direction that the player was facing before the current direction
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
 

@@ -103,7 +103,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			weapon.ActivateAttack(0);
 		else
 			weapon.Deactivate();
-		// TODO: REDO EVERYTHING ABOUT THE PRECEDING TO MAKE IT TRULY EVENT-BASED 
+		// TODO: REDO EVERYTHING ABOUT THE PRECEDING (should most likely make a seperate script to handle the combat layer?)
 	}
 	
     public override void OnDeath()
@@ -113,9 +113,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				
 	protected void Die(float elapsedTime)
 	{
-		MecanimAnimator.SetBool(_dieHash, false);
+        MecanimAnimator.SetBool(_jumpHash, false);
+		MecanimAnimator.SetBool(_fallHash, false);
+        MecanimAnimator.SetBool(_dieHash, false);
 		
-		if(MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+		if(MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7)
         	Spawn();
 	}
 	

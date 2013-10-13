@@ -58,4 +58,14 @@ public class Whip : Weapon
         for (int i = 0; i < current.childCount; ++i)
             SetHitBoxes(current.GetChild(i), active);
     }
+    
+    public override Vector3 Rotation
+    {
+        get { return base.Rotation; }
+    }
+    
+    public override Vector3 Translation
+    {
+        get { return base.Translation; }
+    }
 }

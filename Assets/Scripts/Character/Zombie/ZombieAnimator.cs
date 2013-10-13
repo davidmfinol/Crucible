@@ -21,6 +21,11 @@ public class ZombieAnimator : CharacterAnimator
 	
 	// Zombie should play it's own sound effects
     private ZombieAudioPlayer _zombieAudioSource;
+    
+    // Bones for our left and right hands
+    private Transform _bone_L;
+    private Transform _bone_R;
+
 	
 	protected override void CreateStateMachine()
 	{
@@ -48,6 +53,10 @@ public class ZombieAnimator : CharacterAnimator
 	protected override void Initialize ()
 	{
         _zombieAudioSource = GetComponentInChildren<ZombieAudioPlayer>();
+
+        // We need to find the bones for our hands so we can attack with them
+        _bone_L = CharacterSettings.SearchHierarchyForBone(transform, "forearm_L");
+        _bone_R = CharacterSettings.SearchHierarchyForBone(transform, "forearm_R");
 	}
 	
 	protected override void UpdateMecanimVariables()
@@ -56,8 +65,16 @@ public class ZombieAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_jumpHash, true);
 		MecanimAnimator.SetBool(_fallHash, !IsGrounded);
 		MecanimAnimator.SetBool(_climbHash, (CanClimbPipe || CanClimbLadder) && CharInput.Up );
-		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded); //FIXME: THIS LINE IS TOO LONG AND SLOW
-		MecanimAnimator.SetBool(_attackHash, !MecanimAnimator.GetBool(_takeHitHash) && !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && CharInput.Attack1);
+		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
+        //FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
+        bool shouldAttack = !MecanimAnimator.GetBool(_takeHitHash) && !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && CharInput.Attack1;
+        // REALISTICALLY, THE HITBOXES SHOULD BE CREATED AT RUNTIME AND THEN PARENTED TO THE BONE (THEN DESTROYED AT RUNTIME AS WELL)
+		MecanimAnimator.SetBool(_attackHash, shouldAttack);
+        _bone_L.GetComponent<Collider>().enabled = shouldAttack;
+        _bone_L.GetComponent<HitBox>().enabled = shouldAttack;
+        _bone_R.GetComponent<Collider>().enabled = shouldAttack;
+        _bone_R.GetComponent<HitBox>().enabled = shouldAttack;
+        //TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
 	}
 	
 	protected virtual void Idle(float elapsedTime)
@@ -137,6 +154,7 @@ public class ZombieAnimator : CharacterAnimator
 		Destroy(Settings);
         Destroy(Controller);
 		Destroy(MecanimAnimator);
+        Destroy(GetComponent<Seeker>());
     }
 	
     // Helper Method to activate the ragdoll of the zombie

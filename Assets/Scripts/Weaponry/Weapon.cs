@@ -17,4 +17,16 @@ public class Weapon : MonoBehaviour
     /// Deactivate the weapon
     /// </summary>
     public virtual void Deactivate() { }
+    
+    // How the weapon should be rotated while in hand
+    public virtual Vector3 Rotation
+    {
+        get { return Vector3.zero; }
+    }
+    
+    // How the weapon should be translated to be in hand
+    public virtual Vector3 Translation
+    {
+        get { return Vector3.zero; }
+    }
 }

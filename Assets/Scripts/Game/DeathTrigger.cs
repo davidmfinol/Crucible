@@ -14,6 +14,10 @@ public class DeathTrigger : MonoBehaviour
     {
         other.gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        collision.gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+    }
 
     // We'll draw a gizmo in the scene view, so it can be seen
     void OnDrawGizmos()

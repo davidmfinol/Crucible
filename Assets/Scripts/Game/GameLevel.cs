@@ -123,11 +123,13 @@ public class GameLevel : MonoBehaviour
 	    boxCollider.size = new Vector3(Boundaries.width + ColliderThickness * 2.0f, ColliderThickness, ZLength);
 	    boxCollider.center = new Vector3(Boundaries.x + Boundaries.width * 0.5f, Boundaries.yMax + ColliderThickness * 0.5f, 0.0f);
 	
-	    bottomBoundary = new GameObject("Bottom Boundary (Including Fallout Buffer)");
+	    bottomBoundary = new GameObject("Bottom Boundary (Including Fallout Buffer and Death Trigger)");
 	    bottomBoundary.transform.parent = createdBoundaries.transform;
 	    boxCollider = bottomBoundary.AddComponent(typeof(BoxCollider)) as BoxCollider;
 	    boxCollider.size = new Vector3(Boundaries.width + ColliderThickness * 2.0f, ColliderThickness, ZLength);
 	    boxCollider.center = new Vector3(Boundaries.x + Boundaries.width * 0.5f, Boundaries.yMin - ColliderThickness * 0.5f - FallOutBuffer, 0.0f);
+        boxCollider.isTrigger = true;
+        bottomBoundary.AddComponent(typeof(DeathTrigger));
 	}
 
     // Knowing where the boundaries to the level are is important, so we'll draw them

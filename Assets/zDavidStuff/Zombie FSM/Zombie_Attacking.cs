@@ -5,9 +5,6 @@ using System.Collections;
 /*
 public class Zombie_Attacking : ZombieFSM_IState
 {
-    Transform _bone_L;
-    Transform _bone_R;
-
     public Zombie_Attacking(ZombieFSM controller) : base(controller) { }
 
     public override void StartState()
@@ -18,18 +15,6 @@ public class Zombie_Attacking : ZombieFSM_IState
         FSM.ZombieAudioSource.PlayAttack();
         // Direction does not change while attacking
         VerticalSpeed = GroundVerticalSpeed;
-
-        // We need to load the bone the first time
-        if(_bone_L == null)
-            _bone_L = CharacterFiniteStateMachineBase.SearchHierarchyForBone(FSM.transform, "forearm_L");
-        if (_bone_R == null)
-            _bone_R = CharacterFiniteStateMachineBase.SearchHierarchyForBone(FSM.transform, "forearm_R");
-
-        // Set up hitboxes only while attacking
-        _bone_L.GetComponent<Collider>().enabled = true;
-        _bone_L.GetComponent<HitBox>().enabled = true;
-        _bone_R.GetComponent<Collider>().enabled = true;
-        _bone_R.GetComponent<HitBox>().enabled = true;
     }
 
     protected override Enum OnUpdate()
@@ -57,14 +42,5 @@ public class Zombie_Attacking : ZombieFSM_IState
         }
 
         return nextState;
-    }
-
-    public override void ExitState()
-    {
-        // Disable hitboxes while not attacking
-        _bone_L.GetComponent<Collider>().enabled = false;
-        _bone_L.GetComponent<HitBox>().enabled = false;
-        _bone_R.GetComponent<Collider>().enabled = false;
-        _bone_R.GetComponent<HitBox>().enabled = false;
     }
 }*/

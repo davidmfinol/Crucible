@@ -25,4 +25,14 @@ public class PipeWeapon : Weapon
 	{
 		collider.enabled = false;
 	}
+    
+    public override Vector3 Rotation
+    {
+        get { return base.Rotation; }
+    }
+    
+    public override Vector3 Translation
+    {
+        get { return base.Translation; }
+    }
 }
