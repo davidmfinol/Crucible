@@ -7,12 +7,15 @@ using System.Collections;
 [AddComponentMenu("Character/Player Character/Player Character Settings")]
 public class PlayerCharacterSettings : CharacterSettings
 {
+    // Keep track of the last checkpoint here
 	public Transform SpawnPoint;
 
     // Player's Weapon Arsenal!
 	public Transform PipePrefab;
     public Transform WhipPrefab;
 	public Transform MinePrefab;
+    
+    // We keep track of which weapon is currently equipped here
     private Transform _currentWeapon;
 	
 	public Transform Weapon

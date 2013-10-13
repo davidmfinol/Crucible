@@ -9,6 +9,11 @@ using System.Collections;
 [AddComponentMenu("Character/Zombie/Zombie Animator")]
 public class ZombieAnimator : CharacterAnimator
 {
+    // So we can find the arms to use as weapons
+    // TODO: SHOULD SET THIS ANOTHER WAY
+    public string LeftForearmBoneName;
+    public string RightForearmBoneName;
+    
 	// Mecanim hashes
 	private int _verticalSpeedHash;
 	private int _horizontalSpeedHash;
@@ -55,8 +60,8 @@ public class ZombieAnimator : CharacterAnimator
         _zombieAudioSource = GetComponentInChildren<ZombieAudioPlayer>();
 
         // We need to find the bones for our hands so we can attack with them
-        _bone_L = CharacterSettings.SearchHierarchyForBone(transform, "forearm_L");
-        _bone_R = CharacterSettings.SearchHierarchyForBone(transform, "forearm_R");
+        _bone_L = CharacterSettings.SearchHierarchyForBone(transform, LeftForearmBoneName);
+        _bone_R = CharacterSettings.SearchHierarchyForBone(transform, RightForearmBoneName);
 	}
 	
 	protected override void UpdateMecanimVariables()
