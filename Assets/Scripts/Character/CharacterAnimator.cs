@@ -424,7 +424,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     public float GroundVerticalSpeed
     {
-        get { return (-_characterSettings.Gravity * Time.fixedDeltaTime); }
+        get { return (15 * -_characterSettings.Gravity * Time.fixedDeltaTime); }
     }
     public Vector3 Velocity
     {
