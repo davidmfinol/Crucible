@@ -20,19 +20,20 @@ public class CharacterAnimator : MonoBehaviour
 	private CharacterSettings _characterSettings;
 	private CharacterInput _characterInput;
 	private HeartBox _heartBox;
-	
+
 	// This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
 	public delegate void ProcessState(float elapsedTime);
 	private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
-	
+
 	// We use these to determine movement
     private float _horizontalSpeed = 0.0f; // How fast does the character want to move on the x-axis?
     private float _verticalSpeed = 0.0f; // How fast does the character want to move on the y-axis?
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
+	private Vector3 _prevDirection = Vector3.right; // The direction that the player was facing before the current direction
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
-	
-    // Moving platform support 
+
+    // Moving platform support
     private Transform _activePlatform;
     private Vector3 _activeLocalPlatformPoint;
     private Vector3 _activeGlobalPlatformPoint;
@@ -40,14 +41,14 @@ public class CharacterAnimator : MonoBehaviour
     // Support for hanging off of objects
 	private List<HangableObject> _hangQueue = new List<HangableObject>();
     private HangableObject _previousHangTarget = null;
-	
+
     // We need a way to move between zones
     private Zone _currentZone = null; // Zone we are currently in
     private Zone _Zlower = null; // Zone we go to if we press down
     private Zone _Zhigher = null; // Zone we go to if we press up
     private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
-	
+
 	void Awake()
 	{
 		_stateMachine = new Dictionary<int, ProcessState>();
@@ -61,7 +62,7 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		// Empty method to indicate that a state has no corresponding motion
 	}
-	
+
 	void Start()
 	{
 		_characterController = GetComponent<CharacterController>();
@@ -69,23 +70,23 @@ public class CharacterAnimator : MonoBehaviour
 		_characterSettings = GetComponent<CharacterSettings>();
 		_characterInput = GetComponent<CharacterInput>();
 		_heartBox = GetComponentInChildren<HeartBox>();
-		
+
 		Initialize();
 	}
 	protected virtual void Initialize()
 	{
 		// Child classes should override this method if they want to initialize variables on Start()
 	}
-	
+
 	void Update()
 	{
 		// Check health every frame to make sure we aren't dead
         if (_heartBox != null && _heartBox.HitPoints <= 0)
             OnDeath();
-		
+
 		// Handle all the z-zone stuff in one location
 		UpdateZones();
-		
+
 		// Let child classes do any additional processing
 		OnUpdate();
 	}
@@ -94,7 +95,7 @@ public class CharacterAnimator : MonoBehaviour
 		// Do nothing if we're not in any zones
 		if (Zones.Count < 1)
 			return;
-		
+
         // Correct our Z value when we are in a zone outside our list of zones
 		// We do this by just moving to the lowest zone available
 		if(CurrentZone == null)
@@ -102,7 +103,7 @@ public class CharacterAnimator : MonoBehaviour
 		int position = Zones.BinarySearch(CurrentZone, new Zone.CompareZonesByZValue());
         if (position < 0)
 			CurrentZone = Zones[0];
-		
+
 		// Handle movement between zones
 		if(CanTransitionZ && Zones.Count > 0)
 		{
@@ -111,7 +112,7 @@ public class CharacterAnimator : MonoBehaviour
 				_Zlower = Zones[position-1];
 			if(position+1 < Zones.Count)
 				_Zhigher = Zones[position+1];
-			
+
 			// Move to the z zone requested
 			if(CharInput.UpPressed && !CharInput.Down)
 				_currentZone = _Zhigher;
@@ -131,13 +132,13 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		// Empty by default; child classes should override
 	}
-	
+
 	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
 	void FixedUpdate()
 	{
 		// Some variables for mecanim are updated every frame
 		UpdateMecanimVariables();
-		
+
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
 		AnimatorStateInfo currentState = MecanimAnimator.IsInTransition(0) ? MecanimAnimator.GetNextAnimatorStateInfo(0) : MecanimAnimator.GetCurrentAnimatorStateInfo(0);
 		ProcessState processState;
@@ -145,7 +146,7 @@ public class CharacterAnimator : MonoBehaviour
 			processState(Time.fixedDeltaTime);
 		else
 			Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + currentState.nameHash + " does not have a corresponding function delegate.");
-		
+
 		// Do the movement
 		PerformMotion(Time.fixedDeltaTime);
 	}
@@ -185,22 +186,21 @@ public class CharacterAnimator : MonoBehaviour
 
         // Move our character!
         _collisionFlags = _characterController.Move(currentMovementOffset);
-		
-        // Calculate the velocity based on the current and previous position.  
+
+        // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
         _velocity = (transform.position - lastPosition) / elapsedTime;
 
         // We should finally make our character be able to face the correct way
         if (_direction.x == 0)
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
+		else if(_prevDirection.x == 0)
+			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), elapsedTime * _characterSettings.RotationSmoothing);
         else
 		{
-			// TODO: make it face the front while turning left and right (except when coming from facing zero)
-				// the commented lines don't work when you were previously facing zero from one direction and go to the other
-			//float crotY = transform.rotation.eulerAngles.y;
-			//float drotY = Quaternion.LookRotation(_direction).eulerAngles.y;
-            //transform.rotation = Quaternion.Euler(0, Mathf.Lerp(crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), elapsedTime * _characterSettings.RotationSmoothing);
+			float crotY = transform.rotation.eulerAngles.y;
+			float drotY = Quaternion.LookRotation(_direction).eulerAngles.y;
+            transform.rotation = Quaternion.Euler(0, Mathf.Lerp(crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
 		}
 
         // Moving Platform support
@@ -220,7 +220,7 @@ public class CharacterAnimator : MonoBehaviour
 	        // Support for moving platforms
 	        if (Mathf.Abs(hit.moveDirection.y) > 0.9 && Mathf.Abs(hit.normal.y) > 0.9)
 	            _activePlatform = hit.collider.transform;
-	
+
 	        // Support for catching a wall/ledge/rope/etc.
 	        if (Mathf.Abs(hit.moveDirection.x) > 0.9 && Mathf.Abs(hit.normal.x) > 0.9)
 	            _activePlatform = hit.collider.transform;
@@ -233,11 +233,11 @@ public class CharacterAnimator : MonoBehaviour
 	        // Only push rigidbodies in the ragdoll layer
 	        if (body.gameObject.layer != 10)
 	           return;
-	 
+
 	        // We dont want to push objects below us
-	        if (hit.moveDirection.y < -0.3) 
+	        if (hit.moveDirection.y < -0.3)
 	           return;
-	 
+
 	        // Calculate push direction from move direction
 	        Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
 	        /*
@@ -247,13 +247,13 @@ public class CharacterAnimator : MonoBehaviour
 	        else
 	            force = hit.controller.velocity * 10;
 	         * */
-	 
+
 	        // Pushing! Yeah!
 	        body.velocity = pushDir * 2 * HorizontalSpeed;
 	        //body.AddForceAtPosition(force, hit.point);
 		}
     }
-	
+
 	// Helper methods for motion
 	protected virtual void ApplyRunning(float elapsedTime)
 	{
@@ -328,25 +328,25 @@ public class CharacterAnimator : MonoBehaviour
         else
             HorizontalSpeed = 0.0f;
 	}
-	
+
 	// Methods for hanging
 	public void AddHangTarget(HangableObject hangTarget)
 	{
 		if(_hangQueue.Contains(hangTarget))
 			return;
-		
+
 		_hangQueue.Add(hangTarget);
 	}
 	public void RemoveHangTarget(HangableObject hangTarget)
 	{
 		if(!_hangQueue.Contains(hangTarget))
 			return;
-		
+
 		if(ActiveHangTarget == hangTarget)
 	        _previousHangTarget = ActiveHangTarget;
-		
+
 		_hangQueue.Remove(hangTarget);
-	    
+
 		if (ActiveHangTarget == null)
         	_activePlatform = null;
 	}
@@ -354,13 +354,13 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		if(ActiveHangTarget == null)
 			return;
-		
+
         _previousHangTarget = ActiveHangTarget;
 		_hangQueue.RemoveAt(0);
         if (ActiveHangTarget == null)
             _activePlatform = null;
 	}
-	
+
 	// Movement/Animation Properties
 	public CharacterController Controller
 	{
@@ -372,7 +372,7 @@ public class CharacterAnimator : MonoBehaviour
     }
 	public Animator MecanimAnimator
 	{
-		get { return _animator; } 
+		get { return _animator; }
 	}
 	public virtual CharacterSettings Settings
 	{
@@ -392,7 +392,7 @@ public class CharacterAnimator : MonoBehaviour
 	}
 	public HeartBox Heart
 	{
-		get { return _heartBox; } 
+		get { return _heartBox; }
 	}
 	public Dictionary<int, ProcessState> StateMachine
 	{
@@ -403,10 +403,13 @@ public class CharacterAnimator : MonoBehaviour
         get { return _direction; }
         set
         {
-            Vector3 prevDirection = _direction;
-            _direction = value;
-            if (_direction.x * prevDirection.x < 0)
-                HorizontalSpeed = -HorizontalSpeed;
+			if(!_direction.Equals(value))
+			{
+				_prevDirection = _direction;
+	            _direction = value;
+	            if (_direction.x * _prevDirection.x < 0)
+	                HorizontalSpeed = -HorizontalSpeed;
+			}
         }
     }
     public float HorizontalSpeed
@@ -457,7 +460,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         get { return _activeGlobalPlatformPoint; }
     }
-	
+
 	// Hang Properties
     public HangableObject ActiveHangTarget
     {
@@ -478,8 +481,8 @@ public class CharacterAnimator : MonoBehaviour
     }
     public bool CanHangOffLedge
     {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Ledge 
-			&& Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < _characterSettings.LedgeLeniency 
+        get { return ActiveHangTarget != null && ActiveHangTarget is Ledge
+			&& Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < _characterSettings.LedgeLeniency
 				&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
     }
     public bool CanClimbLadder
@@ -506,7 +509,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         get { return (ActiveHangTarget != null) && transform.position.y < ActiveHangTarget.transform.position.y; ; }
     }
-	
+
 	// Zone Properties
 	public float DesiredZ
 	{

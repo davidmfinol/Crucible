@@ -224,16 +224,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			else
 				_ledge = null;
 			
-			DropHangTarget();
 			MecanimAnimator.SetBool(_hangHash, false);
 		}
 		
         if (_ledge != null && (CharInput.Up || InputForward))
+		{
+			DropHangTarget();
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
+		}
 		else if(CharInput.Jump)
+		{
+			DropHangTarget();
 			MecanimAnimator.SetBool(_jumpHash, true);
+		}
 		else if(CharInput.Down)
+		{
+			DropHangTarget();
 			MecanimAnimator.SetBool(_fallHash, true);
+		}
 	}
 	
 	protected void ClimbingLedge(float elapsedTime)
@@ -256,6 +264,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 	        if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
 	            VerticalSpeed = GroundVerticalSpeed;
+	        if (transform.position.x > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
+	            HorizontalSpeed = 0;
 		}
 	}
 	
