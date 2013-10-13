@@ -69,6 +69,7 @@ public class ZombieAnimator : CharacterAnimator
         //FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
         bool shouldAttack = !MecanimAnimator.GetBool(_takeHitHash) && !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && CharInput.Attack1;
         // REALISTICALLY, THE HITBOXES SHOULD BE CREATED AT RUNTIME AND THEN PARENTED TO THE BONE (THEN DESTROYED AT RUNTIME AS WELL)
+        // THEN THE ENTIRE RIG CAN USE THE RAGDOLL LAYER AGAIN ( CURRENTLY THE ARMS ARE USING THE HITBOX LAYER)
 		MecanimAnimator.SetBool(_attackHash, shouldAttack);
         _bone_L.GetComponent<Collider>().enabled = shouldAttack;
         _bone_L.GetComponent<HitBox>().enabled = shouldAttack;

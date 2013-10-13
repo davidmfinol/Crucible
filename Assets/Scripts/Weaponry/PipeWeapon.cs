@@ -10,7 +10,8 @@ using System.Collections;
 public class PipeWeapon : Weapon
 {
 	private HitBox _hitbox;
-	
+	// TODO: HITBOXES SHOULD BE CREATED AT RUNTIME
+    
 	void Start()
 	{
 		_hitbox = GetComponent<HitBox>();
