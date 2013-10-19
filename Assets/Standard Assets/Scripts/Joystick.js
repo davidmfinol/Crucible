@@ -202,7 +202,7 @@ function Update()
 				{					
 					// Change the location of the joystick graphic to match where the touch is
 					gui.pixelInset.x =  Mathf.Clamp( guiTouchPos.x, guiBoundary.min.x, guiBoundary.max.x );
-					gui.pixelInset.y =  Mathf.Clamp( guiTouchPos.y, guiBoundary.min.y, guiBoundary.max.y );		
+					//****//gui.pixelInset.y =  Mathf.Clamp( guiTouchPos.y, guiBoundary.min.y, guiBoundary.max.y );		
 				}
 				
 				if ( touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled )
@@ -215,7 +215,8 @@ function Update()
 	{
 		// Get a value between -1 and 1 based on the joystick graphic location
 		position.x = ( gui.pixelInset.x + guiTouchOffset.x - guiCenter.x ) / guiTouchOffset.x;
-		position.y = ( gui.pixelInset.y + guiTouchOffset.y - guiCenter.y ) / guiTouchOffset.y;
+		//*********//position.y = ( gui.pixelInset.y + guiTouchOffset.y - guiCenter.y ) / guiTouchOffset.y;
+		position.y = 0;
 	}
 	
 	// Adjust for dead zone	

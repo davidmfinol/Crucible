@@ -8,9 +8,9 @@ public class WeaponsGui : MonoBehaviour {
 	public int AnimationSteps = 14; // Needs to be even number	
 	
 	int CenterSlot = 1;
-	bool Animating = false;
-	bool LeftSelect = false;
-	bool RightSelect = false;
+	public bool Animating = false;
+	public bool LeftSelect = false;
+	public bool RightSelect = false;
 
 	int CurrentAnimationStep;
 	
@@ -84,6 +84,10 @@ public class WeaponsGui : MonoBehaviour {
 	void Update () {
 		//print ("rot amount: " + Mathf.Abs((Slot2.transform.rotation.y - Slot3.transform.rotation.y)));
 		KeyboardControl();
+
+	}
+	
+	void FixedUpdate (){
 		AnimateGui();
 	}
 	
