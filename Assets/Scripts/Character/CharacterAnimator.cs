@@ -136,6 +136,9 @@ public class CharacterAnimator : MonoBehaviour
 	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
 	void FixedUpdate()
 	{
+		//Moving Platform support
+		UpdatePlatformBegin();
+		
 		// Some variables for mecanim are updated every frame
 		UpdateMecanimVariables();
 
@@ -147,27 +150,6 @@ public class CharacterAnimator : MonoBehaviour
 		else
 			Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + currentState.nameHash + " does not have a corresponding function delegate.");
 
-		// Do the movement
-		PerformMotion(Time.fixedDeltaTime);
-	}
-	/// <summary>
-	/// Assuming that horizontal speed, vertical speed, and direction have already been set, moves the character correspondingly.
-	/// </summary>
-	/// <param name='elapsedTime'>
-	/// Amount of time that has passed between iterations of motion.
-	/// </param>
-	private void PerformMotion(float elapsedTime)
-	{
-        // Moving platform support
-        if (_activePlatform != null && transform.parent == null)
-        {
-            Vector3 newGlobalPlatformPoint = _activePlatform.TransformPoint(_activeLocalPlatformPoint);
-            Vector3 moveDistance = (newGlobalPlatformPoint - _activeGlobalPlatformPoint);
-            transform.position = transform.position + moveDistance;
-        }
-
-        // Reset platform every frame
-		_activePlatform = null;
 
         // Keep track of where we started out this frame
         Vector3 lastPosition = transform.position;
@@ -176,11 +158,11 @@ public class CharacterAnimator : MonoBehaviour
         Vector3 currentMovementOffset = new Vector3(_horizontalSpeed, _verticalSpeed, 0);
 
         // Make the motion be time-based instead of frame-based
-        currentMovementOffset *= elapsedTime;
+        currentMovementOffset *= Time.fixedDeltaTime;
 
         // Determine the correct Z-offset
         float currentZ = transform.position.z;
-        float newZ = Mathf.Lerp(currentZ, DesiredZ, _characterSettings.ZLerp * elapsedTime);
+        float newZ = Mathf.Lerp(currentZ, DesiredZ, _characterSettings.ZLerp * Time.fixedDeltaTime);
         float zOffset = newZ - currentZ;
         currentMovementOffset = new Vector3(currentMovementOffset.x, currentMovementOffset.y, zOffset);
 
@@ -189,9 +171,23 @@ public class CharacterAnimator : MonoBehaviour
 
         // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
-        _velocity = (transform.position - lastPosition) / elapsedTime;
+        _velocity = (transform.position - lastPosition) / Time.fixedDeltaTime;
 
         // We should finally make our character be able to face the correct way
+		UpdateRotation(Time.fixedDeltaTime);
+
+        // Moving Platform support
+		UpdatePlatformEnd();
+	}
+	
+	/// <summary>
+	/// Updates the rotation of the character over time to smoothly match the character's direction
+	/// </summary>
+	/// <param name='elapsedTime'>
+	/// Elapsed time since this method was last called.
+	/// </param>
+	private void UpdateRotation(float elapsedTime)
+	{
         if (_direction.x == 0)
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
 		else if(_prevDirection.x == 0)
@@ -202,13 +198,28 @@ public class CharacterAnimator : MonoBehaviour
 			float drotY = Quaternion.LookRotation(_direction).eulerAngles.y;
             transform.rotation = Quaternion.Euler(0, Mathf.Lerp(crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
 		}
-
-        // Moving Platform support
-        if (_activePlatform != null)
+	}
+	
+	// Determines the amount that the platform on which we are standing has moved, and moves us correspondingly
+	private void UpdatePlatformBegin()
+	{
+        if (_activePlatform != null && transform.parent == null)
         {
-            _activeGlobalPlatformPoint = transform.position;
-            _activeLocalPlatformPoint = _activePlatform.InverseTransformPoint(transform.position);
+            Vector3 newGlobalPlatformPoint = _activePlatform.TransformPoint(_activeLocalPlatformPoint);
+            Vector3 moveDistance = (newGlobalPlatformPoint - _activeGlobalPlatformPoint);
+            transform.position = transform.position + moveDistance;
         }
+		_activePlatform = null;
+	}
+	
+	// Sets up the variables to allow the character to stay on a moving platform
+	private void UpdatePlatformEnd()
+	{
+        if (_activePlatform == null)
+			return;
+		
+        _activeGlobalPlatformPoint = transform.position;
+        _activeLocalPlatformPoint = _activePlatform.InverseTransformPoint(transform.position);
 	}
 
     // We need to be able to interact with other physical objects in the world
@@ -451,6 +462,7 @@ public class CharacterAnimator : MonoBehaviour
     public Transform ActivePlatform
     {
         get { return _activePlatform; }
+		set { _activePlatform = value; }
     }
     public Vector3 ActiveLocalPlatformPoint
     {

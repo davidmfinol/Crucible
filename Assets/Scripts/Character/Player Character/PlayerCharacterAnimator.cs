@@ -221,17 +221,19 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	                Direction = Vector3.left;
 	        }
 			
-			if(ActiveHangTarget is Ledge)
-	        	_ledge = (Ledge) ActiveHangTarget;
-			else
-				_ledge = null;
-			
 			MecanimAnimator.SetBool(_hangHash, false);
 		}
 		
-        if (_ledge != null && (CharInput.Up || InputForward))
+		if(ActiveHangTarget != null)
+			ActivePlatform = ActiveHangTarget.transform;
+		
+        if(ActiveHangTarget == null)
 		{
 			DropHangTarget();
+			MecanimAnimator.SetBool(_fallHash, true);
+		}
+		else if (ActiveHangTarget is Ledge && (CharInput.Up || InputForward))	
+		{
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}
 		else if(CharInput.Jump)
@@ -250,6 +252,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		if(MecanimAnimator.GetBool(_climbLedgeHash))
 		{
+			_ledge = ActiveHangTarget as Ledge;
 	        if (_ledge.DoesFaceZAxis())
 	        {
 	            HorizontalSpeed = 0.0f;
@@ -266,7 +269,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 	        if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
 	            VerticalSpeed = GroundVerticalSpeed;
-	        if (transform.position.x > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
+	        if (transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x
+				|| transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
 	            HorizontalSpeed = 0;
 		}
 	}
