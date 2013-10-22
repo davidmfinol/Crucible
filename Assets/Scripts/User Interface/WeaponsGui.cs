@@ -34,8 +34,7 @@ public class WeaponsGui : MonoBehaviour {
 	float rotToSlot2Y;
 	float rotToSlot3Y;
 	
-	Transform Player;
-	//PlayerCharacterFSM playerController;
+	//PlayerCharacterAnimator playerController;
     Transform whip;
 	Transform mine;
 	Transform bone;	
@@ -73,8 +72,7 @@ public class WeaponsGui : MonoBehaviour {
 		
 		CurrentAnimationStep = AnimationSteps;
 		
-		Player = GameLevel.Player;
-		//playerController = GameLevel.Player.GetComponent<PlayerCharacterFSM>();
+		//playerController = GameManager.Player.GetComponent<PlayerCharacterFSM>();
 
 		//bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
 		

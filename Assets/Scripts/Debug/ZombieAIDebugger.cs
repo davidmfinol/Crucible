@@ -18,12 +18,10 @@ public class ZombieAIDebugger : MonoBehaviour
 	
 	public Transform HighlightNode;
 	private GameObject _node;
-	private ZombieAnimator _fsm;
 	private ZombieInput _brain;
 	
 	void Start()
 	{
-		_fsm = GetComponent<ZombieAnimator>();
 		_brain = GetComponent<ZombieInput>();
 		_node = ((Transform) Instantiate(HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
 		_node.renderer.enabled = false;
@@ -46,10 +44,7 @@ public class ZombieAIDebugger : MonoBehaviour
 			return;
 		
 		if(_brain == null)
-		{
-			_fsm = GetComponent<ZombieAnimator>();
 			_brain = GetComponent<ZombieInput>();
-		}
 		
         GUI.Box(new Rect(10, 135, 300, 20), "Vertical: " + _brain.VerticalInput + ", Horizontal: " + _brain.HorizontalInput + ", Jump: " + _brain.Jump + ", Attack:" + _brain.Attack1);
         GUI.Box(new Rect(10, 160, 300, 20), "Transition Recent: " + _brain.HasTransitionRecent + ", Repathed: " + _brain.TimeSinceRepath);

@@ -24,7 +24,7 @@ public class CharacterAnimator : MonoBehaviour
 	// This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
 	public delegate void ProcessState(float elapsedTime);
 	private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
-
+	
 	// We use these to determine movement
     private float _horizontalSpeed = 0.0f; // How fast does the character want to move on the x-axis?
     private float _verticalSpeed = 0.0f; // How fast does the character want to move on the y-axis?
@@ -48,23 +48,13 @@ public class CharacterAnimator : MonoBehaviour
     private Zone _Zhigher = null; // Zone we go to if we press up
     private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
-
-	void Awake()
+	
+	
+	void Start()
 	{
 		_stateMachine = new Dictionary<int, ProcessState>();
 		CreateStateMachine();
-	}
-	protected virtual void CreateStateMachine()
-	{
-		StateMachine[Animator.StringToHash("Base Layer.Idle")] = DoNothing;
-	}
-	public void DoNothing(float elapsedTime)
-	{
-		// Empty method to indicate that a state has no corresponding motion
-	}
-
-	void Start()
-	{
+		
 		_characterController = GetComponent<CharacterController>();
 		_animator = GetComponent<Animator>();
 		_characterSettings = GetComponent<CharacterSettings>();
@@ -72,6 +62,15 @@ public class CharacterAnimator : MonoBehaviour
 		_heartBox = GetComponentInChildren<HeartBox>();
 
 		Initialize();
+	}
+	protected virtual void CreateStateMachine()
+	{
+		// TODO: DYNAMICALLY GENERATE IF POSSIBLE
+		StateMachine[Animator.StringToHash("Base Layer.Idle")] = DoNothing;
+	}
+	public void DoNothing(float elapsedTime)
+	{
+		Debug.LogWarning("State Machine using default doNothing");
 	}
 	protected virtual void Initialize()
 	{
@@ -297,15 +296,15 @@ public class CharacterAnimator : MonoBehaviour
         else if (CharInput.Up)
             Direction = Vector3.zero;
 	}
-	protected virtual void ApplyLadderClimbing()
+	protected virtual void ApplyClimbingVertical()
 	{
         // Determine the vertical bounds of the object(s) we are climbing
-		bool insideDown = false;
+		//bool insideDown = false;
 		bool insideUp = false;
 		foreach(HangableObject obj in HangQueue)
 		{
-	        insideDown = insideDown || transform.position.y - Controller.collider.bounds.extents.y >
-	                obj.transform.position.y - obj.collider.bounds.extents.y;
+	        //insideDown = insideDown || transform.position.y - Controller.collider.bounds.extents.y >
+	        //        obj.transform.position.y - obj.collider.bounds.extents.y;
 	        insideUp = insideUp || transform.position.y + Controller.collider.bounds.extents.y <
 	              obj.transform.position.y + obj.collider.bounds.extents.y;
 		}
@@ -313,12 +312,12 @@ public class CharacterAnimator : MonoBehaviour
         // Determine vertical movement
         if (CharInput.Up && !CharInput.Down && (!(ActiveHangTarget is Pipe) || insideUp))
             VerticalSpeed = Settings.LadderClimbingSpeed;
-        else if (CharInput.Down && !CharInput.Up && (!(ActiveHangTarget is Pipe) || insideDown))
+        else if (CharInput.Down && !CharInput.Up)
             VerticalSpeed = -Settings.LadderClimbingSpeed;
         else
             VerticalSpeed = 0.0f;
 	}
-	protected virtual void ApplyLadderStrafing()
+	protected virtual void ApplyClimbingStrafing()
 	{
         // Determine the horizontal bounds of the object(s) we are climbing
 		bool insideLeft = false;
@@ -371,7 +370,8 @@ public class CharacterAnimator : MonoBehaviour
         if (ActiveHangTarget == null)
             _activePlatform = null;
 	}
-
+	
+	
 	// Movement/Animation Properties
 	public CharacterController Controller
 	{

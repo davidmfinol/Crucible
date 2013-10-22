@@ -9,17 +9,17 @@ public class Intro : MonoBehaviour
 	public void Start()
 	{
 		Transform titleAnim = (Transform) Instantiate(TitlePrefab, Camera.main.transform.position, TitlePrefab.rotation);
-		titleAnim.parent = Camera.main.transform;
-        GameLevel.Player.parent = Elevator;
+		titleAnim.transform.parent = Camera.main.transform;
+        GameManager.Player.transform.parent = Elevator;
         Camera.main.GetComponent<CameraScrolling>().Springiness = 1000;
         StartCoroutine("EndIntro");
 	}
 	
     IEnumerator EndIntro()
     {
-        while (GameLevel.Player.position.y < -1)
+        while (GameManager.Player.transform.position.y < -1)
             yield return null;
-        GameLevel.Player.parent = null;
+        GameManager.Player.transform.parent = null;
         Camera.main.GetComponent<CameraScrolling>().Springiness = 4;
 		Application.LoadLevelAdditive("Sewer");
         StopCoroutine("EndIntro");

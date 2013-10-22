@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Weapon audio player provides an interface for a player's weapon to produce sound.
 /// </summary>
-[AddComponentMenu("Audio/WeaponAudioPlayer")]
+[AddComponentMenu("Audio/Weapon Audio Player")]
 public class WeaponAudioPlayer : AudioPlayer
 {
     public AudioClipGroup WeaponSoundEffects;

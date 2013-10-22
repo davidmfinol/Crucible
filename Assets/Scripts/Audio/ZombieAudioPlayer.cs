@@ -17,6 +17,11 @@ public class ZombieAudioPlayer : AudioPlayer
 	private bool _isRunning = false; //FIXME: MAKE IT SO THESE VARIABLES AREN'T NECESSARY
 
     private System.Random _random = new System.Random();
+	
+	void Start()
+	{
+		GameManager.Audio.Zombies.Add(this);
+	}
 
     public override void Play()
     {

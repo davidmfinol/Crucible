@@ -9,12 +9,12 @@ using System.Collections;
 [AddComponentMenu("Weaponry/Pipe Weapon")]
 public class PipeWeapon : Weapon
 {
-	private HitBox _hitbox;
 	// TODO: HITBOXES SHOULD BE CREATED AT RUNTIME
+	//private HitBox _hitbox;
     
 	void Start()
 	{
-		_hitbox = GetComponent<HitBox>();
+		//_hitbox = GetComponent<HitBox>();
 	}
 	
 	public override void ActivateAttack (int attackID)

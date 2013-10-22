@@ -115,8 +115,8 @@ public class CameraScrolling : MonoBehaviour
         Vector3 upperRightCameraInWorld = camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
-        clampOffset.x = Mathf.Min(GameLevel.Instance.Boundaries.xMax - upperRightCameraInWorld.x, 0.0f);
-        clampOffset.y = Mathf.Min((GameLevel.Instance.Boundaries.yMax - upperRightCameraInWorld.y), 0.0f);
+        clampOffset.x = Mathf.Min(GameManager.Level.Boundaries.xMax - upperRightCameraInWorld.x, 0.0f);
+        clampOffset.y = Mathf.Min((GameManager.Level.Boundaries.yMax - upperRightCameraInWorld.y), 0.0f);
 
         // Now we apply our clamping to our goalPosition.  Now our camera won't go past the right and top boundaries of the level!
         goalPosition += clampOffset;
@@ -129,8 +129,8 @@ public class CameraScrolling : MonoBehaviour
         Vector3 lowerLeftCameraInWorld = camera.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
-        clampOffset.x = Mathf.Max((GameLevel.Instance.Boundaries.xMin - lowerLeftCameraInWorld.x), 0.0f);
-        clampOffset.y = Mathf.Max((GameLevel.Instance.Boundaries.yMin - lowerLeftCameraInWorld.y), 0.0f);
+        clampOffset.x = Mathf.Max((GameManager.Level.Boundaries.xMin - lowerLeftCameraInWorld.x), 0.0f);
+        clampOffset.y = Mathf.Max((GameManager.Level.Boundaries.yMin - lowerLeftCameraInWorld.y), 0.0f);
 
         // Now we apply our clamping to our goalPosition once again.  Now our camera won't go past the left and bottom boundaries of the level!
         goalPosition += clampOffset;

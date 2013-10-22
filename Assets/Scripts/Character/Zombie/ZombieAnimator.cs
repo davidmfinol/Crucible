@@ -36,14 +36,23 @@ public class ZombieAnimator : CharacterAnimator
 	{
 		// Map States
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
+		//Debug.LogWarning("Base Layer.Idle:" + Animator.StringToHash("Base Layer.Idle"));
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
+		//Debug.LogWarning("Base Layer.Running:" + Animator.StringToHash("Base Layer.Running"));
 		StateMachine[Animator.StringToHash("Base Layer.Climbing")] = Climbing;
+		//Debug.LogWarning("Base Layer.Climbing:" + Animator.StringToHash("Base Layer.Climbing"));
 		StateMachine[Animator.StringToHash("Base Layer.TakingDamage")] = TakingDamage;
+		//Debug.LogWarning("Base Layer.TakingDamage:" + Animator.StringToHash("Base Layer.TakingDamage"));
 		StateMachine[Animator.StringToHash("Jumping.Jumping")] = Jumping;
+		//Debug.LogWarning("Jumping.Jumping:" + Animator.StringToHash("Jumping.Jumping"));
 		StateMachine[Animator.StringToHash("Jumping.JumpFalling")] = Falling;
+		//Debug.LogWarning("Jumping.JumpFalling:" + Animator.StringToHash("Jumping.JumpFalling"));
 		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = Running;
+		//Debug.LogWarning("Jumping.JumpLanding:" + Animator.StringToHash("Jumping.JumpLanding"));
 		StateMachine[Animator.StringToHash("Falling.Falling")] = Falling;
+		//Debug.LogWarning("Falling.Falling:" + Animator.StringToHash("Falling.Falling"));
 		StateMachine[Animator.StringToHash("Falling.Landing")] = Running;
+		//Debug.LogWarning("Falling.Landing:" + Animator.StringToHash("Falling.Landing"));
 		
 		// Hash Variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
@@ -125,10 +134,21 @@ public class ZombieAnimator : CharacterAnimator
 	protected void Climbing(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
-		ApplyLadderClimbing();
+		ApplyClimbingVertical();
+		Direction = Vector3.zero;
 		
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
 		MecanimAnimator.SetBool(_fallHash, false);
+		
+        if(CharInput.Jump)
+		{
+			MecanimAnimator.SetBool(_jumpHash, true);
+		}
+		else if(ActiveHangTarget == null)
+		{
+			DropHangTarget();
+			MecanimAnimator.SetBool(_fallHash, true);
+		}
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)
@@ -156,6 +176,7 @@ public class ZombieAnimator : CharacterAnimator
         if (debug2 != null)
             Destroy(debug2);
         Destroy(this);
+		GameManager.AI.Zombies.Remove(CharInput);
 		Destroy(CharInput);
 		Destroy(Settings);
         Destroy(Controller);
@@ -179,6 +200,7 @@ public class ZombieAnimator : CharacterAnimator
             current.rigidbody.isKinematic = false;
         }
     }
+	
 	
     public ZombieAudioPlayer ZombieAudioSource
     {

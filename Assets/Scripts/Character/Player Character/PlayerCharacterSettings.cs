@@ -18,6 +18,7 @@ public class PlayerCharacterSettings : CharacterSettings
     // We keep track of which weapon is currently equipped here
     private Transform _currentWeapon;
 	
+	
 	public Transform Weapon
 	{
 		get { return _currentWeapon; }

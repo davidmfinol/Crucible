@@ -40,6 +40,7 @@ public class CharacterSettings : MonoBehaviour
 	// How fast the character strafes ladders
 	public float LadderStrafingSpeed = 5.0f;
  
+	
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone(Transform current, string name)
     {

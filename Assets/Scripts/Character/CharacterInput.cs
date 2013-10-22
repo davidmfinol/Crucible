@@ -17,6 +17,7 @@ public class CharacterInput : MonoBehaviour
 	private bool _attack1Last = false;
 	private bool _attack2Last = false;
 	
+	
 	void Update()
 	{
 		_upLast = Up;
@@ -30,9 +31,11 @@ public class CharacterInput : MonoBehaviour
 		UpdateInput();
 	}
 	
+	
 	protected virtual void UpdateInput()
 	{
 		// No input by default
+		// Child subclasses should override this method to have their input updated on Update()
 	}
 	
 	public virtual float VerticalInput

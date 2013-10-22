@@ -29,6 +29,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
 	
+	
     public void Spawn()
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
@@ -123,7 +124,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected virtual void Idle(float elapsedTime)
 	{
-		//TODO: SET up different idles with MecanimAnimator.SetFloat("RandomIdle", (float) _random.NextDouble());
+		//TODO: SET up different idles by modifying this variable
+		MecanimAnimator.SetFloat(_randomIdleHash, 0);
+		
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyTriDirection();
@@ -277,35 +280,49 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void ClimbingVertical(float elapsedTime)
 	{
-		ApplyLadderClimbing();
+		ApplyClimbingVertical();
 		
 		if(VerticalSpeed != 0)
-			ApplyLadderStrafing();
+			ApplyClimbingStrafing();
 		else
 			HorizontalSpeed = 0;
 		
 		Direction = Vector3.zero;
+		
+		
+        if(ActiveHangTarget == null)
+		{
+			DropHangTarget();
+			MecanimAnimator.SetBool(_fallHash, true);
+		}
+		else
+			MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
 	}
 	
 	protected void ClimbingStrafe(float elapsedTime)
 	{
-		ApplyLadderStrafing();
+		ApplyClimbingStrafing();
 		
 		if(HorizontalSpeed != 0)
-			ApplyLadderClimbing();
+			ApplyClimbingVertical();
 		else
 			VerticalSpeed = 0.0f;
 		
 		Direction = Vector3.zero;
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
-		if(CharInput.Jump)
+		
+        if(CharInput.Jump)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
 			_lastGroundHeight = transform.position.y;
 		}
+		else if(ActiveHangTarget == null)
+		{
+			DropHangTarget();
+			MecanimAnimator.SetBool(_fallHash, true);
+		}
 	}
-	
 	
 	/* TODO: DETERMINE HOW WE PICK STUFF UP
     public override void OnControllerColliderHit(ControllerColliderHit hit)
@@ -326,6 +343,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		base.ApplyRunning(elapsedTime);
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
+	
 	
 	public new PlayerCharacterSettings Settings
 	{

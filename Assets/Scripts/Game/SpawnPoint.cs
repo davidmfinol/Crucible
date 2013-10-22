@@ -14,7 +14,10 @@ public class SpawnPoint : MonoBehaviour
         PlayerCharacterSettings player = other.GetComponent<PlayerCharacterSettings>();
         if (player != null)
         {
+			// At the least, we will set the new spawnpoint
             player.SpawnPoint = transform;
+			
+			// We can also add support for particles that may be attached to the spawnpoints
 			ParticleSystem prevParticles = player.SpawnPoint.GetComponent<ParticleSystem>();
             if(prevParticles != null)
 				prevParticles.Stop();

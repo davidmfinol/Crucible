@@ -38,6 +38,7 @@ public class ZombieInput : CharacterInput
         _zombie = GetComponent<ZombieAnimator>();
         _settings = GetComponent<ZombieSettings>();
         _seeker = GetComponent<Seeker>();
+		GameManager.AI.Zombies.Add(this);
 		UpdateAStarTarget(Vector3.zero);
 	}
 	
@@ -97,7 +98,6 @@ public class ZombieInput : CharacterInput
         _horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombie.transform.position.x ? 1 : -1; // because stopping is for the weak
     }
     
-	
 	private bool UpdateAStar()
 	{
 		// Keep time of track between repaths
@@ -120,8 +120,8 @@ public class ZombieInput : CharacterInput
 	/// </param>
 	public bool UpdateAStarTarget(Vector3 target)
 	{
-		if(_player == null && GameLevel.Player != null)
-			 _player = GameLevel.Player.GetComponent<PlayerCharacterAnimator>();
+		if(_player == null && GameManager.Player != null)
+			 _player = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
 		
 		if(target != Vector3.zero)
 		{
@@ -212,7 +212,7 @@ public class ZombieInput : CharacterInput
     // Is the player in the range that the zombie could feasibly hit him?
     public bool PlayerIsInAttackRange()
     {
-        Transform player = GameLevel.Player;
+        GameObject player = GameManager.Player.gameObject;
         if (player != null && _player != null)
             return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AttackRange)
                 && (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AttackRange)
@@ -223,13 +223,20 @@ public class ZombieInput : CharacterInput
     // Is the player in the range that the zombie can notice?
     public bool PlayerIsInNoticeRange()
     {
-        Transform player = GameLevel.Player;
+        GameObject player = GameManager.Player.gameObject;
         if (player != null && _player != null)
             return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AwarenessRange)
                 && (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AwarenessRange)
                 && _zombie.DesiredZ == _player.DesiredZ;
         return false;
     }
+	
+	
+	// Generic Properties
+	public bool AwareOfPlayer
+	{
+		get { return _awareOfPlayer; }
+	}
 	
 	// Output Properties
 	public override float HorizontalInput

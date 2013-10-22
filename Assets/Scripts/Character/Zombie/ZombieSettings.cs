@@ -21,6 +21,7 @@ public class ZombieSettings : CharacterSettings
     public static float MaxSpeed = 16.0f;
     public static float MaxGravity = 40.0f;
 	
+	
     /// <summary>
     /// Returns whether a zombie can jump from one position to another
     /// </summary>
