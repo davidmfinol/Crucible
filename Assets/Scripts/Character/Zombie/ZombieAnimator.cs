@@ -481,7 +481,12 @@ public class ZombieAnimator : CharacterAnimator
 		Direction = Vector3.zero;
 		
 		
-        if(ActiveHangTarget == null)
+        if(CharInput.Jump)
+		{
+			MecanimAnimator.SetBool(_jumpHash, true);
+			_lastGroundHeight = transform.position.y;
+		}
+        else if(ActiveHangTarget == null)
 		{
 			DropHangTarget();
 			MecanimAnimator.SetBool(_fallHash, true);
