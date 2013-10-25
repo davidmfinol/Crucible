@@ -22,6 +22,7 @@ public class Mine : Weapon
 	
 	private GameObject MineAmountText;
 	
+	private float _mineLastPlacedTime;
 	
 	void Start ()
 	{
@@ -40,7 +41,7 @@ public class Mine : Weapon
 	
 	public void PlaceMine()
 	{
-		if(minesCurrentlyExploding || mineAmount <= 0)
+		if( Time.time - _mineLastPlacedTime < 1 || minesCurrentlyExploding || mineAmount <= 0)
 			return;
 				
 		//minePos = this.gameObject.transform.position;
@@ -50,6 +51,7 @@ public class Mine : Weapon
 		mineAmount--;
 		allPlacedMines.Add(mineCopy.gameObject);
 		MineAmountText.GetComponent<TextMesh>().text = mineAmount.ToString();
+		_mineLastPlacedTime = Time.time;
 	}
 	
 	public void DetonateMines()
