@@ -170,7 +170,7 @@ public class ZombieAnimator : CharacterAnimator
     public override void OnDeath()
     {
         ZombieAudioSource.PlayDeath();
-        ActivateRagDoll(transform);
+        ActivateRagDoll(transform, false, true);
         CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
         if (debug != null)
             Destroy(debug);
@@ -289,11 +289,23 @@ public class ZombieAnimator : CharacterAnimator
 	
 	}
 	
-	
-	
     public override void OnDeath()
     {
-		MecanimAnimator.SetBool(_dieHash, true);
+        ZombieAudioSource.PlayDeath();
+        ActivateRagDoll(transform, false, true);
+        CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
+        if (debug != null)
+            Destroy(debug);
+        ZombieAIDebugger debug2 = GetComponent<ZombieAIDebugger>();
+        if (debug2 != null)
+            Destroy(debug2);
+        Destroy(this);
+		GameManager.AI.Zombies.Remove(CharInput);
+		Destroy(CharInput);
+		Destroy(Settings);
+        Destroy(Controller);
+		Destroy(MecanimAnimator);
+        Destroy(GetComponent<Seeker>());
     }
 				
 	protected void Die(float elapsedTime)
@@ -520,21 +532,51 @@ public class ZombieAnimator : CharacterAnimator
 	}
 	
 	// Helper Method to activate the ragdoll of the zombie
-    public void ActivateRagDoll(Transform current)
+    public void ActivateRagDoll(Transform current, bool disable, bool useGravity)
     {
         // activate the ragdoll for all child bones
         for (int i = 0; i < current.childCount; ++i)
-            ActivateRagDoll(current.GetChild(i));
+            ActivateRagDoll(current.GetChild(i), disable, useGravity);
 
         // activate the ragdoll for the bone we're on
         if (current.GetComponent<ZombieHeartBox>() != null)
             Destroy(current.gameObject);
         else if (current.rigidbody != null && current.collider != null)
         {
-            current.collider.enabled = true;
-            current.rigidbody.isKinematic = false;
+            current.collider.enabled = !disable;
+            current.rigidbody.isKinematic = disable;
+			current.rigidbody.useGravity = useGravity;
         }
     }
+	
+	public void ActivateFloat()
+	{
+		MecanimAnimator.enabled = false;
+		collider.enabled = false;
+        ActivateRagDoll(transform, false, false);
+		Vector3 pos = transform.position;
+		pos.y += 1;
+		transform.position = pos;
+		StartCoroutine("ReEnable");
+		this.enabled = false;
+	}
+	
+	IEnumerator ReEnable()
+	{
+		float timePassed = 0;
+		while (timePassed < 5)
+		{
+			timePassed += Time.deltaTime;
+			yield return null;
+		}
+		this.enabled = true;
+        ActivateRagDoll(transform, true, true);
+		//Transform root = CharacterSettings.SearchHierarchyForBone(transform, "Root");
+		//transform.position = root.transform.position;
+		collider.enabled = true;
+		MecanimAnimator.enabled = true;
+		StopCoroutine("ReEnable");
+	}
 	
     public ZombieAudioPlayer ZombieAudioSource
     {
