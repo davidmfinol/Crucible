@@ -34,7 +34,7 @@ public class WeaponsGui : MonoBehaviour {
 	float rotToSlot2Y;
 	float rotToSlot3Y;
 	
-	//PlayerCharacterAnimator playerController;
+	private PlayerCharacterSettings _player;
     Transform whip;
 	Transform mine;
 	Transform bone;	
@@ -72,9 +72,7 @@ public class WeaponsGui : MonoBehaviour {
 		
 		CurrentAnimationStep = AnimationSteps;
 		
-		//playerController = GameManager.Player.GetComponent<PlayerCharacterFSM>();
-
-		//bone = CharacterFiniteStateMachineBase.SearchHierarchyForBone(Player, "hand_R");
+		_player = GameManager.Player.GetComponent<PlayerCharacterSettings>();
 		
 	}
 	
@@ -117,22 +115,15 @@ public class WeaponsGui : MonoBehaviour {
 	void WeaponSelect(){
 				//Destroy(playerController.Weapon.gameObject);
 				
-				if(CenterSlot == 2){/*
-					//CenterSlot--;
-					whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-					whip.parent = bone;				
-					playerController.Weapon = whip;	*/					
+				if(CenterSlot == 2){
+					_player.Weapon = _player.GravityGunPrefab;
 				}
 				else if(CenterSlot == 1){
-					//whip = (Transform)Instantiate(playerController.Whip, bone.position, Quaternion.identity);
-					//whip.parent = bone;				
-					//playerController.Weapon = whip;					
+					_player.Weapon = _player.PipePrefab;				
 				}
 					
 				else if(CenterSlot == 0){
-					//mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
-					//mine.parent = bone;				
-					//playerController.Weapon = mine;					
+					_player.Weapon =  _player.MinePrefab;					
 				}			
 	}
 				
