@@ -9,8 +9,8 @@ using System.Collections;
 [AddComponentMenu("Character/Zombie/Zombie Animator")]
 public class ZombieAnimator : CharacterAnimator
 {
-	/*
-    // TODO: SHOULD SET THIS ANOTHER WAY
+    /*
+	// TODO: SHOULD SET THIS ANOTHER WAY
     // So we can find the arms to use as weapons
     public string LeftForearmBoneName;
     public string RightForearmBoneName;
@@ -185,9 +185,9 @@ public class ZombieAnimator : CharacterAnimator
 		Destroy(MecanimAnimator);
         Destroy(GetComponent<Seeker>());
     }
-    */
 	
 	
+	*/
     // So we can find the arms to use as weapons
     public string LeftForearmBoneName;
     public string RightForearmBoneName;
@@ -275,28 +275,21 @@ public class ZombieAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		MecanimAnimator.SetBool(_attack1Hash, CharInput.Attack1);
 		MecanimAnimator.SetBool(_attack2Hash, CharInput.Attack2);
+		
+        //FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
+        bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && CharInput.Attack1;
+        // REALISTICALLY, THE HITBOXES SHOULD BE CREATED AT RUNTIME AND THEN PARENTED TO THE BONE (THEN DESTROYED AT RUNTIME AS WELL)
+        // THEN THE ENTIRE RIG CAN USE THE RAGDOLL LAYER AGAIN ( CURRENTLY THE ARMS ARE USING THE HITBOX LAYER)
+		MecanimAnimator.SetBool(_attack1Hash, shouldAttack);
+        _bone_L.GetComponent<Collider>().enabled = shouldAttack;
+        _bone_L.GetComponent<HitBox>().enabled = shouldAttack;
+        _bone_R.GetComponent<Collider>().enabled = shouldAttack;
+        _bone_R.GetComponent<HitBox>().enabled = shouldAttack;
+        //TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
+	
 	}
 	
-	/*
-	protected override void OnUpdate()
-	{
-		// FIXME: THERE SHOULD BE A FASTER/MORE EFFICIENT WAY TO KEEP TRACK OF WEAPONS
-		// AKA, ANIMATION EVENTS ON START AND END OF ATTACK ANIMATION
-		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
-		if(weapon is Mine)
-		{
-			if(CharInput.Attack1)
-				weapon.ActivateAttack(0);
-			if(CharInput.Attack2)
-				weapon.ActivateAttack(1);
-		}
-		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Melee.None") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5)
-			weapon.ActivateAttack(0);
-		else
-			weapon.Deactivate();
-		// TODO: REDO EVERYTHING ABOUT THE PRECEDING (should most likely make a seperate script to handle the combat layer?)
-	}
-	*/
+	
 	
     public override void OnDeath()
     {
@@ -519,8 +512,14 @@ public class ZombieAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 		}
 	}
+    	
+	protected override void ApplyRunning (float elapsedTime)
+	{
+		base.ApplyRunning(elapsedTime);
+		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
+	}
 	
-    // Helper Method to activate the ragdoll of the zombie
+	// Helper Method to activate the ragdoll of the zombie
     public void ActivateRagDoll(Transform current)
     {
         // activate the ragdoll for all child bones
@@ -535,14 +534,7 @@ public class ZombieAnimator : CharacterAnimator
             current.collider.enabled = true;
             current.rigidbody.isKinematic = false;
         }
-    }	
-	
-	protected override void ApplyRunning (float elapsedTime)
-	{
-		base.ApplyRunning(elapsedTime);
-		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
-	}
-	
+    }
 	
     public ZombieAudioPlayer ZombieAudioSource
     {
