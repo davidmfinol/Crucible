@@ -13,7 +13,7 @@ public class PlayerHeartBox : HeartBox
     [SerializeField]
     float regenSpeed;
 	
-	Rect box = new Rect(10, 10, 100, 20);
+	Rect box = new Rect(200, 10, 300, 20);
 	
 	private Texture2D background;
 	private Texture2D foreground;
@@ -27,7 +27,7 @@ public class PlayerHeartBox : HeartBox
 		foreground = new Texture2D(1, 1, TextureFormat.RGB24, false);
 		
 		background.SetPixel(0, 0, Color.red);
-		foreground.SetPixel(0, 0, Color.green);
+		foreground.SetPixel(0, 0, Color.white);
 		
 		background.Apply();
 		foreground.Apply();

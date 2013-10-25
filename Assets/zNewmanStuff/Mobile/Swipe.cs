@@ -36,6 +36,8 @@ private WeaponsGui WeaponSelect;
 		
 	    foreach (var T in Input.touches) {
 	       var P = T.position;
+		   if(P.x < 400)
+				continue;
 	       if (T.phase == TouchPhase.Began && SwipeID == -1) {
 	         SwipeID = T.fingerId;
 	         StartPos = P;
