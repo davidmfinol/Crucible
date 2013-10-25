@@ -7,7 +7,6 @@ using System.Collections.Generic;
 /// In particular, it displays the AI Output and A* Path, with option of rendering path nodes on-screen at runtime.
 /// It also works with the CharacterAnimator Debugger by showing the information right below that debugger's location.
 /// </summary>
-[RequireComponent(typeof(ZombieAnimator))]
 [RequireComponent(typeof(ZombieInput))]
 [AddComponentMenu("Debug/Zombie AI")]
 public class ZombieAIDebugger : MonoBehaviour

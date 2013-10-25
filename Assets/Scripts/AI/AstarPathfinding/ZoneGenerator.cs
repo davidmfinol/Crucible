@@ -336,8 +336,8 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
             return false;
 		
         // account for jump distances
-	    //TODO: FIND A SPOT FOR THIS: if(!ZombieFSM.CanJump((Vector3)A.position, (Vector3)B.position) )
-	//		return false;
+		if(!ZombieSettings.CanJump((Vector3)A.position, (Vector3)B.position) )
+			return false;
 
         Vector3 dir = (Vector3)(A.position - B.position);
         dist = dir.magnitude;
