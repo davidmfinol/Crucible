@@ -7,15 +7,18 @@ using System.Collections;
 [AddComponentMenu("Weaponry/Gravity Gun")]
 public class GravityGun : Weapon
 {
+	public override void ActivateAttack (int attackID)
+	{
+		Physics.RaycastAll();
+	}
 	
-    
     public override Vector3 Rotation
     {
-        get { return new Vector3(90, 0, 90); }
+        get { return new Vector3(270, 90, 90); }
     }
     
     public override Vector3 Translation
     {
-        get { return new Vector3(0.2f, 0.1f, 0.1f); }
+        get { return new Vector3(0.1f, -0.05f, -0.25f); }
     }
 }
