@@ -11,11 +11,6 @@ public class PipeWeapon : Weapon
 {
 	// TODO: HITBOXES SHOULD BE CREATED AT RUNTIME
 	//private HitBox _hitbox;
-    
-	void Start()
-	{
-		//_hitbox = GetComponent<HitBox>();
-	}
 	
 	public override void ActivateAttack (int attackID)
 	{
@@ -29,7 +24,7 @@ public class PipeWeapon : Weapon
     
     public override Vector3 Rotation
     {
-        get { return new Vector3(90, 0, 270); }
+        get { return new Vector3(90, 0, 0); }
     }
     
     public override Vector3 Translation

@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
         	_player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
 		
         PlayerCharacterSettings playerSettings = _player.GetComponent<PlayerCharacterSettings>();
-		playerSettings.Weapon = playerSettings.GravityGunPrefab;
         playerSettings.SpawnPoint = _currentLevel.StartPoint;
 	}
 	

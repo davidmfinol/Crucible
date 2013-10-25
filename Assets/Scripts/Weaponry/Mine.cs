@@ -104,4 +104,14 @@ public class Mine : Weapon
         for (int i = 0; i < current.childCount; ++i)
             SetHitBoxes(current.GetChild(i), active);
     }
+    
+    public override Vector3 Rotation
+    {
+        get { return new Vector3(90, 0, 90); }
+    }
+    
+    public override Vector3 Translation
+    {
+        get { return new Vector3(0.2f, 0.1f, 0.1f); }
+    }
 }

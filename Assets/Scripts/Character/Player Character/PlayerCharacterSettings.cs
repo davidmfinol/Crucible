@@ -28,7 +28,7 @@ public class PlayerCharacterSettings : CharacterSettings
 			if(_currentWeapon != null)
 				Destroy(_currentWeapon.gameObject);
 	        Transform rightHand = SearchHierarchyForBone(transform, "hand_R");
-			Transform weapon = (Transform)Instantiate(value, rightHand.position, Quaternion.identity);
+			Transform weapon = (Transform)Instantiate(value, rightHand.position, transform.rotation);
 	        weapon.parent = rightHand;
             Weapon weaponScript = weapon.GetComponent<Weapon>();
             if(weaponScript != null)
