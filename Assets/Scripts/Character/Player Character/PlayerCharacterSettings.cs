@@ -14,6 +14,7 @@ public class PlayerCharacterSettings : CharacterSettings
 	public Transform PipePrefab;
     public Transform WhipPrefab;
 	public Transform MinePrefab;
+	public Transform GravityGunPrefab;
     
     // We keep track of which weapon is currently equipped here
     private Transform _currentWeapon;
