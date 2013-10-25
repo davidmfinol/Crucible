@@ -73,6 +73,7 @@ public class WeaponsGui : MonoBehaviour {
 		CurrentAnimationStep = AnimationSteps;
 		
 		_player = GameManager.Player.GetComponent<PlayerCharacterSettings>();
+		WeaponSelect();
 		
 	}
 	
@@ -100,20 +101,12 @@ public class WeaponsGui : MonoBehaviour {
 			else if(Input.GetKeyDown(KeyCode.E)){
 				Animating = true;
 				RightSelect = true;
-				/*
-				Destroy(playerController.Weapon.gameObject);
-
-				mine = (Transform)Instantiate(playerController.Mine, bone.position, Quaternion.identity);
-				mine.parent = bone;				
-				playerController.Weapon = mine;				
-				*/
 				
 			}
 		}		
 	}
 	
 	void WeaponSelect(){
-				//Destroy(playerController.Weapon.gameObject);
 				
 				if(CenterSlot == 2){
 					_player.Weapon = _player.GravityGunPrefab;
@@ -207,7 +200,7 @@ public class WeaponsGui : MonoBehaviour {
 						CenterSlot = 2;
 						
 						Animating = true;
-						LeftSelect = true;
+						WeaponSelect();
 						
 					}
 					else{
@@ -219,11 +212,12 @@ public class WeaponsGui : MonoBehaviour {
 					CenterSlot++;
 					if(CenterSlot > 2){
 						CenterSlot = 0;
+						WeaponSelect();
 					}
-					if(CenterSlot == 2){
+					/*if(CenterSlot == 2){
 						Animating = true;
 						RightSelect = true;
-					}
+					}*/
 					else{
 						WeaponSelect();	
 					}

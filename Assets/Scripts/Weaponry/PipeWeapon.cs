@@ -29,7 +29,7 @@ public class PipeWeapon : Weapon
     
     public override Vector3 Rotation
     {
-        get { return new Vector3(90, 0, 0); }
+        get { return new Vector3(90, 0, 270); }
     }
     
     public override Vector3 Translation
