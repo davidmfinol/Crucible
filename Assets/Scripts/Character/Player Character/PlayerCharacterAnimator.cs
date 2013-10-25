@@ -23,6 +23,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _climbLedgeHash;
 	private int _climbPipeHash;
 	private int _randomIdleHash;
+	private int _shootGunHash;
 	
 	// Used to keep track of the last y position at which the player was grounded
 	private float _lastGroundHeight;
@@ -67,6 +68,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_randomIdleHash = Animator.StringToHash("RandomIdle");
+		_shootGunHash = Animator.StringToHash("ShootGun");
 	}
 	
 	protected override void Initialize ()
@@ -84,7 +86,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
-		MecanimAnimator.SetBool(_attack1Hash, CharInput.Attack1);
+		
+		// TODO: FIXME
+		MecanimAnimator.SetBool(_attack1Hash, false); 
+		MecanimAnimator.SetBool(_shootGunHash, false); 
+		if(CharInput.Attack1)
+		{
+			if(Settings.Weapon.GetComponent<Weapon>() is GravityGun)
+				MecanimAnimator.SetBool(_shootGunHash, true); 
+			else
+				MecanimAnimator.SetBool(_attack1Hash, true);
+		}
 		MecanimAnimator.SetBool(_attack2Hash, CharInput.Attack2);
 	}
 	
@@ -99,6 +111,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				weapon.ActivateAttack(0);
 			if(CharInput.Attack2)
 				weapon.ActivateAttack(1);
+		}
+		else if (weapon is GravityGun)
+		{
+			if(CharInput.Attack1)
+				weapon.ActivateAttack(0);
 		}
 		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Melee.None") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5)
 			weapon.ActivateAttack(0);

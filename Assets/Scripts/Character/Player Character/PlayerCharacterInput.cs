@@ -32,7 +32,7 @@ public class PlayerCharacterInput : CharacterInput
 	void Start()
 	{
 #if UNITY_ANDROID
-		_controls = (new GameObject()).transform;
+		_controls = (new GameObject("Mobile Device Controls")).transform;
 		_moveTouchPad = ((Transform) Instantiate(MoveTouchPadPrefab)).GetComponent<Joystick>();
 		_moveTouchPad.transform.parent = _controls;
 		_jumpTouchPad = ((Transform) Instantiate(JumpTouchPadPrefab)).GetComponent<Joystick>();

@@ -7,7 +7,7 @@ MonoImporter:
   - PipePrefab: {fileID: 400000, guid: 3dcd4c5ad3dd0c640a1dfc4135dfcfed, type: 2}
   - WhipPrefab: {fileID: 400000, guid: 5eea45cfdcaf23246b9c35ba6986a796, type: 2}
   - MinePrefab: {fileID: 400032, guid: a38df4a9b027eed41a53518a15e351c5, type: 2}
-  - GravityGunPrefab: {fileID: 400008, guid: 1f0374fea31afa340882cd6a201b8f3e, type: 2}
+  - GravityGunPrefab: {fileID: 400012, guid: 1f0374fea31afa340882cd6a201b8f3e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
