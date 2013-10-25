@@ -5,6 +5,7 @@ using System.Collections;
 /// Fades an object in and out by changing the color's alpha over time
 /// In order for this to work, the shader for this object must support transparency
 /// </summary>
+[AddComponentMenu("User Interface/Fader")]
 public class Fader : MonoBehaviour
 {
 	public bool FadeInAtStart = true;
@@ -29,7 +30,7 @@ public class Fader : MonoBehaviour
 		FadeIn ();
 	}
 	
-	 public void FadeIn(float time = 0)
+    public void FadeIn(float time = 0)
 	{
 		if(time > 0)
 			FadeInSeconds = time;

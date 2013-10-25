@@ -21,7 +21,7 @@ public class WeaponsGui : MonoBehaviour {
 	ArrayList Slots;
 	
 	float moveToSlot1X;
-	float moveToSlot1Z;	
+//	float moveToSlot1Z;	
 	float moveToSlot1Y;
 	float moveToSlot2X;
 	float moveToSlot2Z;	
@@ -65,7 +65,7 @@ public class WeaponsGui : MonoBehaviour {
 		
 		moveToSlot1X = Mathf.Abs((Slot3.transform.position.x - Slot1.transform.position.x) / AnimationSteps);
 		moveToSlot1Y = Mathf.Abs((Slot3.transform.position.y - Slot1.transform.position.y) / AnimationSteps);
-		moveToSlot1Z = Mathf.Abs((Slot3.transform.position.z - Slot1.transform.position.z) / AnimationSteps);
+		//moveToSlot1Z = Mathf.Abs((Slot3.transform.position.z - Slot1.transform.position.z) / AnimationSteps);
 		rotToSlot1Y = Mathf.Abs((Slot3.transform.eulerAngles.y - Slot1.transform.eulerAngles.y) / AnimationSteps);
 		
 		//Vector3 Slot3Pos = new Vector3(Slot3.transform.position());

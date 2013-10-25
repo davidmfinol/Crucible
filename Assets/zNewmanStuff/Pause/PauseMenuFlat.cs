@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PauseMenuFlat : MonoBehaviour {
 	
-	bool Paused = false;
+	public bool Paused = false;
 
 	// Use this for initialization
 	void Start () {

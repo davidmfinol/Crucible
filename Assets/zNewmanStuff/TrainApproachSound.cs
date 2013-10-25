@@ -6,7 +6,7 @@ public class TrainApproachSound : MonoBehaviour {
 	float StartYPos;
 	float PrevYPos;
 	bool hasPlayedAudio = false;
-	bool FirstPlay = true;
+	// bool FirstPlay = true;
 	int count = 0;
 	
 	

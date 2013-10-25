@@ -4,7 +4,7 @@ using System.Collections;
 public class MenuAnim : MonoBehaviour {
 	
 	static bool Animating = false;
-	static Texture2D AnimTex;
+	public static Texture2D AnimTex;
 	static Texture2D texture;
 	
 	public static Rect textureCrop = new Rect( 0.0f, 0f, 0.1f, 0.5f );

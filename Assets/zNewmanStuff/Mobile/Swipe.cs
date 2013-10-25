@@ -10,10 +10,10 @@ float minMovement = 20.0f;
 private WeaponsGui WeaponSelect;	
 // Testing	
 // public Transform BOX;
-private Vector3 Left;
-private Vector3 Right;
-private Vector3 Up;
-private Vector3 Down;
+    public Vector3 Left;
+    public Vector3 Right;
+    public Vector3 Up;
+    public Vector3 Down;
 	
 // Testing	
 	

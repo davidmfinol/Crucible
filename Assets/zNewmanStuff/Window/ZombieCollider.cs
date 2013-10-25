@@ -4,7 +4,7 @@ using System.Collections;
 public class ZombieCollider : MonoBehaviour {
 
 	public bool collisionTimer = false;
-	private Transform Zombie;
+	public Transform Zombie;
 	private float endTime;
 	
 	// Use this for initialization
