@@ -9,7 +9,7 @@ public class GravityGun : Weapon
 {
 	public override void ActivateAttack (int attackID)
 	{
-		Physics.RaycastAll();
+		//Physics.RaycastAll();
 	}
 	
     public override Vector3 Rotation
