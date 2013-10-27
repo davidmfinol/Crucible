@@ -8,31 +8,15 @@ float minMovement = 20.0f;
 	
 	
 private WeaponsGui WeaponSelect;	
-// Testing	
-// public Transform BOX;
-    public Vector3 Left;
-    public Vector3 Right;
-    public Vector3 Up;
-    public Vector3 Down;
-	
-// Testing	
-	
+
 // Use this for initialization
 	void Start ()
 	{
-		WeaponSelect = GetComponent<WeaponsGui>();
-		Left = new Vector3(-4, 2, 0);
-		Right = new Vector3(4, 2, 0);
-		Up = new Vector3(0, 6, 0);
-		Down = new Vector3(0, 0, 0);		
+		WeaponSelect = GetComponent<WeaponsGui>();		
 	}
 	// Update is called once per frame
 	void Update ()
 	{
-		
-		//if(Input.GetKeyDown(KeyCode.J)){
-		//	Instantiate(BOX, Right, Quaternion.identity);
-		//}
 		
 	    foreach (var T in Input.touches) {
 	       var P = T.position;
@@ -47,30 +31,24 @@ private WeaponsGui WeaponSelect;
 	          SwipeID = -1;
 	          if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) {
 						
-				//Testing
-				//Instantiate(MINE, MINE.position, Quaternion.identity);		
-				
-				//Testing
-						
 	              if (delta.x > 0) {
-						//Instantiate(BOX, Right, Quaternion.identity);		
-	 					WeaponSelect.RightSelect = true;
-						WeaponSelect.Animating = true;
+						//Instantiate(BOX, Right, Quaternion.identity);	
+						if(!WeaponSelect.Animating){	
+	 						WeaponSelect.RightSelect = true;
+							WeaponSelect.Animating = true;
+						}
 	                 Debug.Log ("Swipe Right Found");
 	              } else {
 	 
 	                 Debug.Log ("Swipe Left Found");
 						//Instantiate(BOX, Left, Quaternion.identity);	
-						WeaponSelect.LeftSelect = true;
-						WeaponSelect.Animating = true;	
+						if(!WeaponSelect.Animating){	
+							WeaponSelect.LeftSelect = true;
+							WeaponSelect.Animating = true;	
+						}		
 	              }
 	          } 
-	          else {
-				//Testing
-				//Instantiate(Zombie, Zombie.position, Quaternion.identity);							
-						
-				//Testing						
-						
+	          else {					
 	              if (delta.y > 0) {
 	 				//Instantiate(BOX, Up, Quaternion.identity);
 	                 Debug.Log ("Swipe Up Found");
