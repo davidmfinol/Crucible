@@ -12,12 +12,14 @@ public class GameManager : MonoBehaviour
     // The GameManager is in charge of creating the player and his camera
     public Transform PlayerPrefab;
 	public Camera CameraPrefab;
+	public Transform HUDPrefab;
 	
     // Each scene should correspond to a level, and each level should have exactly one GameLevel
     private static GameLevel _currentLevel;
 	
 	// There should always be access to the player
 	private static Transform _player;
+	private static Transform _hud;
 	
 	// Global Managers
 	private static AIManager _aiManager;
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
 		SetupPlayer();
 		
 		SetupCamera();
+		
+		SetupHUD();
 		
 		SetupAI();
 		
@@ -81,7 +85,11 @@ public class GameManager : MonoBehaviour
 		GameManager._audioManager = GetComponentInChildren<AudioManager>();
 	}
 	
-	
+	private void SetupHUD()
+	{
+		if(_hud == null)
+        	_hud = (Transform)Instantiate(HUDPrefab, HUDPrefab.transform.position, HUDPrefab.transform.rotation);	
+	}
 	/// <summary>
 	/// Gets the current GameLevel.
 	/// </summary>

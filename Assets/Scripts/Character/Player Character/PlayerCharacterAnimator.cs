@@ -104,6 +104,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		// FIXME: THERE SHOULD BE A FASTER/MORE EFFICIENT WAY TO KEEP TRACK OF WEAPONS
 		// AKA, ANIMATION EVENTS ON START AND END OF ATTACK ANIMATION
+		
+		if(Settings.Weapon == null)
+			return;
 		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
 		if(weapon is Mine)
 		{
