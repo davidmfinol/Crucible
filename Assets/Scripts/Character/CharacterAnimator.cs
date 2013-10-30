@@ -268,12 +268,7 @@ public class CharacterAnimator : MonoBehaviour
 	protected virtual void ApplyRunning(float elapsedTime)
 	{
         float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
-		if(CharInput.Right)
-        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Settings.MaxHorizontalSpeed, accelerationSmoothing);
-		else if(CharInput.Left)
-        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, -Settings.MaxHorizontalSpeed, accelerationSmoothing);
-		else
-        	HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, 0, accelerationSmoothing);
+        HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Settings.MaxHorizontalSpeed*CharInput.HorizontalInput, accelerationSmoothing);
 	}
     protected virtual void ApplyGravity(float elapsedTime)
     {

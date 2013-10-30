@@ -41,22 +41,27 @@ public class CharacterInput : MonoBehaviour
 	public virtual float VerticalInput
 	{
 		get { return 0; }
+		set {}
 	}
 	public virtual float HorizontalInput
 	{
 		get { return 0; } 
+		set {}
 	}
 	public virtual bool Jump
 	{
 		get { return false; }
+		set {}
 	}
 	public virtual bool Attack1
 	{
 		get { return false; }
+		set {}
 	}
 	public virtual bool Attack2
 	{
-		get { return false; } 
+		get { return false; }
+		set {}
 	}
 	public bool Up
 	{

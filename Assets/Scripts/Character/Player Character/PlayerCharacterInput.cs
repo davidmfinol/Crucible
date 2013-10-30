@@ -17,15 +17,9 @@ public class PlayerCharacterInput : CharacterInput
 	private bool _down;		
 	
 	// Support for controls on a mobile device
-	public Transform MoveTouchPadPrefab;
-	public Transform JumpTouchPadPrefab;
-	public Transform Attack1TouchPadPrefab;
 	public Transform UpTouchPadPrefab;
 	public Transform DownTouchPadPrefab;
 	private Transform _controls;
-	private Joystick _moveTouchPad;
-	private Joystick _jumpTouchPad;
-	private Joystick _attack1TouchPad;
 	private Joystick _upTouchPad;
 	private Joystick _downTouchPad;
 	
@@ -33,12 +27,6 @@ public class PlayerCharacterInput : CharacterInput
 	{
 #if UNITY_ANDROID
 		_controls = (new GameObject("Mobile Device Controls")).transform;
-		_moveTouchPad = ((Transform) Instantiate(MoveTouchPadPrefab)).GetComponent<Joystick>();
-		_moveTouchPad.transform.parent = _controls;
-		_jumpTouchPad = ((Transform) Instantiate(JumpTouchPadPrefab)).GetComponent<Joystick>();
-		_jumpTouchPad.transform.parent = _controls;
-		_attack1TouchPad = ((Transform) Instantiate(Attack1TouchPadPrefab)).GetComponent<Joystick>();
-		_attack1TouchPad.transform.parent = _controls;
 		_upTouchPad = ((Transform) Instantiate(UpTouchPadPrefab)).GetComponent<Joystick>();
 		_upTouchPad.transform.parent = _controls;
 		_downTouchPad = ((Transform) Instantiate(DownTouchPadPrefab)).GetComponent<Joystick>();
@@ -49,13 +37,8 @@ public class PlayerCharacterInput : CharacterInput
 	protected override void UpdateInput()
 	{		
 #if UNITY_ANDROID
-		//_verticalInput = _moveTouchPad.position.y;
-		_horizontalInput = _moveTouchPad.position.x;
-		_jump = _jumpTouchPad.IsFingerDown();
-		_attack1 = _attack1TouchPad.IsFingerDown();
 		_up = _upTouchPad.IsFingerDown();
 		_down = _downTouchPad.IsFingerDown();		
-		// attack2 = Input.GetButton("Secondary");
 #endif
 
 #if UNITY_EDITOR
@@ -102,17 +85,21 @@ public class PlayerCharacterInput : CharacterInput
 	public override float HorizontalInput
 	{
 		get { return _horizontalInput; }
+		set { _horizontalInput = value; }
 	}
 	public override bool Jump
 	{
 		get { return _jump; }
+		set {_jump = value; }
 	}
 	public override bool Attack1
 	{
 		get { return _attack1; }
+		set { _attack1 = value; }
 	}
 	public override bool Attack2
 	{
 		get { return _attack2; }
+		set { _attack2 = value; }
 	}
 }
