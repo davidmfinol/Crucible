@@ -80,6 +80,7 @@ public class PlayerHeartBox : HeartBox
     }
 	
 	//TODO: DRAW HEALTH ELSEWHERE
+	/*
     void OnGUI()
     {
 		GUI.BeginGroup(box);
@@ -89,6 +90,8 @@ public class PlayerHeartBox : HeartBox
 		}
 		GUI.EndGroup();
     }
+    */
+	
     void turnOffRegen()
     {
         RegenRoutine = false;
