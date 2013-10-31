@@ -117,7 +117,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		else if (weapon is GravityGun)
 		{
-			if(CharInput.Attack1)
+			if(CharInput.Attack1 && MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Melee.Shoot Gun") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.6)
 				weapon.ActivateAttack(0);
 		}
 		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Melee.None") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5)
