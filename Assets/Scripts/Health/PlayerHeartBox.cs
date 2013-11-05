@@ -13,7 +13,8 @@ public class PlayerHeartBox : HeartBox
     [SerializeField]
     float regenSpeed;
 	
-	Rect box = new Rect(200, 10, 300, 20);
+    // TODO: WHY IS THIS HERE?
+	//Rect box = new Rect(200, 10, 300, 20);
 	
 	private Texture2D background;
 	private Texture2D foreground;

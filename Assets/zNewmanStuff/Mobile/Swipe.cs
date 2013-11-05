@@ -97,7 +97,7 @@ public class Swipe : MonoBehaviour
 	
 	private void InterpretMovementSwipe(Touch touch)
 	{		
-		input.HorizontalInput = (touch.position.x - Screen.width/4)/(Screen.width/8);
+		input.HorizontalInput = (touch.position.x - Screen.width/4)/(Screen.width/4);
 	}
 	
 	private void InterpretInteractSwipe(Touch touch)

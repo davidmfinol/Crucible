@@ -23,7 +23,7 @@ public class CharacterSettings : MonoBehaviour
     public float MaxFallSpeed = 20.0f;
 	
     // How fast the character rotates
-    public float RotationSmoothing = 3.0f;
+    public float RotationSmoothing = 6.0f;
 
     // How fast the character moves across the Z-Axis
     public float ZLerp = 10.0f;
