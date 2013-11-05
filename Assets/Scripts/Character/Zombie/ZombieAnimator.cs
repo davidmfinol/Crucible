@@ -236,11 +236,9 @@ public class ZombieAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
-		StateMachine[Animator.StringToHash("Jumping.Jumping")] = Jumping;
-		StateMachine[Animator.StringToHash("Jumping.JumpFalling")] = JumpFalling;
-		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = Running;
-		StateMachine[Animator.StringToHash("Falling.Falling")] = Falling;
-		StateMachine[Animator.StringToHash("Falling.Landing")] = Running;
+		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
+		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
+		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
@@ -361,20 +359,8 @@ public class ZombieAnimator : CharacterAnimator
 		
         ApplyBiDirection();
 		
-		MecanimAnimator.SetBool(_fallHash, false);
-		
-		MecanimAnimator.SetBool(_hangHash, 
-			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
-	}
-	
-	protected void JumpFalling(float elapsedTime)
-	{
-		ApplyRunning(elapsedTime);
-		ApplyGravity(elapsedTime);
-		
-		if(transform.position.y > _lastGroundHeight)
-			MecanimAnimator.SetBool(_fallHash, false);
+         if(transform.position.y >= _lastGroundHeight - 1)
+    		MecanimAnimator.SetBool(_fallHash, false);
 		
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 

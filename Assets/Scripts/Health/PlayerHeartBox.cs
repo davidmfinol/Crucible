@@ -14,7 +14,7 @@ public class PlayerHeartBox : HeartBox
     float regenSpeed;
 	
 	/*
-	Rect box = new Rect(200, 10, 300, 20);
+	Rect box = new Rect(200, 10, 300, 20);\
 	
 	private Texture2D background;
 	private Texture2D foreground;
