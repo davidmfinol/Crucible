@@ -13,17 +13,19 @@ public class PlayerHeartBox : HeartBox
     [SerializeField]
     float regenSpeed;
 	
-    // TODO: WHY IS THIS HERE?
-	//Rect box = new Rect(200, 10, 300, 20);
+	/*
+	Rect box = new Rect(200, 10, 300, 20);\
 	
 	private Texture2D background;
 	private Texture2D foreground;
+	*/
     
     protected override void Start()
     {
         HitPoints = MaxHitPoints;
         turnOffRegen();
 		
+		/*
 		background = new Texture2D(1, 1, TextureFormat.RGB24, false);
 		foreground = new Texture2D(1, 1, TextureFormat.RGB24, false);
 		
@@ -32,6 +34,7 @@ public class PlayerHeartBox : HeartBox
 		
 		background.Apply();
 		foreground.Apply();
+		*/
     }
     void Update()
     {
