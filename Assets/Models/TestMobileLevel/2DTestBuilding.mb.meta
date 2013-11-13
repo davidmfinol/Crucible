@@ -286,6 +286,51 @@ ModelImporter:
     100560: Zipline
     100562: ZiplineBottom
     100564: ZiplineTop
+    100566: polySurface1
+    100568: polySurface2
+    100570: transform2
+    100572: Ledge168
+    100574: Ledge169
+    100576: Ledge170
+    100578: Ledge171
+    100580: transform3
+    100582: transform4
+    100584: Smasher 1
+    100586: Ledge172
+    100588: Ledge173
+    100590: Ledge174
+    100592: Ledge175
+    100594: Ledge176
+    100596: Ledge177
+    100598: Ledge178
+    100600: Ledge179
+    100602: Ledge180
+    100604: Ledge181
+    100606: Ledge182
+    100608: Ledge183
+    100610: Ledge184
+    100612: Ledge185
+    100614: Ledge186
+    100616: Ledge187
+    100618: Ledge188
+    100620: Ledge189
+    100622: Ledge190
+    100624: Ledge191
+    100626: Ledge192
+    100628: group2
+    100630: Ledge193
+    100632: Ledge194
+    100634: Ledge195
+    100636: Ledge196
+    100638: Ledge197
+    100640: Ledge198
+    100642: Ledge199
+    100644: Ledge200
+    100646: Ledge201
+    100648: Ledge202
+    100650: Ledge203
+    100652: Ledge204
+    100654: Mover2
     400000: //RootNode
     400002: bend1Handle
     400004: BottomPart
@@ -569,6 +614,51 @@ ModelImporter:
     400560: Zipline
     400562: ZiplineBottom
     400564: ZiplineTop
+    400566: polySurface1
+    400568: polySurface2
+    400570: transform2
+    400572: Ledge168
+    400574: Ledge169
+    400576: Ledge170
+    400578: Ledge171
+    400580: transform3
+    400582: transform4
+    400584: Smasher 1
+    400586: Ledge172
+    400588: Ledge173
+    400590: Ledge174
+    400592: Ledge175
+    400594: Ledge176
+    400596: Ledge177
+    400598: Ledge178
+    400600: Ledge179
+    400602: Ledge180
+    400604: Ledge181
+    400606: Ledge182
+    400608: Ledge183
+    400610: Ledge184
+    400612: Ledge185
+    400614: Ledge186
+    400616: Ledge187
+    400618: Ledge188
+    400620: Ledge189
+    400622: Ledge190
+    400624: Ledge191
+    400626: Ledge192
+    400628: group2
+    400630: Ledge193
+    400632: Ledge194
+    400634: Ledge195
+    400636: Ledge196
+    400638: Ledge197
+    400640: Ledge198
+    400642: Ledge199
+    400644: Ledge200
+    400646: Ledge201
+    400648: Ledge202
+    400650: Ledge203
+    400652: Ledge204
+    400654: Mover2
     2300000: BottomPart
     2300002: Car
     2300004: EntireBuilding
@@ -843,6 +933,46 @@ ModelImporter:
     2300542: Zipline
     2300544: ZiplineBottom
     2300546: ZiplineTop
+    2300548: polySurface1
+    2300550: polySurface2
+    2300552: Ledge168
+    2300554: Ledge169
+    2300556: Ledge170
+    2300558: Ledge171
+    2300560: Smasher 1
+    2300562: Ledge172
+    2300564: Ledge173
+    2300566: Ledge174
+    2300568: Ledge175
+    2300570: Ledge176
+    2300572: Ledge177
+    2300574: Ledge178
+    2300576: Ledge179
+    2300578: Ledge180
+    2300580: Ledge181
+    2300582: Ledge182
+    2300584: Ledge183
+    2300586: Ledge184
+    2300588: Ledge185
+    2300590: Ledge186
+    2300592: Ledge187
+    2300594: Ledge188
+    2300596: Ledge189
+    2300598: Ledge190
+    2300600: Ledge191
+    2300602: Ledge192
+    2300604: Ledge193
+    2300606: Ledge194
+    2300608: Ledge195
+    2300610: Ledge196
+    2300612: Ledge197
+    2300614: Ledge198
+    2300616: Ledge199
+    2300618: Ledge200
+    2300620: Ledge201
+    2300622: Ledge202
+    2300624: Ledge203
+    2300626: Ledge204
     3300000: BottomPart
     3300002: Car
     3300004: EntireBuilding
@@ -1117,6 +1247,46 @@ ModelImporter:
     3300542: Zipline
     3300544: ZiplineBottom
     3300546: ZiplineTop
+    3300548: polySurface1
+    3300550: polySurface2
+    3300552: Ledge168
+    3300554: Ledge169
+    3300556: Ledge170
+    3300558: Ledge171
+    3300560: Smasher 1
+    3300562: Ledge172
+    3300564: Ledge173
+    3300566: Ledge174
+    3300568: Ledge175
+    3300570: Ledge176
+    3300572: Ledge177
+    3300574: Ledge178
+    3300576: Ledge179
+    3300578: Ledge180
+    3300580: Ledge181
+    3300582: Ledge182
+    3300584: Ledge183
+    3300586: Ledge184
+    3300588: Ledge185
+    3300590: Ledge186
+    3300592: Ledge187
+    3300594: Ledge188
+    3300596: Ledge189
+    3300598: Ledge190
+    3300600: Ledge191
+    3300602: Ledge192
+    3300604: Ledge193
+    3300606: Ledge194
+    3300608: Ledge195
+    3300610: Ledge196
+    3300612: Ledge197
+    3300614: Ledge198
+    3300616: Ledge199
+    3300618: Ledge200
+    3300620: Ledge201
+    3300622: Ledge202
+    3300624: Ledge203
+    3300626: Ledge204
     4300000: EntireBuilding
     4300002: RandomStreet
     4300004: pTorus2
@@ -1391,8 +1561,48 @@ ModelImporter:
     4300542: LadderRung305
     4300544: pTorus1
     4300546: BottomPart
-    7400000: Take 001
+    4300548: polySurface1
+    4300550: polySurface2
+    4300552: Ledge168
+    4300554: Ledge169
+    4300556: Ledge170
+    4300558: Ledge171
+    4300560: Ledge172
+    4300562: Ledge173
+    4300564: Ledge174
+    4300566: Ledge175
+    4300568: Ledge176
+    4300570: Ledge177
+    4300572: Ledge178
+    4300574: Ledge179
+    4300576: Ledge180
+    4300578: Ledge181
+    4300580: Ledge182
+    4300582: Ledge183
+    4300584: Ledge184
+    4300586: Ledge185
+    4300588: Ledge186
+    4300590: Ledge187
+    4300592: Ledge188
+    4300594: Ledge189
+    4300596: Ledge190
+    4300598: Ledge191
+    4300600: Ledge192
+    4300602: Ledge193
+    4300604: Ledge194
+    4300606: Ledge195
+    4300608: Ledge196
+    4300610: Ledge197
+    4300612: Ledge198
+    4300614: Ledge199
+    4300616: Ledge200
+    4300618: Ledge201
+    4300620: Ledge202
+    4300622: Ledge203
+    4300624: Ledge204
+    7400000: TestBuildingLoop
     9500000: //RootNode
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -1405,7 +1615,28 @@ ModelImporter:
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
-    clipAnimations: []
+    clipAnimations:
+    - name: TestBuildingLoop
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 100
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -1443,5 +1674,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   additionalBone: 1
-  animationType: 2
+  animationType: 1
   userData: 
