@@ -276,10 +276,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		else
 		{
-	        if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
+	      	if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height)
 	            VerticalSpeed = GroundVerticalSpeed;
-	        if (transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x
-				|| transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
+	        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
+				|| (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x))
 	            HorizontalSpeed = 0;
 		}
 	}
