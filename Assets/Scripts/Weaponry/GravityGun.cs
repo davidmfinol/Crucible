@@ -16,29 +16,18 @@ public class GravityGun : Weapon
 	}
 	public override void ActivateAttack (int attackID)
 	{
-		// TODO: clean this up
-		if(_player.Direction.x > 0.1)
+		Vector3 shootDirection = _player.Direction.x > 0.1 ? Vector3.right : Vector3.left;
+		if(Mathf.Abs(_player.Direction.x) < 0.1)
+			shootDirection = Vector3.forward;
+		RaycastHit[] hits = Physics.SphereCastAll(_player.transform.position, 100, shootDirection, Mathf.Infinity, 1 << 11);
+		Debug.Log("shooting");
+		foreach(RaycastHit hit in hits)
 		{
-			RaycastHit[] hits = Physics.RaycastAll(transform.position, Vector3.right, Mathf.Infinity);
-			foreach(RaycastHit hit in hits)
-			{
-				ZombieAnimator zombie = hit.collider.gameObject.GetComponent<ZombieAnimator>();
-				if(zombie != null)
-				{
-					zombie.ActivateFloat();
-				}
-			}
-		}
-		else if(_player.Direction.x < 0.1)
-		{
-			RaycastHit[] hits = Physics.RaycastAll(transform.position, Vector3.left, Mathf.Infinity);
-			foreach(RaycastHit hit in hits)
-			{
-				ZombieAnimator zombie = hit.collider.gameObject.GetComponent<ZombieAnimator>();
-				if(zombie != null)
-				{
-					zombie.ActivateFloat();
-				}
+			Debug.Log("hit something");
+			ZombieAnimator zombie = hit.collider.gameObject.GetComponent<ZombieAnimator>();
+			if(zombie != null) {
+				Debug.Log("Best start jumping");
+				zombie.ActivateFloat();
 			}
 		}
 	}

@@ -43,11 +43,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
-		StateMachine[Animator.StringToHash("Jumping.Jumping")] = Jumping;
-		StateMachine[Animator.StringToHash("Jumping.JumpFalling")] = JumpFalling;
-		StateMachine[Animator.StringToHash("Jumping.JumpLanding")] = Running;
-		StateMachine[Animator.StringToHash("Falling.Falling")] = Falling;
-		StateMachine[Animator.StringToHash("Falling.Landing")] = Running;
+		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
+		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
+		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
@@ -117,10 +115,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		else if (weapon is GravityGun)
 		{
-			if(CharInput.Attack1 && MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Melee.Shoot Gun") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.6)
+			if(CharInput.Attack1/* && MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Weapons Layer.Shoot Gun") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.6*/)
 				weapon.ActivateAttack(0);
 		}
-		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Melee.None") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5)
+		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Weapons Layer.None") /*&& MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5*/)
 			weapon.ActivateAttack(0);
 		else
 			weapon.Deactivate();
@@ -185,20 +183,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
         ApplyBiDirection();
 		
-		MecanimAnimator.SetBool(_fallHash, false);
-		
-		MecanimAnimator.SetBool(_hangHash, 
-			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
-	}
-	
-	protected void JumpFalling(float elapsedTime)
-	{
-		ApplyRunning(elapsedTime);
-		ApplyGravity(elapsedTime);
-		
-		if(transform.position.y > _lastGroundHeight)
-			MecanimAnimator.SetBool(_fallHash, false);
+        if(transform.position.y >= _lastGroundHeight - 1)
+            MecanimAnimator.SetBool(_fallHash, false);
 		
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
@@ -290,10 +276,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		else
 		{
-	        if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
+	      	if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height)
 	            VerticalSpeed = GroundVerticalSpeed;
-	        if (transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x
-				|| transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
+	        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
+				|| (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x))
 	            HorizontalSpeed = 0;
 		}
 	}
