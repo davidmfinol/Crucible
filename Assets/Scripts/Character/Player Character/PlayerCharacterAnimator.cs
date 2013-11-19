@@ -30,7 +30,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
 	
-	
+	public static int countItems = 0;
     public void Spawn()
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
@@ -330,7 +330,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 	}
 	
-	/* TODO: DETERMINE HOW WE PICK STUFF UP
+	// TODO: DETERMINE HOW WE PICK STUFF UP
     public override void OnControllerColliderHit(ControllerColliderHit hit)
     {
         base.OnControllerColliderHit(hit);
@@ -338,11 +338,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
         // We can pick up items
         if (hit.gameObject.tag == "Item")
         {
-            HasPackage = true; // TODO: seperate script for inventory
+           // HasPackage = true; // TODO: seperate script for inventory
             Destroy(hit.gameObject);
+			countItems += 1;
         }
+		
     }
-    */
+    
 	
 	protected override void ApplyRunning (float elapsedTime)
 	{
