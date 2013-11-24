@@ -97,7 +97,46 @@ public class Swipe : MonoBehaviour
 	
 	private void InterpretMovementSwipe(Touch touch)
 	{		
-		input.HorizontalInput = (touch.position.x - Screen.width/4)/(Screen.width/4);
+		// first movement slider: input.HorizontalInput = (touch.position.x - Screen.width/4)/(Screen.width/4);
+		Vector2 position = touch.position;
+		if (touch.phase == TouchPhase.Began && SwipeID == -1)
+		{
+			SwipeID = touch.fingerId;
+			StartPos = position;
+		} 
+		
+		else if (touch.fingerId == SwipeID)
+		{
+			Vector2 delta = position - StartPos;
+			if (touch.phase == TouchPhase.Moved && delta.magnitude > minMovement) 
+			{
+				SwipeID = -1;
+				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
+				{
+					
+					if (delta.x > 0) 
+					{
+						//Instantiate(BOX, Right, Quaternion.identity);	
+						input.HorizontalInput = 1-1/delta.x;
+						Debug.Log ("Swipe Right Found");
+					} else {
+						input.HorizontalInput = -1+1/delta.x;
+						Debug.Log ("Swipe Left Found");
+						//Instantiate(BOX, Left, Quaternion.identity);			
+					}
+				} else {					
+					if (delta.y > .5) {
+						//Instantiate(BOX, Up, Quaternion.identity);
+						input.Jump = true;
+					} else {
+						input.Attack2 = true;
+						//Instantiate(BOX, Down, Quaternion.identity);
+						Debug.Log ("Swipe Down Found");
+					}
+				}
+			} else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+				SwipeID = -1;
+		}
 	}
 	
 	private void InterpretInteractSwipe(Touch touch)
