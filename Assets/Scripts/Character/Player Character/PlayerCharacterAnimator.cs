@@ -85,7 +85,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		
-		// TODO: FIXME
+		// TODO: SET UP THE APPROPRIATE ATTACK ANIMATIONS
+		// IN PARTICULAR, NEED ANIMATION FOR PUTTING DOWN MINE
+		// WILL ALSO NEED WAY TO PREVENT WEAPON SWITCH DURING CERTAIN ANIMATIONS
 		MecanimAnimator.SetBool(_attack1Hash, false); 
 		MecanimAnimator.SetBool(_shootGunHash, false); 
 		if(CharInput.Attack1)
@@ -97,35 +99,43 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		MecanimAnimator.SetBool(_attack2Hash, CharInput.Attack2);
 	}
-	
-	protected override void OnUpdate()
-	{
-		// FIXME: THERE SHOULD BE A FASTER/MORE EFFICIENT WAY TO KEEP TRACK OF WEAPONS
-		// AKA, ANIMATION EVENTS ON START AND END OF ATTACK ANIMATION
-		if(Settings.Weapon == null)
-			return;
-		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
-		if(weapon is Mine)
-		{
-			if(CharInput.Attack1)
-				weapon.ActivateAttack(0);
-			if(CharInput.Attack2)
-				weapon.ActivateAttack(1);
-		}
-		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Weapons Layer.None") /*&& MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5*/)
-			weapon.ActivateAttack(0);
-		else
-			weapon.Deactivate();
-		// TODO: REDO EVERYTHING ABOUT THE PRECEDING (should most likely make a seperate script to handle the combat layer?)
-	}
 
-	void ShootGun()
+	public void ActivateWeapon(int activationNumber)
 	{
 		if(Settings.Weapon == null)
 			return;
 		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
 		if(weapon != null)
 			weapon.ActivateAttack(0);
+	}
+	public void DeactivateWeapon()
+	{
+		if(Settings.Weapon == null)
+			return;
+		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		if(weapon != null)
+			weapon.Deactivate();
+	}
+
+	void StartMelee()
+	{
+		ActivateWeapon(0);
+	}
+	void EndMelee()
+	{
+		DeactivateWeapon();
+	}
+	void PlaceMine()
+	{
+		ActivateWeapon(0);
+	}
+	void DetonateMine()
+	{
+		ActivateWeapon(1);
+	}
+	void ShootGun()
+	{
+		ActivateWeapon(0);
 	}
 	
     public override void OnDeath()
