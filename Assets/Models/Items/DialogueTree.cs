@@ -12,7 +12,7 @@ public class DialogueTree : MonoBehaviour {
 	}
 	IEnumerator DelayText()
 	{
-		hasTriggered = true;
+	  hasTriggered = true;
 	  float t = 0;
 	  while (t < 2) 
 	  {
@@ -32,9 +32,9 @@ public class DialogueTree : MonoBehaviour {
 	  else
 		{
 			guiText.text = "Rogue human.  Execute terminatation of subject.  ";
-		}
-		
+		}q
 	}
+
 	
 	
 }

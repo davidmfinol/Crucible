@@ -66,6 +66,26 @@ ModelImporter:
     100120: transform6
     100122: transform7
     100124: transform8
+    100126: group2
+    100128: group3
+    100130: group4
+    100132: pCube10
+    100134: pCube10 1
+    100136: pCube11
+    100138: pCube12
+    100140: pCube13
+    100142: pCube14
+    100144: pCube14 1
+    100146: pCube15
+    100148: pCube16
+    100150: pCube17
+    100152: pCube18
+    100154: pCube19
+    100156: pCube20
+    100158: pCube21
+    100160: pCube7
+    100162: pCube8
+    100164: pCube9
     400000: //RootNode
     400002: CurvedBackground
     400004: group1
@@ -129,6 +149,26 @@ ModelImporter:
     400120: transform6
     400122: transform7
     400124: transform8
+    400126: group2
+    400128: group3
+    400130: group4
+    400132: pCube10
+    400134: pCube10 1
+    400136: pCube11
+    400138: pCube12
+    400140: pCube13
+    400142: pCube14
+    400144: pCube14 1
+    400146: pCube15
+    400148: pCube16
+    400150: pCube17
+    400152: pCube18
+    400154: pCube19
+    400156: pCube20
+    400158: pCube21
+    400160: pCube7
+    400162: pCube8
+    400164: pCube9
     2300000: LEDHangingLight
     2300002: LEDHangingLight1
     2300004: LEDHangingLight10
@@ -172,6 +212,23 @@ ModelImporter:
     2300080: polySurface8
     2300082: polySurface9
     2300084: pPlane1
+    2300086: pCube10
+    2300088: pCube10 1
+    2300090: pCube11
+    2300092: pCube12
+    2300094: pCube13
+    2300096: pCube14
+    2300098: pCube14 1
+    2300100: pCube15
+    2300102: pCube16
+    2300104: pCube17
+    2300106: pCube18
+    2300108: pCube19
+    2300110: pCube20
+    2300112: pCube21
+    2300114: pCube7
+    2300116: pCube8
+    2300118: pCube9
     3300000: LEDHangingLight
     3300002: LEDHangingLight1
     3300004: LEDHangingLight10
@@ -215,6 +272,23 @@ ModelImporter:
     3300080: polySurface8
     3300082: polySurface9
     3300084: pPlane1
+    3300086: pCube10
+    3300088: pCube10 1
+    3300090: pCube11
+    3300092: pCube12
+    3300094: pCube13
+    3300096: pCube14
+    3300098: pCube14 1
+    3300100: pCube15
+    3300102: pCube16
+    3300104: pCube17
+    3300106: pCube18
+    3300108: pCube19
+    3300110: pCube20
+    3300112: pCube21
+    3300114: pCube7
+    3300116: pCube8
+    3300118: pCube9
     4300000: pCube1
     4300002: polySurface17
     4300004: polySurface18
@@ -258,6 +332,23 @@ ModelImporter:
     4300080: polySurface28
     4300082: pCylinder1
     4300084: pCylinder2
+    4300086: pCube7
+    4300088: pCube8
+    4300090: pCube9
+    4300092: pCube11
+    4300094: pCube12
+    4300096: pCube13
+    4300098: pCube14
+    4300100: pCube10
+    4300102: pCube15
+    4300104: pCube16
+    4300106: pCube14
+    4300108: pCube10
+    4300110: pCube17
+    4300112: pCube18
+    4300114: pCube19
+    4300116: pCube20
+    4300118: pCube21
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -266,11 +357,13 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    optimizeGameObjects: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
+    extraExposedTransformPaths: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -298,7 +391,6 @@ ModelImporter:
   humanDescription:
     human: []
     skeleton: []
-    handles: []
     armTwist: .5
     foreArmTwist: .5
     upperLegTwist: .5
@@ -308,6 +400,5 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  additionalBone: 1
   animationType: 2
   userData: 
