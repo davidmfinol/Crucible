@@ -12,6 +12,7 @@ Library/metadata
 Library/previews
 Library/guidmapper
 Library/InspectorExpandedItems.asset
+Library/*.dwlt
 Temp
 obj
 *.pidb

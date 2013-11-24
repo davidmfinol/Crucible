@@ -102,7 +102,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		// FIXME: THERE SHOULD BE A FASTER/MORE EFFICIENT WAY TO KEEP TRACK OF WEAPONS
 		// AKA, ANIMATION EVENTS ON START AND END OF ATTACK ANIMATION
-		
 		if(Settings.Weapon == null)
 			return;
 		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
@@ -113,16 +112,20 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			if(CharInput.Attack2)
 				weapon.ActivateAttack(1);
 		}
-		else if (weapon is GravityGun)
-		{
-			if(CharInput.Attack1/* && MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Weapons Layer.Shoot Gun") && MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime > 0.6*/)
-				weapon.ActivateAttack(0);
-		}
 		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Weapons Layer.None") /*&& MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5*/)
 			weapon.ActivateAttack(0);
 		else
 			weapon.Deactivate();
 		// TODO: REDO EVERYTHING ABOUT THE PRECEDING (should most likely make a seperate script to handle the combat layer?)
+	}
+
+	void ShootGun()
+	{
+		if(Settings.Weapon == null)
+			return;
+		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		if(weapon != null)
+			weapon.ActivateAttack(0);
 	}
 	
     public override void OnDeath()
