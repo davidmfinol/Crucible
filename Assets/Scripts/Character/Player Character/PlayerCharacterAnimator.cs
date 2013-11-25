@@ -202,6 +202,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+		
+		//TODO: Support for double-jumping
+		//if (IsTouchingWall && CharInput.Jump)
+		//	MecanimAnimator.SetBool(_jumpHash, true);
 	}
 	
 	protected void Falling(float elapsedTime)
@@ -272,31 +276,30 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void ClimbingLedge(float elapsedTime)
 	{
-		if(MecanimAnimator.GetBool(_climbLedgeHash))
-		{
+		if(ActiveHangTarget != null)
 			_ledge = ActiveHangTarget as Ledge;
-	        if (_ledge.DoesFaceZAxis())
-	        {
-	            HorizontalSpeed = 0.0f;
-	            VerticalSpeed = Settings.LedgeClimbingSpeed;
-	        }
-	        else if (_ledge.DoesFaceXAxis())
-	        {
-	            HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
-	            VerticalSpeed = Settings.LedgeClimbingSpeed;
-	        }
+
+		if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
+		    || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
+		    || MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+		{
+			VerticalSpeed = GroundVerticalSpeed;
 			MecanimAnimator.SetBool(_climbLedgeHash, false);
 		}
+      	else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height/2)
+			VerticalSpeed = 0;
 		else
 		{
-			if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
-			    || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x))
+			if (_ledge.DoesFaceZAxis())
 			{
-				HorizontalSpeed = 0;
-				VerticalSpeed = GroundVerticalSpeed;
+				HorizontalSpeed = 0.0f;
+				VerticalSpeed = Settings.LedgeClimbingSpeed;
 			}
-	      	else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height/2)
-	            VerticalSpeed = 0;
+			else if (_ledge.DoesFaceXAxis())
+			{
+				HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
+				VerticalSpeed = Settings.LedgeClimbingSpeed;
+			}
 		}
 	}
 	
@@ -308,8 +311,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			ApplyClimbingStrafing();
 		else
 			HorizontalSpeed = 0;
-		
-		Direction = Vector3.zero;
+
 		
 		
         if(ActiveHangTarget == null)
@@ -318,7 +320,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 		}
 		else
+		{
 			MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
+			if(ActiveHangTarget.DoesFaceZAxis())
+				Direction = Vector3.zero;
+		}
 	}
 	
 	protected void ClimbingStrafe(float elapsedTime)
@@ -329,9 +335,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			ApplyClimbingVertical();
 		else
 			VerticalSpeed = 0.0f;
-		
-		Direction = Vector3.zero;
-		
+				
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		
         if(CharInput.Jump)
@@ -343,6 +347,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 			DropHangTarget();
 			MecanimAnimator.SetBool(_fallHash, true);
+		}
+		else if(ActiveHangTarget.DoesFaceZAxis())
+		{
+			Direction = Vector3.zero;
 		}
 	}
 	
@@ -358,7 +366,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
             Destroy(hit.gameObject);
 			countItems += 1;
         }
-		
     }
     
 	
