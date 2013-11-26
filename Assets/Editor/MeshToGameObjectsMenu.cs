@@ -48,7 +48,7 @@ public class MeshToGameObjectsMenu
 				// TODO: if(name.Contains("inter-zone"))
 				//	CreateInterZoneLedge(transform);
 				//else
-					CreateLedge(transform); 
+				CreateLedge(transform); 
 			}
 			if (name.Contains("ladder"))
 			{
@@ -66,6 +66,9 @@ public class MeshToGameObjectsMenu
 		
 		// We use box colliders
 		collider = transform.gameObject.AddComponent<BoxCollider>();
+
+		// Put it on the ground layer
+		transform.gameObject.layer = LayerMask.NameToLayer("Ground");
 		
 		// Get rid of any child objects that may exist
 		DestroyChildren(transform);
@@ -100,6 +103,7 @@ public class MeshToGameObjectsMenu
 	{
 		// Create the ladder
 		GameObject createdLadder = GameObject.Instantiate(ladderPrefab, ladder.position, ladderPrefab.transform.rotation) as GameObject;
+		createdLadder.transform.parent = ladder.transform;
 
 		// Scale the ladder so that it encompasses the physical ladder and the size of the player
 		// TODO: FINISH THIS
