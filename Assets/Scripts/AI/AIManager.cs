@@ -29,7 +29,7 @@ public class AIManager : MonoBehaviour
 		{
 			int zombiesAware = 0;
 			foreach(ZombieInput zombie in _zombies)
-				if(zombie.AwareOfPlayer)
+				if(zombie.Awareness == ZombieInput.AwarenessType.Chasing)
 					zombiesAware++;
 			return zombiesAware;
 		}

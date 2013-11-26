@@ -271,20 +271,30 @@ public class ZombieAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
+		// FIXME: NEXT TWO LINES
 		MecanimAnimator.SetBool(_attack1Hash, CharInput.Attack1);
 		MecanimAnimator.SetBool(_attack2Hash, CharInput.Attack2);
-		
-        //FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
-        bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && CharInput.Attack1;
-        // REALISTICALLY, THE HITBOXES SHOULD BE CREATED AT RUNTIME AND THEN PARENTED TO THE BONE (THEN DESTROYED AT RUNTIME AS WELL)
-        // THEN THE ENTIRE RIG CAN USE THE RAGDOLL LAYER AGAIN ( CURRENTLY THE ARMS ARE USING THE HITBOX LAYER)
+		bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && CharInput.Attack1;
 		MecanimAnimator.SetBool(_attack1Hash, shouldAttack);
-        _bone_L.GetComponent<Collider>().enabled = shouldAttack;
-        _bone_L.GetComponent<HitBox>().enabled = shouldAttack;
-        _bone_R.GetComponent<Collider>().enabled = shouldAttack;
-        _bone_R.GetComponent<HitBox>().enabled = shouldAttack;
-        //TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
 	
+	}
+	void StartMelee()
+	{
+		//FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
+		_bone_L.GetComponent<Collider>().enabled = true;
+		_bone_L.GetComponent<HitBox>().enabled = true;
+		_bone_R.GetComponent<Collider>().enabled = true;
+		_bone_R.GetComponent<HitBox>().enabled = true;
+		//TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
+	}
+	void EndMelee()
+	{
+		//FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
+		_bone_L.GetComponent<Collider>().enabled = false;
+		_bone_L.GetComponent<HitBox>().enabled = false;
+		_bone_R.GetComponent<Collider>().enabled = false;
+		_bone_R.GetComponent<HitBox>().enabled = false;
+		//TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
 	}
 	
     public override void OnDeath()

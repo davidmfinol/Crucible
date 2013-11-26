@@ -29,9 +29,16 @@ public class ZombieInput : CharacterInput
     private bool _searchingForPath = false; // Is the zombie currently looking for a path?
     private float _timeSinceRepath = 0; // how long has it been since it found a path
 	private bool _hasTransitionRecent = false; // to prevent Z zone spam
+	
+	public enum AwarenessType : int
+	{
+		Unaware = 0,
+		Searching = 1,
+		Chasing = 2
+	}
 
-    // Is the zombie aware of the player?
-    private bool _awareOfPlayer = false;
+    // How aware is the enemy of the player?
+	private AwarenessType _awareness = AwarenessType.Unaware;
 	
 	void Start()
 	{
@@ -49,54 +56,84 @@ public class ZombieInput : CharacterInput
         _vertical = 0;
         _jump = false;
 		_attack = false;
-		
-		// And have it continue to do nothing while unaware
-		if(!_awareOfPlayer && !PlayerIsInNoticeRange())
-			return;
-		
-		// If we ever reach noticed range, we shall forevermore be aware of the player
-		_awareOfPlayer = true;
-		
+
+		UpdateAwareness();
+
+		switch(_awareness)
+		{
+		case AwarenessType.Unaware: Wander(); break;
+		case AwarenessType.Searching : Search(); break;
+		case AwarenessType.Chasing : Chase(); break;
+		default : Wander(); break;
+		}
+    }
+
+	// Does nothing for now, but should be fun to set up later
+	private void Wander()
+	{
+		// TODO: STAND OR SOMETHING
+		// TOTALLY PLAYING BASEBALL
+	}
+
+	// Enemy is kind of aware of player, but not really
+	private void Search()
+	{
+		// TODO: SOMETHING
+	}
+
+	// Use A* pathfinding to chase the player down!
+	private void Chase()
+	{
 		// For now, all decision making is based off A* and a little bit of logic
 		if(!UpdateAStar())
 			return;
 		
-        // attack if we're facing the player and are close enough
+		// attack if we're facing the player and are close enough
 		if(_player != null)
 		{
 			bool facingPlayer = _zombie.Direction.x > 0 && _zombie.transform.position.x < _player.transform.position.x;
 			facingPlayer = facingPlayer || _zombie.Direction.x < 0 && _zombie.transform.position.x > _player.transform.position.x;
-	        _attack = facingPlayer && PlayerIsInAttackRange();
+			_attack = facingPlayer && PlayerIsInAttackRange();
 		}
-
-        // Jump selectively
-        _jump = _path.vectorPath[_currentPathWaypoint].y > _zombie.transform.position.y && _zombie.VerticalSpeed <= 0;
-
-        // Pressing up or down depends on both y and z positions
-        if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _zombie.DesiredZ) < 1 || (_player != null && _player.DesiredZ == _zombie.DesiredZ))
+		
+		// Jump selectively
+		_jump = _path.vectorPath[_currentPathWaypoint].y > _zombie.transform.position.y && _zombie.VerticalSpeed <= 0;
+		
+		// Pressing up or down depends on both y and z positions
+		if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _zombie.DesiredZ) < 1 || (_player != null && _player.DesiredZ == _zombie.DesiredZ))
 		{
 			if(!_zombie.CanTransitionZ)
 			{
-            	_vertical = _path.vectorPath[_currentPathWaypoint].y > _zombie.transform.position.y ? 1 : -1;
+				_vertical = _path.vectorPath[_currentPathWaypoint].y > _zombie.transform.position.y ? 1 : -1;
 				_hasTransitionRecent = true;
 			}
 			else
 				_vertical = 0;
 		}
-        else
+		else
 		{
 			if(!_hasTransitionRecent)
 			{
-            	_vertical = _path.vectorPath[_currentPathWaypoint].z - _zombie.DesiredZ;
+				_vertical = _path.vectorPath[_currentPathWaypoint].z - _zombie.DesiredZ;
 				_hasTransitionRecent = true;
 			}
 			else
 				_vertical = 0;
 		}
+		
+		// Pressing left or right based on horizontal position
+		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombie.transform.position.x ? 1 : -1; // because stopping is for the weak
+	}
 
-        // Pressing left or right based on horizontal position
-        _horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombie.transform.position.x ? 1 : -1; // because stopping is for the weak
-    }
+	private void UpdateAwareness()
+	{
+		if( _awareness == AwarenessType.Chasing || (PlayerIsInSightRadius() && PlayerIsInSight()) )
+			_awareness = AwarenessType.Chasing;
+		else if(PlayerIsInNoticeRange())
+			_awareness = AwarenessType.Searching;
+		else
+			_awareness = AwarenessType.Unaware;
+	}
     
 	private bool UpdateAStar()
 	{
@@ -129,7 +166,7 @@ public class ZombieInput : CharacterInput
 			_target = target;
 			return true;
 		}
-		else if(_awareOfPlayer && _player != null)
+		else if(_awareness == AwarenessType.Chasing && _player != null)
 		{
             _target = _player.transform.position;
 			return true;
@@ -218,24 +255,53 @@ public class ZombieInput : CharacterInput
                 && (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AttackRange)
                 && _zombie.DesiredZ == _player.DesiredZ;
         return false;
-    }
+	}
+
+	// Is the player within a radius that the zombie can see and potentially start chasing in
+	public bool PlayerIsInSightRadius()
+	{
+		GameObject player = GameManager.Player.gameObject;
+		if (player != null && _player != null)
+			return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AwarenessRange)
+				&& (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AwarenessRange)
+				&& _zombie.DesiredZ == _player.DesiredZ;
+		return false;
+	}
+
+	// Is the player visible to the enemy, and therefore ready to be chased
+	public bool PlayerIsInSight() 
+	{
+		GameObject player = GameManager.Player.gameObject;
+		if (player == null || _player == null)
+			return false;
+
+		bool openSightLine = false;
+		Vector3 playerPos = player.transform.position;
+		float playerHalfHeight = _player.Height/2;
+		for(float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight)
+		{
+			Vector3 endPoint = playerPos;
+			endPoint.y = y;
+			Vector3 raycastDirection = endPoint - transform.position;
+			if(!Physics.Raycast(transform.position, raycastDirection.normalized, raycastDirection.magnitude, 1 << 12))
+			{
+				openSightLine = true;
+				break;
+			}
+		}
+		return openSightLine;
+	}
 	
-    // Is the player in the range that the zombie can notice?
-    public bool PlayerIsInNoticeRange()
-    {
-        GameObject player = GameManager.Player.gameObject;
-        if (player != null && _player != null)
-            return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AwarenessRange)
-                && (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AwarenessRange)
-                && _zombie.DesiredZ == _player.DesiredZ;
-        return false;
-    }
-	
+	// Is the player within a distance that would make the enemy suspicious
+	public bool PlayerIsInNoticeRange()
+	{
+		return false;
+	}
 	
 	// Generic Properties
-	public bool AwareOfPlayer
+	public AwarenessType Awareness
 	{
-		get { return _awareOfPlayer; }
+		get { return _awareness; }
 	}
 	
 	// Output Properties
