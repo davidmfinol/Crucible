@@ -40,6 +40,8 @@ public class CharacterSettings : MonoBehaviour
 	// How fast the character strafes ladders
 	public float LadderStrafingSpeed = 5.0f;
  
+	// How often the character makes noise when running
+	public float FootStepNoiseFrequency = 0.3f;
 	
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone(Transform current, string name)

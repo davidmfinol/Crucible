@@ -29,9 +29,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private float _lastGroundHeight;
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
-	
+	//
+	private float _timeUntilNextFootStepSound = -1f;
+
 	public static int countItems = 0;
-    public void Spawn()
+
+    public void Spawn() 
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
         transform.position = Settings.SpawnPoint.transform.position;
@@ -155,6 +158,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected virtual void Idle(float elapsedTime)
 	{
+
+		// Make this mor efficient later
+		_timeUntilNextFootStepSound = 0;
+
 		//TODO: SET up different idles by modifying this variable
 		MecanimAnimator.SetFloat(_randomIdleHash, 0);
 		
@@ -171,6 +178,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Running(float elapsedTime)
 	{
+		// Create sound for footstep;
+		if(Time.time > _timeUntilNextFootStepSound){
+			// instantiate noise
+			StartCoroutine(CreateAndDestoryFootStepNoise());
+			_timeUntilNextFootStepSound = Time.time + Settings.FootStepNoiseFrequency;
+
+		}
+
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection();
@@ -180,6 +195,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 			_lastGroundHeight = transform.position.y;
 		}
+
 	}
 	
 	protected void Jumping(float elapsedTime)
@@ -383,5 +399,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public new PlayerCharacterInput CharInput
 	{
 		get { return (PlayerCharacterInput) base.CharInput; }
+	}
+
+	private IEnumerator CreateAndDestoryFootStepNoise(){
+		Vector3 footStepPosition = transform.position;
+		footStepPosition.y -= 2;	// 
+		Transform footStepNoise = (Transform) Instantiate(Settings.FootStepNoise, transform.position, Quaternion.identity);
+		yield return new WaitForSeconds(0.2f);
+		Destroy(footStepNoise.gameObject);
 	}
 }
