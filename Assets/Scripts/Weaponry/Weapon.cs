@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour
     /// Activate the weapon's attack based off its attack number
     /// </summary>
     /// <param name="attackID">a number reffering to which attack to activate</param>
-    public virtual void ActivateAttack(int attackID) { }
+    public virtual void ActivateAttack(int attackID = 0) { }
 
     /// <summary>
     /// Deactivate the weapon

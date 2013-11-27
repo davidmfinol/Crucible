@@ -203,9 +203,7 @@ public class ZombieAnimator : CharacterAnimator
 	private int _hangHash;
 	private int _climbLadderHash;
 	private int _isGroundedHash;
-	private int _dieHash;
-	private int _attack1Hash;
-	private int _attack2Hash;
+	private int _meleeAttackHash;
 	private int _climbLedgeHash;
 	private int _climbPipeHash;
 	private int _randomIdleHash;
@@ -235,7 +233,6 @@ public class ZombieAnimator : CharacterAnimator
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
-		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
@@ -253,9 +250,7 @@ public class ZombieAnimator : CharacterAnimator
 		_hangHash = Animator.StringToHash("Hang");
 		_climbLadderHash = Animator.StringToHash("ClimbLadder");
 		_isGroundedHash = Animator.StringToHash("IsGrounded");
-		_dieHash = Animator.StringToHash("Die");
-		_attack1Hash = Animator.StringToHash("Attack1");
-		_attack2Hash = Animator.StringToHash("Attack2");
+		_meleeAttackHash = Animator.StringToHash("AttackMelee");
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_randomIdleHash = Animator.StringToHash("RandomIdle");
@@ -272,10 +267,8 @@ public class ZombieAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		// FIXME: NEXT TWO LINES
-		MecanimAnimator.SetBool(_attack1Hash, CharInput.Attack1);
-		MecanimAnimator.SetBool(_attack2Hash, CharInput.Attack2);
 		bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && CharInput.Attack1;
-		MecanimAnimator.SetBool(_attack1Hash, shouldAttack);
+		MecanimAnimator.SetBool(_meleeAttackHash, shouldAttack);
 	
 	}
 	void StartMelee()
@@ -295,35 +288,6 @@ public class ZombieAnimator : CharacterAnimator
 		_bone_R.GetComponent<Collider>().enabled = false;
 		_bone_R.GetComponent<HitBox>().enabled = false;
 		//TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
-	}
-	
-    public override void OnDeath()
-    {
-        ZombieAudioSource.PlayDeath();
-        ActivateRagDoll(transform, false, true);
-        CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
-        if (debug != null)
-            Destroy(debug);
-        ZombieAIDebugger debug2 = GetComponent<ZombieAIDebugger>();
-        if (debug2 != null)
-            Destroy(debug2);
-        Destroy(this);
-		GameManager.AI.Zombies.Remove(CharInput);
-		Destroy(CharInput);
-		Destroy(Settings);
-        Destroy(Controller);
-		Destroy(MecanimAnimator);
-        Destroy(GetComponent<Seeker>());
-    }
-				
-	protected void Die(float elapsedTime)
-	{
-        MecanimAnimator.SetBool(_jumpHash, false);
-		MecanimAnimator.SetBool(_fallHash, false);
-        MecanimAnimator.SetBool(_dieHash, false);
-		
-		//if(MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7)
-        //	Spawn();
 	}
 	
 	protected virtual void Idle(float elapsedTime)
@@ -527,6 +491,25 @@ public class ZombieAnimator : CharacterAnimator
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
 	
+	public override void OnDeath()
+	{
+		ZombieAudioSource.PlayDeath();
+		ActivateRagDoll(transform, false, true);
+		CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
+		if (debug != null)
+			Destroy(debug);
+		ZombieAIDebugger debug2 = GetComponent<ZombieAIDebugger>();
+		if (debug2 != null)
+			Destroy(debug2);
+		Destroy(this);
+		GameManager.AI.Zombies.Remove(CharInput);
+		Destroy(CharInput);
+		Destroy(Settings);
+		Destroy(Controller);
+		Destroy(MecanimAnimator);
+		Destroy(GetComponent<Seeker>());
+	}
+	
 	// Helper Method to activate the ragdoll of the zombie
     public void ActivateRagDoll(Transform current, bool disable, bool useGravity)
     {
@@ -547,6 +530,7 @@ public class ZombieAnimator : CharacterAnimator
 	
 	public void ActivateFloat()
 	{
+		Debug.Log ("I should float");
 		MecanimAnimator.enabled = false;
 		collider.enabled = false;
         ActivateRagDoll(transform, false, false);
@@ -562,6 +546,7 @@ public class ZombieAnimator : CharacterAnimator
 		float timePassed = 0;
 		while (timePassed < 5)
 		{
+			Debug.Log ("I should be floating...");
 			timePassed += Time.deltaTime;
 			yield return null;
 		}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Mine is a basic explosive that can be placed onto the scene and detonated.
@@ -13,8 +14,8 @@ public class Mine : Weapon
 	
     public string IdleAnimationName = "Idle";
     public string AttackAnimationName = "Attack";
-	
-	private static ArrayList allPlacedMines = new ArrayList();
+
+	private static List<GameObject> allPlacedMines = new List<GameObject>();
 	private int mineAmount = 100;
 	
 	private bool minesCurrentlyExploding = false;
@@ -56,31 +57,31 @@ public class Mine : Weapon
 	
 	public void DetonateMines()
 	{
-		if(allPlacedMines.Count <= 0)
+		if(allPlacedMines.Count <= 0 || minesCurrentlyExploding)
 			return;
 				
 		for(int i = 0; i < allPlacedMines.Count; i++)
 			((GameObject) allPlacedMines[i]).animation.CrossFade("MineAboutToExplode");
-		
-		minesCurrentlyExploding = true;
+
 		StartCoroutine(AnimateExplosions(0.44f));  // Time it takes to animate mine before exploding
 	}
 	
 	// Waits until animation is over to explode mines.
 	IEnumerator AnimateExplosions(float waitTime)
 	{
+		minesCurrentlyExploding = true;
+
 		yield return new WaitForSeconds(waitTime);
 		
 		for(int i = 0; i < allPlacedMines.Count; i++)
 		{
-			//Transform explo1Copy = (Transform) 
 			Instantiate(explosion1, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);
-			//Transform explo2Copy = (Transform) 
 			Instantiate(explosion2, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);		
 			Destroy((GameObject) allPlacedMines[i]);
 		}
 		
-		allPlacedMines = new ArrayList();
+		allPlacedMines = new List<GameObject>();
+
 		minesCurrentlyExploding = false;
 	}
 

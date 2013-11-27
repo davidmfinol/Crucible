@@ -104,6 +104,8 @@ ModelImporter:
     7400042: Running
     7400044: RunningNinja
     7400046: Walking
+    7400048: PlaceMine
+    7400050: DetonateMine
     9500000: //RootNode
     11100000: //RootNode
     13700000: Char
@@ -788,6 +790,220 @@ ModelImporter:
       curves: []
       events: []
       transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: PlaceMine
+      takeName: AttackingFirst
+      firstFrame: 16.7000008
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .768195808
+        functionName: PlaceMine
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armguard
+        weight: 0
+      - path: Char
+        weight: 0
+      - path: metarig
+        weight: 1
+      - path: metarig/foot_IK_L
+        weight: 0
+      - path: metarig/foot_IK_L/knee_L
+        weight: 0
+      - path: metarig/foot_IK_R
+        weight: 0
+      - path: metarig/foot_IK_R/knee_R
+        weight: 0
+      - path: metarig/hip
+        weight: 1
+      - path: metarig/hip/spine
+        weight: 1
+      - path: metarig/hip/spine/chest
+        weight: 1
+      - path: metarig/hip/spine/chest/neck
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: metarig/hip/thigh_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: metarig/hip/thigh_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: Plane_001
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: DetonateMine
+      takeName: AttackingSecond
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .923023224
+        functionName: DetonateMine
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armguard
+        weight: 0
+      - path: Char
+        weight: 0
+      - path: metarig
+        weight: 1
+      - path: metarig/foot_IK_L
+        weight: 0
+      - path: metarig/foot_IK_L/knee_L
+        weight: 0
+      - path: metarig/foot_IK_R
+        weight: 0
+      - path: metarig/foot_IK_R/knee_R
+        weight: 0
+      - path: metarig/hip
+        weight: 1
+      - path: metarig/hip/spine
+        weight: 1
+      - path: metarig/hip/spine/chest
+        weight: 1
+      - path: metarig/hip/spine/chest/neck
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: metarig/hip/thigh_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: metarig/hip/thigh_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: Plane_001
+        weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
     isReadable: 1
