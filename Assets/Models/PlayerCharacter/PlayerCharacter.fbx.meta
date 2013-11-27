@@ -795,7 +795,7 @@ ModelImporter:
     - serializedVersion: 16
       name: PlaceMine
       takeName: AttackingFirst
-      firstFrame: 0
+      firstFrame: 16.7000008
       lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
@@ -815,7 +815,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .927110553
+      - time: .768195808
         functionName: PlaceMine
         data: 
         objectReferenceParameter: {instanceID: 0}
