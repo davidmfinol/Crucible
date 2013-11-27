@@ -302,7 +302,14 @@ public class ZombieInput : CharacterInput
 	public AwarenessType Awareness
 	{
 		get { return _awareness; }
+		set { _awareness = value; }
 	}
+
+	/*public AwarenessType ChangeAwareness(AwarenessType newAwareness)
+	{
+		_awareness = newAwareness;
+		get { return _awareness; }
+	}*/
 	
 	// Output Properties
 	public override float HorizontalInput
