@@ -9,6 +9,7 @@ using System.Collections;
 [AddComponentMenu("Character/Character Input (Empty)")]
 public class CharacterInput : MonoBehaviour
 {
+	// TODO: GET RID OF ATTACK2 AND MAKE JUMP AND ATTACK VECTORS
 	private bool _upLast = false;
 	private bool _downLast = false;
 	private bool _leftLast = false;
