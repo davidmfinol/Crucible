@@ -23,7 +23,7 @@ public class ZombieAudioPlayer : AudioPlayer
 		GameManager.Audio.Zombies.Add(this);
 	}
 
-    public override void Play()
+    public override void Play(int number = -1)
     {
         PlayIdle();
     }

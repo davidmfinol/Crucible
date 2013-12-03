@@ -11,7 +11,7 @@ public class MeshToGameObjectsMenu
 {
 	static GameObject playerPrefab;
 
-	static List<string> objectNames = new List<string>(new string[]{"Ledge", "Ladder"});
+	static List<string> objectNames = new List<string>(new string[]{"Ledge", "Ladder", "Ground"});
 	static GameObject ledgePrefab;
 	static GameObject ladderPrefab;
 
@@ -54,6 +54,11 @@ public class MeshToGameObjectsMenu
 			{
 				SetupObject(transform);
 				CreateLadder(transform, name.Contains("inter-zone")); 
+			}
+			if (name.Contains("ground"))
+			{
+				SetupObject(transform);
+				CreateGround(transform);
 			}
 		});
 	}
@@ -98,7 +103,6 @@ public class MeshToGameObjectsMenu
 		leftLedge.transform.parent = ledge.transform;
 		rightLedge.transform.parent = ledge.transform;
 	}
-
 	static void CreateLadder(Transform ladder, bool facesZAxis)
 	{
 		// Create the ladder
@@ -114,5 +118,10 @@ public class MeshToGameObjectsMenu
 			DestroyChildren(createdLadder.transform);
 			createdLadder.GetComponent<Ladder>().FacesZAxis = false;
 		}
+	}
+	static void CreateGround(Transform ground)
+	{
+		if(ground.renderer != null)
+			ground.renderer.enabled = false;
 	}
 }

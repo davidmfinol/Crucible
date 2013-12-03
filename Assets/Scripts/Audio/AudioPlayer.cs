@@ -10,12 +10,26 @@ using System.Collections;
 [AddComponentMenu("Audio/Audio Player")]
 public class AudioPlayer : MonoBehaviour
 {
+	private AudioClipGroup _audioClipGroup;
     public AudioManager.AudioTypes type;
-
     // TODO: MAKE SETTINGS OF AUDIOSOURCE MATCH TYPE IN AudioManager.AudioTypes type
+	void Start()
+	{
+		_audioClipGroup = GetComponent <AudioClipGroup>();
+	}
 
-    public virtual void Play()
+    public virtual void Play(int number = -1)
     {
-        audio.Play();
+		if (number >= 0 && number < _audioClipGroup.Clips.Length)
+			audio.clip = _audioClipGroup.Clips[number];
+		audio.Play();
     }
+	void OnTriggerEnter()
+	{
+		audio.Play();
+	}
+	void OnCollisionEnter(Collision collision)
+	{
+		audio.Play();
+	}
 }

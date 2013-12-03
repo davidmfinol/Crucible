@@ -1,0 +1,224 @@
+fileFormatVersion: 2
+guid: 8d09cf0f444d7484e8fd0d07419c5d59
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Cabinet
+    100002: group1
+    100004: group2
+    100006: MovingPlatform
+    100008: //RootNode
+    100010: nurbsCube1
+    100012: pCube1
+    100014: pCube5
+    100016: polySurface2
+    100018: polySurface3
+    100020: polySurface8
+    100022: polySurface9
+    100024: transform1
+    100026: transform2
+    100028: transform3
+    100030: transform4
+    100032: transform5
+    100034: transform6
+    400000: Cabinet
+    400002: group1
+    400004: group2
+    400006: //RootNode
+    400008: MovingPlatform
+    400010: nurbsCube1
+    400012: pCube1
+    400014: pCube5
+    400016: polySurface2
+    400018: polySurface3
+    400020: polySurface8
+    400022: polySurface9
+    400024: transform1
+    400026: transform2
+    400028: transform3
+    400030: transform4
+    400032: transform5
+    400034: transform6
+    2300000: polySurface8
+    3300000: polySurface8
+    4300000: polySurface8
+    7400000: Up
+    7400002: Down
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Up
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 48
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cabinet
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group2
+        weight: 1
+      - path: MovingPlatform
+        weight: 1
+      - path: MovingPlatform/polySurface8
+        weight: 1
+      - path: MovingPlatform/polySurface9
+        weight: 1
+      - path: MovingPlatform/polySurface9/transform6
+        weight: 1
+      - path: MovingPlatform/transform4
+        weight: 1
+      - path: nurbsCube1
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: pCube1/polySurface2
+        weight: 1
+      - path: pCube1/polySurface2/transform2
+        weight: 1
+      - path: pCube1/polySurface3
+        weight: 1
+      - path: pCube1/polySurface3/transform3
+        weight: 1
+      - path: pCube1/transform1
+        weight: 1
+      - path: pCube5
+        weight: 1
+      - path: pCube5/transform5
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Down
+      takeName: Take 001
+      firstFrame: 49
+      lastFrame: 96
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cabinet
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group2
+        weight: 1
+      - path: MovingPlatform
+        weight: 1
+      - path: MovingPlatform/polySurface8
+        weight: 1
+      - path: MovingPlatform/polySurface9
+        weight: 1
+      - path: MovingPlatform/polySurface9/transform6
+        weight: 1
+      - path: MovingPlatform/transform4
+        weight: 1
+      - path: nurbsCube1
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: pCube1/polySurface2
+        weight: 1
+      - path: pCube1/polySurface2/transform2
+        weight: 1
+      - path: pCube1/polySurface3
+        weight: 1
+      - path: pCube1/polySurface3/transform3
+        weight: 1
+      - path: pCube1/transform1
+        weight: 1
+      - path: pCube5
+        weight: 1
+      - path: pCube5/transform5
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  userData: 

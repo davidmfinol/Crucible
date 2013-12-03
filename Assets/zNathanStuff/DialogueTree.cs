@@ -3,8 +3,12 @@ using System.Collections;
 
 public class DialogueTree : MonoBehaviour
 {
+	AudioPlayer _audioPlayer;
 	bool hasTriggered = false;
-
+	void Start()
+	{
+		_audioPlayer = GetComponent<AudioPlayer>();
+	}
 	void OnTriggerEnter ()
 	{
 		if (hasTriggered)
@@ -28,8 +32,11 @@ public class DialogueTree : MonoBehaviour
 		}
 		if (PlayerCharacterAnimator.countItems == 3) {
 			guiText.text = "Human displays fiscal worthiness.  Subject not rogue.  Permission to enter – confirmed.";
-		} else {
+			_audioPlayer.Play(0);
+		}
+		else {
 			guiText.text = "Rogue human.  Execute terminatation of subject.  ";
+			_audioPlayer.Play(1);
 		}
 	}
 	

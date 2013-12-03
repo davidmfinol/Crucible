@@ -86,6 +86,18 @@ ModelImporter:
     100160: pCube7
     100162: pCube8
     100164: pCube9
+    100166: group
+    100168: pasted__polySurface26
+    100170: pasted__polySurface30
+    100172: pasted__polySurface35
+    100174: pasted__polySurface38
+    100176: pasted__polySurface39
+    100178: pasted__transform7
+    100180: pasted__transform8
+    100182: pasted__transform9
+    100184: polySurface38
+    100186: polySurface39
+    100188: transform9
     400000: //RootNode
     400002: CurvedBackground
     400004: group1
@@ -169,6 +181,18 @@ ModelImporter:
     400160: pCube7
     400162: pCube8
     400164: pCube9
+    400166: group
+    400168: pasted__polySurface26
+    400170: pasted__polySurface30
+    400172: pasted__polySurface35
+    400174: pasted__polySurface38
+    400176: pasted__polySurface39
+    400178: pasted__transform7
+    400180: pasted__transform8
+    400182: pasted__transform9
+    400184: polySurface38
+    400186: polySurface39
+    400188: transform9
     2300000: LEDHangingLight
     2300002: LEDHangingLight1
     2300004: LEDHangingLight10
@@ -229,6 +253,10 @@ ModelImporter:
     2300114: pCube7
     2300116: pCube8
     2300118: pCube9
+    2300120: pasted__polySurface38
+    2300122: pasted__polySurface39
+    2300124: polySurface38
+    2300126: polySurface39
     3300000: LEDHangingLight
     3300002: LEDHangingLight1
     3300004: LEDHangingLight10
@@ -289,6 +317,10 @@ ModelImporter:
     3300114: pCube7
     3300116: pCube8
     3300118: pCube9
+    3300120: pasted__polySurface38
+    3300122: pasted__polySurface39
+    3300124: polySurface38
+    3300126: polySurface39
     4300000: pCube1
     4300002: polySurface17
     4300004: polySurface18
@@ -349,6 +381,10 @@ ModelImporter:
     4300114: pCube19
     4300116: pCube20
     4300118: pCube21
+    4300120: polySurface38
+    4300122: polySurface39
+    4300124: pasted__polySurface38
+    4300126: pasted__polySurface39
     9500000: //RootNode
   materials:
     importMaterials: 1
