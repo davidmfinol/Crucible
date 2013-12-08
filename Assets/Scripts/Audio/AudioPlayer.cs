@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Audio player is this game's wrapper class for AudioSource.
@@ -10,9 +10,13 @@ using System.Collections;
 [AddComponentMenu("Audio/Audio Player")]
 public class AudioPlayer : MonoBehaviour
 {
-	public AudioManager.AudioTypes type;
+	public AudioManager.AudioTypes Type;
+	public Subtitle[] AssociatedSubtitles;
+	public bool TriggersOnce = true;
+
 	private AudioClipGroup _audioClipGroup;
 	private bool _isTriggered = false;
+	private bool _hasTriggered = false;
 
     // TODO: MAKE SETTINGS OF AUDIOSOURCE MATCH TYPE IN AudioManager.AudioTypes type
 	void Start()
@@ -30,10 +34,11 @@ public class AudioPlayer : MonoBehaviour
 
 	void OnTriggerEnter(Collider collider)
 	{
-		if(_isTriggered || !collider.CompareTag("Player")) 
+		if((_hasTriggered && TriggersOnce) || _isTriggered || !collider.CompareTag("Player")) 
 			return;
 
-		_isTriggered=true;
+		_isTriggered = true;
+		_hasTriggered = true;
 		Play();
 	}
 	void OnCollisionEnter(Collision collision)

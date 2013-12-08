@@ -38,6 +38,8 @@ public class DialogueTree : MonoBehaviour
 			guiText.text = "Rogue human.  Execute terminatation of subject.  ";
 			_audioPlayer.Play(1);
 		}
+		yield return new WaitForSeconds(5);
+		guiText.text = "";
 	}
 	
 }

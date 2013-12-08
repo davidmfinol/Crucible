@@ -5,6 +5,7 @@ using System.Collections.Generic;
 /// Audio manager is the central controller for all audio sources in a scene.
 /// </summary>
 [RequireComponent(typeof(DynamicMusicPlayer))]
+[RequireComponent(typeof(SubtitlesManager))]
 [AddComponentMenu("Audio/Audio Manager")]
 public class AudioManager : MonoBehaviour
 {
