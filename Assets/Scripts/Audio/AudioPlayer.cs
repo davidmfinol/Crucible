@@ -10,8 +10,10 @@ using System.Collections;
 [AddComponentMenu("Audio/Audio Player")]
 public class AudioPlayer : MonoBehaviour
 {
+	public AudioManager.AudioTypes type;
 	private AudioClipGroup _audioClipGroup;
-    public AudioManager.AudioTypes type;
+	private bool _isTriggered = false;
+
     // TODO: MAKE SETTINGS OF AUDIOSOURCE MATCH TYPE IN AudioManager.AudioTypes type
 	void Start()
 	{
@@ -20,16 +22,22 @@ public class AudioPlayer : MonoBehaviour
 
     public virtual void Play(int number = -1)
     {
-		if (number >= 0 && number < _audioClipGroup.Clips.Length)
+		if (_audioClipGroup != null && number >= 0 && number < _audioClipGroup.Clips.Length)
 			audio.clip = _audioClipGroup.Clips[number];
 		audio.Play();
+		_isTriggered = false;
     }
-	void OnTriggerEnter()
+
+	void OnTriggerEnter(Collider collider)
 	{
-		audio.Play();
+		if(_isTriggered || !collider.CompareTag("Player")) 
+			return;
+
+		_isTriggered=true;
+		Play();
 	}
 	void OnCollisionEnter(Collision collision)
 	{
-		audio.Play();
+		OnTriggerEnter(collision.collider);
 	}
 }

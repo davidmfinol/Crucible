@@ -7,9 +7,10 @@ using System.Collections;
 [AddComponentMenu("Audio/Weapon Audio Player")]
 public class WeaponAudioPlayer : AudioPlayer
 {
+	// TODO: DELETE THIS CLASS, SINCE ALL THE FUNCTIONALITY CAN BE HANDLED BY PARENT
     public AudioClipGroup WeaponSoundEffects;
 
-    public void Play(int attackID)
+    public override void Play(int attackID = -1)
     {
         audio.clip = WeaponSoundEffects.Clips[attackID];
         audio.Play();
