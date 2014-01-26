@@ -2,15 +2,15 @@
 using System.Collections;
 
 /// <summary>
-/// Zombie settings holds the modifiable parameters for a zombie.
+/// Enemy settings holds the modifiable parameters for a Enemy.
 /// </summary>
-[AddComponentMenu("Character/Zombie/Zombie Settings")]
-public class ZombieSettings : CharacterSettings
+[AddComponentMenu("Character/Enemy/Enemy Settings")]
+public class EnemySettings : CharacterSettings
 {
-    // How far away can an opponent be and still be in range of a zombie's attack?
+    // How far away can an opponent be and still be in range of a Enemy's attack?
     public float AttackRange = 5.0f;
 
-    // How far away the zombie can notice and become aware of the player
+    // How far away the Enemy can notice and become aware of the player
     public float AwarenessRange = 100.0f;
 	
 	// A* Settings
@@ -23,10 +23,10 @@ public class ZombieSettings : CharacterSettings
 	
 	
     /// <summary>
-    /// Returns whether a zombie can jump from one position to another
+    /// Returns whether a Enemy can jump from one position to another
     /// </summary>
-    /// <param name="a">the starting position of the zombie</param>
-    /// <param name="b">the ending position the zombie is considering</param>
+    /// <param name="a">the starting position of the Enemy</param>
+    /// <param name="b">the ending position the Enemy is considering</param>
     /// <returns></returns>
     public static bool CanJump(Vector3 a, Vector3 b)
     {

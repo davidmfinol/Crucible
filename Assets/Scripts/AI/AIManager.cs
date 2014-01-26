@@ -9,29 +9,29 @@ using System.Collections.Generic;
 [AddComponentMenu("AI/AI Manager")]
 public class AIManager : MonoBehaviour
 {
-	private List<ZombieInput> _zombies;
+	private List<EnemyInput> _enemies;
 	
 	
 	void Awake()
 	{
-		_zombies = new List<ZombieInput>();
+		_enemies = new List<EnemyInput>();
 	}
 	
 	
-	public List<ZombieInput> Zombies
+	public List<EnemyInput> Enemies
 	{
-		get { return _zombies; }
+		get { return _enemies; }
 	}
 	
-	public int ZombiesAware
+	public int EnemiesAware
 	{
 		get
 		{
-			int zombiesAware = 0;
-			foreach(ZombieInput zombie in _zombies)
-				if(zombie.Awareness == ZombieInput.AwarenessType.Chasing)
-					zombiesAware++;
-			return zombiesAware;
+			int EnemiesAware = 0;
+			foreach(EnemyInput Enemy in _enemies)
+				if(Enemy.Awareness == EnemyInput.AwarenessType.Chasing)
+					EnemiesAware++;
+			return EnemiesAware;
 		}
 	}
 }

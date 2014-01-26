@@ -10,6 +10,8 @@ public class PlayerCharacterSettings : CharacterSettings
     // Keep track of the last checkpoint here
 	public Transform SpawnPoint;
 
+	public int score = 0;
+
     // Player's Weapon Arsenal!
 	public Transform PipePrefab;
     public Transform WhipPrefab;

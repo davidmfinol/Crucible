@@ -2,20 +2,20 @@
 using Pathfinding;
 
 /// <summary>
-/// Zombie input does the AI for the zombie animator.
+/// Enemy input does the AI for the Enemy animator.
 /// Currently, this AI is just an interpretation A* Shortest-Pathfinding.
 /// </summary>
-[RequireComponent(typeof(ZombieSettings))]
+[RequireComponent(typeof(EnemySettings))]
 [RequireComponent(typeof(Seeker))]
-[AddComponentMenu("Character/Zombie/Zombie Input")]
-public class ZombieInput : CharacterInput
+[AddComponentMenu("Character/Enemy/Enemy Input")]
+public class EnemyInput : CharacterInput
 {
-    // Zombie Brain componenents
-    private ZombieAnimator _zombie;
-	private ZombieSettings _settings;
+    // Enemy Brain componenents
+    private EnemyAnimator _enemy;
+	private EnemySettings _settings;
 	private PlayerCharacterAnimator _player;
 
-    // Zombie Brain outputs are inputted to the Zombie Animator
+    // Enemy Brain outputs are inputted to the Enemy Animator
     private float _horizontal = 0;
     private float _vertical = 0;
     private bool _jump = false;
@@ -23,12 +23,15 @@ public class ZombieInput : CharacterInput
 	
 	// A* PathFinding
     private Seeker _seeker;
-    private Vector3 _target = Vector3.zero; // where the zombie wants to go
+    private Vector3 _target = Vector3.zero; // where the Enemy wants to go
     private Path _path = null; // how it plans to get there
     private int _currentPathWaypoint = 0; // where it is on that path
-    private bool _searchingForPath = false; // Is the zombie currently looking for a path?
+    private bool _searchingForPath = false; // Is the Enemy currently looking for a path?
     private float _timeSinceRepath = 0; // how long has it been since it found a path
 	private bool _hasTransitionRecent = false; // to prevent Z zone spam
+
+	// Responsible for hearing
+	private HearingRadius _personalHearingRadius;
 	
 	public enum AwarenessType : int
 	{
@@ -42,16 +45,17 @@ public class ZombieInput : CharacterInput
 	
 	void Start()
 	{
-        _zombie = GetComponent<ZombieAnimator>();
-        _settings = GetComponent<ZombieSettings>();
+		_personalHearingRadius = GetComponentInChildren<HearingRadius> ();
+        _enemy = GetComponent<EnemyAnimator>();
+        _settings = GetComponent<EnemySettings>();
         _seeker = GetComponent<Seeker>();
-		GameManager.AI.Zombies.Add(this);
+		GameManager.AI.Enemies.Add(this);
 		UpdateAStarTarget(Vector3.zero);
 	}
 	
 	protected override void UpdateInput()
     {
-		// By default, have the zombie do nothing
+		// By default, have the Enemy do nothing
         _horizontal = 0;
         _vertical = 0;
         _jump = false;
@@ -78,7 +82,11 @@ public class ZombieInput : CharacterInput
 	// Enemy is kind of aware of player, but not really
 	private void Search()
 	{
-		// TODO: SOMETHING
+		Transform target = PersonalHearingRadius.ObjectsHeard [0].transform;
+		UpdateAStarTarget (target.position);
+		UpdateAStarPath ();
+		// TODO: need to expand this (look at chase method)
+		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _enemy.transform.position.x ? 1 : -1; // because stopping is for the weak
 	}
 
 	// Use A* pathfinding to chase the player down!
@@ -91,20 +99,20 @@ public class ZombieInput : CharacterInput
 		// attack if we're facing the player and are close enough
 		if(_player != null)
 		{
-			bool facingPlayer = _zombie.Direction.x > 0 && _zombie.transform.position.x < _player.transform.position.x;
-			facingPlayer = facingPlayer || _zombie.Direction.x < 0 && _zombie.transform.position.x > _player.transform.position.x;
+			bool facingPlayer = _enemy.Direction.x > 0 && _enemy.transform.position.x < _player.transform.position.x;
+			facingPlayer = facingPlayer || _enemy.Direction.x < 0 && _enemy.transform.position.x > _player.transform.position.x;
 			_attack = facingPlayer && PlayerIsInAttackRange();
 		}
 		
 		// Jump selectively
-		_jump = _path.vectorPath[_currentPathWaypoint].y > _zombie.transform.position.y && _zombie.VerticalSpeed <= 0;
+		_jump = _path.vectorPath[_currentPathWaypoint].y > _enemy.transform.position.y && _enemy.VerticalSpeed <= 0;
 		
 		// Pressing up or down depends on both y and z positions
-		if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _zombie.DesiredZ) < 1 || (_player != null && _player.DesiredZ == _zombie.DesiredZ))
+		if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _enemy.DesiredZ) < 1 || (_player != null && _player.DesiredZ == _enemy.DesiredZ))
 		{
-			if(!_zombie.CanTransitionZ)
+			if(! _enemy.CanTransitionZ)
 			{
-				_vertical = _path.vectorPath[_currentPathWaypoint].y > _zombie.transform.position.y ? 1 : -1;
+				_vertical = _path.vectorPath[_currentPathWaypoint].y > _enemy.transform.position.y ? 1 : -1;
 				_hasTransitionRecent = true;
 			}
 			else
@@ -114,7 +122,7 @@ public class ZombieInput : CharacterInput
 		{
 			if(!_hasTransitionRecent)
 			{
-				_vertical = _path.vectorPath[_currentPathWaypoint].z - _zombie.DesiredZ;
+				_vertical = _path.vectorPath[_currentPathWaypoint].z - _enemy.DesiredZ;
 				_hasTransitionRecent = true;
 			}
 			else
@@ -122,14 +130,14 @@ public class ZombieInput : CharacterInput
 		}
 		
 		// Pressing left or right based on horizontal position
-		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _zombie.transform.position.x ? 1 : -1; // because stopping is for the weak
+		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _enemy.transform.position.x ? 1 : -1; // because stopping is for the weak
 	}
 
 	private void UpdateAwareness()
 	{
-		if( _awareness == AwarenessType.Chasing || (PlayerIsInSightRadius() && PlayerIsInSight()) )
+		/*if( _awareness == AwarenessType.Chasing || (PlayerIsInSightRadius() && PlayerIsInSight()) )
 			_awareness = AwarenessType.Chasing;
-		else if(PlayerIsInNoticeRange())
+		else */ if (HasHeardSound())
 			_awareness = AwarenessType.Searching;
 		else
 			_awareness = AwarenessType.Unaware;
@@ -152,7 +160,7 @@ public class ZombieInput : CharacterInput
 	/// Whether or not we have a valid target.
 	/// </returns>
 	/// <param name='target'>
-	/// The location of the target for the zombie to reach.
+	/// The location of the target for the Enemy to reach.
 	/// Vector3.zero is mapped to the player's current posittion.
 	/// </param>
 	public bool UpdateAStarTarget(Vector3 target)
@@ -189,7 +197,7 @@ public class ZombieInput : CharacterInput
             if(!_searchingForPath)
             {
 				_hasTransitionRecent = false;
-                _seeker.StartPath(_zombie.transform.position, _target, OnPathFound);
+                _seeker.StartPath( _enemy.transform.position, _target, OnPathFound);
                 _searchingForPath = true;
             }
             return false;
@@ -199,7 +207,7 @@ public class ZombieInput : CharacterInput
         if ((_timeSinceRepath > _settings.RepathTime || _currentPathWaypoint >= _path.vectorPath.Count)&& !_searchingForPath)
         {
 			_hasTransitionRecent = false;
-            _seeker.StartPath(_zombie.transform.position, _target, OnPathFound);
+            _seeker.StartPath( _enemy.transform.position, _target, OnPathFound);
             _searchingForPath = true;
         }
 
@@ -207,7 +215,7 @@ public class ZombieInput : CharacterInput
             return false;
 
         // Move on if we reached our waypoint
-		if (_zombie.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && ( _currentPathWaypoint < _path.path.Count && (!((ZoneNode)_path.path[_currentPathWaypoint]).isGround||_zombie.IsGrounded) ) )
+		if ( _enemy.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && ( _currentPathWaypoint < _path.path.Count && (!((ZoneNode)_path.path[_currentPathWaypoint]).isGround|| _enemy.IsGrounded) ) )
             _currentPathWaypoint++;
 
         return _currentPathWaypoint < _path.vectorPath.Count;
@@ -236,7 +244,7 @@ public class ZombieInput : CharacterInput
 		float smallestDist = float.MaxValue;
 		for(int i = 0; i < _path.vectorPath.Count; i++)
 		{
-			float dist = (_zombie.transform.position - _path.vectorPath[i]).magnitude;
+			float dist = ( _enemy.transform.position - _path.vectorPath[i]).magnitude;
 			if(dist < smallestDist)
 			{
 				nearestNode = 0;
@@ -246,25 +254,25 @@ public class ZombieInput : CharacterInput
 		_currentPathWaypoint = nearestNode;
 	}
 
-    // Is the player in the range that the zombie could feasibly hit him?
+    // Is the player in the range that the Enemy could feasibly hit him?
     public bool PlayerIsInAttackRange()
     {
         GameObject player = GameManager.Player.gameObject;
         if (player != null && _player != null)
             return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AttackRange)
                 && (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AttackRange)
-                && _zombie.DesiredZ == _player.DesiredZ;
+                && _enemy.DesiredZ == _player.DesiredZ;
         return false;
 	}
 
-	// Is the player within a radius that the zombie can see and potentially start chasing in
+	// Is the player within a radius that the Enemy can see and potentially start chasing in
 	public bool PlayerIsInSightRadius()
 	{
 		GameObject player = GameManager.Player.gameObject;
 		if (player != null && _player != null)
 			return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AwarenessRange)
 				&& (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AwarenessRange)
-				&& _zombie.DesiredZ == _player.DesiredZ;
+				&& _enemy.DesiredZ == _player.DesiredZ;
 		return false;
 	}
 
@@ -291,11 +299,10 @@ public class ZombieInput : CharacterInput
 		}
 		return openSightLine;
 	}
-	
-	// Is the player within a distance that would make the enemy suspicious
-	public bool PlayerIsInNoticeRange()
+
+	public bool HasHeardSound()
 	{
-		return false;
+		return PersonalHearingRadius.ObjectsHeard.Count > 0;
 	}
 	
 	// Generic Properties
@@ -359,4 +366,10 @@ public class ZombieInput : CharacterInput
 	{
 		get { return this._timeSinceRepath; }
 	}
+
+	public HearingRadius PersonalHearingRadius
+	{
+		get { return _personalHearingRadius; }
+	}
+
 }

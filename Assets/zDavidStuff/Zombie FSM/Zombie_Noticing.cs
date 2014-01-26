@@ -3,16 +3,16 @@ using System;
 using System.Collections;
 
 /*
-public class Zombie_Noticing : ZombieFSM_IState
+public class Enemy_Noticing : EnemyFSM_IState
 {
-    public Zombie_Noticing (ZombieFSM controller) : base(controller) { }
+    public Enemy_Noticing (EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
         base.StartState();
         FSM.animation["JumpFall"].wrapMode = WrapMode.Once;
         FSM.animation.CrossFade("JumpFall");
-        FSM.ZombieAudioSource.PlayNotice();
+        FSM.EnemyAudioSource.PlayNotice();
         FSM.AwareOfPlayer = true;
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
@@ -20,13 +20,13 @@ public class Zombie_Noticing : ZombieFSM_IState
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_Noticing;
+        EnemyStates nextState = EnemyStates.Enemy_Noticing;
 
         // Determine next state
         if (!IsGrounded)
-            nextState = ZombieStates.Zombie_Falling;
+            nextState = EnemyStates.Enemy_Falling;
         else if (!FSM.animation.IsPlaying("JumpFall"))
-            nextState = ZombieStates.Zombie_Idle;
+            nextState = EnemyStates.Enemy_Idle;
 
         return nextState;
     }

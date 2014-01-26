@@ -25,11 +25,11 @@ public class GravityGun : Weapon
 		foreach(RaycastHit hit in hits)
 		{
 			Debug.Log("hit something");
-			ZombieAnimator zombie = hit.collider.gameObject.GetComponent<ZombieAnimator>();
-			if(zombie != null)
+			EnemyAnimator Enemy = hit.collider.gameObject.GetComponent<EnemyAnimator>();
+			if(Enemy != null)
 			{
 				Debug.Log("Best start jumping");
-				zombie.ActivateFloat();
+				Enemy.ActivateFloat();
 			}
 		}
 	}

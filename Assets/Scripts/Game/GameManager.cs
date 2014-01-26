@@ -57,7 +57,9 @@ public class GameManager : MonoBehaviour
 	{
 		if(_player == null)
         	_player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
-		
+
+		// _player.tag = "player";
+
         PlayerCharacterSettings playerSettings = _player.GetComponent<PlayerCharacterSettings>();
         playerSettings.SpawnPoint = _currentLevel.StartPoint;
 	}

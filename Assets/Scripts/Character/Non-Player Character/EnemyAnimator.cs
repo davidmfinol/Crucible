@@ -2,12 +2,12 @@
 using System.Collections;
 
 /// <summary>
-/// Zombie animator moves the zombie.
+/// Enemy animator moves the Enemy.
 /// </summary>
-[RequireComponent(typeof(ZombieSettings))]
-[RequireComponent(typeof(ZombieInput))]
-[AddComponentMenu("Character/Zombie/Zombie Animator")]
-public class ZombieAnimator : CharacterAnimator
+[RequireComponent(typeof(EnemySettings))]
+[RequireComponent(typeof(EnemyInput))]
+[AddComponentMenu("Character/Enemy/Enemy Animator")]
+public class EnemyAnimator : CharacterAnimator
 {
     /*
 	// TODO: SHOULD SET THIS ANOTHER WAY
@@ -26,8 +26,8 @@ public class ZombieAnimator : CharacterAnimator
 	private int _attackHash;
 	private int _takeHitHash;
 	
-	// Zombie should play it's own sound effects
-    private ZombieAudioPlayer _zombieAudioSource;
+	// Enemy should play it's own sound effects
+    private EnemyAudioPlayer _EnemyAudioSource;
     
     // Bones for our left and right hands
     private Transform _bone_L;
@@ -68,7 +68,7 @@ public class ZombieAnimator : CharacterAnimator
 	}
 	protected override void Initialize ()
 	{
-        _zombieAudioSource = GetComponentInChildren<ZombieAudioPlayer>();
+        _EnemyAudioSource = GetComponentInChildren<EnemyAudioPlayer>();
 
         // We need to find the bones for our hands so we can attack with them
         _bone_L = CharacterSettings.SearchHierarchyForBone(transform, LeftForearmBoneName);
@@ -99,7 +99,7 @@ public class ZombieAnimator : CharacterAnimator
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyTriDirection();
-		_zombieAudioSource.PlayIdle();
+		_EnemyAudioSource.PlayIdle();
 	}
 	
 	protected void Running(float elapsedTime)
@@ -107,7 +107,7 @@ public class ZombieAnimator : CharacterAnimator
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection();
-		_zombieAudioSource.PlayRunning();
+		_EnemyAudioSource.PlayRunning();
 	}
 	
 	protected void Jumping(float elapsedTime)
@@ -169,16 +169,16 @@ public class ZombieAnimator : CharacterAnimator
 	
     public override void OnDeath()
     {
-        ZombieAudioSource.PlayDeath();
+        EnemyAudioSource.PlayDeath();
         ActivateRagDoll(transform, false, true);
         CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
         if (debug != null)
             Destroy(debug);
-        ZombieAIDebugger debug2 = GetComponent<ZombieAIDebugger>();
+        EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger>();
         if (debug2 != null)
             Destroy(debug2);
         Destroy(this);
-		GameManager.AI.Zombies.Remove(CharInput);
+		GameManager.AI.Enemies.Remove(CharInput);
 		Destroy(CharInput);
 		Destroy(Settings);
         Destroy(Controller);
@@ -192,8 +192,8 @@ public class ZombieAnimator : CharacterAnimator
     public string LeftForearmBoneName;
     public string RightForearmBoneName;
 	
-	// Zombie should play it's own sound effects
-    private ZombieAudioPlayer _zombieAudioSource;
+	// Enemy should play it's own sound effects
+    private EnemyAudioPlayer _EnemyAudioSource;
 	
 	// Mecanim hashes
 	private int _verticalSpeedHash;
@@ -220,7 +220,7 @@ public class ZombieAnimator : CharacterAnimator
 	
 	protected override void Initialize ()
 	{
-        _zombieAudioSource = GetComponentInChildren<ZombieAudioPlayer>();
+        _EnemyAudioSource = GetComponentInChildren<EnemyAudioPlayer>();
 
         // We need to find the bones for our hands so we can attack with them
         _bone_L = CharacterSettings.SearchHierarchyForBone(transform, LeftForearmBoneName);
@@ -493,16 +493,16 @@ public class ZombieAnimator : CharacterAnimator
 	
 	public override void OnDeath()
 	{
-		ZombieAudioSource.PlayDeath();
+		EnemyAudioSource.PlayDeath();
 		ActivateRagDoll(transform, false, true);
 		CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
 		if (debug != null)
 			Destroy(debug);
-		ZombieAIDebugger debug2 = GetComponent<ZombieAIDebugger>();
+		EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger>();
 		if (debug2 != null)
 			Destroy(debug2);
 		Destroy(this);
-		GameManager.AI.Zombies.Remove(CharInput);
+		GameManager.AI.Enemies.Remove(CharInput);
 		Destroy(CharInput);
 		Destroy(Settings);
 		Destroy(Controller);
@@ -510,7 +510,7 @@ public class ZombieAnimator : CharacterAnimator
 		Destroy(GetComponent<Seeker>());
 	}
 	
-	// Helper Method to activate the ragdoll of the zombie
+	// Helper Method to activate the ragdoll of the Enemy
     public void ActivateRagDoll(Transform current, bool disable, bool useGravity)
     {
         // activate the ragdoll for all child bones
@@ -518,7 +518,7 @@ public class ZombieAnimator : CharacterAnimator
             ActivateRagDoll(current.GetChild(i), disable, useGravity);
 
         // activate the ragdoll for the bone we're on
-        if (current.GetComponent<ZombieHeartBox>() != null)
+        if (current.GetComponent<EnemyHeartBox>() != null)
             Destroy(current.gameObject);
         else if (current.rigidbody != null && current.collider != null)
         {
@@ -559,16 +559,16 @@ public class ZombieAnimator : CharacterAnimator
 		StopCoroutine("ReEnable");
 	}
 	
-    public ZombieAudioPlayer ZombieAudioSource
+    public EnemyAudioPlayer EnemyAudioSource
     {
-        get { return _zombieAudioSource; }
+        get { return _EnemyAudioSource; }
     }
-	public new ZombieSettings Settings
+	public new EnemySettings Settings
 	{
-		get { return (ZombieSettings) base.Settings; }
+		get { return (EnemySettings) base.Settings; }
 	}
-	public new ZombieInput CharInput
+	public new EnemyInput CharInput
 	{
-		get { return (ZombieInput) base.CharInput; }
+		get { return (EnemyInput) base.CharInput; }
 	}
 }

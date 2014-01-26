@@ -3,17 +3,17 @@ using System;
 using System.Collections;
 
 /*
-public class Zombie_Idle : ZombieFSM_IState
+public class Enemy_Idle : EnemyFSM_IState
 {
-    public Zombie_Idle(ZombieFSM controller) : base(controller) { }
+    public Enemy_Idle(EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
         base.StartState();
         FSM.animation.wrapMode = WrapMode.Loop;
         FSM.animation.CrossFade("Idle");
-        if(FSM.ZombieAudioSource != null)
-            FSM.ZombieAudioSource.PlayIdle();
+        if(FSM.EnemyAudioSource != null)
+            FSM.EnemyAudioSource.PlayIdle();
         if(Left ^ Right)
             Direction = Right ? Vector3.right : Vector3.left;
         HorizontalSpeed = 0;
@@ -22,22 +22,22 @@ public class Zombie_Idle : ZombieFSM_IState
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_Idle;
+        EnemyStates nextState = EnemyStates.Enemy_Idle;
 
         if (!IsGrounded)
-            nextState = ZombieStates.Zombie_Falling;
+            nextState = EnemyStates.Enemy_Falling;
         else if (!FSM.AwareOfPlayer && FSM.PlayerIsInNoticeRange())
-            nextState = ZombieStates.Zombie_Noticing;
+            nextState = EnemyStates.Enemy_Noticing;
         else if (Jump)
-            nextState = ZombieStates.Zombie_Jumping;
+            nextState = EnemyStates.Enemy_Jumping;
         else if (Attack)
-            nextState = ZombieStates.Zombie_Attacking;
+            nextState = EnemyStates.Enemy_Attacking;
         else if ((FSM.CanClimbPipe || FSM.CanClimbLadder) && (Up || Down))
-            nextState = ZombieStates.Zombie_Climbing;
+            nextState = EnemyStates.Enemy_Climbing;
         else if ( ((Up && FSM.ZLevel != FSM.Z_Up) || (Down && FSM.ZLevel != FSM.Z_Down)) && FSM.CanTransitionZ)
-            nextState = ZombieStates.Zombie_TransitioningZ;
+            nextState = EnemyStates.Enemy_TransitioningZ;
         else if (Left || Right)
-            nextState = ZombieStates.Zombie_Running;
+            nextState = EnemyStates.Enemy_Running;
 
         return nextState;
     }

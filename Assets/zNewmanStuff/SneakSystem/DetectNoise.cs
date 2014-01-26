@@ -17,12 +17,12 @@ public class DetectNoise : MonoBehaviour {
 
 	/*void OnTriggerEnter(Collider other){
 		if(other.tag == "PlayerSound"){
-			ZombieInput zombieInput = transform.parent.GetComponent<ZombieInput>();
-			if(zombieInput.Awareness != ZombieInput.AwarenessType.Chasing){
+			EnemyInput EnemyInput = transform.parent.GetComponent<EnemyInput>();
+			if(EnemyInput.Awareness != EnemyInput.AwarenessType.Chasing){
 
 				_searchLocation = other.transform.position;
 				// Go into search mode
-				transform.parent.GetComponent<ZombieInput>().Awareness = ZombieInput.AwarenessType.Searching;
+				transform.parent.GetComponent<EnemyInput>().Awareness = EnemyInput.AwarenessType.Searching;
 				print("heard player");
 			}
 		}

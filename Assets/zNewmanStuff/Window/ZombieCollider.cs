@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
-public class ZombieCollider : MonoBehaviour {
+public class EnemyCollider : MonoBehaviour {
 
 	public bool collisionTimer = false;
-	public Transform Zombie;
+	public Transform Enemy;
 	private float endTime;
 	
 	// Use this for initialization
@@ -19,17 +19,17 @@ public class ZombieCollider : MonoBehaviour {
 			if(endTime < Time.time){
 				
 				
-				//Zombie.transform.GetComponent<CharacterController>().enabled = true;
-				//Zombie.transform.GetComponent<ZombieFSM>().enabled = true;
+				//Enemy.transform.GetComponent<CharacterController>().enabled = true;
+				//Enemy.transform.GetComponent<EnemyFSM>().enabled = true;
 				//Physics.IgnoreLayerCollision(0, 11, false);
 				collisionTimer = false;
 				Debug.Log("timeup");
 			}
 			else{
-				//Vector3 zombPos = Zombie.transform.position;
+				//Vector3 zombPos = Enemy.transform.position;
 				//Vector3 newZombPos = new Vector3(zombPos.x, zombPos.y, zombPos.z - 1.0f);
 					
-				//Zombie.transform.position = newZombPos;	
+				//Enemy.transform.position = newZombPos;	
 				Debug.Log("should move");
 			}
 		}
@@ -38,23 +38,23 @@ public class ZombieCollider : MonoBehaviour {
 	public void startCollisionTimer(Transform enemy, float timeLength){
 		Physics.IgnoreLayerCollision(13, 11, true);  // window
 		//Physics.IgnoreLayerCollision(0, 11, true);
-		Zombie = enemy;
+		Enemy = enemy;
 		endTime = Time.time + timeLength;		
 		collisionTimer = true;
 		
 		Debug.Log("collisiontimer");
 		/*
-		Vector3 zombPos = Zombie.transform.position;
+		Vector3 zombPos = Enemy.transform.position;
 		Vector3 newZombPos = new Vector3(zombPos.x, zombPos.y, zombPos.z - 5.0f);
-		Zombie.transform.GetComponent<CharacterController>().Move(newZombPos);*/
+		Enemy.transform.GetComponent<CharacterController>().Move(newZombPos);*/
 		
 		
 		
-		//Zombie.GetComponent<CharacterController>().enabled = false;
-		//Zombie.GetComponent<ZombieFSM>().enabled = true;
+		//Enemy.GetComponent<CharacterController>().enabled = false;
+		//Enemy.GetComponent<EnemyFSM>().enabled = true;
 		
 		/*
-		Zombie = enemy;
+		Enemy = enemy;
 		endTime = Time.time + timeLength;
 		collisionTimer = true;
 		Physics.IgnoreLayerCollision(13, 11, true);  // window

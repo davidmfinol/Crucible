@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Zombie audio player extends AudioPlayer to provide the Zombie an interface to play sounds effects.
+/// Enemy audio player extends AudioPlayer to provide the Enemy an interface to play sounds effects.
 /// </summary>
-[AddComponentMenu("Audio/Zombie Audio Player")]
-public class ZombieAudioPlayer : AudioPlayer
+[AddComponentMenu("Audio/Enemy Audio Player")]
+public class EnemyAudioPlayer : AudioPlayer
 {
     public AudioClipGroup AttackAudio;
     public AudioClipGroup DeathAudio;
@@ -20,7 +20,7 @@ public class ZombieAudioPlayer : AudioPlayer
 	
 	void Start()
 	{
-		GameManager.Audio.Zombies.Add(this);
+		GameManager.Audio.Enemies.Add(this);
 	}
 
     public override void Play(int number = -1)

@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Zombie AI debugger displays AI information for the zombie.
+/// Enemy AI debugger displays AI information for the Enemy.
 /// In particular, it displays the AI Output and A* Path, with option of rendering path nodes on-screen at runtime.
 /// It also works with the CharacterAnimator Debugger by showing the information right below that debugger's location.
 /// </summary>
-[RequireComponent(typeof(ZombieInput))]
-[AddComponentMenu("Debug/Zombie AI")]
-public class ZombieAIDebugger : MonoBehaviour
+[RequireComponent(typeof(EnemyInput))]
+[AddComponentMenu("Debug/Enemy AI")]
+public class EnemyAIDebugger : MonoBehaviour
 {
 	public bool Hide = true;
 	public bool ShowAI = true;
@@ -17,11 +17,11 @@ public class ZombieAIDebugger : MonoBehaviour
 	
 	public Transform HighlightNode;
 	private GameObject _node;
-	private ZombieInput _brain;
+	private EnemyInput _brain;
 	
 	void Start()
 	{
-		_brain = GetComponent<ZombieInput>();
+		_brain = GetComponent<EnemyInput>();
 		_node = ((Transform) Instantiate(HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
 		_node.renderer.enabled = false;
 	}
@@ -43,7 +43,7 @@ public class ZombieAIDebugger : MonoBehaviour
 			return;
 		
 		if(_brain == null)
-			_brain = GetComponent<ZombieInput>();
+			_brain = GetComponent<EnemyInput>();
 		
         GUI.Box(new Rect(10, 135, 300, 20), "Vertical: " + _brain.VerticalInput + ", Horizontal: " + _brain.HorizontalInput + ", Jump: " + _brain.Jump + ", Attack:" + _brain.Attack1);
         GUI.Box(new Rect(10, 160, 300, 20), "Transition Recent: " + _brain.HasTransitionRecent + ", Repathed: " + _brain.TimeSinceRepath);
