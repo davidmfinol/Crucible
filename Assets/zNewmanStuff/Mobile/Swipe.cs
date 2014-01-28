@@ -19,6 +19,7 @@ public class Swipe : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{	
+
 #if !UNITY_EDITOR
 		input.Jump = false;
 		input.Attack1 = false;
@@ -34,7 +35,7 @@ public class Swipe : MonoBehaviour
 			else if (P.x < Screen.width / 2 )
 			{
 				moveTouched = true;
-				InterpretMovementSwipe(T);
+				InterpretMovementSwipe(T, P);
 			}
 			
 			else
@@ -56,13 +57,11 @@ public class Swipe : MonoBehaviour
 			
 		else if (touch.fingerId == SwipeID)
 		{
-			Vector2 delta = position - StartPos;
 			if (touch.phase == TouchPhase.Moved && delta.magnitude > minMovement) 
 			{
 				SwipeID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
-				{
-					
+				{				
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
@@ -95,7 +94,7 @@ public class Swipe : MonoBehaviour
 		}
 	}
 	
-	private void InterpretMovementSwipe(Touch touch)
+	private void InterpretMovementSwipe(Touch touch, Vector2 moveStart)
 	{		
 		// first movement slider: input.HorizontalInput = (touch.position.x - Screen.width/4)/(Screen.width/4);
 		Vector2 position = touch.position;
