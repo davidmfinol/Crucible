@@ -83,10 +83,21 @@ public class EnemyInput : CharacterInput
 	// Enemy is kind of aware of player, but not really
 	private void Search()
 	{
-		Transform target = PersonalHearingRadius.ObjectsHeard [0].transform;
-		UpdateAStarTarget (target.position);
-		UpdateAStarPath ();
+		Vector3 targetPos = Vector3.zero;
+
+		// pop off sounds we can identify until we find one we haven't reached yet
+		while (PersonalHearingRadius.ObjectsHeard.Count > 0 && Vector3.Distance(PersonalHearingRadius.ObjectsHeard[0].transform.position, transform.position) < _settings.SoundInspectionRange)
+			PersonalHearingRadius.ObjectsHeard.RemoveAt(0);
+
+		if (PersonalHearingRadius.ObjectsHeard.Count > 0)
+			targetPos = PersonalHearingRadius.ObjectsHeard [0].transform.position;
+
+		// no next node, abort.
+		if (!UpdateAStar (targetPos))
+			return;
+
 		// TODO: need to expand this (look at chase method)
+		_jump = _path.vectorPath[_currentPathWaypoint].y > _enemy.transform.position.y && _enemy.VerticalSpeed <= 0;
 		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _enemy.transform.position.x ? 1 : -1; // because stopping is for the weak
 	}
 
@@ -136,11 +147,11 @@ public class EnemyInput : CharacterInput
 
 	private void UpdateAwareness()
 	{
-		if (IsSeeingPlayer () && _settings.CanSee) {
+		if (_settings.CanSee && IsSeeingPlayer()) {
 			_awareness = AwarenessType.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
 
-		} else if (HasHeardSound () && _settings.CanHear) {
+		} else if (_settings.CanHear && HasHeardSound () ) {
 			_awareness = AwarenessType.Searching;
 
 		} else if (_timeSincePlayerSeen <= 0.0f) {
@@ -151,14 +162,20 @@ public class EnemyInput : CharacterInput
 		}
 
 	}
-    
+
 	private bool UpdateAStar()
+	{
+		return UpdateAStar (Vector3.zero);
+
+	}
+    
+	private bool UpdateAStar(Vector3 targetPos)
 	{
 		// Keep time of track between repaths
         _timeSinceRepath += Time.deltaTime;
-		
+
 		// Set a target location to move to, and then calculate the path to get there
-		return UpdateAStarTarget(Vector3.zero) && UpdateAStarPath();
+		return UpdateAStarTarget(targetPos) && UpdateAStarPath();
 	}
 	
 	/// <summary>
@@ -299,7 +316,7 @@ public class EnemyInput : CharacterInput
 
 			if (!Physics.Raycast (transform.position, raycastDirection.normalized, raycastDirection.magnitude, 1 << 12)) {
 					openSightLine = true;
-			     	Debug.DrawLine(transform.position, endPoint, Color.red, 2, false);
+			     	Debug.DrawLine(transform.position, endPoint, Color.red, Time.deltaTime, false);
 					break;
 
 			}

@@ -24,7 +24,8 @@ public class EnemySettings : CharacterSettings
 	// SENSORY
 	public bool CanSee = true;         // toggle AI vision and hearing sensory inputs.
 	public bool CanHear = true;
-	public float VisionMemory = 1.0f;
+	public float VisionMemory = 1.0f;           // how long to forget that we saw the player
+	public float SoundInspectionRange = 1.0f;  // how close to succesfully visually inspect a sound source
 	
     /// <summary>
     /// Returns whether a Enemy can jump from one position to another
