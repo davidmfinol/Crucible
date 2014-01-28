@@ -20,7 +20,11 @@ public class EnemySettings : CharacterSettings
     public static float MaxJump = 9.0f; // jumpheight + capsulecollider.height/2
     public static float MaxSpeed = 16.0f;
     public static float MaxGravity = 40.0f;
-	
+
+	// SENSORY
+	public bool CanSee = true;         // toggle AI vision and hearing sensory inputs.
+	public bool CanHear = true;
+	public float VisionMemory = 1.0f;
 	
     /// <summary>
     /// Returns whether a Enemy can jump from one position to another

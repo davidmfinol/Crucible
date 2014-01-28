@@ -32,6 +32,7 @@ public class EnemyInput : CharacterInput
 
 	// Responsible for hearing
 	private HearingRadius _personalHearingRadius;
+	private float _timeSincePlayerSeen;
 	
 	public enum AwarenessType : int
 	{
@@ -135,12 +136,20 @@ public class EnemyInput : CharacterInput
 
 	private void UpdateAwareness()
 	{
-		/*if( _awareness == AwarenessType.Chasing || (PlayerIsInSightRadius() && PlayerIsInSight()) )
+		if (IsSeeingPlayer () && _settings.CanSee) {
 			_awareness = AwarenessType.Chasing;
-		else */ if (HasHeardSound())
+			_timeSincePlayerSeen = _settings.VisionMemory;
+
+		} else if (HasHeardSound () && _settings.CanHear) {
 			_awareness = AwarenessType.Searching;
-		else
+
+		} else if (_timeSincePlayerSeen <= 0.0f) {
 			_awareness = AwarenessType.Unaware;
+
+		} else {
+			_timeSincePlayerSeen -= Time.deltaTime;
+		}
+
 	}
     
 	private bool UpdateAStar()
@@ -265,6 +274,42 @@ public class EnemyInput : CharacterInput
         return false;
 	}
 
+	public bool IsSeeingPlayer() {
+		GameObject player = GameManager.Player.gameObject;
+		if (player == null || _player == null)
+			return false;
+
+		bool openSightLine = false;
+		Vector3 playerPos = player.transform.position;
+		float playerHalfHeight = _player.Height/2;
+
+		// abort if player too far
+		Vector3 dirToPlayer = playerPos - transform.position;
+		if (dirToPlayer.magnitude > _settings.AwarenessRange)
+			return false;
+
+		// abort if player on opposite side of vision
+		if ((dirToPlayer.x * _enemy.Direction.x) < 0)
+			return false;
+
+		for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight) {
+			Vector3 endPoint = playerPos;
+			endPoint.y = y;
+			Vector3 raycastDirection = endPoint - transform.position;
+
+			if (!Physics.Raycast (transform.position, raycastDirection.normalized, raycastDirection.magnitude, 1 << 12)) {
+					openSightLine = true;
+			     	Debug.DrawLine(transform.position, endPoint, Color.red, 2, false);
+					break;
+
+			}
+
+		}
+
+		return openSightLine;
+
+	}
+/*
 	// Is the player within a radius that the Enemy can see and potentially start chasing in
 	public bool PlayerIsInSightRadius()
 	{
@@ -276,30 +321,7 @@ public class EnemyInput : CharacterInput
 		return false;
 	}
 
-	// Is the player visible to the enemy, and therefore ready to be chased
-	public bool PlayerIsInSight() 
-	{
-		GameObject player = GameManager.Player.gameObject;
-		if (player == null || _player == null)
-			return false;
-
-		bool openSightLine = false;
-		Vector3 playerPos = player.transform.position;
-		float playerHalfHeight = _player.Height/2;
-		for(float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight)
-		{
-			Vector3 endPoint = playerPos;
-			endPoint.y = y;
-			Vector3 raycastDirection = endPoint - transform.position;
-			if(!Physics.Raycast(transform.position, raycastDirection.normalized, raycastDirection.magnitude, 1 << 12))
-			{
-				openSightLine = true;
-				break;
-			}
-		}
-		return openSightLine;
-	}
-
+*/
 	public bool HasHeardSound()
 	{
 		return PersonalHearingRadius.ObjectsHeard.Count > 0;

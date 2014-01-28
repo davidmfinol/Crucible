@@ -16,14 +16,10 @@ public class HearingRadius : MonoBehaviour
 	{
 		_objectsHeard = new List<SoundEvent> ();
 		_soundBarriers = new List<SoundBarrier> ();
-	}
-
-	void Update()
-	{
 		transform.localScale = transform.localScale * Size;
-		Debug.Log (ObjectsHeard.Count);
-	}
 
+	}
+	
 	void OnTriggerEnter(Collider other)
 	{
 		SoundEvent sound = other.GetComponent<SoundEvent> ();
