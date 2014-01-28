@@ -219,12 +219,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected void Running(float elapsedTime)
 	{
 		// Create sound for footstep only when running
-		if(Time.time > _timeUntilNextFootStepSound && (Mathf.Abs (HorizontalSpeed) > 0.5f))
+		if(Time.time > _timeUntilNextFootStepSound && (Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed) > 0.5f))
 		{
 			// instantiate noise
 			Vector3 footStepPosition = transform.position;
 			footStepPosition.y -= Height/2;	// 
-			Instantiate(Settings.FootStepNoise, transform.position, Quaternion.identity);
+			Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
 			_timeUntilNextFootStepSound = Time.time + Settings.FootStepNoiseFrequency;
 		}
 

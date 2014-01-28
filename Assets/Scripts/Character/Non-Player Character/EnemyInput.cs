@@ -14,6 +14,7 @@ public class EnemyInput : CharacterInput
     private EnemyAnimator _enemy;
 	private EnemySettings _settings;
 	private PlayerCharacterAnimator _player;
+	private PlayerCharacterStealth _playerStealth;
 
     // Enemy Brain outputs are inputted to the Enemy Animator
     private float _horizontal = 0;
@@ -50,6 +51,7 @@ public class EnemyInput : CharacterInput
         _enemy = GetComponent<EnemyAnimator>();
         _settings = GetComponent<EnemySettings>();
         _seeker = GetComponent<Seeker>();
+		_playerStealth = GameManager.Player.GetComponent<PlayerCharacterStealth> ();
 		GameManager.AI.Enemies.Add(this);
 		UpdateAStarTarget(Vector3.zero);
 	}
@@ -147,7 +149,7 @@ public class EnemyInput : CharacterInput
 
 	private void UpdateAwareness()
 	{
-		if (_settings.CanSee && IsSeeingPlayer()) {
+		if (_settings.CanSee && IsSeeingPlayer() && !_playerStealth.CurrentlyHidden) {
 			_awareness = AwarenessType.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
 
