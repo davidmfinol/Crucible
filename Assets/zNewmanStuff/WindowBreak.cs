@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(Collider))]
 public class WindowBreak : MonoBehaviour {
 	
-    public Transform Zombie;	
+    public Transform Enemy;	
 	
 	// Use this for initialization
 	void Start () {
@@ -30,6 +30,6 @@ public class WindowBreak : MonoBehaviour {
 	void randomSpawner(){
 		Vector3 spawnPosition = this.gameObject.transform.position;
 		spawnPosition.z -= 3;
-		MonoBehaviour.Instantiate(Zombie, spawnPosition, Quaternion.identity);
+		MonoBehaviour.Instantiate(Enemy, spawnPosition, Quaternion.identity);
 	}
 }

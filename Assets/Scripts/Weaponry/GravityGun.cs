@@ -7,13 +7,14 @@ using System.Collections;
 [AddComponentMenu("Weaponry/Gravity Gun")]
 public class GravityGun : Weapon
 {
-	
 	private PlayerCharacterAnimator _player;
-	
+
+
 	void Start()
 	{
 		_player = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
 	}
+
 	public override void ActivateAttack (int attackID)
 	{
 		Vector3 shootDirection = _player.Direction.x > 0.1 ? Vector3.right : Vector3.left;
@@ -24,14 +25,16 @@ public class GravityGun : Weapon
 		foreach(RaycastHit hit in hits)
 		{
 			Debug.Log("hit something");
-			ZombieAnimator zombie = hit.collider.gameObject.GetComponent<ZombieAnimator>();
-			if(zombie != null) {
+			EnemyAnimator Enemy = hit.collider.gameObject.GetComponent<EnemyAnimator>();
+			if(Enemy != null)
+			{
 				Debug.Log("Best start jumping");
-				zombie.ActivateFloat();
+				Enemy.ActivateFloat();
 			}
 		}
 	}
-	
+
+
     public override Vector3 Rotation
     {
         get { return new Vector3(270, 80, 90); }

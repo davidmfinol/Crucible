@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum BoxAllegiance { Player, Zombies, Explosions };
+public enum BoxAllegiance { Player, Enemies, Explosions };
 
 /// <summary>
 /// Hit box hits heartboxes to deal damage.

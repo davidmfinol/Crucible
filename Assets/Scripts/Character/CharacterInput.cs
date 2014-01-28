@@ -9,6 +9,7 @@ using System.Collections;
 [AddComponentMenu("Character/Character Input (Empty)")]
 public class CharacterInput : MonoBehaviour
 {
+	// TODO: GET RID OF ATTACK2 AND MAKE JUMP AND ATTACK VECTORS
 	private bool _upLast = false;
 	private bool _downLast = false;
 	private bool _leftLast = false;
@@ -16,6 +17,7 @@ public class CharacterInput : MonoBehaviour
 	private bool _jumpLast = false;
 	private bool _attack1Last = false;
 	private bool _attack2Last = false;
+	private bool _interactLast = false;
 	
 	
 	void Update()
@@ -59,6 +61,11 @@ public class CharacterInput : MonoBehaviour
 		set {}
 	}
 	public virtual bool Attack2
+	{
+		get { return false; }
+		set {}
+	}
+	public virtual bool Interaction
 	{
 		get { return false; }
 		set {}
@@ -134,5 +141,13 @@ public class CharacterInput : MonoBehaviour
 	public bool Attack2Released
 	{
 		get { return _attack2Last && !Attack2; }
+	}
+	public bool InteractionPressed
+	{
+		get { return !_interactLast && Interaction; }
+	}
+	public bool InteractionReleased
+	{
+		get { return _interactLast && !Interaction; }
 	}
 }

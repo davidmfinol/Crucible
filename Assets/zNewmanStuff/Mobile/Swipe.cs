@@ -6,17 +6,18 @@ public class Swipe : MonoBehaviour
 	Vector2 StartPos;
 	int SwipeID = -1;
 	float minMovement = 20.0f;
-	public Transform BOX;
-	private WeaponsGui WeaponSelect;
-	private PlayerCharacterInput input;
 
-// Use this for initialization
+	public Transform DebugBox;
+	private WeaponsGui _weaponsGUI;
+	private PlayerCharacterInput _input;
+
+
 	void Start ()
 	{
-		WeaponSelect = GetComponent<WeaponsGui> ();
-		input = GameManager.Player.GetComponent<PlayerCharacterInput>();
+		_weaponsGUI = GetComponent<WeaponsGui> ();
+		_input = GameManager.Player.GetComponent<PlayerCharacterInput>();
 	}
-	// Update is called once per frame
+
 	void Update ()
 	{	
 
@@ -65,19 +66,19 @@ public class Swipe : MonoBehaviour
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
-						if (!WeaponSelect.Animating) 
+						if (!_weaponsGUI.Animating) 
 						{	
-							WeaponSelect.RightSelect = true;
-							WeaponSelect.Animating = true;
+							_weaponsGUI.RightSelect = true;
+							_weaponsGUI.Animating = true;
 						}
 						Debug.Log ("Swipe Right Found");
 					} else {
  
 						Debug.Log ("Swipe Left Found");
 						//Instantiate(BOX, Left, Quaternion.identity);	
-						if (!WeaponSelect.Animating) {	
-							WeaponSelect.LeftSelect = true;
-							WeaponSelect.Animating = true;	
+						if (!_weaponsGUI.Animating) {	
+							_weaponsGUI.LeftSelect = true;
+							_weaponsGUI.Animating = true;	
 						}		
 					}
 				} else {					
@@ -116,19 +117,19 @@ public class Swipe : MonoBehaviour
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
-						input.HorizontalInput = 1-1/delta.x;
+						_input.HorizontalInput = 1-1/delta.x;
 						Debug.Log ("Swipe Right Found");
 					} else {
-						input.HorizontalInput = -1+1/delta.x;
+						_input.HorizontalInput = -1+1/delta.x;
 						Debug.Log ("Swipe Left Found");
 						//Instantiate(BOX, Left, Quaternion.identity);			
 					}
 				} else {					
 					if (delta.y > .5) {
 						//Instantiate(BOX, Up, Quaternion.identity);
-						input.Jump = true;
+						_input.Jump = true;
 					} else {
-						input.Attack2 = true;
+						_input.Attack2 = true;
 						//Instantiate(BOX, Down, Quaternion.identity);
 						Debug.Log ("Swipe Down Found");
 					}
@@ -159,19 +160,19 @@ public class Swipe : MonoBehaviour
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
-						input.Attack1 = true;
+						_input.Attack1 = true;
 						Debug.Log ("Swipe Right Found");
 					} else {
- 						input.Attack1 = true;
+ 						_input.Attack1 = true;
 						Debug.Log ("Swipe Left Found");
 						//Instantiate(BOX, Left, Quaternion.identity);			
 					}
 				} else {					
 					if (delta.y > .5) {
 						//Instantiate(BOX, Up, Quaternion.identity);
-						input.Jump = true;
+						_input.Jump = true;
 					} else {
-						input.Attack2 = true;
+						_input.Attack2 = true;
 						//Instantiate(BOX, Down, Quaternion.identity);
 						Debug.Log ("Swipe Down Found");
 					}

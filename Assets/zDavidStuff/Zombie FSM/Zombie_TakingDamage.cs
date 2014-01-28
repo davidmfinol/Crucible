@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 
 /*
-public class Zombie_TakingDamage : ZombieFSM_IState
+public class Enemy_TakingDamage : EnemyFSM_IState
 {
-    public Zombie_TakingDamage(ZombieFSM controller) : base(controller) { }
+    public Enemy_TakingDamage(EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
@@ -14,13 +14,13 @@ public class Zombie_TakingDamage : ZombieFSM_IState
         FSM.animation["TakingDamage"].speed = 2.0f;
         FSM.animation.Stop();
         FSM.animation.Play("TakingDamage");
-        FSM.ZombieAudioSource.PlayAttack();
+        FSM.EnemyAudioSource.PlayAttack();
         VerticalSpeed = GroundVerticalSpeed;
     }
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_TakingDamage;
+        EnemyStates nextState = EnemyStates.Enemy_TakingDamage;
 
         HorizontalSpeed = -1;
         VerticalSpeed = FSM.ApplyGravity();
@@ -28,9 +28,9 @@ public class Zombie_TakingDamage : ZombieFSM_IState
             VerticalSpeed = GroundVerticalSpeed;
 
         if (!IsGrounded)
-            nextState = ZombieStates.Zombie_Falling;
+            nextState = EnemyStates.Enemy_Falling;
         else if (!FSM.animation.IsPlaying("TakingDamage"))
-            nextState = ZombieStates.Zombie_Idle;
+            nextState = EnemyStates.Enemy_Idle;
 
         return nextState;
     }

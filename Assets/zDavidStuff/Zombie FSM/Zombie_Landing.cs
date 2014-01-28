@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 
 /*
-public class Zombie_Landing : ZombieFSM_IState
+public class Enemy_Landing : EnemyFSM_IState
 {
-    public Zombie_Landing(ZombieFSM controller) : base(controller) { }
+    public Enemy_Landing(EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
@@ -19,12 +19,12 @@ public class Zombie_Landing : ZombieFSM_IState
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_Landing;
+        EnemyStates nextState = EnemyStates.Enemy_Landing;
 
         if (!IsGrounded)
-            nextState = ZombieStates.Zombie_Falling;
+            nextState = EnemyStates.Enemy_Falling;
         else if (Duration > FSM.LandingDuration)
-            nextState = ZombieStates.Zombie_Idle;
+            nextState = EnemyStates.Enemy_Idle;
 
         return nextState;
     }

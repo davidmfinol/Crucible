@@ -1,0 +1,249 @@
+fileFormatVersion: 2
+guid: d13820b9a26b945b386fe9ed3d1eb512
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Cabinet
+    100002: //RootNode
+    100004: Ground
+    100006: Ground1
+    100008: Ground2
+    100010: Ground3
+    100012: Ground4
+    100014: group1
+    100016: group2
+    100018: nurbsCube1
+    100020: pCube1
+    100022: pCube3
+    100024: pCube3 1
+    100026: pCube4
+    100028: pCube4 1
+    100030: pCube5
+    100032: pCube6
+    100034: pCube7
+    100036: pCube8
+    100038: pCube9
+    100040: pCylinder1
+    100042: polySurface1
+    100044: polySurface10
+    100046: polySurface2
+    100048: polySurface3
+    100050: polySurface4
+    100052: polySurface5
+    100054: polySurface7
+    100056: polySurface9
+    100058: pPlane1
+    100060: pPlane2
+    100062: pPlane3
+    100064: pPlane4
+    100066: pTorus1
+    100068: pTorus2
+    100070: pTorus2 1
+    100072: pTorus3
+    100074: pTorus4
+    100076: ShelfEncasing
+    100078: ShelfMiddleShelf
+    100080: ShelfMiddleShelf1
+    100082: ShelfMiddleShelf2
+    100084: transform1
+    100086: transform2
+    100088: transform3
+    100090: transform4
+    100092: transform5
+    100094: transform6
+    400000: Cabinet
+    400002: //RootNode
+    400004: Ground
+    400006: Ground1
+    400008: Ground2
+    400010: Ground3
+    400012: Ground4
+    400014: group1
+    400016: group2
+    400018: nurbsCube1
+    400020: pCube1
+    400022: pCube3
+    400024: pCube3 1
+    400026: pCube4
+    400028: pCube4 1
+    400030: pCube5
+    400032: pCube6
+    400034: pCube7
+    400036: pCube8
+    400038: pCube9
+    400040: pCylinder1
+    400042: polySurface1
+    400044: polySurface10
+    400046: polySurface2
+    400048: polySurface3
+    400050: polySurface4
+    400052: polySurface5
+    400054: polySurface7
+    400056: polySurface9
+    400058: pPlane1
+    400060: pPlane2
+    400062: pPlane3
+    400064: pPlane4
+    400066: pTorus1
+    400068: pTorus2
+    400070: pTorus2 1
+    400072: pTorus3
+    400074: pTorus4
+    400076: ShelfEncasing
+    400078: ShelfMiddleShelf
+    400080: ShelfMiddleShelf1
+    400082: ShelfMiddleShelf2
+    400084: transform1
+    400086: transform2
+    400088: transform3
+    400090: transform4
+    400092: transform5
+    400094: transform6
+    2300000: Ground
+    2300002: Ground1
+    2300004: Ground2
+    2300006: Ground3
+    2300008: Ground4
+    2300010: pCube3
+    2300012: pCube3 1
+    2300014: pCube4
+    2300016: pCube4 1
+    2300018: pCube6
+    2300020: pCube7
+    2300022: pCube8
+    2300024: pCube9
+    2300026: polySurface1
+    2300028: polySurface10
+    2300030: polySurface4
+    2300032: polySurface5
+    2300034: polySurface7
+    2300036: pPlane1
+    2300038: pPlane2
+    2300040: pPlane3
+    2300042: pPlane4
+    2300044: pTorus1
+    2300046: pTorus2
+    2300048: pTorus2 1
+    2300050: pTorus3
+    2300052: pTorus4
+    2300054: ShelfEncasing
+    2300056: ShelfMiddleShelf
+    2300058: ShelfMiddleShelf1
+    2300060: ShelfMiddleShelf2
+    3300000: Ground
+    3300002: Ground1
+    3300004: Ground2
+    3300006: Ground3
+    3300008: Ground4
+    3300010: pCube3
+    3300012: pCube3 1
+    3300014: pCube4
+    3300016: pCube4 1
+    3300018: pCube6
+    3300020: pCube7
+    3300022: pCube8
+    3300024: pCube9
+    3300026: polySurface1
+    3300028: polySurface10
+    3300030: polySurface4
+    3300032: polySurface5
+    3300034: polySurface7
+    3300036: pPlane1
+    3300038: pPlane2
+    3300040: pPlane3
+    3300042: pPlane4
+    3300044: pTorus1
+    3300046: pTorus2
+    3300048: pTorus2 1
+    3300050: pTorus3
+    3300052: pTorus4
+    3300054: ShelfEncasing
+    3300056: ShelfMiddleShelf
+    3300058: ShelfMiddleShelf1
+    3300060: ShelfMiddleShelf2
+    4300000: polySurface1
+    4300002: polySurface4
+    4300004: polySurface5
+    4300006: polySurface7
+    4300008: pTorus1
+    4300010: pPlane1
+    4300012: pTorus2
+    4300014: pCube4
+    4300016: pCube3
+    4300018: pTorus2
+    4300020: pCube4
+    4300022: pCube3
+    4300024: polySurface10
+    4300026: pTorus3
+    4300028: ShelfEncasing
+    4300030: ShelfMiddleShelf
+    4300032: ShelfMiddleShelf1
+    4300034: ShelfMiddleShelf2
+    4300036: pTorus4
+    4300038: pCube6
+    4300040: pCube7
+    4300042: pCube8
+    4300044: pCube9
+    4300046: Ground
+    4300048: Ground1
+    4300050: Ground2
+    4300052: Ground3
+    4300054: Ground4
+    4300056: pPlane2
+    4300058: pPlane3
+    4300060: pPlane4
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  userData: 

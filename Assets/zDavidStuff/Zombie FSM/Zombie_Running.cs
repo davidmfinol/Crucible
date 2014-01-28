@@ -3,36 +3,36 @@ using System;
 using System.Collections;
 
 /*
-public class Zombie_Running : ZombieFSM_IState
+public class Enemy_Running : EnemyFSM_IState
 {
-    public Zombie_Running(ZombieFSM controller) : base(controller) { }
+    public Enemy_Running(EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
         base.StartState();
         FSM.animation.CrossFade("Run");
-        FSM.ZombieAudioSource.PlayRunning();
+        FSM.EnemyAudioSource.PlayRunning();
         VerticalSpeed = GroundVerticalSpeed;
     }
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_Running;
+        EnemyStates nextState = EnemyStates.Enemy_Running;
 
         // Determine movement
         HorizontalSpeed = FSM.ApplyRunning(FSM.MaxHorizontalSpeed);
 
         // Determine next state
         if (!IsGrounded)
-            nextState = ZombieStates.Zombie_Falling;
+            nextState = EnemyStates.Enemy_Falling;
         else if (Attack)
-            nextState = ZombieStates.Zombie_Attacking;
+            nextState = EnemyStates.Enemy_Attacking;
         else if (Jump)
-            nextState = ZombieStates.Zombie_Jumping;
+            nextState = EnemyStates.Enemy_Jumping;
         else if (((Up && FSM.ZLevel != FSM.Z_Up) || (Down && FSM.ZLevel != FSM.Z_Down)) && FSM.CanTransitionZ)
-            nextState = ZombieStates.Zombie_TransitioningZ;
+            nextState = EnemyStates.Enemy_TransitioningZ;
         else if ((Direction.x > 0 && !Right) || (Direction.x < 0 && !Left))
-            nextState = ZombieStates.Zombie_Idle;
+            nextState = EnemyStates.Enemy_Idle;
 
         return nextState;
     }

@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 	// Global Managers
 	private static AIManager _aiManager;
 	private static AudioManager _audioManager;
+	private static SubtitlesManager _subtitlesManager;
 	
 	
     // Set up level, player/camera, and find the Global Managers
@@ -40,6 +41,8 @@ public class GameManager : MonoBehaviour
 		SetupAI();
 		
 		SetupAudio();
+		
+		SetupSubtitles();
     }
 	
 	private void SetupLevel()
@@ -54,7 +57,9 @@ public class GameManager : MonoBehaviour
 	{
 		if(_player == null)
         	_player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
-		
+
+		// _player.tag = "player";
+
         PlayerCharacterSettings playerSettings = _player.GetComponent<PlayerCharacterSettings>();
         playerSettings.SpawnPoint = _currentLevel.StartPoint;
 	}
@@ -83,6 +88,14 @@ public class GameManager : MonoBehaviour
 		if(GameManager._audioManager != null)
 			Destroy(GameManager._audioManager.gameObject); // TODO: TRANSFER AUDIO MANAGER BETTER
 		GameManager._audioManager = GetComponentInChildren<AudioManager>();
+	}
+	
+	private void SetupSubtitles()
+	{
+		// We need to keep one instance of the audio manager
+		if(GameManager._subtitlesManager != null)
+			Destroy(GameManager._subtitlesManager.gameObject); // TODO: TRANSFER SUBTITLES MANAGER BETTER
+		GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager>();
 	}
 	
 	private void SetupHUD()
@@ -133,5 +146,14 @@ public class GameManager : MonoBehaviour
 	public static AudioManager Audio
 	{
 		get { return _audioManager; }
+	}
+
+	/// <summary>
+	/// Gets the subtitles.
+	/// </summary>
+	/// <value>The subtitles.</value>
+	public static SubtitlesManager Subtitles
+	{
+		get { return _subtitlesManager; }
 	}
 }

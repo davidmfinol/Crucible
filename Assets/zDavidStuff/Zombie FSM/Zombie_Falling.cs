@@ -3,9 +3,9 @@ using System;
 using System.Collections;
 
 /*
-public class Zombie_Falling : ZombieFSM_IState
+public class Enemy_Falling : EnemyFSM_IState
 {
-    public Zombie_Falling(ZombieFSM controller) : base(controller) { }
+    public Enemy_Falling(EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
@@ -17,7 +17,7 @@ public class Zombie_Falling : ZombieFSM_IState
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_Falling;
+        EnemyStates nextState = EnemyStates.Enemy_Falling;
 		
 		// Determine direction
 		if(Left && !Right)
@@ -36,11 +36,11 @@ public class Zombie_Falling : ZombieFSM_IState
 
         // Determine next state
         if (IsGrounded)
-            nextState = ZombieStates.Zombie_Landing;
+            nextState = EnemyStates.Enemy_Landing;
         else if (FSM.CanHangOffObject && Up)
-            nextState = ZombieStates.Zombie_Hanging;
+            nextState = EnemyStates.Enemy_Hanging;
         else if (FSM.CanClimbPipe || FSM.CanClimbLadder)
-            nextState = ZombieStates.Zombie_Climbing;
+            nextState = EnemyStates.Enemy_Climbing;
 
         return nextState;
     }

@@ -3,16 +3,16 @@ using System;
 using System.Collections;
 
 /*
-public class Zombie_Climbing : ZombieFSM_IState
+public class Enemy_Climbing : EnemyFSM_IState
 {
-    public Zombie_Climbing(ZombieFSM controller) : base(controller) { }
+    public Enemy_Climbing(EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
         base.StartState();
         FSM.animation.wrapMode = WrapMode.Loop;
         FSM.animation.CrossFade("ClimbingUp");
-        FSM.ZombieAudioSource.PlayRunning();
+        FSM.EnemyAudioSource.PlayRunning();
 
         HorizontalSpeed = 0.0f;
         VerticalSpeed = 0.0f;
@@ -20,7 +20,7 @@ public class Zombie_Climbing : ZombieFSM_IState
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_Climbing;
+        EnemyStates nextState = EnemyStates.Enemy_Climbing;
 
         // First, this special state handles Z-stuff
         if (Down && FSM.CanTransitionZ)
@@ -32,7 +32,7 @@ public class Zombie_Climbing : ZombieFSM_IState
 
         // Then check that we are still on a climbable object
         if (FSM.ActiveHangTarget == null)
-            return ZombieStates.Zombie_TransitioningZ;
+            return EnemyStates.Enemy_TransitioningZ;
 
         // We face forward while climbing
         Direction = Vector3.zero;
@@ -72,13 +72,13 @@ public class Zombie_Climbing : ZombieFSM_IState
 
         // Determine next state
         if ((Left || Right || Down) && IsGrounded)
-            nextState = ZombieStates.Zombie_Idle;
+            nextState = EnemyStates.Enemy_Idle;
         else if (FSM.CanHangOffObject)
-            nextState = ZombieStates.Zombie_Hanging;
+            nextState = EnemyStates.Enemy_Hanging;
         else if (Jump)
-            nextState = ZombieStates.Zombie_Jumping;
+            nextState = EnemyStates.Enemy_Jumping;
 		else if(Down && !insideDown)
-			nextState = ZombieStates.Zombie_Falling;
+			nextState = EnemyStates.Enemy_Falling;
 
         return nextState;
     }

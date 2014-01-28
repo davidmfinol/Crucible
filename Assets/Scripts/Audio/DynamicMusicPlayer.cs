@@ -14,7 +14,7 @@ public class DynamicMusicPlayer : AudioPlayer
 	private AudioSource _audio3;
 	
 	// The songs that we are going to layer
-	private AudioClipGroup _zombieDangerClips;
+	private AudioClipGroup _enemyDangerClips;
 	
 	// TODO: The volume for each of the audio layers (so they fade in and out)
 	//private float audio1Volume;
@@ -27,16 +27,16 @@ public class DynamicMusicPlayer : AudioPlayer
 	void Start()
 	{
 		// Set up the audio
-		_zombieDangerClips = GetComponent<AudioClipGroup>();
+		_enemyDangerClips = GetComponent<AudioClipGroup>();
 		_audio1 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio2 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio3 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio1.loop = true;
 		_audio2.loop = true;
 		_audio3.loop = true;
-		_audio1.clip = _zombieDangerClips.Clips[0];
-		_audio2.clip = _zombieDangerClips.Clips[1];
-		_audio3.clip = _zombieDangerClips.Clips[2];
+		_audio1.clip = _enemyDangerClips.Clips[0];
+		_audio2.clip = _enemyDangerClips.Clips[1];
+		_audio3.clip = _enemyDangerClips.Clips[2];
 		_prevDangerLevel = -1;
 	}
 	
@@ -83,7 +83,7 @@ public class DynamicMusicPlayer : AudioPlayer
 	
 	public int DangerLevel
 	{
-		get { return GameManager.AI.ZombiesAware; }
+		get { return GameManager.AI.EnemiesAware; }
 	}
 	
 	 /*

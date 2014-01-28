@@ -104,6 +104,8 @@ ModelImporter:
     7400042: Running
     7400044: RunningNinja
     7400046: Walking
+    7400048: PlaceMine
+    7400050: DetonateMine
     9500000: //RootNode
     11100000: //RootNode
     13700000: Char
@@ -116,13 +118,16 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 3
     bakeSimulation: 0
+    optimizeGameObjects: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 2
+    extraExposedTransformPaths: []
     clipAnimations:
-    - name: Default Take
+    - serializedVersion: 16
+      name: Default Take
       takeName: Default Take
       firstFrame: 0
       lastFrame: 59
@@ -131,6 +136,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -142,8 +148,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: AttackingFirst
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: AttackingFirst
       takeName: AttackingFirst
       firstFrame: 0
       lastFrame: 24
@@ -152,6 +162,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -163,8 +174,26 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events:
+      - time: 0
+        functionName: StartMelee
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .88161701
+        functionName: EndMelee
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
-    - name: AttackingLast
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: AttackingLast
       takeName: AttackingLast
       firstFrame: 0
       lastFrame: 29
@@ -173,6 +202,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -184,8 +214,26 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events:
+      - time: 0
+        functionName: StartMelee
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .989531815
+        functionName: EndMelee
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
-    - name: AttackingSecond
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: AttackingSecond
       takeName: AttackingSecond
       firstFrame: 0
       lastFrame: 15
@@ -194,6 +242,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -205,8 +254,26 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events:
+      - time: 0
+        functionName: StartMelee
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .982099235
+        functionName: EndMelee
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
-    - name: Climbing
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Climbing
       takeName: Climbing
       firstFrame: 0
       lastFrame: 29
@@ -215,6 +282,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -226,8 +294,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Climbing2
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Climbing2
       takeName: Climbing2
       firstFrame: 0
       lastFrame: 29
@@ -236,6 +308,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -247,8 +320,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Death
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Death
       takeName: Death
       firstFrame: 0
       lastFrame: 36
@@ -257,6 +334,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -268,8 +346,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Falling
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Falling
       takeName: Falling
       firstFrame: 0
       lastFrame: 59
@@ -278,6 +360,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -289,8 +372,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Hanging
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Hanging
       takeName: Hanging
       firstFrame: 0
       lastFrame: 18
@@ -299,6 +386,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -310,8 +398,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: HangingPipe
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: HangingPipe
       takeName: HangingPipe
       firstFrame: 0
       lastFrame: 18
@@ -320,6 +412,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -331,8 +424,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: HangingStrafe
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: HangingStrafe
       takeName: HangingStrafe
       firstFrame: 0
       lastFrame: 59
@@ -341,6 +438,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -352,8 +450,12 @@ ModelImporter:
       mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: HanginLoop
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: HanginLoop
       takeName: HanginLoop
       firstFrame: 0
       lastFrame: 59
@@ -362,6 +464,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -373,8 +476,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: HanginLoopasdf
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: HanginLoopasdf
       takeName: HanginLoopasdf
       firstFrame: 0
       lastFrame: 59
@@ -383,6 +490,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -394,8 +502,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Idle_001
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Idle_001
       takeName: Idle_001
       firstFrame: 0
       lastFrame: 99
@@ -404,6 +516,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -415,8 +528,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Idle2
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Idle2
       takeName: Idle2
       firstFrame: 0
       lastFrame: 99
@@ -425,6 +542,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -436,8 +554,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: JumpFall
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: JumpFall
       takeName: JumpFall
       firstFrame: 0
       lastFrame: 7
@@ -446,6 +568,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -457,8 +580,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Jumping
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Jumping
       takeName: Jumping
       firstFrame: 0
       lastFrame: 21
@@ -467,6 +594,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -478,8 +606,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: JumpingDownLeft
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: JumpingDownLeft
       takeName: JumpingDownLeft
       firstFrame: 0
       lastFrame: 29
@@ -488,6 +620,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -499,8 +632,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: JumpingDownRight
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: JumpingDownRight
       takeName: JumpingDownRight
       firstFrame: 0
       lastFrame: 29
@@ -509,6 +646,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -520,8 +658,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: JumpLanding
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: JumpLanding
       takeName: JumpLanding
       firstFrame: 0
       lastFrame: 26
@@ -530,6 +672,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -541,8 +684,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Landing
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Landing
       takeName: Landing
       firstFrame: 0
       lastFrame: 34
@@ -551,6 +698,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -562,8 +710,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Running
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Running
       takeName: Running
       firstFrame: 0
       lastFrame: 28
@@ -572,6 +724,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -583,8 +736,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: RunningNinja
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: RunningNinja
       takeName: RunningNinja
       firstFrame: 0
       lastFrame: 28
@@ -593,6 +750,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -604,8 +762,12 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
-    - name: Walking
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Walking
       takeName: Walking
       firstFrame: 0
       lastFrame: 38
@@ -614,6 +776,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -625,7 +788,224 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events: []
       transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: PlaceMine
+      takeName: AttackingFirst
+      firstFrame: 16.7000008
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .768195808
+        functionName: PlaceMine
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armguard
+        weight: 0
+      - path: Char
+        weight: 0
+      - path: metarig
+        weight: 1
+      - path: metarig/foot_IK_L
+        weight: 0
+      - path: metarig/foot_IK_L/knee_L
+        weight: 0
+      - path: metarig/foot_IK_R
+        weight: 0
+      - path: metarig/foot_IK_R/knee_R
+        weight: 0
+      - path: metarig/hip
+        weight: 1
+      - path: metarig/hip/spine
+        weight: 1
+      - path: metarig/hip/spine/chest
+        weight: 1
+      - path: metarig/hip/spine/chest/neck
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: metarig/hip/thigh_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: metarig/hip/thigh_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: Plane_001
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: DetonateMine
+      takeName: AttackingSecond
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .923023224
+        functionName: DetonateMine
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armguard
+        weight: 0
+      - path: Char
+        weight: 0
+      - path: metarig
+        weight: 1
+      - path: metarig/foot_IK_L
+        weight: 0
+      - path: metarig/foot_IK_L/knee_L
+        weight: 0
+      - path: metarig/foot_IK_R
+        weight: 0
+      - path: metarig/foot_IK_R/knee_R
+        weight: 0
+      - path: metarig/hip
+        weight: 1
+      - path: metarig/hip/spine
+        weight: 1
+      - path: metarig/hip/spine/chest
+        weight: 1
+      - path: metarig/hip/spine/chest/neck
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: metarig/hip/thigh_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: metarig/hip/thigh_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: Plane_001
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -657,8 +1037,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .00429687323, y: 0, z: .00214843662}
-        preQ: {x: -.500005364, y: -.499994516, z: .500005543, w: .499994367}
-        postQ: {x: .707106769, y: -7.93708205e-06, z: 7.74860564e-06, w: .707106769}
         length: .00537109375
         modified: 1
     - boneName: thigh_L
@@ -667,8 +1045,6 @@ ModelImporter:
         min: {x: -60.0000038, y: -60.0000038, z: -90}
         max: {x: 60.0000038, y: 60.0000038, z: 50}
         value: {x: .590072036, y: 0, z: .295036018}
-        preQ: {x: -.190958068, y: .690231144, z: .680833936, w: .153560594}
-        postQ: {x: 1.49011612e-07, y: .707101047, z: .707112372, w: 1.49011612e-07}
         length: .737590313
         modified: 1
     - boneName: thigh_R
@@ -677,8 +1053,6 @@ ModelImporter:
         min: {x: -60.0000038, y: -60.0000038, z: -90}
         max: {x: 60.0000038, y: 60.0000038, z: 50}
         value: {x: .590072095, y: 0, z: .295036048}
-        preQ: {x: -.153560236, y: .680833936, z: .690231204, w: .190958217}
-        postQ: {x: -1.49011626e-07, y: -.707112372, z: -.707101107, w: 0}
         length: .737590432
         modified: 1
     - boneName: shin_L
@@ -687,8 +1061,6 @@ ModelImporter:
         min: {x: -90, y: 0, z: -80}
         max: {x: 90, y: 0, z: 80}
         value: {x: .783556819, y: 0, z: .391778409}
-        preQ: {x: .464134842, y: .51566875, z: .558134973, w: -.455137193}
-        postQ: {x: 1.49011612e-07, y: .70889616, z: .705312729, w: -1.78813934e-07}
         length: .979446292
         modified: 1
     - boneName: shin_R
@@ -697,8 +1069,6 @@ ModelImporter:
         min: {x: -90, y: 0, z: -80}
         max: {x: 90, y: 0, z: 80}
         value: {x: .783556461, y: 0, z: .391778231}
-        preQ: {x: -.455137044, y: -.558135211, z: -.51566869, w: .464134663}
-        postQ: {x: 2.98023259e-08, y: .705312848, z: .708896101, w: 1.19209304e-07}
         length: .979445875
         modified: 1
     - boneName: foot_L
@@ -707,8 +1077,6 @@ ModelImporter:
         min: {x: 0, y: -30.0000019, z: -50}
         max: {x: 0, y: 30.0000019, z: 50}
         value: {x: .178208336, y: 0, z: .0891041681}
-        preQ: {x: -.00519713806, y: .708875835, z: .704596877, w: .0317983963}
-        postQ: {x: -.398135662, y: -.587495923, z: -.644642591, w: .284204841}
         length: .222760499
         modified: 1
     - boneName: foot_R
@@ -717,8 +1085,6 @@ ModelImporter:
         min: {x: 0, y: -30.0000019, z: -50}
         max: {x: 0, y: 30.0000019, z: 50}
         value: {x: .178208679, y: 0, z: .0891043395}
-        preQ: {x: -.0317984857, y: .704596996, z: .708875775, w: .00519710826}
-        postQ: {x: -.284204751, y: -.644642532, z: -.587495863, w: .398135811}
         length: .222760916
         modified: 1
     - boneName: spine
@@ -727,8 +1093,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .195406526, y: 0, z: .0977032632}
-        preQ: {x: .707106054, y: -.00101865327, z: .00101831579, w: .707105994}
-        postQ: {x: 4.80562562e-07, y: -.806889474, z: .590702415, w: 1.4156106e-07}
         length: .244258225
         modified: 1
     - boneName: chest
@@ -737,8 +1101,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .583733439, y: 0, z: .29186672}
-        preQ: {x: -.0341106169, y: .806168199, z: -.590174258, w: -.0249713734}
-        postQ: {x: -.0626016185, y: .704330146, z: -.704330146, w: -.0626014993}
         length: .729667068
         modified: 1
     - boneName: neck
@@ -747,8 +1109,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .29186672, y: 0, z: .14593336}
-        preQ: {x: .0337881669, y: -.706298947, z: .706299067, w: .0337883644}
-        postQ: {x: -.0713675916, y: -.70349592, z: .703496158, w: -.0713673458}
         length: .364833534
         modified: 1
     - boneName: upper_arm_L
@@ -757,8 +1117,6 @@ ModelImporter:
         min: {x: -90, y: -100, z: -60.0000038}
         max: {x: 90, y: 100, z: 100}
         value: {x: .433885068, y: 0, z: .216942534}
-        preQ: {x: .199047729, y: .135312125, z: .378103524, w: -.893928647}
-        postQ: {x: -9.20845125e-08, y: .045905523, z: .998945713, w: 1.27049574e-07}
         length: .542356491
         modified: 1
     - boneName: upper_arm_R
@@ -767,8 +1125,6 @@ ModelImporter:
         min: {x: -90, y: -100, z: -60.0000038}
         max: {x: 90, y: 100, z: 100}
         value: {x: .433884501, y: 0, z: .216942251}
-        preQ: {x: .19904767, y: -.135312229, z: .378102571, w: .893928945}
-        postQ: {x: 2.06753612e-07, y: -.045905605, z: .998945713, w: 8.22066795e-07}
         length: .542355776
         modified: 1
     - boneName: forearm_L
@@ -777,8 +1133,6 @@ ModelImporter:
         min: {x: -90, y: 0, z: -80}
         max: {x: 90, y: 0, z: 80}
         value: {x: .413150638, y: 0, z: .206575319}
-        preQ: {x: .479872018, y: .553816617, z: .533342898, w: -.42255789}
-        postQ: {x: -5.45755086e-07, y: -.733442664, z: .679751277, w: 5.99306134e-07}
         length: .516438425
         modified: 1
     - boneName: forearm_R
@@ -787,8 +1141,6 @@ ModelImporter:
         min: {x: -90, y: 0, z: -80}
         max: {x: 90, y: 0, z: 80}
         value: {x: .413150668, y: 0, z: .206575334}
-        preQ: {x: .479872406, y: -.553817153, z: .533342421, w: .422557503}
-        postQ: {x: -5.72763419e-08, y: -.733442545, z: -.679751337, w: 6.78701326e-08}
         length: .516438484
         modified: 1
     - boneName: hand_L
@@ -797,8 +1149,6 @@ ModelImporter:
         min: {x: 0, y: -40, z: -80}
         max: {x: 0, y: 40, z: 80}
         value: {x: .206575319, y: 0, z: .10328766}
-        preQ: {x: -8.08387938e-07, y: -.999283135, z: -.037856482, w: 3.85267036e-08}
-        postQ: {x: -.0394084305, y: .700897157, z: .711421609, w: .0327009596}
         length: .258219212
         modified: 1
     - boneName: hand_R
@@ -807,8 +1157,6 @@ ModelImporter:
         min: {x: 0, y: -40, z: -80}
         max: {x: 0, y: 40, z: 80}
         value: {x: .206575334, y: 0, z: .103287667}
-        preQ: {x: 8.38190228e-09, y: -.999283135, z: .0378563739, w: 8.89412988e-08}
-        postQ: {x: -.0394090302, y: -.700897157, z: .711421549, w: -.0327013582}
         length: .258219242
         modified: 1
     - boneName: thumb_02_L
@@ -817,8 +1165,6 @@ ModelImporter:
         min: {x: 0, y: -25, z: -20}
         max: {x: 0, y: 25, z: 20}
         value: {x: .091614224, y: 0, z: .045807112}
-        preQ: {x: .519082129, y: .846012771, z: .0184429567, w: -.120315894}
-        postQ: {x: 2.08616257e-07, y: -.717982233, z: .696061373, w: 1.1138618e-06}
         length: .114517815
         modified: 1
     - boneName: thumb_03_L
@@ -827,8 +1173,6 @@ ModelImporter:
         min: {x: 0, y: 0, z: -40}
         max: {x: 0, y: 0, z: 35}
         value: {x: .0687106624, y: 0, z: .0343553312}
-        preQ: {x: .139596254, y: -.686168492, z: .700977862, w: .135335088}
-        postQ: {x: .058685787, y: -.716701865, z: .683917463, w: -.123090394}
         length: .0858883634
         modified: 1
     - boneName: f_index_01_L
@@ -837,8 +1181,6 @@ ModelImporter:
         min: {x: 0, y: -20, z: -50}
         max: {x: 0, y: 20, z: 50}
         value: {x: .0874546543, y: 0, z: .0437273271}
-        preQ: {x: .283960372, y: .68035984, z: .668502212, w: -.0978855789}
-        postQ: {x: -3.48873414e-06, y: .74525249, z: .66678232, w: 2.6078485e-06}
         length: .109318353
         modified: 1
     - boneName: f_index_02_L
@@ -847,8 +1189,6 @@ ModelImporter:
         min: {x: 0, y: 0, z: -45}
         max: {x: 0, y: 0, z: 45}
         value: {x: .0655909851, y: 0, z: .0327954926}
-        preQ: {x: .231165439, y: .737448394, z: .59996289, w: -.206825495}
-        postQ: {x: -.0388154387, y: .750283301, z: .658694208, w: .0411113724}
         length: .0819887668
         modified: 1
     - boneName: f_pinky_01_L
@@ -857,8 +1197,6 @@ ModelImporter:
         min: {x: 0, y: -20, z: -50}
         max: {x: 0, y: 20, z: 50}
         value: {x: .0862522945, y: 0, z: .0431261472}
-        preQ: {x: .145871878, y: .672821403, z: .666429281, w: -.286190033}
-        postQ: {x: 1.1511147e-06, y: .598666131, z: .800998569, w: -1.52394932e-06}
         length: .1078154
         modified: 1
     - boneName: f_pinky_02_L
@@ -867,8 +1205,6 @@ ModelImporter:
         min: {x: 0, y: 0, z: -45}
         max: {x: 0, y: 0, z: 45}
         value: {x: .0646892115, y: 0, z: .0323446058}
-        preQ: {x: .187562123, y: .56286484, z: .764869928, w: -.25095281}
-        postQ: {x: .0340492539, y: .595820963, z: .802042186, w: -.0237961262}
         length: .0808615535
         modified: 1
     - boneName: thumb_02_R
@@ -877,8 +1213,6 @@ ModelImporter:
         min: {x: 0, y: -25, z: -20}
         max: {x: 0, y: 25, z: 20}
         value: {x: .0916148871, y: 0, z: .0458074436}
-        preQ: {x: -.519082367, y: .846012712, z: -.0184425749, w: -.120315649}
-        postQ: {x: -1.13248825e-06, y: -.717982411, z: -.696061254, w: -7.45058117e-07}
         length: .114518642
         modified: 1
     - boneName: thumb_03_R
@@ -887,8 +1221,6 @@ ModelImporter:
         min: {x: 0, y: 0, z: -40}
         max: {x: 0, y: 0, z: 35}
         value: {x: .0687111542, y: 0, z: .0343555771}
-        preQ: {x: .139597178, y: .686168611, z: .700977981, w: -.13533327}
-        postQ: {x: -.0586867258, y: -.716701925, z: -.683916986, w: -.123092279}
         length: .0858889818
         modified: 1
     - boneName: f_index_01_R
@@ -897,8 +1229,6 @@ ModelImporter:
         min: {x: 0, y: -20, z: -50}
         max: {x: 0, y: 20, z: 50}
         value: {x: .0874529108, y: 0, z: .0437264554}
-        preQ: {x: -.283961058, y: .680359185, z: -.668502152, w: -.0978893712}
-        postQ: {x: 2.0116569e-07, y: -.745252848, z: .666781843, w: 7.30156955e-07}
         length: .10931617
         modified: 1
     - boneName: f_index_02_R
@@ -907,8 +1237,6 @@ ModelImporter:
         min: {x: 0, y: 0, z: -45}
         max: {x: 0, y: 0, z: 45}
         value: {x: .0655896738, y: 0, z: .0327948369}
-        preQ: {x: -.23116909, y: .737446725, z: -.599962354, w: -.206828833}
-        postQ: {x: -.0388116837, y: -.750283897, z: .658693969, w: -.0411080569}
         length: .0819871277
         modified: 1
     - boneName: f_pinky_01_R
@@ -917,8 +1245,6 @@ ModelImporter:
         min: {x: 0, y: -20, z: -50}
         max: {x: 0, y: 20, z: 50}
         value: {x: .0862525776, y: 0, z: .0431262888}
-        preQ: {x: -.145872012, y: .672821462, z: -.666429102, w: -.286189884}
-        postQ: {x: -1.2665987e-07, y: -.598666251, z: .800998628, w: -7.3527923e-07}
         length: .107815757
         modified: 1
     - boneName: f_pinky_02_R
@@ -927,8 +1253,6 @@ ModelImporter:
         min: {x: 0, y: 0, z: -45}
         max: {x: 0, y: 0, z: 45}
         value: {x: .0646894276, y: 0, z: .0323447138}
-        preQ: {x: -.187560946, y: .562865555, z: -.764870524, w: -.250950724}
-        postQ: {x: .0340479426, y: -.595821083, z: .802042246, w: .0237937607}
         length: .0808618218
         modified: 1
     skeleton:
@@ -1082,7 +1406,6 @@ ModelImporter:
       rotation: {x: -.0542067252, y: .504022896, z: .0645336285, w: -.859568417}
       scale: {x: .99999994, y: 1.00000012, z: 1}
       transformModified: 1
-    handles: []
     armTwist: .5
     foreArmTwist: .5
     upperLegTwist: .5
@@ -1092,6 +1415,5 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  additionalBone: 1
   animationType: 3
   userData: 

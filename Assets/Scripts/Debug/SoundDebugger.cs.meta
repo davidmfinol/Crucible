@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: c42322cf09ac944428c5d0de07f899b0
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - SoundPrefab: {fileID: 400000, guid: 64afae565a5fd4e0795663ea6c14b967, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

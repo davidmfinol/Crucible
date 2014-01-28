@@ -5,19 +5,20 @@ using System.Collections.Generic;
 /// Audio manager is the central controller for all audio sources in a scene.
 /// </summary>
 [RequireComponent(typeof(DynamicMusicPlayer))]
+[RequireComponent(typeof(SubtitlesManager))]
 [AddComponentMenu("Audio/Audio Manager")]
 public class AudioManager : MonoBehaviour
 {
-	private List<ZombieAudioPlayer> _zombies;
+	private List<EnemyAudioPlayer> _enemies;
 
     void Awake()
     {
-		_zombies = new List<ZombieAudioPlayer>();
+		_enemies = new List<EnemyAudioPlayer>();
     }
 	
-	public List<ZombieAudioPlayer> Zombies
+	public List<EnemyAudioPlayer> Enemies
 	{
-		get { return _zombies; }
+		get { return _enemies; }
 	}
 	
     public enum AudioTypes

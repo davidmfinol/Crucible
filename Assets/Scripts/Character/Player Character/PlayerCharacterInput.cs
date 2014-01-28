@@ -14,7 +14,11 @@ public class PlayerCharacterInput : CharacterInput
 	private bool _attack1;
 	private bool _attack2;
 	private bool _up;
-	private bool _down;		
+	private bool _down;
+	private bool _interaction;
+
+	// run modifier
+	private bool _shift;
 	
 	// Support for controls on a mobile device
 	public Transform UpTouchPadPrefab;
@@ -47,6 +51,8 @@ public class PlayerCharacterInput : CharacterInput
 		_jump = Input.GetButton("Jump");
 		_attack1 = Input.GetButton("Primary");
 		_attack2 = Input.GetButton("Secondary");
+		_interaction = Input.GetButton("Interaction");
+		_shift = Input.GetKey( KeyCode.LeftShift );
 #endif		
 		
 #if UNITY_STANDALONE
@@ -84,7 +90,15 @@ public class PlayerCharacterInput : CharacterInput
 	}
 	public override float HorizontalInput
 	{
-		get { return _horizontalInput; }
+		get
+		{ 
+			if( _shift)
+			{
+				return _horizontalInput / 3.0f;
+			} else {
+				return _horizontalInput;
+			}
+		}
 		set { _horizontalInput = value; }
 	}
 	public override bool Jump
@@ -101,5 +115,10 @@ public class PlayerCharacterInput : CharacterInput
 	{
 		get { return _attack2; }
 		set { _attack2 = value; }
+	}
+	public override bool Interaction
+	{
+		get { return _interaction; }
+		set { _interaction = value; } 
 	}
 }

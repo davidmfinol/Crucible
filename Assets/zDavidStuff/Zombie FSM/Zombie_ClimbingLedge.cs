@@ -3,11 +3,11 @@ using System.Collections;
 using System;
 
 /*
-public class Zombie_ClimbingLedge : ZombieFSM_IState
+public class Enemy_ClimbingLedge : EnemyFSM_IState
 {
     private Ledge _ledge; 
 	
-    public Zombie_ClimbingLedge(ZombieFSM controller) : base(controller) { }
+    public Enemy_ClimbingLedge(EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
@@ -28,11 +28,11 @@ public class Zombie_ClimbingLedge : ZombieFSM_IState
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_ClimbingLedge;
+        EnemyStates nextState = EnemyStates.Enemy_ClimbingLedge;
 
         // Check first that we are still holding on to something
         if (FSM.ActiveHangTarget == null)
-            return ZombieStates.Zombie_Falling;
+            return EnemyStates.Enemy_Falling;
 
         // Determine movement
         if (FSM.transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + FSM.Height / 2)
@@ -40,7 +40,7 @@ public class Zombie_ClimbingLedge : ZombieFSM_IState
 
         // Determine next state
         if ( (!(FSM.ActiveHangTarget is Ledge) && VerticalSpeed == GroundVerticalSpeed) || Duration >= FSM.LedgeClimbingDuration)
-            nextState = ZombieStates.Zombie_Idle;
+            nextState = EnemyStates.Enemy_Idle;
 
         return nextState;
     }

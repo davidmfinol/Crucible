@@ -4,7 +4,7 @@ using System.Collections;
 public class DoomTrigger : MonoBehaviour
 {
     public Transform Clock;
-    public Transform Zombie;
+    public Transform Enemy;
     public Transform[] Locations;
 	public Transform CrowSpawn;
     public MusicAudioSource Music;
@@ -20,7 +20,7 @@ public class DoomTrigger : MonoBehaviour
             Clock.animation.Play("Take 001");
             foreach (Transform location in Locations)
             {
-                MonoBehaviour.Instantiate(Zombie, location.position, Quaternion.identity);
+                MonoBehaviour.Instantiate(Enemy, location.position, Quaternion.identity);
             }
             Music.StartCoroutine("ChangeMusic");
         }

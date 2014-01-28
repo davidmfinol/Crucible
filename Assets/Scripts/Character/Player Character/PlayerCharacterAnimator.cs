@@ -18,20 +18,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _climbLadderHash;
 	private int _isGroundedHash;
 	private int _dieHash;
-	private int _attack1Hash;
-	private int _attack2Hash;
+	private int _attackMeleeHash;
+	private int _placeMineHash;
 	private int _climbLedgeHash;
 	private int _climbPipeHash;
 	private int _randomIdleHash;
 	private int _shootGunHash;
+	private int _detonateMineHash;
 	
 	// Used to keep track of the last y position at which the player was grounded
 	private float _lastGroundHeight;
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
-	
+	//
+	private float _timeUntilNextFootStepSound = -1f;
+
 	public static int countItems = 0;
-    public void Spawn()
+
+    public void Spawn() 
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
         transform.position = Settings.SpawnPoint.transform.position;
@@ -61,12 +65,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_climbLadderHash = Animator.StringToHash("ClimbLadder");
 		_isGroundedHash = Animator.StringToHash("IsGrounded");
 		_dieHash = Animator.StringToHash("Die");
-		_attack1Hash = Animator.StringToHash("Attack1");
-		_attack2Hash = Animator.StringToHash("Attack2");
+		_attackMeleeHash = Animator.StringToHash("AttackMelee");
+		_placeMineHash = Animator.StringToHash("PlaceMine");
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_randomIdleHash = Animator.StringToHash("RandomIdle");
 		_shootGunHash = Animator.StringToHash("ShootGun");
+		_detonateMineHash = Animator.StringToHash("DetonateMine");
 	}
 	
 	protected override void Initialize ()
@@ -76,6 +81,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected override void UpdateMecanimVariables()
 	{
+		UpdateMovementAnimations();
+		UpdateAttackAnimations();
+	}
+
+	protected void UpdateMovementAnimations()
+	{
 		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.Jump)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
@@ -84,48 +95,90 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
-		
-		// TODO: FIXME
-		MecanimAnimator.SetBool(_attack1Hash, false); 
-		MecanimAnimator.SetBool(_shootGunHash, false); 
-		if(CharInput.Attack1)
-		{
-			if(Settings.Weapon.GetComponent<Weapon>() is GravityGun)
-				MecanimAnimator.SetBool(_shootGunHash, true); 
-			else
-				MecanimAnimator.SetBool(_attack1Hash, true);
-		}
-		MecanimAnimator.SetBool(_attack2Hash, CharInput.Attack2);
-	}
-	
-	protected override void OnUpdate()
-	{
-		// FIXME: THERE SHOULD BE A FASTER/MORE EFFICIENT WAY TO KEEP TRACK OF WEAPONS
-		// AKA, ANIMATION EVENTS ON START AND END OF ATTACK ANIMATION
-		if(Settings.Weapon == null)
-			return;
-		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
-		if(weapon is Mine)
-		{
-			if(CharInput.Attack1)
-				weapon.ActivateAttack(0);
-			if(CharInput.Attack2)
-				weapon.ActivateAttack(1);
-		}
-		else if(!MecanimAnimator.GetCurrentAnimatorStateInfo(1).IsName("Weapons Layer.None") /*&& MecanimAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime < 0.5*/)
-			weapon.ActivateAttack(0);
-		else
-			weapon.Deactivate();
-		// TODO: REDO EVERYTHING ABOUT THE PRECEDING (should most likely make a seperate script to handle the combat layer?)
 	}
 
+	protected void UpdateAttackAnimations()
+	{
+		if(Settings.Weapon == null)
+			return;
+
+		// TODO: MAKE THIS USE ONLY ATTACK VECTOR AS INPUT
+		Weapon currentWeapon = Settings.Weapon.GetComponent<Weapon>();
+		MecanimAnimator.SetBool(_attackMeleeHash, CharInput.Attack1 && currentWeapon is PipeWeapon); 
+		MecanimAnimator.SetBool(_shootGunHash, CharInput.Attack1 && currentWeapon is GravityGun); 
+		MecanimAnimator.SetBool(_placeMineHash, CharInput.Attack1 && currentWeapon is Mine); 
+		MecanimAnimator.SetBool(_detonateMineHash, CharInput.Attack2 && currentWeapon is Mine); 
+	}
+
+	void StartMelee()
+	{
+		if(Settings.Weapon == null)
+		{
+			Debug.LogWarning("StartMelee() called with no weapon found");
+			return;
+		}
+
+		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		if(weapon != null && weapon is PipeWeapon)
+			weapon.ActivateAttack(0);
+		else
+			Debug.LogWarning("StartMelee() called with: " + weapon);
+	}
+	void EndMelee()
+	{
+		if(Settings.Weapon == null)
+		{
+			Debug.LogWarning("EndMelee() called with no weapon found");
+			return;
+		}
+		
+		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		if(weapon != null && weapon is PipeWeapon)
+			weapon.Deactivate();
+		else
+			Debug.LogWarning("EndMelee() called with: " + weapon);
+	}
+	void PlaceMine()
+	{
+		if(Settings.Weapon == null)
+		{
+			Debug.LogWarning("PlaceMine() called with no weapon found");
+			return;
+		}
+		
+		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		if(weapon != null && weapon is Mine)
+			weapon.ActivateAttack(0);
+		else
+			Debug.LogWarning("PlaceMine() called with: " + weapon);
+	}
+	void DetonateMine()
+	{
+		if(Settings.Weapon == null)
+		{
+			Debug.LogWarning("DetonateMine() called with no weapon found");
+			return;
+		}
+		
+		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		if(weapon != null && weapon is Mine)
+			weapon.ActivateAttack(1);
+		else
+			Debug.LogWarning("DetonateMine() called with: " + weapon);
+	}
 	void ShootGun()
 	{
 		if(Settings.Weapon == null)
+		{
+			Debug.LogWarning("ShootGun() called with no weapon found");
 			return;
+		}
+		
 		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
-		if(weapon != null)
-			weapon.ActivateAttack(0);
+		if(weapon != null && weapon is GravityGun)
+			weapon.ActivateAttack();
+		else
+			Debug.LogWarning("ShootGun() called with: " + weapon);
 	}
 	
     public override void OnDeath()
@@ -145,6 +198,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected virtual void Idle(float elapsedTime)
 	{
+
+		// Make this mor efficient later
+		_timeUntilNextFootStepSound = 0;
+
 		//TODO: SET up different idles by modifying this variable
 		MecanimAnimator.SetFloat(_randomIdleHash, 0);
 		
@@ -161,6 +218,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Running(float elapsedTime)
 	{
+		// Create sound for footstep only when running
+		if(Time.time > _timeUntilNextFootStepSound && (Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed) > 0.5f))
+		{
+			// instantiate noise
+			Vector3 footStepPosition = transform.position;
+			footStepPosition.y -= Height/2;	// 
+			Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
+			_timeUntilNextFootStepSound = Time.time + Settings.FootStepNoiseFrequency;
+		}
+
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection();
@@ -170,6 +237,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 			_lastGroundHeight = transform.position.y;
 		}
+
 	}
 	
 	protected void Jumping(float elapsedTime)
@@ -192,6 +260,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+		
+		//TODO: Support for double-jumping
+		//if (IsTouchingWall && CharInput.Jump)
+		//	MecanimAnimator.SetBool(_jumpHash, true);
 	}
 	
 	protected void Falling(float elapsedTime)
@@ -262,28 +334,30 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void ClimbingLedge(float elapsedTime)
 	{
-		if(MecanimAnimator.GetBool(_climbLedgeHash))
-		{
+		if(ActiveHangTarget != null)
 			_ledge = ActiveHangTarget as Ledge;
-	        if (_ledge.DoesFaceZAxis())
-	        {
-	            HorizontalSpeed = 0.0f;
-	            VerticalSpeed = Settings.LedgeClimbingSpeed;
-	        }
-	        else if (_ledge.DoesFaceXAxis())
-	        {
-	            HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
-	            VerticalSpeed = Settings.LedgeClimbingSpeed;
-	        }
+
+		if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
+		    || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
+		    || MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+		{
+			VerticalSpeed = GroundVerticalSpeed;
 			MecanimAnimator.SetBool(_climbLedgeHash, false);
 		}
+      	else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height/2)
+			VerticalSpeed = 0;
 		else
 		{
-	      	if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height)
-	            VerticalSpeed = GroundVerticalSpeed;
-	        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
-				|| (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x))
-	            HorizontalSpeed = 0;
+			if (_ledge.DoesFaceZAxis())
+			{
+				HorizontalSpeed = 0.0f;
+				VerticalSpeed = Settings.LedgeClimbingSpeed;
+			}
+			else if (_ledge.DoesFaceXAxis())
+			{
+				HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
+				VerticalSpeed = Settings.LedgeClimbingSpeed;
+			}
 		}
 	}
 	
@@ -295,8 +369,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			ApplyClimbingStrafing();
 		else
 			HorizontalSpeed = 0;
-		
-		Direction = Vector3.zero;
+
 		
 		
         if(ActiveHangTarget == null)
@@ -305,7 +378,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 		}
 		else
+		{
 			MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
+			if(ActiveHangTarget.DoesFaceZAxis())
+				Direction = Vector3.zero;
+		}
 	}
 	
 	protected void ClimbingStrafe(float elapsedTime)
@@ -316,9 +393,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			ApplyClimbingVertical();
 		else
 			VerticalSpeed = 0.0f;
-		
-		Direction = Vector3.zero;
-		
+				
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		
         if(CharInput.Jump)
@@ -330,6 +405,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 			DropHangTarget();
 			MecanimAnimator.SetBool(_fallHash, true);
+		}
+		else if(ActiveHangTarget.DoesFaceZAxis())
+		{
+			Direction = Vector3.zero;
 		}
 	}
 	
@@ -345,7 +424,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
             Destroy(hit.gameObject);
 			countItems += 1;
         }
-		
     }
     
 	

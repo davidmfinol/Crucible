@@ -10,11 +10,16 @@ public class PlayerCharacterSettings : CharacterSettings
     // Keep track of the last checkpoint here
 	public Transform SpawnPoint;
 
+	public int score = 0;
+
     // Player's Weapon Arsenal!
 	public Transform PipePrefab;
     public Transform WhipPrefab;
 	public Transform MinePrefab;
 	public Transform GravityGunPrefab;
+
+	// Noise player makes when running
+	public Transform FootStepNoise;
     
     // We keep track of which weapon is currently equipped here
     private Transform _currentWeapon;

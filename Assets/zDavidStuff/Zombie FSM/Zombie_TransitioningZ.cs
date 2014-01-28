@@ -3,10 +3,10 @@ using System;
 using System.Collections;
 
 /*
-public class Zombie_TransitioningZ : ZombieFSM_IState
+public class Enemy_TransitioningZ : EnemyFSM_IState
 {
 
-    public Zombie_TransitioningZ(ZombieFSM controller) : base(controller) { }
+    public Enemy_TransitioningZ(EnemyFSM controller) : base(controller) { }
 
     public override void StartState()
     {
@@ -17,10 +17,10 @@ public class Zombie_TransitioningZ : ZombieFSM_IState
 
     protected override Enum OnUpdate()
     {
-        ZombieStates nextState = ZombieStates.Zombie_TransitioningZ;
+        EnemyStates nextState = EnemyStates.Enemy_TransitioningZ;
 
         if (Duration > 1)
-            nextState = ZombieStates.Zombie_Idle;
+            nextState = EnemyStates.Enemy_Idle;
 
         return nextState;
     }

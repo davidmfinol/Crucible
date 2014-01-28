@@ -4,14 +4,14 @@ using System.Collections;
 [RequireComponent(typeof(Collider))]
 public class WindowBreakPlayer : MonoBehaviour {
 	
-    public Transform Zombie;	
+    public Transform Enemy;	
 	
 	private bool isBroken = false;
-	public float zombieChance = 0.05f;
+	public float EnemyChance = 0.05f;
 	
 	// Use this for initialization
 	void Start () {		
-		isBroken = this.transform.parent.GetComponent<WindowBreakZombie>().willZombiePopOut();
+		isBroken = this.transform.parent.GetComponent<WindowBreakEnemy>().willEnemyPopOut();
 	}
 	
 	// Update is called once per frame
@@ -33,13 +33,13 @@ public class WindowBreakPlayer : MonoBehaviour {
 		}
 	}	
 	
-	void randomSpawner(){  // currently just spawns Zombies
-		if(Random.value < zombieChance){
+	void randomSpawner(){  // currently just spawns Enemies
+		if(Random.value < EnemyChance){
 			Vector3 spawnPosition = this.gameObject.transform.position;
 			spawnPosition.z += 1;
 			spawnPosition.y += 1;
-			MonoBehaviour.Instantiate(Zombie, spawnPosition, Quaternion.identity);
-			this.transform.parent.GetComponent<ZombieCollider>().startCollisionTimer(Zombie, 0.1f);
+			MonoBehaviour.Instantiate(Enemy, spawnPosition, Quaternion.identity);
+			this.transform.parent.GetComponent<EnemyCollider>().startCollisionTimer(Enemy, 0.1f);
 		}
 	}
 }
