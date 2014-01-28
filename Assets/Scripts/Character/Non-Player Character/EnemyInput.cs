@@ -316,7 +316,7 @@ public class EnemyInput : CharacterInput
 
 			if (!Physics.Raycast (transform.position, raycastDirection.normalized, raycastDirection.magnitude, 1 << 12)) {
 					openSightLine = true;
-			     	Debug.DrawLine(transform.position, endPoint, Color.red, Time.deltaTime, false);
+			     	Debug.DrawLine(transform.position, endPoint, Color.red, 1, false);
 					break;
 
 			}

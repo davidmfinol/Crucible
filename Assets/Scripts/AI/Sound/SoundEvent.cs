@@ -14,7 +14,7 @@ public class SoundEvent : MonoBehaviour
 
 	private List<HearingRadius> _heardBy;
 
-	void Start()
+	void Awake()
 	{
 		_heardBy = new List<HearingRadius> ();
 	}

@@ -218,12 +218,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Running(float elapsedTime)
 	{
-		// Create sound for footstep;
-		if(Time.time > _timeUntilNextFootStepSound){
+		// Create sound for footstep only when running
+		if(Time.time > _timeUntilNextFootStepSound && (Mathf.Abs (HorizontalSpeed) > 0.5f))
+		{
 			// instantiate noise
-			StartCoroutine(CreateAndDestoryFootStepNoise());
+			Vector3 footStepPosition = transform.position;
+			footStepPosition.y -= Height/2;	// 
+			Instantiate(Settings.FootStepNoise, transform.position, Quaternion.identity);
 			_timeUntilNextFootStepSound = Time.time + Settings.FootStepNoiseFrequency;
-
 		}
 
 		ApplyRunning(elapsedTime);
@@ -439,13 +441,5 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public new PlayerCharacterInput CharInput
 	{
 		get { return (PlayerCharacterInput) base.CharInput; }
-	}
-
-	private IEnumerator CreateAndDestoryFootStepNoise(){
-		Vector3 footStepPosition = transform.position;
-		footStepPosition.y -= 2;	// 
-		Transform footStepNoise = (Transform) Instantiate(Settings.FootStepNoise, transform.position, Quaternion.identity);
-		yield return new WaitForSeconds(0.2f);
-		Destroy(footStepNoise.gameObject);
 	}
 }
