@@ -64,6 +64,7 @@ public class EnemyInput : CharacterInput
         _jump = false;
 		_attack = false;
 
+		Debug.Log ("About to call update awareness.");
 		UpdateAwareness();
 
 		switch(_awareness)
@@ -149,7 +150,8 @@ public class EnemyInput : CharacterInput
 
 	private void UpdateAwareness()
 	{
-		if (_settings.CanSee && IsSeeingPlayer() && !_playerStealth.CurrentlyHidden) {
+		if (_settings.CanSee && IsSeeingPlayer()) {
+			Debug.Log ("Should see player.");
 			_awareness = AwarenessType.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
 
@@ -294,22 +296,40 @@ public class EnemyInput : CharacterInput
 	}
 
 	public bool IsSeeingPlayer() {
-		GameObject player = GameManager.Player.gameObject;
-		if (player == null || _player == null)
+		Debug.Log ("IsSeeingPlayer?");
+		PlayerCharacterAnimator player = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
+		GameObject playerGO = player.gameObject;
+
+		if (playerGO == null || player == null)
 			return false;
+
+		Debug.Log ("there is a player.");
 
 		bool openSightLine = false;
 		Vector3 playerPos = player.transform.position;
-		float playerHalfHeight = _player.Height/2;
+		float playerHalfHeight = player.Height/2;
 
-		// abort if player too far
 		Vector3 dirToPlayer = playerPos - transform.position;
-		if (dirToPlayer.magnitude > _settings.AwarenessRange)
+
+		float visionRange = _settings.AwarenessRange;
+
+		// player in shadow range? must be a lot closer to see him
+		if (_playerStealth.CurrentlyHidden)
+			visionRange *= 0.3f;
+
+		if (dirToPlayer.magnitude > visionRange)
 			return false;
+
+
+		Debug.Log ("player in range.");
 
 		// abort if player on opposite side of vision
-		if ((dirToPlayer.x * _enemy.Direction.x) < 0)
+		if ((dirToPlayer.x * _enemy.Direction.x) < 0) {
 			return false;
+
+		}
+
+		Debug.Log ("player on same side.");
 
 		for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight) {
 			Vector3 endPoint = playerPos;
