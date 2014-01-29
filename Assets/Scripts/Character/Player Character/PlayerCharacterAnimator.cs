@@ -262,8 +262,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 		
 		//TODO: Support for double-jumping
-		//if (IsTouchingWall && CharInput.Jump)
-		//	MecanimAnimator.SetBool(_jumpHash, true);
+		if (IsTouchingWall && CharInput.Jump)
+			MecanimAnimator.SetBool(_jumpHash, true);
 	}
 	
 	protected void Falling(float elapsedTime)
