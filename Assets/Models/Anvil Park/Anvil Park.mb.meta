@@ -243,6 +243,8 @@ ModelImporter:
     100474: transform7
     100476: transform8
     100478: transform9
+    100480: Ledge23
+    100482: Ledge24
     400000: //RootNode
     400002: group1
     400004: group2
@@ -483,6 +485,8 @@ ModelImporter:
     400474: transform7
     400476: transform8
     400478: transform9
+    400480: Ledge23
+    400482: Ledge24
     2300000: Ledge
     2300002: Ledge1
     2300004: Ledge10
@@ -687,6 +691,8 @@ ModelImporter:
     2300402: polySurface8 2
     2300404: polySurface8 3
     2300406: pPlane1
+    2300408: Ledge23
+    2300410: Ledge24
     3300000: Ledge
     3300002: Ledge1
     3300004: Ledge10
@@ -891,6 +897,8 @@ ModelImporter:
     3300402: polySurface8 2
     3300404: polySurface8 3
     3300406: pPlane1
+    3300408: Ledge23
+    3300410: Ledge24
     4300000: pPlane1
     4300002: pCube4
     4300004: pCube5
@@ -1095,6 +1103,8 @@ ModelImporter:
     4300402: polySurface30
     4300404: Ledge22
     4300406: polySurface32
+    4300408: Ledge23
+    4300410: Ledge24
     9500000: //RootNode
   materials:
     importMaterials: 1
