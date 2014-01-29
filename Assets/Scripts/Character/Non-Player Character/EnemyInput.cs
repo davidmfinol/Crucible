@@ -64,7 +64,6 @@ public class EnemyInput : CharacterInput
         _jump = false;
 		_attack = false;
 
-		Debug.Log ("About to call update awareness.");
 		UpdateAwareness();
 
 		switch(_awareness)
@@ -245,6 +244,7 @@ public class EnemyInput : CharacterInput
             return false;
 
 		// Move on if we reached our waypoint
+		// TODO: MAKE CURRENT STATE A PROPERY OF CHARACTERANIMATOR
 		AnimatorStateInfo currentState = _enemy.MecanimAnimator.IsInTransition(0) ? _enemy.MecanimAnimator.GetNextAnimatorStateInfo(0) : _enemy.MecanimAnimator.GetCurrentAnimatorStateInfo(0);
 		if ( _enemy.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && 
 		    	( _currentPathWaypoint < _path.path.Count &&
@@ -299,14 +299,11 @@ public class EnemyInput : CharacterInput
 	}
 
 	public bool IsSeeingPlayer() {
-		Debug.Log ("IsSeeingPlayer?");
 		PlayerCharacterAnimator player = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
 		GameObject playerGO = player.gameObject;
 
 		if (playerGO == null || player == null)
 			return false;
-
-		Debug.Log ("there is a player.");
 
 		bool openSightLine = false;
 		Vector3 playerPos = player.transform.position;
@@ -323,16 +320,11 @@ public class EnemyInput : CharacterInput
 		if (dirToPlayer.magnitude > visionRange)
 			return false;
 
-
-		Debug.Log ("player in range.");
-
 		// abort if player on opposite side of vision
-		if ((dirToPlayer.x * _enemy.Direction.x) < 0) {
+		if ((dirToPlayer.x * _enemy.Direction.x) < 0)
+		{
 			return false;
-
 		}
-
-		Debug.Log ("player on same side.");
 
 		for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight) {
 			Vector3 endPoint = playerPos;

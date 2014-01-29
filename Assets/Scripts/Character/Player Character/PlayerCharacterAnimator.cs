@@ -266,6 +266,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+
+		//TODO: FIX WALLJUMP
+		if (IsTouchingWall && CharInput.Jump)
+			MecanimAnimator.SetBool(_jumpHash, true);
 	}
 
 	protected void Wallgrabbing(float elapsedTime)
