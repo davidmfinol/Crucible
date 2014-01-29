@@ -18,7 +18,7 @@ public class EnemySettings : CharacterSettings
 	
 	// Used by A* to calculate graph
     public static float MaxJump = 9.0f; // jumpheight + capsulecollider.height/2
-    public static float MaxSpeed = 16.0f;
+    public static float MaxSpeed = 12.0f;
     public static float MaxGravity = 40.0f;
 
 	// SENSORY

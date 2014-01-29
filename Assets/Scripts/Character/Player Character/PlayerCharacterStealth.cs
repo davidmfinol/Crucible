@@ -21,7 +21,7 @@ public class PlayerCharacterStealth : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag ("Shadow") && GameManager.AI.EnemiesAware == 0)
+		if (other.CompareTag ("Shadow") )
 			CurrentlyHidden = true;
 	}
 
