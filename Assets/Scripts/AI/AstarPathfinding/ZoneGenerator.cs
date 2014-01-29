@@ -146,7 +146,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         {
 			Vector3 waypoint = new Vector3(waypointKV.Key.x, waypointKV.Key.y, waypointKV.Value.transform.position.z);
             nodes[nodeNum].position = (Int3)waypoint;
-            nodes[nodeNum].walkable = !Physics.CheckSphere(waypoint, 0.01f, CollisionMask.value);
+            nodes[nodeNum].walkable = !Physics.CheckSphere(waypoint, 0.0001f, CollisionMask.value);
             ((ZoneNode)nodes[nodeNum]).GO = waypointKV.Value;
             ((ZoneNode)nodes[nodeNum]).isTransition = true;
             ((ZoneNode)nodes[nodeNum]).isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
@@ -164,7 +164,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 					if(!node.isTransition)
 						nodePos.z = zoneBounds.center.z;
 					node.position = (Int3)nodePos;
-            		node.walkable = !Physics.CheckSphere(nodePos, 0.01f, CollisionMask.value);
+            		node.walkable = !Physics.CheckSphere(nodePos, 0.0001f, CollisionMask.value);
                     ZonesWithWaypoints[zoneBounds].Add(node);
 				}
 			}

@@ -244,9 +244,12 @@ public class EnemyInput : CharacterInput
         if (_currentPathWaypoint >= _path.vectorPath.Count ) // that's the end of the line for you, jack!
             return false;
 
-        // Move on if we reached our waypoint
-		if ( _enemy.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && ( _currentPathWaypoint < _path.path.Count && (!((ZoneNode)_path.path[_currentPathWaypoint]).isGround|| _enemy.IsGrounded) ) )
-            _currentPathWaypoint++;
+		// Move on if we reached our waypoint
+		AnimatorStateInfo currentState = _enemy.MecanimAnimator.IsInTransition(0) ? _enemy.MecanimAnimator.GetNextAnimatorStateInfo(0) : _enemy.MecanimAnimator.GetCurrentAnimatorStateInfo(0);
+		if ( _enemy.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && 
+		    	( _currentPathWaypoint < _path.path.Count &&
+           		(!((ZoneNode)_path.path[_currentPathWaypoint]).isGround || currentState.IsName("Base Layer.Running") || currentState.IsName("Base Layer.Idle")) ))
+    		_currentPathWaypoint++;
 
         return _currentPathWaypoint < _path.vectorPath.Count;
 	}

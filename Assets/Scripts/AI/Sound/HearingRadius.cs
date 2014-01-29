@@ -7,8 +7,6 @@ using System.Collections.Generic;
 [AddComponentMenu("AI/Sound/Hearing Radius")]
 public class HearingRadius : MonoBehaviour
 {
-	public float Size = 10;
-
 	private List<SoundEvent> _objectsHeard;
 	private List<SoundBarrier> _soundBarriers;
 
@@ -16,8 +14,6 @@ public class HearingRadius : MonoBehaviour
 	{
 		_objectsHeard = new List<SoundEvent> ();
 		_soundBarriers = new List<SoundBarrier> ();
-		transform.localScale = transform.localScale * Size;
-
 	}
 	
 	void OnTriggerEnter(Collider other)
