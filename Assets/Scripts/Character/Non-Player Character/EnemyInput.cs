@@ -341,7 +341,7 @@ public class EnemyInput : CharacterInput
 
 			// only bother to cast rays that could be considered in our view cone.
 			if(fDot >= fViewConeCutoff) {
-				if (!Physics.Raycast (transform.position, raycastDirection.normalized, raycastDirection.magnitude, 1 << 12)) {
+				if (!Physics.Raycast (transform.position, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
 						openSightLine = true;
 				     	Debug.DrawLine(transform.position, endPoint, Color.red, 1, false);
 						break;
