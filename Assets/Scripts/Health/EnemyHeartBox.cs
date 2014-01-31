@@ -32,6 +32,8 @@ public class EnemyHeartBox : HeartBox
 				HitPoints = 0;
 			else
 				HitPoints -= hitbox.Damage;
+			if(hitbox.Stun)
+				transform.parent.GetComponent<EnemyAnimator>().MecanimAnimator.SetBool("Stun", true);
 			transform.parent.GetComponent<Animator>().SetBool("TakeHit", true); //FIXME: THIS IS SLOW
             TimeSinceHit = 0;
         }

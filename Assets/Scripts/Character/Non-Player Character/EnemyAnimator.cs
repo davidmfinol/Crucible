@@ -207,6 +207,7 @@ public class EnemyAnimator : CharacterAnimator
 	private int _climbLedgeHash;
 	private int _climbPipeHash;
 	private int _randomIdleHash;
+	private int _stunHash;
 	
 	// Used to keep track of the last y position at which the player was grounded
 	private float _lastGroundHeight;
@@ -233,6 +234,7 @@ public class EnemyAnimator : CharacterAnimator
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
+		StateMachine[Animator.StringToHash("Base Layer.Stun")] = Stun;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
@@ -254,6 +256,7 @@ public class EnemyAnimator : CharacterAnimator
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_randomIdleHash = Animator.StringToHash("RandomIdle");
+		_stunHash = Animator.StringToHash("Stun");
 	}
 	
 	protected override void UpdateMecanimVariables()
@@ -317,6 +320,16 @@ public class EnemyAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 			_lastGroundHeight = transform.position.y;
 		}
+	}
+
+	protected void Stun(float elapsedTime)
+	{
+		HorizontalSpeed = 0;
+		if (IsGrounded)
+			VerticalSpeed = GroundVerticalSpeed;
+		else
+			ApplyGravity (elapsedTime);
+		MecanimAnimator.SetBool (_stunHash, false);
 	}
 	
 	protected void Jumping(float elapsedTime)

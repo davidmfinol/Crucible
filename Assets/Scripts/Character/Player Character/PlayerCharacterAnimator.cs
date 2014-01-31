@@ -35,9 +35,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	//TODO: figure out this comment
 	private float _timeUntilNextFootStepSound = -1f;
 
-	// Keep track of visual stealth component
-	private PlayerCharacterStealth _stealthComponent;
-
+	// TODO: remove this (use variation of Justin's script?)
 	public static int countItems = 0;
 
     public void Spawn() 
@@ -81,9 +79,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_detonateMineHash = Animator.StringToHash("DetonateMine");
 		_grabWallHash = Animator.StringToHash("GrabWall");
 		_jumpWallHash = Animator.StringToHash("JumpWall");
-
-		// Cache the stealth
-		_stealthComponent = GetComponent<PlayerCharacterStealth> ();
 	}
 	
 	protected override void Initialize ()
