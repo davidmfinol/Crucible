@@ -156,4 +156,5 @@ public class GameManager : MonoBehaviour
 	{
 		get { return _subtitlesManager; }
 	}
+	
 }
