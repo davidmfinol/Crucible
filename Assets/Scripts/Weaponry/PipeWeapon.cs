@@ -11,10 +11,13 @@ public class PipeWeapon : Weapon
 {
 	// TODO: HITBOXES SHOULD BE CREATED AT RUNTIME
 	//private HitBox _hitbox;
-	
+
+	// attackID = 0 = regular hit
+	// attackID = 1 = stealth hit
 	public override void ActivateAttack (int attackID)
 	{
 		collider.enabled = true;
+		GetComponent<HitBox>().Stealth = true; // FIXME: THIS IS SLOW
 	}
 	
 	public override void Deactivate ()

@@ -19,6 +19,7 @@ public class HitBox : MonoBehaviour
     public string HitBoxName;
     //~Combat Value
     public int Damage;
+	public bool Stealth = false;
     public StampDictionary stampRecord = new StampDictionary();
 
     void Start()

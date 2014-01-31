@@ -32,8 +32,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private float _lastGroundHeight;
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
-	//
+	//TODO: figure out this comment
 	private float _timeUntilNextFootStepSound = -1f;
+
+	// Keep track of visual stealth component
+	private PlayerCharacterStealth _stealthComponent;
 
 	public static int countItems = 0;
 
@@ -78,6 +81,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_detonateMineHash = Animator.StringToHash("DetonateMine");
 		_grabWallHash = Animator.StringToHash("GrabWall");
 		_jumpWallHash = Animator.StringToHash("JumpWall");
+
+		// Cache the stealth
+		_stealthComponent = GetComponent<PlayerCharacterStealth> ();
 	}
 	
 	protected override void Initialize ()
@@ -125,8 +131,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 
 		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
-		if(weapon != null && weapon is PipeWeapon)
-			weapon.ActivateAttack(0);
+		if (weapon != null && weapon is PipeWeapon)
+		{
+			weapon.ActivateAttack (0);
+		}
 		else
 			Debug.LogWarning("StartMelee() called with: " + weapon);
 	}
@@ -204,8 +212,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected virtual void Idle(float elapsedTime)
 	{
-
-		// Make this mor efficient later
+		// TODO: Make this more efficient later
 		_timeUntilNextFootStepSound = 0;
 
 		//TODO: SET up different idles by modifying this variable
