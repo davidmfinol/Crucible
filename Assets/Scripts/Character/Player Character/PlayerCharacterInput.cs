@@ -13,38 +13,13 @@ public class PlayerCharacterInput : CharacterInput
 	private bool _jump;
 	private bool _attack1;
 	private bool _attack2;
-	private bool _up;
-	private bool _down;
 	private bool _interaction;
 
 	// run modifier
 	private bool _shift;
 	
-	// Support for controls on a mobile device
-	public Transform UpTouchPadPrefab;
-	public Transform DownTouchPadPrefab;
-	private Transform _controls;
-	private Joystick _upTouchPad;
-	private Joystick _downTouchPad;
-	
-	void Start()
-	{
-#if UNITY_ANDROID
-		_controls = (new GameObject("Mobile Device Controls")).transform;
-		_upTouchPad = ((Transform) Instantiate(UpTouchPadPrefab)).GetComponent<Joystick>();
-		_upTouchPad.transform.parent = _controls;
-		_downTouchPad = ((Transform) Instantiate(DownTouchPadPrefab)).GetComponent<Joystick>();
-		_downTouchPad.transform.parent = _controls;
-#endif
-	}
-	
 	protected override void UpdateInput()
-	{		
-#if UNITY_ANDROID
-		_up = _upTouchPad.IsFingerDown();
-		_down = _downTouchPad.IsFingerDown();		
-#endif
-
+	{
 #if UNITY_EDITOR
 		_verticalInput = Input.GetAxis("Vertical");
 		_horizontalInput = Input.GetAxis("Horizontal");
@@ -69,14 +44,6 @@ public class PlayerCharacterInput : CharacterInput
 		get
 		{
 			float vIn = base.VerticalInput;
-#if UNITY_ANDROID	
-			if(_up)
-				vIn = 1;
-			else if(_down)
-				vIn = -1;	
-			else
-				vIn = 0;
-#endif
 
 #if UNITY_EDITOR		
 			vIn = _verticalInput;

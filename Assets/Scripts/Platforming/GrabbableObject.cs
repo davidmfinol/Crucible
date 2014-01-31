@@ -4,9 +4,8 @@ using System.Collections;
 /// <summary>
 /// Grabbable object represents an area where the player can grab onto and jump off of.
 /// </summary>
-[RequireComponent(typeof(Collider))]
 [AddComponentMenu("Platforming/Grabbable Object")]
-public class GrabbableObject : MonoBehaviour
+public class GrabbableObject : HangableObject
 {
 	// TODO: Should move animation values to be handled internally by animator
 	void OnTriggerStay(Collider other)
