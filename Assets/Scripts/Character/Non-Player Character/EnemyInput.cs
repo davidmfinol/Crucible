@@ -16,6 +16,7 @@ public class EnemyInput : CharacterInput
 	private PlayerCharacterAnimator _player;
 	private PlayerCharacterStealth _playerStealth;
 
+
     // Enemy Brain outputs are inputted to the Enemy Animator
     private float _horizontal = 0;
     private float _vertical = 0;
@@ -331,11 +332,22 @@ public class EnemyInput : CharacterInput
 			endPoint.y = y;
 			Vector3 raycastDirection = endPoint - transform.position;
 
-			if (!Physics.Raycast (transform.position, raycastDirection.normalized, raycastDirection.magnitude, 1 << 12)) {
-					openSightLine = true;
-			     	Debug.DrawLine(transform.position, endPoint, Color.red, 1, false);
-					break;
+			// if our facing vector DOT the ray to the player is within a certain dot product range, then it's in view
+			// (prevents seeing player almost directly above us.
+			float fViewConeCutoff = 0.9f;
+			Vector3 normFacing = _enemy.Direction.normalized;
+			Vector3 normToPlayer = raycastDirection.normalized;
+			float fDot = Vector3.Dot (normFacing, normToPlayer);
 
+			// only bother to cast rays that could be considered in our view cone.
+			if(fDot >= fViewConeCutoff) {
+				if (!Physics.Raycast (transform.position, raycastDirection.normalized, raycastDirection.magnitude, 1 << 12)) {
+						openSightLine = true;
+				     	Debug.DrawLine(transform.position, endPoint, Color.red, 1, false);
+						break;
+
+				}
+			
 			}
 
 		}

@@ -194,6 +194,7 @@ public class EnemyAnimator : CharacterAnimator
 	
 	// Enemy should play it's own sound effects
     private EnemyAudioPlayer _EnemyAudioSource;
+	private EnemySettings _settings;
 	
 	// Mecanim hashes
 	private int _verticalSpeedHash;
@@ -221,6 +222,8 @@ public class EnemyAnimator : CharacterAnimator
 	protected override void Initialize ()
 	{
         _EnemyAudioSource = GetComponentInChildren<EnemyAudioPlayer>();
+		_settings = GetComponent<EnemySettings> ();  // used to tie into awareness.
+
 
         // We need to find the bones for our hands so we can attack with them
         _bone_L = CharacterSettings.SearchHierarchyForBone(transform, LeftForearmBoneName);
@@ -488,6 +491,7 @@ public class EnemyAnimator : CharacterAnimator
 	protected override void ApplyRunning (float elapsedTime)
 	{
 		base.ApplyRunning(elapsedTime);
+
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
 	
