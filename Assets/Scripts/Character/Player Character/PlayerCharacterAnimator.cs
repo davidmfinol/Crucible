@@ -27,6 +27,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _detonateMineHash;
 	private int _grabWallHash;
 	private int _jumpWallHash;
+	private int _backflipHash;
 
 	// Used to keep track of the last y position at which the player was grounded
 	private float _lastGroundHeight;
@@ -37,6 +38,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	// TODO: remove this (use variation of Justin's script?)
 	public static int countItems = 0;
+
+	// Used for backflipping
+	float _desiredSpeed = 0;
 
     public void Spawn() 
     {
@@ -52,10 +56,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
-		StateMachine[Animator.StringToHash("Wall.Wallgrabbing")] = Wallgrabbing;
-		StateMachine[Animator.StringToHash("Wall.Walljumping")] = Walljumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
+		StateMachine[Animator.StringToHash("Air.Backflip")] = Backflip;
+		StateMachine[Animator.StringToHash("Wall.Wallgrabbing")] = Wallgrabbing;
+		StateMachine[Animator.StringToHash("Wall.Walljumping")] = Walljumping;
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
@@ -80,6 +85,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_detonateMineHash = Animator.StringToHash("DetonateMine");
 		_grabWallHash = Animator.StringToHash("GrabWall");
 		_jumpWallHash = Animator.StringToHash("JumpWall");
+		_backflipHash = Animator.StringToHash ("Backflip");
 	}
 	
 	protected override void Initialize ()
@@ -227,6 +233,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Running(float elapsedTime)
 	{
+
+		
+		
+		
+		
+		Debug.Log ("1" + ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)));
+
+
+
+
+
 		// Create sound for footstep only when running
 		if(Time.time > _timeUntilNextFootStepSound && (Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed) > 0.5f))
 		{
@@ -240,7 +257,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection();
+
 		
+		
+		
+		
+		Debug.Log ("2" + ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)));
+
+
+
+
+
+
 		if(!MecanimAnimator.GetBool(_fallHash) && !IsGrounded)
 		{
 			MecanimAnimator.SetBool(_fallHash, true);
@@ -252,6 +280,22 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		                        ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left)
 								 || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left))
 		                        && Mathf.Abs(HorizontalSpeed/Settings.MaxHorizontalSpeed) >= 0.5);
+
+
+
+		
+		
+		
+		
+		Debug.Log ("3" + ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)));
+
+
+
+
+
+		MecanimAnimator.SetBool (_backflipHash,
+		                        (Direction.x > 0 && CharInput.JumpLeft)
+						|| (Direction.x < 0 && CharInput.JumpRight));
 	 }
 		 
 	protected void Rolling(float elapsedTime)
@@ -295,40 +339,21 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 	}
-
-	protected void Wallgrabbing(float elapsedTime)
+	
+	protected void Backflip(float elapsedTime)
 	{
-		HorizontalSpeed = 0;
-		VerticalSpeed = 0;
-
-		if(MecanimAnimator.GetBool(_grabWallHash))
+		if(MecanimAnimator.GetBool(_backflipHash))
 		{
-			MecanimAnimator.SetBool(_grabWallHash, false);
-			//DropHangTarget();
-		}
-
-		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
-		MecanimAnimator.SetBool(_jumpWallHash, jump);
-	}
-
-	protected void Walljumping(float elapsedTime)
-	{
-		if(MecanimAnimator.GetBool(_jumpWallHash))
-		{
-			Direction = -Direction;
+			MecanimAnimator.SetBool(_backflipHash, false);
+			_desiredSpeed = -HorizontalSpeed;
 			VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
-			MecanimAnimator.SetBool(_jumpWallHash, false);
 		}
 		else
 			ApplyGravity(elapsedTime);
+		
+		float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
+		HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, _desiredSpeed, accelerationSmoothing);
 
-		HorizontalSpeed = Settings.MaxHorizontalSpeed * Direction.x;
-		
-		if(transform.position.y >= _lastGroundHeight - 1)
-			MecanimAnimator.SetBool(_fallHash, false);
-		
-		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
-		
 		MecanimAnimator.SetBool(_hangHash, 
 		                        (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 		                        || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
@@ -346,6 +371,44 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_hangHash, !(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+	}
+	
+	protected void Wallgrabbing(float elapsedTime)
+	{
+		HorizontalSpeed = 0;
+		VerticalSpeed = 0;
+		
+		if(MecanimAnimator.GetBool(_grabWallHash))
+		{
+			MecanimAnimator.SetBool(_grabWallHash, false);
+			//DropHangTarget();
+		}
+		
+		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
+		MecanimAnimator.SetBool(_jumpWallHash, jump);
+	}
+	
+	protected void Walljumping(float elapsedTime)
+	{
+		if(MecanimAnimator.GetBool(_jumpWallHash))
+		{
+			Direction = -Direction;
+			VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
+			MecanimAnimator.SetBool(_jumpWallHash, false);
+		}
+		else
+			ApplyGravity(elapsedTime);
+		
+		HorizontalSpeed = Settings.MaxHorizontalSpeed * Direction.x;
+		
+		if(transform.position.y >= _lastGroundHeight - 1)
+			MecanimAnimator.SetBool(_fallHash, false);
+		
+		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
+		
+		MecanimAnimator.SetBool(_hangHash, 
+		                        (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+		                        || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 	}
 	
 	protected void Hanging(float elapsedTime)
