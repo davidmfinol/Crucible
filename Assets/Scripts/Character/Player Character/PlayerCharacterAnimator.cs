@@ -247,16 +247,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			_lastGroundHeight = transform.position.y;
 		}
 
-		// TODO: SET CLIMBLEDGE
-		// WILL HAVE TO TAG LEDGES FOR WHETHER ON LEFT OR RIGHT
 		MecanimAnimator.SetBool(_climbLedgeHash, 
-		                        ActiveHangTarget != null && ActiveHangTarget is Ledge && 
+		                        ActiveHangTarget != null && ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle &&
 		                        ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left)
 								 || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left))
 		                        && Mathf.Abs(HorizontalSpeed/Settings.MaxHorizontalSpeed) >= 0.5);
-		 }
+	 }
 		 
-		 protected void Rolling(float elapsedTime)
+	protected void Rolling(float elapsedTime)
 	{
 		if(MecanimAnimator.GetBool("ClimbLedge"))
 		{
@@ -267,8 +265,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				ledgeBounds.max.x - Controller.bounds.center.x :
 					Controller.bounds.center.x - ledgeBounds.min.x;
 			float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo(0).length;
-			VerticalSpeed = distanceToClimb/animationTime;
-			HorizontalSpeed = distanceToMove/animationTime;
+			VerticalSpeed = distanceToClimb/animationTime * 3.0f;
+
+			// account for left/right
+			HorizontalSpeed = Direction.x * (distanceToMove/animationTime);
 		}
 	}
 	
@@ -336,7 +336,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetBool(_fallHash, false);
 		
-		MecanimAnimator.SetBool(_hangHash, 
+		MecanimAnimator.SetBool(_hangHash, !(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 	}

@@ -102,8 +102,10 @@ public class MeshToGameObjectsMenu
 		GameObject rightLedge = GameObject.Instantiate(ledgePrefab, rightLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
 		leftLedge.transform.parent = ledge.transform;
 		leftLedge.GetComponent<Ledge> ().Left = true;
+		leftLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.Contains ("Obstacle"));
 		rightLedge.transform.parent = ledge.transform;
 		rightLedge.GetComponent<Ledge> ().Left = false;
+		rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.Contains ("Obstacle"));
 	}
 	static void CreateLadder(Transform ladder, bool facesZAxis)
 	{

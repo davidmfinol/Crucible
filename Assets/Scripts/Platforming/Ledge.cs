@@ -8,4 +8,5 @@ using System.Collections;
 public class Ledge : HangableObject 
 {
 	public bool Left = true;
+	public bool Obstacle = false;   // something on-ground we hop over?
 }
