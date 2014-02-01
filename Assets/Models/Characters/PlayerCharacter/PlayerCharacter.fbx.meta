@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 8b20cd1961157f44381e107085923b73
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: f_pinky_01_R
     100002: f_pinky_02_R
@@ -1416,4 +1416,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 3
+  additionalBone: 0
   userData: 
