@@ -142,12 +142,11 @@ public class CharacterAnimator : MonoBehaviour
 		UpdateMecanimVariables();
 
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
-		AnimatorStateInfo currentState = MecanimAnimator.IsInTransition(0) ? MecanimAnimator.GetNextAnimatorStateInfo(0) : MecanimAnimator.GetCurrentAnimatorStateInfo(0);
 		ProcessState processState;
-		if(StateMachine.TryGetValue(currentState.nameHash, out processState))
+		if(StateMachine.TryGetValue(CurrentState.nameHash, out processState))
 			processState(Time.fixedDeltaTime);
 		else
-			Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + currentState.nameHash + " does not have a corresponding function delegate.");
+			Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + CurrentState.nameHash + " does not have a corresponding function delegate.");
 
 
         // Keep track of where we started out this frame
@@ -368,6 +367,10 @@ public class CharacterAnimator : MonoBehaviour
 	
 	
 	// Movement/Animation Properties
+	public AnimatorStateInfo CurrentState
+	{
+		get { return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0); }
+	}
 	public CharacterController Controller
 	{
 		get { return _characterController; }

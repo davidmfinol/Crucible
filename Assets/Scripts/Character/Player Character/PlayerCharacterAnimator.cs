@@ -287,7 +287,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
         ApplyBiDirection();
 		
         if(transform.position.y >= _lastGroundHeight - 1)
-            MecanimAnimator.SetBool(_fallHash, false);
+			MecanimAnimator.SetBool(_fallHash, false);
+		
+		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
 		
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
@@ -325,6 +327,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(transform.position.y >= _lastGroundHeight - 1)
 			MecanimAnimator.SetBool(_fallHash, false);
 		
+		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
+		
 		MecanimAnimator.SetBool(_hangHash, 
 		                        (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 		                        || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
@@ -336,6 +340,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		ApplyGravity(elapsedTime);
 		
 		MecanimAnimator.SetBool(_fallHash, false);
+		
+		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
 		
 		MecanimAnimator.SetBool(_hangHash, !(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
