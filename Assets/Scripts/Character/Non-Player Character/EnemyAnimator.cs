@@ -27,7 +27,6 @@ public class EnemyAnimator : CharacterAnimator
 	private int _meleeAttackHash;
 	private int _climbLedgeHash;
 	private int _climbPipeHash;
-	private int _randomIdleHash;
 	private int _stunHash;
 	
 	// Used to keep track of the last y position at which the player was grounded
@@ -76,7 +75,6 @@ public class EnemyAnimator : CharacterAnimator
 		_meleeAttackHash = Animator.StringToHash("AttackMelee");
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
-		_randomIdleHash = Animator.StringToHash("RandomIdle");
 		_stunHash = Animator.StringToHash("Stun");
 	}
 	
@@ -117,7 +115,7 @@ public class EnemyAnimator : CharacterAnimator
 	protected virtual void Idle(float elapsedTime)
 	{
 		//TODO: SET up different idles by modifying this variable
-		MecanimAnimator.SetFloat(_randomIdleHash, 0);
+		//MecanimAnimator.SetFloat(_randomIdleHash, 0);
 		
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;

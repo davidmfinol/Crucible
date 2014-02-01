@@ -27,14 +27,18 @@ public class EnemyHeartBox : HeartBox
         {
             hitbox.stampRecord.Imprint(createHeartBoxStamp());
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
-			Debug.Log("We took a hit");
+
 			if(hitbox.Stealth && CanStealthDie && transform.parent.GetComponent<EnemyInput>().Awareness == EnemyInput.AwarenessType.Unaware)//FIXME: THIS IS SLOW
 				HitPoints = 0;
 			else
 				HitPoints -= hitbox.Damage;
+
 			if(hitbox.Stun)
-				transform.parent.GetComponent<EnemyAnimator>().MecanimAnimator.SetBool("Stun", true);
-			transform.parent.GetComponent<Animator>().SetBool("TakeHit", true); //FIXME: THIS IS SLOW
+			{
+				Debug.Log("We should be stunned");
+				transform.parent.GetComponent<EnemyAnimator>().MecanimAnimator.SetBool("Stun", true);//FIXME: THIS IS SLOW
+			}
+
             TimeSinceHit = 0;
         }
     }
