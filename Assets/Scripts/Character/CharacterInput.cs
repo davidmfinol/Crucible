@@ -140,7 +140,7 @@ public class CharacterInput : MonoBehaviour
 	}
 	public bool JumpLeft
 	{
-		get { return Jump.x < -0.1; }
+		get { return Jump.x < -0.1 && JumpActive; }
 	}
 	public bool JumpLeftPressed
 	{
@@ -152,7 +152,7 @@ public class CharacterInput : MonoBehaviour
 	}
 	public bool JumpRight
 	{
-		get { return Jump.x > 0.1; }
+		get { return Jump.x > 0.1 && JumpActive; }
 	}
 	public bool JumpRightPressed
 	{

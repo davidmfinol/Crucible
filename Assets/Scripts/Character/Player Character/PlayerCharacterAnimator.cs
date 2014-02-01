@@ -51,8 +51,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
-		StateMachine[Animator.StringToHash("Air.Wallgrabbing")] = Wallgrabbing;
-		StateMachine[Animator.StringToHash("Air.Walljumping")] = Walljumping;
+		StateMachine[Animator.StringToHash("Wall.Wallgrabbing")] = Wallgrabbing;
+		StateMachine[Animator.StringToHash("Wall.Walljumping")] = Walljumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
@@ -279,13 +279,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		HorizontalSpeed = 0;
 		VerticalSpeed = 0;
 
-		// TODO: FIX LATER SO THAT WE KNOW WHAT WE COLLIDED WITH
 		if(MecanimAnimator.GetBool(_grabWallHash))
 		{
 			MecanimAnimator.SetBool(_grabWallHash, false);
 		}
-		
-		MecanimAnimator.SetBool(_jumpWallHash, CharInput.JumpActive);
+
+		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
+		MecanimAnimator.SetBool(_jumpWallHash, jump);
 	}
 
 	protected void Walljumping(float elapsedTime)
