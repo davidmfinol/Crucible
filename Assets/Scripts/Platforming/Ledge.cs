@@ -7,4 +7,5 @@ using System.Collections;
 [AddComponentMenu("Platforming/Ledge")]
 public class Ledge : HangableObject 
 {
+	public bool Left = true;
 }
