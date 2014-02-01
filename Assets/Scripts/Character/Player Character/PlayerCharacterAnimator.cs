@@ -94,7 +94,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	protected void UpdateMovementAnimations()
 	{
-		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.Jump)
+		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpActive)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
 			_lastGroundHeight = transform.position.y;
@@ -111,10 +111,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		// TODO: MAKE THIS USE ONLY ATTACK VECTOR AS INPUT
 		Weapon currentWeapon = Settings.Weapon.GetComponent<Weapon>();
-		MecanimAnimator.SetBool(_attackMeleeHash, CharInput.Attack1 && currentWeapon is PipeWeapon); 
-		MecanimAnimator.SetBool(_shootGunHash, CharInput.Attack1 && currentWeapon is GravityGun); 
-		MecanimAnimator.SetBool(_placeMineHash, CharInput.Attack1 && currentWeapon is Mine); 
-		MecanimAnimator.SetBool(_detonateMineHash, CharInput.Attack2 && currentWeapon is Mine); 
+		MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackLeft && currentWeapon is PipeWeapon); 
+		MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackLeft && currentWeapon is GravityGun); 
+		MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackLeft && currentWeapon is Mine); 
+		MecanimAnimator.SetBool(_detonateMineHash, CharInput.AttackRight && currentWeapon is Mine); 
 	}
 
 	void StartMelee()
@@ -270,7 +270,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 
 		//TODO: FIX WALLJUMP
-		//if (IsTouchingWall && CharInput.Jump)
+		//if (IsTouchingWall && CharInput.JumpPressed)
 		//	MecanimAnimator.SetBool(_jumpHash, true);
 	}
 
@@ -285,7 +285,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_grabWallHash, false);
 		}
 		
-		MecanimAnimator.SetBool(_jumpWallHash, CharInput.Jump);
+		MecanimAnimator.SetBool(_jumpWallHash, CharInput.JumpActive);
 	}
 
 	protected void Walljumping(float elapsedTime)
@@ -363,7 +363,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}
-		else if(CharInput.Jump)
+		else if(CharInput.JumpActive)
 		{
 			DropHangTarget();
 			MecanimAnimator.SetBool(_jumpHash, true);
@@ -439,7 +439,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		
-        if(CharInput.Jump)
+        if(CharInput.JumpActive)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
 			_lastGroundHeight = transform.position.y;

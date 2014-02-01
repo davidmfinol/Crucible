@@ -14,7 +14,7 @@ public class EnemyAnimator : CharacterAnimator
     public string RightForearmBoneName;
 	
 	// Enemy should play it's own sound effects
-    private EnemyAudioPlayer _EnemyAudioSource;
+    private EnemyAudioPlayer _enemyAudioSource;
 
 	// Mecanim hashes
 	private int _verticalSpeedHash;
@@ -42,7 +42,7 @@ public class EnemyAnimator : CharacterAnimator
 	
 	protected override void Initialize ()
 	{
-        _EnemyAudioSource = GetComponentInChildren<EnemyAudioPlayer>();
+        _enemyAudioSource = GetComponentInChildren<EnemyAudioPlayer>();
 
         // We need to find the bones for our hands so we can attack with them
         _bone_L = CharacterSettings.SearchHierarchyForBone(transform, LeftForearmBoneName);
@@ -82,7 +82,7 @@ public class EnemyAnimator : CharacterAnimator
 	
 	protected override void UpdateMecanimVariables()
 	{
-		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.Jump)
+		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpActive)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
 			_lastGroundHeight = transform.position.y;
@@ -91,7 +91,7 @@ public class EnemyAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		// FIXME: NEXT TWO LINES
-		bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && CharInput.Attack1;
+		bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && Mathf.Abs(CharInput.Attack) > 0.1;
 		MecanimAnimator.SetBool(_meleeAttackHash, shouldAttack);
 	
 	}
@@ -229,7 +229,7 @@ public class EnemyAnimator : CharacterAnimator
 		{
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}
-		else if(CharInput.Jump)
+		else if(CharInput.JumpActive)
 		{
 			DropHangTarget();
 			MecanimAnimator.SetBool(_jumpHash, true);
@@ -280,7 +280,7 @@ public class EnemyAnimator : CharacterAnimator
 		Direction = Vector3.zero;
 		
 		
-        if(CharInput.Jump)
+        if(CharInput.JumpActive)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
 			_lastGroundHeight = transform.position.y;
@@ -307,7 +307,7 @@ public class EnemyAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		
-        if(CharInput.Jump)
+        if(CharInput.JumpActive)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
 			_lastGroundHeight = transform.position.y;
@@ -396,7 +396,7 @@ public class EnemyAnimator : CharacterAnimator
 	
     public EnemyAudioPlayer EnemyAudioSource
     {
-        get { return _EnemyAudioSource; }
+        get { return _enemyAudioSource; }
     }
 	public new EnemySettings Settings
 	{

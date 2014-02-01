@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -268,7 +268,7 @@ public class CharacterAnimator : MonoBehaviour
 	protected virtual void ApplyRunning(float elapsedTime)
 	{
         float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
-        HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Settings.MaxHorizontalSpeed*CharInput.HorizontalInput, accelerationSmoothing);
+        HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Settings.MaxHorizontalSpeed*CharInput.Horizontal, accelerationSmoothing);
 	}
     protected virtual void ApplyGravity(float elapsedTime)
     {

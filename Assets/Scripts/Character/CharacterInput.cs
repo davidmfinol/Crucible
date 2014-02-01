@@ -2,67 +2,56 @@
 using System.Collections;
 
 /// <summary>
-/// Character input stores the input for a character.
-/// By default, this returns no input; this class should be extended with overrides for the input properties.
+/// Character input stores the input for a character, while providing helper properties for accessing the input.
+/// By default, this returns empty input; this class should be extended with overrides for the input properties.
+/// Furthermore, child classes can override the UpdateInput() method for input processing.
 /// Used by CharacterAnimator.cs
 /// </summary>
 [AddComponentMenu("Character/Character Input (Empty)")]
 public class CharacterInput : MonoBehaviour
 {
-	// TODO: GET RID OF ATTACK2 AND MAKE JUMP AND ATTACK VECTORS
-	private bool _upLast = false;
-	private bool _downLast = false;
 	private bool _leftLast = false;
 	private bool _rightLast = false;
+	private bool _upLast = false;
+	private bool _downLast = false;
+	private bool _interactionLast = false;
 	private bool _jumpLast = false;
-	private bool _attack1Last = false;
-	private bool _attack2Last = false;
-	private bool _interactLast = false;
+	private bool _jumpLeftLast = false;
+	private bool _jumpRightLast = false;
+	private bool _attackLeftLast = false;
+	private bool _attackRightLast = false;
 	
 	
 	void Update()
 	{
-		_upLast = Up;
-		_downLast = Down;
 		_leftLast = Left;
 		_rightLast = Right;
-		_jumpLast = Jump;
-		_attack1Last = Attack1;
-		_attack2Last = Attack2;
+		_upLast = Up;
+		_downLast = Down;
+		_interactionLast = Interaction;
+		_jumpLast = JumpActive;
+		_jumpLeftLast = JumpLeft;
+		_jumpRightLast = JumpRight;
+		_attackLeftLast = AttackLeft;
+		_attackRightLast = AttackRight;
 		
 		UpdateInput();
 	}
-	
-	
 	protected virtual void UpdateInput()
 	{
 		// No input by default
 		// Child subclasses should override this method to have their input updated on Update()
 	}
-	
-	public virtual float VerticalInput
-	{
-		get { return 0; }
-		set {}
-	}
-	public virtual float HorizontalInput
+
+
+	public virtual float Horizontal
 	{
 		get { return 0; } 
 		set {}
 	}
-	public virtual bool Jump
+	public virtual float Vertical
 	{
-		get { return false; }
-		set {}
-	}
-	public virtual bool Attack1
-	{
-		get { return false; }
-		set {}
-	}
-	public virtual bool Attack2
-	{
-		get { return false; }
+		get { return 0; }
 		set {}
 	}
 	public virtual bool Interaction
@@ -70,33 +59,20 @@ public class CharacterInput : MonoBehaviour
 		get { return false; }
 		set {}
 	}
-	public bool Up
+	public virtual Vector2 Jump
 	{
-		get { return VerticalInput > 0.1; }
+		get { return Vector2.zero; }
+		set {}
 	}
-	public bool UpPressed
+	public virtual float Attack
 	{
-		get { return !_upLast && Up; }
+		get { return 0; }
+		set {}
 	}
-	public bool UpReleased
-	{
-		get { return _upLast && !Up; }
-	}
-	public bool Down
-	{
-		get { return VerticalInput < -0.1; }
-	}
-	public bool DownPressed
-	{
-		get { return !_downLast && Down; }
-	}
-	public bool DownReleased
-	{
-		get { return _downLast && !Down; }
-	}
+
 	public bool Left
 	{
-		get { return HorizontalInput < -0.1; }
+		get { return Horizontal < -0.1; }
 	}
 	public bool LeftPressed
 	{
@@ -108,7 +84,7 @@ public class CharacterInput : MonoBehaviour
 	}
 	public bool Right
 	{
-		get { return HorizontalInput > 0.1; }
+		get { return Horizontal > 0.1; }
 	}
 	public bool RightPressed
 	{
@@ -118,36 +94,96 @@ public class CharacterInput : MonoBehaviour
 	{
 		get { return _rightLast && !Right; }
 	}
-	public bool JumpPressed
+	public bool Up
 	{
-		get { return !_jumpLast && Jump; }
+		get { return Vertical > 0.1; }
 	}
-	public bool JumpReleased
+	public bool UpPressed
 	{
-		get { return _jumpLast && !Jump; }
+		get { return !_upLast && Up; }
 	}
-	public bool Attack1Pressed
+	public bool UpReleased
 	{
-		get { return !_attack1Last && Attack1; }
+		get { return _upLast && !Up; }
 	}
-	public bool Attack1Released
+	public bool Down
 	{
-		get { return _attack1Last && !Attack1; }
+		get { return Vertical < -0.1; }
 	}
-	public bool Attack2Pressed
+	public bool DownPressed
 	{
-		get { return !_attack2Last && Attack2; }
+		get { return !_downLast && Down; }
 	}
-	public bool Attack2Released
+	public bool DownReleased
 	{
-		get { return _attack2Last && !Attack2; }
+		get { return _downLast && !Down; }
 	}
 	public bool InteractionPressed
 	{
-		get { return !_interactLast && Interaction; }
+		get { return !_interactionLast && Interaction; }
 	}
 	public bool InteractionReleased
 	{
-		get { return _interactLast && !Interaction; }
+		get { return _interactionLast && !Interaction; }
+	}
+	public bool JumpActive
+	{
+		get { return Jump.y >= 0.1; }
+	}
+	public bool JumpPressed
+	{
+		get { return !_jumpLast && JumpActive; }
+	}
+	public bool JumpReleased
+	{
+		get { return _jumpLast && JumpActive; }
+	}
+	public bool JumpLeft
+	{
+		get { return Jump.x < -0.1; }
+	}
+	public bool JumpLeftPressed
+	{
+		get { return !_jumpLeftLast && JumpLeft; }
+	}
+	public bool JumpLeftReleased
+	{
+		get { return _jumpLeftLast && !JumpLeft; }
+	}
+	public bool JumpRight
+	{
+		get { return Jump.x > 0.1; }
+	}
+	public bool JumpRightPressed
+	{
+		get { return !_jumpRightLast && JumpRight; }
+	}
+	public bool JumpRightReleased
+	{
+		get { return _jumpRightLast && !JumpRight; }
+	}
+	public bool AttackLeft
+	{
+		get { return Attack < -0.1; }
+	}
+	public bool AttackLeftPressed
+	{
+		get { return !_attackLeftLast && AttackLeft; }
+	}
+	public bool AttackJumpLeftReleased
+	{
+		get { return _attackLeftLast && !AttackLeft; }
+	}
+	public bool AttackRight
+	{
+		get { return Attack > 0.1; }
+	}
+	public bool AttackRightPressed
+	{
+		get { return !_attackRightLast && AttackRight; }
+	}
+	public bool AttackRightReleased
+	{
+		get { return _attackRightLast && !AttackRight; }
 	}
 }

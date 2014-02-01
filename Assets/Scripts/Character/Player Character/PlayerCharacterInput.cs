@@ -8,84 +8,52 @@ using System.Collections;
 public class PlayerCharacterInput : CharacterInput
 {
 	// Keep track of what the player has input into the game
-	private float _verticalInput;
-	private float _horizontalInput;
-	private bool _jump;
-	private bool _attack1;
-	private bool _attack2;
+	private float _horizontal;
+	private float _vertical;
 	private bool _interaction;
+	private Vector2 _jump;
+	private float _attack;
 
-	// run modifier
+	// Analog modifier for keyboard
 	private bool _shift;
-	
+
+
 	protected override void UpdateInput()
 	{
-#if UNITY_EDITOR
-		_verticalInput = Input.GetAxis("Vertical");
-		_horizontalInput = Input.GetAxis("Horizontal");
-		_jump = Input.GetButton("Jump");
-		_attack1 = Input.GetButton("Primary");
-		_attack2 = Input.GetButton("Secondary");
+#if ( UNITY_EDITOR || UNITY_STANDALONE )
+		_horizontal = Input.GetAxis("Horizontal");
+		_vertical = Input.GetAxis("Vertical");
 		_interaction = Input.GetButton("Interaction");
-		_shift = Input.GetKey( KeyCode.LeftShift );
-#endif		
-		
-#if UNITY_STANDALONE
-		_verticalInput = Input.GetAxis("Vertical");
-		_horizontalInput = Input.GetAxis("Horizontal");
-		_jump = Input.GetButton("Jump");
-		_attack1 = Input.GetButton("Primary");
-		_attack2 = Input.GetButton("Secondary");
-#endif		
-	}
-	
-	public override float VerticalInput
-	{
-		get
-		{
-			float vIn = base.VerticalInput;
-
-#if UNITY_EDITOR		
-			vIn = _verticalInput;
-#endif	
-					
-#if UNITY_STANDALONE
-			vIn = _verticalInput;
+		_jump = new Vector2(Input.GetAxis("JumpX"), Input.GetAxis("JumpY"));
+		_attack = Input.GetAxis("Attack");
+		_shift = Input.GetButton("Shift");
 #endif
-			return vIn;
-		}	
-	}
-	public override float HorizontalInput
+	}	
+
+
+	public override float Horizontal
 	{
-		get
-		{ 
-			if( _shift)
-			{
-				return _horizontalInput / 3.0f;
-			} else {
-				return _horizontalInput;
-			}
-		}
-		set { _horizontalInput = value; }
+		get { return _shift ? _horizontal * 0.3f : _horizontal; }
+		set { _horizontal = value; }
 	}
-	public override bool Jump
+	public override float Vertical
 	{
-		get { return _jump; }
-		set {_jump = value; }
-	}
-	public override bool Attack1
-	{
-		get { return _attack1; }
-		set { _attack1 = value; }
-	}
-	public override bool Attack2
-	{
-		get { return _attack2; }
-		set { _attack2 = value; }
+		get { return _vertical; }
+		set { _vertical = value; }
 	}
 	public override bool Interaction
 	{
 		get { return _interaction; }
 		set { _interaction = value; } 
+	}
+	public override Vector2 Jump
+	{
+		get { return _jump; }
+		set {_jump = value; }
+	}
+	public override float Attack
+	{
+		get { return _attack; }
+		set { _attack = value; }
 	}
 }

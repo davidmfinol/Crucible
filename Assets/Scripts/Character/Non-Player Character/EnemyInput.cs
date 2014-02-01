@@ -15,8 +15,7 @@ public class EnemyInput : CharacterInput
 	private EnemySettings _settings;
 	private PlayerCharacterAnimator _player;
 	private PlayerCharacterStealth _playerStealth;
-
-
+	
     // Enemy Brain outputs are inputted to the Enemy Animator
     private float _horizontal = 0;
     private float _vertical = 0;
@@ -45,7 +44,8 @@ public class EnemyInput : CharacterInput
 
     // How aware is the enemy of the player?
 	private AwarenessType _awareness = AwarenessType.Unaware;
-	
+
+
 	void Start()
 	{
 		_personalHearingRadius = GetComponentInChildren<HearingRadius> ();
@@ -299,7 +299,8 @@ public class EnemyInput : CharacterInput
         return false;
 	}
 
-	public bool IsSeeingPlayer() {
+	public bool IsSeeingPlayer()
+	{
 		PlayerCharacterAnimator player = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
 		GameObject playerGO = player.gameObject;
 
@@ -355,19 +356,7 @@ public class EnemyInput : CharacterInput
 		return openSightLine;
 
 	}
-/*
-	// Is the player within a radius that the Enemy can see and potentially start chasing in
-	public bool PlayerIsInSightRadius()
-	{
-		GameObject player = GameManager.Player.gameObject;
-		if (player != null && _player != null)
-			return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AwarenessRange)
-				&& (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AwarenessRange)
-				&& _enemy.DesiredZ == _player.DesiredZ;
-		return false;
-	}
 
-*/
 	public bool HasHeardSound()
 	{
 		return PersonalHearingRadius.ObjectsHeard.Count > 0;
@@ -379,29 +368,27 @@ public class EnemyInput : CharacterInput
 		get { return _awareness; }
 		set { _awareness = value; }
 	}
-
-	/*public AwarenessType ChangeAwareness(AwarenessType newAwareness)
+	public HearingRadius PersonalHearingRadius
 	{
-		_awareness = newAwareness;
-		get { return _awareness; }
-	}*/
+		get { return _personalHearingRadius; }
+	}
 	
 	// Output Properties
-	public override float HorizontalInput
+	public override float Horizontal
 	{
 		get { return _horizontal; }
 	}
-	public override float VerticalInput
+	public override float Vertical
 	{
 		get { return _vertical; }
 	}
-	public override bool Jump
+	public override Vector2 Jump
 	{
-		get { return _jump; }
+		get { return _jump ? Vector2.up : Vector2.zero; }
 	}
-	public override bool Attack1
+	public override float Attack
 	{
-		get { return _attack; }
+		get { return _attack ? 1 : 0; }
 	}
 	
 	// A* Properties
@@ -434,10 +421,4 @@ public class EnemyInput : CharacterInput
 	{
 		get { return this._timeSinceRepath; }
 	}
-
-	public HearingRadius PersonalHearingRadius
-	{
-		get { return _personalHearingRadius; }
-	}
-
 }

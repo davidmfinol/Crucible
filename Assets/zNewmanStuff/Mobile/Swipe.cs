@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Swipe : MonoBehaviour
 {
+/*
 	private Vector2 _startPos;
 	private int _swipeID = -1;
 	private float _minMovement = 20.0f;
@@ -20,8 +21,7 @@ public class Swipe : MonoBehaviour
 
 	void Update ()
 	{	
-
-#if !UNITY_EDITOR
+#if !UNITY_EDITOR && !UNITY_STANDALONE
 		input.Jump = false;
 		input.Attack1 = false;
 		input.Attack2 = false;
@@ -118,10 +118,10 @@ public class Swipe : MonoBehaviour
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
-						_input.HorizontalInput = 1-1/delta.x;
+						_input.Horizontal = 1-1/delta.x;
 						Debug.Log ("Swipe Right Found");
 					} else {
-						_input.HorizontalInput = -1+1/delta.x;
+						_input.Horizontal = -1+1/delta.x;
 						Debug.Log ("Swipe Left Found");
 						//Instantiate(BOX, Left, Quaternion.identity);			
 					}
@@ -182,4 +182,5 @@ public class Swipe : MonoBehaviour
 				_swipeID = -1;
 		}
 	}
+*/
 }

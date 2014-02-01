@@ -45,7 +45,7 @@ public class EnemyAIDebugger : MonoBehaviour
 		if(_brain == null)
 			_brain = GetComponent<EnemyInput>();
 		
-        GUI.Box(new Rect(10, 135, 300, 20), "Vertical: " + _brain.VerticalInput + ", Horizontal: " + _brain.HorizontalInput + ", Jump: " + _brain.Jump + ", Attack:" + _brain.Attack1);
+        GUI.Box(new Rect(10, 135, 300, 20), "Vertical: " + _brain.Vertical + ", Horizontal: " + _brain.Horizontal + ", Jump: " + _brain.Jump + ", Attack:" + (Mathf.Abs(_brain.Attack) >= 0.1) );
         GUI.Box(new Rect(10, 160, 300, 20), "Transition Recent: " + _brain.HasTransitionRecent + ", Repathed: " + _brain.TimeSinceRepath);
 		GUI.Box(new Rect(10, 185, 300, 20), "Target: " + _brain.Target + ", Searching: " + _brain.SearchingForPath);
 		GUI.Box(new Rect(10, 210, 300, 20), "AI Mode: " + _brain.Awareness);

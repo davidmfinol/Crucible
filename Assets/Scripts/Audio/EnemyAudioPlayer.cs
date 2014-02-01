@@ -16,6 +16,7 @@ public class EnemyAudioPlayer : AudioPlayer
 	private bool _isIdling = false; //FIXME: MAKE IT SO THESE VARIABLES AREN'T NECESSSARY
 	private bool _isRunning = false; //FIXME: MAKE IT SO THESE VARIABLES AREN'T NECESSARY
 
+	// FIXME: Always use unity random instead of system random
     private System.Random _random = new System.Random();
 	
 	void Start()
@@ -30,8 +31,12 @@ public class EnemyAudioPlayer : AudioPlayer
 
     public void PlayAttack()
     {
+		if (AttackAudio.Clips == null || AttackAudio.Clips.Length == 0)
+			return;
+
 		_isIdling = false;
 		_isRunning = false;
+
         int clipNumber = _random.Next(0, AttackAudio.Clips.Length);
 		audio.loop = false;
         audio.clip = AttackAudio.Clips[clipNumber];
@@ -39,9 +44,13 @@ public class EnemyAudioPlayer : AudioPlayer
     }
 
     public void PlayDeath()
-    {
+	{
+		if (DeathAudio.Clips == null || DeathAudio.Clips.Length == 0)
+			return;
+
 		_isIdling = false;
 		_isRunning = false;
+
         int clipNumber = _random.Next(0, DeathAudio.Clips.Length);
 		audio.loop = false;
         audio.clip = DeathAudio.Clips[clipNumber];
@@ -50,7 +59,7 @@ public class EnemyAudioPlayer : AudioPlayer
 
     public void PlayIdle()
     {
-		if(_isIdling)
+		if(_isIdling || IdleAudio.Clips == null || IdleAudio.Clips.Length == 0)
 			return;
 		
 		_isIdling = true;
@@ -63,9 +72,13 @@ public class EnemyAudioPlayer : AudioPlayer
     }
 
     public void PlayNotice()
-    {
+	{
+		if (NoticeAudio.Clips == null || NoticeAudio.Clips.Length == 0)
+			return;
+
 		_isIdling = false;
 		_isRunning = false;
+
         int clipNumber = _random.Next(0, NoticeAudio.Clips.Length);
 		audio.loop = false;
         audio.clip = NoticeAudio.Clips[clipNumber];
@@ -74,7 +87,7 @@ public class EnemyAudioPlayer : AudioPlayer
 
     public void PlayRunning()
     {
-		if(_isRunning)
+		if(_isRunning || RunningAudio.Clips == null || RunningAudio.Clips.Length == 0)
 			return;
 		
 		_isRunning = true;
