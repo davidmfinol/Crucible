@@ -15,7 +15,7 @@ public class GrabbableObject : HangableObject
 		{
 			// TODO: MAKE CURRENT STATE A PROPERY OF CHARACTERANIMATOR
 			AnimatorStateInfo currentState = character.MecanimAnimator.IsInTransition(0) ? character.MecanimAnimator.GetNextAnimatorStateInfo(0) : character.MecanimAnimator.GetCurrentAnimatorStateInfo(0);
-			character.MecanimAnimator.SetBool(Animator.StringToHash("GrabWall"), character.IsTouchingWall && currentState.IsName("Air.Jumping") );
+			character.MecanimAnimator.SetBool(Animator.StringToHash("GrabWall"), character.IsTouchingWall && (currentState.IsName("Air.Jumping") || currentState.IsName("Wall.Walljumping")) );
 		}
 	}
 }

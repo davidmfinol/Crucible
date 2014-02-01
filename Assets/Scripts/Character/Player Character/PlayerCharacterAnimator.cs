@@ -302,6 +302,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(MecanimAnimator.GetBool(_grabWallHash))
 		{
 			MecanimAnimator.SetBool(_grabWallHash, false);
+			//DropHangTarget();
 		}
 
 		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
