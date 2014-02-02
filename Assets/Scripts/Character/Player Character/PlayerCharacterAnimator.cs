@@ -233,16 +233,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Running(float elapsedTime)
 	{
-
-		
-		
-		
-		
-		Debug.Log ("1" + ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)));
-
-
-
-
+        Debug.Log ( (Direction.x > 0) + " " + CharInput.JumpLeft + " " + (Direction.x < 0) + " " + CharInput.JumpRight );
 
 		// Create sound for footstep only when running
 		if(Time.time > _timeUntilNextFootStepSound && (Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed) > 0.5f))
@@ -258,16 +249,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection();
 
-		
-		
-		
-		
-		Debug.Log ("2" + ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)));
-
-
-
-
-
 
 		if(!MecanimAnimator.GetBool(_fallHash) && !IsGrounded)
 		{
@@ -281,18 +262,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 								 || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left))
 		                        && Mathf.Abs(HorizontalSpeed/Settings.MaxHorizontalSpeed) >= 0.5);
 
-
-
-		
-		
-		
-		
-		Debug.Log ("3" + ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)));
-
-
-
-
-
 		MecanimAnimator.SetBool (_backflipHash,
 		                        (Direction.x > 0 && CharInput.JumpLeft)
 						|| (Direction.x < 0 && CharInput.JumpRight));
@@ -300,15 +269,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		 
 	protected void Rolling(float elapsedTime)
 	{
-		if(MecanimAnimator.GetBool("ClimbLedge"))
+        if(MecanimAnimator.GetBool(_climbLedgeHash))
 		{
-			MecanimAnimator.SetBool("ClimbLedge", false);
+			MecanimAnimator.SetBool(_climbLedgeHash, false);
 			Bounds ledgeBounds = ActiveHangTarget.collider.bounds;
 			float distanceToClimb = ledgeBounds.max.y - Controller.bounds.min.y;
 			float distanceToMove = Direction.x > 0 ?
 				ledgeBounds.max.x - Controller.bounds.center.x :
 					Controller.bounds.center.x - ledgeBounds.min.x;
 			float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo(0).length;
+
+            // TODO: Confirm this value
 			VerticalSpeed = distanceToClimb/animationTime * 3.0f;
 
 			// account for left/right
