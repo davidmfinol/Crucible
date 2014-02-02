@@ -29,8 +29,6 @@ public class EnemyAnimator : CharacterAnimator
 	private int _climbPipeHash;
 	private int _stunHash;
 	
-	// Used to keep track of the last y position at which the player was grounded
-	private float _lastGroundHeight;
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
     
@@ -46,7 +44,6 @@ public class EnemyAnimator : CharacterAnimator
         // We need to find the bones for our hands so we can attack with them
         _bone_L = CharacterSettings.SearchHierarchyForBone(transform, LeftForearmBoneName);
         _bone_R = CharacterSettings.SearchHierarchyForBone(transform, RightForearmBoneName);
-		_lastGroundHeight = transform.position.y;
 	}
 	
 	protected override void CreateStateMachine()
@@ -81,17 +78,15 @@ public class EnemyAnimator : CharacterAnimator
 	protected override void UpdateMecanimVariables()
 	{
 		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpActive)
-		{
 			MecanimAnimator.SetBool(_jumpHash, true);
-			_lastGroundHeight = transform.position.y;
-		}
+
 		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
+
 		// FIXME: NEXT TWO LINES
 		bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && Mathf.Abs(CharInput.Attack) > 0.1;
 		MecanimAnimator.SetBool(_meleeAttackHash, shouldAttack);
-	
 	}
 	void StartMelee()
 	{
@@ -114,18 +109,12 @@ public class EnemyAnimator : CharacterAnimator
 	
 	protected virtual void Idle(float elapsedTime)
 	{
-		//TODO: SET up different idles by modifying this variable
-		//MecanimAnimator.SetFloat(_randomIdleHash, 0);
-		
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyTriDirection();
 		
 		if(!MecanimAnimator.GetBool(_fallHash) && !IsGrounded)
-		{
 			MecanimAnimator.SetBool(_fallHash, true);
-			_lastGroundHeight = transform.position.y;
-		}
 	}
 	
 	protected void Running(float elapsedTime)
@@ -135,10 +124,7 @@ public class EnemyAnimator : CharacterAnimator
 		ApplyBiDirection();
 		
 		if(!MecanimAnimator.GetBool(_fallHash) && !IsGrounded)
-		{
 			MecanimAnimator.SetBool(_fallHash, true);
-			_lastGroundHeight = transform.position.y;
-		}
 	}
 
 	protected void Stun(float elapsedTime)
@@ -165,7 +151,7 @@ public class EnemyAnimator : CharacterAnimator
 		
         ApplyBiDirection();
 		
-         if(transform.position.y >= _lastGroundHeight - 1)
+         if(transform.position.y >= LastGroundHeight - 1)
     		MecanimAnimator.SetBool(_fallHash, false);
 		
 		MecanimAnimator.SetBool(_hangHash, 
@@ -281,7 +267,6 @@ public class EnemyAnimator : CharacterAnimator
         if(CharInput.JumpActive)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
-			_lastGroundHeight = transform.position.y;
 		}
         else if(ActiveHangTarget == null)
 		{
@@ -308,7 +293,6 @@ public class EnemyAnimator : CharacterAnimator
         if(CharInput.JumpActive)
 		{
 			MecanimAnimator.SetBool(_jumpHash, true);
-			_lastGroundHeight = transform.position.y;
 		}
 		else if(ActiveHangTarget == null)
 		{

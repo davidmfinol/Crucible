@@ -49,12 +49,10 @@ public class PlayerCharacterStealth : MonoBehaviour
 			_currentlyHidden = value;
 			if(_currentlyHidden)
 			{
-				Debug.Log("Stealth activated!");
 				_childMaterial.shader = OutlineShader;
 			}
 			else
 			{
-				Debug.Log("Stealth de-activated!");
 				_childMaterial.shader = _defaultShader;
 			}
 		}

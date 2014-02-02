@@ -151,7 +151,6 @@ public class EnemyInput : CharacterInput
 	private void UpdateAwareness()
 	{
 		if (_settings.CanSee && IsSeeingPlayer()) {
-			Debug.Log ("Should see player.");
 			_awareness = AwarenessType.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
 
