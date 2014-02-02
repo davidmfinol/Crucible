@@ -32,6 +32,7 @@ public class CharacterAnimator : MonoBehaviour
 	private Vector3 _prevDirection = Vector3.right; // The last direction that the player was facing before the current direction
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
+    private float _lastGroundHeight = 0.0f; // Keep track of the last y position at which the character was touching the ground
 
     // Moving platform support
     private Transform _activePlatform;
@@ -60,6 +61,8 @@ public class CharacterAnimator : MonoBehaviour
 		_characterSettings = GetComponent<CharacterSettings>();
 		_characterInput = GetComponent<CharacterInput>();
 		_heartBox = GetComponentInChildren<HeartBox>();
+
+        _lastGroundHeight = transform.position.y;
 
 		Initialize();
 	}
@@ -151,6 +154,7 @@ public class CharacterAnimator : MonoBehaviour
 
         // Keep track of where we started out this frame
         Vector3 lastPosition = transform.position;
+        bool wasGrounded = IsGrounded;
 
         // Calculate 2D movement
         Vector3 currentMovementOffset = new Vector3(_horizontalSpeed, _verticalSpeed, 0);
@@ -170,6 +174,8 @@ public class CharacterAnimator : MonoBehaviour
         // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
         _velocity = (transform.position - lastPosition) / Time.fixedDeltaTime;
+        if(wasGrounded && !IsGrounded)
+            _lastGroundHeight = transform.position.y;
 
         // We should finally make our character be able to face the correct way
 		UpdateRotation(Time.fixedDeltaTime);
@@ -438,6 +444,10 @@ public class CharacterAnimator : MonoBehaviour
     public Vector3 Velocity
     {
         get { return _velocity; }
+    }
+    public float LastGroundHeight
+    {
+        get { return _lastGroundHeight; }
     }
     public bool IsGrounded
     {
