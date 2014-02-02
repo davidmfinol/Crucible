@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 03cc5b4939b0c43969d6e51f1d2daad6
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: All4FloatingRings
     100002: annotation1
@@ -736,5 +736,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 1
-  additionalBone: 1
   userData: 

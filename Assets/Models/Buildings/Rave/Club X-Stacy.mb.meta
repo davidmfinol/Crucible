@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: aaeea348776ee4e199ebc7ada731dd00
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
     100002: CurvedBackground
@@ -437,5 +437,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  additionalBone: 0
   userData: 

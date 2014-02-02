@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 2dd85b588954949b9a0a6bf78b966734
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: BLProjector
     100002: BMProjector
@@ -2202,5 +2202,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 1
-  additionalBone: 1
   userData: 

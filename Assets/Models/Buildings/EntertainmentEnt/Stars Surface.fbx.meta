@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 94dc414f5383b43f5bfe5e6bc137741b
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: pasted__pasted__pPlane5
     100002: pasted__pasted__pPlane5 1
@@ -1979,5 +1979,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  additionalBone: 1
   userData: 

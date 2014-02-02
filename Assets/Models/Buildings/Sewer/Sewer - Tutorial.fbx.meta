@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: a60da677b78184d97ae34542f12b676d
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: AirbornePipes
     100002: curve1
@@ -786,5 +786,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  additionalBone: 1
   userData: 

@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 8c5ae9be2c6e34a9fb6efd2437e00b2c
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: AboveLight
     100002: AboveLight 1
@@ -11448,5 +11448,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  additionalBone: 1
   userData: 
