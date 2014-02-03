@@ -11,7 +11,7 @@ public class EnemySettings : CharacterSettings
     public float AttackRange = 5.0f;
 
     // How far away the Enemy can notice and become aware of the player
-    public float AwarenessRange = 100.0f;
+    public float AwarenessRange = 25.0f;
 	
 	// A* Settings
 	public float RepathTime = 0.75f; // How many seconds between every calculation of a new path
