@@ -147,12 +147,16 @@ public class EnemyInput : CharacterInput
 		// Pressing left or right based on horizontal position
 		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _enemy.transform.position.x ? 1 : -1; // because stopping is for the weak
 	}
-
+	
 	private void UpdateAwareness()
 	{
 		if (_settings.CanSee && IsSeeingPlayer()) {
 			_awareness = AwarenessType.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
+
+			// sight is our main goal.  ignore any sounds during the chase.
+			_personalHearingRadius.ForgetAllSounds();
+
 
 		} else if (_settings.CanHear && HasHeardSound () ) {
 			_awareness = AwarenessType.Searching;

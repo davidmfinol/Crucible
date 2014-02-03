@@ -50,6 +50,12 @@ public class HearingRadius : MonoBehaviour
 		}
 	}
 
+	public void ForgetAllSounds() {
+		while(_objectsHeard.Count > 0)
+			_objectsHeard.RemoveAt(0);
+
+	}
+
 	public List<SoundEvent> ObjectsHeard
 	{
 		get { return _objectsHeard; }
