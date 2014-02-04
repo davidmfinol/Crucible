@@ -343,28 +343,41 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
 		MecanimAnimator.SetBool(_jumpWallHash, jump);
 	}
-	
+
+	// TODO: FIX ALL THE HACKS RELATED TO THE FACT THAT THE DIRECTION IN THE ANIMATION IS THE WORNG WAY
 	protected void Walljumping(float elapsedTime)
 	{
 		if(MecanimAnimator.GetBool(_jumpWallHash))
 		{
-			Direction = -Direction;
+			//Direction = -Direction;
 			VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 			MecanimAnimator.SetBool(_jumpWallHash, false);
 		}
 		else
 			ApplyGravity(elapsedTime);
 		
-		HorizontalSpeed = Settings.MaxHorizontalSpeed * Direction.x;
+		HorizontalSpeed = Settings.MaxHorizontalSpeed * -Direction.x;
 		
-		if(transform.position.y >= LastGroundHeight - 1)
-			MecanimAnimator.SetBool(_fallHash, false);
-		
-		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
-		
-		MecanimAnimator.SetBool(_hangHash, 
-		                        (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-		                        || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+		if (transform.position.y >= LastGroundHeight - 1)
+			MecanimAnimator.SetBool (_fallHash, false);
+		else
+			Direction = -Direction;
+
+		if (IsGrounded)
+			Direction = -Direction;
+
+		if(IsTouchingWall && ActiveHangTarget is GrabbableObject)
+		{
+			MecanimAnimator.SetBool(_grabWallHash, true);
+			Direction = -Direction;
+		}
+
+		if ((CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
+			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up))
+		{
+			MecanimAnimator.SetBool (_hangHash, true);
+			Direction = -Direction;
+		}
 	}
 	
 	protected void Hanging(float elapsedTime)
@@ -405,7 +418,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			DropHangTarget();
 			MecanimAnimator.SetBool(_fallHash, true);
 		}
-		else if (ActiveHangTarget is Ledge && (CharInput.Up || InputForward))	
+		else if (ActiveHangTarget is Ledge && (CharInput.Up || InputMoveForward))	
 		{
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}

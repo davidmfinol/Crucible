@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 0a3e376724f53430caa3e39c2b448699
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: armJLf_01
     100002: armJLf_02
@@ -283,6 +283,9 @@ ModelImporter:
     4300002: SKELETON_01_MeshPart1
     4300004: MAN_A
     7400000: Take 001
+    7400002: Wall Grab
+    7400004: Wall Jump
+    7400006: Rappel
     9500000: //RootNode
     13700000: MAN_A
   materials:
@@ -293,13 +296,1217 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GLOBAL_MOVE
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01/footJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01/footJLf_02/footJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01/footJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01/footJRt_02/footJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/pelvisJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_25
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_50
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_75
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/handJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03/indxJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03/indxJLf_04/indxJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03/midJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03/midJLf_04/midJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03/pinkJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03/pinkJLf_04/pinkJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03/ringJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03/ringJLf_04/ringJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02/thmbJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02/thmbJLf_03/thmbJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_25
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_50
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_75
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/handJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03/indxJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03/indxJRt_04/indxJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03/midJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03/midJRt_04/midJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03/pinkJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03/pinkJRt_04/pinkJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03/ringJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03/ringJRt_04/ringJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02/thmbJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02/thmbJRt_03/thmbJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJLf_01/eyeJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJRt_01/eyeJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/headJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/jawJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/jawJ_01/jawJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/EYE_TARGET
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_knee_Group
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_knee_Group/L_leg_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_leg_IK
+        weight: 0
+      - path: GLOBAL_MOVE/L_elbow_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null/L_HAND
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null/L_HAND/L_arm_IK
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_knee_Group
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_knee_Group/R_leg_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_leg_IK
+        weight: 0
+      - path: GLOBAL_MOVE/R_elbow_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null/R_HAND
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null/R_HAND/R_arm_IK
+        weight: 0
+      - path: group
+        weight: 0
+      - path: group/pasted__polySurface26
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__polySurface35
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__polySurface35/pasted__transform9
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__transform8
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__transform7
+        weight: 0
+      - path: group1
+        weight: 0
+      - path: group1/pasted__polySurface26 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__polySurface35
+          1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__polySurface35
+          1/pasted__transform9 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__transform8
+          1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__transform7 1
+        weight: 0
+      - path: MAN_A
+        weight: 0
+      - path: pCylinder1
+        weight: 0
+      - path: pCylinder1/transform1
+        weight: 0
+      - path: pCylinder2
+        weight: 0
+      - path: pCylinder2/transform2
+        weight: 0
+      - path: SKELETON_01
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart0
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart1
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Wall Grab
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 32
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GLOBAL_MOVE
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01/footJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01/footJLf_02/footJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01/footJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01/footJRt_02/footJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/pelvisJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_25
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_50
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_75
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/handJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03/indxJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03/indxJLf_04/indxJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03/midJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03/midJLf_04/midJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03/pinkJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03/pinkJLf_04/pinkJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03/ringJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03/ringJLf_04/ringJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02/thmbJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02/thmbJLf_03/thmbJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_25
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_50
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_75
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/handJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03/indxJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03/indxJRt_04/indxJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03/midJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03/midJRt_04/midJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03/pinkJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03/pinkJRt_04/pinkJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03/ringJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03/ringJRt_04/ringJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02/thmbJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02/thmbJRt_03/thmbJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJLf_01/eyeJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJRt_01/eyeJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/headJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/jawJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/jawJ_01/jawJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/EYE_TARGET
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_knee_Group
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_knee_Group/L_leg_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_leg_IK
+        weight: 0
+      - path: GLOBAL_MOVE/L_elbow_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null/L_HAND
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null/L_HAND/L_arm_IK
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_knee_Group
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_knee_Group/R_leg_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_leg_IK
+        weight: 0
+      - path: GLOBAL_MOVE/R_elbow_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null/R_HAND
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null/R_HAND/R_arm_IK
+        weight: 0
+      - path: group
+        weight: 0
+      - path: group/pasted__polySurface26
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__polySurface35
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__polySurface35/pasted__transform9
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__transform8
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__transform7
+        weight: 0
+      - path: group1
+        weight: 0
+      - path: group1/pasted__polySurface26 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__polySurface35
+          1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__polySurface35
+          1/pasted__transform9 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__transform8
+          1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__transform7 1
+        weight: 0
+      - path: MAN_A
+        weight: 0
+      - path: pCylinder1
+        weight: 0
+      - path: pCylinder1/transform1
+        weight: 0
+      - path: pCylinder2
+        weight: 0
+      - path: pCylinder2/transform2
+        weight: 0
+      - path: SKELETON_01
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart0
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart1
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Wall Jump
+      takeName: Take 001
+      firstFrame: 32
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GLOBAL_MOVE
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01/footJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01/footJLf_02/footJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01/footJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01/footJRt_02/footJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/pelvisJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_25
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_50
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_75
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/handJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03/indxJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03/indxJLf_04/indxJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03/midJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03/midJLf_04/midJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03/pinkJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03/pinkJLf_04/pinkJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03/ringJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03/ringJLf_04/ringJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02/thmbJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02/thmbJLf_03/thmbJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_25
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_50
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_75
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/handJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03/indxJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03/indxJRt_04/indxJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03/midJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03/midJRt_04/midJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03/pinkJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03/pinkJRt_04/pinkJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03/ringJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03/ringJRt_04/ringJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02/thmbJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02/thmbJRt_03/thmbJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJLf_01/eyeJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJRt_01/eyeJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/headJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/jawJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/jawJ_01/jawJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/EYE_TARGET
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_knee_Group
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_knee_Group/L_leg_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_leg_IK
+        weight: 0
+      - path: GLOBAL_MOVE/L_elbow_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null/L_HAND
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null/L_HAND/L_arm_IK
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_knee_Group
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_knee_Group/R_leg_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_leg_IK
+        weight: 0
+      - path: GLOBAL_MOVE/R_elbow_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null/R_HAND
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null/R_HAND/R_arm_IK
+        weight: 0
+      - path: group
+        weight: 0
+      - path: group/pasted__polySurface26
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__polySurface35
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__polySurface35/pasted__transform9
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__transform8
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__transform7
+        weight: 0
+      - path: group1
+        weight: 0
+      - path: group1/pasted__polySurface26 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__polySurface35
+          1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__polySurface35
+          1/pasted__transform9 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__transform8
+          1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__transform7 1
+        weight: 0
+      - path: MAN_A
+        weight: 0
+      - path: pCylinder1
+        weight: 0
+      - path: pCylinder1/transform1
+        weight: 0
+      - path: pCylinder2
+        weight: 0
+      - path: pCylinder2/transform2
+        weight: 0
+      - path: SKELETON_01
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart0
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart1
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Rappel
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: GLOBAL_MOVE
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01/footJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJLf_01/legJLf_02/legJLf_03/footJLf_01/footJLf_02/footJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01/footJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/legJRt_01/legJRt_02/legJRt_03/footJRt_01/footJRt_02/footJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/pelvisJ_01/pelvisJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_25
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_50
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/forearmJLf_75
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/handJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03/indxJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/indxJLf_01/indxJLf_02/indxJLf_03/indxJLf_04/indxJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03/midJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/midJLf_01/midJLf_02/midJLf_03/midJLf_04/midJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03/pinkJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/pinkJLf_01/pinkJLf_02/pinkJLf_03/pinkJLf_04/pinkJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03/ringJLf_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/ringJLf_01/ringJLf_02/ringJLf_03/ringJLf_04/ringJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02/thmbJLf_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJLf_01/armJLf_01/armJLf_02/handJLf_01/thmbJLf_01/thmbJLf_02/thmbJLf_03/thmbJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_25
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_50
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/forearmJRt_75
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/handJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03/indxJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/indxJRt_01/indxJRt_02/indxJRt_03/indxJRt_04/indxJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03/midJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/midJRt_01/midJRt_02/midJRt_03/midJRt_04/midJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03/pinkJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/pinkJRt_01/pinkJRt_02/pinkJRt_03/pinkJRt_04/pinkJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03/ringJRt_04
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/ringJRt_01/ringJRt_02/ringJRt_03/ringJRt_04/ringJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02/thmbJRt_03
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/clavJRt_01/armJRt_01/armJRt_02/handJRt_01/thmbJRt_01/thmbJRt_02/thmbJRt_03/thmbJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJLf_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJLf_01/eyeJLf_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJRt_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/eyeJRt_01/eyeJRt_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/headJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/jawJ_01
+        weight: 1
+      - path: GLOBAL_MOVE/bodyJ_01/spineJ_01/spineJ_02/spineJ_03/spineJ_04/spineJ_05/spineJ_06/headJ_01/jawJ_01/jawJ_0End
+        weight: 0
+      - path: GLOBAL_MOVE/EYE_TARGET
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_knee_Group
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_knee_Group/L_leg_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/L_ankle_Null/L_FOOT/L_leg_IK
+        weight: 0
+      - path: GLOBAL_MOVE/L_elbow_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null/L_HAND
+        weight: 0
+      - path: GLOBAL_MOVE/L_wrist_Null/L_HAND/L_arm_IK
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_knee_Group
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_knee_Group/R_leg_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/R_ankle_Null/R_FOOT/R_leg_IK
+        weight: 0
+      - path: GLOBAL_MOVE/R_elbow_LOC
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null/R_HAND
+        weight: 0
+      - path: GLOBAL_MOVE/R_wrist_Null/R_HAND/R_arm_IK
+        weight: 0
+      - path: group
+        weight: 0
+      - path: group/pasted__polySurface26
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__polySurface35
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__polySurface35/pasted__transform9
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__polySurface30/pasted__transform8
+        weight: 0
+      - path: group/pasted__polySurface26/pasted__transform7
+        weight: 0
+      - path: group1
+        weight: 0
+      - path: group1/pasted__polySurface26 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__polySurface35
+          1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__polySurface35
+          1/pasted__transform9 1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__polySurface30 1/pasted__transform8
+          1
+        weight: 0
+      - path: group1/pasted__polySurface26 1/pasted__transform7 1
+        weight: 0
+      - path: MAN_A
+        weight: 0
+      - path: pCylinder1
+        weight: 0
+      - path: pCylinder1/transform1
+        weight: 0
+      - path: pCylinder2
+        weight: 0
+      - path: pCylinder2/transform2
+        weight: 0
+      - path: SKELETON_01
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart0
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart1
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -324,8 +1531,1120 @@ ModelImporter:
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    human: []
-    skeleton: []
+    human:
+    - boneName: bodyJ_01
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: legJLf_01
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: legJRt_01
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: legJLf_03
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: legJRt_03
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: footJLf_01
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: footJRt_01
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: spineJ_01
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: spineJ_03
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: spineJ_05
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: headJ_01
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: clavJLf_01
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: clavJRt_01
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: armJLf_01
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: armJRt_01
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: armJLf_02
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: armJRt_02
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: handJLf_01
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: handJRt_01
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: footJLf_02
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: footJRt_02
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: eyeJLf_01
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: eyeJRt_01
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: jawJ_01
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: thmbJLf_01
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: thmbJLf_02
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: thmbJLf_03
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: indxJLf_01
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: indxJLf_02
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: indxJLf_03
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: midJLf_01
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: midJLf_02
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: midJLf_03
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ringJLf_01
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ringJLf_02
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ringJLf_03
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: pinkJLf_01
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: pinkJLf_02
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: pinkJLf_03
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: thmbJRt_01
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: thmbJRt_02
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: thmbJRt_03
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: indxJRt_01
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: indxJRt_02
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: indxJRt_03
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: midJRt_01
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: midJRt_02
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: midJRt_03
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ringJRt_01
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ringJRt_02
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ringJRt_03
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: pinkJRt_01
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: pinkJRt_02
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: pinkJRt_03
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: WallJump&Rappel(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GLOBAL_MOVE
+      position: {x: -.0197829045, y: .829057992, z: .346830308}
+      rotation: {x: -4.28377098e-05, y: -.694168329, z: -1.47329574e-05, w: .719812691}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: bodyJ_01
+      position: {x: -0, y: 1.05999994, z: 0}
+      rotation: {x: .203505054, y: -.203505054, z: -.677189589, w: .677189589}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pelvisJ_01
+      position: {x: .84904182, y: -.306400925, z: .163689807}
+      rotation: {x: 3.07410955e-05, y: .962751985, z: -.270386219, w: -3.32742929e-05}
+      scale: {x: 1, y: .999999881, z: 1.00000012}
+      transformModified: 1
+    - name: legJLf_01
+      position: {x: -.06000036, y: -.0275000054, z: -.120000064}
+      rotation: {x: 0, y: 0, z: -.0348994732, w: .999390841}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: legJLf_02
+      position: {x: -.414999813, y: 6.43142783e-08, z: 1.31756703e-08}
+      rotation: {x: 0, y: 0, z: .0348994732, w: .999390841}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: legJLf_03
+      position: {x: -.0350000262, y: -4.85451892e-08, z: -1.49011612e-08}
+      rotation: {x: -2.98023224e-08, y: 2.98023224e-08, z: .0784591734, w: .996917367}
+      scale: {x: 1, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: footJLf_01
+      position: {x: -.420000106, y: 3.74067426e-08, z: -3.62909311e-08}
+      rotation: {x: 7.80190845e-09, y: -4.1093859e-08, z: -.507538438, w: .861629188}
+      scale: {x: 1, y: .999999642, z: 1}
+      transformModified: 1
+    - name: footJLf_02
+      position: {x: -.160000011, y: 3.82058163e-10, z: 4.21318447e-08}
+      rotation: {x: -4.69646233e-09, y: 4.29466951e-08, z: -.374606669, w: .927183867}
+      scale: {x: 1, y: 1.00000024, z: .999999881}
+      transformModified: 1
+    - name: footJLf_0End
+      position: {x: -.099999994, y: -2.58000578e-17, z: -3.94430444e-33}
+      rotation: {x: -.5, y: -.5, z: -.5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: legJRt_01
+      position: {x: -.0599998236, y: -.0275000241, z: .12000002}
+      rotation: {x: 0, y: 0, z: .999390841, w: .0348994732}
+      scale: {x: .999999762, y: 1.00000048, z: 1.00000012}
+      transformModified: 1
+    - name: legJRt_02
+      position: {x: .41500026, y: -1.49371772e-07, z: -1.66266645e-08}
+      rotation: {x: 0, y: 0, z: .0348994732, w: .999390841}
+      scale: {x: .999999881, y: .999999404, z: .999999881}
+      transformModified: 1
+    - name: legJRt_03
+      position: {x: .0350000262, y: 1.87545083e-07, z: 4.47034836e-08}
+      rotation: {x: -2.98023224e-08, y: 2.98023224e-08, z: -.0784591734, w: -.996917367}
+      scale: {x: 1.00000036, y: 1.00000024, z: 1.00000024}
+      transformModified: 1
+    - name: footJRt_01
+      position: {x: .420000136, y: -1.87673308e-08, z: -5.11921066e-08}
+      rotation: {x: 7.80190845e-09, y: -4.1093859e-08, z: .507538438, w: -.861629188}
+      scale: {x: .999999881, y: .999999821, z: .999999762}
+      transformModified: 1
+    - name: footJRt_02
+      position: {x: .160000071, y: 8.80522322e-08, z: -4.72751189e-08}
+      rotation: {x: 4.69645967e-09, y: -4.29466915e-08, z: -.37460658, w: .927183867}
+      scale: {x: .999999881, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: footJRt_0End
+      position: {x: .0999996066, y: 5.35529621e-09, z: 0}
+      rotation: {x: -.5, y: -.5, z: -.5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pelvisJ_0End
+      position: {x: -.140000001, y: -6.57813852e-18, z: -4.74708039e-33}
+      rotation: {x: -.5, y: -.5, z: -.5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: spineJ_01
+      position: {x: .789041996, y: -.306396216, z: .163692653}
+      rotation: {x: .270386219, y: -3.32742929e-05, z: 3.07410955e-05, w: -.962751985}
+      scale: {x: .999999881, y: .999999821, z: .999999881}
+      transformModified: 1
+    - name: spineJ_02
+      position: {x: -.0650001764, y: -1.07612451e-07, z: -1.2805689e-08}
+      rotation: {x: 2.98023224e-08, y: -2.98023224e-08, z: -.0523360074, w: -.99862957}
+      scale: {x: 1.00000024, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: spineJ_03
+      position: {x: -.0649996996, y: 6.04640888e-08, z: 8.61171046e-08}
+      rotation: {x: 1.14308651e-08, y: -4.63872318e-08, z: .0348994248, w: .9993909}
+      scale: {x: .999999821, y: 1, z: .999999881}
+      transformModified: 1
+    - name: spineJ_04
+      position: {x: -.180000365, y: 6.42409361e-08, z: -6.88351847e-08}
+      rotation: {x: 4.20575113e-08, y: -1.74503558e-08, z: -.0828082263, w: .99656558}
+      scale: {x: 1.00000036, y: 1.00000012, z: 1.00000024}
+      transformModified: 1
+    - name: clavJLf_01
+      position: {x: -.0130001334, y: .039999947, z: .0249999538}
+      rotation: {x: .0802064985, y: .642039776, z: .116749614, w: .753472924}
+      scale: {x: .99999994, y: 1, z: 1}
+      transformModified: 1
+    - name: armJLf_01
+      position: {x: -.174999923, y: 3.72814668e-10, z: 5.76212074e-07}
+      rotation: {x: .0307241064, y: .093609482, z: -.172098875, w: .980140448}
+      scale: {x: .99999994, y: .999999881, z: .999999762}
+      transformModified: 1
+    - name: armJLf_02
+      position: {x: -.294999868, y: -1.36121486e-07, z: 1.71409731e-08}
+      rotation: {x: -.0014083212, y: -.0114713972, z: -.00221633702, w: .999930739}
+      scale: {x: 1, y: 1.00000024, z: 1}
+      transformModified: 1
+    - name: forearmJLf_25
+      position: {x: -.0700000674, y: 2.02974064e-07, z: -5.6486904e-08}
+      rotation: {x: .0022376196, y: 4.06511091e-08, z: -1.38439749e-08, w: .999997556}
+      scale: {x: .99999994, y: .99999994, z: 1}
+      transformModified: 1
+    - name: forearmJLf_50
+      position: {x: -.139999971, y: 1.32610566e-07, z: 1.27313811e-07}
+      rotation: {x: .00447513023, y: 1.65277889e-08, z: 5.80569548e-08, w: .999990046}
+      scale: {x: .99999994, y: .999999881, z: 1}
+      transformModified: 1
+    - name: forearmJLf_75
+      position: {x: -.205000266, y: 3.92210531e-08, z: -6.24083441e-07}
+      rotation: {x: .00671277102, y: 3.73593565e-08, z: 6.85482604e-08, w: .999977529}
+      scale: {x: 1.00000012, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: handJLf_01
+      position: {x: -.249999896, y: 1.41261808e-07, z: 1.42713773e-07}
+      rotation: {x: .00895026792, y: .00119121966, z: -4.92691399e-09, w: .99995929}
+      scale: {x: 1.00000012, y: .99999994, z: 1.00000012}
+      transformModified: 1
+    - name: handJLf_0End
+      position: {x: -.0700000003, y: 0, z: 0}
+      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: indxJLf_01
+      position: {x: -.0230006985, y: .0159998853, z: .00599910831}
+      rotation: {x: .708669364, y: -.0326470584, z: -.0211591646, w: .704467416}
+      scale: {x: .999999821, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: indxJLf_02
+      position: {x: -.0799999833, y: 1.58524912e-07, z: 6.66465851e-08}
+      rotation: {x: 1.26422082e-08, y: -1.51525299e-07, z: -.0405745618, w: .999176502}
+      scale: {x: .999999762, y: .999999762, z: .999999821}
+      transformModified: 1
+    - name: indxJLf_03
+      position: {x: -.0329999924, y: -7.87070462e-08, z: -2.80075318e-09}
+      rotation: {x: -1.3680781e-08, y: 1.62695608e-06, z: -.0405592509, w: .999177217}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: indxJLf_04
+      position: {x: -.0249997023, y: 5.45339219e-07, z: -2.42628715e-07}
+      rotation: {x: 6.75512979e-09, y: 1.32699478e-08, z: -.017452402, w: .99984771}
+      scale: {x: 1, y: 1.00000036, z: 1.00000024}
+      transformModified: 1
+    - name: indxJLf_0End
+      position: {x: -.0249999985, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: midJLf_01
+      position: {x: -.0230005644, y: -.0015002056, z: .00149940106}
+      rotation: {x: .700773656, y: -.0137883546, z: -.0109189702, w: .713166833}
+      scale: {x: 1.00000012, y: .99999994, z: 1}
+      transformModified: 1
+    - name: midJLf_02
+      position: {x: -.0849999189, y: -4.26067942e-07, z: 1.96470462e-09}
+      rotation: {x: -3.44322615e-08, y: -3.07380191e-07, z: -.0392476767, w: .99922955}
+      scale: {x: .999999881, y: 1.00000012, z: 1.00000036}
+      transformModified: 1
+    - name: midJLf_03
+      position: {x: -.0350001231, y: 3.28016739e-07, z: 4.29362821e-08}
+      rotation: {x: 6.45025011e-09, y: -2.79001089e-08, z: -.00872653909, w: .999961972}
+      scale: {x: 1, y: 1, z: .999999762}
+      transformModified: 1
+    - name: midJLf_04
+      position: {x: -.0274997819, y: 1.63799854e-07, z: -9.31509447e-08}
+      rotation: {x: -5.41548806e-09, y: 4.54289548e-08, z: -.00872651394, w: .999961972}
+      scale: {x: 1.00000012, y: 1.00000036, z: 1.00000036}
+      transformModified: 1
+    - name: midJLf_0End
+      position: {x: -.0249999985, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pinkJLf_01
+      position: {x: -.0240003373, y: -.0325000957, z: .00699935993}
+      rotation: {x: .697547495, y: .0686007142, z: .0462316684, w: .711747229}
+      scale: {x: 1, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: pinkJLf_02
+      position: {x: -.0650000945, y: -4.21398681e-07, z: 5.8353141e-08}
+      rotation: {x: 6.0761927e-08, y: -5.11352454e-08, z: -.0414285026, w: .999141514}
+      scale: {x: .99999994, y: .999999702, z: .999999762}
+      transformModified: 1
+    - name: pinkJLf_03
+      position: {x: -.0320001096, y: 4.56144107e-07, z: 1.91867233e-09}
+      rotation: {x: -1.51402679e-09, y: -1.29717384e-08, z: -.0348995104, w: .9993909}
+      scale: {x: 1.00000012, y: 1.00000048, z: 1.00000024}
+      transformModified: 1
+    - name: pinkJLf_04
+      position: {x: -.0224999376, y: -2.29331619e-07, z: 9.97407668e-08}
+      rotation: {x: 5.73511905e-09, y: -1.12546434e-08, z: -.026176976, w: .999657333}
+      scale: {x: .99999994, y: .999999344, z: .999999523}
+      transformModified: 1
+    - name: pinkJLf_0End
+      position: {x: -.022499999, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: ringJLf_01
+      position: {x: -.0229999572, y: -.0170000978, z: .00169985823}
+      rotation: {x: .700413287, y: .0263783298, z: .0168931168, w: .713049829}
+      scale: {x: 1.00000012, y: 1, z: 1}
+      transformModified: 1
+    - name: ringJLf_02
+      position: {x: -.0750001073, y: -1.31132623e-07, z: -9.33189312e-08}
+      rotation: {x: 8.67979022e-10, y: -1.13451563e-06, z: -.0401398316, w: .999194086}
+      scale: {x: 1.00000012, y: 1, z: 1}
+      transformModified: 1
+    - name: ringJLf_03
+      position: {x: -.0375004746, y: -5.57386898e-07, z: 1.07536344e-07}
+      rotation: {x: 1.38528007e-08, y: -1.78551701e-10, z: -.00872652791, w: .999961913}
+      scale: {x: .999999762, y: .999999821, z: .999999702}
+      transformModified: 1
+    - name: ringJLf_04
+      position: {x: -.0259996783, y: 5.80592086e-07, z: -1.05104732e-07}
+      rotation: {x: -1.7252697e-09, y: -8.7892289e-09, z: -.0261769556, w: .999657333}
+      scale: {x: 1.00000024, y: 1.00000012, z: 1.00000024}
+      transformModified: 1
+    - name: ringJLf_0End
+      position: {x: -.0249999985, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: thmbJLf_01
+      position: {x: -.0119997766, y: .0224999338, z: .0129995644}
+      rotation: {x: .87896204, y: -.256495297, z: -.195862293, w: .351103693}
+      scale: {x: 1.00000012, y: .999999881, z: .999999821}
+      transformModified: 1
+    - name: thmbJLf_02
+      position: {x: -.045000162, y: -5.02489215e-08, z: 2.9223072e-08}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: thmbJLf_03
+      position: {x: -.0325003527, y: 1.54757771e-07, z: -1.16840177e-07}
+      rotation: {x: -2.25630728e-07, y: -1.74416141e-06, z: -.0383795239, w: .999263287}
+      scale: {x: 1.00000024, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: thmbJLf_0End
+      position: {x: -.0350000001, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: clavJRt_01
+      position: {x: -.0130024096, y: .0399998724, z: -.0250000786}
+      rotation: {x: -.642039657, y: .0802060068, z: .753473103, w: -.116749384}
+      scale: {x: 1.00000012, y: .99999994, z: .999999702}
+      transformModified: 1
+    - name: armJRt_01
+      position: {x: .174999252, y: 3.45832888e-07, z: -6.02704517e-07}
+      rotation: {x: .0307243243, y: .0936098248, z: -.172097892, w: .980140567}
+      scale: {x: .99999994, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: armJRt_02
+      position: {x: .294999778, y: -1.12202677e-07, z: 9.6064575e-08}
+      rotation: {x: -.00140859268, y: -.0114704799, z: -.00221749907, w: .999930799}
+      scale: {x: 1.00000024, y: .999999821, z: 1.00000012}
+      transformModified: 1
+    - name: forearmJRt_25
+      position: {x: .0700004101, y: 2.08773614e-07, z: 1.79266451e-07}
+      rotation: {x: .00223754533, y: -3.42791679e-08, z: -1.38962708e-08, w: .999997497}
+      scale: {x: .99999994, y: 1.00000012, z: 1.00000024}
+      transformModified: 1
+    - name: forearmJRt_50
+      position: {x: .140000612, y: 2.46495318e-07, z: 2.02664251e-06}
+      rotation: {x: .0044751321, y: 5.95934235e-09, z: -2.69807341e-08, w: .999990046}
+      scale: {x: .999999881, y: .999999821, z: 1}
+      transformModified: 1
+    - name: forearmJRt_75
+      position: {x: .205000773, y: 1.36408488e-07, z: 3.97218355e-06}
+      rotation: {x: .00671273703, y: -1.61247353e-08, z: -3.63998076e-08, w: .999977529}
+      scale: {x: .999999881, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: handJRt_01
+      position: {x: .250001311, y: 2.09664009e-07, z: 3.51173782e-07}
+      rotation: {x: .00895019062, y: .00119115983, z: -6.21349656e-08, w: .99995923}
+      scale: {x: .999999881, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: handJRt_0End
+      position: {x: .0700001717, y: 1.92355728e-07, z: 0}
+      rotation: {x: -.707106888, y: 0, z: -0, w: .707106769}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: indxJRt_01
+      position: {x: .0229997691, y: -.0159994811, z: -.00599901192}
+      rotation: {x: .708669543, y: -.0326446965, z: -.0211616419, w: .704467177}
+      scale: {x: 1.00000024, y: .99999994, z: 1}
+      transformModified: 1
+    - name: indxJRt_02
+      position: {x: .0799997449, y: -2.59846331e-07, z: 4.18538434e-07}
+      rotation: {x: -1.92439198e-09, y: -1.02161084e-06, z: -.0406058729, w: .999175251}
+      scale: {x: 1.00000012, y: .999999821, z: .999999762}
+      transformModified: 1
+    - name: indxJRt_03
+      position: {x: .03299997, y: 2.11104839e-06, z: -2.68953126e-08}
+      rotation: {x: -4.03896969e-08, y: 2.21691096e-07, z: -.0405745916, w: .999176562}
+      scale: {x: .999999881, y: 1.00000024, z: 1}
+      transformModified: 1
+    - name: indxJRt_04
+      position: {x: .0249993391, y: 1.81258304e-06, z: 1.48445082e-07}
+      rotation: {x: 1.11754854e-08, y: 1.00912672e-07, z: -.0174524095, w: .99984777}
+      scale: {x: .99999994, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: indxJRt_0End
+      position: {x: .0250013415, y: 0, z: 2.35654838e-07}
+      rotation: {x: 1, y: -0, z: 0, w: 6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: midJRt_01
+      position: {x: .022999065, y: .00149981759, z: -.00149976567}
+      rotation: {x: .700773716, y: -.0137883518, z: -.0109189749, w: .713166833}
+      scale: {x: 1.00000036, y: .999999881, z: 1.00000024}
+      transformModified: 1
+    - name: midJRt_02
+      position: {x: .0850005001, y: 7.83335736e-07, z: -1.47208965e-07}
+      rotation: {x: 8.42514325e-08, y: -3.4275601e-07, z: -.0392456576, w: .99922967}
+      scale: {x: .999999762, y: .999999881, z: .999999821}
+      transformModified: 1
+    - name: midJRt_03
+      position: {x: .0349988602, y: -4.34687308e-07, z: -5.69183669e-08}
+      rotation: {x: 3.65416923e-08, y: -2.49889602e-08, z: -.0087265363, w: .999961972}
+      scale: {x: 1.00000012, y: 1, z: .999999821}
+      transformModified: 1
+    - name: midJRt_04
+      position: {x: .0275008064, y: 1.63145458e-07, z: 8.18389481e-08}
+      rotation: {x: -3.12062696e-08, y: 7.23396738e-08, z: -.00872652512, w: .999961913}
+      scale: {x: 1, y: 1.00000036, z: 1.00000024}
+      transformModified: 1
+    - name: midJRt_0End
+      position: {x: .0249995701, y: 3.68079782e-06, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pinkJRt_01
+      position: {x: .0239992887, y: .0325000882, z: -.00700139161}
+      rotation: {x: .697547555, y: .068600744, z: .0462316386, w: .711747229}
+      scale: {x: 1.00000024, y: .999999821, z: .999999881}
+      transformModified: 1
+    - name: pinkJRt_02
+      position: {x: .0650001988, y: 2.69683119e-06, z: 4.20705923e-08}
+      rotation: {x: 7.72716575e-08, y: -1.53109752e-07, z: -.0414791256, w: .999139369}
+      scale: {x: .999999821, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: pinkJRt_03
+      position: {x: .0319994316, y: 3.78428967e-06, z: -1.68106681e-07}
+      rotation: {x: -3.367132e-08, y: -2.30218156e-08, z: -.0348995067, w: .9993909}
+      scale: {x: .99999994, y: .99999994, z: 1}
+      transformModified: 1
+    - name: pinkJRt_04
+      position: {x: .0225019064, y: 3.78422982e-07, z: 1.84323582e-07}
+      rotation: {x: 1.05121574e-08, y: 4.9390831e-08, z: -.0261769854, w: .999657333}
+      scale: {x: 1, y: .999999881, z: .999999881}
+      transformModified: 1
+    - name: pinkJRt_0End
+      position: {x: .0224993695, y: 1.59576837e-06, z: 1.57514197e-08}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: ringJRt_01
+      position: {x: .0230001658, y: .0170002207, z: -.00169878406}
+      rotation: {x: .700413346, y: .0263783094, z: .0168930795, w: .713049769}
+      scale: {x: .999999702, y: .99999994, z: .999999642}
+      transformModified: 1
+    - name: ringJRt_02
+      position: {x: .0749990866, y: 7.05134028e-07, z: 2.50331169e-07}
+      rotation: {x: 7.74555957e-08, y: -1.18138655e-06, z: -.040121384, w: .999194801}
+      scale: {x: 1.00000024, y: .999999881, z: 1.00000024}
+      transformModified: 1
+    - name: ringJRt_03
+      position: {x: .0375011861, y: -4.10838112e-07, z: -1.15038553e-07}
+      rotation: {x: -2.1970783e-09, y: 4.26276614e-08, z: -.00872648973, w: .999961913}
+      scale: {x: 1, y: 1.00000012, z: .99999994}
+      transformModified: 1
+    - name: ringJRt_04
+      position: {x: .0259981621, y: 1.14522798e-07, z: 1.25026265e-08}
+      rotation: {x: -1.21431709e-09, y: -1.74186532e-08, z: -.026176963, w: .999657333}
+      scale: {x: 1.00000012, y: 1.00000024, z: 1.00000036}
+      transformModified: 1
+    - name: ringJRt_0End
+      position: {x: .0250003636, y: 1.80035545e-06, z: 0}
+      rotation: {x: 1, y: -0, z: 0, w: 6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: thmbJRt_01
+      position: {x: .0119990669, y: -.0225000512, z: -.0130006485}
+      rotation: {x: .878962159, y: -.256491005, z: -.19584778, w: .35111475}
+      scale: {x: 1, y: .999999762, z: .999999702}
+      transformModified: 1
+    - name: thmbJRt_02
+      position: {x: .0450029261, y: -1.13432414e-07, z: 3.21337734e-06}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: .999999881}
+      transformModified: 1
+    - name: thmbJRt_03
+      position: {x: .0324997045, y: 1.32131134e-07, z: 5.75870047e-07}
+      rotation: {x: -7.48330422e-07, y: -5.94647918e-06, z: -.0384007357, w: .999262393}
+      scale: {x: 1.00000036, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: thmbJRt_0End
+      position: {x: .034998145, y: 1.7912688e-06, z: 0}
+      rotation: {x: 1, y: -0, z: 0, w: 6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: spineJ_05
+      position: {x: -.139999375, y: 4.30697478e-09, z: 4.46964705e-08}
+      rotation: {x: 9.42830098e-08, y: 3.50191591e-08, z: .173648208, w: -.98480773}
+      scale: {x: .99999994, y: 1, z: 1.00000036}
+      transformModified: 1
+    - name: spineJ_06
+      position: {x: -.0500004552, y: -3.42563027e-07, z: 9.71524194e-09}
+      rotation: {x: 5.61296218e-08, y: 6.28879278e-08, z: .113203287, w: .993571818}
+      scale: {x: .999999881, y: .999999881, z: .999999523}
+      transformModified: 1
+    - name: headJ_01
+      position: {x: -.0699996576, y: 4.51028264e-08, z: -4.58478873e-08}
+      rotation: {x: -3.14439639e-08, y: 2.80648109e-08, z: -.0610484853, w: -.998134792}
+      scale: {x: 1.00000036, y: 1.00000048, z: 1.00000048}
+      transformModified: 1
+    - name: eyeJLf_01
+      position: {x: -.0612460598, y: .0731588006, z: .0291781556}
+      rotation: {x: -.704014778, y: .710185409, z: -2.348136e-16, w: -4.21468478e-08}
+      scale: {x: .999999762, y: .999999762, z: .999999762}
+      transformModified: 1
+    - name: eyeJLf_0End
+      position: {x: -.0199999996, y: 0, z: 3.92369443e-18}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: eyeJRt_01
+      position: {x: -.0612482168, y: .0731588304, z: -.0291782413}
+      rotation: {x: .710185409, y: .704014778, z: -3.4975514e-08, w: 7.23419014e-09}
+      scale: {x: .999999881, y: 1, z: .999999881}
+      transformModified: 1
+    - name: eyeJRt_0End
+      position: {x: .0199999996, y: 0, z: -1.3322676e-17}
+      rotation: {x: 3.72529074e-09, y: -.707106829, z: 3.72529074e-09, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: headJ_0End
+      position: {x: -.099999994, y: 4.6016481e-17, z: 8.67746991e-32}
+      rotation: {x: -.5, y: .5, z: .5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: jawJ_01
+      position: {x: -.0249998495, y: .0250001531, z: -1.41732481e-09}
+      rotation: {x: -.37460658, y: .927183867, z: -4.59706513e-08, w: -6.87999346e-08}
+      scale: {x: .999999881, y: .999999762, z: .999999881}
+      transformModified: 1
+    - name: jawJ_0End
+      position: {x: -.109999999, y: -1.7763568e-17, z: 0}
+      rotation: {x: -.27327624, y: -.652165711, z: -.27327624, w: .652165711}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: EYE_TARGET
+      position: {x: -.505593538, y: 1.72549999, z: .26206556}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_ankle_Null
+      position: {x: -.119999997, y: .116181813, z: -.0642535388}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_FOOT
+      position: {x: .0890990272, y: .277907819, z: -.307929188}
+      rotation: {x: -.517818987, y: .529294133, z: .467524529, w: -.482837468}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_knee_Group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_leg_LOC
+      position: {x: 2.84217088e-16, y: 0, z: .199999988}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_leg_IK
+      position: {x: .0017153112, y: -.0298008062, z: -.00478962762}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_elbow_LOC
+      position: {x: -.0576749593, y: 1.12947702, z: -.37674576}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 5, y: 5, z: 5}
+      transformModified: 1
+    - name: L_wrist_Null
+      position: {x: -.707506716, y: 1.45983183, z: .00543700159}
+      rotation: {x: .707219958, y: .104802489, z: -.100766279, w: .691883385}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_HAND
+      position: {x: .477840424, y: -.0350207686, z: .327567399}
+      rotation: {x: -.474842936, y: .184593514, z: -.0602971017, w: .85837853}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: L_arm_IK
+      position: {x: -.0231884457, y: -.0165533796, z: .0225057974}
+      rotation: {x: -.707219958, y: -.104802489, z: .100766279, w: .691883385}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_ankle_Null
+      position: {x: .119999997, y: .116181999, z: -.0642535239}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_FOOT
+      position: {x: .353928983, y: .562701225, z: -.197854415}
+      rotation: {x: .413191468, y: -.489423335, z: -.537399709, w: .548579216}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_knee_Group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_leg_LOC
+      position: {x: 3.5527136e-17, y: 0, z: -.199999988}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_leg_IK
+      position: {x: -.0137078557, y: -.00351653714, z: 7.86873934e-05}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_elbow_LOC
+      position: {x: .272599757, y: 1.31930804, z: -.209712803}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 5, y: 5, z: 5}
+      transformModified: 1
+    - name: R_wrist_Null
+      position: {x: .707506835, y: 1.45983374, z: .00543701509}
+      rotation: {x: -.691883326, y: -.100766271, z: -.104802482, w: .707219958}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_HAND
+      position: {x: -.240320906, y: -.190360501, z: -.272002876}
+      rotation: {x: .46034497, y: -.36632815, z: -.401300818, w: .702028394}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: R_arm_IK
+      position: {x: .0105352467, y: .0342778563, z: -.00570055423}
+      rotation: {x: .691883326, y: .100766271, z: .104802482, w: .707219958}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: group
+      position: {x: .0446426682, y: .0700983256, z: -.481433958}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__polySurface26
+      position: {x: -.0446426682, y: -.0700983256, z: .358519137}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__polySurface30
+      position: {x: -0, y: 0, z: .119999997}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__polySurface35
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__transform9
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__transform8
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__transform7
+      position: {x: -0, y: 0, z: .119999997}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: group1
+      position: {x: .0446426682, y: .0700983256, z: -.481433958}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__polySurface26 1
+      position: {x: -.0446426682, y: -.0700983256, z: .358519137}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__polySurface30 1
+      position: {x: -0, y: 0, z: .119999997}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__polySurface35 1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__transform9 1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__transform8 1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pasted__transform7 1
+      position: {x: -0, y: 0, z: .119999997}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_A
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pCylinder1
+      position: {x: -.828484654, y: 2.72734928, z: -1.22489858}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: .150627166, y: .404136539, z: .150627166}
+      transformModified: 1
+    - name: transform1
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: pCylinder2
+      position: {x: .775597155, y: 2.72734928, z: -1.22489858}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: .150627166, y: .404136539, z: .150627166}
+      transformModified: 1
+    - name: transform2
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: SKELETON_01
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: SKELETON_01_MeshPart0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: SKELETON_01_MeshPart1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     armTwist: .5
     foreArmTwist: .5
     upperLegTwist: .5
@@ -335,5 +2654,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 3
+  additionalBone: 0
   userData: 
