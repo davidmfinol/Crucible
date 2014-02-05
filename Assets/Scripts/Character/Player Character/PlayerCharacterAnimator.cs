@@ -99,11 +99,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpActive)
 			MecanimAnimator.SetBool(_jumpHash, true);
 
-		bool climbLadder = CanClimbLadder && (CharInput.Up || CharInput.Down);
-		bool climbPipe = CanClimbPipe && (CharInput.Up || CharInput.Down);
-		MecanimAnimator.SetBool(_climbLadderHash,  climbLadder);
-		MecanimAnimator.SetBool(_climbStrafeHash, ActiveHangTarget != null && ActiveHangTarget.DoesFaceZAxis() && !climbLadder && !climbPipe );
-		MecanimAnimator.SetBool(_climbPipeHash,  climbPipe);
+		bool startClimbLadder = CanClimbLadder && CharInput.Interaction;
+		bool startClimbPipe = CanClimbPipe && CharInput.Interaction;
+
+		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
+		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 	}
 
@@ -489,7 +489,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
-		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpActive);
+		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
+		MecanimAnimator.SetBool (_fallHash, CharInput.InteractionPressed);
+		MecanimAnimator.SetBool (_climbStrafeHash, CanClimbLadder && (CharInput.Left || CharInput.Right));
 	}
 	
 	protected void ClimbingStrafe(float elapsedTime)
@@ -514,6 +516,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
 		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpActive);
+		MecanimAnimator.SetBool (_fallHash, CharInput.InteractionPressed);
+		MecanimAnimator.SetBool (_climbLadderHash, CanClimbLadder && (CharInput.UpPressed || CharInput.DownPressed));
 	}
 	
 	// TODO: DETERMINE HOW WE PICK STUFF UP
