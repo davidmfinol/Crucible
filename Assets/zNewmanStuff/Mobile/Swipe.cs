@@ -7,6 +7,7 @@ public class Swipe : MonoBehaviour
 	private int _swipeID = -1;
 	private float _minMovement = 20.0f;
 
+	public int MovementUIType = 0;
 	public float DistanceForMaxSpeed = Screen.width/8;
 	public Transform DebugBox;
 	private WeaponsGui _weaponsGUI;
@@ -66,20 +67,25 @@ public class Swipe : MonoBehaviour
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
-						if (!_weaponsGUI.Animating) 
+						/*if (!_weaponsGUI.Animating) 
 						{	
 							_weaponsGUI.RightSelect = true;
 							_weaponsGUI.Animating = true;
-						}
+						}*/
+						MovementUIType++;
+						if(MovementUIType > 2)
+							MovementUIType = 0;
 						Debug.Log ("Swipe Right Found");
 					} else {
- 
+						MovementUIType--;
+						if(MovementUIType < 0)
+							MovementUIType = 2;
 						Debug.Log ("Swipe Left Found");
 						//Instantiate(BOX, Left, Quaternion.identity);	
-						if (!_weaponsGUI.Animating) {	
+						/*if (!_weaponsGUI.Animating) {	
 							_weaponsGUI.LeftSelect = true;
 							_weaponsGUI.Animating = true;	
-						}		
+						}	*/	
 					}
 				} else {					
 					if (delta.y > 0) {
@@ -99,7 +105,7 @@ public class Swipe : MonoBehaviour
 	{		
 		// first movement slider: 
 		if (MovementUIType == 0)
-			input.HorizontalInput = (touch.position.x - Screen.width/4)/(Screen.width/4);
+			_input.Horizontal = (touch.position.x - Screen.width/4)/(Screen.width/4);
 		else if (MovementUIType == 1)
 		{
 			Vector2 position = touch.position;
@@ -116,7 +122,7 @@ public class Swipe : MonoBehaviour
 				Vector2 delta = position - _startPos;
 				if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
 				{
-					//_swipeID = -1;
+					_swipeID = -1;
 					if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 					{
 						
@@ -160,7 +166,7 @@ public class Swipe : MonoBehaviour
 				Vector2 delta = position - _startPos;
 				if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
 				{
-					//_swipeID = -1;
+					_swipeID = -1;
 					if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 					{
 						
@@ -204,7 +210,7 @@ public class Swipe : MonoBehaviour
 			Vector2 delta = position - _startPos;
 			if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
 			{
-				//_swipeID = -1;
+				_swipeID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 				{
 					

@@ -34,7 +34,7 @@ public class PlayerCharacterInput : CharacterInput
 	public override float Horizontal
 	{
 		get { return _shift ? _horizontal * 0.3f : _horizontal; }
-		set { _horizontal = value; }
+		set { _horizontal = Mathf.Min (value, 1); }
 	}
 	public override float Vertical
 	{
