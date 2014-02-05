@@ -12,6 +12,8 @@ public class DynamicMusicPlayer : AudioPlayer
 	private AudioSource _audio1;
 	private AudioSource _audio2;
 	private AudioSource _audio3;
+	private bool _audioFadingOut;
+	private bool _audioFadingIn;
 	
 	// The songs that we are going to layer
 	private AudioClipGroup _enemyDangerClips;
@@ -28,38 +30,59 @@ public class DynamicMusicPlayer : AudioPlayer
 	{
 		// Set up the audio
 		_enemyDangerClips = GetComponent<AudioClipGroup>();
+		_audioFadingOut = false;
+		_audioFadingIn = false;
 		_audio1 = (AudioSource)gameObject.AddComponent("AudioSource");
+		_audio1.dopplerLevel = 0;
+		_audio1.panLevel = 0;
 		_audio2 = (AudioSource)gameObject.AddComponent("AudioSource");
+		_audio2.dopplerLevel = 0;
+		_audio2.panLevel = 0;
 		_audio3 = (AudioSource)gameObject.AddComponent("AudioSource");
+		_audio3.dopplerLevel = 0;
+		_audio3.panLevel = 0;
 		_audio1.loop = true;
 		_audio2.loop = true;
 		_audio3.loop = true;
 		_audio1.clip = _enemyDangerClips.Clips[0];
 		_audio2.clip = _enemyDangerClips.Clips[1];
 		_audio3.clip = _enemyDangerClips.Clips[2];
-		_prevDangerLevel = -1;
+		_prevDangerLevel = 0;
 	}
 	
 	void Update()
 	{
 		PlayDanger(DangerLevel);
+		if(_audioFadingOut)
+			FadeOut (_audio1);
+		if(_audioFadingIn)
+			FadeIn (_audio1);
 	}
 	
 	public void PlayDanger(int dangerLevel)
     {
 		// Do nothing if the danger level hasn't changed
+		Debug.Log (dangerLevel + " " + _audioFadingIn + _audioFadingOut);
 		if(dangerLevel == _prevDangerLevel)
 			return;
 		
         if (dangerLevel <= 0 )
 		{
-			_audio1.Stop();
+			_audioFadingOut = true;
+			if(_audioFadingIn)
+				_audioFadingIn = false;
 			_audio2.Stop();
 			_audio3.Stop();
 		}
 		else if (dangerLevel == 1)
 		{
-			_audio1.Play();
+			if(_prevDangerLevel < 1)
+				_audio1.Play();
+			if(_audioFadingOut)
+			{
+				_audioFadingIn = true;
+				_audioFadingOut = false;
+			}
 		}
 		else if (dangerLevel == 2)
 		{
@@ -79,7 +102,31 @@ public class DynamicMusicPlayer : AudioPlayer
 		
 		_prevDangerLevel = dangerLevel;
     }
-	
+
+	public void FadeOut(AudioSource audio)
+	{
+		if(audio.volume <= 0)
+		{
+			_audioFadingOut = false;
+			audio.Stop();
+			audio.volume = 1;
+			Debug.Log ("Done Fading Out");
+		}
+		else
+			audio.volume -= .001f;
+	}
+	public void FadeIn(AudioSource audio)
+	{
+		if(audio.volume >= 1)
+		{
+			_audioFadingIn = false;
+			audio.Stop();
+			audio.volume = 1;
+			Debug.Log ("Done Fading In");
+		}
+		else
+			audio.volume += .001f;
+	}
 	
 	public int DangerLevel
 	{
