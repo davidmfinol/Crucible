@@ -28,6 +28,7 @@ public class EnemyAnimator : CharacterAnimator
 	private int _climbLedgeHash;
 	private int _climbPipeHash;
 	private int _stunHash;
+	private int _dieHash;
 	
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
@@ -60,6 +61,7 @@ public class EnemyAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
+		StateMachine[Animator.StringToHash("Base Layer.Death")] = Dying;
 		
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
@@ -73,6 +75,7 @@ public class EnemyAnimator : CharacterAnimator
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_stunHash = Animator.StringToHash("Stun");
+		_dieHash = Animator.StringToHash("Die");
 	}
 	
 	protected override void UpdateMecanimVariables()
@@ -307,10 +310,9 @@ public class EnemyAnimator : CharacterAnimator
 
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
-	
-	public override void OnDeath()
+
+	public void DoRagDoll()
 	{
-		EnemyAudioSource.PlayDeath();
 		ActivateRagDoll(transform, false, true);
 		CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
 		if (debug != null)
@@ -325,6 +327,21 @@ public class EnemyAnimator : CharacterAnimator
 		Destroy(Controller);
 		Destroy(MecanimAnimator);
 		Destroy(GetComponent<Seeker>());
+
+	}
+
+	protected void Dying(float elapsedTime)
+	{
+		HorizontalSpeed = 0;
+		VerticalSpeed = 0;
+		MecanimAnimator.SetBool (_dieHash, false);
+	}
+
+	public override void OnDeath()
+	{
+		EnemyAudioSource.PlayDeath();
+		MecanimAnimator.SetBool (_dieHash, true);
+		Invoke ("DoRagDoll", 3.0f);
 	}
 	
 	// Helper Method to activate the ragdoll of the Enemy

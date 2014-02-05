@@ -5,7 +5,9 @@ public class Swipe : MonoBehaviour
 {
 	private Vector2 _startPos;
 	private int _swipeID = -1;
-	private float _minMovement = 20.0f;
+
+	// TODO: base it on the size of the screen
+	private float _minMovement = 8.0f;
 
 	public int MovementUIType = 0;
 	public float DistanceForMaxSpeed = Screen.width/8;
@@ -13,6 +15,10 @@ public class Swipe : MonoBehaviour
 	private WeaponsGui _weaponsGUI;
 	private PlayerCharacterInput _input;
 
+	void OnGUI() {
+		GUI.Box(new Rect(10, 10, 300, 20), "GUI Mode: " + MovementUIType);
+
+	}
 
 	void Start ()
 	{
@@ -214,7 +220,6 @@ public class Swipe : MonoBehaviour
 				_input.Vertical = delta.y;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 				{
-					
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
@@ -228,7 +233,7 @@ public class Swipe : MonoBehaviour
 				} else {					
 					if (delta.y > .5) {
 						//Instantiate(BOX, Up, Quaternion.identity);
-						_input.Jump = new Vector2(0,1);
+						_input.Jump = new Vector2( (delta.x / DistanceForMaxSpeed) ,1);
 					} else {
 						_input.Attack = 1;
 						//Instantiate(BOX, Down, Quaternion.identity);

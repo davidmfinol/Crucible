@@ -294,10 +294,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Jumping(float elapsedTime)
 	{
-		ApplyRunning(elapsedTime);
+		//ApplyRunning(elapsedTime);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
+			if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
+				HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
+			else if(CharInput.JumpRight || CharInput.JumpRightReleased)
+				HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
+
         	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 			MecanimAnimator.SetBool(_jumpHash, false);
 		}
