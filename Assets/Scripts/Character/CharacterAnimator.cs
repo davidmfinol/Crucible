@@ -383,7 +383,7 @@ public class CharacterAnimator : MonoBehaviour
 	}
     public float Height
     {
-        get { return transform.localScale.y * Controller.height; }
+        get { return Controller != null ? transform.localScale.y * Controller.height : 0; }
     }
 	public Animator MecanimAnimator
 	{
