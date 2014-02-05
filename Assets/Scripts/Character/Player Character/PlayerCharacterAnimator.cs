@@ -41,6 +41,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// TODO: remove this (use variation of Justin's script?)
 	public static int countItems = 0;
 
+	// auto-climb code for ladders and pipes
+	private enum AutoClimbDirection : int
+	{
+		AutoClimb_None = 0,
+		AutoClimb_Up,
+		AutoClimb_Down
+
+	};
+
+	private AutoClimbDirection _autoClimbDir;
+
     public void Spawn() 
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
@@ -105,6 +116,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
+
+		// if not in a climb, reset our auto-climb direction for use next climb.
+		if(! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName ("Climbing.ClimbingStrafe"))) {
+			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+
+		}
+
 	}
 
 	protected void UpdateAttackAnimations()
@@ -467,6 +485,27 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			}
 		}
 	}
+
+	protected float UpdateAutoClimbDirection() {
+		// start or stop auto-climbing
+		if (CharInput.Up)
+			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
+		else if (CharInput.Down)
+			_autoClimbDir = AutoClimbDirection.AutoClimb_Down;
+		else if (CharInput.InteractionPressed)
+			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+		
+		// always give a speed based on the auto-climb direction
+		float vertical;
+		if(_autoClimbDir == AutoClimbDirection.AutoClimb_Up)
+			vertical = 1.0f;
+		else if(_autoClimbDir == AutoClimbDirection.AutoClimb_Down)
+			vertical = -1.0f;
+		else
+			vertical = 0.0f;
+
+		return vertical;
+	}
 	
 	protected void ClimbingVertical(float elapsedTime)
 	{
@@ -476,13 +515,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 			return;
 		}
-		
+
+		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
+
+		float vertical = UpdateAutoClimbDirection ();
+
 		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
-			ApplyClimbingStrafing();
+			ApplyClimbingStrafing( CharInput.Horizontal );
 		else
 			HorizontalSpeed = 0;
-		
-		ApplyClimbingVertical();
+
+		ApplyClimbingVertical(vertical);
 
 		if(ActiveHangTarget.DoesFaceZAxis())
 			Direction = Vector3.zero;
@@ -490,7 +533,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
 		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
-		MecanimAnimator.SetBool (_fallHash, CharInput.InteractionPressed);
 		MecanimAnimator.SetBool (_climbStrafeHash, CanClimbLadder && (CharInput.Left || CharInput.Right));
 	}
 	
@@ -503,20 +545,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			return;
 		}
 
-		ApplyClimbingStrafing();
+		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
+
+		// always give a speed based on the auto-climb direction
+		float vertical = UpdateAutoClimbDirection ();
+	
+		ApplyClimbingStrafing(CharInput.Horizontal);
 		
 		if(HorizontalSpeed != 0)
-			ApplyClimbingVertical();
+			ApplyClimbingVertical(vertical);
 		else
 			VerticalSpeed = 0.0f;
-		
+
 		if(ActiveHangTarget.DoesFaceZAxis())
 			Direction = Vector3.zero;
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
 		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpActive);
-		MecanimAnimator.SetBool (_fallHash, CharInput.InteractionPressed);
 		MecanimAnimator.SetBool (_climbLadderHash, CanClimbLadder && (CharInput.UpPressed || CharInput.DownPressed));
 	}
 	

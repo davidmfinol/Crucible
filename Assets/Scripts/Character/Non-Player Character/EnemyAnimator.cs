@@ -254,10 +254,10 @@ public class EnemyAnimator : CharacterAnimator
 	
 	protected void ClimbingVertical(float elapsedTime)
 	{
-		ApplyClimbingVertical();
+		ApplyClimbingVertical(CharInput.Vertical);
 		
 		if(VerticalSpeed != 0)
-			ApplyClimbingStrafing();
+			ApplyClimbingStrafing(CharInput.Horizontal);
 		else
 			HorizontalSpeed = 0;
 		
@@ -279,10 +279,10 @@ public class EnemyAnimator : CharacterAnimator
 	
 	protected void ClimbingStrafe(float elapsedTime)
 	{
-		ApplyClimbingStrafing();
+		ApplyClimbingStrafing(CharInput.Horizontal);
 		
 		if(HorizontalSpeed != 0)
-			ApplyClimbingVertical();
+			ApplyClimbingVertical(CharInput.Vertical);
 		else
 			VerticalSpeed = 0.0f;
 		

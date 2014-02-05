@@ -296,7 +296,7 @@ public class CharacterAnimator : MonoBehaviour
         else if (CharInput.Up)
             Direction = Vector3.zero;
 	}
-	protected virtual void ApplyClimbingVertical()
+	protected virtual void ApplyClimbingVertical(float vertical)
 	{
         // Determine the vertical bounds of the object(s) we are climbing
 		//bool insideDown = false;
@@ -309,15 +309,14 @@ public class CharacterAnimator : MonoBehaviour
 	              obj.transform.position.y + obj.collider.bounds.extents.y;
 		}
 
-        // Determine vertical movement
-        if (CharInput.Up && !CharInput.Down && (!(ActiveHangTarget is Pipe) || insideUp))
+		if(vertical > 0.0f) 
             VerticalSpeed = Settings.LadderClimbingSpeed;
-        else if (CharInput.Down && !CharInput.Up)
+        else if(vertical < 0.0f)
             VerticalSpeed = -Settings.LadderClimbingSpeed;
         else
             VerticalSpeed = 0.0f;
 	}
-	protected virtual void ApplyClimbingStrafing()
+	protected virtual void ApplyClimbingStrafing(float horizontal)
 	{
         // Determine the horizontal bounds of the object(s) we are climbing
 		bool insideLeft = false;
@@ -331,9 +330,9 @@ public class CharacterAnimator : MonoBehaviour
 		}
 
         // Determine horizontal movement
-        if (CharInput.Left && !CharInput.Right && ActiveHangTarget != null && insideLeft)
+        if(horizontal < 0.0f)
             HorizontalSpeed = -Settings.LadderStrafingSpeed;
-        else if (CharInput.Right && !CharInput.Left && ActiveHangTarget != null && insideRight)
+        else if (horizontal > 0.0f)
             HorizontalSpeed = Settings.LadderStrafingSpeed;
         else
             HorizontalSpeed = 0.0f;
