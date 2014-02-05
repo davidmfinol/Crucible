@@ -212,7 +212,6 @@ public class Swipe : MonoBehaviour
 			{
 				_swipeID = -1;
 				_input.Vertical = delta.y;
-				_input.Interaction = delta.magnitude < 0.1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 				{
 					
@@ -236,6 +235,11 @@ public class Swipe : MonoBehaviour
 						Debug.Log ("Swipe Down Found");
 					}
 				}
+
+			// hold to interact
+			} else if(touch.phase == TouchPhase.Stationary) {
+				_input.Interaction = true;
+
 			} else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
 				_swipeID = -1;
 		}
