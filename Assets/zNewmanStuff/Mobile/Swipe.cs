@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Swipe : MonoBehaviour
 {
-/*
 	private Vector2 _startPos;
 	private int _swipeID = -1;
 	private float _minMovement = 20.0f;
 
+	public float DistanceForMaxSpeed = Screen.width/8;
 	public Transform DebugBox;
 	private WeaponsGui _weaponsGUI;
 	private PlayerCharacterInput _input;
@@ -22,9 +22,8 @@ public class Swipe : MonoBehaviour
 	void Update ()
 	{	
 #if !UNITY_EDITOR && !UNITY_STANDALONE
-		input.Jump = false;
-		input.Attack1 = false;
-		input.Attack2 = false;
+		_input.Jump = new Vector2(0,0);
+		_input.Attack = 0;
 		bool moveTouched = false;
 		foreach (var T in Input.touches) 
 		{
@@ -43,7 +42,7 @@ public class Swipe : MonoBehaviour
 				InterpretInteractSwipe(T);		
 		}
 		if(!moveTouched)
-			input.HorizontalInput = 0;
+			_input.Horizontal = 0;
 #endif		
 	}
 	
@@ -100,7 +99,9 @@ public class Swipe : MonoBehaviour
 	{		
 		// first movement slider: input.HorizontalInput = (touch.position.x - Screen.width/4)/(Screen.width/4);
 		Vector2 position = touch.position;
-		if (touch.phase == TouchPhase.Began && _swipeID == -1)
+		if (touch.phase == TouchPhase.Stationary)
+			return;
+		else if (touch.phase == TouchPhase.Began && _swipeID == -1)
 		{
 			_swipeID = touch.fingerId;
 			_startPos = position;
@@ -111,21 +112,21 @@ public class Swipe : MonoBehaviour
 			Vector2 delta = position - _startPos;
 			if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
 			{
-				_swipeID = -1;
+				//_swipeID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 				{
 					
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
-						_input.Horizontal = 1-1/delta.x;
+						_input.Horizontal = delta.x/DistanceForMaxSpeed;
 						Debug.Log ("Swipe Right Found");
 					} else {
-						_input.Horizontal = -1+1/delta.x;
+						_input.Horizontal = delta.x/DistanceForMaxSpeed;
 						Debug.Log ("Swipe Left Found");
 						//Instantiate(BOX, Left, Quaternion.identity);			
 					}
-				} else {					
+				/*} else {					
 					if (delta.y > .5) {
 						//Instantiate(BOX, Up, Quaternion.identity);
 						_input.Jump = true;
@@ -133,7 +134,7 @@ public class Swipe : MonoBehaviour
 						_input.Attack2 = true;
 						//Instantiate(BOX, Down, Quaternion.identity);
 						Debug.Log ("Swipe Down Found");
-					}
+					}*/
 				}
 			} else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
 				_swipeID = -1;
@@ -154,26 +155,26 @@ public class Swipe : MonoBehaviour
 			Vector2 delta = position - _startPos;
 			if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
 			{
-				_swipeID = -1;
+				//_swipeID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 				{
 					
 					if (delta.x > 0) 
 					{
 						//Instantiate(BOX, Right, Quaternion.identity);	
-						_input.Attack1 = true;
+						_input.Attack = -1;
 						Debug.Log ("Swipe Right Found");
 					} else {
- 						_input.Attack1 = true;
+ 						_input.Attack = 1;
 						Debug.Log ("Swipe Left Found");
 						//Instantiate(BOX, Left, Quaternion.identity);			
 					}
 				} else {					
 					if (delta.y > .5) {
 						//Instantiate(BOX, Up, Quaternion.identity);
-						_input.Jump = true;
+						_input.Jump = new Vector2(0,1);
 					} else {
-						_input.Attack2 = true;
+						_input.Attack = 1;
 						//Instantiate(BOX, Down, Quaternion.identity);
 						Debug.Log ("Swipe Down Found");
 					}
@@ -182,5 +183,4 @@ public class Swipe : MonoBehaviour
 				_swipeID = -1;
 		}
 	}
-*/
 }
