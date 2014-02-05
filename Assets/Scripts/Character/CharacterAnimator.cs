@@ -508,8 +508,8 @@ public class CharacterAnimator : MonoBehaviour
 				&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
     }
     public bool CanClimbLadder
-    {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Ladder && ActiveHangTarget.transform.position.z == DesiredZ; }
+	{
+		get { return ActiveHangTarget != null && ActiveHangTarget is Ladder; } //&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
     }
     public bool CanClimbPipe
     {
