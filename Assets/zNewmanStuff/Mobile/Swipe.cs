@@ -211,6 +211,8 @@ public class Swipe : MonoBehaviour
 			if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
 			{
 				_swipeID = -1;
+				_input.Vertical = delta.y;
+				_input.Interaction = delta.magnitude < 0.1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 				{
 					
