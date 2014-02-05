@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -209,7 +209,7 @@ public class EnemyAnimator : CharacterAnimator
 			DropHangTarget();
 			MecanimAnimator.SetBool(_fallHash, true);
 		}
-		else if (ActiveHangTarget is Ledge && (CharInput.Up || InputForward))	
+		else if (ActiveHangTarget is Ledge && (CharInput.Up || InputMoveForward))	
 		{
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}

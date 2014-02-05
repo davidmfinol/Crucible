@@ -147,12 +147,16 @@ public class EnemyInput : CharacterInput
 		// Pressing left or right based on horizontal position
 		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _enemy.transform.position.x ? 1 : -1; // because stopping is for the weak
 	}
-
+	
 	private void UpdateAwareness()
 	{
 		if (_settings.CanSee && IsSeeingPlayer()) {
 			_awareness = AwarenessType.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
+
+			// sight is our main goal.  ignore any sounds during the chase.
+			_personalHearingRadius.ForgetAllSounds();
+
 
 		} else if (_settings.CanHear && HasHeardSound () ) {
 			_awareness = AwarenessType.Searching;
@@ -306,15 +310,17 @@ public class EnemyInput : CharacterInput
 		if (playerGO == null || player == null)
 			return false;
 
-		bool openSightLine = false;
+
+		Vector3 eyePos = transform.position;
+		eyePos.y += 1.0f;
+
 		Vector3 playerPos = player.transform.position;
 		float playerHalfHeight = player.Height/2;
 
-		Vector3 dirToPlayer = playerPos - transform.position;
-
-		float visionRange = _settings.AwarenessRange;
+		Vector3 dirToPlayer = playerPos - eyePos;
 
 		// player in shadow range? must be a lot closer to see him
+		float visionRange = _settings.AwarenessRange;
 		if (_playerStealth.CurrentlyHidden)
 			visionRange *= 0.3f;
 
@@ -327,24 +333,28 @@ public class EnemyInput : CharacterInput
 			return false;
 		}
 
+		bool canSeePlayer = false;
+
+		//for (float y = playerPos.y; y == playerPos.y; y-= playerHalfHeight) {
 		for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight) {
 			Vector3 endPoint = playerPos;
 			endPoint.y = y;
-			Vector3 raycastDirection = endPoint - transform.position;
+
+			Vector3 raycastDirection = endPoint - eyePos;
 
 			// if our facing vector DOT the ray to the player is within a certain dot product range, then it's in view
 			// (prevents seeing player almost directly above us.
-			float fViewConeCutoff = 0.9f;
 			Vector3 normFacing = _enemy.Direction.normalized;
 			Vector3 normToPlayer = raycastDirection.normalized;
 			float fDot = Vector3.Dot (normFacing, normToPlayer);
 
 			// only bother to cast rays that could be considered in our view cone.
+			float fViewConeCutoff = 0.65f;
 			if(fDot >= fViewConeCutoff) {
-				if (!Physics.Raycast (transform.position, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
-						openSightLine = true;
-				     	Debug.DrawLine(transform.position, endPoint, Color.red, 1, false);
-						break;
+				if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
+				    Debug.DrawLine(eyePos, endPoint, Color.red, 0.5f, false);
+					canSeePlayer = true;
+					break;
 
 				}
 			
@@ -352,7 +362,7 @@ public class EnemyInput : CharacterInput
 
 		}
 
-		return openSightLine;
+		return canSeePlayer;
 
 	}
 

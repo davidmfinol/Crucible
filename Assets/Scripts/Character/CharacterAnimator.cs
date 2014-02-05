@@ -377,6 +377,7 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		get { return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0); }
 	}
+	// TODO: PREVIOUSSTATE
 	public CharacterController Controller
 	{
 		get { return _characterController; }
@@ -397,14 +398,15 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		get { return _characterInput; }
 	}
-	public bool InputForward
+	public bool InputMoveForward
 	{
 		get { return (Direction.x > 0 && CharInput.Right) || (Direction.x < 0 && CharInput.Left); }
 	}
-	public bool InputBackward
+	public bool InputMoveBackward
 	{
 		get { return (Direction.x > 0 && CharInput.Left) || (Direction.x < 0 && CharInput.Right); }
 	}
+	//  TODO:inputattackforward & inputattackbackward
 	public HeartBox Heart
 	{
 		get { return _heartBox; }
