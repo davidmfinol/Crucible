@@ -36,7 +36,6 @@ public class EnemyAnimator : CharacterAnimator
     // Bones for our left and right hands
     private Transform _bone_L;
     private Transform _bone_R;
-
 	
 	protected override void Initialize ()
 	{
@@ -53,6 +52,7 @@ public class EnemyAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
 		StateMachine[Animator.StringToHash("Base Layer.Stun")] = Stun;
+		StateMachine[Animator.StringToHash("Base Layer.Death")] = Death;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
@@ -61,7 +61,6 @@ public class EnemyAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
-		StateMachine[Animator.StringToHash("Base Layer.Death")] = Dying;
 		
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
@@ -330,7 +329,7 @@ public class EnemyAnimator : CharacterAnimator
 
 	}
 
-	protected void Dying(float elapsedTime)
+	protected void Death(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
 		VerticalSpeed = 0;
@@ -339,7 +338,8 @@ public class EnemyAnimator : CharacterAnimator
 
 	public override void OnDeath()
 	{
-		EnemyAudioSource.PlayDeath();
+		Debug.Log ("Called");
+		//EnemyAudioSource.PlayDeath();
 		MecanimAnimator.SetBool (_dieHash, true);
 		Invoke ("DoRagDoll", 3.0f);
 	}

@@ -30,7 +30,6 @@ public class EnemyHeartBox : HeartBox
 
 			if(hitbox.Stealth && CanStealthDie && transform.parent.GetComponent<EnemyInput>().Awareness == EnemyInput.AwarenessType.Unaware)//FIXME: THIS IS SLOW
 				HitPoints = 0;
-
 			else if(hitbox.Stun)
 			{
 				transform.parent.GetComponent<EnemyAnimator>().MecanimAnimator.SetBool("Stun", true);//FIXME: THIS IS SLOW

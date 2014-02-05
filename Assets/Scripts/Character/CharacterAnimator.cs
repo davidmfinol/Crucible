@@ -50,6 +50,8 @@ public class CharacterAnimator : MonoBehaviour
     private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 	
+	// Is the character dead?	
+	private bool _dead;
 	
 	void Start()
 	{
@@ -83,8 +85,11 @@ public class CharacterAnimator : MonoBehaviour
 	void Update()
 	{
 		// Check health every frame to make sure we aren't dead
-        if (_heartBox != null && _heartBox.HitPoints <= 0)
-            OnDeath();
+        if (_heartBox != null && _heartBox.HitPoints <= 0 && !_dead)
+		{
+			_dead = true;
+			OnDeath ();
+		}
 
 		// Handle all the z-zone stuff in one location
 		UpdateZones();
@@ -568,4 +573,11 @@ public class CharacterAnimator : MonoBehaviour
         get { return _canTransitionZ; }
         set { _canTransitionZ = value; }
     }
+
+	public bool Dead
+	{
+		get { return _dead; }
+		set { _dead = value; }
+	}
+
 }
