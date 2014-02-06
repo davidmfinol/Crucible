@@ -62,7 +62,7 @@ public class DynamicMusicPlayer : AudioPlayer
 	public void PlayDanger(int dangerLevel)
     {
 		// Do nothing if the danger level hasn't changed
-		Debug.Log (dangerLevel + " " + _audioFadingIn + _audioFadingOut);
+//		Debug.Log (dangerLevel + " " + _audioFadingIn + _audioFadingOut);
 		if(dangerLevel == _prevDangerLevel)
 			return;
 		
@@ -110,7 +110,7 @@ public class DynamicMusicPlayer : AudioPlayer
 			_audioFadingOut = false;
 			audio.Stop();
 			audio.volume = 1;
-			Debug.Log ("Done Fading Out");
+	//		Debug.Log ("Done Fading Out");
 		}
 		else
 			audio.volume -= .001f;
@@ -122,7 +122,7 @@ public class DynamicMusicPlayer : AudioPlayer
 			_audioFadingIn = false;
 			audio.Stop();
 			audio.volume = 1;
-			Debug.Log ("Done Fading In");
+	//		Debug.Log ("Done Fading In");
 		}
 		else
 			audio.volume += .001f;
