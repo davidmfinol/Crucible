@@ -7,17 +7,24 @@ public class Swipe : MonoBehaviour
 	private int _swipeID = -1;
 
 	// TODO: base it on the size of the screen
-	private float _minMovement = 8.0f;
+	public float MinMovement = 8.0f;
+	public float MinInteraction = 8.0f;
+	public float MinGUISwipe = 8.0f;
+
+	private float _lastSwipeDeg = 0.0f;
 
 	public int MovementUIType = 0;
-	public float DistanceForMaxSpeed = Screen.width/8;
-	public Transform DebugBox;
+	public float DistanceForMaxSpeed = Screen.width / 16.0f;
 	private WeaponsGui _weaponsGUI;
 	private PlayerCharacterInput _input;
 
 	void OnGUI() {
-		GUI.Box(new Rect(10, 10, 300, 20), "GUI Mode: " + MovementUIType);
+		GUI.Box(new Rect(300, 10, 300, 20), "GUI Mode: " + MovementUIType);
+		GUI.Box(new Rect(300, 35, 300, 20), "Last Swipe: " + _lastSwipeDeg);
 
+		GUI.Box(new Rect(300, 60, 300, 20), "H: " + _input.Horizontal + "  V: " + _input.Vertical);
+		GUI.Box (new Rect (300, 85, 300, 20), "Att: " + _input.Attack + "  Jump: " + _input.Jump);
+		GUI.Box (new Rect (300, 110, 300, 20), "Int: " + _input.Interaction + "  Pickup: " + _input.Pickup);
 	}
 
 	void Start ()
@@ -65,7 +72,7 @@ public class Swipe : MonoBehaviour
 		else if (touch.fingerId == _swipeID)
 		{
 			Vector2 delta = position - _startPos;
-			if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
+			if (touch.phase == TouchPhase.Moved && delta.magnitude > MinGUISwipe) 
 			{
 				//_swipeID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
@@ -106,102 +113,52 @@ public class Swipe : MonoBehaviour
 				_swipeID = -1;
 		}
 	}
+
+	private void MovementType0(Touch touch, Vector2 moveStart)
+	{
+		_input.Horizontal = (touch.position.x - Screen.width/4)/(Screen.width/4);
+
+	}
+
+	private void MovementType1(Touch touch, Vector2 moveStart)
+	{
+		Vector2 position = touch.position;
+		if (touch.phase == TouchPhase.Stationary)
+			return;
+		else if (touch.phase == TouchPhase.Began && _swipeID == -1)
+		{
+			_swipeID = touch.fingerId;
+			_startPos = position;
+		} 
+		
+		else if (touch.fingerId == _swipeID)
+		{
+			Vector2 delta = position - _startPos;
+			if (touch.phase == TouchPhase.Moved && (delta.magnitude > MinMovement) )
+			{
+				_swipeID = -1;
+				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
+				{
+					_input.Horizontal = delta.x/DistanceForMaxSpeed;
+				}
+			} 
+			else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+				_swipeID = -1;
+		}
+		
+	}
 	
 	private void InterpretMovementSwipe(Touch touch, Vector2 moveStart)
 	{		
 		// first movement slider: 
 		if (MovementUIType == 0)
-			_input.Horizontal = (touch.position.x - Screen.width/4)/(Screen.width/4);
+			MovementType0 (touch, moveStart);
 		else if (MovementUIType == 1)
-		{
-			Vector2 position = touch.position;
-			if (touch.phase == TouchPhase.Stationary)
-				return;
-			else if (touch.phase == TouchPhase.Began && _swipeID == -1)
-			{
-				_swipeID = touch.fingerId;
-				_startPos = position;
-			} 
-		
-			else if (touch.fingerId == _swipeID)
-			{
-				Vector2 delta = position - _startPos;
-				if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
-				{
-					_swipeID = -1;
-					if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
-					{
-						
-						if (delta.x > 0) 
-						{
-							//Instantiate(BOX, Right, Quaternion.identity);	
-							_input.Horizontal = delta.x/DistanceForMaxSpeed;
-							Debug.Log ("Swipe Right Found");
-						} else {
-							_input.Horizontal = delta.x/DistanceForMaxSpeed;
-							Debug.Log ("Swipe Left Found");
-							//Instantiate(BOX, Left, Quaternion.identity);			
-						}
-					/*} else {					
-					if (delta.y > .5) {
-						//Instantiate(BOX, Up, Quaternion.identity);
-						_input.Jump = true;
-					} else {
-						_input.Attack2 = true;
-						//Instantiate(BOX, Down, Quaternion.identity);
-						Debug.Log ("Swipe Down Found");
-					}*/
-					}
-				} else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
-					_swipeID = -1;
-			}
-		}
-		else if (MovementUIType == 2 && touch.position.x < Screen.width/3 && touch.position.x > Screen.width/6)
-		{
-			Vector2 position = touch.position;
-			if (touch.phase == TouchPhase.Stationary)
-				return;
-			else if (touch.phase == TouchPhase.Began && _swipeID == -1)
-			{
-				_swipeID = touch.fingerId;
-				_startPos = position;
-			} 
-			
-			else if (touch.fingerId == _swipeID)
-			{
-				Vector2 delta = position - _startPos;
-				if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
-				{
-					_swipeID = -1;
-					if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
-					{
-						
-						if (delta.x > 0) 
-						{
-							//Instantiate(BOX, Right, Quaternion.identity);	
-							_input.Horizontal = delta.x/DistanceForMaxSpeed;
-							Debug.Log ("Swipe Right Found");
-						} else {
-							_input.Horizontal = delta.x/DistanceForMaxSpeed;
-							Debug.Log ("Swipe Left Found");
-							//Instantiate(BOX, Left, Quaternion.identity);			
-						}
-						/*} else {					
-					if (delta.y > .5) {
-						//Instantiate(BOX, Up, Quaternion.identity);
-						_input.Jump = true;
-					} else {
-						_input.Attack2 = true;
-						//Instantiate(BOX, Down, Quaternion.identity);
-						Debug.Log ("Swipe Down Found");
-					}*/
-					}
-				} else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
-					_swipeID = -1;
-			}
-		}
+			MovementType1 (touch, moveStart);
+		else if (MovementUIType == 2 && (touch.position.x < Screen.width / 3) && (touch.position.x > Screen.width / 6) )
+			MovementType1 (touch, moveStart);
 	}
-		
+	
 	private void InterpretInteractSwipe(Touch touch)
 	{
 		Vector2 position = touch.position;
@@ -214,38 +171,44 @@ public class Swipe : MonoBehaviour
 		else if (touch.fingerId == _swipeID)
 		{
 			Vector2 delta = position - _startPos;
-			if (touch.phase == TouchPhase.Moved && delta.magnitude > _minMovement) 
+			if (touch.phase == TouchPhase.Moved && delta.magnitude > MinInteraction) 
 			{
 				_swipeID = -1;
 				_input.Vertical = delta.y;
-				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
-				{
-					if (delta.x > 0) 
-					{
-						//Instantiate(BOX, Right, Quaternion.identity);	
-						_input.Attack = -1;
-						Debug.Log ("Swipe Right Found");
-					} else {
- 						_input.Attack = 1;
-						Debug.Log ("Swipe Left Found");
-						//Instantiate(BOX, Left, Quaternion.identity);			
-					}
-				} else {					
-					if (delta.y > .5) {
-						//Instantiate(BOX, Up, Quaternion.identity);
-						_input.Jump = new Vector2( (delta.x / DistanceForMaxSpeed) ,1);
-					} else {
-						_input.Attack = 1;
-						//Instantiate(BOX, Down, Quaternion.identity);
-						Debug.Log ("Swipe Down Found");
-					}
-				}
+
+				float rad = Mathf.Atan2(delta.y, delta.x);
+
+				float deg = rad * 180.0f / Mathf.PI;
+
+				_lastSwipeDeg = deg;
+			
+				// jump right
+				if(deg > 30.0f && deg <= 70.0f)
+					_input.Jump = new Vector2( (delta.x / DistanceForMaxSpeed) ,1);
+
+				else if(deg > 70.0f && deg <= 110.0f)
+					_input.Jump = new Vector2( 0, 1);
+				
+				else if(deg > 110.0f && deg <= 150.0f)
+					_input.Jump = new Vector2( (delta.x / DistanceForMaxSpeed) ,1);
+
+				else if(deg > 150.0f && deg <= 210.0f)
+					_input.Attack = -1;
+				
+				else if(deg > 210.0f && deg <= 330.0f)
+					_input.Pickup = true;
+
+				else if(deg > 330.0f || deg < 30.0f) 
+					_input.Attack = 1;
 
 			// hold to interact
-			} else if(touch.phase == TouchPhase.Stationary) {
+			} 
+			else if(touch.phase == TouchPhase.Stationary)
+			{
 				_input.Interaction = true;
 
-			} else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+			} 
+			else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
 				_swipeID = -1;
 		}
 	}

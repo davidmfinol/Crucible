@@ -20,7 +20,7 @@ public class CharacterInput : MonoBehaviour
 	private bool _jumpRightLast = false;
 	private bool _attackLeftLast = false;
 	private bool _attackRightLast = false;
-	
+	private bool _pickupLast = false;
 	
 	void Update()
 	{
@@ -34,6 +34,7 @@ public class CharacterInput : MonoBehaviour
 		_jumpRightLast = JumpRight;
 		_attackLeftLast = AttackLeft;
 		_attackRightLast = AttackRight;
+		_pickupLast = Pickup;
 		
 		UpdateInput();
 	}
@@ -69,6 +70,13 @@ public class CharacterInput : MonoBehaviour
 		get { return 0; }
 		set {}
 	}
+
+	public virtual bool Pickup
+	{
+		get { return false; }
+		set {}
+	}
+
 
 	public bool Left
 	{

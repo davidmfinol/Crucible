@@ -11,8 +11,10 @@ public class PlayerCharacterInput : CharacterInput
 	private float _horizontal;
 	private float _vertical;
 	private bool _interaction;
+	private bool _pickup;
 	private Vector2 _jump;
 	private float _attack;
+
 
 	// Analog modifier for keyboard
 	private bool _shift;
@@ -27,6 +29,7 @@ public class PlayerCharacterInput : CharacterInput
 		_jump = new Vector2(Input.GetAxis("JumpX"), Input.GetAxis("JumpY"));
 		_attack = Input.GetAxis("Attack");
 		_shift = Input.GetButton("Shift");
+		_pickup = Input.GetButton ("Pickup");
 #endif
 	}	
 
@@ -34,7 +37,7 @@ public class PlayerCharacterInput : CharacterInput
 	public override float Horizontal
 	{
 		get { return _shift ? _horizontal * 0.3f : _horizontal; }
-		set { _horizontal = Mathf.Min (value, 1); }
+		set { _horizontal = Mathf.Max (Mathf.Min (value, 1), -1); }
 	}
 	public override float Vertical
 	{
@@ -45,6 +48,11 @@ public class PlayerCharacterInput : CharacterInput
 	{
 		get { return _interaction; }
 		set { _interaction = value; } 
+	}
+	public override bool Pickup
+	{
+		get { return _pickup; }
+		set { _pickup = value; } 
 	}
 	public override Vector2 Jump
 	{
