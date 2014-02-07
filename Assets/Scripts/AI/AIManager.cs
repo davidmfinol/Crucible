@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
@@ -29,7 +29,7 @@ public class AIManager : MonoBehaviour
 		{
 			int EnemiesAware = 0;
 			foreach(EnemyInput Enemy in _enemies)
-				if(Enemy.Awareness == EnemyInput.AwarenessType.Searching || Enemy.Awareness == EnemyInput.AwarenessType.Chasing)
+				if(Enemy.Awareness == EnemyInput.AwarenessLevel.Searching || Enemy.Awareness == EnemyInput.AwarenessLevel.Chasing)
 					EnemiesAware++;
 			return EnemiesAware;
 		}

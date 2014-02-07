@@ -15,6 +15,7 @@ public class EnemyInput : CharacterInput
 	private EnemySettings _settings;
 	private PlayerCharacterAnimator _player;
 	private PlayerCharacterStealth _playerStealth;
+	private EnemyAwareness _enemyAwareness;
 	
     // Enemy Brain outputs are inputted to the Enemy Animator
     private float _horizontal = 0;
@@ -35,7 +36,7 @@ public class EnemyInput : CharacterInput
 	private HearingRadius _personalHearingRadius;
 	private float _timeSincePlayerSeen;
 	
-	public enum AwarenessType : int
+	public enum AwarenessLevel : int
 	{
 		Unaware = 0,
 		Searching = 1,
@@ -43,7 +44,7 @@ public class EnemyInput : CharacterInput
 	}
 
     // How aware is the enemy of the player?
-	private AwarenessType _awareness = AwarenessType.Unaware;
+	private AwarenessLevel _awareness = AwarenessLevel.Unaware;
 
 
 	void Start()
@@ -53,6 +54,7 @@ public class EnemyInput : CharacterInput
         _settings = GetComponent<EnemySettings>();
         _seeker = GetComponent<Seeker>();
 		_playerStealth = GameManager.Player.GetComponent<PlayerCharacterStealth> ();
+		_enemyAwareness = GetComponent<EnemyAwareness> ();
 		GameManager.AI.Enemies.Add(this);
 		UpdateAStarTarget(Vector3.zero);
 	}
@@ -67,11 +69,11 @@ public class EnemyInput : CharacterInput
 
 		UpdateAwareness();
 
-		switch(_awareness)
+		switch(Awareness)
 		{
-		case AwarenessType.Unaware: Wander(); break;
-		case AwarenessType.Searching : Search(); break;
-		case AwarenessType.Chasing : Chase(); break;
+		case AwarenessLevel.Unaware: Wander(); break;
+		case AwarenessLevel.Searching : Search(); break;
+		case AwarenessLevel.Chasing : Chase(); break;
 		default : Wander(); break;
 		}
     }
@@ -151,7 +153,7 @@ public class EnemyInput : CharacterInput
 	private void UpdateAwareness()
 	{
 		if (_settings.CanSee && IsSeeingPlayer()) {
-			_awareness = AwarenessType.Chasing;
+			Awareness = AwarenessLevel.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
 
 			// sight is our main goal.  ignore any sounds during the chase.
@@ -159,10 +161,10 @@ public class EnemyInput : CharacterInput
 
 
 		} else if (_settings.CanHear && HasHeardSound () ) {
-			_awareness = AwarenessType.Searching;
+			Awareness = AwarenessLevel.Searching;
 
 		} else if (_timeSincePlayerSeen <= 0.0f) {
-			_awareness = AwarenessType.Unaware;
+			Awareness = AwarenessLevel.Unaware;
 
 		} else {
 			_timeSincePlayerSeen -= Time.deltaTime;
@@ -207,7 +209,7 @@ public class EnemyInput : CharacterInput
 			_target = target;
 			return true;
 		}
-		else if(_awareness == AwarenessType.Chasing && _player != null)
+		else if(Awareness == AwarenessLevel.Chasing && _player != null)
 		{
             _target = _player.transform.position;
 			return true;
@@ -372,10 +374,14 @@ public class EnemyInput : CharacterInput
 	}
 	
 	// Generic Properties
-	public AwarenessType Awareness
+	public AwarenessLevel Awareness
 	{
 		get { return _awareness; }
-		set { _awareness = value; }
+		set
+		{
+			_awareness = value;
+			_enemyAwareness.ChangeAwareness(_awareness);
+		}
 	}
 	public HearingRadius PersonalHearingRadius
 	{

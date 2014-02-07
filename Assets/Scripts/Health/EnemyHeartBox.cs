@@ -28,7 +28,7 @@ public class EnemyHeartBox : HeartBox
             hitbox.stampRecord.Imprint(createHeartBoxStamp());
             hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
 
-			if(hitbox.Stealth && CanStealthDie && transform.parent.GetComponent<EnemyInput>().Awareness == EnemyInput.AwarenessType.Unaware)//FIXME: THIS IS SLOW
+			if(hitbox.Stealth && CanStealthDie && transform.parent.GetComponent<EnemyInput>().Awareness == EnemyInput.AwarenessLevel.Unaware)//FIXME: THIS IS SLOW
 				HitPoints = 0;
 			else if(hitbox.Stun)
 			{
