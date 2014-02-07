@@ -8,7 +8,8 @@ using System.Collections;
 public class EnemySettings : CharacterSettings
 {
     // How far away can an opponent be and still be in range of a Enemy's attack?
-    public float AttackRange = 5.0f;
+    public float AttackRange = 3.0f;
+	public GameObject MeleeEvent;
 
     // How far away the Enemy can notice and become aware of the player
     public float AwarenessRange = 25.0f;

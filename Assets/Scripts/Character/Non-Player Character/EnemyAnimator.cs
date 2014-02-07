@@ -61,7 +61,8 @@ public class EnemyAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
-		
+		StateMachine[Animator.StringToHash("Melee Layer.AttackingFirst")] = StartMelee;
+
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
 		_horizontalSpeedHash = Animator.StringToHash("HorizontalSpeed");
@@ -90,22 +91,33 @@ public class EnemyAnimator : CharacterAnimator
 		bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && Mathf.Abs(CharInput.Attack) > 0.1;
 		MecanimAnimator.SetBool(_meleeAttackHash, shouldAttack);
 	}
-	void StartMelee()
+
+	protected void StartMelee(float elapsedTime)
 	{
+		// find where to place the attack event
+		Vector3 meleePos = transform.position;
+		meleePos.x += (2.0f * Direction.x);
+
+//		// attack in front of us
+		GameObject o = (GameObject) Instantiate (Settings.MeleeEvent, meleePos, Quaternion.identity);
+
+		AttackData d = o.GetComponent<AttackData> ();
+		d.MakeOlympusMelee(this.gameObject, Direction.x);
+
 		//FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
-		_bone_L.GetComponent<Collider>().enabled = true;
-		_bone_L.GetComponent<HitBox>().enabled = true;
-		_bone_R.GetComponent<Collider>().enabled = true;
-		_bone_R.GetComponent<HitBox>().enabled = true;
+//		_bone_L.GetComponent<Collider>().enabled = true;
+//		_bone_L.GetComponent<HitBox>().enabled = true;
+//		_bone_R.GetComponent<Collider>().enabled = true;
+//		_bone_R.GetComponent<HitBox>().enabled = true;
 		//TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
 	}
 	void EndMelee()
 	{
 		//FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
-		_bone_L.GetComponent<Collider>().enabled = false;
-		_bone_L.GetComponent<HitBox>().enabled = false;
-		_bone_R.GetComponent<Collider>().enabled = false;
-		_bone_R.GetComponent<HitBox>().enabled = false;
+		//_bone_L.GetComponent<Collider>().enabled = false;
+		//_bone_L.GetComponent<HitBox>().enabled = false;
+		//_bone_R.GetComponent<Collider>().enabled = false;
+		//_bone_R.GetComponent<HitBox>().enabled = false;
 		//TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
 	}
 	

@@ -41,6 +41,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// TODO: remove this (use variation of Justin's script?)
 	public static int countItems = 0;
 
+	private AttackData _attackedBy;
+
 	// auto-climb code for ladders and pipes
 	private enum AutoClimbDirection : int
 	{
@@ -119,6 +121,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// if not in a climb, reset our auto-climb direction for use next climb.
 		if(! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName ("Climbing.ClimbingStrafe"))) {
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+
+		}
+
+		// process attacks
+		if (_attackedBy) {
+			MecanimAnimator.SetBool (_jumpHash, true);
+			// fly in direction of hit
+			HorizontalSpeed = Settings.MaxHorizontalSpeed * (_attackedBy.HorizontalDir > 0 ? 1.0f : -1.0f);
+			Heart.HitPoints -= _attackedBy.DamageAmount;
+			Destroy (_attackedBy.gameObject);
+			_attackedBy = null;
 
 		}
 
@@ -584,8 +597,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			countItems += 1;
         }
     }
-    
-	
+
+	public void OnTriggerEnter(Collider other) {
+		AttackData ad = other.GetComponent<AttackData>();
+
+		if (ad) {
+			_attackedBy = ad;
+
+		}
+
+	}
+  
 	protected override void ApplyRunning (float elapsedTime)
 	{
 		base.ApplyRunning(elapsedTime);
