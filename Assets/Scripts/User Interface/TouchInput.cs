@@ -24,7 +24,7 @@ public class TouchInput : MonoBehaviour
     private float _lastSwipeDeg;
 
     // Other components
-	private WeaponsGui _weaponsGUI;
+	//private WeaponsGui _weaponsGUI;
 	private PlayerCharacterInput _input;
 
 	void Start ()
@@ -34,7 +34,7 @@ public class TouchInput : MonoBehaviour
 
         _lastSwipeDeg = 0.0f;
 
-		_weaponsGUI = GetComponentInChildren<WeaponsGui> ();
+		//_weaponsGUI = GetComponentInChildren<WeaponsGui> ();
 		_input = GameManager.Player.GetComponent<PlayerCharacterInput>();
 	}
 
@@ -209,7 +209,7 @@ public class TouchInput : MonoBehaviour
 				else if(deg > 210.0f && deg <= 330.0f)
 					_input.Pickup = true;
 
-				else if(deg > 330.0f || deg < 30.0f) 
+				else if(deg > 330.0f || deg <= 30.0f) 
 					_input.Attack = 1;
 
 			// hold to interact

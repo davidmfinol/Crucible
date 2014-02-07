@@ -575,7 +575,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         get { return _zones; }
     }
-    public bool CanTransitionZ
+    public virtual bool CanTransitionZ
     {
         get { return _canTransitionZ; }
         set { _canTransitionZ = value; }
