@@ -335,6 +335,56 @@ ModelImporter:
     100658: Ledge29
     100660: polySurface84
     100662: transform42
+    100664: HarshRedLight
+    100666: HarshRedLight1
+    100668: HarshRedLight2
+    100670: HarshRedLight3
+    100672: HarshRedLight6
+    100674: directionalLight1
+    100676: HarshRedLight10
+    100678: HarshRedLight11
+    100680: HarshRedLight7
+    100682: HarshRedLight9
+    100684: Hook
+    100686: Hook1
+    100688: Hook2
+    100690: Ledge11 1
+    100692: Ledge11 2
+    100694: pCube105
+    100696: pCube106
+    100698: pCube107
+    100700: pCube108
+    100702: pointLight1
+    100704: pointLight2
+    100706: pointLight3
+    100708: pointLight4
+    100710: pointLight5
+    100712: pointLight6
+    100714: pointLight7
+    100716: pointLight8
+    100718: pointLight9
+    100720: polySurface85
+    100722: polySurface85 1
+    100724: polySurface85 2
+    100726: polySurface86
+    100728: polySurface86 1
+    100730: polySurface86 2
+    100732: transform43
+    100734: Ground
+    100736: Hooks
+    100738: Ledge30
+    100740: Ledge31
+    100742: Ledge32
+    100744: Ledge33
+    100746: Ledge34
+    100748: Ledge35
+    100750: polySurface88
+    100752: polySurface89
+    100754: polySurface90
+    100756: polySurface91
+    100758: polySurface92
+    100760: TopLeftLattice
+    100762: transform44
     400000: //RootNode
     400002: group1
     400004: group2
@@ -667,6 +717,56 @@ ModelImporter:
     400658: Ledge29
     400660: polySurface84
     400662: transform42
+    400664: HarshRedLight
+    400666: HarshRedLight1
+    400668: HarshRedLight2
+    400670: HarshRedLight3
+    400672: HarshRedLight6
+    400674: directionalLight1
+    400676: HarshRedLight10
+    400678: HarshRedLight11
+    400680: HarshRedLight7
+    400682: HarshRedLight9
+    400684: Hook
+    400686: Hook1
+    400688: Hook2
+    400690: Ledge11 1
+    400692: Ledge11 2
+    400694: pCube105
+    400696: pCube106
+    400698: pCube107
+    400700: pCube108
+    400702: pointLight1
+    400704: pointLight2
+    400706: pointLight3
+    400708: pointLight4
+    400710: pointLight5
+    400712: pointLight6
+    400714: pointLight7
+    400716: pointLight8
+    400718: pointLight9
+    400720: polySurface85
+    400722: polySurface85 1
+    400724: polySurface85 2
+    400726: polySurface86
+    400728: polySurface86 1
+    400730: polySurface86 2
+    400732: transform43
+    400734: Ground
+    400736: Hooks
+    400738: Ledge30
+    400740: Ledge31
+    400742: Ledge32
+    400744: Ledge33
+    400746: Ledge34
+    400748: Ledge35
+    400750: polySurface88
+    400752: polySurface89
+    400754: polySurface90
+    400756: polySurface91
+    400758: polySurface92
+    400760: TopLeftLattice
+    400762: transform44
     2300000: Ledge
     2300002: Ledge1
     2300004: Ledge10
@@ -927,6 +1027,39 @@ ModelImporter:
     2300514: polySurface82
     2300516: Ledge29
     2300518: polySurface84
+    2300520: HarshRedLight
+    2300522: HarshRedLight1
+    2300524: HarshRedLight2
+    2300526: HarshRedLight3
+    2300528: HarshRedLight6
+    2300530: HarshRedLight10
+    2300532: HarshRedLight11
+    2300534: HarshRedLight7
+    2300536: HarshRedLight9
+    2300538: Ledge11 1
+    2300540: Ledge11 2
+    2300542: pCube105
+    2300544: pCube106
+    2300546: pCube107
+    2300548: pCube108
+    2300550: polySurface85
+    2300552: polySurface85 1
+    2300554: polySurface85 2
+    2300556: polySurface86
+    2300558: polySurface86 1
+    2300560: polySurface86 2
+    2300562: Ground
+    2300564: Ledge30
+    2300566: Ledge31
+    2300568: Ledge32
+    2300570: Ledge33
+    2300572: Ledge34
+    2300574: Ledge35
+    2300576: polySurface88
+    2300578: polySurface89
+    2300580: polySurface90
+    2300582: polySurface91
+    2300584: polySurface92
     3300000: Ledge
     3300002: Ledge1
     3300004: Ledge10
@@ -1187,6 +1320,39 @@ ModelImporter:
     3300514: polySurface82
     3300516: Ledge29
     3300518: polySurface84
+    3300520: HarshRedLight
+    3300522: HarshRedLight1
+    3300524: HarshRedLight2
+    3300526: HarshRedLight3
+    3300528: HarshRedLight6
+    3300530: HarshRedLight10
+    3300532: HarshRedLight11
+    3300534: HarshRedLight7
+    3300536: HarshRedLight9
+    3300538: Ledge11 1
+    3300540: Ledge11 2
+    3300542: pCube105
+    3300544: pCube106
+    3300546: pCube107
+    3300548: pCube108
+    3300550: polySurface85
+    3300552: polySurface85 1
+    3300554: polySurface85 2
+    3300556: polySurface86
+    3300558: polySurface86 1
+    3300560: polySurface86 2
+    3300562: Ground
+    3300564: Ledge30
+    3300566: Ledge31
+    3300568: Ledge32
+    3300570: Ledge33
+    3300572: Ledge34
+    3300574: Ledge35
+    3300576: polySurface88
+    3300578: polySurface89
+    3300580: polySurface90
+    3300582: polySurface91
+    3300584: polySurface92
     4300000: pPlane1
     4300002: pCube4
     4300004: pCube5
@@ -1447,6 +1613,39 @@ ModelImporter:
     4300514: Ledge
     4300516: Ledge29
     4300518: polySurface84
+    4300520: HarshRedLight
+    4300522: HarshRedLight1
+    4300524: HarshRedLight2
+    4300526: HarshRedLight3
+    4300528: HarshRedLight6
+    4300530: HarshRedLight7
+    4300532: HarshRedLight9
+    4300534: HarshRedLight10
+    4300536: HarshRedLight11
+    4300538: pCube105
+    4300540: pCube106
+    4300542: pCube107
+    4300544: pCube108
+    4300546: polySurface85
+    4300548: polySurface86
+    4300550: polySurface85
+    4300552: polySurface86
+    4300554: Ledge11
+    4300556: polySurface85
+    4300558: polySurface86
+    4300560: Ledge11
+    4300562: Ledge32
+    4300564: Ledge33
+    4300566: Ledge31
+    4300568: Ground
+    4300570: polySurface88
+    4300572: Ledge30
+    4300574: Ledge34
+    4300576: Ledge35
+    4300578: polySurface89
+    4300580: polySurface90
+    4300582: polySurface91
+    4300584: polySurface92
     7400000: Take 001
     9500000: //RootNode
   materials:
