@@ -388,6 +388,34 @@ ModelImporter:
     100764: polySurface93
     100766: polySurface94
     100768: transform45
+    100770: AboveBottomLedge
+    100772: ActualTower
+    100774: ArchLedge
+    100776: BottomLedge
+    100778: DoorInBack
+    100780: HoldsUpBridge
+    100782: HoldsUpBridge1
+    100784: HoldsUpBridge2
+    100786: HoldsUpBridge3
+    100788: HoldsUpBridge4
+    100790: HookBootom
+    100792: HookBootom1
+    100794: HookBootom2
+    100796: HookLedge
+    100798: HookLedge1
+    100800: HookLedge2
+    100802: HookRope
+    100804: HookRope1
+    100806: HookRope2
+    100808: Ledge36
+    100810: Ledge37
+    100812: LowerLedge
+    100814: LowerMIddleLedge
+    100816: RooftopLedge
+    100818: SlantedLedge
+    100820: StreetLight
+    100822: TheGround
+    100824: To_Be_Textured
     400000: //RootNode
     400002: group1
     400004: group2
@@ -773,6 +801,34 @@ ModelImporter:
     400764: polySurface93
     400766: polySurface94
     400768: transform45
+    400770: AboveBottomLedge
+    400772: ActualTower
+    400774: ArchLedge
+    400776: BottomLedge
+    400778: DoorInBack
+    400780: HoldsUpBridge
+    400782: HoldsUpBridge1
+    400784: HoldsUpBridge2
+    400786: HoldsUpBridge3
+    400788: HoldsUpBridge4
+    400790: HookBootom
+    400792: HookBootom1
+    400794: HookBootom2
+    400796: HookLedge
+    400798: HookLedge1
+    400800: HookLedge2
+    400802: HookRope
+    400804: HookRope1
+    400806: HookRope2
+    400808: Ledge36
+    400810: Ledge37
+    400812: LowerLedge
+    400814: LowerMIddleLedge
+    400816: RooftopLedge
+    400818: SlantedLedge
+    400820: StreetLight
+    400822: TheGround
+    400824: To_Be_Textured
     2300000: Ledge
     2300002: Ledge1
     2300004: Ledge10
@@ -1068,6 +1124,32 @@ ModelImporter:
     2300584: polySurface92
     2300586: polySurface93
     2300588: polySurface94
+    2300590: AboveBottomLedge
+    2300592: ActualTower
+    2300594: ArchLedge
+    2300596: BottomLedge
+    2300598: DoorInBack
+    2300600: HoldsUpBridge
+    2300602: HoldsUpBridge1
+    2300604: HoldsUpBridge2
+    2300606: HoldsUpBridge3
+    2300608: HoldsUpBridge4
+    2300610: HookBootom
+    2300612: HookBootom1
+    2300614: HookBootom2
+    2300616: HookLedge
+    2300618: HookLedge1
+    2300620: HookLedge2
+    2300622: HookRope
+    2300624: HookRope1
+    2300626: HookRope2
+    2300628: Ledge36
+    2300630: Ledge37
+    2300632: LowerLedge
+    2300634: LowerMIddleLedge
+    2300636: RooftopLedge
+    2300638: SlantedLedge
+    2300640: TheGround
     3300000: Ledge
     3300002: Ledge1
     3300004: Ledge10
@@ -1363,6 +1445,32 @@ ModelImporter:
     3300584: polySurface92
     3300586: polySurface93
     3300588: polySurface94
+    3300590: AboveBottomLedge
+    3300592: ActualTower
+    3300594: ArchLedge
+    3300596: BottomLedge
+    3300598: DoorInBack
+    3300600: HoldsUpBridge
+    3300602: HoldsUpBridge1
+    3300604: HoldsUpBridge2
+    3300606: HoldsUpBridge3
+    3300608: HoldsUpBridge4
+    3300610: HookBootom
+    3300612: HookBootom1
+    3300614: HookBootom2
+    3300616: HookLedge
+    3300618: HookLedge1
+    3300620: HookLedge2
+    3300622: HookRope
+    3300624: HookRope1
+    3300626: HookRope2
+    3300628: Ledge36
+    3300630: Ledge37
+    3300632: LowerLedge
+    3300634: LowerMIddleLedge
+    3300636: RooftopLedge
+    3300638: SlantedLedge
+    3300640: TheGround
     4300000: pPlane1
     4300002: pCube4
     4300004: pCube5
@@ -1658,6 +1766,32 @@ ModelImporter:
     4300584: polySurface92
     4300586: polySurface93
     4300588: polySurface94
+    4300590: ActualTower
+    4300592: LowerLedge
+    4300594: LowerMIddleLedge
+    4300596: SlantedLedge
+    4300598: HoldsUpBridge
+    4300600: HoldsUpBridge1
+    4300602: HoldsUpBridge2
+    4300604: HoldsUpBridge3
+    4300606: HoldsUpBridge4
+    4300608: BottomLedge
+    4300610: AboveBottomLedge
+    4300612: TheGround
+    4300614: ArchLedge
+    4300616: RooftopLedge
+    4300618: HookLedge
+    4300620: HookLedge1
+    4300622: HookLedge2
+    4300624: HookBootom
+    4300626: HookBootom1
+    4300628: HookBootom2
+    4300630: HookRope
+    4300632: HookRope1
+    4300634: HookRope2
+    4300636: DoorInBack
+    4300638: Ledge36
+    4300640: Ledge37
     7400000: Take 001
     9500000: //RootNode
   materials:
