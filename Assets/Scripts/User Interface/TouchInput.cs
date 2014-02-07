@@ -1,65 +1,78 @@
 using UnityEngine;
 using System.Collections;
 
-public class Swipe : MonoBehaviour
+/// <summary>
+/// Touch Input is responsible for accepting the player's input on a mobile device and passing it to the playercharacterinput.
+/// </summary>
+[AddComponentMenu("User Interface/Touch Input")]
+public class TouchInput : MonoBehaviour
 {
+    // TODO: base it on the size of the screen (NOTE THAT THESE VALUES ARE CURRENTLY STORED IN THE PREFAB)
+    public float MinMovement = 8.0f;
+    public float MinInteraction = 8.0f;
+    public float MinGUISwipe = 8.0f;
+
+    // Allow for switching between our different control schemes
+    public int MovementUIType = 0;
+
+    // Used for keeping track of swipes
 	private Vector2 _startPos;
-	private int _swipeID = -1;
+	private int _swipeID;
+    private float _distanceForMaxSpeed;
 
-	// TODO: base it on the size of the screen
-	public float MinMovement = 8.0f;
-	public float MinInteraction = 8.0f;
-	public float MinGUISwipe = 8.0f;
+    // Kept track for debugging
+    private float _lastSwipeDeg;
 
-	private float _lastSwipeDeg = 0.0f;
-
-	public int MovementUIType = 0;
-	public float DistanceForMaxSpeed = Screen.width / 16.0f;
+    // Other components
 	private WeaponsGui _weaponsGUI;
 	private PlayerCharacterInput _input;
 
-	void OnGUI() {
-		GUI.Box(new Rect(300, 10, 300, 20), "GUI Mode: " + MovementUIType);
-		GUI.Box(new Rect(300, 35, 300, 20), "Last Swipe: " + _lastSwipeDeg);
-
-		GUI.Box(new Rect(300, 60, 300, 20), "H: " + _input.Horizontal + "  V: " + _input.Vertical);
-		GUI.Box (new Rect (300, 85, 300, 20), "Att: " + _input.Attack + "  Jump: " + _input.Jump);
-		GUI.Box (new Rect (300, 110, 300, 20), "Int: " + _input.Interaction + "  Pickup: " + _input.Pickup);
-	}
-
 	void Start ()
 	{
-		_weaponsGUI = GetComponent<WeaponsGui> ();
+        _swipeID = -1;
+        _distanceForMaxSpeed = Screen.width / 16.0f;
+
+        _lastSwipeDeg = 0.0f;
+
+		_weaponsGUI = GetComponentInChildren<WeaponsGui> ();
 		_input = GameManager.Player.GetComponent<PlayerCharacterInput>();
 	}
 
 	void Update ()
 	{	
 #if !UNITY_EDITOR && !UNITY_STANDALONE
+        // Reset certain inputs as appropriate
+        _input.Vertical = 0;
+        _input.Interaction = false;
 		_input.Jump = new Vector2(0,0);
 		_input.Attack = 0;
-		bool moveTouched = false;
-		foreach (var T in Input.touches) 
+        _input.Pickup = false;
+
+        // Go through all the touches
+        bool moveTouched = false;
+		foreach (Touch touch in Input.touches) 
 		{
-			var P = T.position;
+            Vector2 touchPos = touch.position;
 			//Top right weapons switch
-			if (P.x > 2 * Screen.width / 3 && P.y > 3 * Screen.height / 4)
-				InterpretWeaponsGuiSwipe(T);
-			
-			else if (P.x < Screen.width / 2 )
+			if (touchPos.x > 2 * Screen.width / 3 && touchPos.y > 3 * Screen.height / 4)
+                InterpretWeaponsGuiSwipe(touch);
+			else if (touchPos.x < Screen.width / 2 )
 			{
 				moveTouched = true;
-				InterpretMovementSwipe(T, P);
+                InterpretMovementSwipe(touch, touchPos);
 			}
-			
 			else
-				InterpretInteractSwipe(T);		
+                InterpretInteractSwipe(touch);		
 		}
+
+        // Reset the horizontal input if movement side not touched
 		if(!moveTouched)
 			_input.Horizontal = 0;
 #endif		
 	}
 	
+
+    // TODO: SET UP WEAPONSGUI CORRECTLY
 	private void InterpretWeaponsGuiSwipe(Touch touch)
 	{
 		Vector2 position = touch.position;
@@ -117,7 +130,6 @@ public class Swipe : MonoBehaviour
 	private void MovementType0(Touch touch, Vector2 moveStart)
 	{
 		_input.Horizontal = (touch.position.x - Screen.width/4)/(Screen.width/4);
-
 	}
 
 	private void MovementType1(Touch touch, Vector2 moveStart)
@@ -130,7 +142,6 @@ public class Swipe : MonoBehaviour
 			_swipeID = touch.fingerId;
 			_startPos = position;
 		} 
-		
 		else if (touch.fingerId == _swipeID)
 		{
 			Vector2 delta = position - _startPos;
@@ -138,14 +149,11 @@ public class Swipe : MonoBehaviour
 			{
 				_swipeID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
-				{
-					_input.Horizontal = delta.x/DistanceForMaxSpeed;
-				}
-			} 
+					_input.Horizontal = delta.x/_distanceForMaxSpeed;
+			}
 			else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
 				_swipeID = -1;
 		}
-		
 	}
 	
 	private void InterpretMovementSwipe(Touch touch, Vector2 moveStart)
@@ -167,7 +175,6 @@ public class Swipe : MonoBehaviour
 			_swipeID = touch.fingerId;
 			_startPos = position;
 		} 
-			
 		else if (touch.fingerId == _swipeID)
 		{
 			Vector2 delta = position - _startPos;
@@ -177,20 +184,19 @@ public class Swipe : MonoBehaviour
 				_input.Vertical = delta.y;
 
 				float rad = Mathf.Atan2(delta.y, delta.x);
-
 				float deg = rad * 180.0f / Mathf.PI;
 
 				_lastSwipeDeg = deg;
 			
 				// jump right
 				if(deg > 30.0f && deg <= 70.0f)
-					_input.Jump = new Vector2( (delta.x / DistanceForMaxSpeed) ,1);
+					_input.Jump = new Vector2( (delta.x / _distanceForMaxSpeed) ,1);
 
 				else if(deg > 70.0f && deg <= 110.0f)
 					_input.Jump = new Vector2( 0, 1);
 				
 				else if(deg > 110.0f && deg <= 150.0f)
-					_input.Jump = new Vector2( (delta.x / DistanceForMaxSpeed) ,1);
+					_input.Jump = new Vector2( (delta.x / _distanceForMaxSpeed) ,1);
 
 				else if(deg > 150.0f && deg <= 210.0f)
 					_input.Attack = -1;
@@ -206,10 +212,15 @@ public class Swipe : MonoBehaviour
 			else if(touch.phase == TouchPhase.Stationary)
 			{
 				_input.Interaction = true;
-
 			} 
 			else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
 				_swipeID = -1;
 		}
 	}
+
+
+    public float LastSwipeDeg 
+    {
+        get { return _lastSwipeDeg; }
+    }
 }

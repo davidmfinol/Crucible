@@ -70,7 +70,6 @@ public class CharacterInput : MonoBehaviour
 		get { return 0; }
 		set {}
 	}
-
 	public virtual bool Pickup
 	{
 		get { return false; }

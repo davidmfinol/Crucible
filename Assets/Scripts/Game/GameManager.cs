@@ -19,9 +19,9 @@ public class GameManager : MonoBehaviour
 	
 	// There should always be access to the player
 	private static Transform _player;
-	private static Transform _hud;
 	
-	// Global Managers
+    // Global Managers
+    private static Transform _hud;
 	private static AIManager _aiManager;
 	private static AudioManager _audioManager;
 	private static SubtitlesManager _subtitlesManager;
@@ -72,7 +72,13 @@ public class GameManager : MonoBehaviour
         CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
         if (cameraScript != null && Player != null)
             cameraScript.Target = Player.transform;
-	}
+    }
+    
+    private void SetupHUD()
+    {
+        if(_hud == null)
+            _hud = (Transform)Instantiate(HUDPrefab, HUDPrefab.transform.position, HUDPrefab.transform.rotation);   
+    }
 	
 	private void SetupAI()
 	{
@@ -97,12 +103,8 @@ public class GameManager : MonoBehaviour
 			Destroy(GameManager._subtitlesManager.gameObject); // TODO: TRANSFER SUBTITLES MANAGER BETTER
 		GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager>();
 	}
-	
-	private void SetupHUD()
-	{
-		if(_hud == null)
-        	_hud = (Transform)Instantiate(HUDPrefab, HUDPrefab.transform.position, HUDPrefab.transform.rotation);	
-	}
+
+
 	/// <summary>
 	/// Gets the current GameLevel.
 	/// </summary>
@@ -124,7 +126,19 @@ public class GameManager : MonoBehaviour
 	{
 		get { return _player; }
 		set { _player = value; }
-	}
+    }
+    
+    /// <summary>
+    /// Gets or sets the hud.
+    /// </summary>
+    /// <value>
+    /// The hud.
+    /// </value>
+    public static Transform Hud
+    {
+        get { return _hud; }
+        set { _hud = value; }
+    }
 	
 	/// <summary>
 	/// Gets the AI Manager.

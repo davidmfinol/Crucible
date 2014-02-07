@@ -11,9 +11,9 @@ public class PlayerCharacterInput : CharacterInput
 	private float _horizontal;
 	private float _vertical;
 	private bool _interaction;
-	private bool _pickup;
 	private Vector2 _jump;
-	private float _attack;
+    private float _attack;
+    private bool _pickup;
 
 
 	// Analog modifier for keyboard
@@ -49,11 +49,6 @@ public class PlayerCharacterInput : CharacterInput
 		get { return _interaction; }
 		set { _interaction = value; } 
 	}
-	public override bool Pickup
-	{
-		get { return _pickup; }
-		set { _pickup = value; } 
-	}
 	public override Vector2 Jump
 	{
 		get { return _jump; }
@@ -63,5 +58,10 @@ public class PlayerCharacterInput : CharacterInput
 	{
 		get { return _attack; }
 		set { _attack = value; }
-	}
+    }
+    public override bool Pickup
+    {
+        get { return _pickup; }
+        set { _pickup = value; } 
+    }
 }
