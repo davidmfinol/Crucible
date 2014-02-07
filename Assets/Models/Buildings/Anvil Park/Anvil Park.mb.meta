@@ -245,6 +245,96 @@ ModelImporter:
     100478: transform9
     100480: Ledge23
     100482: Ledge24
+    100484: Fixture
+    100486: Light
+    100488: LowLight
+    100490: pCube101
+    100492: transform22
+    100494: group9
+    100496: pCube102
+    100498: pCube103
+    100500: pCube104
+    100502: Ledge 1
+    100504: Ledge25
+    100506: Ledge26
+    100508: polySurface37
+    100510: transform23
+    100512: transform24
+    100514: Ledge 2
+    100516: Ledge 3
+    100518: polySurface39
+    100520: polySurface41
+    100522: transform25
+    100524: transform26
+    100526: ElevatorAnvilPark
+    100528: Lattice
+    100530: Lattice2
+    100532: Lattice3
+    100534: Lattice4
+    100536: Lattice5
+    100538: Ledge27
+    100540: Ledge28
+    100542: polySurface42
+    100544: polySurface43
+    100546: polySurface44
+    100548: polySurface45
+    100550: polySurface46
+    100552: polySurface47
+    100554: polySurface48
+    100556: polySurface49
+    100558: polySurface50
+    100560: polySurface51
+    100562: polySurface52
+    100564: polySurface53
+    100566: polySurface54
+    100568: polySurface55
+    100570: polySurface56
+    100572: polySurface57
+    100574: polySurface58
+    100576: polySurface59
+    100578: polySurface60
+    100580: polySurface61
+    100582: polySurface62
+    100584: polySurface63
+    100586: polySurface64
+    100588: polySurface65
+    100590: polySurface66
+    100592: polySurface67
+    100594: polySurface68
+    100596: polySurface69
+    100598: polySurface70
+    100600: polySurface71
+    100602: polySurface72
+    100604: polySurface73
+    100606: polySurface74
+    100608: polySurface75
+    100610: polySurface76
+    100612: transform27
+    100614: transform28
+    100616: transform29
+    100618: transform30
+    100620: transform31
+    100622: transform32
+    100624: transform33
+    100626: transform34
+    100628: transform35
+    100630: transform36
+    100632: transform37
+    100634: transform38
+    100636: AnvilPark
+    100638: Ledge 4
+    100640: polySurface78
+    100642: polySurface80
+    100644: Slantpart
+    100646: transform39
+    100648: transform40
+    100650: Vent
+    100652: Ledge 5
+    100654: polySurface82
+    100656: transform41
+    100658: Ledge29
+    100660: polySurface84
+    100662: transform42
     400000: //RootNode
     400002: group1
     400004: group2
@@ -487,6 +577,96 @@ ModelImporter:
     400478: transform9
     400480: Ledge23
     400482: Ledge24
+    400484: Fixture
+    400486: Light
+    400488: LowLight
+    400490: pCube101
+    400492: transform22
+    400494: group9
+    400496: pCube102
+    400498: pCube103
+    400500: pCube104
+    400502: Ledge 1
+    400504: Ledge25
+    400506: Ledge26
+    400508: polySurface37
+    400510: transform23
+    400512: transform24
+    400514: Ledge 2
+    400516: Ledge 3
+    400518: polySurface39
+    400520: polySurface41
+    400522: transform25
+    400524: transform26
+    400526: ElevatorAnvilPark
+    400528: Lattice
+    400530: Lattice2
+    400532: Lattice3
+    400534: Lattice4
+    400536: Lattice5
+    400538: Ledge27
+    400540: Ledge28
+    400542: polySurface42
+    400544: polySurface43
+    400546: polySurface44
+    400548: polySurface45
+    400550: polySurface46
+    400552: polySurface47
+    400554: polySurface48
+    400556: polySurface49
+    400558: polySurface50
+    400560: polySurface51
+    400562: polySurface52
+    400564: polySurface53
+    400566: polySurface54
+    400568: polySurface55
+    400570: polySurface56
+    400572: polySurface57
+    400574: polySurface58
+    400576: polySurface59
+    400578: polySurface60
+    400580: polySurface61
+    400582: polySurface62
+    400584: polySurface63
+    400586: polySurface64
+    400588: polySurface65
+    400590: polySurface66
+    400592: polySurface67
+    400594: polySurface68
+    400596: polySurface69
+    400598: polySurface70
+    400600: polySurface71
+    400602: polySurface72
+    400604: polySurface73
+    400606: polySurface74
+    400608: polySurface75
+    400610: polySurface76
+    400612: transform27
+    400614: transform28
+    400616: transform29
+    400618: transform30
+    400620: transform31
+    400622: transform32
+    400624: transform33
+    400626: transform34
+    400628: transform35
+    400630: transform36
+    400632: transform37
+    400634: transform38
+    400636: AnvilPark
+    400638: Ledge 4
+    400640: polySurface78
+    400642: polySurface80
+    400644: Slantpart
+    400646: transform39
+    400648: transform40
+    400650: Vent
+    400652: Ledge 5
+    400654: polySurface82
+    400656: transform41
+    400658: Ledge29
+    400660: polySurface84
+    400662: transform42
     2300000: Ledge
     2300002: Ledge1
     2300004: Ledge10
@@ -693,6 +873,60 @@ ModelImporter:
     2300406: pPlane1
     2300408: Ledge23
     2300410: Ledge24
+    2300412: Fixture
+    2300414: Light
+    2300416: pCube101
+    2300418: pCube102
+    2300420: pCube103
+    2300422: pCube104
+    2300424: Ledge 1
+    2300426: Ledge25
+    2300428: Ledge26
+    2300430: polySurface37
+    2300432: Ledge 2
+    2300434: Ledge 3
+    2300436: polySurface39
+    2300438: polySurface41
+    2300440: ElevatorAnvilPark
+    2300442: Ledge28
+    2300444: polySurface46
+    2300446: polySurface47
+    2300448: polySurface48
+    2300450: polySurface49
+    2300452: polySurface50
+    2300454: polySurface52
+    2300456: polySurface53
+    2300458: polySurface54
+    2300460: polySurface55
+    2300462: polySurface56
+    2300464: polySurface57
+    2300466: polySurface58
+    2300468: polySurface59
+    2300470: polySurface60
+    2300472: polySurface61
+    2300474: polySurface62
+    2300476: polySurface63
+    2300478: polySurface64
+    2300480: polySurface65
+    2300482: polySurface66
+    2300484: polySurface67
+    2300486: polySurface68
+    2300488: polySurface69
+    2300490: polySurface70
+    2300492: polySurface71
+    2300494: polySurface72
+    2300496: polySurface73
+    2300498: polySurface74
+    2300500: polySurface75
+    2300502: polySurface76
+    2300504: Ledge 4
+    2300506: polySurface78
+    2300508: polySurface80
+    2300510: Slantpart
+    2300512: Ledge 5
+    2300514: polySurface82
+    2300516: Ledge29
+    2300518: polySurface84
     3300000: Ledge
     3300002: Ledge1
     3300004: Ledge10
@@ -899,6 +1133,60 @@ ModelImporter:
     3300406: pPlane1
     3300408: Ledge23
     3300410: Ledge24
+    3300412: Fixture
+    3300414: Light
+    3300416: pCube101
+    3300418: pCube102
+    3300420: pCube103
+    3300422: pCube104
+    3300424: Ledge 1
+    3300426: Ledge25
+    3300428: Ledge26
+    3300430: polySurface37
+    3300432: Ledge 2
+    3300434: Ledge 3
+    3300436: polySurface39
+    3300438: polySurface41
+    3300440: ElevatorAnvilPark
+    3300442: Ledge28
+    3300444: polySurface46
+    3300446: polySurface47
+    3300448: polySurface48
+    3300450: polySurface49
+    3300452: polySurface50
+    3300454: polySurface52
+    3300456: polySurface53
+    3300458: polySurface54
+    3300460: polySurface55
+    3300462: polySurface56
+    3300464: polySurface57
+    3300466: polySurface58
+    3300468: polySurface59
+    3300470: polySurface60
+    3300472: polySurface61
+    3300474: polySurface62
+    3300476: polySurface63
+    3300478: polySurface64
+    3300480: polySurface65
+    3300482: polySurface66
+    3300484: polySurface67
+    3300486: polySurface68
+    3300488: polySurface69
+    3300490: polySurface70
+    3300492: polySurface71
+    3300494: polySurface72
+    3300496: polySurface73
+    3300498: polySurface74
+    3300500: polySurface75
+    3300502: polySurface76
+    3300504: Ledge 4
+    3300506: polySurface78
+    3300508: polySurface80
+    3300510: Slantpart
+    3300512: Ledge 5
+    3300514: polySurface82
+    3300516: Ledge29
+    3300518: polySurface84
     4300000: pPlane1
     4300002: pCube4
     4300004: pCube5
@@ -1105,6 +1393,61 @@ ModelImporter:
     4300406: polySurface32
     4300408: Ledge23
     4300410: Ledge24
+    4300412: pCube101
+    4300414: Fixture
+    4300416: Light
+    4300418: pCube102
+    4300420: pCube103
+    4300422: pCube104
+    4300424: Ledge
+    4300426: Ledge25
+    4300428: Ledge26
+    4300430: polySurface37
+    4300432: polySurface41
+    4300434: Ledge
+    4300436: Ledge
+    4300438: polySurface39
+    4300440: polySurface53
+    4300442: polySurface54
+    4300444: polySurface55
+    4300446: polySurface56
+    4300448: polySurface57
+    4300450: polySurface58
+    4300452: polySurface59
+    4300454: polySurface62
+    4300456: polySurface63
+    4300458: polySurface64
+    4300460: polySurface65
+    4300462: polySurface66
+    4300464: polySurface67
+    4300466: polySurface68
+    4300468: polySurface69
+    4300470: polySurface70
+    4300472: polySurface50
+    4300474: polySurface71
+    4300476: polySurface72
+    4300478: polySurface73
+    4300480: polySurface74
+    4300482: polySurface75
+    4300484: polySurface76
+    4300486: polySurface52
+    4300488: polySurface61
+    4300490: polySurface46
+    4300492: polySurface47
+    4300494: polySurface48
+    4300496: polySurface60
+    4300498: ElevatorAnvilPark
+    4300500: polySurface49
+    4300502: Ledge28
+    4300504: Slantpart
+    4300506: polySurface80
+    4300508: Ledge
+    4300510: polySurface78
+    4300512: polySurface82
+    4300514: Ledge
+    4300516: Ledge29
+    4300518: polySurface84
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
