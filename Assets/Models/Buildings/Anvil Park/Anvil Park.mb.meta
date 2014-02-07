@@ -385,6 +385,9 @@ ModelImporter:
     100758: polySurface92
     100760: TopLeftLattice
     100762: transform44
+    100764: polySurface93
+    100766: polySurface94
+    100768: transform45
     400000: //RootNode
     400002: group1
     400004: group2
@@ -767,6 +770,9 @@ ModelImporter:
     400758: polySurface92
     400760: TopLeftLattice
     400762: transform44
+    400764: polySurface93
+    400766: polySurface94
+    400768: transform45
     2300000: Ledge
     2300002: Ledge1
     2300004: Ledge10
@@ -1060,6 +1066,8 @@ ModelImporter:
     2300580: polySurface90
     2300582: polySurface91
     2300584: polySurface92
+    2300586: polySurface93
+    2300588: polySurface94
     3300000: Ledge
     3300002: Ledge1
     3300004: Ledge10
@@ -1353,6 +1361,8 @@ ModelImporter:
     3300580: polySurface90
     3300582: polySurface91
     3300584: polySurface92
+    3300586: polySurface93
+    3300588: polySurface94
     4300000: pPlane1
     4300002: pCube4
     4300004: pCube5
@@ -1646,6 +1656,8 @@ ModelImporter:
     4300580: polySurface90
     4300582: polySurface91
     4300584: polySurface92
+    4300586: polySurface93
+    4300588: polySurface94
     7400000: Take 001
     9500000: //RootNode
   materials:

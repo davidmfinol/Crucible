@@ -10,8 +10,8 @@ using System.Collections;
 public class EnemyAnimator : CharacterAnimator
 {
     // So we can find the arms to use as weapons
-    public string LeftForearmBoneName;
-    public string RightForearmBoneName;
+	public string LeftForearmBoneName = "left_elbow";
+	public string RightForearmBoneName = "right_elbow";
 	
 	// Enemy should play it's own sound effects
     private EnemyAudioPlayer _enemyAudioSource;
@@ -35,7 +35,7 @@ public class EnemyAnimator : CharacterAnimator
     
     // Bones for our left and right hands
     private Transform _bone_L;
-    private Transform _bone_R;
+	private Transform _bone_R;
 	
 	protected override void Initialize ()
 	{
@@ -44,6 +44,9 @@ public class EnemyAnimator : CharacterAnimator
         // We need to find the bones for our hands so we can attack with them
         _bone_L = CharacterSettings.SearchHierarchyForBone(transform, LeftForearmBoneName);
         _bone_R = CharacterSettings.SearchHierarchyForBone(transform, RightForearmBoneName);
+
+		if(_bone_L == null || _bone_R == null)
+			Debug.LogWarning("Left or right bones not found");
 	}
 	
 	protected override void CreateStateMachine()
@@ -93,10 +96,13 @@ public class EnemyAnimator : CharacterAnimator
 	void StartMelee()
 	{
 		//FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
+		if(_bone_L == null || _bone_R == null )
+			return;
+
 		_bone_L.GetComponent<Collider>().enabled = true;
-		_bone_L.GetComponent<HitBox>().enabled = true;
+		_bone_L.GetComponent<HitBox>().enabled = true; //FIXME CAN BE NULL
 		_bone_R.GetComponent<Collider>().enabled = true;
-		_bone_R.GetComponent<HitBox>().enabled = true;
+		_bone_R.GetComponent<HitBox>().enabled = true; //FIXME CAN BE NULL
 		//TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
 	}
 	void EndMelee()
