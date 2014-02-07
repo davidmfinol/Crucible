@@ -31,7 +31,7 @@ public class CharacterAnimatorDebugger : MonoBehaviour
             GUI.Box(new Rect(10, 10, 300, 20), "Direction: " + _character.Direction.ToString());
             GUI.Box(new Rect(10, 35, 300, 20), "Horizontal: " + _character.HorizontalSpeed + ", Vertical: " + _character.VerticalSpeed);
             GUI.Box(new Rect(10, 60, 300, 20), "Hang: " + _character.CanHangOffObject + ", Grab Pipe: " + _character.CanClimbPipe + ", Grab Ladder: " + _character.CanClimbLadder);
-			GUI.Box(new Rect(10, 85, 300, 20), "Current State: " + _character.CurrentState.nameHash);
+			GUI.Box(new Rect(10, 85, 300, 20), "Current State: " + _character.StateMachine[_character.CurrentState.nameHash].Method.Name.ToString());
 		}
         if (ShowZLevels)
         {
