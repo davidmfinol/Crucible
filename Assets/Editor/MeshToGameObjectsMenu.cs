@@ -40,7 +40,7 @@ public class MeshToGameObjectsMenu
 		selection.ForEach(transform => {
 			MeshFilter meshFilter = transform.GetComponent<MeshFilter>();
 			if (!meshFilter) return;
-			
+
 			string name = meshFilter.name.ToLower();
 			if (name.Contains("ledge"))
 			{
@@ -49,6 +49,7 @@ public class MeshToGameObjectsMenu
 				//	CreateInterZoneLedge(transform);
 				//else
 				CreateLedge(transform); 
+				meshFilter.tag = "Waypoint";
 			}
 			if (name.Contains("ladder"))
 			{

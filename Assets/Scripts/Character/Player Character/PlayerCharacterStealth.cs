@@ -16,6 +16,11 @@ public class PlayerCharacterStealth : MonoBehaviour
 	void Start()
 	{
 		_changeableMaterials = FindChangeableMaterials();
+		if (_changeableMaterials.Count == 0)
+		{
+			Debug.LogWarning("Unable to find changeable material");
+			return;
+		}
 		_defaultShader = _changeableMaterials[0].shader;
 	}
 
@@ -48,10 +53,20 @@ public class PlayerCharacterStealth : MonoBehaviour
 			_currentlyHidden = value;
 			if(_currentlyHidden)
 			{
+				if (_changeableMaterials.Count == 0)
+				{
+					Debug.LogWarning("Unable to find changeable material");
+					return;
+				}
 				_changeableMaterials[0].shader = OutlineShader;
 			}
 			else
 			{
+				if (_changeableMaterials.Count == 0)
+				{
+					Debug.LogWarning("Unable to find changeable material");
+					return;
+				}
 				_changeableMaterials[0].shader = _defaultShader;
 			}
 		}
