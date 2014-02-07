@@ -47,7 +47,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		AutoClimb_None = 0,
 		AutoClimb_Up,
 		AutoClimb_Down
-
 	};
 
 	private AutoClimbDirection _autoClimbDir;
@@ -130,12 +129,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(Settings.Weapon == null)
 			return;
 
-		// TODO: MAKE THIS USE ONLY ATTACK VECTOR AS INPUT
 		Weapon currentWeapon = Settings.Weapon.GetComponent<Weapon>();
-		MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackLeft && currentWeapon is PipeWeapon); 
-		MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackLeft && currentWeapon is GravityGun); 
-		MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackLeft && currentWeapon is Mine); 
-		MecanimAnimator.SetBool(_detonateMineHash, CharInput.AttackRight && currentWeapon is Mine); 
+		MecanimAnimator.SetBool(_attackMeleeHash, InputAttackForward && currentWeapon is PipeWeapon); 
+        MecanimAnimator.SetBool(_shootGunHash, InputAttackForward && currentWeapon is GravityGun); 
+        MecanimAnimator.SetBool(_placeMineHash, InputAttackForward && currentWeapon is Mine); 
+        MecanimAnimator.SetBool(_detonateMineHash, InputAttackBackward && currentWeapon is Mine); 
 	}
 
 	void StartMelee()
@@ -294,14 +292,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Jumping(float elapsedTime)
 	{
-		//ApplyRunning(elapsedTime);
+		ApplyRunning(elapsedTime);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
+            /* TODO: have direction of jump swipe influence your jump?
 			if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
 				HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
 			else if(CharInput.JumpRight || CharInput.JumpRightReleased)
 				HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
+             */            
 
         	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 			MecanimAnimator.SetBool(_jumpHash, false);

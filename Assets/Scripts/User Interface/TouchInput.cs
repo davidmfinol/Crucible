@@ -40,7 +40,7 @@ public class TouchInput : MonoBehaviour
 
 	void Update ()
 	{	
-#if !UNITY_EDITOR && !UNITY_STANDALONE
+#if !UNITY_EDITOR && UNITY_ANDROID
         // Reset certain inputs as appropriate
         _input.Vertical = 0;
         _input.Interaction = false;
@@ -81,13 +81,12 @@ public class TouchInput : MonoBehaviour
 			_swipeID = touch.fingerId;
 			_startPos = position;
 		} 
-			
 		else if (touch.fingerId == _swipeID)
 		{
 			Vector2 delta = position - _startPos;
 			if (touch.phase == TouchPhase.Moved && delta.magnitude > MinGUISwipe) 
 			{
-				//_swipeID = -1;
+				_swipeID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 				{				
 					if (delta.x > 0) 

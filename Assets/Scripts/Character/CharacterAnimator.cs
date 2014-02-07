@@ -409,8 +409,15 @@ public class CharacterAnimator : MonoBehaviour
 	public bool InputMoveBackward
 	{
 		get { return (Direction.x > 0 && CharInput.Left) || (Direction.x < 0 && CharInput.Right); }
-	}
-	//  TODO:inputattackforward & inputattackbackward
+    }
+    public bool InputAttackForward
+    {
+        get { return (Direction.x > 0 && CharInput.AttackRight) || (Direction.x < 0 && CharInput.AttackLeft); }
+    }
+    public bool InputAttackBackward
+    {
+        get { return (Direction.x > 0 && CharInput.AttackLeft) || (Direction.x < 0 && CharInput.AttackRight); }
+    }
 	public HeartBox Heart
 	{
 		get { return _heartBox; }
