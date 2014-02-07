@@ -50,6 +50,7 @@ public class TouchInput : MonoBehaviour
 
         // Go through all the touches
         bool moveTouched = false;
+		bool actTouched = false;
 		foreach (Touch touch in Input.touches) 
 		{
             Vector2 touchPos = touch.position;
@@ -58,12 +59,17 @@ public class TouchInput : MonoBehaviour
                 InterpretWeaponsGuiSwipe(touch);
 			else if (touchPos.x < Screen.width / 2 )
 			{
+				InterpretMovementSwipe(touch, touchPos);
 				moveTouched = true;
-                InterpretMovementSwipe(touch, touchPos);
 			}
 			else
-                InterpretInteractSwipe(touch);		
+			{
+                InterpretInteractSwipe(touch);
+				actTouched = true;
+			}
 		}
+
+		DisplayActionDots(actTouched);
 
         // Reset the horizontal input if movement side not touched
 		if(!moveTouched)
@@ -215,6 +221,12 @@ public class TouchInput : MonoBehaviour
 			else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
 				_swipeID = -1;
 		}
+	}
+
+	// TODO: Display the dots that indicate the current action
+	void DisplayActionDots(bool actTouched)
+	{
+
 	}
 
 

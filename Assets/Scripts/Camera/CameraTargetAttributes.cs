@@ -22,32 +22,27 @@ public class CameraTargetAttributes : MonoBehaviour
     // What's the maximum distance we should let the camera look ahead?
     public Vector2 MaxLookAhead = new Vector2(3.0f, 3.0f);
 
-    // How much should the camera shake based off the amount of "action" surrounding this target?
-	/*
-    public float Chaos = 0.0f;
+	// How fast does the camera zoom in?
+	public float DistanceLerp = 0.005f;
 
-    private float prevHeight;
-    private float prevDist;
-    private bool needed = false;
+	private float _origDistanceModifier;
 
-    // We will likely need to find the surrounding amount of "chaos" here
+	private PlayerCharacterAnimator _player;
+
+	void Start()
+	{
+		_origDistanceModifier = DistanceModifier;
+		_player = GameManager.Player.GetComponent<PlayerCharacterAnimator> ();
+	}
+
+    // We handle the camera moving in on the player here
     void Update()
     {
-        // @TODO CALCULATE CHAOS
-        if (transform.GetComponent<PlayerCharacterFSM>().ZLevel == 16)
-        {
-            prevHeight = HeightOffset;
-            prevDist = DistanceModifier;
-            HeightOffset = 5;
-            DistanceModifier = 1.6f;
-            needed = true;
-        }
-        else 
-        {
-            needed = false;
-            HeightOffset = 0;
-            DistanceModifier = 1;
-        }
+		if (_player == null)
+			return;
+
+		float desired = _origDistanceModifier * (1.5f - (Mathf.Abs(_player.HorizontalSpeed) / _player.Settings.MaxHorizontalSpeed));
+		DistanceModifier = Mathf.Lerp (DistanceModifier, desired, DistanceLerp);
     }
-    */
+
 }
