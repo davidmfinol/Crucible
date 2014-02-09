@@ -504,14 +504,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 	}
 
-	protected float UpdateAutoClimbDirection() {
+	protected float UpdateAutoClimbDirection()
+	{
 		// start or stop auto-climbing
 		if (CharInput.Up)
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
 		else if (CharInput.Down)
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Down;
 		else if (CharInput.InteractionPressed)
+		{
+			Debug.Log("Button pressed");
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+		}
 		
 		// always give a speed based on the auto-climb direction
 		float vertical;

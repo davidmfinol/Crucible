@@ -22,7 +22,7 @@ public class CharacterInput : MonoBehaviour
 	private bool _attackRightLast = false;
 	private bool _pickupLast = false;
 	
-	void Update()
+	void FixedUpdate()
 	{
 		_leftLast = Left;
 		_rightLast = Right;
