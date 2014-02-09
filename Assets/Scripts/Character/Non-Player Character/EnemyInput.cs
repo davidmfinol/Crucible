@@ -379,8 +379,9 @@ public class EnemyInput : CharacterInput
 		get { return _awareness; }
 		set
 		{
+			if(_awareness != value)
+				_enemyAwareness.ChangeAwareness(value);
 			_awareness = value;
-			_enemyAwareness.ChangeAwareness(_awareness);
 		}
 	}
 	public HearingRadius PersonalHearingRadius

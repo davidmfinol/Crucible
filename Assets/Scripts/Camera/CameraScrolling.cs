@@ -25,8 +25,8 @@ public class CameraScrolling : MonoBehaviour
     {
         if (Target)
         {
-            Vector3 goalPosition = GetGoalPosition();
-            transform.position = Vector3.Lerp(transform.position, goalPosition, Time.deltaTime * Springiness);
+			Vector3 goalPosition = GetGoalPosition();
+			transform.position = Vector3.Lerp(transform.position, goalPosition, Time.deltaTime * Springiness);
         }
     }
 
@@ -42,7 +42,8 @@ public class CameraScrolling : MonoBehaviour
         // How much should we zoom the camera based on this target?
         float distanceModifier = 1.0f;
         // By default, we won't account for any target velocity  or chaos in our calculations;
-        float velocityLookAhead = 0.0f;
+        float velocityLookAheadX = 0.0f;
+		float velocityLookAheadY = 0.0f;
         Vector2 maxLookAhead = new Vector2(0.0f, 0.0f);
         //float chaos = 0.0f;
 
@@ -54,7 +55,8 @@ public class CameraScrolling : MonoBehaviour
         {
             heightOffset = cameraTargetAttributes.HeightOffset;
             distanceModifier = cameraTargetAttributes.DistanceModifier;
-            velocityLookAhead = cameraTargetAttributes.VelocityLookAhead;
+			velocityLookAheadX = cameraTargetAttributes.VelocityLookAheadX;
+			velocityLookAheadY = cameraTargetAttributes.VelocityLookAheadY;
             maxLookAhead = cameraTargetAttributes.MaxLookAhead;
             //chaos = cameraTargetAttributes.chaos;
         }
@@ -74,12 +76,14 @@ public class CameraScrolling : MonoBehaviour
             targetVelocity = targetRigidbody.velocity;
 
         // If we find a platformerController with a velocity, we use that velocity
-       //TODO: USE THIS?:  PlayerCharacterFSM targetController = Target.GetComponent<PlayerCharacterFSM>();
-       // if (targetController)
-      //      targetVelocity = targetController.Velocity;
+       CharacterAnimator targetController = Target.GetComponent<CharacterAnimator>();
+       if (targetController)
+			targetVelocity = targetController.Velocity;
 
         // Estimate what the target's position will be in velocityLookAhead seconds (position = velocity * time).
-        Vector3 lookAhead = targetVelocity * velocityLookAhead;
+		Vector3 lookAhead = targetVelocity;
+		lookAhead.x *= velocityLookAheadX;
+		lookAhead.y *= velocityLookAheadY;
 
         // We clamp the lookAhead vector to some sane values so that the target doesn't go offscreen.
         // This calculation could be more advanced (lengthy), taking into account the target's viewport position,
@@ -89,10 +93,15 @@ public class CameraScrolling : MonoBehaviour
         // We never want to take z velocity into account as this is 2D.  Just make sure it's zero.
         lookAhead.z = 0.0f;
 
+		// We want to make sure our lookahead accounts for how zoomed in the camera is
+		lookAhead *= distanceModifier;
+
+		// 
+		if(targetController.CurrentState.IsTag("NoLookAhead"))
+		   lookAhead = Vector3.zero;
+
         // Now add in our lookAhead calculation.  Our camera following is now a bit better!
         goalPosition += lookAhead;
-
-        // @TODO FACTOR IN CHAOS (AND MORE?)
 
         // We will also make it so that the positions beyond the level boundaries are never seen. 
 
