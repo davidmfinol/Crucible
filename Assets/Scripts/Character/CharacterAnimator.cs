@@ -139,6 +139,10 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		// Empty by default; child classes should override
 	}
+	protected virtual void OnFixedUpdate()
+	{
+		// Child classes may override this method if they want to do things during fixedupdate
+	}
 
 	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
 	void FixedUpdate()
@@ -187,6 +191,8 @@ public class CharacterAnimator : MonoBehaviour
 
         // Moving Platform support
 		UpdatePlatformEnd();
+
+		OnFixedUpdate ();
 	}
 	
 	/// <summary>

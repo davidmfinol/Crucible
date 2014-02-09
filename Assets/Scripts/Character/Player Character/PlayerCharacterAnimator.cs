@@ -34,8 +34,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
     private Ledge _ledge;
     
     // Used for backflipping
-    float _desiredSpeed;
+	private float _desiredSpeed;
 
+	// Used to make certain animations are NOT root-based
+	private Transform _hip;
+	
 	//TODO: figure out this comment
 	private float _timeUntilNextFootStepSound = -1f;
 	// TODO: remove this (use variation of Justin's script?)
@@ -57,7 +60,21 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
         transform.position = Settings.SpawnPoint.transform.position;
-    }
+	}
+	
+	protected override void Initialize()
+	{
+		_hip = CharacterSettings.SearchHierarchyForBone (transform, "hip");
+	}
+	protected override void OnUpdate()
+	{
+		if (_hip == null)
+			return;
+
+		// We make sure these animation stay in the root
+		//if(CurrentState.IsName("Air.Backflip") || CurrentState.IsName("Wall.Walljumping"))
+		_hip.localPosition = Vector3.zero;
+	}
 	
 	protected override void CreateStateMachine()
 	{
@@ -385,39 +402,31 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_jumpWallHash, jump);
 	}
 
-	// TODO: FIX ALL THE HACKS RELATED TO THE FACT THAT THE DIRECTION IN THE ANIMATION IS THE WORNG WAY
 	protected void Walljumping(float elapsedTime)
 	{
 		if(MecanimAnimator.GetBool(_jumpWallHash))
 		{
-			//Direction = -Direction;
+			Direction = -Direction;
 			VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 			MecanimAnimator.SetBool(_jumpWallHash, false);
 		}
 		else
 			ApplyGravity(elapsedTime);
 		
-		HorizontalSpeed = Settings.MaxHorizontalSpeed * -Direction.x;
+		HorizontalSpeed = Settings.MaxHorizontalSpeed * Direction.x;
 		
 		if (transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool (_fallHash, false);
-		else
-			Direction = -Direction;
-
-		if (IsGrounded)
-			Direction = -Direction;
 
 		if(IsTouchingWall && ActiveHangTarget is GrabbableObject)
 		{
 			MecanimAnimator.SetBool(_grabWallHash, true);
-			Direction = -Direction;
 		}
 
 		if ((CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up))
 		{
 			MecanimAnimator.SetBool (_hangHash, true);
-			Direction = -Direction;
 		}
 	}
 	
@@ -618,7 +627,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
 	
-	
+
 	public new PlayerCharacterSettings Settings
 	{
 		get { return (PlayerCharacterSettings) base.Settings; }
