@@ -7,6 +7,9 @@
 [AddComponentMenu("Character/Character Settings")]
 public class CharacterSettings : MonoBehaviour
 {
+	// What is the name of the rooot bone? Used to zero-root based animation motion
+	public string RootBoneName = "hip";
+
     // How fast the character runs
     public float MaxHorizontalSpeed = 16.0f;
 
