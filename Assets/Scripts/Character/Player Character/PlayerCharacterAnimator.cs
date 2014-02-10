@@ -302,6 +302,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
             MecanimAnimator.SetBool (_backflipHash,true);
             MecanimAnimator.SetBool (_jumpHash, false);
         }
+		else 
+			MecanimAnimator.SetBool (_backflipHash, false);
 	 }
 		 
 	protected void Rolling(float elapsedTime)
@@ -327,7 +329,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected void Jumping(float elapsedTime)
 	{
         if(Mathf.Abs(CharInput.Horizontal) > 0.1)
-		    ApplyRunning(elapsedTime);
+		    ApplyRunning(elapsedTime/2.0f);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
@@ -342,7 +344,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		else
 			ApplyGravity(elapsedTime);
 		
-        ApplyBiDirection();
+        //ApplyBiDirection();
 		
         if(transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool(_fallHash, false);
