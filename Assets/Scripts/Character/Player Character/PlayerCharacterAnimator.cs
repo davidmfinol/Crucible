@@ -35,9 +35,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
     
     // Used for backflipping
 	private float _desiredSpeed;
-
-	// Used to make certain animations are NOT root-based
-	private Transform _hip;
 	
 	//TODO: figure out this comment
 	private float _timeUntilNextFootStepSound = -1f;
@@ -60,20 +57,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
         transform.position = Settings.SpawnPoint.transform.position;
-	}
-	
-	protected override void Initialize()
-	{
-		_hip = CharacterSettings.SearchHierarchyForBone (transform, "hip");
-	}
-	protected override void OnUpdate()
-	{
-		if (_hip == null)
-			return;
-
-		// We make sure these animation stay in the root
-		//if(CurrentState.IsName("Air.Backflip") || CurrentState.IsName("Wall.Walljumping"))
-		_hip.localPosition = Vector3.zero;
 	}
 	
 	protected override void CreateStateMachine()

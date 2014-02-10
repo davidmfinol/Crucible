@@ -20,6 +20,7 @@ public class CharacterAnimator : MonoBehaviour
 	private CharacterSettings _characterSettings;
 	private CharacterInput _characterInput;
 	private HeartBox _heartBox;
+	private Transform _root;
 
 	// This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
 	public delegate void ProcessState(float elapsedTime);
@@ -63,6 +64,7 @@ public class CharacterAnimator : MonoBehaviour
 		_characterSettings = GetComponent<CharacterSettings>();
 		_characterInput = GetComponent<CharacterInput>();
 		_heartBox = GetComponentInChildren<HeartBox>();
+		_root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
 
         _lastGroundHeight = transform.position.y;
 
@@ -84,6 +86,10 @@ public class CharacterAnimator : MonoBehaviour
 
 	void Update()
 	{
+		// Disable root-based motion
+		if (_root != null && CurrentState.IsTag("Rootbased"))
+			_root.localPosition = Vector3.zero;
+
 		// Check health every frame to make sure we aren't dead
         if (_heartBox != null && _heartBox.HitPoints <= 0 && !_dead)
 		{
