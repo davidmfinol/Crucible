@@ -72,7 +72,7 @@ public class CharacterAnimator : MonoBehaviour
 		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Walljumping"));
 		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
 		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Backflip"));
-
+		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Falling"));
 		Initialize();
 	}
 	protected virtual void CreateStateMachine()
