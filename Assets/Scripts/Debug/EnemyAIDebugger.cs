@@ -18,6 +18,12 @@ public class EnemyAIDebugger : MonoBehaviour
 	public Transform HighlightNode;
 	private GameObject _node;
 	private EnemyInput _brain;
+
+
+    void Awake()
+    {
+        enabled = Debug.isDebugBuild;
+    }
 	
 	void Start()
 	{

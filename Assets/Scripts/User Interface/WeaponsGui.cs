@@ -3,6 +3,8 @@
 using UnityEngine;
 using System.Collections;
 
+
+// TODO: REPLACE THIS CLASS
 public class WeaponsGui : MonoBehaviour {
 	
 	public int AnimationSteps = 14; // Needs to be even number	

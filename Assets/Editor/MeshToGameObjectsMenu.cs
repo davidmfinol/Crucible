@@ -39,28 +39,19 @@ public class MeshToGameObjectsMenu
 		
 		selection.ForEach(transform => {
 			MeshFilter meshFilter = transform.GetComponent<MeshFilter>();
-			if (!meshFilter) return;
+            if (!meshFilter) return;
 
+            // Do some general stuff to get the object ready to be created
+            SetupObject(transform);
+
+            // Create the object
 			string name = meshFilter.name.ToLower();
 			if (name.Contains("ledge"))
-			{
-				SetupObject(transform);
-				// TODO: if(name.Contains("inter-zone"))
-				//	CreateInterZoneLedge(transform);
-				//else
 				CreateLedge(transform); 
-				meshFilter.tag = "Waypoint";
-			}
-			if (name.Contains("ladder"))
-			{
-				SetupObject(transform);
-				CreateLadder(transform, name.Contains("inter-zone")); 
-			}
-			if (name.Contains("ground"))
-			{
-				SetupObject(transform);
+			else if (name.Contains("ladder"))
+				CreateLadder(transform); 
+			else if (name.Contains("ground"))
 				CreateGround(transform);
-			}
 		});
 	}
 
@@ -74,7 +65,10 @@ public class MeshToGameObjectsMenu
 		collider = transform.gameObject.AddComponent<BoxCollider>();
 
 		// Put it on the ground layer
-		transform.gameObject.layer = LayerMask.NameToLayer("Ground");
+        transform.gameObject.layer = LayerMask.NameToLayer("Ground");
+
+        // Mark it as waypoint for the AI system
+        transform.tag = "Waypoint";
 		
 		// Get rid of any child objects that may exist
 		DestroyChildren(transform);
@@ -89,7 +83,7 @@ public class MeshToGameObjectsMenu
 			GameObject.DestroyImmediate(child.gameObject);
 	}
 
-	static void CreateLedge (Transform ledge)
+    static void CreateLedge (Transform ledge)
 	{
 		// We need to find where we're going to put the ledges we grab onto
 		Bounds ledgeBounds = ledge.collider.bounds;
@@ -108,7 +102,7 @@ public class MeshToGameObjectsMenu
 		rightLedge.GetComponent<Ledge> ().Left = false;
 		rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.Contains ("Obstacle"));
 	}
-	static void CreateLadder(Transform ladder, bool facesZAxis)
+	static void CreateLadder(Transform ladder)
 	{
 		// Create the ladder
 		GameObject createdLadder = GameObject.Instantiate(ladderPrefab, ladder.position, ladderPrefab.transform.rotation) as GameObject;
@@ -116,17 +110,13 @@ public class MeshToGameObjectsMenu
 
 		// Scale the ladder so that it encompasses the physical ladder and the size of the player
 		// TODO: FINISH THIS
-
-		// Set-up whether the ladder faces the z or x-axis
-		if(!facesZAxis)
-		{
-			DestroyChildren(createdLadder.transform);
-			createdLadder.GetComponent<Ladder>().FacesZAxis = false;
-		}
 	}
 	static void CreateGround(Transform ground)
 	{
+         // TODO: FIGURE OUT WHY THESE TWO LINES ARE HERE
 		if(ground.renderer != null)
 			ground.renderer.enabled = false;
+
+        // TODO: SHOULD WE PUT A MESH COLLIDER? WE'VE ALREADY PUT A BOX COLLIDER; not sure what else needs to be done here?
 	}
 }

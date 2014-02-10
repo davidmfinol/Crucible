@@ -4,7 +4,12 @@ using System.Collections;
 [AddComponentMenu("Debug/Sound Debugger")]
 public class SoundDebugger : MonoBehaviour
 {
-	public Transform SoundPrefab;
+    public Transform SoundPrefab;
+    
+    void Awake()
+    {
+        enabled = Debug.isDebugBuild;
+    }
 
 	void Update()
 	{

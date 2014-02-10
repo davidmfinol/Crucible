@@ -12,7 +12,13 @@ public class TimeScaler : MonoBehaviour
 	
     private bool _timeScaleIsModified;
     private float _realTimeScaleMultiplier;
-	private int _originialFrameRate;
+    private int _originialFrameRate;
+
+
+    void Awake()
+    {
+        enabled = Debug.isDebugBuild;
+    }
 	
 	void Update()
 	{

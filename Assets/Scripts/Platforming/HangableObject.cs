@@ -26,16 +26,12 @@ public class HangableObject : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        CharacterAnimator character = collision.gameObject.GetComponent<CharacterAnimator>();
-        if (character != null)
-            character.AddHangTarget(this);
+        OnTriggerEnter(collision.collider);
     }
 
     void OnCollisionExit(Collision collision)
     {
-        CharacterAnimator character = collision.gameObject.GetComponent<CharacterAnimator>();
-        if (character != null)
-            character.RemoveHangTarget(this);
+        OnTriggerExit(collision.collider);
     }
 
     public virtual bool DoesFaceZAxis()

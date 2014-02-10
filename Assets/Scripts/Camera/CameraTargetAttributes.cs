@@ -32,10 +32,10 @@ public class CameraTargetAttributes : MonoBehaviour
 
 	void Start()
 	{
-		_character = GameManager.Player.GetComponent<PlayerCharacterAnimator> ();
+		_character = GameManager.Player.GetComponent<CharacterAnimator> ();
 	}
 
-    // We handle the camera moving in on the player here
+    // We handle the camera moving in on the character here
     void Update()
     {
 		if (_character == null)

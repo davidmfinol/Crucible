@@ -24,6 +24,7 @@ public class TouchInput : MonoBehaviour
     private float _lastSwipeDeg;
 
     // Other components
+    // TODO: REPLACE WeaponsGUI
 	//private WeaponsGui _weaponsGUI;
 	private PlayerCharacterInput _input;
 
@@ -37,10 +38,10 @@ public class TouchInput : MonoBehaviour
 		//_weaponsGUI = GetComponentInChildren<WeaponsGui> ();
 		_input = GameManager.Player.GetComponent<PlayerCharacterInput>();
 	}
-
+    
+#if UNITY_ANDROID && !UNITY_EDITOR
 	void Update ()
 	{	
-#if !UNITY_EDITOR && UNITY_ANDROID
         // Reset certain inputs as appropriate
         _input.Vertical = 0;
         _input.Interaction = false;
@@ -74,8 +75,8 @@ public class TouchInput : MonoBehaviour
         // Reset the horizontal input if movement side not touched
 		if(!moveTouched)
 			_input.Horizontal = 0;
-#endif		
-	}
+    }
+#endif
 	
 
     // TODO: SET UP WEAPONSGUI CORRECTLY
@@ -224,7 +225,7 @@ public class TouchInput : MonoBehaviour
 	}
 
 	// TODO: Display the dots that indicate the current action
-	void DisplayActionDots(bool actTouched)
+	private void DisplayActionDots(bool actTouched)
 	{
 
 	}

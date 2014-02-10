@@ -41,10 +41,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private float _timeUntilNextFootStepSound = -1f;
 	// TODO: remove this (use variation of Justin's script?)
 	public static int countItems = 0;
-
+    //TODO: figure out this comment
 	private AttackData _attackedBy;
 
-	// auto-climb code for ladders and pipes
+	// Auto-climb code for ladders and pipes
 	private enum AutoClimbDirection : int
 	{
 		AutoClimb_None = 0,
@@ -102,7 +102,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_backflipHash = Animator.StringToHash ("Backflip");
 		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
 		_respawnHash = Animator.StringToHash("Respawn");
-
 	}
 	
 	protected override void UpdateMecanimVariables()
@@ -124,14 +123,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 
 		// if not in a climb, reset our auto-climb direction for use next climb.
-		if(! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName ("Climbing.ClimbingStrafe"))) {
+		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingStrafe")) )
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
 
-		}
-
+        // TODO: SHOULD MOVE THIS TO OnFixedUpdate()
 		// process attacks
-		if (_attackedBy) {
-			MecanimAnimator.SetBool (_jumpHash, true);
+		if (_attackedBy)
+        {
+			MecanimAnimator.SetBool (_jumpHash, true); // TODO: ADD VALUES TO VERTICAL AND HORIZONTAL SPEED
 			// fly in direction of hit
 			HorizontalSpeed = Settings.MaxHorizontalSpeed * (_attackedBy.HorizontalDir > 0 ? 1.0f : -1.0f);
 			Heart.HitPoints -= _attackedBy.DamageAmount;
@@ -387,9 +386,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
 		
-		MecanimAnimator.SetBool(_hangHash, !(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
-			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+        if(!(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
+                (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+                || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up))
+        {
+            MecanimAnimator.SetBool(_hangHash, true);
+            VerticalSpeed = 0;
+        }
 	}
 	
 	protected void Wallgrabbing(float elapsedTime)
@@ -615,11 +618,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			countItems += 1;
         }
     }
-
-	public void OnTriggerEnter(Collider other) {
+	public void OnTriggerEnter(Collider other)
+    {
 		AttackData ad = other.GetComponent<AttackData>();
 
-		if (ad) {
+		if (ad) 
+        {
 			_attackedBy = ad;
 
 		}
