@@ -51,6 +51,9 @@ public class CharacterAnimator : MonoBehaviour
     private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 		
+	// list of animation state hashes for which we nullify root based motion of animations
+	private List<int> _rootMotionCorrectionStates;
+
 	void Start()
 	{
 		_stateMachine = new Dictionary<int, ProcessState>();
@@ -64,6 +67,11 @@ public class CharacterAnimator : MonoBehaviour
 		_root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
 
         _lastGroundHeight = transform.position.y;
+
+		_rootMotionCorrectionStates = new List<int> ();
+		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Walljumping"));
+		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
+		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Backflip"));
 
 		Initialize();
 	}
@@ -81,10 +89,11 @@ public class CharacterAnimator : MonoBehaviour
 		// Child classes should override this method if they want to initialize variables on Start()
 	}
 
+
 	void Update()
 	{
 		// Disable root-based motion
-		if (_root != null && CurrentState.IsTag("Rootbased"))
+		if (_root != null && _rootMotionCorrectionStates.Contains ( CurrentState.nameHash ))
 			_root.localPosition = Vector3.zero;
 
 		// Check health every frame to make sure we aren't dead
