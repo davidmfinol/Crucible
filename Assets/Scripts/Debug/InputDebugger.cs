@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -20,7 +20,7 @@ public class InputDebugger : MonoBehaviour
 
     void Start()
     {
-        _touchInput = GameManager.Hud.GetComponent<TouchInput>();
+        _touchInput = GameManager.UI.GetComponent<TouchInput>();
         _playerInput = GameManager.Player.GetComponent<PlayerCharacterInput>();
     }
 

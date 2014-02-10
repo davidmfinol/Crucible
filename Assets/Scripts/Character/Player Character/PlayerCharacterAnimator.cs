@@ -112,7 +112,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	protected void UpdateMovementAnimations()
 	{
-		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpActive)
+		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpPressed)
 			MecanimAnimator.SetBool(_jumpHash, true);
 
 		bool startClimbLadder = CanClimbLadder && CharInput.Interaction;
@@ -130,7 +130,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// process attacks
 		if (_attackedBy)
         {
-			MecanimAnimator.SetBool (_jumpHash, true); // TODO: ADD VALUES TO VERTICAL AND HORIZONTAL SPEED
+			MecanimAnimator.SetBool (_jumpHash, true); // TODO: ADD (INSTEAD OF SET) VALUES TO VERTICAL AND HORIZONTAL SPEED
 			// fly in direction of hit
 			HorizontalSpeed = Settings.MaxHorizontalSpeed * (_attackedBy.HorizontalDir > 0 ? 1.0f : -1.0f);
 			Heart.HitPoints -= _attackedBy.DamageAmount;
@@ -326,16 +326,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Jumping(float elapsedTime)
 	{
-		ApplyRunning(elapsedTime);
+        if(Mathf.Abs(CharInput.Horizontal) > 0.1)
+		    ApplyRunning(elapsedTime);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
-            /* TODO: have direction of jump swipe influence your jump?
 			if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
 				HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
 			else if(CharInput.JumpRight || CharInput.JumpRightReleased)
 				HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
-             */            
 
         	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 			MecanimAnimator.SetBool(_jumpHash, false);
@@ -480,7 +479,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}
-		else if(CharInput.JumpActive)
+		else if(CharInput.JumpPressed)
 		{
 			DropHangTarget();
 			MecanimAnimator.SetBool(_jumpHash, true);
@@ -601,8 +600,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
-		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpActive);
-		MecanimAnimator.SetBool (_climbLadderHash, CanClimbLadder && (CharInput.UpPressed || CharInput.DownPressed));
+		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpPressed);
+		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.UpPressed || CharInput.DownPressed));
 	}
 	
 	// TODO: DETERMINE HOW WE PICK STUFF UP

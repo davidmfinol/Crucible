@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     // The GameManager is in charge of creating the player and his camera
     public Transform PlayerPrefab;
 	public Camera CameraPrefab;
-	public Transform HUDPrefab;
+	public Transform UIPrefab;
 	
     // Each scene should correspond to a level, and each level should have exactly one GameLevel
     private static GameLevel _currentLevel;
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 	private static Transform _player;
 	
     // Global Managers
-    private static Transform _hud;
+    private static Transform _ui;
 	private static AIManager _aiManager;
 	private static AudioManager _audioManager;
 	private static SubtitlesManager _subtitlesManager;
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 		
 		SetupCamera();
 		
-		SetupHUD();
+		SetupUI();
 		
 		SetupAI();
 		
@@ -72,10 +72,10 @@ public class GameManager : MonoBehaviour
             cameraScript.Target = Player.transform;
     }
     
-    private void SetupHUD()
+    private void SetupUI()
     {
-        if(_hud == null)
-            _hud = (Transform)Instantiate(HUDPrefab, HUDPrefab.transform.position, HUDPrefab.transform.rotation);   
+        if(_ui == null)
+            _ui = (Transform)Instantiate(UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);   
     }
 	
 	private void SetupAI()
@@ -127,15 +127,15 @@ public class GameManager : MonoBehaviour
     }
     
     /// <summary>
-    /// Gets or sets the hud.
+    /// Gets or sets the User Interface.
     /// </summary>
     /// <value>
-    /// The hud.
+    /// The User Interface.
     /// </value>
-    public static Transform Hud
+    public static Transform UI
     {
-        get { return _hud; }
-        set { _hud = value; }
+        get { return _ui; }
+        set { _ui = value; }
     }
 	
 	/// <summary>
