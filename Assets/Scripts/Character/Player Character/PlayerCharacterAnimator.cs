@@ -392,6 +392,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
             MecanimAnimator.SetBool(_hangHash, true);
             VerticalSpeed = 0;
         }
+		else 
+			MecanimAnimator.SetBool(_hangHash, false);
 	}
 	
 	protected void Wallgrabbing(float elapsedTime)
@@ -617,7 +619,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			countItems += 1;
         }
     }
-	public void OnTriggerEnter(Collider other)
+	public void OnTriggerEnter(Collider other) //TODO: MORE GENERIC ENTRY IN CHARACTERANIMATOR
     {
 		AttackData ad = other.GetComponent<AttackData>();
 

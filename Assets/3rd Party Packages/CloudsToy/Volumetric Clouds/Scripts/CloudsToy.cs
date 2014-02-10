@@ -1013,13 +1013,13 @@ public void  SaveProceduralTexture (){
 	// Just comment from this #ifUNITY_EDITOR (included) until the #endif (included too).
 	// and i will go perfect, but will not be able to save your procedural textures.
 	// Otherwise change the platform to Windows /Mac Standalone in File --> Build Settings.
-	//FIXME: WriteALLBytes is broken?
+
 	#if UNITY_EDITOR
 		bytes = ProceduralTexture.MyTexture.EncodeToPNG();
-//		System.IO.File.WriteAllBytes(PTAddFilename, bytes);
+		System.IO.File.WriteAllBytes(PTAddFilename, bytes);
 		
 		bytes = ProceduralTexture.MyAlphaTexture.EncodeToPNG();
-//		System.IO.File.WriteAllBytes(PTBlendedFilename, bytes);
+		System.IO.File.WriteAllBytes(PTBlendedFilename, bytes);
 	#endif
 
 }

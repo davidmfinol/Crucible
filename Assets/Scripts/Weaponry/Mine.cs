@@ -15,21 +15,21 @@ public class Mine : Weapon
     public string IdleAnimationName = "Idle";
     public string AttackAnimationName = "Attack";
 
-	private static List<GameObject> allPlacedMines = new List<GameObject>();
-	private int mineAmount = 100;
+	private List<GameObject> allPlacedMines = new List<GameObject>();
+	private GameObject _mineAmountText;
+	private int _mineAmount = 100; //TODO: MOVE THIS
 	
-	private bool minesCurrentlyExploding = false;
+	private bool _minesCurrentlyExploding = false;
     private bool _hitBoxesActive = false;
-	
-	private GameObject MineAmountText;
+
 	
 	private float _mineLastPlacedTime;
 	
 	void Start ()
 	{
         SetHitBoxes(transform, _hitBoxesActive);
-		MineAmountText = GameObject.Find("MineAmountText");
-		MineAmountText.GetComponent<TextMesh>().text = mineAmount.ToString();
+		_mineAmountText = GameObject.Find("MineAmountText");
+		_mineAmountText.GetComponent<TextMesh>().text = _mineAmount.ToString();
 	}
 	
     public override void ActivateAttack(int attackID)
@@ -42,22 +42,22 @@ public class Mine : Weapon
 	
 	public void PlaceMine()
 	{
-		if( Time.time - _mineLastPlacedTime < 1 || minesCurrentlyExploding || mineAmount <= 0)
+		if( Time.time - _mineLastPlacedTime < 1 || _minesCurrentlyExploding || _mineAmount <= 0)
 			return;
 				
 		//minePos = this.gameObject.transform.position;
 		Vector3 minePos = new Vector3(transform.position.x, transform.position.y, transform.position.z);// + 1.5f);
 		Transform mineCopy = (Transform) Instantiate(mineObject, minePos, Quaternion.identity);
 		mineCopy.animation["MineAboutToExplode"].speed = 2.0f;
-		mineAmount--;
+		_mineAmount--;
 		allPlacedMines.Add(mineCopy.gameObject);
-		MineAmountText.GetComponent<TextMesh>().text = mineAmount.ToString();
+		_mineAmountText.GetComponent<TextMesh>().text = _mineAmount.ToString();
 		_mineLastPlacedTime = Time.time;
 	}
 	
 	public void DetonateMines()
 	{
-		if(allPlacedMines.Count <= 0 || minesCurrentlyExploding)
+		if(allPlacedMines.Count <= 0 || _minesCurrentlyExploding)
 			return;
 				
 		for(int i = 0; i < allPlacedMines.Count; i++)
@@ -69,7 +69,7 @@ public class Mine : Weapon
 	// Waits until animation is over to explode mines.
 	IEnumerator AnimateExplosions(float waitTime)
 	{
-		minesCurrentlyExploding = true;
+		_minesCurrentlyExploding = true;
 
 		yield return new WaitForSeconds(waitTime);
 		
@@ -82,7 +82,7 @@ public class Mine : Weapon
 		
 		allPlacedMines = new List<GameObject>();
 
-		minesCurrentlyExploding = false;
+		_minesCurrentlyExploding = false;
 	}
 
     public void ActivateHitBox(bool activate)
@@ -92,7 +92,7 @@ public class Mine : Weapon
         _hitBoxesActive = activate;
     }	
 	
-    public static void SetHitBoxes(Transform current, bool active)
+    public void SetHitBoxes(Transform current, bool active)
     {
         // activate the hitbox for the bone we're on
         BoxCollider collider = current.GetComponent<BoxCollider>();
