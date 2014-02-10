@@ -29,6 +29,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _jumpWallHash;
 	private int _backflipHash;
 	private int _climbStrafeHash;
+	private int _respawnHash;
 
 	// Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -60,6 +61,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
         transform.position = Settings.SpawnPoint.transform.position;
+		MecanimAnimator.SetBool (_respawnHash, true);
 	}
 	
 	protected override void Initialize()
@@ -82,6 +84,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
 		StateMachine[Animator.StringToHash("Base Layer.Rolling")] = Rolling;
+		StateMachine[Animator.StringToHash("Base Layer.Waiting For Respawn")] = WaitingForRespawn;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
@@ -94,7 +97,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
-		
+
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
 		_horizontalSpeedHash = Animator.StringToHash("HorizontalSpeed");
@@ -115,6 +118,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_jumpWallHash = Animator.StringToHash("JumpWall");
 		_backflipHash = Animator.StringToHash ("Backflip");
 		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
+		_respawnHash = Animator.StringToHash("Respawn");
+
 	}
 	
 	protected override void UpdateMecanimVariables()
@@ -246,12 +251,27 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				
 	protected void Die(float elapsedTime)
 	{
+		HorizontalSpeed = 0.0f;
+		if (IsGrounded)
+			VerticalSpeed = GroundVerticalSpeed;
+		else
+			ApplyGravity (elapsedTime);
+
         MecanimAnimator.SetBool(_jumpHash, false);
 		MecanimAnimator.SetBool(_fallHash, false);
         MecanimAnimator.SetBool(_dieHash, false);
-		
-		if(MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.7)
-        	Spawn();
+
+	}
+
+	protected void WaitingForRespawn(float elapsedTime)
+	{
+		MecanimAnimator.SetBool(_jumpHash, false);
+		MecanimAnimator.SetBool(_fallHash, false);
+		MecanimAnimator.SetBool(_dieHash, false);
+				
+		if (CharInput.InteractionPressed || CharInput.JumpPressed)
+			Spawn ();
+
 	}
 	
 	protected virtual void Idle(float elapsedTime)
@@ -267,6 +287,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		ApplyBiDirection();
 		
         MecanimAnimator.SetBool(_fallHash, !MecanimAnimator.GetBool(_fallHash) && !IsGrounded);
+
+		MecanimAnimator.SetBool (_respawnHash, false);
 	}
 	
 	protected void Running(float elapsedTime)
