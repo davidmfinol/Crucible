@@ -530,10 +530,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		else if (CharInput.Down)
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Down;
 		else if (CharInput.InteractionPressed)
-		{
-			Debug.Log("Button pressed");
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
-		}
 		
 		// always give a speed based on the auto-climb direction
 		float vertical;

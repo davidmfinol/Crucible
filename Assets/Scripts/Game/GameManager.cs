@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
 
         PlayerCharacterSettings playerSettings = _player.GetComponent<PlayerCharacterSettings>();
         playerSettings.SpawnPoint = _currentLevel.StartPoint;
+		playerSettings.Weapon = playerSettings.PipePrefab;
 	}
 	
 	private void SetupCamera()
