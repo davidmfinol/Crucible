@@ -9,11 +9,13 @@ using System.Collections;
 public class NextLevel : MonoBehaviour
 {
 	public string NextLevelName;
+
+    public bool RequiresUp = false;
 	
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        PlayerCharacterAnimator player = other.GetComponent<PlayerCharacterAnimator>();
-        if (player != null)
+        CharacterAnimator player = other.GetComponent<CharacterAnimator>();
+        if (player != null && (!RequiresUp || player.CharInput.Up))
             Application.LoadLevel(NextLevelName);
     }
 }

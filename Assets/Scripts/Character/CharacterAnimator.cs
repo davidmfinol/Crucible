@@ -25,6 +25,10 @@ public class CharacterAnimator : MonoBehaviour
 	// This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
 	public delegate void ProcessState(float elapsedTime);
 	private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
+    private AnimatorStateInfo _previousState;
+    
+    // List of animation state hashes for which we nullify root based motion of animations
+    private List<int> _rootMotionCorrectionStates;
 	
 	// We use these to determine movement
     private float _horizontalSpeed = 0.0f; // How fast does the character want to move on the x-axis?
@@ -50,29 +54,28 @@ public class CharacterAnimator : MonoBehaviour
     private Zone _Zhigher = null; // Zone we go to if we press up
     private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
-		
-	// list of animation state hashes for which we nullify root based motion of animations
-	private List<int> _rootMotionCorrectionStates;
 
 	void Start()
 	{
-		_stateMachine = new Dictionary<int, ProcessState>();
-		CreateStateMachine();
-		
 		_characterController = GetComponent<CharacterController>();
 		_animator = GetComponent<Animator>();
 		_characterSettings = GetComponent<CharacterSettings>();
 		_characterInput = GetComponent<CharacterInput>();
 		_heartBox = GetComponentInChildren<HeartBox>();
-		_root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
+        _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
+
+        _stateMachine = new Dictionary<int, ProcessState>();
+        CreateStateMachine();
+        _previousState = CurrentState;
+        
+        _rootMotionCorrectionStates = new List<int> ();
+        _rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Walljumping"));
+        _rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
+        _rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Backflip"));
+        _rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Falling"));
 
         _lastGroundHeight = transform.position.y;
 
-		_rootMotionCorrectionStates = new List<int> ();
-		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Walljumping"));
-		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
-		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Backflip"));
-		_rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Falling"));
 		Initialize();
 	}
 	protected virtual void CreateStateMachine()
@@ -87,8 +90,15 @@ public class CharacterAnimator : MonoBehaviour
 	protected virtual void Initialize()
 	{
 		// Child classes should override this method if they want to initialize variables on Start()
-	}
-
+    }
+    public virtual void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+    protected virtual void UpdateMecanimVariables()
+    {
+        // Empty by default; child classes should override
+    }
 
 	void Update()
 	{
@@ -98,9 +108,7 @@ public class CharacterAnimator : MonoBehaviour
 
 		// Check health every frame to make sure we aren't dead
         if (_heartBox != null && _heartBox.HitPoints <= 0)
-		{
 			OnDeath ();
-		}
 
 		// Handle all the z-zone stuff in one location
 		UpdateZones();
@@ -137,23 +145,11 @@ public class CharacterAnimator : MonoBehaviour
 			else if(CharInput.DownPressed && !CharInput.Up)
 				_currentZone = _Zlower;
 		}
-	}
-	public virtual void OnDeath()
-	{
-		Destroy(gameObject);
-	}
-	protected virtual void OnUpdate()
-	{
-		// Child classes may override this method if they want to do things during update
-	}
-	protected virtual void UpdateMecanimVariables()
-	{
-		// Empty by default; child classes should override
-	}
-	protected virtual void OnFixedUpdate()
-	{
-		// Child classes may override this method if they want to do things during fixedupdate
-	}
+    }
+    protected virtual void OnUpdate()
+    {
+        // Child classes may override this method if they want to do things during update
+    }
 
 	// We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
 	void FixedUpdate()
@@ -165,6 +161,7 @@ public class CharacterAnimator : MonoBehaviour
 		UpdateMecanimVariables();
 
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
+        _previousState = CurrentState;
 		ProcessState processState;
 		if(StateMachine.TryGetValue(CurrentState.nameHash, out processState))
 			processState(Time.fixedDeltaTime);
@@ -202,9 +199,14 @@ public class CharacterAnimator : MonoBehaviour
 
         // Moving Platform support
 		UpdatePlatformEnd();
-
+        
+        // Let child classes do any additional processing
 		OnFixedUpdate ();
-	}
+    }
+    protected virtual void OnFixedUpdate()
+    {
+        // Child classes may override this method if they want to do things during fixedupdate
+    }
 	
 	/// <summary>
 	/// Updates the rotation of the character over time to smoothly match the character's direction
@@ -398,7 +400,10 @@ public class CharacterAnimator : MonoBehaviour
 	{
 		get { return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0); }
 	}
-	// TODO: PREVIOUSSTATE
+    public AnimatorStateInfo PreviousState
+    {
+        get { return _previousState; }
+    }
 	public CharacterController Controller
 	{
 		get { return _characterController; }

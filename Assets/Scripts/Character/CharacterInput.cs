@@ -192,5 +192,13 @@ public class CharacterInput : MonoBehaviour
 	public bool AttackRightReleased
 	{
 		get { return _attackRightLast && !AttackRight; }
-	}
+    }
+    public bool PickupPressed
+    {
+        get { return !_pickupLast && Pickup; }
+    }
+    public bool PickupReleased
+    {
+        get { return _pickupLast && !Pickup; }
+    }
 }

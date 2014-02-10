@@ -9,13 +9,6 @@ using System.Collections;
 [AddComponentMenu("Character/Enemy/Enemy Animator")]
 public class EnemyAnimator : CharacterAnimator
 {
-    // So we can find the arms to use as weapons
-	public string LeftForearmBoneName = "left_elbow";
-	public string RightForearmBoneName = "right_elbow";
-	
-	// Enemy should play it's own sound effects
-    private EnemyAudioPlayer _enemyAudioSource;
-
 	// Mecanim hashes
 	private int _verticalSpeedHash;
 	private int _horizontalSpeedHash;
@@ -36,14 +29,17 @@ public class EnemyAnimator : CharacterAnimator
     // Bones for our left and right hands
     private Transform _bone_L;
     private Transform _bone_R;
+
+    // Enemy should play it's own sound effects
+    private EnemyAudioPlayer _enemyAudioSource;
 	
 	protected override void Initialize ()
 	{
         _enemyAudioSource = GetComponentInChildren<EnemyAudioPlayer>();
 
         // We need to find the bones for our hands so we can attack with them
-        _bone_L = CharacterSettings.SearchHierarchyForBone(transform, LeftForearmBoneName);
-        _bone_R = CharacterSettings.SearchHierarchyForBone(transform, RightForearmBoneName);
+        _bone_L = CharacterSettings.SearchHierarchyForBone(transform, Settings.LeftForearmBoneName);
+        _bone_R = CharacterSettings.SearchHierarchyForBone(transform, Settings.RightForearmBoneName);
 
 		if(_bone_L == null || _bone_R == null)
 			Debug.LogWarning("Left or right bones not found");
@@ -419,5 +415,10 @@ public class EnemyAnimator : CharacterAnimator
 	public new EnemyInput CharInput
 	{
 		get { return (EnemyInput) base.CharInput; }
-	}
+    }
+    public override bool CanTransitionZ
+    {
+        get { return false; }
+        set { }
+    }
 }

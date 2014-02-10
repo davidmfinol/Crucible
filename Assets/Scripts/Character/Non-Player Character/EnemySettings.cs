@@ -26,7 +26,11 @@ public class EnemySettings : CharacterSettings
 	public bool CanSee = true;         // toggle AI vision and hearing sensory inputs.
 	public bool CanHear = true;
 	public float VisionMemory = 1.0f;           // how long to forget that we saw the player
-	public float SoundInspectionRange = 1.0f;  // how close to succesfully visually inspect a sound source
+    public float SoundInspectionRange = 1.0f;  // how close to succesfully visually inspect a sound source
+
+    // So we can find the arms to use as weapons
+    public string LeftForearmBoneName = "left_elbow";
+    public string RightForearmBoneName = "right_elbow";
 	
     /// <summary>
     /// Returns whether a Enemy can jump from one position to another

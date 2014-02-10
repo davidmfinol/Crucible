@@ -5,7 +5,7 @@ MonoImporter:
   defaultReferences:
   - PlayerPrefab: {fileID: 400034, guid: 01bb07965aa214e4a8c04dc0061792e6, type: 2}
   - CameraPrefab: {fileID: 2000000, guid: 6c9837367a9302441977fc709554bf4b, type: 2}
-  - HUDPrefab: {fileID: 400000, guid: 6ed616d12c81bae40981f28d86406edb, type: 2}
+  - UIPrefab: {fileID: 400000, guid: 6ed616d12c81bae40981f28d86406edb, type: 2}
   executionOrder: -100
   icon: {instanceID: 0}
   userData: 
