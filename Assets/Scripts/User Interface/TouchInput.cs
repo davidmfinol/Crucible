@@ -13,18 +13,18 @@ public class TouchInput : MonoBehaviour
     // Used for keeping track of swipes and where they start
 	private int _moveID;
 	private Vector2 _moveStartPos;
-	private float _moveMin = 8.0f;
+	private float _moveMin;
 	private float _distanceForMaxSpeed;
 
 	// Kept track for debugging
 	private float _lastSwipeDeg;
 	private int _actionID;
 	private Vector2 _actionStartPos;
-	private float _actionMin = 8.0f;
+	private float _actionMin;
 	
 	private int _guiID;
 	private Vector2 _guiStartPos;
-	private float _guiMin = 8.0f;
+	private float _guiMin;
 	
     // Other components
 	private PlayerCharacterInput _input;
@@ -33,14 +33,17 @@ public class TouchInput : MonoBehaviour
 	{
 		_moveID = -1;
 		_moveStartPos = Vector2.zero;
-		_distanceForMaxSpeed = Screen.width / 16.0f;
+		_distanceForMaxSpeed = Screen.width / 8.0f;
+		_moveMin = Screen.width / 32.0f;
 
 		_lastSwipeDeg = 0.0f;
 		_actionID = -1;
 		_actionStartPos = Vector2.zero;
+		_actionMin = Screen.width / 32.0f;
 
 		_guiID = -1;
 		_guiStartPos = Vector2.zero;
+		_guiMin = Screen.width / 16.0f;
 
 		_input = GameManager.Player.GetComponent<PlayerCharacterInput>();
 	}
