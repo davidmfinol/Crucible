@@ -7,35 +7,41 @@ using System.Collections;
 [AddComponentMenu("User Interface/Touch Input")]
 public class TouchInput : MonoBehaviour
 {
-    // TODO: base it on the size of the screen (NOTE THAT THESE VALUES ARE CURRENTLY STORED IN THE PREFAB)
-    public float MinMovement = 8.0f;
-    public float MinInteraction = 8.0f;
-    public float MinGUISwipe = 8.0f;
-
     // Allow for switching between our different control schemes
-    public int MovementUIType = 0;
+    public int MovementUIType = 1;
 
-    // Used for keeping track of swipes
-	private Vector2 _startPos;
-	private int _swipeID;
-    private float _distanceForMaxSpeed;
+    // Used for keeping track of swipes and where they start
+	private int _moveID;
+	private Vector2 _moveStartPos;
+	private float _moveMin = 8.0f;
+	private float _distanceForMaxSpeed;
 
-    // Kept track for debugging
-    private float _lastSwipeDeg;
-
+	// Kept track for debugging
+	private float _lastSwipeDeg;
+	private int _actionID;
+	private Vector2 _actionStartPos;
+	private float _actionMin = 8.0f;
+	
+	private int _guiID;
+	private Vector2 _guiStartPos;
+	private float _guiMin = 8.0f;
+	
     // Other components
-    // TODO: REPLACE WeaponsGUI
-	//private WeaponsGui _weaponsGUI;
 	private PlayerCharacterInput _input;
 
 	void Start ()
 	{
-        _swipeID = -1;
-        _distanceForMaxSpeed = Screen.width / 16.0f;
+		_moveID = -1;
+		_moveStartPos = Vector2.zero;
+		_distanceForMaxSpeed = Screen.width / 16.0f;
 
-        _lastSwipeDeg = 0.0f;
+		_lastSwipeDeg = 0.0f;
+		_actionID = -1;
+		_actionStartPos = Vector2.zero;
 
-		//_weaponsGUI = GetComponentInChildren<WeaponsGui> ();
+		_guiID = -1;
+		_guiStartPos = Vector2.zero;
+
 		_input = GameManager.Player.GetComponent<PlayerCharacterInput>();
 	}
     
@@ -83,53 +89,29 @@ public class TouchInput : MonoBehaviour
 	private void InterpretWeaponsGuiSwipe(Touch touch)
 	{
 		Vector2 position = touch.position;
-		if (touch.phase == TouchPhase.Began && _swipeID == -1)
+		if (touch.phase == TouchPhase.Began && _guiID == -1)
 		{
-			_swipeID = touch.fingerId;
-			_startPos = position;
+			_guiID = touch.fingerId;
+			_guiStartPos = position;
 		} 
-		else if (touch.fingerId == _swipeID)
+		else if (touch.fingerId == _guiID)
 		{
-			Vector2 delta = position - _startPos;
-			if (touch.phase == TouchPhase.Moved && delta.magnitude > MinGUISwipe) 
+			Vector2 delta = position - _guiStartPos;
+			if (touch.phase == TouchPhase.Moved && delta.magnitude > _guiMin) 
 			{
-				_swipeID = -1;
+				_guiID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 				{				
 					if (delta.x > 0) 
-					{
-						//Instantiate(BOX, Right, Quaternion.identity);	
-						/*if (!_weaponsGUI.Animating) 
-						{	
-							_weaponsGUI.RightSelect = true;
-							_weaponsGUI.Animating = true;
-						}*/
-						MovementUIType++;
-						if(MovementUIType > 2)
-							MovementUIType = 0;
-						Debug.Log ("Swipe Right Found");
-					} else {
-						MovementUIType--;
-						if(MovementUIType < 0)
-							MovementUIType = 2;
-						Debug.Log ("Swipe Left Found");
-						//Instantiate(BOX, Left, Quaternion.identity);	
-						/*if (!_weaponsGUI.Animating) {	
-							_weaponsGUI.LeftSelect = true;
-							_weaponsGUI.Animating = true;	
-						}	*/	
-					}
-				} else {					
-					if (delta.y > 0) {
-						//Instantiate(BOX, Up, Quaternion.identity);
-						Debug.Log ("Swipe Up Found");
-					} else {
-						//Instantiate(BOX, Down, Quaternion.identity);
-						Debug.Log ("Swipe Down Found");
-					}
+						MovementUIType = 0;
+					else
+						MovementUIType = 1;
 				}
+			} else if(touch.phase == TouchPhase.Stationary && delta.magnitude <= _guiMin) {
+				MovementUIType = 2;
+
 			} else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
-				_swipeID = -1;
+				_guiID = -1;
 		}
 	}
 
@@ -143,22 +125,22 @@ public class TouchInput : MonoBehaviour
 		Vector2 position = touch.position;
 		if (touch.phase == TouchPhase.Stationary)
 			return;
-		else if (touch.phase == TouchPhase.Began && _swipeID == -1)
+		else if (touch.phase == TouchPhase.Began && _moveID == -1)
 		{
-			_swipeID = touch.fingerId;
-			_startPos = position;
+			_moveID = touch.fingerId;
+			_moveStartPos = position;
 		} 
-		else if (touch.fingerId == _swipeID)
+		else if (touch.fingerId == _moveID)
 		{
-			Vector2 delta = position - _startPos;
-			if (touch.phase == TouchPhase.Moved && (delta.magnitude > MinMovement) )
+			Vector2 delta = position - _moveStartPos;
+			if (touch.phase == TouchPhase.Moved && (delta.magnitude > _moveMin) )
 			{
-				_swipeID = -1;
 				if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
 					_input.Horizontal = delta.x/_distanceForMaxSpeed;
+
 			}
 			else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
-				_swipeID = -1;
+				_moveID = -1;
 		}
 	}
 	
@@ -176,17 +158,17 @@ public class TouchInput : MonoBehaviour
 	private void InterpretInteractSwipe(Touch touch)
 	{
 		Vector2 position = touch.position;
-		if (touch.phase == TouchPhase.Began && _swipeID == -1)
+		if (touch.phase == TouchPhase.Began && _actionID == -1)
 		{
-			_swipeID = touch.fingerId;
-			_startPos = position;
+			_actionID = touch.fingerId;
+			_actionStartPos = position;
 		} 
-		else if (touch.fingerId == _swipeID)
+		else if (touch.fingerId == _actionID)
 		{
-			Vector2 delta = position - _startPos;
-			if (touch.phase == TouchPhase.Moved && delta.magnitude > MinInteraction) 
+			Vector2 delta = position - _actionStartPos;
+			if (touch.phase == TouchPhase.Moved && delta.magnitude > _actionMin) 
 			{
-				_swipeID = -1;
+				_actionID = -1;
 				_input.Vertical = delta.y;
 
 				float rad = Mathf.Atan2(delta.y, delta.x);
@@ -195,32 +177,38 @@ public class TouchInput : MonoBehaviour
 				_lastSwipeDeg = deg;
 			
 				// jump right
-				if(deg > 30.0f && deg <= 70.0f)
-					_input.Jump = new Vector2( (delta.x / _distanceForMaxSpeed) ,1);
+				if(deg > 25.0f && deg <= 75.0f)
+					_input.Jump = new Vector2( 1,1);
 
-				else if(deg > 70.0f && deg <= 110.0f)
+				// straight up
+				else if(deg > 75.0f && deg <= 105.0f)
 					_input.Jump = new Vector2( 0, 1);
-				
-				else if(deg > 110.0f && deg <= 150.0f)
-					_input.Jump = new Vector2( (delta.x / _distanceForMaxSpeed) ,1);
 
-				else if(deg > 150.0f && deg <= 210.0f)
+				// jump left
+				else if(deg > 105.0f && deg <= 155.0f)
+					_input.Jump = new Vector2( -1 ,1);
+
+				// attack left
+				else if(deg > 155.0f && deg <= 210.0f)
 					_input.Attack = -1;
-				
+
+				// pickup
 				else if(deg > 210.0f && deg <= 330.0f)
 					_input.Pickup = true;
 
-				else if(deg > 330.0f || deg <= 30.0f) 
+				// attack right
+				else if(deg > 330.0f || deg <= 25.0f) 
 					_input.Attack = 1;
 
 			// hold to interact
 			} 
 			else if(touch.phase == TouchPhase.Stationary)
 			{
+				// TODO: make this context-sensitive for ladders & climbing
 				_input.Interaction = true;
 			} 
 			else if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
-				_swipeID = -1;
+				_actionID = -1;
 		}
 	}
 
