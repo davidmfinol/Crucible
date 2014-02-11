@@ -24,7 +24,9 @@ public class CameraTargetAttributes : MonoBehaviour
 	public float ZoomOffset = 1.5f;
 	public float MaxZoomIn = 0.75f;
 	public float MaxZoomOut = 1.5f;
-	public float ZoomAcceleration = 0.35f;// How fast does the camera zoom in?
+    public float ZoomInAcceleration = 0.35f;// How fast does the camera zoom in?
+    public float ZoomOutAcceleration = 0.5f;// How fast does the camera zoom out? //TODO
+    public float ZoomOutDelay = 0.1f; // How much time passes before we start zooming out? //TODO
 	private float _distanceModifier = 1.0f;// How much should we zoom the camera based on this target?
 
 	// Keep track of the character we are following
@@ -47,7 +49,7 @@ public class CameraTargetAttributes : MonoBehaviour
 		else if (desired > MaxZoomOut)
 			desired = MaxZoomOut;
 
-		_distanceModifier = Mathf.Lerp (_distanceModifier, desired, ZoomAcceleration * Time.deltaTime);
+		_distanceModifier = Mathf.Lerp (_distanceModifier, desired, ZoomInAcceleration * Time.deltaTime);
     }
 
 

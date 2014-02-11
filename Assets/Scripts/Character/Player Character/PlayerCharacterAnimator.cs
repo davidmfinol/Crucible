@@ -393,6 +393,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         {
             MecanimAnimator.SetBool(_hangHash, true);
             VerticalSpeed = 0;
+            HorizontalSpeed = 0;
         }
 		else 
 			MecanimAnimator.SetBool(_hangHash, false);
