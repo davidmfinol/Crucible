@@ -235,7 +235,7 @@ public class TouchInput : MonoBehaviour
 				dot.renderer.enabled = false;
 			return;
 		}
-		float x0 = (_actionStartPos.x - Screen.width/2.0f)/50.0f;
+		float x0 = (_actionStartPos.x - Screen.width/2.0f)/32.0f;
 		float y0 = (_actionStartPos.y - Screen.height/2.0f)/32.0f;
 		float[] dotPositions = {-5.5f,-5.5f,-5.5f,0.0f,-5.5f,5.5f,0.0f,-5.5f,0.0f,0.0f,0.0f,5.5f,5.5f,-5.5f,5.5f,0.0f,5.5f,5.5f};
 		for(int dot=0; dot<_userInterfaceDots.Count; dot++)
