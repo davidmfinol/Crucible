@@ -9,6 +9,10 @@ using System.Collections;
 [AddComponentMenu("Character/Player Character/Player Character Animator")]
 public class PlayerCharacterAnimator : CharacterAnimator
 {
+	// health shaders
+	public Shader HurtShader;
+	public Shader UnhurtShader;
+
 	// Mecanim hashes
 	private int _verticalSpeedHash;
 	private int _horizontalSpeedHash;
@@ -41,9 +45,21 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private float _timeUntilNextFootStepSound = -1f;
 	// TODO: remove this (use variation of Justin's script?)
 	public static int countItems = 0;
-    //TODO: figure out this comment
+    //TODO: the attack event we just bumped into, or nothing.
 	private AttackData _attackedBy;
 
+	// how long do we blink when hurt and healed?  which do we choose based on what happened to us last?
+	// how fast do we regen HP?
+	private int _lastHealthAdjust = 0;
+	private float _hurtBlinkTime = 2.0f;
+	private float _healBlinkTime = 0.3f;
+	private float _regenTimer = 6.0f;
+
+	// how long at this health?  how far along in regen?
+	private float _timeAtHealth = 0.0f;
+	private float _timeUntilRegen = 0.0f;
+
+	
 	// Auto-climb code for ladders and pipes
 	private enum AutoClimbDirection : int
 	{
@@ -126,21 +142,79 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingStrafe")) )
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
 
-        // TODO: SHOULD MOVE THIS TO OnFixedUpdate()
+		ProcessAttacks ();
+	}
+	
+ 	private void ProcessAttacks() {
+		// TODO: SHOULD MOVE THIS TO OnFixedUpdate()
 		// process attacks
-		if (_attackedBy)
-        {
+		if (_attackedBy) {
 			MecanimAnimator.SetBool (_jumpHash, true); // TODO: ADD (INSTEAD OF SET) VALUES TO VERTICAL AND HORIZONTAL SPEED
 			// fly in direction of hit
 			HorizontalSpeed = Settings.MaxHorizontalSpeed * (_attackedBy.HorizontalDir > 0 ? 1.0f : -1.0f);
-			Heart.HitPoints -= _attackedBy.DamageAmount;
+			// adjust health, change shaders, etc.
+			AdjustHealth (-1 * _attackedBy.DamageAmount);
 			Destroy (_attackedBy.gameObject);
 			_attackedBy = null;
+
+		} else {
+			BlinkShield();
+			TryRegenHealth ();
 
 		}
 
 	}
 
+	private void AdjustHealth(int deltaHealth) {
+		int currHealth = Heart.HitPoints;
+
+		Heart.HitPoints += deltaHealth;
+		int newHealth = Heart.HitPoints;
+
+		// on health change, change shader
+		if (newHealth != currHealth) {
+			_lastHealthAdjust = deltaHealth;
+
+			if (Heart.HitPoints > 1 && !CharStealth.CurrentlyHidden)
+				CharStealth.SetShader (UnhurtShader);
+			else if (Heart.HitPoints == 1 && !CharStealth.CurrentlyHidden)
+				CharStealth.SetShader (HurtShader);
+			else if (Heart.HitPoints == 0)
+				CharStealth.SetDefaultShader ();
+			
+			_timeAtHealth = 0.0f;
+			_timeUntilRegen = 0.0f;
+			
+		}
+
+	}
+
+	private void BlinkShield() {
+		_timeAtHealth += Time.deltaTime;
+		
+		// blink shield based on whether hurt or healed recently
+		if ((_lastHealthAdjust < 0) && (_timeAtHealth >= _hurtBlinkTime) && !CharStealth.OnDefaultShader () && !CharStealth.CurrentlyHidden) {
+			CharStealth.SetDefaultShader ();
+			
+		} else if ((_lastHealthAdjust > 0) && (_timeAtHealth >= _healBlinkTime) && !CharStealth.OnDefaultShader () && !CharStealth.CurrentlyHidden) {
+			
+			CharStealth.SetDefaultShader();
+		}
+
+	}
+
+	private void TryRegenHealth() {
+		// try to regen actual HP
+		_timeUntilRegen += Time.deltaTime;
+		
+		if((_timeUntilRegen >= _regenTimer) && (Heart.HitPoints < Heart.MaxHitPoints) ) {
+			AdjustHealth(1);
+			
+		}
+
+	}
+
+	
 	protected void UpdateAttackAnimations()
 	{
 		if(Settings.Weapon == null)
@@ -645,5 +719,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public new PlayerCharacterInput CharInput
 	{
 		get { return (PlayerCharacterInput) base.CharInput; }
+	}
+
+	public new PlayerCharacterStealth CharStealth
+	{
+		get { return gameObject.GetComponent<PlayerCharacterStealth>(); }
 	}
 }
