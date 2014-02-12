@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 3d6783e74f307486ab32f9cbf3bf1b71
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
     100002: AnvilPark
@@ -356,6 +356,13 @@ ModelImporter:
     100700: transform44
     100702: Ground
     100704: TopLeftLattice
+    100706: Hooks
+    100708: Ledge34
+    100710: Ledge35
+    100712: polySurface89
+    100714: polySurface90
+    100716: polySurface91
+    100718: polySurface92
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -709,6 +716,13 @@ ModelImporter:
     400700: transform44
     400702: Ground
     400704: TopLeftLattice
+    400706: Hooks
+    400708: Ledge34
+    400710: Ledge35
+    400712: polySurface89
+    400714: polySurface90
+    400716: polySurface91
+    400718: polySurface92
     2300000: Fixture
     2300002: HarshRedLight
     2300004: HarshRedLight1
@@ -969,6 +983,12 @@ ModelImporter:
     2300514: polySurface88
     2300516: Ground
     2300518: polySurface8
+    2300520: Ledge34
+    2300522: Ledge35
+    2300524: polySurface89
+    2300526: polySurface90
+    2300528: polySurface91
+    2300530: polySurface92
     3300000: Fixture
     3300002: HarshRedLight
     3300004: HarshRedLight1
@@ -1229,6 +1249,12 @@ ModelImporter:
     3300514: polySurface88
     3300516: Ground
     3300518: polySurface8
+    3300520: Ledge34
+    3300522: Ledge35
+    3300524: polySurface89
+    3300526: polySurface90
+    3300528: polySurface91
+    3300530: polySurface92
     4300000: pCube4
     4300002: Ledge7
     4300004: Ledge8
@@ -1488,6 +1514,12 @@ ModelImporter:
     4300512: polySurface88
     4300514: Ledge
     4300516: Ground
+    4300518: Ledge34
+    4300520: Ledge35
+    4300522: polySurface89
+    4300524: polySurface90
+    4300526: polySurface91
+    4300528: polySurface92
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -1541,4 +1573,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  additionalBone: 0
   userData: 

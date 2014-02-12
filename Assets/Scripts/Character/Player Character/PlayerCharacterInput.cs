@@ -17,12 +17,12 @@ public class PlayerCharacterInput : CharacterInput
 
 
 	// Analog modifier for keyboard
-	private bool _shift;
+	private bool _shift = false;
 
-
+	
+#if ( UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB )
 	protected override void UpdateInput()
 	{
-#if ( UNITY_EDITOR || UNITY_STANDALONE )
 		_horizontal = Input.GetAxis("Horizontal");
 		_vertical = Input.GetAxis("Vertical");
 		_interaction = Input.GetButton("Interaction");
@@ -30,8 +30,8 @@ public class PlayerCharacterInput : CharacterInput
 		_attack = Input.GetAxis("Attack");
 		_shift = Input.GetButton("Shift");
 		_pickup = Input.GetButton ("Pickup");
+	}
 #endif
-	}	
 
 
 	public override float Horizontal
