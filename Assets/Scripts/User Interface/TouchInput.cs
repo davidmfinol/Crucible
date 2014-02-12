@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Touch Input is responsible for accepting the player's input on a mobile device and passing it to the playercharacterinput.
@@ -9,6 +9,8 @@ public class TouchInput : MonoBehaviour
 {
     // Allow for switching between our different control schemes
     public int MovementUIType = 1;
+	public Transform DotPrefab;
+	private List<Transform> _userInterfaceDots;
 
     // Used for keeping track of swipes and where they start
 	private int _moveID;
@@ -46,6 +48,15 @@ public class TouchInput : MonoBehaviour
 		_guiMin = Screen.width / 16.0f;
 
 		_input = GameManager.Player.GetComponent<PlayerCharacterInput>();
+
+		_userInterfaceDots = new List<Transform>();
+		for(int i = 0; i < 9; i++)
+		{
+			Transform dot = (Transform)Instantiate(DotPrefab);
+			dot.renderer.enabled = false;
+			_userInterfaceDots.Add(dot);
+		}
+
 	}
     
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -218,7 +229,20 @@ public class TouchInput : MonoBehaviour
 	// TODO: Display the dots that indicate the current action
 	private void DisplayActionDots(bool actTouched)
 	{
+		if(!actTouched)
+		{
+			foreach (Transform dot in _userInterfaceDots)
+				dot.renderer.enabled = false;
+			return;
+		}
+		float x0 = (_actionStartPos.x - Screen.width/2)/50;
+		float y0 = (_actionStartPos.y - Screen.height/2)/32;
 
+		for(int dot=0; dot<_userInterfaceDots.Count; dot++)
+		{
+			_userInterfaceDots[dot].transform.position = new Vector3(x0,0,y0);
+			_userInterfaceDots[dot].renderer.enabled = true;
+		}
 	}
 
 
