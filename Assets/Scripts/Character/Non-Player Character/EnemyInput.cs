@@ -118,7 +118,9 @@ public class EnemyInput : CharacterInput
 		{
 			bool facingPlayer = _enemy.Direction.x > 0 && _enemy.transform.position.x < _player.transform.position.x;
 			facingPlayer = facingPlayer || _enemy.Direction.x < 0 && _enemy.transform.position.x > _player.transform.position.x;
-			_attack = facingPlayer && PlayerIsInAttackRange();
+
+			// randomly attack
+			_attack = facingPlayer && PlayerIsInAttackRange() && (Random.Range(0.0f, 1.0f) > 0.95f);
 		}
 		
 		// Jump selectively
