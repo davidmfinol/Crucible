@@ -226,7 +226,6 @@ public class TouchInput : MonoBehaviour
 		}
 	}
 
-	// TODO: Display the dots that indicate the current action
 	private void DisplayActionDots(bool actTouched)
 	{
 		if(!actTouched)
@@ -237,11 +236,37 @@ public class TouchInput : MonoBehaviour
 		}
 		float x0 = (_actionStartPos.x - Screen.width/2)/50;
 		float y0 = (_actionStartPos.y - Screen.height/2)/32;
-
+		float[] dotPositions = {-5.5f,-5.5f,-5.5f,0.0f,-5.5f,5.5f,0.0f,-5.5f,0.0f,0.0f,0.0f,5.5f,5.5f,-5.5f,5.5f,0.0f,5.5f,5.5f};
 		for(int dot=0; dot<_userInterfaceDots.Count; dot++)
 		{
-			_userInterfaceDots[dot].transform.position = new Vector3(x0,0,y0);
+			_userInterfaceDots[dot].transform.position = new Vector3(dotPositions[dot*2],0,dotPositions[dot*2+1]);
 			_userInterfaceDots[dot].renderer.enabled = true;
+
+			_userInterfaceDots[dot].renderer.material.color = Color.white;
+
+			// jump right
+			if(_lastSwipeDeg > 25.0f && _lastSwipeDeg <= 75.0f && dot == 8)
+				_userInterfaceDots[dot].renderer.material.color = Color.green;
+			
+			// straight up
+			else if(_lastSwipeDeg > 75.0f && _lastSwipeDeg <= 105.0f && dot == 7)
+				_userInterfaceDots[dot].renderer.material.color = Color.green;
+			
+			// jump left
+			else if(_lastSwipeDeg > 105.0f && _lastSwipeDeg <= 155.0f && dot == 6)
+				_userInterfaceDots[dot].renderer.material.color = Color.green;
+			
+			// attack left
+			else if(_lastSwipeDeg > 155.0f && _lastSwipeDeg <= 210.0f && dot == 3)
+				_userInterfaceDots[dot].renderer.material.color = Color.green;
+			
+			// pickup
+			else if(_lastSwipeDeg > 210.0f && _lastSwipeDeg <= 330.0f && (dot == 0 || dot == 1 || dot == 2) )
+				_userInterfaceDots[dot].renderer.material.color = Color.green;
+			
+			// attack right
+			else if(_lastSwipeDeg > 330.0f || _lastSwipeDeg <= 25.0f && dot == 5) 
+				_userInterfaceDots[dot].renderer.material.color = Color.green;
 		}
 	}
 

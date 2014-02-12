@@ -96,7 +96,7 @@ public class CameraScrolling : MonoBehaviour
 		// We want to make sure our lookahead accounts for how zoomed in the camera is
 		lookAhead *= distanceModifier;
 
-		// 
+		// Stop looking ahead if we tagged it to false
 		if(targetController.CurrentState.IsTag("NoLookAhead"))
 		   lookAhead = Vector3.zero;
 
