@@ -62,7 +62,7 @@ public class CharacterAnimator : MonoBehaviour
 		_characterSettings = GetComponent<CharacterSettings>();
 		_characterInput = GetComponent<CharacterInput>();
 		_heartBox = GetComponentInChildren<HeartBox>();
-        _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
+		_root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
 
         _stateMachine = new Dictionary<int, ProcessState>();
         CreateStateMachine();
