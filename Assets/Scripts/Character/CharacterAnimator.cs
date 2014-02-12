@@ -62,7 +62,13 @@ public class CharacterAnimator : MonoBehaviour
 		_characterSettings = GetComponent<CharacterSettings>();
 		_characterInput = GetComponent<CharacterInput>();
 		_heartBox = GetComponentInChildren<HeartBox>();
-		_root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
+        _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
+
+        if (_animator) //we put this just to be sure
+            Debug.Log ("Animator Exists!");
+        
+        Debug.Log ("anim controller: " + _animator.runtimeAnimatorController.name);
+        Debug.Log ("anim num of layers: " + _animator.layerCount);
 
         _stateMachine = new Dictionary<int, ProcessState>();
         CreateStateMachine();
