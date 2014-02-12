@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
 		SetupAudio();
 		
 		SetupSubtitles();
+
+		MakePlayerAlive ();
+
     }
 	
 	private void SetupLevel()
@@ -61,6 +64,7 @@ public class GameManager : MonoBehaviour
         PlayerCharacterSettings playerSettings = _player.GetComponent<PlayerCharacterSettings>();
         playerSettings.SpawnPoint = _currentLevel.StartPoint;
 		playerSettings.Weapon = playerSettings.PipePrefab;
+
 	}
 	
 	private void SetupCamera()
@@ -71,6 +75,17 @@ public class GameManager : MonoBehaviour
         CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
         if (cameraScript != null && Player != null)
             cameraScript.Target = Player.transform;
+
+
+		// set far clip plane properly to minimize any popping issues
+		if( RenderSettings.fogMode == FogMode.Linear ) {
+			Camera.main.farClipPlane = RenderSettings.fogEndDistance;
+		} else if( RenderSettings.fogMode == FogMode.Exponential ) {
+			Camera.main.farClipPlane = Mathf.Log( 1f / 0.0019f ) / RenderSettings.fogDensity;
+		} else if( RenderSettings.fogMode == FogMode.ExponentialSquared ) {
+			Camera.main.farClipPlane = Mathf.Sqrt( Mathf.Log( 1f / 0.0019f ) ) / RenderSettings.fogDensity;
+		}
+
     }
     
     private void SetupUI()
@@ -103,6 +118,12 @@ public class GameManager : MonoBehaviour
 		GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager>();
 	}
 
+	private void MakePlayerAlive() {
+		PlayerHeartBox heart = GameManager.Player.gameObject.GetComponentInChildren<PlayerHeartBox> ();
+		if (heart.HitPoints == 0)
+			heart.HitPoints = heart.MaxHitPoints;
+
+	}
 
 	/// <summary>
 	/// Gets the current GameLevel.

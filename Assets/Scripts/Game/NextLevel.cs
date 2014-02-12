@@ -17,5 +17,5 @@ public class NextLevel : MonoBehaviour
         CharacterAnimator player = other.GetComponent<CharacterAnimator>();
         if (player != null && (!RequiresUp || player.CharInput.Up))
             Application.LoadLevel(NextLevelName);
-    }
+    }	
 }
