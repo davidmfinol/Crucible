@@ -7,11 +7,18 @@ using System.Collections.Generic;
 [AddComponentMenu("Character/Player Character/Player Character Stealth")]
 public class PlayerCharacterStealth : MonoBehaviour
 {
-	public Shader OutlineShader;
+	public enum ShaderType : int
+	{
+		Shader_Default = 0,
+		Shader_Stealth,
+		Shader_Hurt,
+		Shader_Unhurt
+	};
 
-	private Shader _defaultShader;
 	private List<Material> _changeableMaterials;
 	private bool _currentlyHidden = false;
+
+	private ShaderType _currentShader;
 
 	void Start()
 	{
@@ -21,7 +28,9 @@ public class PlayerCharacterStealth : MonoBehaviour
 			Debug.LogWarning("Unable to find changeable material");
 			return;
 		}
-		_defaultShader = _changeableMaterials[0].shader;
+
+		SetShader (ShaderType.Shader_Default);
+
 	}
 
 	void OnTriggerEnter(Collider other)
@@ -52,29 +61,40 @@ public class PlayerCharacterStealth : MonoBehaviour
 		{
 			_currentlyHidden = value;
 			if(_currentlyHidden)
-				SetShader (OutlineShader);
+				SetShader (ShaderType.Shader_Stealth);
 			else
-				SetDefaultShader();
+				SetShader (ShaderType.Shader_Default);
+
 		}
 	}
 
-	public void SetShader(Shader s) {
+
+	public void SetShader(ShaderType type) {
 		if (_changeableMaterials.Count == 0)
 		{
 			Debug.LogWarning("Unable to find changeable material");
 			return;
 		}
-		_changeableMaterials[0].shader = s;
 
-	}
+		_currentShader = type;
 
-	public void SetDefaultShader() {
-		if (_changeableMaterials.Count == 0)
-		{
-			Debug.LogWarning("Unable to find changeable material");
-			return;
+		if (type == ShaderType.Shader_Default) {
+			_changeableMaterials [0].SetColor ("_Color", new Color(0.7f, 0.7f, 0.7f, 1.0f));
+			_changeableMaterials [0].SetColor ("_OutlineColor", Color.clear);
+
+		} else if (type == ShaderType.Shader_Hurt) {
+			_changeableMaterials [0].SetColor ("_Color", new Color (0.7f, 0.7f, 0.7f, 1.0f));
+			_changeableMaterials [0].SetColor ("_OutlineColor", Color.red);
+
+		} else if (type == ShaderType.Shader_Unhurt) {
+			_changeableMaterials [0].SetColor ("_Color", new Color (0.7f, 0.7f, 0.7f, 1.0f));
+			_changeableMaterials [0].SetColor ("_OutlineColor", Color.blue);
+
+		} else if (type == ShaderType.Shader_Stealth) {
+			_changeableMaterials [0].SetColor ("_Color", new Color (0.0f, 0.0f, 0.0f, 1.0f));
+			_changeableMaterials [0].SetColor ("_OutlineColor", Color.white);
+
 		}
-		_changeableMaterials [0].shader = _defaultShader;
 
 	}
 
@@ -82,8 +102,10 @@ public class PlayerCharacterStealth : MonoBehaviour
 		if (_changeableMaterials.Count == 0)
 		{
 			Debug.LogWarning("Unable to find changeable material");
+			return false;
 		}
-		return( _changeableMaterials [0].shader == _defaultShader);
+
+		return(_currentShader == ShaderType.Shader_Default);
 
 	}
 }

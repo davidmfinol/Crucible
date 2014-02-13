@@ -9,10 +9,6 @@ using System.Collections;
 [AddComponentMenu("Character/Player Character/Player Character Animator")]
 public class PlayerCharacterAnimator : CharacterAnimator
 {
-	// health shaders
-	public Shader HurtShader;
-	public Shader UnhurtShader;
-
 	// Mecanim hashes
 	private int _verticalSpeedHash;
 	private int _horizontalSpeedHash;
@@ -176,11 +172,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			_lastHealthAdjust = deltaHealth;
 
 			if (Heart.HitPoints > 1 && !CharStealth.CurrentlyHidden)
-				CharStealth.SetShader (UnhurtShader);
+				CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Unhurt);
 			else if (Heart.HitPoints == 1 && !CharStealth.CurrentlyHidden)
-				CharStealth.SetShader (HurtShader);
+				CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Hurt);
 			else if (Heart.HitPoints == 0)
-				CharStealth.SetDefaultShader ();
+				CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Default);
 			
 			_timeAtHealth = 0.0f;
 			_timeUntilRegen = 0.0f;
@@ -194,11 +190,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		// blink shield based on whether hurt or healed recently
 		if ((_lastHealthAdjust < 0) && (_timeAtHealth >= _hurtBlinkTime) && !CharStealth.OnDefaultShader () && !CharStealth.CurrentlyHidden) {
-			CharStealth.SetDefaultShader ();
+			CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Default);
 			
 		} else if ((_lastHealthAdjust > 0) && (_timeAtHealth >= _healBlinkTime) && !CharStealth.OnDefaultShader () && !CharStealth.CurrentlyHidden) {
-			
-			CharStealth.SetDefaultShader();
+			CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Default);
 		}
 
 	}
