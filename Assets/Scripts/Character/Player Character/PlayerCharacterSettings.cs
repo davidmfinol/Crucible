@@ -14,7 +14,6 @@ public class PlayerCharacterSettings : CharacterSettings
 
     // Player's Weapon Arsenal!
 	public Transform PipePrefab;
-    public Transform WhipPrefab;
 	public Transform MinePrefab;
 	public Transform GravityGunPrefab;
 
