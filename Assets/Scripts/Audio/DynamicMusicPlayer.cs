@@ -14,7 +14,7 @@ public class DynamicMusicPlayer : AudioPlayer
 	private AudioSource _audio3;
 	private bool _audioFadingOut;
 	private bool _audioFadingIn;
-	public int Fade;
+	public float Fade;
 	
 	// The songs that we are going to layer
 	private AudioClipGroup _enemyDangerClips;
@@ -118,11 +118,11 @@ public class DynamicMusicPlayer : AudioPlayer
 	}
 	public void FadeIn(AudioSource audio)
 	{
-		if(audio.volume >= 1)
+		if(audio.volume >= .7)
 		{
 			_audioFadingIn = false;
 			audio.Stop();
-			audio.volume = 1;
+			audio.volume = .7f;
 	//		Debug.Log ("Done Fading In");
 		}
 		else

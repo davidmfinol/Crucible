@@ -14,6 +14,8 @@ using System.Collections;
 [AddComponentMenu("Character/Character Animator")]
 public class CharacterAnimator : MonoBehaviour
 {
+	public Avatar CharAvatar;
+
 	// Components used with movement and animation
 	private CharacterController _characterController;
 	private Animator _animator;
@@ -63,12 +65,15 @@ public class CharacterAnimator : MonoBehaviour
 		_characterInput = GetComponent<CharacterInput>();
 		_heartBox = GetComponentInChildren<HeartBox>();
         _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
-
-        if (_animator) //we put this just to be sure
-            Debug.Log ("Animator Exists!");
         
-        Debug.Log ("anim controller: " + _animator.runtimeAnimatorController.name);
-        Debug.Log ("anim num of layers: " + _animator.layerCount);
+		// TODO: FIND REAL FIX
+        while (_animator.layerCount < 1)
+		{
+			Destroy(_animator);
+			gameObject.AddComponent("Animator");
+			_animator = GetComponent<Animator>();
+			_animator.avatar = CharAvatar;
+		}
 
         _stateMachine = new Dictionary<int, ProcessState>();
         CreateStateMachine();
