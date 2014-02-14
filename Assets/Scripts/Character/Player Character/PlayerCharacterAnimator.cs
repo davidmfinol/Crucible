@@ -55,6 +55,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private float _timeAtHealth = 0.0f;
 	private float _timeUntilRegen = 0.0f;
 
+    // Used to control the shader settings for the player character
+    private PlayerCharacterShader _shader;
+
 	
 	// Auto-climb code for ladders and pipes
 	private enum AutoClimbDirection : int
@@ -65,6 +68,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	};
 
 	private AutoClimbDirection _autoClimbDir;
+
+    protected override void Initialize()
+    {
+        _shader = gameObject.GetComponent<PlayerCharacterShader>();
+    }
 
     public void Spawn() 
     {
@@ -141,7 +149,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		ProcessAttacks ();
 	}
 	
- 	private void ProcessAttacks() {
+ 	private void ProcessAttacks()
+    {
 		// TODO: SHOULD MOVE THIS TO OnFixedUpdate()
 		// process attacks
 		if (_attackedBy) {
@@ -171,12 +180,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if (newHealth != currHealth) {
 			_lastHealthAdjust = deltaHealth;
 
-			if (Heart.HitPoints > 1 && !CharStealth.CurrentlyHidden)
-				CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Unhurt);
-			else if (Heart.HitPoints == 1 && !CharStealth.CurrentlyHidden)
-				CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Hurt);
+			if (Heart.HitPoints > 1 && !CharShader.CurrentlyHidden)
+				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Unhurt);
+			else if (Heart.HitPoints == 1 && !CharShader.CurrentlyHidden)
+				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Hurt);
 			else if (Heart.HitPoints == 0)
-				CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Default);
+				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
 			
 			_timeAtHealth = 0.0f;
 			_timeUntilRegen = 0.0f;
@@ -189,11 +198,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_timeAtHealth += Time.deltaTime;
 		
 		// blink shield based on whether hurt or healed recently
-		if ((_lastHealthAdjust < 0) && (_timeAtHealth >= _hurtBlinkTime) && !CharStealth.OnDefaultShader () && !CharStealth.CurrentlyHidden) {
-			CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Default);
+		if ((_lastHealthAdjust < 0) && (_timeAtHealth >= _hurtBlinkTime) && !CharShader.OnDefaultShader () && !CharShader.CurrentlyHidden) {
+			CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
 			
-		} else if ((_lastHealthAdjust > 0) && (_timeAtHealth >= _healBlinkTime) && !CharStealth.OnDefaultShader () && !CharStealth.CurrentlyHidden) {
-			CharStealth.SetShader (PlayerCharacterStealth.ShaderType.Shader_Default);
+		} else if ((_lastHealthAdjust > 0) && (_timeAtHealth >= _healBlinkTime) && !CharShader.OnDefaultShader () && !CharShader.CurrentlyHidden) {
+			CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
 		}
 
 	}
@@ -716,8 +725,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		get { return (PlayerCharacterInput) base.CharInput; }
 	}
 
-	public new PlayerCharacterStealth CharStealth
+	public new PlayerCharacterShader CharShader
 	{
-		get { return gameObject.GetComponent<PlayerCharacterStealth>(); }
+        get { return _shader; }
 	}
 }

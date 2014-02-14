@@ -9,11 +9,13 @@ using System.Collections.Generic;
 /// </summary>
 public class MeshToGameObjectsMenu
 {
+	static List<string> objectNames = new List<string>(new string[]{"Ledge", "Ground", "Ladder", "Pipe", "Wall"});
 	static GameObject playerPrefab;
-
-	static List<string> objectNames = new List<string>(new string[]{"Ledge", "Ladder", "Ground"});
 	static GameObject ledgePrefab;
-	static GameObject ladderPrefab;
+	static GameObject ladderXPrefab;
+	static GameObject ladderZPrefab;
+	static GameObject pipePrefab;
+	static GameObject wallPrefab;
 
 	static List<Transform> selection;
 	
@@ -35,7 +37,10 @@ public class MeshToGameObjectsMenu
 		
 		playerPrefab = (GameObject) Resources.Load("PlayerCharacter");
 		ledgePrefab = (GameObject) Resources.Load("Ledge");
-		ladderPrefab = (GameObject) Resources.Load("Ladder");
+		ladderXPrefab = (GameObject) Resources.Load("LadderX");
+		ladderZPrefab = (GameObject) Resources.Load("LadderZWithoutTop");
+		pipePrefab = (GameObject) Resources.Load("Pipe");
+		wallPrefab = (GameObject) Resources.Load("Grabbable Object");
 		
 		selection.ForEach(transform => {
 			MeshFilter meshFilter = transform.GetComponent<MeshFilter>();
@@ -47,11 +52,13 @@ public class MeshToGameObjectsMenu
             // Create the object
 			string name = meshFilter.name.ToLower();
 			if (name.Contains("ledge"))
-				CreateLedge(transform); 
+				CreateLedge(transform);
 			else if (name.Contains("ladder"))
 				CreateLadder(transform); 
-			else if (name.Contains("ground"))
-				CreateGround(transform);
+			else if (name.Contains("pipe"))
+				CreatePipe(transform); 
+			else if (name.Contains("wall"))
+				CreateWall(transform); 
 		});
 	}
 
@@ -91,6 +98,8 @@ public class MeshToGameObjectsMenu
 		Vector3 topRight = ledgeBounds.center + new Vector3(ledgeBounds.extents.x, 0, 0) + new Vector3(0, ledgeBounds.extents.y, 0);
 		Vector3 leftLedgeLocation = topLeft - new Vector3(0, 0.5f, 0);
 		Vector3 rightLedgeLocation = topRight - new Vector3(0, 0.5f, 0);
+		leftLedgeLocation.z = 0;
+		rightLedgeLocation.z = 0;
 		
 		// Set up the game object that allow us to grab on
 		GameObject leftLedge = GameObject.Instantiate(ledgePrefab, leftLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
@@ -105,18 +114,49 @@ public class MeshToGameObjectsMenu
 	static void CreateLadder(Transform ladder)
 	{
 		// Create the ladder
-		GameObject createdLadder = GameObject.Instantiate(ladderPrefab, ladder.position, ladderPrefab.transform.rotation) as GameObject;
+		GameObject prefab = ladder.name.Contains ("X") ? ladderXPrefab : ladderZPrefab;
+		GameObject createdLadder = GameObject.Instantiate(prefab, ladder.position, prefab.transform.rotation) as GameObject;
 		createdLadder.transform.parent = ladder.transform;
 
-		// Scale the ladder so that it encompasses the physical ladder and the size of the player
-		// TODO: FINISH THIS
+		// Scale the ladder so that it encompasses the physical ladder and the player
+		BoxCollider prefabCollider = createdLadder.GetComponent<BoxCollider> ();
+		BoxCollider ladderCollider = (BoxCollider) ladder.collider;
+		prefabCollider.center = ladderCollider.center;
+		Vector3 size = ladderCollider.size;
+		if(ladder.name.Contains("X"))
+			size.x += playerPrefab.collider.bounds.extents.z;
+		else
+			size.z += playerPrefab.collider.bounds.extents.z;
+		prefabCollider.size = size;
 	}
-	static void CreateGround(Transform ground)
+	static void CreatePipe(Transform pipe)
 	{
-         // TODO: FIGURE OUT WHY THESE TWO LINES ARE HERE
-		if(ground.renderer != null)
-			ground.renderer.enabled = false;
-
-        // TODO: SHOULD WE PUT A MESH COLLIDER? WE'VE ALREADY PUT A BOX COLLIDER; not sure what else needs to be done here?
+		// Create the Pipe
+		GameObject prefab = pipePrefab;
+		GameObject createdPipe = GameObject.Instantiate(prefab, pipe.position, prefab.transform.rotation) as GameObject;
+		createdPipe.transform.parent = pipe.transform;
+		
+		// Scale the pipe so that it encompasses the physical pipe and the player
+		BoxCollider prefabCollider = createdPipe.GetComponent<BoxCollider> ();
+		BoxCollider ladderCollider = (BoxCollider)  pipe.collider;
+		prefabCollider.center = ladderCollider.center;
+		Vector3 size = ladderCollider.size;
+		size.z += playerPrefab.collider.bounds.extents.z;
+		prefabCollider.size = size;
+	}
+	static void CreateWall(Transform wall)
+	{
+		// Create the wall
+		GameObject prefab = wallPrefab;
+		GameObject createdWall = GameObject.Instantiate(prefab, wall.position, prefab.transform.rotation) as GameObject;
+		createdWall.transform.parent = wall.transform;
+		
+		// Scale the wall so that it encompasses the physical wall and the player
+		BoxCollider prefabCollider = createdWall.GetComponent<BoxCollider> ();
+		BoxCollider ladderCollider = (BoxCollider) wall.collider;
+		prefabCollider.center = ladderCollider.center;
+		Vector3 size = ladderCollider.size;
+		size.x += playerPrefab.collider.bounds.extents.z;
+		prefabCollider.size = size;
 	}
 }

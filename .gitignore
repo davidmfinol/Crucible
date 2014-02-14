@@ -17,14 +17,14 @@ screenshot*.png
 *.suo
 
 # OS Files
-.DS_Store
-.DS_Store?
+*.DS_Store
+*.DS_Store?
 ._*
-.Spotlight-V100
-.Trashes
-Icon?
-ehthumbs.db
-Thumbs.db
+*.Spotlight-V100
+*.Trashes
+*Icon?
+*ehthumbs.db
+*Thumbs.db
 ProjectSettings/EditorBuildSettings.asset.BACKUP.5802.asset
 ProjectSettings/EditorBuildSettings.asset.BASE.5802.asset
 ProjectSettings/EditorBuildSettings.asset.LOCAL.5802.asset

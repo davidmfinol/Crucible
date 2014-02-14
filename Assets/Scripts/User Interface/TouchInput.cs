@@ -231,11 +231,14 @@ public class TouchInput : MonoBehaviour
 	{
 		if(!actTouched)
 		{
-			foreach (Transform dot in _userInterfaceDots)
-				dot.renderer.enabled = false;
+			for(int dot=0; dot<_userInterfaceDots.Count; dot++)
+			{
+				_userInterfaceDots[dot].renderer.enabled = false;
+				_userInterfaceDots[dot].renderer.material.color = Color.white;
+			}
 			return;
 		}
-		float x0 = (_actionStartPos.x - Screen.width/2.0f)/32.0f;
+		float x0 = (_actionStartPos.x - Screen.width/2.0f)/32.0f - 0.3f;
 		float y0 = (_actionStartPos.y - Screen.height/2.0f)/32.0f;
 		float[] dotPositions = {-5.5f,-5.5f,-5.5f,0.0f,-5.5f,5.5f,0.0f,-5.5f,0.0f,0.0f,0.0f,5.5f,5.5f,-5.5f,5.5f,0.0f,5.5f,5.5f};
 		for(int dot=0; dot<_userInterfaceDots.Count; dot++)

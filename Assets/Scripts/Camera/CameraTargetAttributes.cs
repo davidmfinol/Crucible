@@ -20,7 +20,7 @@ public class CameraTargetAttributes : MonoBehaviour
     // What's the maximum distance we should let the camera look ahead?
 	public Vector2 MaxLookAhead = new Vector2(3.0f, 3.0f);
 
-	// Allow for dynamic zoon based off speed of the character
+	// Allow for dynamic zoom based off speed of the character
 	public float ZoomOffset = 1.5f;
 	public float MaxZoomIn = 0.75f;
 	public float MaxZoomOut = 1.5f;

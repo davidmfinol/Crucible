@@ -14,6 +14,7 @@ using System.Collections;
 [AddComponentMenu("Character/Character Animator")]
 public class CharacterAnimator : MonoBehaviour
 {
+    // This variable is used for a hack related to getting around a Mecanim bug
 	public Avatar CharAvatar;
 
 	// Components used with movement and animation
@@ -66,7 +67,7 @@ public class CharacterAnimator : MonoBehaviour
 		_heartBox = GetComponentInChildren<HeartBox>();
         _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
         
-		// TODO: FIND REAL FIX
+		// SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS HACK GETS AROUND IT
         while (_animator.layerCount < 1)
 		{
 			Destroy(_animator);
