@@ -1,0 +1,242 @@
+fileFormatVersion: 2
+guid: f44f91217c8a346d8be45c04d5e40712
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: BabyBotMon:pCube1
+    100002: BabyBotMon:pCube11
+    100004: BabyBotMon:pCube12
+    100006: BabyBotMon:pCube17
+    100008: BabyBotMon:pCube18
+    100010: BabyBotMon:pCube19
+    100012: BabyBotMon:pCube20
+    100014: BabyBotMon:pCube21
+    100016: BabyBotMon:pCylinder1
+    100018: BabyBotMon:pCylinder15
+    100020: BabyBotMon:pCylinder16
+    100022: BabyBotMon:pCylinder17
+    100024: BabyBotMon:pCylinder18
+    100026: BabyBotMon:pCylinder19
+    100028: BabyBotMon:pCylinder20
+    100030: BabyBotMon:pCylinder21
+    100032: BabyBotMon:pCylinder22
+    100034: BabyBotMon:pCylinder23
+    100036: BabyBotMon:polySurface25
+    100038: BabyBotMon:polySurface26
+    100040: BabyBotMon:transform16
+    100042: //RootNode
+    100044: Head
+    100046: Head 1
+    100048: LeftElbow
+    100050: LeftFoot
+    100052: LeftHand
+    100054: LeftKnee
+    100056: LeftLeg
+    100058: LeftShoulder
+    100060: LegoPiece1
+    100062: LegoPiece2
+    100064: Neck
+    100066: RElbow
+    100068: RFoot
+    100070: RightElbow
+    100072: RightFoot
+    100074: RightHand
+    100076: RightHand 1
+    100078: RightKnee
+    100080: RightLeg
+    100082: RightShoulder
+    100084: RKnee
+    100086: Root
+    100088: RShin
+    100090: Torso
+    100092: Torso 1
+    100094: TorsoGlowRing
+    400000: BabyBotMon:pCube1
+    400002: BabyBotMon:pCube11
+    400004: BabyBotMon:pCube12
+    400006: BabyBotMon:pCube17
+    400008: BabyBotMon:pCube18
+    400010: BabyBotMon:pCube19
+    400012: BabyBotMon:pCube20
+    400014: BabyBotMon:pCube21
+    400016: BabyBotMon:pCylinder1
+    400018: BabyBotMon:pCylinder15
+    400020: BabyBotMon:pCylinder16
+    400022: BabyBotMon:pCylinder17
+    400024: BabyBotMon:pCylinder18
+    400026: BabyBotMon:pCylinder19
+    400028: BabyBotMon:pCylinder20
+    400030: BabyBotMon:pCylinder21
+    400032: BabyBotMon:pCylinder22
+    400034: BabyBotMon:pCylinder23
+    400036: BabyBotMon:polySurface25
+    400038: BabyBotMon:polySurface26
+    400040: BabyBotMon:transform16
+    400042: //RootNode
+    400044: Head
+    400046: Head 1
+    400048: LeftElbow
+    400050: LeftFoot
+    400052: LeftHand
+    400054: LeftKnee
+    400056: LeftLeg
+    400058: LeftShoulder
+    400060: LegoPiece1
+    400062: LegoPiece2
+    400064: Neck
+    400066: RElbow
+    400068: RFoot
+    400070: RightElbow
+    400072: RightFoot
+    400074: RightHand
+    400076: RightHand 1
+    400078: RightKnee
+    400080: RightLeg
+    400082: RightShoulder
+    400084: RKnee
+    400086: Root
+    400088: RShin
+    400090: Torso
+    400092: Torso 1
+    400094: TorsoGlowRing
+    2300000: BabyBotMon:pCube1
+    2300002: BabyBotMon:pCube11
+    2300004: BabyBotMon:pCube12
+    2300006: BabyBotMon:pCube17
+    2300008: BabyBotMon:pCube18
+    2300010: BabyBotMon:pCube19
+    2300012: BabyBotMon:pCube20
+    2300014: BabyBotMon:pCube21
+    2300016: BabyBotMon:pCylinder1
+    2300018: BabyBotMon:pCylinder15
+    2300020: BabyBotMon:pCylinder16
+    2300022: BabyBotMon:pCylinder17
+    2300024: BabyBotMon:pCylinder18
+    2300026: BabyBotMon:pCylinder19
+    2300028: BabyBotMon:pCylinder20
+    2300030: BabyBotMon:pCylinder21
+    2300032: BabyBotMon:pCylinder22
+    2300034: BabyBotMon:pCylinder23
+    2300036: BabyBotMon:polySurface25
+    2300038: BabyBotMon:polySurface26
+    2300040: LegoPiece1
+    2300042: LegoPiece2
+    2300044: RElbow
+    2300046: RFoot
+    2300048: RightHand 1
+    2300050: RKnee
+    2300052: RShin
+    2300054: Torso 1
+    2300056: TorsoGlowRing
+    3300000: BabyBotMon:pCube1
+    3300002: BabyBotMon:pCube11
+    3300004: BabyBotMon:pCube12
+    3300006: BabyBotMon:pCube17
+    3300008: BabyBotMon:pCube18
+    3300010: BabyBotMon:pCube19
+    3300012: BabyBotMon:pCube20
+    3300014: BabyBotMon:pCube21
+    3300016: BabyBotMon:pCylinder1
+    3300018: BabyBotMon:pCylinder15
+    3300020: BabyBotMon:pCylinder16
+    3300022: BabyBotMon:pCylinder17
+    3300024: BabyBotMon:pCylinder18
+    3300026: BabyBotMon:pCylinder19
+    3300028: BabyBotMon:pCylinder20
+    3300030: BabyBotMon:pCylinder21
+    3300032: BabyBotMon:pCylinder22
+    3300034: BabyBotMon:pCylinder23
+    3300036: BabyBotMon:polySurface25
+    3300038: BabyBotMon:polySurface26
+    3300040: LegoPiece1
+    3300042: LegoPiece2
+    3300044: RElbow
+    3300046: RFoot
+    3300048: RightHand 1
+    3300050: RKnee
+    3300052: RShin
+    3300054: Torso 1
+    3300056: TorsoGlowRing
+    4300000: RightHand
+    4300002: RElbow
+    4300004: BabyBotMon:pCylinder17
+    4300006: BabyBotMon:pCylinder16
+    4300008: BabyBotMon:pCube1
+    4300010: BabyBotMon:pCube17
+    4300012: BabyBotMon:pCylinder23
+    4300014: BabyBotMon:pCylinder22
+    4300016: BabyBotMon:polySurface25
+    4300018: BabyBotMon:polySurface26
+    4300020: BabyBotMon:pCylinder18
+    4300022: Torso
+    4300024: TorsoGlowRing
+    4300026: BabyBotMon:pCube12
+    4300028: BabyBotMon:pCube11
+    4300030: BabyBotMon:pCube20
+    4300032: BabyBotMon:pCube21
+    4300034: RFoot
+    4300036: LegoPiece1
+    4300038: LegoPiece2
+    4300040: RKnee
+    4300042: RShin
+    4300044: BabyBotMon:pCylinder15
+    4300046: BabyBotMon:pCube19
+    4300048: BabyBotMon:pCylinder19
+    4300050: BabyBotMon:pCylinder20
+    4300052: BabyBotMon:pCube18
+    4300054: BabyBotMon:pCylinder1
+    4300056: BabyBotMon:pCylinder21
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
