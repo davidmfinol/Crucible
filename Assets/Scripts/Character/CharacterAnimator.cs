@@ -12,9 +12,9 @@ using System.Collections;
 [RequireComponent(typeof(CharacterSettings))]
 [RequireComponent(typeof(CharacterInput))]
 [AddComponentMenu("Character/Character Animator")]
-public class CharacterAnimator : MonoBehaviour
+public abstract class CharacterAnimator : MonoBehaviour
 {
-    // This variable is used for a hack related to getting around a Mecanim bug
+    // HACK: THIS VARIABLE IS USED TO GET AROUND A MECANIM BUG
 	public Avatar CharAvatar;
 
 	// Components used with movement and animation
@@ -67,7 +67,7 @@ public class CharacterAnimator : MonoBehaviour
 		_heartBox = GetComponentInChildren<HeartBox>();
         _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
         
-		// SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS HACK GETS AROUND IT
+		// HACK: SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS GETS AROUND IT
         while (_animator.layerCount < 1)
 		{
 			Destroy(_animator);

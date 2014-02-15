@@ -10,7 +10,7 @@ public class InputDebugger : MonoBehaviour
     public bool Hide = true;
 
     private TouchInput _touchInput;
-    private PlayerCharacterInput _playerInput;
+    private CharacterInput _playerInput;
 
 
     void Awake()
@@ -21,7 +21,7 @@ public class InputDebugger : MonoBehaviour
     void Start()
     {
         _touchInput = GameManager.UI.GetComponent<TouchInput>();
-        _playerInput = GameManager.Player.GetComponent<PlayerCharacterInput>();
+        _playerInput = GameManager.Player.GetComponent<CharacterInput>();
     }
 
     void OnGUI()

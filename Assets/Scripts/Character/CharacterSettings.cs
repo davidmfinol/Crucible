@@ -5,7 +5,7 @@
 /// Used by CharacterAnimator.cs
 /// </summary>
 [AddComponentMenu("Character/Character Settings")]
-public class CharacterSettings : MonoBehaviour
+public sealed class CharacterSettings : MonoBehaviour
 {
 	// What is the name of the rooot bone? Used to zero-root based animation motion
 	public string RootBoneName = "hip";

@@ -336,7 +336,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
             return false;
 		
         // account for jump distances
-		if(!EnemySettings.CanJump((Vector3)A.position, (Vector3)B.position) )
+		if(!EnemyAISettings.CanJump((Vector3)A.position, (Vector3)B.position) )
 			return false;
 
         Vector3 dir = (Vector3)(A.position - B.position);

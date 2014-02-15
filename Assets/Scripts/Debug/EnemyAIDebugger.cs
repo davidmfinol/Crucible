@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// In particular, it displays the AI Output and A* Path, with option of rendering path nodes on-screen at runtime.
 /// It also works with the CharacterAnimator Debugger by showing the information right below that debugger's location.
 /// </summary>
-[RequireComponent(typeof(EnemyInput))]
+[RequireComponent(typeof(EnemyAI))]
 [AddComponentMenu("Debug/Enemy AI")]
 public class EnemyAIDebugger : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class EnemyAIDebugger : MonoBehaviour
 	
 	public Transform HighlightNode;
 	private GameObject _node;
-	private EnemyInput _brain;
+	private EnemyAI _brain;
 
 
     void Awake()
@@ -27,7 +27,7 @@ public class EnemyAIDebugger : MonoBehaviour
 	
 	void Start()
 	{
-		_brain = GetComponent<EnemyInput>();
+		_brain = GetComponent<EnemyAI>();
 		_node = ((Transform) Instantiate(HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
 		_node.renderer.enabled = false;
 	}
@@ -49,9 +49,10 @@ public class EnemyAIDebugger : MonoBehaviour
 			return;
 		
 		if(_brain == null)
-			_brain = GetComponent<EnemyInput>();
-		
-		GUI.Box(new Rect(10, 160, 300, 20), "Vertical: " + _brain.Vertical + ", Horizontal: " + _brain.Horizontal + ", Jump: " + _brain.Jump + ", Attack:" + (Mathf.Abs(_brain.Attack) >= 0.1) );
+			_brain = GetComponent<EnemyAI>();
+		CharacterInput input = GetComponent<CharacterInput> ();
+
+		GUI.Box(new Rect(10, 160, 300, 20), "Vertical: " + input.Vertical + ", Horizontal: " + input.Horizontal + ", Jump: " + input.Jump + ", Attack:" + (Mathf.Abs(input.Attack) >= 0.1) );
 		GUI.Box(new Rect(10, 185, 300, 20), "Transition Recent: " + _brain.HasTransitionRecent + ", Repathed: " + _brain.TimeSinceRepath);
 		GUI.Box(new Rect(10, 210, 300, 20), "Target: " + _brain.Target + ", Searching: " + _brain.SearchingForPath);
 		GUI.Box(new Rect(10, 235, 300, 20), "AI Mode: " + _brain.Awareness);

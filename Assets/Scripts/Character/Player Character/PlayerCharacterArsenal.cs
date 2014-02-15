@@ -2,15 +2,13 @@
 using System.Collections;
 
 /// <summary>
-/// Player character settings contains, in addition to the normal platforming settings, information about the spawn point and weapons.
+/// Player character arsenal contains information about the spawn point and weapons.
 /// </summary>
-[AddComponentMenu("Character/Player Character/Player Character Settings")]
-public class PlayerCharacterSettings : CharacterSettings
+[AddComponentMenu("Character/Player Character/Player Character Arsenal")]
+public class PlayerCharacterArsenal : MonoBehaviour
 {
     // Keep track of the last checkpoint here
 	public Transform SpawnPoint;
-
-	public int score = 0;
 
     // Player's Weapon Arsenal!
 	public Transform PipePrefab;
@@ -31,7 +29,7 @@ public class PlayerCharacterSettings : CharacterSettings
 		{
 			if(_currentWeapon != null)
 				Destroy(_currentWeapon.gameObject);
-	        Transform rightHand = SearchHierarchyForBone(transform, "hand_R");
+	        Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
 			Transform weapon = (Transform)Instantiate(value, rightHand.position, transform.rotation);
 	        weapon.parent = rightHand;
             Weapon weaponScript = weapon.GetComponent<Weapon>();

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Enemy awareness updates the enemy's material so that it's color changes to reflect it's current awareness level.
+/// Olympus awareness updates olympus's material so that it's color changes to reflect it's current awareness level.
 /// </summary>
-[AddComponentMenu("Character/Enemy/Enemy Awareness")]
-public class EnemyAwareness : MonoBehaviour
+[AddComponentMenu("Character/Non-Player Character/Olympus/Olympus Awareness")]
+public class OlympusAwareness : MonoBehaviour
 {
 	public Color ChasingColor = Color.red;
 	public Color SearchingColor = Color.yellow;
@@ -18,14 +18,14 @@ public class EnemyAwareness : MonoBehaviour
 		_changeableMaterials = FindChangeableMaterials ();
 	}
 
-	public void ChangeAwareness(EnemyInput.AwarenessLevel awareness)
+	public void ChangeAwareness(EnemyAI.AwarenessLevel awareness)
 	{
 		Color newColor = Color.black;
 		switch(awareness)
 		{
-		case EnemyInput.AwarenessLevel.Unaware: newColor = WanderingColor; break;
-		case EnemyInput.AwarenessLevel.Searching : newColor = SearchingColor; break;
-		case EnemyInput.AwarenessLevel.Chasing : newColor = ChasingColor; break;
+		case EnemyAI.AwarenessLevel.Unaware: newColor = WanderingColor; break;
+		case EnemyAI.AwarenessLevel.Searching : newColor = SearchingColor; break;
+		case EnemyAI.AwarenessLevel.Chasing : newColor = ChasingColor; break;
 		}
 
 		foreach (Material mat in _changeableMaterials)

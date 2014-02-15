@@ -2,26 +2,20 @@ using UnityEngine;
 using Pathfinding;
 
 /// <summary>
-/// Enemy input does the AI for the Enemy animator.
+/// Enemy AI does the AI for the Enemy animator.
 /// Currently, this AI is just an interpretation A* Shortest-Pathfinding.
 /// </summary>
-[RequireComponent(typeof(EnemySettings))]
+[RequireComponent(typeof(EnemyAISettings))]
 [RequireComponent(typeof(Seeker))]
-[AddComponentMenu("Character/Enemy/Enemy Input")]
-public class EnemyInput : CharacterInput
+[AddComponentMenu("Character/Non-Player Character/Enemy AI")]
+public class EnemyAI : MonoBehaviour
 {
     // Enemy Brain componenents
-    private EnemyAnimator _enemy;
-	private EnemySettings _settings;
-	private PlayerCharacterAnimator _player;
+    private CharacterAnimator _animator;
+	private EnemyAISettings _settings;
+	private CharacterAnimator _playerAnimator;
 	private PlayerCharacterShader _playerShader;
-	private EnemyAwareness _enemyAwareness;
-	
-    // Enemy Brain outputs are inputted to the Enemy Animator
-    private float _horizontal = 0;
-    private float _vertical = 0;
-    private bool _jump = false;
-    private bool _attack = false;
+	private OlympusAwareness _olympusAwareness; //TODO: MOVE THIS OUT OF THIS CLASS
 	
 	// A* PathFinding
     private Seeker _seeker;
@@ -50,22 +44,23 @@ public class EnemyInput : CharacterInput
 	void Start()
 	{
 		_personalHearingRadius = GetComponentInChildren<HearingRadius> ();
-        _enemy = GetComponent<EnemyAnimator>();
-        _settings = GetComponent<EnemySettings>();
+        _animator = GetComponent<CharacterAnimator>();
+        _settings = GetComponent<EnemyAISettings>();
         _seeker = GetComponent<Seeker>();
 		_playerShader = GameManager.Player.GetComponent<PlayerCharacterShader> ();
-		_enemyAwareness = GetComponent<EnemyAwareness> ();
+		_olympusAwareness = GetComponent<OlympusAwareness> ();
 		GameManager.AI.Enemies.Add(this);
 		UpdateAStarTarget(Vector3.zero);
+		GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
 	}
 	
-	protected override void UpdateInput()
+	public void UpdateInput()
     {
 		// By default, have the Enemy do nothing
-        _horizontal = 0;
-        _vertical = 0;
-        _jump = false;
-		_attack = false;
+		_animator.CharInput.Horizontal = 0;
+		_animator.CharInput.Vertical = 0;
+		_animator.CharInput.Jump = Vector2.zero;
+		_animator.CharInput.Attack = 0;
 
 		UpdateAwareness();
 
@@ -102,8 +97,9 @@ public class EnemyInput : CharacterInput
 			return;
 
 		// TODO: need to expand this (look at chase method)
-		_jump = _path.vectorPath[_currentPathWaypoint].y > _enemy.transform.position.y && _enemy.VerticalSpeed <= 0;
-		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _enemy.transform.position.x ? 1 : -1; // because stopping is for the weak
+		_animator.CharInput.Jump = (_animator.VerticalSpeed > 0 || (_currentPathWaypoint >= _path.vectorPath.Count - 1)) ? Vector2.zero : 
+			new Vector2(_path.vectorPath[_currentPathWaypoint].x - _animator.transform.position.x, _path.vectorPath[_currentPathWaypoint].y -_animator.transform.position.y);
+		_animator.CharInput.Horizontal = _path.vectorPath[_currentPathWaypoint].x > _animator.transform.position.x ? 1 : -1; // because stopping is for the weak
 	}
 
 	// Use A* pathfinding to chase the player down!
@@ -114,42 +110,43 @@ public class EnemyInput : CharacterInput
 			return;
 		
 		// attack if we're facing the player and are close enough
-		if(_player != null)
+		if(_playerAnimator != null)
 		{
-			bool facingPlayer = _enemy.Direction.x > 0 && _enemy.transform.position.x < _player.transform.position.x;
-			facingPlayer = facingPlayer || _enemy.Direction.x < 0 && _enemy.transform.position.x > _player.transform.position.x;
+			bool facingPlayer = _animator.Direction.x > 0 && _animator.transform.position.x < _playerAnimator.transform.position.x;
+			facingPlayer = facingPlayer || _animator.Direction.x < 0 && _animator.transform.position.x > _playerAnimator.transform.position.x;
 
 			// randomly attack
-			_attack = facingPlayer && PlayerIsInAttackRange() && (Random.Range(0.0f, 1.0f) > 0.95f);
+			_animator.CharInput.Attack = facingPlayer && PlayerIsInAttackRange() && (Random.Range(0.0f, 1.0f) > 0.95f) ? 1 : 0;
 		}
 		
 		// Jump selectively
-		_jump = _path.vectorPath[_currentPathWaypoint].y > _enemy.transform.position.y && _enemy.VerticalSpeed <= 0;
+		_animator.CharInput.Jump = (_animator.VerticalSpeed > 0 || (_currentPathWaypoint >= _path.vectorPath.Count - 1)) ? Vector2.zero : 
+			new Vector2(_path.vectorPath[_currentPathWaypoint].x - _animator.transform.position.x, _path.vectorPath[_currentPathWaypoint].y -_animator.transform.position.y);
 		
 		// Pressing up or down depends on both y and z positions
-		if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _enemy.DesiredZ) < 1 || (_player != null && _player.DesiredZ == _enemy.DesiredZ))
+		if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _animator.DesiredZ) < 1 || (_playerAnimator != null && _playerAnimator.DesiredZ == _animator.DesiredZ))
 		{
-			if(! _enemy.CanTransitionZ)
+			if(! _animator.CanTransitionZ)
 			{
-				_vertical = _path.vectorPath[_currentPathWaypoint].y > _enemy.transform.position.y ? 1 : -1;
+				_animator.CharInput.Vertical = _path.vectorPath[_currentPathWaypoint].y > _animator.transform.position.y ? 1 : -1;
 				_hasTransitionRecent = true;
 			}
 			else
-				_vertical = 0;
+				_animator.CharInput.Vertical = 0;
 		}
 		else
 		{
 			if(!_hasTransitionRecent)
 			{
-				_vertical = _path.vectorPath[_currentPathWaypoint].z - _enemy.DesiredZ;
+				_animator.CharInput.Vertical = _path.vectorPath[_currentPathWaypoint].z - _animator.DesiredZ;
 				_hasTransitionRecent = true;
 			}
 			else
-				_vertical = 0;
+				_animator.CharInput.Vertical = 0;
 		}
 		
 		// Pressing left or right based on horizontal position
-		_horizontal = _path.vectorPath[_currentPathWaypoint].x > _enemy.transform.position.x ? 1 : -1; // because stopping is for the weak
+		_animator.CharInput.Horizontal = _path.vectorPath[_currentPathWaypoint].x > _animator.transform.position.x ? 1 : -1; // because stopping is for the weak
 	}
 	
 	private void UpdateAwareness()
@@ -162,7 +159,7 @@ public class EnemyInput : CharacterInput
 			_personalHearingRadius.ForgetAllSounds();
 
 
-		} else if (_settings.CanHear && HasHeardSound () ) {
+		} else if (_settings.CanHear && HasHeardSound ) {
 			Awareness = AwarenessLevel.Searching;
 
 		} else if (_timeSincePlayerSeen <= 0.0f) {
@@ -177,9 +174,7 @@ public class EnemyInput : CharacterInput
 	private bool UpdateAStar()
 	{
 		return UpdateAStar (Vector3.zero);
-
 	}
-    
 	private bool UpdateAStar(Vector3 targetPos)
 	{
 		// Keep time of track between repaths
@@ -202,18 +197,18 @@ public class EnemyInput : CharacterInput
 	/// </param>
 	public bool UpdateAStarTarget(Vector3 target)
 	{
-		if(_player == null && GameManager.Player != null)
-			 _player = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
+		if(_playerAnimator == null && GameManager.Player != null)
+			 _playerAnimator = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
 		
 		if(target != Vector3.zero)
 		{
-			_player = null;
+			_playerAnimator = null;
 			_target = target;
 			return true;
 		}
-		else if(Awareness == AwarenessLevel.Chasing && _player != null)
+		else if(Awareness == AwarenessLevel.Chasing && _playerAnimator != null)
 		{
-            _target = _player.transform.position;
+            _target = _playerAnimator.transform.position;
 			return true;
 		}
 		
@@ -234,7 +229,7 @@ public class EnemyInput : CharacterInput
             if(!_searchingForPath)
             {
 				_hasTransitionRecent = false;
-                _seeker.StartPath( _enemy.transform.position, _target, OnPathFound);
+                _seeker.StartPath( _animator.transform.position, _target, OnPathFound);
                 _searchingForPath = true;
             }
             return false;
@@ -244,7 +239,7 @@ public class EnemyInput : CharacterInput
         if ((_timeSinceRepath > _settings.RepathTime || _currentPathWaypoint >= _path.vectorPath.Count)&& !_searchingForPath)
         {
 			_hasTransitionRecent = false;
-            _seeker.StartPath( _enemy.transform.position, _target, OnPathFound);
+            _seeker.StartPath( _animator.transform.position, _target, OnPathFound);
             _searchingForPath = true;
         }
 
@@ -253,8 +248,8 @@ public class EnemyInput : CharacterInput
 
 		// Move on if we reached our waypoint
 		// TODO: MAKE CURRENT STATE A PROPERY OF CHARACTERANIMATOR
-		AnimatorStateInfo currentState = _enemy.MecanimAnimator.IsInTransition(0) ? _enemy.MecanimAnimator.GetNextAnimatorStateInfo(0) : _enemy.MecanimAnimator.GetCurrentAnimatorStateInfo(0);
-		if ( _enemy.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && 
+		AnimatorStateInfo currentState = _animator.MecanimAnimator.IsInTransition(0) ? _animator.MecanimAnimator.GetNextAnimatorStateInfo(0) : _animator.MecanimAnimator.GetCurrentAnimatorStateInfo(0);
+		if ( _animator.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && 
 		    	( _currentPathWaypoint < _path.path.Count &&
            		(!((ZoneNode)_path.path[_currentPathWaypoint]).isGround || currentState.IsName("Base Layer.Running") || currentState.IsName("Base Layer.Idle")) ))
     		_currentPathWaypoint++;
@@ -285,7 +280,7 @@ public class EnemyInput : CharacterInput
 		float smallestDist = float.MaxValue;
 		for(int i = 0; i < _path.vectorPath.Count; i++)
 		{
-			float dist = ( _enemy.transform.position - _path.vectorPath[i]).magnitude;
+			float dist = ( _animator.transform.position - _path.vectorPath[i]).magnitude;
 			if(dist < smallestDist)
 			{
 				nearestNode = 0;
@@ -299,16 +294,20 @@ public class EnemyInput : CharacterInput
     public bool PlayerIsInAttackRange()
     {
         GameObject player = GameManager.Player.gameObject;
-        if (player != null && _player != null)
+        if (player != null && _playerAnimator != null)
             return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AttackRange)
                 && (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AttackRange)
-                && _enemy.DesiredZ == _player.DesiredZ;
+                && _animator.DesiredZ == _playerAnimator.DesiredZ;
         return false;
 	}
 
+	/// <summary>
+	/// Determines whether this enemy is seeing the player.
+	/// </summary>
+	/// <returns><c>true</c> if this enemy is seeing player; otherwise, <c>false</c>.</returns>
 	public bool IsSeeingPlayer()
 	{
-		PlayerCharacterAnimator player = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
+		CharacterAnimator player = GameManager.Player.GetComponent<CharacterAnimator>();// FIXME: SLOW
 		GameObject playerGO = player.gameObject;
 
 		if (playerGO == null || player == null)
@@ -332,7 +331,7 @@ public class EnemyInput : CharacterInput
 			return false;
 
 		// abort if player on opposite side of vision
-		if ((dirToPlayer.x * _enemy.Direction.x) < 0)
+		if ((dirToPlayer.x * _animator.Direction.x) < 0)
 		{
 			return false;
 		}
@@ -340,7 +339,8 @@ public class EnemyInput : CharacterInput
 		bool canSeePlayer = false;
 
 		//for (float y = playerPos.y; y == playerPos.y; y-= playerHalfHeight) {
-		for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight) {
+		for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight)
+		{
 			Vector3 endPoint = playerPos;
 			endPoint.y = y;
 
@@ -348,41 +348,40 @@ public class EnemyInput : CharacterInput
 
 			// if our facing vector DOT the ray to the player is within a certain dot product range, then it's in view
 			// (prevents seeing player almost directly above us.
-			Vector3 normFacing = _enemy.Direction.normalized;
+			Vector3 normFacing = _animator.Direction.normalized;
 			Vector3 normToPlayer = raycastDirection.normalized;
 			float fDot = Vector3.Dot (normFacing, normToPlayer);
 
 			// only bother to cast rays that could be considered in our view cone.
 			float fViewConeCutoff = 0.65f;
-			if(fDot >= fViewConeCutoff) {
-				if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
+			if(fDot >= fViewConeCutoff)
+			{
+				if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12))
+				{
 				    Debug.DrawLine(eyePos, endPoint, Color.red, 0.5f, false);
 					canSeePlayer = true;
 					break;
-
 				}
-			
 			}
 
 		}
 
 		return canSeePlayer;
-
 	}
 
-	public bool HasHeardSound()
-	{
-		return PersonalHearingRadius.ObjectsHeard.Count > 0;
-	}
 	
 	// Generic Properties
+	public EnemyAISettings Settings
+	{
+		get { return _settings; }
+	}
 	public AwarenessLevel Awareness
 	{
 		get { return _awareness; }
 		set
 		{
 			if(_awareness != value)
-				_enemyAwareness.ChangeAwareness(value);
+				_olympusAwareness.ChangeAwareness(value);
 			_awareness = value;
 		}
 	}
@@ -390,23 +389,9 @@ public class EnemyInput : CharacterInput
 	{
 		get { return _personalHearingRadius; }
 	}
-	
-	// Output Properties
-	public override float Horizontal
+	public bool HasHeardSound
 	{
-		get { return _horizontal; }
-	}
-	public override float Vertical
-	{
-		get { return _vertical; }
-	}
-	public override Vector2 Jump
-	{
-		get { return _jump ? Vector2.up : Vector2.zero; }
-	}
-	public override float Attack
-	{
-		get { return _attack ? 1 : 0; }
+		get { return PersonalHearingRadius.ObjectsHeard.Count > 0; }
 	}
 	
 	// A* Properties

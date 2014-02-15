@@ -28,8 +28,8 @@ public class TouchInput : MonoBehaviour
 	private Vector2 _guiStartPos;
 	private float _guiMin;
 	
-    // Other components
-	private PlayerCharacterInput _input;
+    // Where we store the input
+	private CharacterInput _input;
 
 	void Start ()
 	{
@@ -47,7 +47,7 @@ public class TouchInput : MonoBehaviour
 		_guiStartPos = Vector2.zero;
 		_guiMin = Screen.width / 16.0f;
 
-		_input = GameManager.Player.GetComponent<PlayerCharacterInput>();
+		_input = GameManager.Player.GetComponent<CharacterInput>();
 
 		_userInterfaceDots = new List<Transform>();
 		for(int i = 0; i < 9; i++)
@@ -56,11 +56,13 @@ public class TouchInput : MonoBehaviour
 			dot.renderer.enabled = false;
 			_userInterfaceDots.Add(dot);
 		}
-
+		
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+		_input.UpdateInput = UpdateInput;
+#endif
 	}
     
-#if UNITY_ANDROID && !UNITY_EDITOR
-	void Update ()
+	public void UpdateInput ()
 	{	
         // Reset certain inputs as appropriate
         _input.Vertical = 0;
@@ -76,9 +78,9 @@ public class TouchInput : MonoBehaviour
 		{
             Vector2 touchPos = touch.position;
 			//Top right weapons switch
-			if (touchPos.x > 2 * Screen.width / 3 && touchPos.y > 3 * Screen.height / 4)
+			/*if (touchPos.x > 2 * Screen.width / 3 && touchPos.y > 3 * Screen.height / 4)
                 InterpretWeaponsGuiSwipe(touch);
-			else if (touchPos.x < Screen.width / 2 )
+			else */if (touchPos.x < Screen.width / 2 )
 			{
 				InterpretMovementSwipe(touch, touchPos);
 				moveTouched = true;
@@ -96,7 +98,6 @@ public class TouchInput : MonoBehaviour
 		if(!moveTouched)
 			_input.Horizontal = 0;
     }
-#endif
 	
 
     // TODO: SET UP WEAPONSGUI CORRECTLY

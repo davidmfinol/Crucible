@@ -3,13 +3,24 @@ using System.Collections;
 
 /// <summary>
 /// Character input stores the input for a character, while providing helper properties for accessing the input.
-/// By default, this returns empty input; this class should be extended with overrides for the input properties.
-/// Furthermore, child classes can override the UpdateInput() method for input processing.
 /// Used by CharacterAnimator.cs
 /// </summary>
-[AddComponentMenu("Character/Character Input (Empty)")]
-public class CharacterInput : MonoBehaviour
+[AddComponentMenu("Character/Character Input")]
+public sealed class CharacterInput : MonoBehaviour
 {
+	// We need a way to set a method that will update the input for the character
+	public delegate void UpdateInput();
+	public UpdateInput UpdateInputMethod;
+
+	// Keep track of what the character has input into the game
+	private float _horizontal = 0;
+	private float _vertical = 0;
+	private bool _interaction = false;
+	private Vector2 _jump = Vector2.zero;
+	private float _attack = 0;
+	private bool _pickup = false;
+
+	// These variables are used to keep track of XPressed and XReleased properties
 	private bool _leftLast = false;
 	private bool _rightLast = false;
 	private bool _upLast = false;
@@ -21,7 +32,8 @@ public class CharacterInput : MonoBehaviour
 	private bool _attackLeftLast = false;
 	private bool _attackRightLast = false;
 	private bool _pickupLast = false;
-	
+
+	// Keep track of XPressed and XReleased properties
 	void FixedUpdate()
 	{
 		_leftLast = Left;
@@ -35,48 +47,45 @@ public class CharacterInput : MonoBehaviour
 		_attackLeftLast = AttackLeft;
 		_attackRightLast = AttackRight;
 		_pickupLast = Pickup;
-		
-		UpdateInput();
-	}
-	protected virtual void UpdateInput()
-	{
-		// No input by default
-		// Child subclasses should override this method to have their input updated on Update()
+
+		if (UpdateInputMethod != null)
+			UpdateInputMethod ();
 	}
 
 
-	public virtual float Horizontal
+	// Basic input values
+	public float Horizontal
 	{
-		get { return 0; } 
-		set {}
+		get { return _horizontal; } 
+		set { _horizontal = Mathf.Min (Mathf.Max (-1, value) , 1); }
 	}
-	public virtual float Vertical
+	public float Vertical
 	{
-		get { return 0; }
-		set {}
+		get { return _vertical; }
+		set { _vertical = Mathf.Min (Mathf.Max (-1, value) , 1); }
 	}
-	public virtual bool Interaction
+	public bool Interaction
 	{
-		get { return false; }
-		set {}
+		get { return _interaction; }
+		set { _interaction = value; }
 	}
-	public virtual Vector2 Jump
+	public Vector2 Jump
 	{
-		get { return Vector2.zero; }
-		set {}
+		get { return _jump; }
+		set { _jump = value; }
 	}
-	public virtual float Attack
+	public float Attack
 	{
-		get { return 0; }
-		set {}
+		get { return _attack; }
+		set { _attack = Mathf.Min (Mathf.Max (-1, value) , 1); }
 	}
-	public virtual bool Pickup
+	public bool Pickup
 	{
-		get { return false; }
-		set {}
+		get { return _pickup; }
+		set { _pickup = value; }
 	}
-
-
+	
+	// Helper Input Properties
 	public bool Left
 	{
 		get { return Horizontal < -0.1; }

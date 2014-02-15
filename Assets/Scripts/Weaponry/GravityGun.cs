@@ -25,7 +25,7 @@ public class GravityGun : Weapon
 		foreach(RaycastHit hit in hits)
 		{
 			Debug.Log("hit something");
-			EnemyAnimator Enemy = hit.collider.gameObject.GetComponent<EnemyAnimator>();
+			OlympusAnimator Enemy = hit.collider.gameObject.GetComponent<OlympusAnimator>();
 			if(Enemy != null)
 			{
 				Debug.Log("Best start jumping");

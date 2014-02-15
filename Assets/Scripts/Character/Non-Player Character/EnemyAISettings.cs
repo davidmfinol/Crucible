@@ -2,20 +2,20 @@
 using System.Collections;
 
 /// <summary>
-/// Enemy settings holds the modifiable parameters for a Enemy.
+///  Enemy AI settings holds the AI parameters for an enemy.
 /// </summary>
-[AddComponentMenu("Character/Enemy/Enemy Settings")]
-public class EnemySettings : CharacterSettings
+[AddComponentMenu("Character/Non-Player Character/Enemy AI Settings")]
+public class EnemyAISettings : MonoBehaviour
 {
     // How far away can an opponent be and still be in range of a Enemy's attack?
     public float AttackRange = 3.0f;
-	public GameObject MeleeEvent;
+	public GameObject MeleeEvent; // TODO: move this elsewhere
 
     // How far away the Enemy can notice and become aware of the player
     public float AwarenessRange = 25.0f;
 	
-	// A* Settings
-	public float RepathTime = 0.75f; // How many seconds between every calculation of a new path
+	// How many seconds between every calculation of a new path
+	public float RepathTime = 0.75f;
 	
 	// Used by A* to calculate graph
     public static float MaxJump = 9.0f; // jumpheight + capsulecollider.height/2
@@ -27,10 +27,6 @@ public class EnemySettings : CharacterSettings
 	public bool CanHear = true;
 	public float VisionMemory = 1.0f;           // how long to forget that we saw the player
     public float SoundInspectionRange = 1.0f;  // how close to succesfully visually inspect a sound source
-
-    // So we can find the arms to use as weapons
-    public string LeftForearmBoneName = "left_elbow";
-    public string RightForearmBoneName = "right_elbow";
 	
     /// <summary>
     /// Returns whether a Enemy can jump from one position to another

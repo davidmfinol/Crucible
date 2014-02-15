@@ -61,10 +61,9 @@ public class GameManager : MonoBehaviour
 		if(_player == null)
         	_player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
 
-        PlayerCharacterSettings playerSettings = _player.GetComponent<PlayerCharacterSettings>();
-        playerSettings.SpawnPoint = _currentLevel.StartPoint;
-		playerSettings.Weapon = playerSettings.PipePrefab;
-
+		PlayerCharacterArsenal arsenal = _player.GetComponent<PlayerCharacterArsenal>();
+		arsenal.SpawnPoint = _currentLevel.StartPoint;
+		arsenal.Weapon = arsenal.PipePrefab;
 	}
 	
 	private void SetupCamera()

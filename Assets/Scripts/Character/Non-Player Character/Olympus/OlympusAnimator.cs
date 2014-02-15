@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Enemy animator moves the Enemy.
+/// Olympus animator animates/moves the Olympus enemy type.
 /// </summary>
-[RequireComponent(typeof(EnemySettings))]
-[RequireComponent(typeof(EnemyInput))]
-[AddComponentMenu("Character/Enemy/Enemy Animator")]
-public class EnemyAnimator : CharacterAnimator
+[RequireComponent(typeof(EnemyAI))]
+[RequireComponent(typeof(OlympusAwareness))]
+[AddComponentMenu("Character/Non-Player Character/Olympus/Olympus Animator")]
+public class OlympusAnimator : CharacterAnimator
 {
 	// Mecanim hashes
 	private int _verticalSpeedHash;
@@ -32,14 +32,18 @@ public class EnemyAnimator : CharacterAnimator
 
     // Enemy should play it's own sound effects
     private EnemyAudioPlayer _enemyAudioSource;
+
+	// The ai controlling this character
+	private EnemyAI _ai;
 	
 	protected override void Initialize ()
 	{
         _enemyAudioSource = GetComponentInChildren<EnemyAudioPlayer>();
+		_ai = GetComponent<EnemyAI> ();
 
         // We need to find the bones for our hands so we can attack with them
-        _bone_L = CharacterSettings.SearchHierarchyForBone(transform, Settings.LeftForearmBoneName);
-        _bone_R = CharacterSettings.SearchHierarchyForBone(transform, Settings.RightForearmBoneName);
+		_bone_L = CharacterSettings.SearchHierarchyForBone(transform, "left_elbow");
+		_bone_R = CharacterSettings.SearchHierarchyForBone(transform, "right_elbow");
 
 		if(_bone_L == null || _bone_R == null)
 			Debug.LogWarning("Left or right bones not found");
@@ -97,8 +101,8 @@ public class EnemyAnimator : CharacterAnimator
 		Vector3 meleePos = transform.position;
 		meleePos.x += (2.0f * Direction.x);
 
-//		// attack in front of us
-		GameObject o = (GameObject) Instantiate (Settings.MeleeEvent, meleePos, Quaternion.identity);
+		// attack in front of us
+		GameObject o = (GameObject) Instantiate (_ai.Settings.MeleeEvent, meleePos, Quaternion.identity);
 
 		AttackData d = o.GetComponent<AttackData> ();
 		d.MakeOlympusMelee(this.gameObject, Direction.x);
@@ -331,13 +335,13 @@ public class EnemyAnimator : CharacterAnimator
 		if (debug2 != null)
 			Destroy(debug2);
 		Destroy(this);
-		GameManager.AI.Enemies.Remove(CharInput);
+		GameManager.AI.Enemies.Remove(_ai);
+		Destroy (_ai);
 		Destroy(CharInput);
 		Destroy(Settings);
 		Destroy(Controller);
 		Destroy(MecanimAnimator);
 		Destroy(GetComponent<Seeker>());
-
 	}
 
 	protected void Death(float elapsedTime)
@@ -407,14 +411,6 @@ public class EnemyAnimator : CharacterAnimator
     public EnemyAudioPlayer EnemyAudioSource
     {
         get { return _enemyAudioSource; }
-    }
-	public new EnemySettings Settings
-	{
-		get { return (EnemySettings) base.Settings; }
-	}
-	public new EnemyInput CharInput
-	{
-		get { return (EnemyInput) base.CharInput; }
     }
     public override bool CanTransitionZ
     {

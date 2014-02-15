@@ -4,8 +4,8 @@ using System.Collections;
 /// <summary>
 /// Player character defines the motion for the character that the player controls.
 /// </summary>
-[RequireComponent(typeof(PlayerCharacterSettings))]
-[RequireComponent(typeof(PlayerCharacterInput))]
+[RequireComponent(typeof(PlayerCharacterArsenal))]
+[RequireComponent(typeof(PlayerCharacterShader))]
 [AddComponentMenu("Character/Player Character/Player Character Animator")]
 public class PlayerCharacterAnimator : CharacterAnimator
 {
@@ -54,10 +54,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// how long at this health?  how far along in regen?
 	private float _timeAtHealth = 0.0f;
 	private float _timeUntilRegen = 0.0f;
+	
+	// Used to keep track of the player character's weaponry
+	private PlayerCharacterArsenal _arsenal;
 
     // Used to control the shader settings for the player character
     private PlayerCharacterShader _shader;
-
 	
 	// Auto-climb code for ladders and pipes
 	private enum AutoClimbDirection : int
@@ -71,13 +73,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     protected override void Initialize()
     {
+		_arsenal = gameObject.GetComponent<PlayerCharacterArsenal>();
         _shader = gameObject.GetComponent<PlayerCharacterShader>();
     }
 
     public void Spawn() 
     {
 		Heart.HitPoints = Heart.MaxHitPoints;
-        transform.position = Settings.SpawnPoint.transform.position;
+        transform.position = Arsenal.SpawnPoint.transform.position;
 		MecanimAnimator.SetBool (_respawnHash, true);
 	}
 	
@@ -145,13 +148,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// if not in a climb, reset our auto-climb direction for use next climb.
 		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingStrafe")) )
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
-
+		
+		// TODO: SHOULD MOVE THIS TO parent's class OnFixedUpdate()
 		ProcessAttacks ();
 	}
 	
  	private void ProcessAttacks()
     {
-		// TODO: SHOULD MOVE THIS TO OnFixedUpdate()
 		// process attacks
 		if (_attackedBy) {
 			MecanimAnimator.SetBool (_jumpHash, true); // TODO: ADD (INSTEAD OF SET) VALUES TO VERTICAL AND HORIZONTAL SPEED
@@ -221,10 +224,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void UpdateAttackAnimations()
 	{
-		if(Settings.Weapon == null)
+		if(Arsenal.Weapon == null)
 			return;
 
-		Weapon currentWeapon = Settings.Weapon.GetComponent<Weapon>();
+		Weapon currentWeapon = Arsenal.Weapon.GetComponent<Weapon>();
 		MecanimAnimator.SetBool(_attackMeleeHash, InputAttackForward && currentWeapon is PipeWeapon); 
         MecanimAnimator.SetBool(_shootGunHash, InputAttackForward && currentWeapon is GravityGun); 
         MecanimAnimator.SetBool(_placeMineHash, InputAttackForward && currentWeapon is Mine); 
@@ -233,13 +236,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	void StartMelee()
 	{
-		if(Settings.Weapon == null)
+		if(Arsenal.Weapon == null)
 		{
 			Debug.LogWarning("StartMelee() called with no weapon found");
 			return;
 		}
 
-		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		Weapon weapon = Arsenal.Weapon.GetComponent<Weapon>();
 		if (weapon != null && weapon is PipeWeapon)
 		{
 			weapon.ActivateAttack (0);
@@ -249,13 +252,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void EndMelee()
 	{
-		if(Settings.Weapon == null)
+		if(Arsenal.Weapon == null)
 		{
 			Debug.LogWarning("EndMelee() called with no weapon found");
 			return;
 		}
 		
-		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		Weapon weapon = Arsenal.Weapon.GetComponent<Weapon>();
 		if(weapon != null && weapon is PipeWeapon)
 			weapon.Deactivate();
 		else
@@ -263,13 +266,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void PlaceMine()
 	{
-		if(Settings.Weapon == null)
+		if(Arsenal.Weapon == null)
 		{
 			Debug.LogWarning("PlaceMine() called with no weapon found");
 			return;
 		}
 		
-		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		Weapon weapon = Arsenal.Weapon.GetComponent<Weapon>();
 		if(weapon != null && weapon is Mine)
 			weapon.ActivateAttack(0);
 		else
@@ -277,13 +280,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void DetonateMine()
 	{
-		if(Settings.Weapon == null)
+		if(Arsenal.Weapon == null)
 		{
 			Debug.LogWarning("DetonateMine() called with no weapon found");
 			return;
 		}
 		
-		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		Weapon weapon = Arsenal.Weapon.GetComponent<Weapon>();
 		if(weapon != null && weapon is Mine)
 			weapon.ActivateAttack(1);
 		else
@@ -291,13 +294,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void ShootGun()
 	{
-		if(Settings.Weapon == null)
+		if(Arsenal.Weapon == null)
 		{
 			Debug.LogWarning("ShootGun() called with no weapon found");
 			return;
 		}
 		
-		Weapon weapon = Settings.Weapon.GetComponent<Weapon>();
+		Weapon weapon = Arsenal.Weapon.GetComponent<Weapon>();
 		if(weapon != null && weapon is GravityGun)
 			weapon.ActivateAttack();
 		else
@@ -359,7 +362,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			// instantiate noise
 			Vector3 footStepPosition = transform.position;
 			footStepPosition.y -= Height/2;	// 
-			Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
+			Instantiate(Arsenal.FootStepNoise, footStepPosition, Quaternion.identity);
 			_timeUntilNextFootStepSound = Time.time + Settings.FootStepNoiseFrequency;
 		}
 
@@ -715,17 +718,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
 	
-
-	public new PlayerCharacterSettings Settings
+	public PlayerCharacterArsenal Arsenal
 	{
-		get { return (PlayerCharacterSettings) base.Settings; }
+		get { return _arsenal; }
 	}
-	public new PlayerCharacterInput CharInput
-	{
-		get { return (PlayerCharacterInput) base.CharInput; }
-	}
-
-	public new PlayerCharacterShader CharShader
+	public PlayerCharacterShader CharShader
 	{
         get { return _shader; }
 	}

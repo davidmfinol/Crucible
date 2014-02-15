@@ -33,7 +33,7 @@ public class MeshToGameObjectsMenu
 	[MenuItem("GameObject/Create Game Objects from Meshes")]
 	static void MeshToGameObjects ()
 	{
-		Undo.RegisterSceneUndo("Create Game Objects from Meshes");
+		// Undo.RegisterCreatedObjectUndo("Create Game Objects from Meshes");
 		
 		playerPrefab = (GameObject) Resources.Load("PlayerCharacter");
 		ledgePrefab = (GameObject) Resources.Load("Ledge");

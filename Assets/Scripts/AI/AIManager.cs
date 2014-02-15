@@ -9,16 +9,16 @@ using System.Collections.Generic;
 [AddComponentMenu("AI/AI Manager")]
 public class AIManager : MonoBehaviour
 {
-	private List<EnemyInput> _enemies;
+	private List<EnemyAI> _enemies;
 	
 	
 	void Awake()
 	{
-		_enemies = new List<EnemyInput>();
+		_enemies = new List<EnemyAI>();
 	}
 	
 	
-	public List<EnemyInput> Enemies
+	public List<EnemyAI> Enemies
 	{
 		get { return _enemies; }
 	}
@@ -28,8 +28,8 @@ public class AIManager : MonoBehaviour
 		get
 		{
 			int EnemiesAware = 0;
-			foreach(EnemyInput Enemy in _enemies)
-				if(Enemy.Awareness == EnemyInput.AwarenessLevel.Searching || Enemy.Awareness == EnemyInput.AwarenessLevel.Chasing)
+			foreach(EnemyAI Enemy in _enemies)
+				if(Enemy.Awareness == EnemyAI.AwarenessLevel.Searching || Enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
 					EnemiesAware++;
 			return EnemiesAware;
 		}
