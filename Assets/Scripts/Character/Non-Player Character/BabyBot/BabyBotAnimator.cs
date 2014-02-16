@@ -39,14 +39,14 @@ public class BabyBotAnimator : CharacterAnimator
 			MecanimAnimator.SetBool (_awakeHash, true);
 		HorizontalSpeed = 0;
 		VerticalSpeed = GroundVerticalSpeed;
-		UseRootMotion = false;
 		ApplyBiDirection ();
 	}
 	protected void Run(float elapsedTime)
 	{
 		MecanimAnimator.SetBool (_awakeHash, false);
 		MecanimAnimator.SetFloat (_horizontalSpeedHash, Mathf.Abs(CharInput.Horizontal));
-		UseRootMotion = true;
+		HorizontalSpeed = 0;
+		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection ();
 	}
 

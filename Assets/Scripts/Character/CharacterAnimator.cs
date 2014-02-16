@@ -199,7 +199,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         currentMovementOffset = new Vector3(currentMovementOffset.x, currentMovementOffset.y, zOffset);
 
 		// Disable the movement system if we have root-based motion
-		if (!UseRootMotion)
+		//if (!UseRootMotion)
 			_collisionFlags = _characterController.Move(currentMovementOffset);// Move our character!
 
         // Calculate the velocity based on the current and previous position.
