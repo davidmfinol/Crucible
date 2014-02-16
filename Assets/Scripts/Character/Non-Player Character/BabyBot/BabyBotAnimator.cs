@@ -14,6 +14,8 @@ public class BabyBotAnimator : CharacterAnimator
 	private int _awakeHash;
 	private int _horizontalSpeedHash;
 	private int _attackHash;
+	private int _isGroundedHash;
+	private int _jumpHash;
 
 
 	protected override void CreateStateMachine()
@@ -23,11 +25,16 @@ public class BabyBotAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Awake")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Run")] = Run;
 		StateMachine[Animator.StringToHash("Base Layer.Attack")] = Run;
+		StateMachine[Animator.StringToHash("Air.Landing")] = Run;
+		StateMachine[Animator.StringToHash("Air.Jumping")] = Jump;
+		StateMachine[Animator.StringToHash("Air.Falling")] = Fall;
 
 		// Then hash the variables
 		_awakeHash = Animator.StringToHash ("Awake");
 		_horizontalSpeedHash = Animator.StringToHash ("HorizontalSpeed");
 		_attackHash = Animator.StringToHash("Attack");
+		_isGroundedHash = Animator.StringToHash("IsGrounded");
+		_jumpHash = Animator.StringToHash("Jump");
 	}
 	protected override void UpdateMecanimVariables ()
 	{
@@ -48,6 +55,12 @@ public class BabyBotAnimator : CharacterAnimator
 		HorizontalSpeed = 0;
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection ();
+	}
+	protected void Jump(float elapsedTime)
+	{
+	}
+	protected void Fall(float elapsedTime)
+	{
 	}
 
     public void SelfDestruct()
