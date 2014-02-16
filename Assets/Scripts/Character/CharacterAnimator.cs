@@ -22,11 +22,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 	private Animator _animator;
 	private CharacterSettings _characterSettings;
 	private CharacterInput _characterInput;
-	private HeartBox _heartBox;
 	private Transform _root;
 
 	// This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
 	public delegate void ProcessState(float elapsedTime);
+	public ProcessState ModifyState;
 	private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
     private AnimatorStateInfo _previousState;
     
@@ -64,7 +64,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 		_animator = GetComponent<Animator>();
 		_characterSettings = GetComponent<CharacterSettings>();
 		_characterInput = GetComponent<CharacterInput>();
-		_heartBox = GetComponentInChildren<HeartBox>();
         _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
         
 		// HACK: SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS GETS AROUND IT
@@ -76,24 +75,26 @@ public abstract class CharacterAnimator : MonoBehaviour
 			_animator.avatar = CharAvatar;
 		}
 
+		// Set up the mapping between the mecanim state machine and this class's interpretation of it
         _stateMachine = new Dictionary<int, ProcessState>();
         CreateStateMachine();
         _previousState = CurrentState;
-        
-        _rootMotionCorrectionStates = new List<int> ();
-        _rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Walljumping"));
-        _rootMotionCorrectionStates.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
-        _rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Backflip"));
-        _rootMotionCorrectionStates.Add (Animator.StringToHash ("Air.Falling"));
+		_rootMotionCorrectionStates = DefineRootMotionCorrectionState ();
 
+		// Is useful to know when we were last on the ground
         _lastGroundHeight = transform.position.y;
 
+		// Let child classes initialize as necessary
 		Initialize();
 	}
 	protected virtual void CreateStateMachine()
 	{
 		// TODO: DYNAMICALLY GENERATE IF POSSIBLE
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = DoNothing;
+	}
+	protected virtual List<int> DefineRootMotionCorrectionState()
+	{
+		return new List<int> (); // Should be overwritten by child classes
 	}
 	public void DoNothing(float elapsedTime)
 	{
@@ -117,10 +118,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 		// Disable root-based motion
 		if (_root != null && _rootMotionCorrectionStates.Contains ( CurrentState.nameHash ))
 			_root.localPosition = Vector3.zero;
-
-		// Check health every frame to make sure we aren't dead
-        if (_heartBox != null && _heartBox.HitPoints <= 0)
-			OnDeath ();
 
 		// Handle all the z-zone stuff in one location
 		UpdateZones();
@@ -180,6 +177,9 @@ public abstract class CharacterAnimator : MonoBehaviour
 		else
 			Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + CurrentState.nameHash + " does not have a corresponding function delegate.");
 
+		// We occasionally need to allow other classes to do additional processing for the HorizontalSpeed, VerticalSpeed, and Direction
+		if(ModifyState != null)
+			ModifyState(Time.fixedDeltaTime);
 
         // Keep track of where we started out this frame
         Vector3 lastPosition = transform.position;
@@ -303,12 +303,66 @@ public abstract class CharacterAnimator : MonoBehaviour
 	        body.velocity = pushDir * 2 * HorizontalSpeed;
 	        //body.AddForceAtPosition(force, hit.point);
 		}
-    }
+	}
+	
+	public void DoRagDoll()
+	{
+		CharacterSettings.ActivateRagDoll(transform, false, true);
+		/*
+		CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
+		if (debug != null)
+			Destroy(debug);
+		EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger>();
+		if (debug2 != null)
+			Destroy(debug2);
+		Destroy(this);
+		*/
+		EnemyAI ai = GetComponent<EnemyAI> ();
+		if(ai != null)
+			GameManager.AI.Enemies.Remove(ai);
+		Seeker seeker = GetComponent<Seeker>();
+		if(seeker != null)
+			seeker.enabled = false;
+		CharInput.enabled = false; // Destroy(CharInput);
+		Controller.enabled = false; // Destroy(Controller);
+		MecanimAnimator.enabled = false; // Destroy(MecanimAnimator);
+	}
 
+	/*
+	public void ActivateFloat()
+	{
+		MecanimAnimator.enabled = false;
+		collider.enabled = false;
+		CharacterSettings.ActivateRagDoll(transform, false, false);
+		Vector3 pos = transform.position;
+		pos.y += 1;
+		transform.position = pos;
+		StartCoroutine("ReEnable");
+		this.enabled = false;
+	}
+	IEnumerator ReEnableCharacter()
+	{
+		float timePassed = 0;
+		while (timePassed < 5)
+		{
+			Debug.Log ("I should be floating...");
+			timePassed += Time.deltaTime;
+			yield return null;
+		}
+		this.enabled = true;
+		CharacterSettings.ActivateRagDoll(transform, true, true);
+		//Transform root = CharacterSettings.SearchHierarchyForBone(transform, "Root");
+		//transform.position = root.transform.position;
+		collider.enabled = true;
+		MecanimAnimator.enabled = true;
+		StopCoroutine("ReEnable");
+	}
+	*/
+	
 	// Helper methods for motion
 	protected virtual void ApplyRunning(float elapsedTime)
 	{
-        float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
+		float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, Settings.MaxHorizontalSpeed*CharInput.Horizontal, accelerationSmoothing);
 	}
     protected virtual void ApplyGravity(float elapsedTime)
@@ -452,10 +506,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return (Direction.x > 0 && CharInput.AttackLeft) || (Direction.x < 0 && CharInput.AttackRight); }
     }
-	public HeartBox Heart
-	{
-		get { return _heartBox; }
-	}
 	public Dictionary<int, ProcessState> StateMachine
 	{
 		get { return _stateMachine; }

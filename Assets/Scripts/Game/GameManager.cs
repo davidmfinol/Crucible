@@ -43,9 +43,6 @@ public class GameManager : MonoBehaviour
 		SetupAudio();
 		
 		SetupSubtitles();
-
-		MakePlayerAlive ();
-
     }
 	
 	private void SetupLevel()
@@ -59,11 +56,33 @@ public class GameManager : MonoBehaviour
 	private void SetupPlayer()
 	{
 		if(_player == null)
-        	_player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
+			_player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
 
-		PlayerCharacterArsenal arsenal = _player.GetComponent<PlayerCharacterArsenal>();
-		arsenal.SpawnPoint = _currentLevel.StartPoint;
-		arsenal.Weapon = arsenal.PipePrefab;
+		PlayerCharacterArsenal arsenal = Player.GetComponent<PlayerCharacterArsenal>();
+		if(arsenal != null)
+		{
+			arsenal.SpawnPoint = _currentLevel.StartPoint;
+			arsenal.Weapon = arsenal.PipePrefab;
+		}
+
+		SpawnPlayer ();
+	}
+	public static void SpawnPlayer() // TODO: Optimize this method? lots of getcomponents
+	{
+		// Move the player to the correct spot
+		PlayerCharacterArsenal arsenal = Player.GetComponent<PlayerCharacterArsenal>();
+		if(arsenal != null)
+			Player.transform.position = arsenal.SpawnPoint.transform.position;
+
+		// Reset it's health to max
+		HeartBox heart = Player.GetComponentInChildren<HeartBox> ();
+		if(heart != null)
+			heart.HitPoints = heart.MaxHitPoints;
+
+		// And update the animation system if necessary
+		Animator animator = Player.GetComponent<Animator> ();
+		if(animator != null)
+			animator.SetBool ("Respawn", true);
 	}
 	
 	private void SetupCamera()
@@ -115,13 +134,6 @@ public class GameManager : MonoBehaviour
 		if(GameManager._subtitlesManager != null)
 			Destroy(GameManager._subtitlesManager.gameObject); // TODO: TRANSFER SUBTITLES MANAGER BETTER
 		GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager>();
-	}
-
-	private void MakePlayerAlive() {
-		PlayerHeartBox heart = GameManager.Player.gameObject.GetComponentInChildren<PlayerHeartBox> ();
-		if (heart.HitPoints == 0)
-			heart.HitPoints = heart.MaxHitPoints;
-
 	}
 
 	/// <summary>

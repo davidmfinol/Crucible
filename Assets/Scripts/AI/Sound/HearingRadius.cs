@@ -4,6 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Hearing radius indicates an area in which an NPC can hear sound.
 /// </summary>
+[RequireComponent(typeof(SphereCollider))]
 [AddComponentMenu("AI/Sound/Hearing Radius")]
 public class HearingRadius : MonoBehaviour
 {

@@ -2,6 +2,7 @@
 
 /// <summary>
 /// Character settings stores variables about how this character moves.
+/// It also provides some helper methods used by the animator.
 /// Used by CharacterAnimator.cs
 /// </summary>
 [AddComponentMenu("Character/Character Settings")]
@@ -45,7 +46,8 @@ public sealed class CharacterSettings : MonoBehaviour
  
 	// How often the character makes noise when running
 	public float FootStepNoiseFrequency = 0.3f;
-	
+
+
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone(Transform current, string name)
     {
@@ -67,5 +69,21 @@ public sealed class CharacterSettings : MonoBehaviour
 
         // bone with name was not found
         return null;
-    }
+	}
+	
+	// Helper Method to activate the ragdoll of a character
+	public static void ActivateRagDoll(Transform current, bool disable, bool useGravity)
+	{
+		// activate the ragdoll for all child bones
+		for (int i = 0; i < current.childCount; ++i)
+			ActivateRagDoll(current.GetChild(i), disable, useGravity);
+		
+		// activate the ragdoll for the bone we're on
+		if (current.rigidbody != null && current.collider != null)
+		{
+			current.collider.enabled = !disable;
+			current.rigidbody.isKinematic = disable;
+			current.rigidbody.useGravity = useGravity;
+		}
+	}
 }

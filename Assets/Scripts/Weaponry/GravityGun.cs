@@ -29,7 +29,7 @@ public class GravityGun : Weapon
 			if(Enemy != null)
 			{
 				Debug.Log("Best start jumping");
-				Enemy.ActivateFloat();
+				//Enemy.ActivateFloat();
 			}
 		}
 	}

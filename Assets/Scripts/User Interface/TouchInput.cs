@@ -54,6 +54,7 @@ public class TouchInput : MonoBehaviour
 		{
 			Transform dot = (Transform)Instantiate(DotPrefab);
 			dot.renderer.enabled = false;
+			dot.parent = transform;
 			_userInterfaceDots.Add(dot);
 		}
 		

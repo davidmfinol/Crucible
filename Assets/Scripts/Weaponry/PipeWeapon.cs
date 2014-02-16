@@ -3,21 +3,26 @@ using System.Collections;
 
 /// <summary>
 /// Pipe weapon is the most basic of melee weapons.
-/// It should just spawn a hitbox when you attack with it (instead of re-using the same one like current).
+/// It can be used to stun or do a stealth kill.
 /// </summary>
 [RequireComponent(typeof(HitBox))]
 [AddComponentMenu("Weaponry/Pipe Weapon")]
 public class PipeWeapon : Weapon
 {
-	// TODO: HITBOXES SHOULD BE CREATED AT RUNTIME
-	//private HitBox _hitbox;
+	void Start()
+	{
+		HitBox hitbox = GetComponent<HitBox> ();
+		hitbox.Allegiance = TeamAllegiance.Player;
+		hitbox.FromObject = this.gameObject;
+		hitbox.FromWeaponType = WeaponType.Weapon_Melee;
+		hitbox.DamageAmount = 0;
+		hitbox.CanStun = true;
+		hitbox.CanStealthKill = true;
+	}
 
-	// attackID = 0 = regular hit
-	// attackID = 1 = stealth hit
 	public override void ActivateAttack (int attackID)
 	{
 		collider.enabled = true;
-		GetComponent<HitBox>().Stealth = true; // FIXME: THIS IS SLOW
 	}
 	
 	public override void Deactivate ()

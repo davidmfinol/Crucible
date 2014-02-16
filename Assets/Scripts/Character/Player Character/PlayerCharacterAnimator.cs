@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Player character defines the motion for the character that the player controls.
@@ -37,29 +37,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
     // Used for backflipping
 	private float _desiredSpeed;
 	
-	//TODO: figure out this comment
+	//TODO: Figure out this comment
 	private float _timeUntilNextFootStepSound = -1f;
-	// TODO: remove this (use variation of Justin's script?)
-	public static int countItems = 0;
-    //TODO: the attack event we just bumped into, or nothing.
-	private AttackData _attackedBy;
-
-	// how long do we blink when hurt and healed?  which do we choose based on what happened to us last?
-	// how fast do we regen HP?
-	private int _lastHealthAdjust = 0;
-	private float _hurtBlinkTime = 2.0f;
-	private float _healBlinkTime = 0.3f;
-	private float _regenTimer = 6.0f;
-
-	// how long at this health?  how far along in regen?
-	private float _timeAtHealth = 0.0f;
-	private float _timeUntilRegen = 0.0f;
 	
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
-
-    // Used to control the shader settings for the player character
-    private PlayerCharacterShader _shader;
 	
 	// Auto-climb code for ladders and pipes
 	private enum AutoClimbDirection : int
@@ -74,15 +56,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected override void Initialize()
     {
 		_arsenal = gameObject.GetComponent<PlayerCharacterArsenal>();
-        _shader = gameObject.GetComponent<PlayerCharacterShader>();
     }
-
-    public void Spawn() 
-    {
-		Heart.HitPoints = Heart.MaxHitPoints;
-        transform.position = Arsenal.SpawnPoint.transform.position;
-		MecanimAnimator.SetBool (_respawnHash, true);
-	}
 	
 	protected override void CreateStateMachine()
 	{
@@ -90,7 +64,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
 		StateMachine[Animator.StringToHash("Base Layer.Rolling")] = Rolling;
-		StateMachine[Animator.StringToHash("Base Layer.Waiting For Respawn")] = WaitingForRespawn;
+		StateMachine[Animator.StringToHash("Base Layer.Waiting For Respawn")] = Die;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
@@ -126,6 +100,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
 		_respawnHash = Animator.StringToHash("Respawn");
 	}
+	protected override List<int> DefineRootMotionCorrectionState()
+	{
+		List<int> states = new List<int> ();
+		states.Add (Animator.StringToHash ("Wall.Walljumping"));
+		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
+		states.Add (Animator.StringToHash ("Air.Backflip"));
+		states.Add (Animator.StringToHash ("Air.Falling"));
+		return states;
+	}
 	
 	protected override void UpdateMecanimVariables()
 	{
@@ -148,80 +131,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// if not in a climb, reset our auto-climb direction for use next climb.
 		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingStrafe")) )
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
-		
-		// TODO: SHOULD MOVE THIS TO parent's class OnFixedUpdate()
-		ProcessAttacks ();
 	}
-	
- 	private void ProcessAttacks()
-    {
-		// process attacks
-		if (_attackedBy) {
-			MecanimAnimator.SetBool (_jumpHash, true); // TODO: ADD (INSTEAD OF SET) VALUES TO VERTICAL AND HORIZONTAL SPEED
-			// fly in direction of hit
-			HorizontalSpeed = Settings.MaxHorizontalSpeed * (_attackedBy.HorizontalDir > 0 ? 1.0f : -1.0f);
-			// adjust health, change shaders, etc.
-			AdjustHealth (-1 * _attackedBy.DamageAmount);
-			Destroy (_attackedBy.gameObject);
-			_attackedBy = null;
-
-		} else {
-			BlinkShield();
-			TryRegenHealth ();
-
-		}
-
-	}
-
-	private void AdjustHealth(int deltaHealth) {
-		int currHealth = Heart.HitPoints;
-
-		Heart.HitPoints += deltaHealth;
-		int newHealth = Heart.HitPoints;
-
-		// on health change, change shader
-		if (newHealth != currHealth) {
-			_lastHealthAdjust = deltaHealth;
-
-			if (Heart.HitPoints > 1 && !CharShader.CurrentlyHidden)
-				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Unhurt);
-			else if (Heart.HitPoints == 1 && !CharShader.CurrentlyHidden)
-				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Hurt);
-			else if (Heart.HitPoints == 0)
-				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
-			
-			_timeAtHealth = 0.0f;
-			_timeUntilRegen = 0.0f;
-			
-		}
-
-	}
-
-	private void BlinkShield() {
-		_timeAtHealth += Time.deltaTime;
-		
-		// blink shield based on whether hurt or healed recently
-		if ((_lastHealthAdjust < 0) && (_timeAtHealth >= _hurtBlinkTime) && !CharShader.OnDefaultShader () && !CharShader.CurrentlyHidden) {
-			CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
-			
-		} else if ((_lastHealthAdjust > 0) && (_timeAtHealth >= _healBlinkTime) && !CharShader.OnDefaultShader () && !CharShader.CurrentlyHidden) {
-			CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
-		}
-
-	}
-
-	private void TryRegenHealth() {
-		// try to regen actual HP
-		_timeUntilRegen += Time.deltaTime;
-		
-		if((_timeUntilRegen >= _regenTimer) && (Heart.HitPoints < Heart.MaxHitPoints) ) {
-			AdjustHealth(1);
-			
-		}
-
-	}
-
-	
 	protected void UpdateAttackAnimations()
 	{
 		if(Arsenal.Weapon == null)
@@ -323,17 +233,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
         MecanimAnimator.SetBool(_jumpHash, false);
 		MecanimAnimator.SetBool(_fallHash, false);
         MecanimAnimator.SetBool(_dieHash, false);
-
-	}
-
-	protected void WaitingForRespawn(float elapsedTime)
-	{
-		MecanimAnimator.SetBool(_jumpHash, false);
-		MecanimAnimator.SetBool(_fallHash, false);
-		MecanimAnimator.SetBool(_dieHash, false);
-				
-		if (CharInput.InteractionPressed || CharInput.JumpPressed)
-			Spawn ();
 
 	}
 	
@@ -696,22 +595,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if (hit.gameObject.tag == "Item")
         {
            // HasPackage = true; // TODO: seperate script for inventory
-            Destroy(hit.gameObject);
-			countItems += 1;
+            //Destroy(hit.gameObject);
+			//countItems += 1;
         }
-    }
-	public void OnTriggerEnter(Collider other) //TODO: MORE GENERIC ENTRY IN CHARACTERANIMATOR
-    {
-		AttackData ad = other.GetComponent<AttackData>();
-
-		if (ad) 
-        {
-			_attackedBy = ad;
-
-		}
-
 	}
-  
+	
 	protected override void ApplyRunning (float elapsedTime)
 	{
 		base.ApplyRunning(elapsedTime);
@@ -721,9 +609,5 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public PlayerCharacterArsenal Arsenal
 	{
 		get { return _arsenal; }
-	}
-	public PlayerCharacterShader CharShader
-	{
-        get { return _shader; }
 	}
 }

@@ -1,80 +1,73 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public enum BoxAllegiance { Player, Enemies, Explosions };
+public enum TeamAllegiance
+{
+	Player = 0,
+	Enemies = 1,
+	Explosions = 2
+};
+
+public enum WeaponType
+{
+	Weapon_None = 0,
+	Weapon_Melee = 1,
+	Weapon_Trap = 2,
+	Weapon_Projectile = 3
+};
 
 /// <summary>
-/// Hit box hits heartboxes to deal damage.
+/// Hitbox keeps data about an attack and transfers it to a heartbox.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-[AddComponentMenu("Health/Hitbox")]
+[AddComponentMenu("Health/HitBox")]
 public class HitBox : MonoBehaviour
 {
-    //~Origin Data
-    public BoxAllegiance Allegiance;
-    public HitBoxFamily Family = new HitBoxFamily();
-    public int HitBoxID;
-    public string HitBoxName;
-    //~Combat Value
-    public int Damage;
-	public bool Stealth = false;
-	public bool Stun = false;
-    public StampDictionary stampRecord = new StampDictionary();
-
-    void Start()
-    {
-        Family.FamilyID = GetInstanceID();
-    }
-}
-
-[System.Serializable]
-public class HitBoxFamily
-{
-    public int CreatorID;
-    public int FamilyID;
-    public string FamilyName;
-    public StampDictionary stampRecord = new StampDictionary();
-
-    public HitBoxFamily() { }
-    public HitBoxFamily(int creatorID, int famID, string name)
-    {
-        CreatorID = creatorID;
-        FamilyID = famID;
-        FamilyName = name;
-    }
-}
-
-public class StampDictionary
-{
-    private System.Collections.Generic.Dictionary<int, List<HeartBoxStamp>> _stampDict = new System.Collections.Generic.Dictionary<int, List<HeartBoxStamp>>();
-
-    public void Imprint(HeartBoxStamp stamp)
-    {
-        //~If the HeartBox has an entry, add the stamp to the list
-        if (_stampDict.ContainsKey(stamp.HeartBoxID))
-            _stampDict[stamp.HeartBoxID].Add(stamp);
-        else //~create entry, then try Imprint() again
-        {
-            _stampDict.Add(stamp.HeartBoxID, new List<HeartBoxStamp>());
-            Imprint(stamp);
-        }
-    }
-    public HeartBoxStamp GetLatestHeartBoxStamp(int heartBoxInstanceID)
-    {
-        List<HeartBoxStamp> heartBoxStampList;
-        if (_stampDict.TryGetValue(heartBoxInstanceID, out heartBoxStampList))
-            return heartBoxStampList[heartBoxStampList.Count - 1];
-        else
-            return null;
-    }
-
-
-    //~Read-only access wrapper methods
-    public bool ContainsKey(int heartboxInstanceID)
-    {
-        return _stampDict.ContainsKey(heartboxInstanceID);
-    }
-
+	public TeamAllegiance Allegiance;
+	public GameObject FromObject = null; 
+	public WeaponType FromWeaponType = 0;
+	public float HorizontalDir = 0;
+	public int DamageAmount = 0;
+	public bool CanStun = false;
+	public bool CanStealthKill = false;
+	public float DestroyTime = 0.0f;
+	
+	private float _radius = 0.0f;
+	
+	
+	public void MakeOlympusMelee(GameObject from, float horizontalDir)
+	{
+		Allegiance = TeamAllegiance.Enemies;
+		FromObject = from;
+		FromWeaponType = WeaponType.Weapon_Melee;
+		HorizontalDir = horizontalDir;
+		DamageAmount = 1;
+		CanStun = false;
+		DestroyTime = 0.1f;
+		Radius = 2.0f;
+	}
+	
+	void Update()
+	{
+		DestroyTime -= Time.deltaTime;
+		
+		if (DestroyTime <= 0.0f)
+			Destroy (this.gameObject);
+	}
+	
+	// Generic Properties
+	public float Radius
+	{
+		get { return _radius; }
+		set
+		{ 
+			_radius = value; 
+			SphereCollider coll = GetComponent<SphereCollider>();
+			if(coll != null)
+				coll.radius = value / 2.0f; 
+			transform.localScale = new Vector3(value, value, value);
+		}
+	}
+	
 }

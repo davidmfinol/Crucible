@@ -8,62 +8,38 @@ using System.Collections;
 [AddComponentMenu("Health/Heartbox")]
 public abstract class HeartBox : MonoBehaviour
 {
+	public TeamAllegiance Allegiance;
+	public int HitPoints;
+	public int MaxHitPoints = 2;
+	
+	// We need to be able to call OnDeath() as necessary
+	private CharacterAnimator _controller;
 
-    public BoxAllegiance Allegiance;
-    protected int heartBoxID;
 
-    protected HeartBox() { heartBoxID = GetInstanceID(); }
-    
-    public int MaxHitPoints = 1000;
-    public int HitPoints;
+	void Start()
+	{
+		HitPoints = MaxHitPoints;
 
-    protected abstract void Start();
-    protected abstract void Interpret(HitBox hitbox);
+		_controller = transform.parent.GetComponent<CharacterAnimator>();
 
-    protected HeartBoxStamp createHeartBoxStamp()
-    {
-        return new HeartBoxStamp(heartBoxID);
-    }
-}
+		OnStart ();
+	}
+	protected virtual void OnStart() { } // Child classes may override
+	
+	void OnTriggerStay(Collider other)
+	{
+		HitBox attackData = other.GetComponent<HitBox>();
+		if (attackData != null && attackData.enabled && attackData.Allegiance != this.Allegiance)
+			Interpret(attackData);
+	}
+	protected virtual void Interpret(HitBox hitbox)
+	{
+		// Child classes should override
+	}
 
-/*
- Hitbox Blacklisting: Stamp System
- * <summary>
- * Have the heartbox "stamp" hitboxes. 
- * The "stamp" should imprint data, on the hitbox, that will allow the heartbox to better regulate hitbox interpretation.
- * This is useful for implementing every kind of combo, including rules and limitations.
- * 
- * 
- * <example>
- * EX: poison fog is covered in a single massive hitbox.
- * When a heartbox collides with it, the heartbox will stamp it with a time and heartbox's ID.
- * Next frame, when the heartbox collides with hitbox, it will check the stamp to see if it has been 5s since last imprinting.
- * If it has been 5s, then the heartbox will place a new stamp and compute damage.
- * If it has not been 5s, then the heartbox will not do anything (no damage recieved).
- * </example>
- * 
- * The reason I want to use this stamping system is so that the record of the hitbox lives and dies with the hitbox.
- * If the heartbox managed its own blacklist of hitboxes (tracked with unique IDs), it would be alot of extra work.
- * </summary>
- 
- */
-public class HeartBoxStamp
-{
-    private int _heartBoxInstanceID;
-    public int HeartBoxID
-    {
-        get { return _heartBoxInstanceID; }
-    }
 
-    private float _timeCreated;
-    public float TimeStamped
-    {
-        get { return _timeCreated; }
-    }
-
-    public HeartBoxStamp(int heartBoxID)
-    {
-        _heartBoxInstanceID = heartBoxID;
-        _timeCreated = Time.time;
-    }
+	public CharacterAnimator Controller
+	{
+		get { return _controller; }
+	}
 }

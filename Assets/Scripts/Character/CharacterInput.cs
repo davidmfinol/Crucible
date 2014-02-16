@@ -29,6 +29,7 @@ public sealed class CharacterInput : MonoBehaviour
 	private bool _jumpLast = false;
 	private bool _jumpLeftLast = false;
 	private bool _jumpRightLast = false;
+	private bool _attackLast = false;
 	private bool _attackLeftLast = false;
 	private bool _attackRightLast = false;
 	private bool _pickupLast = false;
@@ -44,6 +45,7 @@ public sealed class CharacterInput : MonoBehaviour
 		_jumpLast = JumpActive;
 		_jumpLeftLast = JumpLeft;
 		_jumpRightLast = JumpRight;
+		_attackLast = AttackActive;
 		_attackLeftLast = AttackLeft;
 		_attackRightLast = AttackRight;
 		_pickupLast = Pickup;
@@ -177,6 +179,18 @@ public sealed class CharacterInput : MonoBehaviour
 	public bool JumpRightReleased
 	{
 		get { return _jumpRightLast && !JumpRight; }
+	}
+	public bool AttackActive
+	{
+		get { return AttackLeft || AttackRight; }
+	}
+	public bool AttackPressed
+	{
+		get { return !_attackLast && AttackActive; }
+	}
+	public bool AttackReleased
+	{
+		get { return _attackLast && !AttackActive; }
 	}
 	public bool AttackLeft
 	{

@@ -2,53 +2,39 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Enemy heart box keeps track of the Enemy's health and indicates where it can be hit.
+/// Enemy heart box keeps track of an enemy's health and indicates where it can be hit.
 /// </summary>
 [AddComponentMenu("Health/Enemy Heart Box")]
 public class EnemyHeartBox : HeartBox
 {
-    public float TimeSinceHit;
-	public bool CanStealthDie = true;
+	// We disable attacks hitting too frequently
+    public float TimeSinceHit = 0;
+	public float TimeBetweenHits = 1;
 
-    protected override void Start()
-    {
-        HitPoints = MaxHitPoints;
-    }
+	// We need to track the awareness of the enemy
+	private EnemyAI _ai;
 
-    void OnTriggerStay(Collider other)
-    {
-        HitBox script = other.GetComponent<HitBox>();
-        if (script != null && script.enabled)
-            Interpret(script);
-    }
-    protected override void Interpret(HitBox hitbox)
-    {
-        if (isValidHitbox(hitbox))
-        {
-            hitbox.stampRecord.Imprint(createHeartBoxStamp());
-            hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
 
-			if(hitbox.Stealth && CanStealthDie && transform.parent.GetComponent<EnemyAI>().Awareness == EnemyAI.AwarenessLevel.Unaware)//FIXME: THIS IS SLOW
-				HitPoints = 0;
-			else if(hitbox.Stun)
-			{
-				transform.parent.GetComponent<CharacterAnimator>().MecanimAnimator.SetBool("Stun", true);//FIXME: THIS IS SLOW
-			}
-			else
-				HitPoints -= hitbox.Damage;
-
-            TimeSinceHit = 0;
-        }
-    }
+	protected override void OnStart()
+	{
+		_ai = transform.parent.GetComponent<EnemyAI> ();
+	}
+	
 	void Update()
 	{
 		TimeSinceHit+= Time.deltaTime;
 	}
-	
-    bool isValidHitbox(HitBox hitbox)
+
+    protected override void Interpret(HitBox hitbox)
     {
-        if (TimeSinceHit < 1.0f)
-            return false;
-        return !((hitbox.Allegiance == this.Allegiance) /*|| hitbox.Family.stampRecord.ContainsKey(heartBoxID)*/); //TODO: PUT THIS BACK IN ONCE HITBOXES ARE DYNAMICALLY GENERATED
+		if (TimeSinceHit < TimeBetweenHits)
+			return;
+
+		if(hitbox.CanStealthKill && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware)
+			Controller.OnDeath();
+		else if(hitbox.CanStun)
+			Controller.MecanimAnimator.SetBool("Stun", true);
+
+		TimeSinceHit = 0;
     }
 }

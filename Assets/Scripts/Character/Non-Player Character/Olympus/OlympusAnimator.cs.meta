@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: d5096de544588ab4c8205d5c8409a007
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - CharAvatar: {fileID: 9000000, guid: 077e2e426c34b417b843e9c820d84d7a, type: 3}
+  - MeleeEvent: {fileID: 100000, guid: 1b812841db0a24f3ea5c9b4d5e4c2da7, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

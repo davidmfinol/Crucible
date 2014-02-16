@@ -1,14 +1,17 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// Olympus animator animates/moves the Olympus enemy type.
 /// </summary>
-[RequireComponent(typeof(EnemyAI))]
 [RequireComponent(typeof(OlympusAwareness))]
 [AddComponentMenu("Character/Non-Player Character/Olympus/Olympus Animator")]
 public class OlympusAnimator : CharacterAnimator
 {
+	// TODO: REPLACE THIS WITH SOME KIND OF POOL OF HITBOX OBJECTS
+	public GameObject MeleeEvent;
+
 	// Mecanim hashes
 	private int _verticalSpeedHash;
 	private int _horizontalSpeedHash;
@@ -25,29 +28,6 @@ public class OlympusAnimator : CharacterAnimator
 	
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
-    
-    // Bones for our left and right hands
-    private Transform _bone_L;
-    private Transform _bone_R;
-
-    // Enemy should play it's own sound effects
-    private EnemyAudioPlayer _enemyAudioSource;
-
-	// The ai controlling this character
-	private EnemyAI _ai;
-	
-	protected override void Initialize ()
-	{
-        _enemyAudioSource = GetComponentInChildren<EnemyAudioPlayer>();
-		_ai = GetComponent<EnemyAI> ();
-
-        // We need to find the bones for our hands so we can attack with them
-		_bone_L = CharacterSettings.SearchHierarchyForBone(transform, "left_elbow");
-		_bone_R = CharacterSettings.SearchHierarchyForBone(transform, "right_elbow");
-
-		if(_bone_L == null || _bone_R == null)
-			Debug.LogWarning("Left or right bones not found");
-	}
 	
 	protected override void CreateStateMachine()
 	{
@@ -89,10 +69,8 @@ public class OlympusAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
-
-		// FIXME: NEXT TWO LINES
-		bool shouldAttack = !MecanimAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.TakingDamage") && Mathf.Abs(CharInput.Attack) > 0.1;
-		MecanimAnimator.SetBool(_meleeAttackHash, shouldAttack);
+		
+		MecanimAnimator.SetBool(_meleeAttackHash, !CurrentState.IsName("Base Layer.TakingDamage") && CharInput.AttackActive);
 	}
 
 	protected void StartMelee(float elapsedTime)
@@ -102,26 +80,13 @@ public class OlympusAnimator : CharacterAnimator
 		meleePos.x += (2.0f * Direction.x);
 
 		// attack in front of us
-		GameObject o = (GameObject) Instantiate (_ai.Settings.MeleeEvent, meleePos, Quaternion.identity);
-
-		AttackData d = o.GetComponent<AttackData> ();
+		GameObject o = (GameObject) Instantiate (MeleeEvent, meleePos, Quaternion.identity);
+		HitBox d = o.GetComponent<HitBox> ();
 		d.MakeOlympusMelee(this.gameObject, Direction.x);
-
-		//FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
-//		_bone_L.GetComponent<Collider>().enabled = true;
-//		_bone_L.GetComponent<HitBox>().enabled = true;
-//		_bone_R.GetComponent<Collider>().enabled = true;
-//		_bone_R.GetComponent<HitBox>().enabled = true;
-		//TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
 	}
-	void EndMelee()
+	protected void EndMelee(float elapsedTime)
 	{
-		//FIXME: THIS FOLLOWING LINES ARE TOO LONG AND SLOW
-		//_bone_L.GetComponent<Collider>().enabled = false;
-		//_bone_L.GetComponent<HitBox>().enabled = false;
-		//_bone_R.GetComponent<Collider>().enabled = false;
-		//_bone_R.GetComponent<HitBox>().enabled = false;
-		//TODO: FIX THE PRECEDING; SHOULD FIND SOLUTION FOR ALL CHARACTERS?
+		// FIXME: REMOVE THIS METHOD?
 	}
 	
 	protected virtual void Idle(float elapsedTime)
@@ -317,101 +282,27 @@ public class OlympusAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 		}
 	}
-    	
-	protected override void ApplyRunning (float elapsedTime)
-	{
-		base.ApplyRunning(elapsedTime);
-
-		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
-	}
-
-	public void DoRagDoll()
-	{
-		ActivateRagDoll(transform, false, true);
-		CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
-		if (debug != null)
-			Destroy(debug);
-		EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger>();
-		if (debug2 != null)
-			Destroy(debug2);
-		Destroy(this);
-		GameManager.AI.Enemies.Remove(_ai);
-		Destroy (_ai);
-		Destroy(CharInput);
-		Destroy(Settings);
-		Destroy(Controller);
-		Destroy(MecanimAnimator);
-		Destroy(GetComponent<Seeker>());
-	}
-
+	
 	protected void Death(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
 		VerticalSpeed = 0;
 		MecanimAnimator.SetBool (_dieHash, false);
 	}
-
+	
 	public override void OnDeath()
 	{
-		Debug.Log ("Called");
-		//EnemyAudioSource.PlayDeath();
 		MecanimAnimator.SetBool (_dieHash, true);
 		Invoke ("DoRagDoll", 3.0f);
 	}
 	
-	// Helper Method to activate the ragdoll of the Enemy
-    public void ActivateRagDoll(Transform current, bool disable, bool useGravity)
-    {
-        // activate the ragdoll for all child bones
-        for (int i = 0; i < current.childCount; ++i)
-            ActivateRagDoll(current.GetChild(i), disable, useGravity);
+	protected override void ApplyRunning (float elapsedTime)
+	{
+		base.ApplyRunning(elapsedTime);
+		
+		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
+	}
 
-        // activate the ragdoll for the bone we're on
-        if (current.GetComponent<EnemyHeartBox>() != null)
-            Destroy(current.gameObject);
-        else if (current.rigidbody != null && current.collider != null)
-        {
-            current.collider.enabled = !disable;
-            current.rigidbody.isKinematic = disable;
-			current.rigidbody.useGravity = useGravity;
-        }
-    }
-	
-	public void ActivateFloat()
-	{
-		Debug.Log ("I should float");
-		MecanimAnimator.enabled = false;
-		collider.enabled = false;
-        ActivateRagDoll(transform, false, false);
-		Vector3 pos = transform.position;
-		pos.y += 1;
-		transform.position = pos;
-		StartCoroutine("ReEnable");
-		this.enabled = false;
-	}
-	
-	IEnumerator ReEnable()
-	{
-		float timePassed = 0;
-		while (timePassed < 5)
-		{
-			Debug.Log ("I should be floating...");
-			timePassed += Time.deltaTime;
-			yield return null;
-		}
-		this.enabled = true;
-        ActivateRagDoll(transform, true, true);
-		//Transform root = CharacterSettings.SearchHierarchyForBone(transform, "Root");
-		//transform.position = root.transform.position;
-		collider.enabled = true;
-		MecanimAnimator.enabled = true;
-		StopCoroutine("ReEnable");
-	}
-	
-    public EnemyAudioPlayer EnemyAudioSource
-    {
-        get { return _enemyAudioSource; }
-    }
     public override bool CanTransitionZ
     {
         get { return false; }

@@ -961,7 +961,7 @@ public void ModifyPTMaterials(){
 	if(!ProceduralTexture.IsInicialized())
 		return;
 	
-	int i = 0;
+//	int i = 0;
 	// Tirdth type of Clouds. Procedural Additive textures
 	CloudsPTMatAdditive.mainTexture = ProceduralTexture.MyTexture;
 	// Fourth type of Clouds. Procedural Blended textures

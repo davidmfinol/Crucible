@@ -1,125 +1,113 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 /// <summary>
 /// Player heart box indicates where the player can be hit and tracks health.
 /// </summary>
 [AddComponentMenu("Health/Player Character Heart Box")]
 public class PlayerHeartBox : HeartBox
 {
-    public float TimeSinceHit;
-    public float RegenCoolDown = 3.0f;
-    [SerializeField]
-    bool RegenRoutine;
-    [SerializeField]
-    float regenSpeed;
-	
-	/*
-	Rect box = new Rect(200, 10, 300, 20);\
-	
-	private Texture2D background;
-	private Texture2D foreground;
-	*/
-    
-    protected override void Start()
-    {
-        HitPoints = MaxHitPoints;
-        turnOffRegen();
-		
-		/*
-		background = new Texture2D(1, 1, TextureFormat.RGB24, false);
-		foreground = new Texture2D(1, 1, TextureFormat.RGB24, false);
-		
-		background.SetPixel(0, 0, Color.red);
-		foreground.SetPixel(0, 0, Color.white);
-		
-		background.Apply();
-		foreground.Apply();
-		*/
-    }
-    void Update()
-    {
-        //Collider[] c = Physics.OverlapSphere(transform.position, 1.0f);
-        //RaycastHit[] hits = Physics.SphereCastAll(
-        //    new Vector3(0,-0.016f,0),
-        //    0.02f,
-        //    Vector3.up,
-        //    0.032f,
-        //    LayerMaskBuilder.LayerMaskFromAllowed(9)
-        //    );
-        //int length = hits.Length;
-        //Collider[] c = new Collider[length];
-        //for(int x = 0; x<length; ++x)
-        //{
-        //    c[x] = hits[x].collider;
-        //}
-        //if (c != null)
-        //{
-        //    foreach (Collider col in c)
-        //    {
-        //        HitBox script = col.GetComponent<HitBox>();
-        //        if (script != null)
-        //            Interpret(script);
-        //    }
-        //}
-        TimeSinceHit += Time.deltaTime;
-        if (RegenRoutine)
-        {
-            HitPoints = Mathf.CeilToInt(Mathf.Lerp((float)HitPoints, (float)MaxHitPoints, Time.deltaTime*regenSpeed));
-            HitPoints = Mathf.Clamp(HitPoints, 0, MaxHitPoints);
+	// The last hitbox we took this frame, or null if no hit this frame
+	private HitBox _hitbox = null;
 
-            //~ Stop routine because health has replenished
-            if (HitPoints == MaxHitPoints)
-                turnOffRegen();
-        }
-        else if ((TimeSinceHit > RegenCoolDown) && (HitPoints != MaxHitPoints))
-        {
-            RegenRoutine = true;
-        }
-    }
-    void OnTriggerStay(Collider other)
-    {
-        HitBox script = other.GetComponent<HitBox>();
-        if (script != null && script.enabled)
-            Interpret(script);
-    }
+	// how long do we blink when hurt and healed?  which do we choose based on what happened to us last?
+	// how fast do we regen HP?
+	private int _lastHealthAdjust = 0;
+	private float _hurtBlinkTime = 2.0f;
+	private float _healBlinkTime = 0.3f;
+	private float _regenTimer = 6.0f;
+	// how long at this health?  how far along in regen?
+	private float _timeAtHealth = 0.0f;
+	private float _timeUntilRegen = 0.0f;
 	
-	//TODO: DRAW HEALTH ELSEWHERE
-	/*
-    void OnGUI()
-    {
-		GUI.BeginGroup(box);
+	// Used to control the shader settings for the player character
+	private PlayerCharacterShader _shader;
+
+
+	protected override void OnStart()
+	{
+		_shader = transform.parent.GetComponent<PlayerCharacterShader>();
+		Controller.ModifyState = UpdateHealth;
+	}
+
+	void Update()
+	{
+		if (Controller.MecanimAnimator.GetBool("Respawn") && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed) )
+			GameManager.SpawnPlayer ();
+	}
+	
+	protected override void Interpret(HitBox hitbox)
+	{
+		_hitbox = hitbox;
+	}
+	public void UpdateHealth(float elapsedTime) 
+	{
+		// process attacks
+		if (_hitbox)
 		{
-			GUI.DrawTexture(new Rect(0, 0, box.width, box.height), background, ScaleMode.StretchToFill);
-			GUI.DrawTexture(new Rect(0, 0, box.width*HitPoints/MaxHitPoints, box.height), foreground, ScaleMode.StretchToFill);
+			// fly in direction of hit
+			Controller.MecanimAnimator.SetBool ("Jump", true); // TODO: ADD (INSTEAD OF SET) VALUES TO VERTICAL?
+			Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (_hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
+			// adjust health, change shaders, etc.
+			AdjustHealth (-1 * _hitbox.DamageAmount);
+			Destroy (_hitbox.gameObject);
+			_hitbox = null;
+		} else
+		{
+			BlinkShield();
+			TryRegenHealth ();
 		}
-		GUI.EndGroup();
-    }
-    */
-	
-    void turnOffRegen()
-    {
-        RegenRoutine = false;
-    }
-    protected override void Interpret(HitBox hitbox)
-    {
-        if (isValidHitbox(hitbox))
-        {
-            hitbox.stampRecord.Imprint(createHeartBoxStamp());
-            hitbox.Family.stampRecord.Imprint(createHeartBoxStamp());
+	}
 
-            turnOffRegen();
-            HitPoints -= hitbox.Damage;
-            TimeSinceHit = 0;
-        }
-    }
-    bool isValidHitbox(HitBox hitbox)
-    {
-        //~ If it is a friendly hitbox, or family seen before, return false
-        //~ TODO: If stamp is x seconds old, return true
-        HeartBoxStamp stamp = hitbox.Family.stampRecord.GetLatestHeartBoxStamp(heartBoxID);
-        //if (stamp != null) Debug.Log(stamp.TimeStamped);
-        if ((stamp != null) && ((Time.time - stamp.TimeStamped) > 1.0f))
-            return true;
-        return !((hitbox.Allegiance == this.Allegiance) || hitbox.Family.stampRecord.ContainsKey(heartBoxID));
-    }
+	private void AdjustHealth(int deltaHealth)
+	{
+		int currHealth = HitPoints;
+		HitPoints += deltaHealth;
+		int newHealth = HitPoints;
+
+		// on health change, change shader
+		if (newHealth != currHealth)
+		{
+			_lastHealthAdjust = deltaHealth;
+			if (HitPoints > 1 && !CharShader.CurrentlyHidden)
+				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Unhurt);
+			else if (HitPoints == 1 && !CharShader.CurrentlyHidden)
+				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Hurt);
+			else if (HitPoints == 0)
+			{
+				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
+				Controller.OnDeath();
+			}
+			_timeAtHealth = 0.0f;
+			_timeUntilRegen = 0.0f;
+		}
+	}
+
+	private void BlinkShield()
+	{
+		_timeAtHealth += Time.deltaTime;
+
+		// blink shield based on whether hurt or healed recently
+		if ((_lastHealthAdjust < 0) && (_timeAtHealth >= _hurtBlinkTime) && !CharShader.OnDefaultShader () && !CharShader.CurrentlyHidden) {
+			CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
+
+		} else if ((_lastHealthAdjust > 0) && (_timeAtHealth >= _healBlinkTime) && !CharShader.OnDefaultShader () && !CharShader.CurrentlyHidden) {
+			CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
+
+		}
+	}
+
+	private void TryRegenHealth()
+	{
+		// try to regen actual HP
+		_timeUntilRegen += Time.deltaTime;
+		if( (_timeUntilRegen >= _regenTimer) && (HitPoints < MaxHitPoints) )
+			AdjustHealth(1);
+	}
+
+
+	public PlayerCharacterShader CharShader
+	{
+		get { return _shader; }
+	}
 }

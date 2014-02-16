@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: c411fbabefded415784af04c2208fa01
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: BabyBotMon:pCube1
     100002: BabyBotMon:pCube11
@@ -194,13 +194,133 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: .959999979
+      lastFrame: 2
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/LeftLeg
+        weight: 1
+      - path: Root/LeftLeg/BabyBotMon:pCylinder21
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCube18
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCylinder1
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee/LeftFoot
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder19
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder20
+        weight: 0
+      - path: Root/RightLeg
+        weight: 1
+      - path: Root/RightLeg/BabyBotMon:pCylinder15
+        weight: 0
+      - path: Root/RightLeg/RightKnee
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece1
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece2
+        weight: 0
+      - path: Root/RightLeg/RightKnee/RKnee
+        weight: 0
+      - path: Root/RightLeg/RightKnee/RShin
+        weight: 0
+      - path: Root/Torso
+        weight: 1
+      - path: Root/Torso/BabyBotMon:pCube11
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube12
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube20
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube21
+        weight: 0
+      - path: Root/Torso/LeftShoulder
+        weight: 1
+      - path: Root/Torso/LeftShoulder/BabyBotMon:pCylinder22
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow
+        weight: 1
+      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCube17
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCylinder23
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand
+        weight: 1
+      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand/BabyBotMon:pCube1
+        weight: 0
+      - path: Root/Torso/Neck
+        weight: 1
+      - path: Root/Torso/Neck/BabyBotMon:pCylinder18
+        weight: 0
+      - path: Root/Torso/Neck/Head
+        weight: 1
+      - path: Root/Torso/Neck/Head/Head 1
+        weight: 1
+      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface25
+        weight: 0
+      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface26
+        weight: 0
+      - path: Root/Torso/RightShoulder
+        weight: 1
+      - path: Root/Torso/RightShoulder/BabyBotMon:pCylinder16
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow
+        weight: 1
+      - path: Root/Torso/RightShoulder/RightElbow/BabyBotMon:pCylinder17
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow/RElbow
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow/RightHand
+        weight: 1
+      - path: Root/Torso/RightShoulder/RightElbow/RightHand/RightHand 1
+        weight: 0
+      - path: Root/Torso/Torso 1
+        weight: 0
+      - path: Root/Torso/TorsoGlowRing
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -222,11 +342,390 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
-    human: []
-    skeleton: []
+    human:
+    - boneName: Root
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LeftLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: RightLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LeftKnee
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: RightKnee
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BabyBotMon:pCube19
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: RFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Torso
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Head 1
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LeftShoulder
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: RightShoulder
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LeftElbow
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: RightElbow
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BabyBotMon:pCylinder19
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LegoPiece1
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: BabyTPose(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Root
+      position: {x: 0, y: 6.97732067, z: 0}
+      rotation: {x: .5, y: -.5, z: -.5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: LeftLeg
+      position: {x: .349684089, y: .197771996, z: 1.00508952}
+      rotation: {x: .995817244, y: -.0398165621, z: .0822089985, w: .00209146761}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder21
+      position: {x: 1.68452179, y: -.532732546, z: .146860644}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: LeftKnee
+      position: {x: 3.07872915, y: -.94451803, z: -3.56031296e-06}
+      rotation: {x: 0, y: -.182331398, z: -1.40592878e-17, w: .983237147}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCube18
+      position: {x: -.0464546867, y: .232635081, z: .203730017}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder1
+      position: {x: 3.23023582, y: .800729573, z: .0994927958}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: LeftFoot
+      position: {x: 3.88718605, y: .973051012, z: 1.04735736e-05}
+      rotation: {x: -.53877914, y: -.457948714, z: -.457948714, w: .53877914}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCube19
+      position: {x: -.151170433, y: .281115979, z: -.976575017}
+      rotation: {x: -.0398216993, y: -.00199113786, z: .020053491, w: .999003589}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder19
+      position: {x: .0427098982, y: -.753938138, z: -1.01365495}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder20
+      position: {x: .0427098982, y: -.753938138, z: .967623591}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RightLeg
+      position: {x: .34968707, y: .197771773, z: -1.00509048}
+      rotation: {x: .0398163684, y: .995817244, z: .00209148251, w: -.082209222}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder15
+      position: {x: -1.72026908, y: .532732785, z: .0251879897}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RightKnee
+      position: {x: -3.0787251, y: .944516718, z: 1.22124533e-15}
+      rotation: {x: 7.83505739e-34, y: -.182331398, z: -6.68375567e-17, w: .983237147}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RightFoot
+      position: {x: -3.88722348, y: -.973049343, z: 0}
+      rotation: {x: -.53877914, y: -.457948714, z: -.457948714, w: .53877914}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RFoot
+      position: {x: .326893538, y: -.281077504, z: .976574838}
+      rotation: {x: -.0398215353, y: -.00199106336, z: .0200532973, w: .999003649}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: LegoPiece1
+      position: {x: -.0427098982, y: .753938138, z: 1.01365495}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: LegoPiece2
+      position: {x: -.0427098982, y: .753938138, z: -.967623591}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RKnee
+      position: {x: .07476978, y: -.232633576, z: -.0302988421}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RShin
+      position: {x: -3.20192075, y: -.800728083, z: .0739383772}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Torso
+      position: {x: -5.75482416, y: -.888962746, z: -2.77555756e-16}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCube11
+      position: {x: -1.00051212, y: 1.20742488, z: -5.51004505}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCube12
+      position: {x: -2.34399557, y: -.0441429466, z: -.144747734}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCube20
+      position: {x: 2.16827154, y: -.0441429466, z: -.144747734}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCube21
+      position: {x: .824788094, y: 1.20742488, z: -5.51004505}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: LeftShoulder
+      position: {x: 2.86038947, y: -2.58331511e-07, z: 1.86152101e-06}
+      rotation: {x: 1, y: 1.22401159e-31, z: -3.88578059e-16, w: 2.83276934e-16}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder22
+      position: {x: .670322597, y: .0939880908, z: .165063635}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: LeftElbow
+      position: {x: 3.26901007, y: 5.55111512e-16, z: -4.4408921e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCube17
+      position: {x: -.153871074, y: .0403448418, z: .160136297}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder23
+      position: {x: 1.23672366, y: .0939880908, z: .165063635}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: LeftHand
+      position: {x: 4.22246981, y: 1.33226763e-15, z: -3.55271368e-15}
+      rotation: {x: .687202096, y: .166592985, z: .16659303, w: -.687202156}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCube1
+      position: {x: .207095876, y: .0965863839, z: .0403448418}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Neck
+      position: {x: -.0720267892, y: .888962746, z: 1.99739981}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder18
+      position: {x: -.464847416, y: -.717492998, z: -.0374125801}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Head
+      position: {x: -1.93865275, y: -2.15233692e-16, z: 1.73472348e-18}
+      rotation: {x: -.5, y: .5, z: .5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Head 1
+      position: {x: .00454062503, y: 3.68653274, z: -.446673572}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:polySurface25
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:polySurface26
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RightShoulder
+      position: {x: -2.86038589, y: 6.66133815e-16, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder16
+      position: {x: -.846050203, y: -.0939883515, z: -.165061772}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RightElbow
+      position: {x: -3.26901245, y: 6.66133815e-16, z: -1.33226763e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: BabyBotMon:pCylinder17
+      position: {x: -1.41244876, y: -.0939883515, z: -.165061772}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RElbow
+      position: {x: -.0218540784, y: -.0403450988, z: -.160134435}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RightHand
+      position: {x: -4.22247458, y: 1.11022302e-15, z: -1.33226763e-15}
+      rotation: {x: .554907203, y: .438267082, z: .438267022, w: -.554907203}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: RightHand 1
+      position: {x: -.0313751809, y: -.0965845212, z: -.0403450988}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Torso 1
+      position: {x: 4.92283916, y: .421211928, z: -1.9963218}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: TorsoGlowRing
+      position: {x: 4.92283916, y: .215272456, z: .834109604}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     armTwist: .5
     foreArmTwist: .5
     upperLegTwist: .5
@@ -236,5 +735,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 3
+  additionalBone: 0
   userData: 
