@@ -34,6 +34,12 @@ public class EnemyHeartBox : HeartBox
 			Controller.OnDeath();
 		else if(hitbox.CanStun)
 			Controller.MecanimAnimator.SetBool("Stun", true);
+        else
+        {
+            HitPoints -= hitbox.DamageAmount;
+            if(HitPoints <= 0)
+                Controller.OnDeath();
+        }
 
 		TimeSinceHit = 0;
     }

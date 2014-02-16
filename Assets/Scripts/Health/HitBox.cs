@@ -31,7 +31,7 @@ public class HitBox : MonoBehaviour
 	public int DamageAmount = 0;
 	public bool CanStun = false;
 	public bool CanStealthKill = false;
-	public float DestroyTime = 0.0f;
+	public float DestroyTime = Mathf.NegativeInfinity;
 	
 	private float _radius = 0.0f;
 	
@@ -47,9 +47,20 @@ public class HitBox : MonoBehaviour
 		DestroyTime = 0.1f;
 		Radius = 2.0f;
 	}
+
+    public void MakeBabyBotExplosion(GameObject from)
+    {
+        Allegiance = TeamAllegiance.Explosions;
+        FromObject = from;
+        FromWeaponType = WeaponType.Weapon_Trap;
+        DamageAmount = 5;
+    }
 	
 	void Update()
 	{
+        if(DestroyTime == Mathf.NegativeInfinity)
+            return;
+
 		DestroyTime -= Time.deltaTime;
 		
 		if (DestroyTime <= 0.0f)

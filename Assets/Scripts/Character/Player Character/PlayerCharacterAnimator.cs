@@ -233,7 +233,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
         MecanimAnimator.SetBool(_jumpHash, false);
 		MecanimAnimator.SetBool(_fallHash, false);
         MecanimAnimator.SetBool(_dieHash, false);
-
 	}
 	
 	protected virtual void Idle(float elapsedTime)

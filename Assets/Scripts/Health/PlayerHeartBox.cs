@@ -43,8 +43,8 @@ public class PlayerHeartBox : HeartBox
 	public void UpdateHealth(float elapsedTime) 
 	{
 		// process attacks
-		if (_hitbox)
-		{
+		if (_hitbox != null)
+        {
 			// fly in direction of hit
 			Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
 			Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (_hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
@@ -67,13 +67,13 @@ public class PlayerHeartBox : HeartBox
 
 		// on health change, change shader
 		if (newHealth != currHealth)
-		{
+        {
 			_lastHealthAdjust = deltaHealth;
 			if (HitPoints > 1 && !CharShader.CurrentlyHidden)
 				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Unhurt);
 			else if (HitPoints == 1 && !CharShader.CurrentlyHidden)
 				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Hurt);
-			else if (HitPoints == 0)
+			else if (HitPoints <= 0)
 			{
 				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
 				Controller.OnDeath();
@@ -101,7 +101,7 @@ public class PlayerHeartBox : HeartBox
 	{
 		// try to regen actual HP
 		_timeUntilRegen += Time.deltaTime;
-		if( (_timeUntilRegen >= _regenTimer) && (HitPoints < MaxHitPoints) )
+		if( (_timeUntilRegen >= _regenTimer) && (HitPoints < MaxHitPoints)  && (HitPoints > 0) )
 			AdjustHealth(1);
 	}
 

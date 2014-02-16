@@ -7,6 +7,9 @@ using System.Collections.Generic;
 [AddComponentMenu("Character/Non-Player Character/BabyBot/BabyBot Animator")]
 public class BabyBotAnimator : CharacterAnimator
 {
+    // TODO: REPLACE THIS WITH SOME KIND OF POOL OF HITBOX OBJECTS
+    public GameObject MeleeEvent;
+
 	// Mecanim hashes
 	private int _awakeHash;
 	private int _horizontalSpeedHash;
@@ -49,4 +52,11 @@ public class BabyBotAnimator : CharacterAnimator
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection ();
 	}
+
+    public void SelfDestruct()
+    {
+        GameObject o = (GameObject) Instantiate (MeleeEvent, transform.position, Quaternion.identity);
+        HitBox d = o.GetComponentInChildren<HitBox> ();
+        d.MakeBabyBotExplosion(this.gameObject);
+    }
 }

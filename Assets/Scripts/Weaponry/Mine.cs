@@ -15,43 +15,30 @@ public class Mine : Weapon
     public string IdleAnimationName = "Idle";
     public string AttackAnimationName = "Attack";
 
-	private List<GameObject> allPlacedMines = new List<GameObject>();
-	private GameObject _mineAmountText;
-	private int _mineAmount = 100; //TODO: MOVE THIS
-	
+	private static List<GameObject> allPlacedMines = new List<GameObject>(); // FIXME: THIS SHOULDN'T BE STATIC
 	private bool _minesCurrentlyExploding = false;
-    private bool _hitBoxesActive = false;
-
-	
 	private float _mineLastPlacedTime;
 	
-	void Start ()
-	{
-        SetHitBoxes(transform, _hitBoxesActive);
-		_mineAmountText = GameObject.Find("MineAmountText");
-		_mineAmountText.GetComponent<TextMesh>().text = _mineAmount.ToString();
-	}
-	
-    public override void ActivateAttack(int attackID)
+
+    public override void ActivateAttack(float attackID)
     {
 		if(attackID == 0)
 			PlaceMine();
-		else if(attackID == 1)
+		else 
 			DetonateMines();
 	}
 	
 	public void PlaceMine()
 	{
-		if( Time.time - _mineLastPlacedTime < 1 || _minesCurrentlyExploding || _mineAmount <= 0)
+        // Don't place a mine if we've placed one within a past second, or if they're already exploding
+		if( Time.time - _mineLastPlacedTime < 1 || _minesCurrentlyExploding)
 			return;
 				
-		//minePos = this.gameObject.transform.position;
+        // Create the new mine
 		Vector3 minePos = new Vector3(transform.position.x, transform.position.y, transform.position.z);// + 1.5f);
 		Transform mineCopy = (Transform) Instantiate(mineObject, minePos, Quaternion.identity);
 		mineCopy.animation["MineAboutToExplode"].speed = 2.0f;
-		_mineAmount--;
 		allPlacedMines.Add(mineCopy.gameObject);
-		_mineAmountText.GetComponent<TextMesh>().text = _mineAmount.ToString();
 		_mineLastPlacedTime = Time.time;
 	}
 	
@@ -76,6 +63,7 @@ public class Mine : Weapon
 		for(int i = 0; i < allPlacedMines.Count; i++)
 		{
 			Instantiate(explosion1, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);
+            // TODO: SET UP HITBOX
 			Instantiate(explosion2, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);		
 			Destroy((GameObject) allPlacedMines[i]);
 		}
@@ -84,29 +72,6 @@ public class Mine : Weapon
 
 		_minesCurrentlyExploding = false;
 	}
-
-    public void ActivateHitBox(bool activate)
-    {
-        if (activate != _hitBoxesActive)
-            SetHitBoxes(transform, activate);
-        _hitBoxesActive = activate;
-    }	
-	
-    public void SetHitBoxes(Transform current, bool active)
-    {
-        // activate the hitbox for the bone we're on
-        BoxCollider collider = current.GetComponent<BoxCollider>();
-        HitBox hitBox = current.GetComponent<HitBox>();
-        if (collider != null && hitBox != null)
-        {
-            collider.enabled = active;
-            hitBox.enabled = active;
-        }
-
-        // activate the hit box for all child bones
-        for (int i = 0; i < current.childCount; ++i)
-            SetHitBoxes(current.GetChild(i), active);
-    }
     
     public override Vector3 Rotation
     {

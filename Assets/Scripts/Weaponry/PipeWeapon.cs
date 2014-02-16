@@ -20,7 +20,7 @@ public class PipeWeapon : Weapon
 		hitbox.CanStealthKill = true;
 	}
 
-	public override void ActivateAttack (int attackID)
+	public override void ActivateAttack (float attackID)
 	{
 		collider.enabled = true;
 	}

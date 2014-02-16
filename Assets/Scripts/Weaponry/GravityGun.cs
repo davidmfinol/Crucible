@@ -15,7 +15,7 @@ public class GravityGun : Weapon
 		_player = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
 	}
 
-	public override void ActivateAttack (int attackID)
+	public override void ActivateAttack (float attackID)
 	{
 		Vector3 shootDirection = _player.Direction.x > 0.1 ? Vector3.right : Vector3.left;
 		if(Mathf.Abs(_player.Direction.x) < 0.1)

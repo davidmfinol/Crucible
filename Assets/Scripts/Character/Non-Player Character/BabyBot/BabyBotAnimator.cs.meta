@@ -4,6 +4,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - CharAvatar: {fileID: 9000000, guid: c411fbabefded415784af04c2208fa01, type: 3}
+  - MeleeEvent: {fileID: 100000, guid: 24ce5e5dafed0c240a6540d7f00819d2, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
