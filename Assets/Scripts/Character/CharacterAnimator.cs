@@ -34,8 +34,9 @@ public abstract class CharacterAnimator : MonoBehaviour
     private List<int> _rootMotionCorrectionStates;
 	
 	// We use these to determine movement
+	private bool _useRootMotion = false; // Bypass this motion system and use root-baed motion
     private float _horizontalSpeed = 0.0f; // How fast does the character want to move on the x-axis?
-    private float _verticalSpeed = 0.0f; // How fast does the character want to move on the y-axis?
+	private float _verticalSpeed = 0.0f; // How fast does the character want to move on the y-axis?
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
 	private Vector3 _prevDirection = Vector3.right; // The last direction that the player was facing before the current direction
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
@@ -197,8 +198,9 @@ public abstract class CharacterAnimator : MonoBehaviour
         float zOffset = newZ - currentZ;
         currentMovementOffset = new Vector3(currentMovementOffset.x, currentMovementOffset.y, zOffset);
 
-        // Move our character!
-        _collisionFlags = _characterController.Move(currentMovementOffset);
+		// Disable the movement system if we have root-based motion
+		if (!UseRootMotion)
+			_collisionFlags = _characterController.Move(currentMovementOffset);// Move our character!
 
         // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
@@ -529,11 +531,16 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return _horizontalSpeed; }
         set { _horizontalSpeed = value; }
     }
+	public bool UseRootMotion
+	{
+		get { return _useRootMotion; }
+		set { _useRootMotion = value; }
+	}
     public float VerticalSpeed
     {
         get { return _verticalSpeed; }
         set { _verticalSpeed = value; }
-    }
+	}
     public float GroundVerticalSpeed
     {
         get { return (15 * -_characterSettings.Gravity * Time.fixedDeltaTime); }

@@ -31,7 +31,6 @@ public class BabyBotAnimator : CharacterAnimator
 	}
 	protected override void UpdateMecanimVariables ()
 	{
-		MecanimAnimator.SetFloat (_horizontalSpeedHash, Mathf.Abs(HorizontalSpeed));
 		MecanimAnimator.SetBool (_attackHash, CharInput.AttackActive);
 	}
 	protected void Idle(float elapsedTime)
@@ -40,16 +39,14 @@ public class BabyBotAnimator : CharacterAnimator
 			MecanimAnimator.SetBool (_awakeHash, true);
 		HorizontalSpeed = 0;
 		VerticalSpeed = GroundVerticalSpeed;
+		UseRootMotion = false;
 		ApplyBiDirection ();
 	}
 	protected void Run(float elapsedTime)
 	{
 		MecanimAnimator.SetBool (_awakeHash, false);
-		if(!CharInput.Left && !CharInput.Right)
-			HorizontalSpeed = 0;
-		else
-			HorizontalSpeed = Direction.x * Settings.MaxHorizontalSpeed;
-		VerticalSpeed = GroundVerticalSpeed;
+		MecanimAnimator.SetFloat (_horizontalSpeedHash, Mathf.Abs(CharInput.Horizontal));
+		UseRootMotion = true;
 		ApplyBiDirection ();
 	}
 
