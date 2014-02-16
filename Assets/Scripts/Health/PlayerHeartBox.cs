@@ -32,7 +32,7 @@ public class PlayerHeartBox : HeartBox
 
 	void Update()
 	{
-		if (Controller.MecanimAnimator.GetBool("Respawn") && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed) )
+		if (Controller.CurrentState.IsName("Base Layer.Waiting For Respawn") && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed) )
 			GameManager.SpawnPlayer ();
 	}
 	
@@ -46,7 +46,7 @@ public class PlayerHeartBox : HeartBox
 		if (_hitbox)
 		{
 			// fly in direction of hit
-			Controller.MecanimAnimator.SetBool ("Jump", true); // TODO: ADD (INSTEAD OF SET) VALUES TO VERTICAL?
+			Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
 			Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (_hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
 			// adjust health, change shaders, etc.
 			AdjustHealth (-1 * _hitbox.DamageAmount);
