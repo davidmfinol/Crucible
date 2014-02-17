@@ -28,7 +28,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _grabWallHash;
 	private int _jumpWallHash;
 	private int _backflipHash;
-	private int _climbStrafeHash;
+//	private int _climbStrafeHash;
 	private int _respawnHash;
 
 	// Used to keep track of a ledge we are climbing
@@ -43,15 +43,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
 	
-	// Auto-climb code for ladders and pipes
-	private enum AutoClimbDirection : int
-	{
-		AutoClimb_None = 0,
-		AutoClimb_Up,
-		AutoClimb_Down
-	};
 
-	private AutoClimbDirection _autoClimbDir;
 
     protected override void Initialize()
     {
@@ -75,7 +67,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
-		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
+//		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
 
 		// Then hash the variables
@@ -97,7 +89,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_grabWallHash = Animator.StringToHash("GrabWall");
 		_jumpWallHash = Animator.StringToHash("JumpWall");
 		_backflipHash = Animator.StringToHash ("Backflip");
-		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
+//		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
 		_respawnHash = Animator.StringToHash("Respawn");
 	}
 	protected override List<int> DefineRootMotionCorrectionState()
@@ -121,15 +113,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpPressed)
 			MecanimAnimator.SetBool(_jumpHash, true);
 
-		bool startClimbLadder = CanClimbLadder && CharInput.Interaction;
-		bool startClimbPipe = CanClimbPipe && CharInput.Interaction;
+		bool facingRightLadder = (ActiveHangTarget && ActiveHangTarget.transform.position.x - transform.position.x > 0.0f);
+		bool facingLeftLadder = (ActiveHangTarget && transform.position.x - ActiveHangTarget.transform.position.x > 0.0f);
+
+		bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
+												   (facingLeftLadder && CharInput.Left));
+
+		bool startClimbPipe = CanClimbPipe && CharInput.Up;
 
 		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
+
+		if(startClimbLadder)
+			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
+
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 
 		// if not in a climb, reset our auto-climb direction for use next climb.
-		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingStrafe")) )
+		if( ! (CurrentState.IsName("Climbing.ClimbingLadder"))) // || CurrentState.IsName("Climbing.ClimbingStrafe")) )
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
 	}
 	protected void UpdateAttackAnimations()
@@ -504,27 +505,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 	}
 
-	protected float UpdateAutoClimbDirection()
-	{
-		// start or stop auto-climbing
-		if (CharInput.Up)
-			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
-		else if (CharInput.Down)
-			_autoClimbDir = AutoClimbDirection.AutoClimb_Down;
-		else if (CharInput.InteractionPressed)
-			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
-		
-		// always give a speed based on the auto-climb direction
-		float vertical;
-		if(_autoClimbDir == AutoClimbDirection.AutoClimb_Up)
-			vertical = 1.0f;
-		else if(_autoClimbDir == AutoClimbDirection.AutoClimb_Down)
-			vertical = -1.0f;
-		else
-			vertical = 0.0f;
-
-		return vertical;
-	}
 	
 	protected void ClimbingVertical(float elapsedTime)
 	{
@@ -552,38 +532,38 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
 		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
-		MecanimAnimator.SetBool (_climbStrafeHash, CanClimbLadder && (CharInput.Left || CharInput.Right));
+
 	}
 	
-	protected void ClimbingStrafe(float elapsedTime)
-	{
-		if(ActiveHangTarget == null)
-		{
-			DropHangTarget();
-			MecanimAnimator.SetBool(_fallHash, true);
-			return;
-		}
-
-		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
-
-		// always give a speed based on the auto-climb direction
-		float vertical = UpdateAutoClimbDirection ();
-	
-		ApplyClimbingStrafing(CharInput.Horizontal);
-		
-		if(HorizontalSpeed != 0)
-			ApplyClimbingVertical(vertical);
-		else
-			VerticalSpeed = 0.0f;
-
-		if(ActiveHangTarget.DoesFaceZAxis())
-			Direction = Vector3.zero;
-		
-		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
-		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
-		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpPressed);
-		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.UpPressed || CharInput.DownPressed));
-	}
+//	protected void ClimbingStrafe(float elapsedTime)
+//	{
+//		if(ActiveHangTarget == null)
+//		{
+//			DropHangTarget();
+//			MecanimAnimator.SetBool(_fallHash, true);
+//			return;
+//		}
+//
+//		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
+//
+//		// always give a speed based on the auto-climb direction
+//		float vertical = UpdateAutoClimbDirection ();
+//	
+//		ApplyClimbingStrafing(CharInput.Horizontal);
+//		
+//		if(HorizontalSpeed != 0)
+//			ApplyClimbingVertical(vertical);
+//		else
+//			VerticalSpeed = 0.0f;
+//
+//		if(ActiveHangTarget.DoesFaceZAxis())
+//			Direction = Vector3.zero;
+//		
+//		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+//		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
+//		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpPressed);
+//		//MecanimAnimator.SetBool(_climbLadderHash, CanClimbP);
+//	}
 	
 	// TODO: DETERMINE HOW WE PICK STUFF UP
     public override void OnControllerColliderHit(ControllerColliderHit hit)

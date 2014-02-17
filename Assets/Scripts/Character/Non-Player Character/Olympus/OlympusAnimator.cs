@@ -235,31 +235,35 @@ public class OlympusAnimator : CharacterAnimator
 			}
 		}
 	}
-	
+
 	protected void ClimbingVertical(float elapsedTime)
 	{
-		ApplyClimbingVertical(CharInput.Vertical);
-		
-		if(VerticalSpeed != 0)
-			ApplyClimbingStrafing(CharInput.Horizontal);
-		else
-			HorizontalSpeed = 0;
-		
-		Direction = Vector3.zero;
-		
-		
-        if(CharInput.JumpActive)
-		{
-			MecanimAnimator.SetBool(_jumpHash, true);
-		}
-        else if(ActiveHangTarget == null)
+		if(ActiveHangTarget == null)
 		{
 			DropHangTarget();
 			MecanimAnimator.SetBool(_fallHash, true);
+			return;
 		}
+		
+		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
+		
+		float vertical = UpdateAutoClimbDirection ();
+		
+		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
+			ApplyClimbingStrafing( CharInput.Horizontal );
 		else
-			MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
+			HorizontalSpeed = 0;
+		
+		ApplyClimbingVertical(vertical);
+		
+		if(ActiveHangTarget.DoesFaceZAxis())
+			Direction = Vector3.zero;
+		
+		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
+		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
 	}
+
 	
 	protected void ClimbingStrafe(float elapsedTime)
 	{
