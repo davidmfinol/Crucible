@@ -30,7 +30,7 @@ public class PlayerHeartBox : HeartBox
 		Controller.ModifyState = UpdateHealth;
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if (Controller.CurrentState.IsName("Base Layer.Waiting For Respawn") && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed) )
 			GameManager.SpawnPlayer ();

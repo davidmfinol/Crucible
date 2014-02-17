@@ -406,12 +406,13 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 			return;
 		
 		
-		for (int i=0;i<nodes.Length;i++) {
-			
+		for (int i=0;i<nodes.Length;i++)
+		{
 			ZoneNode node = (ZoneNode)nodes[i];
-			if (node.connections != null) {
-				
-				for (int q=0;q<node.connections.Length;q++) {
+			if (node.connections != null)
+			{
+				for (int q=0;q<node.connections.Length;q++)
+				{
 					bool doublyLinked = node.connections[q].ContainsConnection(node);
 					if(AstarPath.active.debugMode == GraphDebugMode.Areas || doublyLinked)
 					{

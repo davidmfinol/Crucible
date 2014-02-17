@@ -34,7 +34,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     private List<int> _rootMotionCorrectionStates;
 	
 	// We use these to determine movement
-	private bool _useRootMotion = false; // Bypass this motion system and use root-baed motion
     private float _horizontalSpeed = 0.0f; // How fast does the character want to move on the x-axis?
 	private float _verticalSpeed = 0.0f; // How fast does the character want to move on the y-axis?
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
@@ -58,6 +57,16 @@ public abstract class CharacterAnimator : MonoBehaviour
     private Zone _Zhigher = null; // Zone we go to if we press up
     private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
+
+	// Auto-climb code for ladders and pipes
+	protected enum AutoClimbDirection : int
+	{
+		AutoClimb_None = 0,
+		AutoClimb_Up,
+		AutoClimb_Down
+	};
+	
+	protected AutoClimbDirection _autoClimbDir;
 
 	void Start()
 	{
@@ -198,9 +207,8 @@ public abstract class CharacterAnimator : MonoBehaviour
         float zOffset = newZ - currentZ;
         currentMovementOffset = new Vector3(currentMovementOffset.x, currentMovementOffset.y, zOffset);
 
-		// Disable the movement system if we have root-based motion
-		if (!UseRootMotion)
-			_collisionFlags = _characterController.Move(currentMovementOffset);// Move our character!
+		// Move our character!
+		_collisionFlags = _characterController.Move(currentMovementOffset);
 
         // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
@@ -408,6 +416,29 @@ public abstract class CharacterAnimator : MonoBehaviour
         else
             VerticalSpeed = 0.0f;
 	}
+
+	protected float UpdateAutoClimbDirection()
+	{
+		// start or stop auto-climbing
+		if (CharInput.Up)
+			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
+		else if (CharInput.Down)
+			_autoClimbDir = AutoClimbDirection.AutoClimb_Down;
+		else if (CharInput.InteractionPressed)
+			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+		
+		// always give a speed based on the auto-climb direction
+		float vertical;
+		if(_autoClimbDir == AutoClimbDirection.AutoClimb_Up)
+			vertical = 1.0f;
+		else if(_autoClimbDir == AutoClimbDirection.AutoClimb_Down)
+			vertical = -1.0f;
+		else
+			vertical = 0.0f;
+		
+		return vertical;
+	}
+
 	protected virtual void ApplyClimbingStrafing(float horizontal)
 	{
         // Determine the horizontal bounds of the object(s) we are climbing
@@ -531,11 +562,6 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return _horizontalSpeed; }
         set { _horizontalSpeed = value; }
     }
-	public bool UseRootMotion
-	{
-		get { return _useRootMotion; }
-		set { _useRootMotion = value; }
-	}
     public float VerticalSpeed
     {
         get { return _verticalSpeed; }

@@ -42,7 +42,7 @@ public class OlympusAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
-		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
+//		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Melee Layer.AttackingFirst")] = StartMelee;
 
@@ -66,8 +66,23 @@ public class OlympusAnimator : CharacterAnimator
 		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpActive)
 			MecanimAnimator.SetBool(_jumpHash, true);
 
-		MecanimAnimator.SetBool(_climbLadderHash, CanClimbLadder && (CharInput.Up || CharInput.Down) );
-		MecanimAnimator.SetBool(_climbPipeHash, CanClimbPipe && (CharInput.Up || CharInput.Down) );
+		bool facingRightLadder = (ActiveHangTarget && ActiveHangTarget.transform.position.x - transform.position.x > 0.0f);
+		bool facingLeftLadder = (ActiveHangTarget && transform.position.x - ActiveHangTarget.transform.position.x > 0.0f);
+		
+		bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
+		                                           (facingLeftLadder && CharInput.Left));
+		bool startClimbPipe = CanClimbPipe && CharInput.Interaction;
+		
+		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
+		
+		if(startClimbLadder)
+			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
+		
+		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
+
+
+
+
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		
 		MecanimAnimator.SetBool(_meleeAttackHash, !CurrentState.IsName("Base Layer.TakingDamage") && CharInput.AttackActive);
@@ -75,18 +90,18 @@ public class OlympusAnimator : CharacterAnimator
 
 	protected void StartMelee(float elapsedTime)
 	{
-		// find where to place the attack event
-		Vector3 meleePos = transform.position;
-		meleePos.x += (2.0f * Direction.x);
 
-		// attack in front of us
-		GameObject o = (GameObject) Instantiate (MeleeEvent, meleePos, Quaternion.identity);
-		HitBox d = o.GetComponent<HitBox> ();
-		d.MakeOlympusMelee(this.gameObject, Direction.x);
 	}
 	protected void EndMelee(float elapsedTime)
 	{
-		// FIXME: REMOVE THIS METHOD?
+		// find where to place the attack event
+		Vector3 meleePos = transform.position;
+		meleePos.x += (2.0f * Direction.x);
+		
+		// attack in front of us
+		GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
+		HitBox d = o.GetComponent<HitBox> ();
+		d.MakeOlympusMelee(this.gameObject, Direction.x);
 	}
 	
 	protected virtual void Idle(float elapsedTime)
@@ -206,82 +221,91 @@ public class OlympusAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 		}
 	}
-	
+
 	protected void ClimbingLedge(float elapsedTime)
 	{
-		if(MecanimAnimator.GetBool(_climbLedgeHash))
-		{
+		if(ActiveHangTarget != null)
 			_ledge = ActiveHangTarget as Ledge;
-	        if (_ledge.DoesFaceZAxis())
-	        {
-	            HorizontalSpeed = 0.0f;
-	            VerticalSpeed = Settings.LedgeClimbingSpeed;
-	        }
-	        else if (_ledge.DoesFaceXAxis())
-	        {
-	            HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
-	            VerticalSpeed = Settings.LedgeClimbingSpeed;
-	        }
+		
+		if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
+		    || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
+		    || MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
+		{
+			VerticalSpeed = GroundVerticalSpeed;
 			MecanimAnimator.SetBool(_climbLedgeHash, false);
 		}
+		else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height/2)
+			VerticalSpeed = 0;
 		else
 		{
-	        if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2)
-	            VerticalSpeed = GroundVerticalSpeed;
-	        if (transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x
-				|| transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
-	            HorizontalSpeed = 0;
+			if (_ledge.DoesFaceZAxis())
+			{
+				HorizontalSpeed = 0.0f;
+				VerticalSpeed = Settings.LedgeClimbingSpeed;
+			}
+			else if (_ledge.DoesFaceXAxis())
+			{
+				HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
+				VerticalSpeed = Settings.LedgeClimbingSpeed;
+			}
 		}
 	}
-	
+
 	protected void ClimbingVertical(float elapsedTime)
 	{
-		ApplyClimbingVertical(CharInput.Vertical);
-		
-		if(VerticalSpeed != 0)
-			ApplyClimbingStrafing(CharInput.Horizontal);
-		else
-			HorizontalSpeed = 0;
-		
-		Direction = Vector3.zero;
-		
-		
-        if(CharInput.JumpActive)
-		{
-			MecanimAnimator.SetBool(_jumpHash, true);
-		}
-        else if(ActiveHangTarget == null)
+		if(ActiveHangTarget == null)
 		{
 			DropHangTarget();
 			MecanimAnimator.SetBool(_fallHash, true);
+			return;
 		}
-		else
-			MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
-	}
-	
-	protected void ClimbingStrafe(float elapsedTime)
-	{
-		ApplyClimbingStrafing(CharInput.Horizontal);
 		
-		if(HorizontalSpeed != 0)
-			ApplyClimbingVertical(CharInput.Vertical);
-		else
-			VerticalSpeed = 0.0f;
+		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
 		
-		Direction = Vector3.zero;
+		Debug.Log ("BEFORE: " + _autoClimbDir);
+		float vertical = UpdateAutoClimbDirection ();
+		Debug.Log ("AFTER: " + _autoClimbDir);
+		
+		//		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
+		//			ApplyClimbingStrafing( CharInput.Horizontal );
+		//		else
+		HorizontalSpeed = 0;
+		
+		ApplyClimbingVertical(vertical);
+		
+		if(ActiveHangTarget.DoesFaceZAxis())
+			Direction = Vector3.zero;
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
+		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
 		
-        if(CharInput.JumpActive)
-		{
-			MecanimAnimator.SetBool(_jumpHash, true);
-		}
-		else if(ActiveHangTarget == null)
-		{
-			DropHangTarget();
-			MecanimAnimator.SetBool(_fallHash, true);
-		}
 	}
+
+	
+//	protected void ClimbingStrafe(float elapsedTime)
+//	{
+//		ApplyClimbingStrafing(CharInput.Horizontal);
+//		
+//		if(HorizontalSpeed != 0)
+//			ApplyClimbingVertical(CharInput.Vertical);
+//		else
+//			VerticalSpeed = 0.0f;
+//		
+//		Direction = Vector3.zero;
+//		
+//		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+//		
+//        if(CharInput.JumpActive)
+//		{
+//			MecanimAnimator.SetBool(_jumpHash, true);
+//		}
+//		else if(ActiveHangTarget == null)
+//		{
+//			DropHangTarget();
+//			MecanimAnimator.SetBool(_fallHash, true);
+//		}
+//	}
 	
 	protected void Death(float elapsedTime)
 	{
