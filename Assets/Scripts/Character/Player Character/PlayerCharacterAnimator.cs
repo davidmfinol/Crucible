@@ -118,8 +118,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
 												   (facingLeftLadder && CharInput.Left));
-
-		bool startClimbPipe = CanClimbPipe && CharInput.Up;
+		bool startClimbPipe = CanClimbPipe && CharInput.Interaction;
 
 		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
 
@@ -130,8 +129,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 
 		// if not in a climb, reset our auto-climb direction for use next climb.
-		if( ! (CurrentState.IsName("Climbing.ClimbingLadder"))) // || CurrentState.IsName("Climbing.ClimbingStrafe")) )
+		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+
 	}
 	protected void UpdateAttackAnimations()
 	{
@@ -517,11 +517,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
 
+		Debug.Log ("BEFORE: " + _autoClimbDir);
 		float vertical = UpdateAutoClimbDirection ();
+		Debug.Log ("AFTER: " + _autoClimbDir);
 
-		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
-			ApplyClimbingStrafing( CharInput.Horizontal );
-		else
+//		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
+//			ApplyClimbingStrafing( CharInput.Horizontal );
+//		else
 			HorizontalSpeed = 0;
 
 		ApplyClimbingVertical(vertical);
