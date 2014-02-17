@@ -151,7 +151,12 @@ public class EnemyAI : MonoBehaviour
 		}
 		
 		// Pressing left or right based on horizontal position
-		_animator.CharInput.Horizontal = _path.vectorPath[_currentPathWaypoint].x > _animator.transform.position.x ? 1 : -1; // because stopping is for the weak
+		if(_currentPathWaypoint == _path.vectorPath.Count - 1 && Mathf.Abs(_path.vectorPath[_currentPathWaypoint].x - _animator.transform.position.x) < Settings.StopRange )
+		{
+			_animator.CharInput.Horizontal = 0;
+		}
+		else
+			_animator.CharInput.Horizontal = _path.vectorPath[_currentPathWaypoint].x > _animator.transform.position.x ? 1 : -1; // move left-right if we haven't reached the goal yet
 	}
 	
 	private void UpdateAwareness()
@@ -242,22 +247,36 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Repath after a certain amount of time
-        if ((_timeSinceRepath > _settings.RepathTime || _currentPathWaypoint >= _path.vectorPath.Count)&& !_searchingForPath)
+		// TODO: MAKE IT SO THAT THE CHARACTER DOESN'T JUST CHECK IF IN AIR TO REPATH
+        if (_animator.IsGrounded && (_timeSinceRepath > _settings.RepathTime || _currentPathWaypoint >= _path.vectorPath.Count)&& !_searchingForPath)
         {
 			_hasTransitionRecent = false;
             _seeker.StartPath( _animator.transform.position, _target, OnPathFound);
             _searchingForPath = true;
         }
 
-        if (_currentPathWaypoint >= _path.vectorPath.Count ) // that's the end of the line for you, jack!
-            return false;
+		if (_currentPathWaypoint >= _path.vectorPath.Count) // that's the end of the line for you, jack!
+		{
+			if(!_searchingForPath)
+			{
+				_hasTransitionRecent = false;
+				_seeker.StartPath( _animator.transform.position, _target, OnPathFound);
+				_searchingForPath = true;
+			}
+			return false;
+		}
 
+		// Stop if we're at the end of the path
+		bool isFinalNode = _currentPathWaypoint >= _path.path.Count;
+		if (isFinalNode)
+			return false;
+		
 		// Move on if we reached our waypoint
-		// TODO: MAKE CURRENT STATE A PROPERY OF CHARACTERANIMATOR
-		AnimatorStateInfo currentState = _animator.MecanimAnimator.IsInTransition(0) ? _animator.MecanimAnimator.GetNextAnimatorStateInfo(0) : _animator.MecanimAnimator.GetCurrentAnimatorStateInfo(0);
-		if ( _animator.Controller.bounds.Contains(_path.vectorPath[_currentPathWaypoint]) && 
-		    	( _currentPathWaypoint < _path.path.Count &&
-           		(!((ZoneNode)_path.path[_currentPathWaypoint]).isGround || currentState.IsName("Base Layer.Running") || currentState.IsName("Base Layer.Idle")) ))
+		bool isTouchingNextNode = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
+		bool isNodeTouchingGround = ((ZoneNode)_path.path [_currentPathWaypoint]).isGround;
+		bool isCharacterTouchingGround = (_animator.CurrentState.IsName("Base Layer.Running") || 
+		 	_animator.CurrentState.IsName("Base Layer.Idle")) && _animator.IsGrounded;
+		if ( isTouchingNextNode && !isFinalNode && (!isNodeTouchingGround || isCharacterTouchingGround) )
     		_currentPathWaypoint++;
 
         return _currentPathWaypoint < _path.vectorPath.Count;
@@ -273,6 +292,11 @@ public class EnemyAI : MonoBehaviour
     {
         _searchingForPath = false;
         _timeSinceRepath = 0;
+
+		// TODO: MAYBE A MORE DYNAMIC CHECK?
+		if (!_animator.IsGrounded)
+			return;
+
         _path = p;
 		_currentPathWaypoint = 1;
 		//DetermineNearestNode();

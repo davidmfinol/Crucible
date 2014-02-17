@@ -126,6 +126,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
 
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
+
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 
 		// if not in a climb, reset our auto-climb direction for use next climb.

@@ -15,6 +15,9 @@ public class EnemyAISettings : MonoBehaviour
 	
 	// How many seconds between every calculation of a new path
 	public float RepathTime = 0.75f;
+
+	// If we're close enough to our end target, stop moving
+	public float StopRange = 1.0f;
 	
 	// Used by A* to calculate graph
     public static float MaxJump = 9.0f; // jumpheight + capsulecollider.height/2
