@@ -149,9 +149,13 @@ public class EnemyAI : MonoBehaviour
 			else
 				_animator.CharInput.Vertical = 0;
 		}
-		
+
+		bool isLastNode = (_currentPathWaypoint == _path.vectorPath.Count - 1) && !_playerAnimator.IsGrounded;
+		bool isMidAir = !_animator.IsGrounded;
+		bool shouldStayStill = (isLastNode || isMidAir) && Mathf.Abs (_path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x) < Settings.StopRange;
+
 		// Pressing left or right based on horizontal position
-		if(_currentPathWaypoint == _path.vectorPath.Count - 1 && Mathf.Abs(_path.vectorPath[_currentPathWaypoint].x - _animator.transform.position.x) < Settings.StopRange )
+		if(shouldStayStill)
 		{
 			_animator.CharInput.Horizontal = 0;
 		}
