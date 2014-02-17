@@ -267,13 +267,15 @@ public class EnemyAI : MonoBehaviour
 		}
 
 		// Stop if we're at the end of the path
-		bool isFinalNode = _currentPathWaypoint >= _path.path.Count;
+		bool isFinalNode = _currentPathWaypoint >= _path.vectorPath.Count;
 		if (isFinalNode)
 			return false;
+
+		bool isWaypointLongerThanPath = (_currentPathWaypoint >= _path.path.Count);
 		
 		// Move on if we reached our waypoint
 		bool isTouchingNextNode = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
-		bool isNodeTouchingGround = ((ZoneNode)_path.path [_currentPathWaypoint]).isGround;
+		bool isNodeTouchingGround = isWaypointLongerThanPath ? true : ((ZoneNode)_path.path [_currentPathWaypoint]).isGround;
 		bool isCharacterTouchingGround = (_animator.CurrentState.IsName("Base Layer.Running") || 
 		 	_animator.CurrentState.IsName("Base Layer.Idle")) && _animator.IsGrounded;
 		if ( isTouchingNextNode && !isFinalNode && (!isNodeTouchingGround || isCharacterTouchingGround) )

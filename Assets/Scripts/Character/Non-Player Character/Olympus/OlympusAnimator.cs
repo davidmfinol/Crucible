@@ -90,18 +90,18 @@ public class OlympusAnimator : CharacterAnimator
 
 	protected void StartMelee(float elapsedTime)
 	{
-		// find where to place the attack event
-		Vector3 meleePos = transform.position;
-		meleePos.x += (2.0f * Direction.x);
 
-		// attack in front of us
-		GameObject o = (GameObject) Instantiate (MeleeEvent, meleePos, Quaternion.identity);
-		HitBox d = o.GetComponent<HitBox> ();
-		d.MakeOlympusMelee(this.gameObject, Direction.x);
 	}
 	protected void EndMelee(float elapsedTime)
 	{
-		// FIXME: REMOVE THIS METHOD?
+		// find where to place the attack event
+		Vector3 meleePos = transform.position;
+		meleePos.x += (2.0f * Direction.x);
+		
+		// attack in front of us
+		GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
+		HitBox d = o.GetComponent<HitBox> ();
+		d.MakeOlympusMelee(this.gameObject, Direction.x);
 	}
 	
 	protected virtual void Idle(float elapsedTime)
