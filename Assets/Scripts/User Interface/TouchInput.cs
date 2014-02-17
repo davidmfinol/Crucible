@@ -58,8 +58,8 @@ public class TouchInput : MonoBehaviour
 			_userInterfaceDots.Add(dot);
 		}
 		
-#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-		_input.UpdateInput = UpdateInput;
+#if (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
+		_input.UpdateInputMethod = UpdateInput;
 #endif
 	}
     
