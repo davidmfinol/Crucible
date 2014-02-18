@@ -54,6 +54,7 @@ public class HitBox : MonoBehaviour
         FromObject = from;
         FromWeaponType = WeaponType.Weapon_Trap;
         DamageAmount = 5;
+		Radius = 5.0f;
     }
 	
 	void Update()
