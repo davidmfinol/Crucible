@@ -96,7 +96,18 @@ public class MeshToGameObjectsMenu
         transform.gameObject.layer = LayerMask.NameToLayer("Ground");
 
         // Mark it as waypoint for the AI system
-        transform.tag = "Waypoint";
+		transform.tag = "Waypoint";
+		// Get rid of any child objects that may exist
+		DestroyChildren(transform);
+	}
+	
+	static void DestroyChildren(Transform transform)
+	{
+		List<Transform> children = new List<Transform>();
+		for (int i = 0; i < transform.childCount; ++i)
+			children.Add(transform.GetChild(i));
+		foreach(Transform child in children)
+			GameObject.DestroyImmediate(child.gameObject);
 	}
 
     static void CreateLedge (Transform ledge)
