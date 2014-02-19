@@ -57,12 +57,13 @@ public class TouchInput : MonoBehaviour
 			dot.parent = transform;
 			_userInterfaceDots.Add(dot);
 		}
-		
+
 #if (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
 		_input.UpdateInputMethod = UpdateInput;
 #endif
 	}
     
+
 	public void UpdateInput ()
 	{	
         // Reset certain inputs as appropriate
