@@ -76,7 +76,23 @@ public class NontouchInput : MonoBehaviour
 			_input.Interaction = Input.GetButton("Interaction");
 			_input.Jump = new Vector2(Input.GetAxis("JumpX"), Input.GetAxis("JumpY"));
 			_input.Attack = Input.GetAxis("Attack");
-			_input.Pickup = Input.GetButton ("Pickup");
+            _input.Pickup = Input.GetButton ("Pickup");
+
+            // Cycle through weapons
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+                currentWeapon++;
+                if(currentWeapon > 2)
+                    currentWeapon = 0;
+                UpdateWeapon();
+            }
+            else if(Input.GetKeyDown(KeyCode.E))
+            {
+                currentWeapon--;
+                if(currentWeapon < 0)
+                    currentWeapon = 2;
+                UpdateWeapon();
+            }
 		}
 	}
 

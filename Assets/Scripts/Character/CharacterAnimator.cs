@@ -346,37 +346,27 @@ public abstract class CharacterAnimator : MonoBehaviour
 		Controller.enabled = false; // Destroy(Controller);
 		MecanimAnimator.enabled = false; // Destroy(MecanimAnimator);
 	}
-
-	/*
 	public void ActivateFloat()
-	{
+    {
+        CharInput.enabled = false;
+        Controller.enabled = false;
 		MecanimAnimator.enabled = false;
-		collider.enabled = false;
 		CharacterSettings.ActivateRagDoll(transform, false, false);
-		Vector3 pos = transform.position;
-		pos.y += 1;
-		transform.position = pos;
-		StartCoroutine("ReEnable");
-		this.enabled = false;
+        StartCoroutine("ReEnableCharacter");
+        this.enabled = false;
 	}
 	IEnumerator ReEnableCharacter()
 	{
-		float timePassed = 0;
-		while (timePassed < 5)
-		{
-			Debug.Log ("I should be floating...");
-			timePassed += Time.deltaTime;
-			yield return null;
-		}
+        yield return new WaitForSeconds(5);
 		this.enabled = true;
 		CharacterSettings.ActivateRagDoll(transform, true, true);
 		//Transform root = CharacterSettings.SearchHierarchyForBone(transform, "Root");
 		//transform.position = root.transform.position;
-		collider.enabled = true;
-		MecanimAnimator.enabled = true;
-		StopCoroutine("ReEnable");
+        MecanimAnimator.enabled = true;
+        Controller.enabled = true;
+        CharInput.enabled = true;
+        StopCoroutine("ReEnableCharacter");
 	}
-	*/
 	
 	// Helper methods for motion
 	protected virtual void ApplyRunning(float elapsedTime)

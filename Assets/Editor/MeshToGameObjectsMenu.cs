@@ -76,12 +76,10 @@ public class MeshToGameObjectsMenu
 				SetupObject(transform);
 				CreateWall(transform); 
 			}
-			/*
 			else if (name.Contains("ladder"))
 				CreateLadder(transform); 
 			else if (name.Contains("pipe"))
 				CreatePipe(transform); 
-				*/
 		});
 	}
 
