@@ -61,6 +61,14 @@ public class BabyBotAnimator : CharacterAnimator
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection ();
 		MecanimAnimator.SetBool (_jumpHash, CharInput.JumpActive);
+		if(CurrentState.IsName("Base Layer.Attack")) //FIXME: THIS IS A HACK
+		   MecanimAnimator.applyRootMotion = false;
+	}
+	protected override List<int> DefineRootMotionCorrectionState()
+	{
+		List<int> states = new List<int> ();
+		//states.Add (Animator.StringToHash ("Base Layer.Attack"));
+		return states;
 	}
 	protected void Jump(float elapsedTime)
 	{

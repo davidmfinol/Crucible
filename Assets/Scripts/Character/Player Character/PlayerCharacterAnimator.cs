@@ -130,6 +130,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// if not in a climb, reset our auto-climb direction for use next climb.
 		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+		// if previous state was backflip, change direction
+		if( PreviousState.IsName("Air.Backflip")&&!CurrentState.IsName("Air.Backflip"))
+			Direction = -Direction;
 
 	}
 	protected void UpdateAttackAnimations()
@@ -138,10 +141,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			return;
 
 		Weapon currentWeapon = Arsenal.Weapon.GetComponent<Weapon>();
-		MecanimAnimator.SetBool(_attackMeleeHash, InputAttackForward && currentWeapon is PipeWeapon); 
-        MecanimAnimator.SetBool(_shootGunHash, InputAttackForward && currentWeapon is GravityGun); 
-        MecanimAnimator.SetBool(_placeMineHash, InputAttackForward && currentWeapon is Mine); 
-        MecanimAnimator.SetBool(_detonateMineHash, InputAttackBackward && currentWeapon is Mine); 
+		MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
+		MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackActive && currentWeapon is GravityGun); 
+        MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackRightPressed && currentWeapon is Mine); 
+        MecanimAnimator.SetBool(_detonateMineHash, CharInput.AttackLeftPressed && currentWeapon is Mine); 
 	}
 
 	void StartMelee()
