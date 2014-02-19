@@ -342,6 +342,15 @@ ModelImporter:
     100672: transform46 6
     100674: transform46 7
     100676: transform46 8
+    100678: polySurface178
+    100680: polySurface179
+    100682: polySurface180
+    100684: polySurface181
+    100686: polySurface182
+    100688: transform47
+    100690: transform48
+    100692: transform49
+    100694: transform50
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -681,6 +690,15 @@ ModelImporter:
     400672: transform46 6
     400674: transform46 7
     400676: transform46 8
+    400678: polySurface178
+    400680: polySurface179
+    400682: polySurface180
+    400684: polySurface181
+    400686: polySurface182
+    400688: transform47
+    400690: transform48
+    400692: transform49
+    400694: transform50
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -891,6 +909,10 @@ ModelImporter:
     2300414: polySurface177 6
     2300416: polySurface177 7
     2300418: polySurface177 8
+    2300420: polySurface179
+    2300422: polySurface180
+    2300424: polySurface181
+    2300426: polySurface182
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1101,6 +1123,10 @@ ModelImporter:
     3300414: polySurface177 6
     3300416: polySurface177 7
     3300418: polySurface177 8
+    3300420: polySurface179
+    3300422: polySurface180
+    3300424: polySurface181
+    3300426: polySurface182
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1310,6 +1336,10 @@ ModelImporter:
     4300412: polySurface177
     4300414: polySurface176
     4300416: polySurface177
+    4300418: polySurface180
+    4300420: polySurface181
+    4300422: polySurface179
+    4300424: polySurface182
     7400000: Take 001
     9500000: //RootNode
   materials:

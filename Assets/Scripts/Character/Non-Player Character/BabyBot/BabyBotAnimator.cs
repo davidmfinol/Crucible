@@ -25,7 +25,7 @@ public class BabyBotAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Awake")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Run")] = Run;
-		StateMachine[Animator.StringToHash("Base Layer.Attack")] = Run;
+		StateMachine[Animator.StringToHash("Base Layer.Attack")] = Attack;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Run;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jump;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Fall;
@@ -40,7 +40,6 @@ public class BabyBotAnimator : CharacterAnimator
 	}
 	protected override void UpdateMecanimVariables ()
 	{
-		MecanimAnimator.SetBool (_attackHash, CharInput.AttackActive);
 		MecanimAnimator.SetBool (_fallHash, !IsGrounded);
 		MecanimAnimator.SetBool (_isGroundedHash, IsGrounded);
 	}
@@ -61,13 +60,30 @@ public class BabyBotAnimator : CharacterAnimator
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection ();
 		MecanimAnimator.SetBool (_jumpHash, CharInput.JumpActive);
-		if(CurrentState.IsName("Base Layer.Attack")) //FIXME: THIS IS A HACK
-		   MecanimAnimator.applyRootMotion = false;
+		MecanimAnimator.SetBool (_attackHash, CharInput.AttackActive);
+	}
+	protected void Attack(float elapsedTime)
+	{
+		if (!MecanimAnimator.GetBool (_attackHash))
+			return;
+
+		MecanimAnimator.SetBool(_attackHash, false);
+		//MecanimAnimator.applyRootMotion = false;
+
+		Controller.enabled = false;
+		IgnoreDirection = true;
+
+		Transform selfRoot = CharacterSettings.SearchHierarchyForBone(transform, Settings.RootBoneName);
+		Transform playerRoot = CharacterSettings.SearchHierarchyForBone(GameManager.Player.transform, GameManager.Player.transform.GetComponent<CharacterSettings>().RootBoneName);
+		transform.parent = GameManager.Player.transform;
+		Vector3 move = transform.localPosition;
+		transform.localPosition = Vector3.zero;
+		selfRoot.position = selfRoot.position + move;
 	}
 	protected override List<int> DefineRootMotionCorrectionState()
 	{
 		List<int> states = new List<int> ();
-		//states.Add (Animator.StringToHash ("Base Layer.Attack"));
+		states.Add (Animator.StringToHash ("Base Layer.Attack"));
 		return states;
 	}
 	protected void Jump(float elapsedTime)

@@ -39,6 +39,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 	private float _verticalSpeed = 0.0f; // How fast does the character want to move on the y-axis?
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
 	private Vector3 _prevDirection = Vector3.right; // The last direction that the player was facing before the current direction
+	private bool _ignoreDirection = false; // Some cases want us to ignore our set direction; set this to allow that
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
     private float _lastGroundHeight = 0.0f; // Keep track of the last y position at which the character was touching the ground
@@ -230,7 +231,8 @@ public abstract class CharacterAnimator : MonoBehaviour
             _lastGroundHeight = transform.position.y;
 
         // We should finally make our character be able to face the correct way
-		UpdateRotation(Time.fixedDeltaTime);
+		if(!IgnoreDirection)
+			UpdateRotation(Time.fixedDeltaTime);
 
         // Moving Platform support
 		UpdatePlatformEnd();
@@ -566,6 +568,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 			}
         }
     }
+	public bool IgnoreDirection
+	{
+		get { return _ignoreDirection; }
+		set { _ignoreDirection = value; }
+	}
     public float HorizontalSpeed
     {
         get { return _horizontalSpeed; }
