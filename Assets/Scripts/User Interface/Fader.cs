@@ -52,15 +52,16 @@ public class Fader : MonoBehaviour
 	}
 	private IEnumerator Stay()
 	{
+		Debug.Log ("stay");
 		float elapsedTime = 0;
 		while (elapsedTime < StaySeconds)
 		{
 			elapsedTime += Time.deltaTime;
 			yield return null;
 		}
-        StopCoroutine("Stay");
 		if(FadeInAtStart) // && StaySeconds >= 0)
 			StartCoroutine("DoFadeOut");
+		StopCoroutine("Stay");
 	}
 	void FadeOut(float time = 0)
 	{
@@ -70,6 +71,7 @@ public class Fader : MonoBehaviour
 	}
 	private IEnumerator DoFadeOut()
 	{
+		Debug.Log ("fadeout");
 		while (renderer.material.color.a > MinAlpha)
 		{
 			yield return null;
@@ -77,6 +79,7 @@ public class Fader : MonoBehaviour
 // 			temp.a -= Time.deltaTime/FadeOutSeconds;
 			temp.a = Mathf.Max (temp.a, MinAlpha);
 			renderer.material.color = temp;
+			Debug.Log("fadeout");
 		}
 		StopCoroutine("DoFadeOut");
 	}
