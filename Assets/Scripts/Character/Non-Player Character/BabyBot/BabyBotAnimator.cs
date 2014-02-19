@@ -18,12 +18,25 @@ public class BabyBotAnimator : CharacterAnimator
 	private int _jumpHash;
 	private int _isGroundedHash;
 
+	//Sounds for BabyBot
+	private AudioSource[] _audio;
+	private AudioSource _wakingUp;
+	private AudioSource _running;
+	private AudioSource _attacking;
+
+	void Start()
+	{
+		_audio = gameObject.GetComponents<AudioSource>();
+		_wakingUp = _audio[0];
+		_running = _audio[1];
+		_attacking = _audio[2];
+	}
 
 	protected override void CreateStateMachine()
 	{
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
-		StateMachine[Animator.StringToHash("Base Layer.Awake")] = Idle;
+		StateMachine[Animator.StringToHash("Base Layer.Awake")] = WakeUp;
 		StateMachine[Animator.StringToHash("Base Layer.Run")] = Run;
 		StateMachine[Animator.StringToHash("Base Layer.Attack")] = Attack;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Run;
@@ -51,6 +64,12 @@ public class BabyBotAnimator : CharacterAnimator
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection ();
 		MecanimAnimator.SetBool (_jumpHash, CharInput.JumpActive);
+	}
+	protected void WakeUp(float elapsedTime)
+	{
+		Idle (elapsedTime);
+		//Play attacking noise
+		_wakingUp.Play();
 	}
 	protected void Run(float elapsedTime)
 	{
@@ -120,5 +139,8 @@ public class BabyBotAnimator : CharacterAnimator
         GameObject o = (GameObject) Instantiate (MeleeEvent, transform.position, Quaternion.identity);
         HitBox d = o.GetComponentInChildren<HitBox> ();
         d.MakeBabyBotExplosion(this.gameObject);
+
+		//Play attacking noise
+		_attacking.Play();
     }
 }
