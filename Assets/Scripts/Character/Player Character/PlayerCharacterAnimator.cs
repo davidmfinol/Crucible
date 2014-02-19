@@ -523,9 +523,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
 
-		Debug.Log ("BEFORE: " + _autoClimbDir);
 		float vertical = UpdateAutoClimbDirection ();
-		Debug.Log ("AFTER: " + _autoClimbDir);
 
 //		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
 //			ApplyClimbingStrafing( CharInput.Horizontal );
@@ -539,7 +537,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
-		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
+//		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
+
+		if (CharInput.JumpLeft) {
+
+			Direction = Vector3.left;
+			MecanimAnimator.SetBool (_jumpHash, true);
+
+		} else if (CharInput.JumpRight) {
+			Direction = Vector3.right;
+			MecanimAnimator.SetBool (_jumpHash, true);
+
+		}
 
 	}
 	
