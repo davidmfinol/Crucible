@@ -14,9 +14,15 @@ public class NontouchInput : MonoBehaviour
 	private CharacterInput _input;
 
 
+
+	private PlayerCharacterArsenal _arsenal;
+	private int currentWeapon = 0;
+
+
 	void Start()
 	{
 		_input = GameManager.Player.GetComponent<CharacterInput>();
+		_arsenal = GameManager.Player.GetComponent<PlayerCharacterArsenal>();
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
 		_input.UpdateInputMethod = UpdateInput;
 #endif
@@ -45,6 +51,21 @@ public class NontouchInput : MonoBehaviour
 			else if(Input.GetAxis("Triggers") < -0.5)
 				_input.Attack = 1;
 
+			// Cycle through weapons
+			if(Input.GetKeyDown(KeyCode.Joystick1Button4))
+			{
+				currentWeapon++;
+				if(currentWeapon > 2)
+					currentWeapon = 0;
+				UpdateWeapon();
+			}
+			else if(Input.GetKeyDown(KeyCode.Joystick1Button5))
+			{
+				currentWeapon--;
+				if(currentWeapon < 0)
+					currentWeapon = 2;
+				UpdateWeapon();
+			}
 		}
 		else 
 		{
@@ -57,5 +78,16 @@ public class NontouchInput : MonoBehaviour
 			_input.Attack = Input.GetAxis("Attack");
 			_input.Pickup = Input.GetButton ("Pickup");
 		}
+	}
+
+	private void UpdateWeapon()
+	{
+		if (currentWeapon == 0)
+			_arsenal.Weapon = _arsenal.PipePrefab;
+		else if (currentWeapon == 1)
+			_arsenal.Weapon = _arsenal.MinePrefab;
+		else if (currentWeapon == 2)
+			_arsenal.Weapon = _arsenal.GravityGunPrefab;
+
 	}
 }
