@@ -54,7 +54,7 @@ public sealed class CharacterSettings : MonoBehaviour
 	public float WallSlideSpeed = -5.0f;
 
 	// You must be moving at least this fast vertically to grab onto a wall
-	public float MinWallGrabSpeed = -20.0f;
+	public float MinWallGrabSpeed = -30.0f;
 
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone(Transform current, string name)
