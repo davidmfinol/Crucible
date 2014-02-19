@@ -29,7 +29,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 	public ProcessState ModifyState;
 	private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
     private AnimatorStateInfo _previousState;
-    
+	private float _timeInCurrentState;
+
     // List of animation state hashes for which we nullify root based motion of animations
     private List<int> _rootMotionCorrectionStates;
 	
@@ -90,6 +91,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         CreateStateMachine();
         _previousState = CurrentState;
 		_rootMotionCorrectionStates = DefineRootMotionCorrectionState ();
+		_timeInCurrentState = 0.0f;
 
 		// Is useful to know when we were last on the ground
         _lastGroundHeight = transform.position.y;
@@ -178,6 +180,13 @@ public abstract class CharacterAnimator : MonoBehaviour
 		
 		// Some variables for mecanim are updated every frame
 		UpdateMecanimVariables();
+
+		// keep track of time in current state for things like wall sliding, etc.
+		if (CurrentState.nameHash != _previousState.nameHash) {
+			_timeInCurrentState = 0.0f;
+		} else {
+			_timeInCurrentState += Time.fixedDeltaTime;
+		}
 
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
         _previousState = CurrentState;
@@ -503,6 +512,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return _previousState; }
     }
+	public float TimeInCurrentState 
+	{
+		get { return _timeInCurrentState; }
+	}
 	public CharacterController Controller
 	{
 		get { return _characterController; }
@@ -627,7 +640,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     public bool CanHangOffObject
     {
-        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject);}
+        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is GrabbableObject) &&  !(ActiveHangTarget is ClimbableObject);}
     }
     public bool CanHangOffLedge
     {
@@ -659,6 +672,9 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return (ActiveHangTarget != null) && transform.position.y < ActiveHangTarget.transform.position.y; ; }
     }
+	public bool CanGrabWall {
+		get { return (IsTouchingWall && (ActiveHangTarget is GrabbableObject) && VerticalSpeed > Settings.MinWallGrabSpeed);  }
+	}
 
 	// Zone Properties
 	public float DesiredZ

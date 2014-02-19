@@ -42,8 +42,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
-	
-
 
     protected override void Initialize()
     {
@@ -330,7 +328,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if(transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool(_fallHash, false);
 		
-		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
+		MecanimAnimator.SetBool(_grabWallHash, CanGrabWall);
 		
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
@@ -366,7 +364,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetBool(_fallHash, false);
 		
-		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
+		MecanimAnimator.SetBool(_grabWallHash, CanGrabWall);
 		
         if(!(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
                 (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
@@ -380,19 +378,22 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_hangHash, false);
 	}
 	
+
 	protected void Wallgrabbing(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
-		VerticalSpeed = 0;
-		
-		if(MecanimAnimator.GetBool(_grabWallHash))
+		VerticalSpeed = Settings.WallSlideSpeed * elapsedTime;
+
+		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
+		MecanimAnimator.SetBool(_jumpWallHash, jump);
+
+		if(CharInput.InteractionPressed || CharInput.DownPressed || InputMoveBackward || jump || IsGrounded ||
+		    (ActiveHangTarget == null) || (TimeInCurrentState >= Settings.WallSlideDuration) )
 		{
 			MecanimAnimator.SetBool(_grabWallHash, false);
 			//DropHangTarget();
 		}
-		
-		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
-		MecanimAnimator.SetBool(_jumpWallHash, jump);
+
 	}
 
 	protected void Walljumping(float elapsedTime)
@@ -411,16 +412,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if (transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool (_fallHash, false);
 
-		if(IsTouchingWall && ActiveHangTarget is GrabbableObject)
+		if(CanGrabWall)
 		{
 			MecanimAnimator.SetBool(_grabWallHash, true);
 		}
 
-		if ((CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
-			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up))
-		{
-			MecanimAnimator.SetBool (_hangHash, true);
-		}
+//		if ((CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
+//			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up))
+//		{
+//			MecanimAnimator.SetBool (_hangHash, true);
+//		}
 	}
 	
 	protected void Hanging(float elapsedTime)
