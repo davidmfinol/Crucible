@@ -7,23 +7,29 @@ using System.Collections.Generic;
 [AddComponentMenu("User Interface/Touch Input")]
 public class TouchInput : MonoBehaviour
 {
+    // Where  each dot goes relative to the center
+    // See DisplayActionDots
+    public float[] DotPositions = 
+        {-5.5f,-5.5f,-5.5f,0.0f,-5.5f,5.5f,0.0f,-5.5f,0.0f,0.0f,0.0f,5.5f,5.5f,-5.5f,5.5f,0.0f,5.5f,5.5f};
+
     // Allow for switching between our different control schemes
     public int MovementUIType = 1;
 	public Transform DotPrefab;
 	private List<Transform> _userInterfaceDots;
 
-    // Used for keeping track of swipes and where they start
+    // Swipe information related to movement
 	private int _moveID;
 	private Vector2 _moveStartPos;
 	private float _moveMin;
 	private float _distanceForMaxSpeed;
-
-	// Kept track for debugging
-	private float _lastSwipeDeg;
+    
+    // Swipe information related to actions
 	private int _actionID;
 	private Vector2 _actionStartPos;
-	private float _actionMin;
-	
+    private float _actionMin;
+    private float _lastSwipeDeg;
+    
+    // Swipe information related to weapon selection
 	private int _guiID;
 	private Vector2 _guiStartPos;
 	private float _guiMin;
@@ -241,18 +247,21 @@ public class TouchInput : MonoBehaviour
 			}
 			return;
 		}
+
 		float x0 = (_actionStartPos.x - Screen.width/2.0f)/32.0f - 0.3f;
 		float y0 = (_actionStartPos.y - Screen.height/2.0f)/32.0f;
-		float[] dotPositions = {-5.5f,-5.5f,-5.5f,0.0f,-5.5f,5.5f,0.0f,-5.5f,0.0f,0.0f,0.0f,5.5f,5.5f,-5.5f,5.5f,0.0f,5.5f,5.5f};
 		for(int dot=0; dot<_userInterfaceDots.Count; dot++)
 		{
-			_userInterfaceDots[dot].transform.position = new Vector3(x0 + dotPositions[dot*2], 0, y0 + dotPositions[dot*2+1]);
+			_userInterfaceDots[dot].transform.position = new Vector3(x0 + DotPositions[dot*2], 0, y0 + DotPositions[dot*2+1]);
 			_userInterfaceDots[dot].renderer.enabled = true;
 
 			_userInterfaceDots[dot].renderer.material.color = Color.white;
 
+            if(_input.Interaction && dot == 4)
+                _userInterfaceDots[dot].renderer.material.color = Color.green;
+
 			// jump right
-			if(_lastSwipeDeg > 25.0f && _lastSwipeDeg <= 75.0f && dot == 8)
+			else if(_lastSwipeDeg > 25.0f && _lastSwipeDeg <= 75.0f && dot == 8)
 				_userInterfaceDots[dot].renderer.material.color = Color.green;
 			
 			// straight up
@@ -275,6 +284,8 @@ public class TouchInput : MonoBehaviour
 			else if(_lastSwipeDeg > 330.0f || _lastSwipeDeg <= 25.0f && dot == 7) 
 				_userInterfaceDots[dot].renderer.material.color = Color.green;
 		}
+
+        // TODO: DRAW LINE OF CURRENT SWIPE
 	}
 
 

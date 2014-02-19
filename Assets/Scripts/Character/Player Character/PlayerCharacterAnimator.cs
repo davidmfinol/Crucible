@@ -52,10 +52,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
-		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
-		StateMachine[Animator.StringToHash("Base Layer.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Base Layer.Waiting For Respawn")] = Die;
-		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
+        StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
+        StateMachine[Animator.StringToHash("Moving.Running")] = Running;
+        StateMachine[Animator.StringToHash("Moving.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;

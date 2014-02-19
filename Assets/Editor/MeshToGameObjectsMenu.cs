@@ -138,40 +138,41 @@ public class MeshToGameObjectsMenu
 		// Scale the wall so that it encompasses the physical wall and the player
 		Vector3 size = createdWallCollider.size;
 		CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
-		size.x += charController.radius * playerPrefab.transform.localScale.x;
+		size.x += charController.radius * playerPrefab.transform.localScale.z;
 		createdWallCollider.size = size;
 	}
 	static void CreateLadder(Transform ladder)
 	{
 		// Create the ladder
 		GameObject prefab = ladder.name.Contains ("X") ? ladderXPrefab : ladderZPrefab;
-		GameObject createdLadder = GameObject.Instantiate(prefab, ladder.position, prefab.transform.rotation) as GameObject;
-		createdLadder.transform.parent = ladder.transform;
+        GameObject createdLadder = GameObject.Instantiate(prefab, ladder.position, prefab.transform.rotation) as GameObject;
+        BoxCollider createdLadderCollider = createdLadder.GetComponent<BoxCollider> ();
+        createdLadder.transform.parent = ladder.transform;
+        createdLadderCollider.size = ladder.renderer.bounds.size;
+        createdLadderCollider.center = ladder.renderer.bounds.center;
 
 		// Scale the ladder so that it encompasses the physical ladder and the player
-		BoxCollider prefabCollider = createdLadder.GetComponent<BoxCollider> ();
-		BoxCollider ladderCollider = (BoxCollider) ladder.collider;
-		prefabCollider.center = ladderCollider.center;
-		Vector3 size = ladderCollider.size;
+        Vector3 size = createdLadderCollider.size;
+        CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
 		if(ladder.name.Contains("X"))
-			size.x += playerPrefab.collider.bounds.extents.z;
+            size.x += charController.radius * playerPrefab.transform.localScale.z;
 		else
-			size.z += playerPrefab.collider.bounds.extents.z;
-		prefabCollider.size = size;
+            size.z += charController.radius * playerPrefab.transform.localScale.z;
+        createdLadderCollider.size = size;
 	}
 	static void CreatePipe(Transform pipe)
 	{
 		// Create the Pipe
-		GameObject prefab = pipePrefab;
-		GameObject createdPipe = GameObject.Instantiate(prefab, pipe.position, prefab.transform.rotation) as GameObject;
-		createdPipe.transform.parent = pipe.transform;
+        GameObject createdPipe = GameObject.Instantiate(pipePrefab, pipe.position, pipePrefab.transform.rotation) as GameObject;
+        BoxCollider createdPipeCollider = createdPipe.GetComponent<BoxCollider> ();
+        createdPipe.transform.parent = pipe.transform;
+        createdPipeCollider.size = pipe.renderer.bounds.size;
+        createdPipeCollider.center = pipe.renderer.bounds.center;
 		
 		// Scale the pipe so that it encompasses the physical pipe and the player
-		BoxCollider prefabCollider = createdPipe.GetComponent<BoxCollider> ();
-		BoxCollider ladderCollider = (BoxCollider)  pipe.collider;
-		prefabCollider.center = ladderCollider.center;
-		Vector3 size = ladderCollider.size;
-		size.z += playerPrefab.collider.bounds.extents.z;
-		prefabCollider.size = size;
+        Vector3 size = createdPipeCollider.size;
+        CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
+        size.z += charController.radius * playerPrefab.transform.localScale.z;
+        createdPipeCollider.size = size;
 	}
 }

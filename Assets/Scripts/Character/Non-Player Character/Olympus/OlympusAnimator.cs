@@ -42,7 +42,6 @@ public class OlympusAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
-//		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Melee Layer.AttackingFirst")] = StartMelee;
 
@@ -90,7 +89,7 @@ public class OlympusAnimator : CharacterAnimator
 
 	protected void StartMelee(float elapsedTime)
 	{
-
+        // Empty; we wait until the end of the attack to create the hitbox
 	}
 	protected void EndMelee(float elapsedTime)
 	{
@@ -266,9 +265,6 @@ public class OlympusAnimator : CharacterAnimator
 		float vertical = UpdateAutoClimbDirection ();
 		Debug.Log ("AFTER: " + _autoClimbDir);
 		
-		//		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
-		//			ApplyClimbingStrafing( CharInput.Horizontal );
-		//		else
 		HorizontalSpeed = 0;
 		
 		ApplyClimbingVertical(vertical);
@@ -281,31 +277,6 @@ public class OlympusAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
 		
 	}
-
-	
-//	protected void ClimbingStrafe(float elapsedTime)
-//	{
-//		ApplyClimbingStrafing(CharInput.Horizontal);
-//		
-//		if(HorizontalSpeed != 0)
-//			ApplyClimbingVertical(CharInput.Vertical);
-//		else
-//			VerticalSpeed = 0.0f;
-//		
-//		Direction = Vector3.zero;
-//		
-//		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
-//		
-//        if(CharInput.JumpActive)
-//		{
-//			MecanimAnimator.SetBool(_jumpHash, true);
-//		}
-//		else if(ActiveHangTarget == null)
-//		{
-//			DropHangTarget();
-//			MecanimAnimator.SetBool(_fallHash, true);
-//		}
-//	}
 	
 	protected void Death(float elapsedTime)
 	{
