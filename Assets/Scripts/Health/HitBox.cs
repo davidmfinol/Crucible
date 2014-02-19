@@ -57,6 +57,20 @@ public class HitBox : MonoBehaviour
         DamageAmount = 5;
 		Radius = 5.0f;
     }
+
+	public void MakePlayerStealthKill(GameObject from, float horizontalDir)
+	{
+		Allegiance = TeamAllegiance.Player;
+		FromObject = from;
+		FromWeaponType = WeaponType.Weapon_Melee;
+		HorizontalDir = horizontalDir;
+		DamageAmount = 1;
+		CanStun = false;
+		CanStealthKill = true;
+		DestroyTime = 0.1f;
+		Radius = 2.0f;
+
+	}
 	
 	void Update()
 	{

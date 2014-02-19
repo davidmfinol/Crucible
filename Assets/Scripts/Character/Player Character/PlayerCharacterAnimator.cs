@@ -9,6 +9,8 @@ using System.Collections.Generic;
 [AddComponentMenu("Character/Player Character/Player Character Animator")]
 public class PlayerCharacterAnimator : CharacterAnimator
 {
+	public GameObject StealthKillEvent;
+
 	// Mecanim hashes
 	private int _verticalSpeedHash;
 	private int _horizontalSpeedHash;
@@ -19,6 +21,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _isGroundedHash;
 	private int _dieHash;
 	private int _attackMeleeHash;
+	private int _stealthKillHash;
 	private int _placeMineHash;
 	private int _climbLedgeHash;
 	private int _climbPipeHash;
@@ -67,6 +70,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
 //		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
+		StateMachine[Animator.StringToHash("Moving.Stealth Kill")] = StealthKill;
 
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
@@ -78,6 +82,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_isGroundedHash = Animator.StringToHash("IsGrounded");
 		_dieHash = Animator.StringToHash("Die");
 		_attackMeleeHash = Animator.StringToHash("AttackMelee");
+		_stealthKillHash = Animator.StringToHash ("StealthKill");
 		_placeMineHash = Animator.StringToHash("PlaceMine");
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
@@ -98,6 +103,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		states.Add (Animator.StringToHash ("Air.Backflip"));
 		states.Add (Animator.StringToHash ("Air.Falling"));
 		states.Add (Animator.StringToHash ("Air.Landing"));
+		states.Add (Animator.StringToHash ("Moving.StealthKill"));
 		return states;
 	}
 	
@@ -142,10 +148,38 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			return;
 
 		Weapon currentWeapon = Arsenal.Weapon.GetComponent<Weapon>();
-		MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
-		MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackActive && currentWeapon is GravityGun); 
-        MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackRightPressed && currentWeapon is Mine); 
-        MecanimAnimator.SetBool(_detonateMineHash, CharInput.AttackLeftPressed && currentWeapon is Mine); 
+
+		// TODO: why is this giving me warnings?
+		OlympusAnimator enemyAnim = new OlympusAnimator();
+		if (CharInput.AttackActive && CanStealthKill (out enemyAnim)) {
+
+			Debug.Log ("Stealth killing Olympus.");
+
+			// player enter stealth kill anim and spawn a stealth kill attack in front of him
+			MecanimAnimator.SetBool (_stealthKillHash, true);
+
+			Invoke ("GenerateStealthKillEvent", 1.0f);
+
+		} else if(! CurrentState.IsName("Moving.Stealth Kill")) {
+			MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
+			MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackActive && currentWeapon is GravityGun); 
+			MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackRightPressed && currentWeapon is Mine); 
+			MecanimAnimator.SetBool(_detonateMineHash, CharInput.AttackLeftPressed && currentWeapon is Mine); 
+
+		}
+
+	}
+
+	void GenerateStealthKillEvent() {
+		// find where to place the attack event
+		Vector3 killPos = transform.position;
+		killPos.x += (Direction.x * Settings.StealthKillRange);
+		
+		// place so enemy can die appropriately
+		GameObject o = (GameObject)Instantiate (StealthKillEvent, killPos, Quaternion.identity);
+		HitBox d = o.GetComponent<HitBox> ();
+		d.MakePlayerStealthKill(this.gameObject, Direction.x);
+
 	}
 
 	void StartMelee()
@@ -220,12 +254,36 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		else
 			Debug.LogWarning("ShootGun() called with: " + weapon);
 	}
+
 	
     public override void OnDeath()
     {
 		MecanimAnimator.SetBool(_dieHash, true);
     }
-				
+
+	
+	protected void StealthKill(float elapsedTime) {
+		if (MecanimAnimator.GetBool (_stealthKillHash)) {
+			Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
+
+			_arsenal.Weapon.RotateAround ( rightHand.position, new Vector3(0, 1, 1), -90.0f);
+
+		}
+
+		MecanimAnimator.SetBool (_stealthKillHash, false);
+
+		HorizontalSpeed = 0.0f;
+		VerticalSpeed = 0.0f;
+
+	}
+
+	public void RestoreWeaponRotation() {
+		Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
+		
+		_arsenal.Weapon.RotateAround ( rightHand.position, new Vector3(0, 1, 1), 90.0f);
+
+	}
+
 	protected void Die(float elapsedTime)
 	{
 		HorizontalSpeed = 0.0f;
@@ -606,4 +664,39 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		get { return _arsenal; }
 	}
+
+	public bool CanStealthKill(out OlympusAnimator animRet) {
+		animRet = null;
+
+		// no melee equipped, don't even bother to cast any rays
+		if (!IsGrounded || !_arsenal.WeaponCanStealthKill ())
+			return false;
+
+		//Debug.Log ("Can stealth kill.");
+		
+		// see if anything in range
+		Vector3 vPlayerPos = transform.position;
+		Vector3 vTargetPos = vPlayerPos + new Vector3 (Direction.x * Settings.StealthKillRange, 0.0f, 0.0f);
+		Vector3 vDir = new Vector3 (Direction.x, 0.0f, 0.0f);
+
+		Debug.DrawLine(vPlayerPos, vTargetPos, Color.blue, 0.5f, false);
+
+		RaycastHit hitInfo = new RaycastHit();
+		// see if the first thing in our stealth kill distance is the enemy (no obstacles in between)
+		if (Physics.Raycast(vPlayerPos, vDir, out hitInfo, Settings.StealthKillRange) ) {
+			EnemyAI ai = hitInfo.transform.root.GetComponent<EnemyAI>();
+			OlympusAnimator anim = hitInfo.transform.root.GetComponent<OlympusAnimator>();
+
+			if(ai && anim && (ai.Awareness == EnemyAI.AwarenessLevel.Unaware) && anim.IsGrounded) {
+//				Debug.Log ("found standing, unaware Olympus");
+				animRet = anim;
+				return true;
+			}
+
+		}
+
+		return false;
+
+	}
+
 }

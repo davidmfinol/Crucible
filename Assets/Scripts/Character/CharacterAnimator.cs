@@ -120,6 +120,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         Destroy(gameObject);
     }
+	public virtual void OnStealthDeath()
+	{
+		Destroy(gameObject);
+	}
     protected virtual void UpdateMecanimVariables()
     {
         // Empty by default; child classes should override
@@ -337,8 +341,10 @@ public abstract class CharacterAnimator : MonoBehaviour
 		Destroy(this);
 		*/
 		EnemyAI ai = GetComponent<EnemyAI> ();
-		if(ai != null)
-			GameManager.AI.Enemies.Remove(ai);
+		if (ai != null) {
+			GameManager.AI.Enemies.Remove (ai);
+			ai.enabled = false;
+		}
 		Seeker seeker = GetComponent<Seeker>();
 		if(seeker != null)
 			seeker.enabled = false;

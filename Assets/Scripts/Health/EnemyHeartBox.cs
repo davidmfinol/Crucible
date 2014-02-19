@@ -31,7 +31,7 @@ public class EnemyHeartBox : HeartBox
 			return;
 
 		if(hitbox.CanStealthKill && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware)
-			Controller.OnDeath();
+			Controller.OnStealthDeath();
 		else if(hitbox.CanStun)
 			Controller.MecanimAnimator.SetBool("Stun", true);
         else if(hitbox.DoesFloat)

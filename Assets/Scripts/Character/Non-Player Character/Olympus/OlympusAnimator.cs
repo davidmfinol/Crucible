@@ -25,6 +25,7 @@ public class OlympusAnimator : CharacterAnimator
 	private int _climbPipeHash;
 	private int _stunHash;
 	private int _dieHash;
+	private int _stealthDeathHash;
 	
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
@@ -36,6 +37,7 @@ public class OlympusAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
 		StateMachine[Animator.StringToHash("Base Layer.Stun")] = Stun;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Death;
+		StateMachine[Animator.StringToHash("Base Layer.Stealth Death")] = StealthDeath;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
@@ -58,6 +60,7 @@ public class OlympusAnimator : CharacterAnimator
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_stunHash = Animator.StringToHash("Stun");
 		_dieHash = Animator.StringToHash("Die");
+		_stealthDeathHash = Animator.StringToHash("StealthDeath");
 	}
 	
 	protected override void UpdateMecanimVariables()
@@ -278,6 +281,19 @@ public class OlympusAnimator : CharacterAnimator
 		
 	}
 	
+	protected void StealthDeath(float elapsedTime) {
+		HorizontalSpeed = 0;
+		VerticalSpeed = 0;
+		MecanimAnimator.SetBool (_stealthDeathHash, false);
+
+	}
+
+	public override void OnStealthDeath()
+	{
+		MecanimAnimator.SetBool (_stealthDeathHash, true);
+		Invoke ("DoRagDoll", 3.0f);
+	}
+
 	protected void Death(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
@@ -288,7 +304,7 @@ public class OlympusAnimator : CharacterAnimator
 	public override void OnDeath()
 	{
 		MecanimAnimator.SetBool (_dieHash, true);
-		Invoke ("DoRagDoll", 3.0f);
+		Invoke ("DoRagDoll", 1.0f);
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)
