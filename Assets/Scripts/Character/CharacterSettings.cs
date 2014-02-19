@@ -47,6 +47,14 @@ public sealed class CharacterSettings : MonoBehaviour
 	// How often the character makes noise when running
 	public float FootStepNoiseFrequency = 0.3f;
 
+	// How long you can wall slide before you get auto-dropped
+	public float WallSlideDuration = 1.0f;
+
+	// How fast you slide down walls that you have grabbed
+	public float WallSlideSpeed = -5.0f;
+
+	// You must be moving at least this fast vertically to grab onto a wall
+	public float MinWallGrabSpeed = -30.0f;
 
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone(Transform current, string name)

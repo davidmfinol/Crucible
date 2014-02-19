@@ -31,6 +31,7 @@ public class HitBox : MonoBehaviour
 	public int DamageAmount = 0;
 	public bool CanStun = false;
 	public bool CanStealthKill = false;
+    public bool DoesFloat = false;
 	public float DestroyTime = Mathf.NegativeInfinity;
 	
 	private float _radius = 0.0f;

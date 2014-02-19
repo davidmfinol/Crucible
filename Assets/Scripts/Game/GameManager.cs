@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 		if(arsenal != null)
 		{
 			arsenal.SpawnPoint = _currentLevel.StartPoint;
-			arsenal.Weapon = arsenal.PipePrefab;
+			arsenal.Weapon = arsenal.MinePrefab;
 		}
 
 		SpawnPlayer ();

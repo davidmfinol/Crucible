@@ -42,8 +42,8 @@ public class CharacterAnimatorDebugger : MonoBehaviour
             string zones = "";
             foreach (Zone z in _character.Zones)
                 zones += z.transform.position.z.ToString() + " ";
-            GUI.Box(new Rect(10, 85, 300, 20), "Zones: " + zones);
-            GUI.Box(new Rect(10, 110, 300, 20), "Z_Down: " + _character.Z_Down + ", Z_Up: " + _character.Z_Up + ", TransitionZ: " + _character.CanTransitionZ);
+            GUI.Box(new Rect(10, 110, 300, 20), "Zones: " + zones);
+            GUI.Box(new Rect(10, 135, 300, 20), "Z_Down: " + _character.Z_Down + ", Z_Up: " + _character.Z_Up + ", TransitionZ: " + _character.CanTransitionZ);
         }
 	}
 }

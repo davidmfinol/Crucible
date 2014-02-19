@@ -9,7 +9,7 @@ using System.Collections.Generic;
 /// </summary>
 public class MeshToGameObjectsMenu
 {
-	static List<string> objectNames = new List<string>(new string[]{"Ledge", "Ground", "Ladder", "Pipe", "Wall"});
+	static List<string> objectNames = new List<string>(new string[]{"Ledge", "Ground", "Wall", "Ladder", "Pipe"});
 	static GameObject playerPrefab;
 	static GameObject ledgePrefab;
 	static GameObject ladderXPrefab;
@@ -17,23 +17,37 @@ public class MeshToGameObjectsMenu
 	static GameObject pipePrefab;
 	static GameObject wallPrefab;
 
-	static List<Transform> selection;
+	static List<Transform> selected;
 	
 	// Grey out the menu item if there are no non-skinned meshes in the selection,
 	// or if no mesh names contain the name of any game object type with which we are familiar.
 	[MenuItem("GameObject/Create Game Objects from Meshes", true)]
 	static bool ValidateMeshToGameObjects ()
 	{
-		selection = new List<Transform>(Selection.GetTransforms(SelectionMode.Unfiltered | SelectionMode.ExcludePrefab));	
-		return selection.Exists(transform => transform.GetComponent<MeshFilter>() 
+		List<Transform> selection = new List<Transform>(Selection.GetTransforms(SelectionMode.Unfiltered | SelectionMode.ExcludePrefab));
+		selected = new List<Transform>();
+		for(int i = 0; i < selection.Count ; i++)
+			AddChildren (selected, selection[i]);
+		return selected.Exists(transform => transform.GetComponent<MeshFilter>() 
 			&& objectNames.Exists(objectName => transform.name.Contains(objectName))
 		);
+	}
+	// Helper Method to add all the children to a selection
+	public static void AddChildren(List<Transform> selected, Transform current)
+	{
+		// activate the ragdoll for all child bones
+		for (int i = 0; i < current.childCount; ++i)
+			AddChildren(selected, current.GetChild(i));
+		
+		// add the child to the selection
+		if(!selected.Contains(current))
+			selected.Add (current);
 	}
 	
 	[MenuItem("GameObject/Create Game Objects from Meshes")]
 	static void MeshToGameObjects ()
 	{
-		// Undo.RegisterCreatedObjectUndo("Create Game Objects from Meshes");
+		Undo.RegisterSceneUndo("Create Game Objects from Meshes");	
 		
 		playerPrefab = (GameObject) Resources.Load("PlayerCharacter");
 		ledgePrefab = (GameObject) Resources.Load("Ledge");
@@ -42,23 +56,30 @@ public class MeshToGameObjectsMenu
 		pipePrefab = (GameObject) Resources.Load("Pipe");
 		wallPrefab = (GameObject) Resources.Load("Grabbable Object");
 		
-		selection.ForEach(transform => {
+		selected.ForEach(transform => {
 			MeshFilter meshFilter = transform.GetComponent<MeshFilter>();
             if (!meshFilter) return;
-
-            // Do some general stuff to get the object ready to be created
-            SetupObject(transform);
 
             // Create the object
 			string name = meshFilter.name.ToLower();
 			if (name.Contains("ledge"))
+			{
+				SetupObject(transform);
 				CreateLedge(transform);
+			}
+			else if (name.Contains("ground"))
+			{
+				SetupObject(transform);
+			}
+			else if (name.Contains("wall"))
+			{
+				SetupObject(transform);
+				CreateWall(transform); 
+			}
 			else if (name.Contains("ladder"))
 				CreateLadder(transform); 
 			else if (name.Contains("pipe"))
 				CreatePipe(transform); 
-			else if (name.Contains("wall"))
-				CreateWall(transform); 
 		});
 	}
 
@@ -76,18 +97,6 @@ public class MeshToGameObjectsMenu
 
         // Mark it as waypoint for the AI system
         transform.tag = "Waypoint";
-		
-		// Get rid of any child objects that may exist
-		DestroyChildren(transform);
-	}
-	
-	static void DestroyChildren(Transform transform)
-	{
-		List<Transform> children = new List<Transform>();
-		for (int i = 0; i < transform.childCount; ++i)
-			children.Add(transform.GetChild(i));
-		foreach(Transform child in children)
-			GameObject.DestroyImmediate(child.gameObject);
 	}
 
     static void CreateLedge (Transform ledge)
@@ -98,65 +107,70 @@ public class MeshToGameObjectsMenu
 		Vector3 topRight = ledgeBounds.center + new Vector3(ledgeBounds.extents.x, 0, 0) + new Vector3(0, ledgeBounds.extents.y, 0);
 		Vector3 leftLedgeLocation = topLeft - new Vector3(0, 0.5f, 0);
 		Vector3 rightLedgeLocation = topRight - new Vector3(0, 0.5f, 0);
-		leftLedgeLocation.z = 0;
-		rightLedgeLocation.z = 0;
 		
-		// Set up the game object that allow us to grab on
+		// Set up the left ledge
 		GameObject leftLedge = GameObject.Instantiate(ledgePrefab, leftLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
-		GameObject rightLedge = GameObject.Instantiate(ledgePrefab, rightLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
 		leftLedge.transform.parent = ledge.transform;
 		leftLedge.GetComponent<Ledge> ().Left = true;
 		leftLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.Contains ("Obstacle"));
+		BoxCollider col = leftLedge.GetComponent<BoxCollider> ();
+		col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 10);
+
+		// Set up the right ledge
+		GameObject rightLedge = GameObject.Instantiate(ledgePrefab, rightLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
 		rightLedge.transform.parent = ledge.transform;
 		rightLedge.GetComponent<Ledge> ().Left = false;
 		rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.Contains ("Obstacle"));
+		col = rightLedge.GetComponent<BoxCollider> ();
+		col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 10);
+	}
+	static void CreateWall(Transform wall)
+	{
+		// Create the wall
+		GameObject createdWall = GameObject.Instantiate(wallPrefab, wall.position, Quaternion.identity) as GameObject;
+		BoxCollider createdWallCollider = createdWall.GetComponent<BoxCollider> ();
+		createdWall.transform.parent = wall.transform;
+		createdWallCollider.size = wall.renderer.bounds.size;
+		createdWallCollider.center = wall.renderer.bounds.center;
+		
+		// Scale the wall so that it encompasses the physical wall and the player
+		Vector3 size = createdWallCollider.size;
+		CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
+		size.x += charController.radius * playerPrefab.transform.localScale.z;
+		createdWallCollider.size = size;
 	}
 	static void CreateLadder(Transform ladder)
 	{
 		// Create the ladder
 		GameObject prefab = ladder.name.Contains ("X") ? ladderXPrefab : ladderZPrefab;
-		GameObject createdLadder = GameObject.Instantiate(prefab, ladder.position, prefab.transform.rotation) as GameObject;
-		createdLadder.transform.parent = ladder.transform;
+        GameObject createdLadder = GameObject.Instantiate(prefab, ladder.position, prefab.transform.rotation) as GameObject;
+        BoxCollider createdLadderCollider = createdLadder.GetComponent<BoxCollider> ();
+        createdLadder.transform.parent = ladder.transform;
+        createdLadderCollider.size = ladder.renderer.bounds.size;
+        createdLadderCollider.center = ladder.renderer.bounds.center;
 
 		// Scale the ladder so that it encompasses the physical ladder and the player
-		BoxCollider prefabCollider = createdLadder.GetComponent<BoxCollider> ();
-		BoxCollider ladderCollider = (BoxCollider) ladder.collider;
-		prefabCollider.center = ladderCollider.center;
-		Vector3 size = ladderCollider.size;
+        Vector3 size = createdLadderCollider.size;
+        CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
 		if(ladder.name.Contains("X"))
-			size.x += playerPrefab.collider.bounds.extents.z;
+            size.x += charController.radius * playerPrefab.transform.localScale.z;
 		else
-			size.z += playerPrefab.collider.bounds.extents.z;
-		prefabCollider.size = size;
+            size.z += charController.radius * playerPrefab.transform.localScale.z;
+        createdLadderCollider.size = size;
 	}
 	static void CreatePipe(Transform pipe)
 	{
 		// Create the Pipe
-		GameObject prefab = pipePrefab;
-		GameObject createdPipe = GameObject.Instantiate(prefab, pipe.position, prefab.transform.rotation) as GameObject;
-		createdPipe.transform.parent = pipe.transform;
+        GameObject createdPipe = GameObject.Instantiate(pipePrefab, pipe.position, pipePrefab.transform.rotation) as GameObject;
+        BoxCollider createdPipeCollider = createdPipe.GetComponent<BoxCollider> ();
+        createdPipe.transform.parent = pipe.transform;
+        createdPipeCollider.size = pipe.renderer.bounds.size;
+        createdPipeCollider.center = pipe.renderer.bounds.center;
 		
 		// Scale the pipe so that it encompasses the physical pipe and the player
-		BoxCollider prefabCollider = createdPipe.GetComponent<BoxCollider> ();
-		BoxCollider ladderCollider = (BoxCollider)  pipe.collider;
-		prefabCollider.center = ladderCollider.center;
-		Vector3 size = ladderCollider.size;
-		size.z += playerPrefab.collider.bounds.extents.z;
-		prefabCollider.size = size;
-	}
-	static void CreateWall(Transform wall)
-	{
-		// Create the wall
-		GameObject prefab = wallPrefab;
-		GameObject createdWall = GameObject.Instantiate(prefab, wall.position, prefab.transform.rotation) as GameObject;
-		createdWall.transform.parent = wall.transform;
-		
-		// Scale the wall so that it encompasses the physical wall and the player
-		BoxCollider prefabCollider = createdWall.GetComponent<BoxCollider> ();
-		BoxCollider ladderCollider = (BoxCollider) wall.collider;
-		prefabCollider.center = ladderCollider.center;
-		Vector3 size = ladderCollider.size;
-		size.x += playerPrefab.collider.bounds.extents.z;
-		prefabCollider.size = size;
+        Vector3 size = createdPipeCollider.size;
+        CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
+        size.z += charController.radius * playerPrefab.transform.localScale.z;
+        createdPipeCollider.size = size;
 	}
 }

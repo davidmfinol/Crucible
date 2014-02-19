@@ -29,7 +29,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 	public ProcessState ModifyState;
 	private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
     private AnimatorStateInfo _previousState;
-    
+	private float _timeInCurrentState;
+
     // List of animation state hashes for which we nullify root based motion of animations
     private List<int> _rootMotionCorrectionStates;
 	
@@ -90,6 +91,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         CreateStateMachine();
         _previousState = CurrentState;
 		_rootMotionCorrectionStates = DefineRootMotionCorrectionState ();
+		_timeInCurrentState = 0.0f;
 
 		// Is useful to know when we were last on the ground
         _lastGroundHeight = transform.position.y;
@@ -178,6 +180,13 @@ public abstract class CharacterAnimator : MonoBehaviour
 		
 		// Some variables for mecanim are updated every frame
 		UpdateMecanimVariables();
+
+		// keep track of time in current state for things like wall sliding, etc.
+		if (CurrentState.nameHash != _previousState.nameHash) {
+			_timeInCurrentState = 0.0f;
+		} else {
+			_timeInCurrentState += Time.fixedDeltaTime;
+		}
 
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
         _previousState = CurrentState;
@@ -337,37 +346,27 @@ public abstract class CharacterAnimator : MonoBehaviour
 		Controller.enabled = false; // Destroy(Controller);
 		MecanimAnimator.enabled = false; // Destroy(MecanimAnimator);
 	}
-
-	/*
 	public void ActivateFloat()
-	{
+    {
+        CharInput.enabled = false;
+        Controller.enabled = false;
 		MecanimAnimator.enabled = false;
-		collider.enabled = false;
 		CharacterSettings.ActivateRagDoll(transform, false, false);
-		Vector3 pos = transform.position;
-		pos.y += 1;
-		transform.position = pos;
-		StartCoroutine("ReEnable");
-		this.enabled = false;
+        StartCoroutine("ReEnableCharacter");
+        this.enabled = false;
 	}
 	IEnumerator ReEnableCharacter()
 	{
-		float timePassed = 0;
-		while (timePassed < 5)
-		{
-			Debug.Log ("I should be floating...");
-			timePassed += Time.deltaTime;
-			yield return null;
-		}
+        yield return new WaitForSeconds(5);
 		this.enabled = true;
 		CharacterSettings.ActivateRagDoll(transform, true, true);
 		//Transform root = CharacterSettings.SearchHierarchyForBone(transform, "Root");
 		//transform.position = root.transform.position;
-		collider.enabled = true;
-		MecanimAnimator.enabled = true;
-		StopCoroutine("ReEnable");
+        MecanimAnimator.enabled = true;
+        Controller.enabled = true;
+        CharInput.enabled = true;
+        StopCoroutine("ReEnableCharacter");
 	}
-	*/
 	
 	// Helper methods for motion
 	protected virtual void ApplyRunning(float elapsedTime)
@@ -503,6 +502,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return _previousState; }
     }
+	public float TimeInCurrentState 
+	{
+		get { return _timeInCurrentState; }
+	}
 	public CharacterController Controller
 	{
 		get { return _characterController; }
@@ -627,7 +630,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     public bool CanHangOffObject
     {
-        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is ClimbableObject);}
+        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is GrabbableObject) &&  !(ActiveHangTarget is ClimbableObject);}
     }
     public bool CanHangOffLedge
     {
@@ -659,6 +662,9 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return (ActiveHangTarget != null) && transform.position.y < ActiveHangTarget.transform.position.y; ; }
     }
+	public bool CanGrabWall {
+		get { return (IsTouchingWall && (ActiveHangTarget is GrabbableObject) && VerticalSpeed > Settings.MinWallGrabSpeed);  }
+	}
 
 	// Zone Properties
 	public float DesiredZ

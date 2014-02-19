@@ -7,6 +7,9 @@ using System.Collections;
 [AddComponentMenu("Weaponry/Gravity Gun")]
 public class GravityGun : Weapon
 {
+    // TODO: OBJECT POOLING FOR HITBOXES
+    public GameObject GunHitbox;
+
 	private PlayerCharacterAnimator _player;
 
 
@@ -17,21 +20,11 @@ public class GravityGun : Weapon
 
 	public override void ActivateAttack (float attackID)
 	{
-		Vector3 shootDirection = _player.Direction.x > 0.1 ? Vector3.right : Vector3.left;
-		if(Mathf.Abs(_player.Direction.x) < 0.1)
-			shootDirection = Vector3.forward;
-		RaycastHit[] hits = Physics.SphereCastAll(_player.transform.position, 100, shootDirection, Mathf.Infinity, 1 << 11);
-		Debug.Log("shooting");
-		foreach(RaycastHit hit in hits)
-		{
-			Debug.Log("hit something");
-			OlympusAnimator Enemy = hit.collider.gameObject.GetComponent<OlympusAnimator>();
-			if(Enemy != null)
-			{
-				Debug.Log("Best start jumping");
-				//Enemy.ActivateFloat();
-			}
-		}
+        // TODO: OBJECT POOLING FOR HITBOXES
+        GameObject hitbox = (GameObject) Instantiate(GunHitbox, _player.transform.position, Quaternion.identity);
+        float offsetX = hitbox.collider.bounds.extents.x;
+        Vector3 offset = new Vector3( (_player.Direction.x > 0 ? offsetX : -offsetX), 0, 0 );
+        hitbox.transform.position = hitbox.transform.position + offset;
 	}
 
 

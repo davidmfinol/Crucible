@@ -42,8 +42,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
-	
-
 
     protected override void Initialize()
     {
@@ -54,10 +52,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
-		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
-		StateMachine[Animator.StringToHash("Base Layer.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Base Layer.Waiting For Respawn")] = Die;
-		StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
+        StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
+        StateMachine[Animator.StringToHash("Moving.Running")] = Running;
+        StateMachine[Animator.StringToHash("Moving.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
@@ -99,6 +97,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
 		states.Add (Animator.StringToHash ("Air.Backflip"));
 		states.Add (Animator.StringToHash ("Air.Falling"));
+		states.Add (Animator.StringToHash ("Air.Landing"));
 		return states;
 	}
 	
@@ -132,6 +131,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// if not in a climb, reset our auto-climb direction for use next climb.
 		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
 			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+		// if previous state was backflip, change direction
+		if( PreviousState.IsName("Air.Backflip")&&!CurrentState.IsName("Air.Backflip"))
+			Direction = -Direction;
 
 	}
 	protected void UpdateAttackAnimations()
@@ -140,10 +142,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			return;
 
 		Weapon currentWeapon = Arsenal.Weapon.GetComponent<Weapon>();
-		MecanimAnimator.SetBool(_attackMeleeHash, InputAttackForward && currentWeapon is PipeWeapon); 
-        MecanimAnimator.SetBool(_shootGunHash, InputAttackForward && currentWeapon is GravityGun); 
-        MecanimAnimator.SetBool(_placeMineHash, InputAttackForward && currentWeapon is Mine); 
-        MecanimAnimator.SetBool(_detonateMineHash, InputAttackBackward && currentWeapon is Mine); 
+		MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
+		MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackActive && currentWeapon is GravityGun); 
+        MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackRightPressed && currentWeapon is Mine); 
+        MecanimAnimator.SetBool(_detonateMineHash, CharInput.AttackLeftPressed && currentWeapon is Mine); 
 	}
 
 	void StartMelee()
@@ -330,7 +332,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if(transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool(_fallHash, false);
 		
-		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
+		MecanimAnimator.SetBool(_grabWallHash, CanGrabWall);
 		
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
@@ -366,7 +368,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetBool(_fallHash, false);
 		
-		MecanimAnimator.SetBool(_grabWallHash, IsTouchingWall && ActiveHangTarget is GrabbableObject);
+		MecanimAnimator.SetBool(_grabWallHash, CanGrabWall);
 		
         if(!(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
                 (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
@@ -380,19 +382,22 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_hangHash, false);
 	}
 	
+
 	protected void Wallgrabbing(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
-		VerticalSpeed = 0;
-		
-		if(MecanimAnimator.GetBool(_grabWallHash))
+		VerticalSpeed = Settings.WallSlideSpeed * elapsedTime;
+
+		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
+		MecanimAnimator.SetBool(_jumpWallHash, jump);
+
+		if(CharInput.InteractionPressed || CharInput.DownPressed || InputMoveBackward || jump || IsGrounded ||
+		    (ActiveHangTarget == null) || (TimeInCurrentState >= Settings.WallSlideDuration) )
 		{
 			MecanimAnimator.SetBool(_grabWallHash, false);
 			//DropHangTarget();
 		}
-		
-		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
-		MecanimAnimator.SetBool(_jumpWallHash, jump);
+
 	}
 
 	protected void Walljumping(float elapsedTime)
@@ -411,16 +416,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if (transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool (_fallHash, false);
 
-		if(IsTouchingWall && ActiveHangTarget is GrabbableObject)
+		if(CanGrabWall)
 		{
 			MecanimAnimator.SetBool(_grabWallHash, true);
 		}
 
-		if ((CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
-			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up))
-		{
-			MecanimAnimator.SetBool (_hangHash, true);
-		}
+//		if ((CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
+//			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up))
+//		{
+//			MecanimAnimator.SetBool (_hangHash, true);
+//		}
 	}
 	
 	protected void Hanging(float elapsedTime)
@@ -518,9 +523,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
 
-		Debug.Log ("BEFORE: " + _autoClimbDir);
 		float vertical = UpdateAutoClimbDirection ();
-		Debug.Log ("AFTER: " + _autoClimbDir);
 
 //		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
 //			ApplyClimbingStrafing( CharInput.Horizontal );
@@ -534,7 +537,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
-		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
+//		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
+
+		if (CharInput.JumpLeft) {
+
+			Direction = Vector3.left;
+			MecanimAnimator.SetBool (_jumpHash, true);
+
+		} else if (CharInput.JumpRight) {
+			Direction = Vector3.right;
+			MecanimAnimator.SetBool (_jumpHash, true);
+
+		}
 
 	}
 	

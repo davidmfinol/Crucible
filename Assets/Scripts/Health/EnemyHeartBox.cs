@@ -34,6 +34,8 @@ public class EnemyHeartBox : HeartBox
 			Controller.OnDeath();
 		else if(hitbox.CanStun)
 			Controller.MecanimAnimator.SetBool("Stun", true);
+        else if(hitbox.DoesFloat)
+            Controller.ActivateFloat();
         else
         {
             HitPoints -= hitbox.DamageAmount;
