@@ -118,6 +118,7 @@ public class BabyBotAnimator : CharacterAnimator
     public void SelfDestruct()
     {
         GameObject o = (GameObject) Instantiate (MeleeEvent, transform.position, Quaternion.identity);
+		o.transform.parent = transform;
         HitBox d = o.GetComponentInChildren<HitBox> ();
         d.MakeBabyBotExplosion(this.gameObject);
     }
