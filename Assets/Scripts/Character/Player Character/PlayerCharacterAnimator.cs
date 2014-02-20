@@ -149,9 +149,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		Weapon currentWeapon = Arsenal.Weapon.GetComponent<Weapon>();
 
-		// TODO: why is this giving me warnings?
-		OlympusAnimator enemyAnim = new OlympusAnimator();
-		if (CharInput.AttackActive && CanStealthKill (out enemyAnim)) {
+
+		OlympusAnimator enemyAnim = null;
+		if (CharInput.AttackActive && CanStealthKill (out enemyAnim) && enemyAnim != null) {
 
 			Debug.Log ("Stealth killing Olympus.");
 

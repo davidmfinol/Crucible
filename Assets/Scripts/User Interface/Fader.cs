@@ -8,6 +8,7 @@ using System.Collections;
 [AddComponentMenu("User Interface/Fader")]
 public class Fader : MonoBehaviour
 {
+	// Whether the fade in, stay, then fadeout effect should happen immediately on start
 	public bool FadeInAtStart = true;
 	
 	/// How many seconds the fading takes.
@@ -46,19 +47,13 @@ public class Fader : MonoBehaviour
 			temp.a = Mathf.Min (temp.a, MaxAlpha);
 			renderer.material.color = temp;
 		}
-        StopCoroutine("DoFadeIn");
 		if(FadeInAtStart)
 			StartCoroutine("Stay");
+		StopCoroutine("DoFadeIn");
 	}
 	private IEnumerator Stay()
 	{
-		Debug.Log ("stay");
-		float elapsedTime = 0;
-		while (elapsedTime < StaySeconds)
-		{
-			elapsedTime += Time.deltaTime;
-			yield return null;
-		}
+		yield return new WaitForSeconds (StaySeconds);
 		if(FadeInAtStart) // && StaySeconds >= 0)
 			StartCoroutine("DoFadeOut");
 		StopCoroutine("Stay");
@@ -71,15 +66,13 @@ public class Fader : MonoBehaviour
 	}
 	private IEnumerator DoFadeOut()
 	{
-		Debug.Log ("fadeout");
 		while (renderer.material.color.a > MinAlpha)
 		{
 			yield return null;
  			Color temp = renderer.material.color;
-// 			temp.a -= Time.deltaTime/FadeOutSeconds;
+ 			temp.a -= Time.deltaTime/FadeOutSeconds;
 			temp.a = Mathf.Max (temp.a, MinAlpha);
 			renderer.material.color = temp;
-			Debug.Log("fadeout");
 		}
 		StopCoroutine("DoFadeOut");
 	}
