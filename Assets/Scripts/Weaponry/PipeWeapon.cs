@@ -39,4 +39,11 @@ public class PipeWeapon : Weapon
     {
         get { return new Vector3(-0.1f, 0.7f, 0.1f); }
     }
+
+	// can the weapon stealth kill
+	public override bool CanStealthKill()
+	{ 
+		return true;
+
+	}
 }

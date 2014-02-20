@@ -41,4 +41,12 @@ public class PlayerCharacterArsenal : MonoBehaviour
 			_currentWeapon = weapon;
 		}
 	}
+
+	public bool WeaponCanStealthKill() {
+		Weapon weaponScript = _currentWeapon.GetComponent<Weapon>();
+
+		return( weaponScript.CanStealthKill() );
+
+	}
+	
 }

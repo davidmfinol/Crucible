@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 2aba0004545dd40c1b82ebb70d8b457f
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: DeadManWalking
     100002: MAN_FINAL:armJLf_01
@@ -282,7 +282,7 @@ ModelImporter:
       lastFrame: 150
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -.100000001
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -291,7 +291,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
@@ -1875,5 +1875,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 3
-  additionalBone: 0
   userData: 

@@ -29,4 +29,10 @@ public class Weapon : MonoBehaviour
     {
         get { return Vector3.zero; }
     }
+
+	// can the weapon stealth kill
+	public virtual bool CanStealthKill()
+	{
+		return false;
+	}
 }
