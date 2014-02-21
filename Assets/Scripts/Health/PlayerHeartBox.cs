@@ -45,13 +45,16 @@ public class PlayerHeartBox : HeartBox
 		// process attacks
 		if (_hitbox != null)
         {
+			Vector2 knockForce = new Vector2(_hitbox.KnockBackAmount * _hitbox.HorizontalDir, _hitbox.KnockUpAmount);
+
 			// fly in direction of hit
-			Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
-			Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (_hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
+			//Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
+			//Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (_hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
 			// adjust health, change shaders, etc.
-			AdjustHealth (-1 * _hitbox.DamageAmount);
+			AdjustHealth (-1 * _hitbox.DamageAmount, knockForce );
 			Destroy (_hitbox.gameObject);
 			_hitbox = null;
+
 		} else
 		{
 			BlinkShield();
@@ -59,28 +62,41 @@ public class PlayerHeartBox : HeartBox
 		}
 	}
 
-	private void AdjustHealth(int deltaHealth)
+	private void AdjustHealth(int deltaHealth, Vector2 knockForce)
 	{
 		int currHealth = HitPoints;
 		HitPoints += deltaHealth;
 		int newHealth = HitPoints;
+	
+		_lastHealthAdjust = deltaHealth;
+		_timeAtHealth = 0.0f;
+		_timeUntilRegen = 0.0f;
 
-		// on health change, change shader
-		if (newHealth != currHealth)
-        {
-			_lastHealthAdjust = deltaHealth;
+
+		// hurt but not killed,
+		if (deltaHealth < 0 && HitPoints > 0) {
+			Controller.MakeDamaged (knockForce);
+
+			// apply shield effect
+			if(!CharShader.CurrentlyHidden)
+				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Hurt);
+
+		// killed
+		} else if (HitPoints == 0) {
+			Controller.OnDeath ();
+
+			if(!CharShader.CurrentlyHidden)
+				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
+
+		// hurt or healed
+		} else if(newHealth != currHealth) {
 			if (HitPoints > 1 && !CharShader.CurrentlyHidden)
 				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Unhurt);
 			else if (HitPoints == 1 && !CharShader.CurrentlyHidden)
 				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Hurt);
-			else if (HitPoints <= 0)
-			{
-				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
-				Controller.OnDeath();
-			}
-			_timeAtHealth = 0.0f;
-			_timeUntilRegen = 0.0f;
+		
 		}
+
 	}
 
 	private void BlinkShield()
@@ -102,7 +118,7 @@ public class PlayerHeartBox : HeartBox
 		// try to regen actual HP
 		_timeUntilRegen += Time.deltaTime;
 		if( (_timeUntilRegen >= _regenTimer) && (HitPoints < MaxHitPoints)  && (HitPoints > 0) )
-			AdjustHealth(1);
+			AdjustHealth(1, new Vector2(0.0f, 0.0f) );
 	}
 
 

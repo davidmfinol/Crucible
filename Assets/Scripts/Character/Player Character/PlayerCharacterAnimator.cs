@@ -33,6 +33,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _backflipHash;
 //	private int _climbStrafeHash;
 	private int _respawnHash;
+	private int _damagedHash;
 
 	// Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -57,6 +58,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Waiting For Respawn")] = Die;
         StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
+		StateMachine[Animator.StringToHash("Base Layer.Damaged")] = Damaged;
         StateMachine[Animator.StringToHash("Moving.Running")] = Running;
         StateMachine[Animator.StringToHash("Moving.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
@@ -94,6 +96,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_backflipHash = Animator.StringToHash ("Backflip");
 //		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
 		_respawnHash = Animator.StringToHash("Respawn");
+		_damagedHash = Animator.StringToHash("Damaged");
 	}
 	protected override List<int> DefineRootMotionCorrectionState()
 	{
@@ -103,6 +106,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		states.Add (Animator.StringToHash ("Air.Backflip"));
 		states.Add (Animator.StringToHash ("Air.Falling"));
 		states.Add (Animator.StringToHash ("Air.Landing"));
+		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
 		states.Add (Animator.StringToHash ("Moving.StealthKill"));
 		return states;
 	}
@@ -261,6 +265,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_dieHash, true);
     }
 
+	public override void MakeDamaged(Vector2 knockForce) {
+		MecanimAnimator.SetBool (_damagedHash, true);
+		HorizontalSpeed = knockForce.x;
+		VerticalSpeed = knockForce.y;
+
+	}
+
+	protected void Damaged(float elapsedTime) {
+		MecanimAnimator.SetBool (_damagedHash, false);
+		ApplyGravity (elapsedTime);
+
+	}
 	
 	protected void StealthKill(float elapsedTime) {
 		if (MecanimAnimator.GetBool (_stealthKillHash)) {

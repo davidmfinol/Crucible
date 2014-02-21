@@ -331,6 +331,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 	        //body.AddForceAtPosition(force, hit.point);
 		}
 	}
+
+	public virtual void MakeDamaged(Vector2 knockForce) {
+
+
+	}
 	
 	public void DoRagDoll()
 	{
