@@ -29,8 +29,8 @@ public class InputDebugger : MonoBehaviour
         if(Hide)
             return;
 
-        GUI.Box(new Rect(300, 10, 300, 20), "GUI Mode: " + _touchInput.MovementUIType);
-        GUI.Box(new Rect(300, 35, 300, 20), "Last Swipe: " + _touchInput.LastSwipeDeg);
+        GUI.Box(new Rect(300, 10, 300, 20), "Last Movement: " + _touchInput.LastMovePos);
+        GUI.Box(new Rect(300, 35, 300, 20), "Last Action: " + _touchInput.LastActionPos);
         GUI.Box(new Rect(300, 60, 300, 20), "H: " + _playerInput.Horizontal + "  V: " + _playerInput.Vertical);
         GUI.Box (new Rect (300, 85, 300, 20), "Att: " + _playerInput.Attack + "  Jump: " + _playerInput.Jump);
         GUI.Box (new Rect (300, 110, 300, 20), "Int: " + _playerInput.Interaction + "  Pickup: " + _playerInput.Pickup);

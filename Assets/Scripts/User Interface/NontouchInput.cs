@@ -12,9 +12,8 @@ public class NontouchInput : MonoBehaviour
 	
 	// Where we store the input
 	private CharacterInput _input;
-
-
-
+	
+	// TODO: REMOVE THIS
 	private PlayerCharacterArsenal _arsenal;
 	private int currentWeapon = 0;
 
@@ -95,7 +94,7 @@ public class NontouchInput : MonoBehaviour
             }
 		}
 	}
-
+	// TODO: MOVE THIS
 	private void UpdateWeapon()
 	{
 		if (currentWeapon == 0)

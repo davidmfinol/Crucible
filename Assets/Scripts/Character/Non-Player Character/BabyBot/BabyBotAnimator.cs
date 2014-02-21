@@ -67,14 +67,17 @@ public class BabyBotAnimator : CharacterAnimator
 		if (!MecanimAnimator.GetBool (_attackHash))
 			return;
 
+		// Set up mecanim
 		MecanimAnimator.SetBool(_attackHash, false);
 		//MecanimAnimator.applyRootMotion = false;
 
-		Controller.enabled = false;
+		// Disable movement
+		// 	Controller.enabled = false;
+		IgnoreMovement = true;
 		IgnoreDirection = true;
 
+		// Parent ourselves to the player
 		Transform selfRoot = CharacterSettings.SearchHierarchyForBone(transform, Settings.RootBoneName);
-		Transform playerRoot = CharacterSettings.SearchHierarchyForBone(GameManager.Player.transform, GameManager.Player.transform.GetComponent<CharacterSettings>().RootBoneName);
 		transform.parent = GameManager.Player.transform;
 		Vector3 move = transform.localPosition;
 		transform.localPosition = Vector3.zero;
@@ -117,8 +120,9 @@ public class BabyBotAnimator : CharacterAnimator
 
     public void SelfDestruct()
     {
+		// TODO: OBJECT POOLING
         GameObject o = (GameObject) Instantiate (MeleeEvent, transform.position, Quaternion.identity);
-		// TODO: MAKE IT FOLLOW (SO YOU DONT MISS) o.transform.parent = transform;
+		o.transform.parent = GameManager.Player.transform;
         HitBox d = o.GetComponentInChildren<HitBox> ();
         d.MakeBabyBotExplosion(this.gameObject);
     }

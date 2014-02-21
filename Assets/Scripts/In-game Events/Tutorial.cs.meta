@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 2de1fba8f216f0945a791589a0c0be95
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - ArrowSign: {fileID: 400000, guid: 7362bbd78f593e34a82f6a96d92df52d, type: 2}
+  - AttackSign: {fileID: 400000, guid: 3b4d0d6d524e27c40b89c5f3133effee, type: 2}
+  - BentArrowSign: {fileID: 400000, guid: c8c49e6f765a7c240bb866f02ead809e, type: 2}
+  - JumpSign: {fileID: 400000, guid: bf14f1a7997cbe042834325c632ebb51, type: 2}
+  - WalkSwipeSign: {fileID: 400000, guid: 87aaa792e05631a499b3746037c50422, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

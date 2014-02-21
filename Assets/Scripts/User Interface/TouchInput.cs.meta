@@ -3,7 +3,12 @@ guid: b31f94b64aa3e534ca7fa304aec2d103
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - DotPrefab: {fileID: 400000, guid: 770ec8ec7f6bf474db89ea4332171423, type: 2}
+  - HorizontalSliderPrefab: {fileID: 400000, guid: ae7e2b807c7f64d4e94e8ff7c3c2d59a,
+      type: 2}
+  - VerticalSliderPrefab: {fileID: 400000, guid: bb63e9e326ff1be468f90ceaa9a777e8,
+      type: 2}
+  - MoveButtonPrefab: {fileID: 400000, guid: 3cdd4b0943ef5bc48964ba573cb6184d, type: 2}
+  - DotPrefab: {fileID: 400000, guid: 73a8b035785b9c54090a3d103d0f5efb, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
