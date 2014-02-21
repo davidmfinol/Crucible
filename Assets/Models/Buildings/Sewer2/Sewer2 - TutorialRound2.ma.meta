@@ -370,6 +370,7 @@ ModelImporter:
     100728: polySurface188
     100730: polySurface188 1
     100732: polySurface188 2
+    100734: Wall5
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -737,6 +738,7 @@ ModelImporter:
     400728: polySurface188
     400730: polySurface188 1
     400732: polySurface188 2
+    400734: Wall5
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -967,6 +969,7 @@ ModelImporter:
     2300454: polySurface188
     2300456: polySurface188 1
     2300458: polySurface188 2
+    2300460: Wall5
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1197,6 +1200,7 @@ ModelImporter:
     3300454: polySurface188
     3300456: polySurface188 1
     3300458: polySurface188 2
+    3300460: Wall5
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1424,6 +1428,7 @@ ModelImporter:
     4300448: polySurface186
     4300450: polySurface187
     4300452: polySurface188
+    4300454: Wall5
     7400000: Take 001
     9500000: //RootNode
   materials:
