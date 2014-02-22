@@ -7,14 +7,10 @@ using System.Collections.Generic;
 [AddComponentMenu("User Interface/Touch Input")]
 public class TouchInput : MonoBehaviour
 {
-	// Setup for the movement sliders that appear on the left-hand side
+	// Setup for the UI elements that appear on the screen
 	public Transform HorizontalSliderPrefab;
 	public Transform VerticalSliderPrefab;
 	public Transform MoveButtonPrefab;
-
-    // Setup for the dots that appear on the right-hand side
-	public float[] DotPositions = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
-	//	{-3.0f,-3.0f,0.0f,-3.0f,3.0f,-3.0f,-3.0f,0.0f,0.0f,0.0f,3.0f,0.0f,-3.0f,3.0f,0.0f,3.0f,3.0f,3.0f};
 	public Transform DotPrefab;
 
 	// Keep track of the objects we're using to display the UI
@@ -239,7 +235,9 @@ public class TouchInput : MonoBehaviour
 			}
 			return;
 		}
-
+		
+		float[] DotPositions = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
+		//	{-3.0f,-3.0f,0.0f,-3.0f,3.0f,-3.0f,-3.0f,0.0f,0.0f,0.0f,3.0f,0.0f,-3.0f,3.0f,0.0f,3.0f,3.0f,3.0f};
 		Vector2 pos = ConvertScreenPosToWorld (_actionStartPos);
 		for(int dot=0; dot<_userInterfaceDots.Count; dot++)
 		{

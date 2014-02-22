@@ -99,7 +99,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         _lastGroundHeight = transform.position.y;
 
 		// Let child classes initialize as necessary
-		Initialize();
+		OnStart();
 	}
 	protected virtual void CreateStateMachine()
 	{
@@ -114,7 +114,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 	{
 		Debug.LogWarning("State Machine using default doNothing");
 	}
-	protected virtual void Initialize()
+	protected virtual void OnStart()
 	{
 		// Child classes should override this method if they want to initialize variables on Start()
     }
