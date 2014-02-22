@@ -195,11 +195,10 @@ public abstract class CharacterAnimator : MonoBehaviour
 		UpdateMecanimVariables();
 
 		// keep track of time in current state for things like wall sliding, etc.
-		if (CurrentState.nameHash != _previousState.nameHash) {
+		if (CurrentState.nameHash != _previousState.nameHash)
 			_timeInCurrentState = 0.0f;
-		} else {
+		else
 			_timeInCurrentState += Time.fixedDeltaTime;
-		}
 
 		// Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
         _previousState = CurrentState;

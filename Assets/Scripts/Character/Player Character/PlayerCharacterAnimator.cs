@@ -121,15 +121,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		UpdateMovementAnimations();
 		UpdateAttackAnimations();
-		UpdatePlayerHUD();
-	
+		UpdatePlayerHUD(); //TODO: MOVE THIS
 	}
 
-	protected void UpdatePlayerHUD() {
+	protected void UpdatePlayerHUD()
+	{
 		_vignetteInstance.renderer.enabled = (GameManager.AI.EnemiesAware > 0);
 
 
-		if (_vignetteInstance.renderer.enabled) {
+		if (_vignetteInstance.renderer.enabled)
+		{
 				// how far into an <x>-second cycle are we?
 				float alphaValue = (Time.timeSinceLevelLoad % 2.0f);
 				alphaValue = alphaValue / 2.0f;
@@ -185,13 +186,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 
 		OlympusAnimator enemyAnim = null;
-		if (CharInput.AttackActive && CanStealthKill (out enemyAnim) && enemyAnim != null) {
+		if (CharInput.AttackActive && CanStealthKill (out enemyAnim) && enemyAnim != null)
+		{
 			// player enter stealth kill anim and spawn a stealth kill attack in front of him
 			MecanimAnimator.SetBool (_stealthKillHash, true);
 
 			Invoke ("GenerateStealthKillEvent", 1.0f);
 
-		} else if(! CurrentState.IsName("Moving.Stealth Kill")) {
+		}
+		else if(! CurrentState.IsName("Moving.Stealth Kill"))
+		{
+
 			MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
 			MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackActive && currentWeapon is GravityGun); 
 			MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackRightPressed && currentWeapon is Mine); 
@@ -201,7 +206,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 
-	void GenerateStealthKillEvent() {
+	void GenerateStealthKillEvent()
+	{
 		// find where to place the attack event
 		Vector3 killPos = transform.position;
 		killPos.x += (Direction.x * Settings.StealthKillRange);
@@ -297,20 +303,23 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_dieHash, true);
     }
 
-	public override void MakeDamaged(Vector2 knockForce) {
+	public override void MakeDamaged(Vector2 knockForce)
+	{
 		MecanimAnimator.SetBool (_damagedHash, true);
 		HorizontalSpeed = knockForce.x;
 		VerticalSpeed = knockForce.y;
 
 	}
 
-	protected void Damaged(float elapsedTime) {
+	protected void Damaged(float elapsedTime)
+	{
 		MecanimAnimator.SetBool (_damagedHash, false);
 		ApplyGravity (elapsedTime);
 
 	}
 	
-	protected void StealthKill(float elapsedTime) {
+	protected void StealthKill(float elapsedTime)
+	{
 		if (MecanimAnimator.GetBool (_stealthKillHash)) {
 			Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
 
@@ -727,13 +736,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		base.ApplyRunning(elapsedTime);
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
-	
-	public PlayerCharacterArsenal Arsenal
-	{
-		get { return _arsenal; }
-	}
 
-	public bool CanStealthKill(out OlympusAnimator animRet) {
+	public bool CanStealthKill(out OlympusAnimator animRet)
+	{
 		animRet = null;
 
 		// no melee equipped, don't even bother to cast any rays
@@ -752,11 +757,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		RaycastHit hitInfo = new RaycastHit();
 		// see if the first thing in our stealth kill distance is the enemy (no obstacles in between)
 		// NOTE: Distance can be buggy unless you include a layer mask.
-		if (Physics.Raycast(vPlayerPos, vDir, out hitInfo, Settings.StealthKillRange, 1 << 11 ) ) {
+		if (Physics.Raycast(vPlayerPos, vDir, out hitInfo, Settings.StealthKillRange, 1 << 11 ) )
+		{
 				EnemyAI ai = hitInfo.transform.root.GetComponent<EnemyAI>();
 				OlympusAnimator anim = hitInfo.transform.root.GetComponent<OlympusAnimator>();
 
-				if(ai && anim && (ai.Awareness == EnemyAI.AwarenessLevel.Unaware) && anim.IsGrounded) {
+				if(ai && anim && (ai.Awareness == EnemyAI.AwarenessLevel.Unaware) && anim.IsGrounded)
+				{
 					animRet = anim;
 					return true;
 				}
@@ -765,6 +772,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		return false;
 
+	}
+
+
+	public PlayerCharacterArsenal Arsenal
+	{
+		get { return _arsenal; }
 	}
 
 }

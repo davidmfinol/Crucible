@@ -236,7 +236,9 @@ public class TouchInput : MonoBehaviour
 			return;
 		}
 		
-		float[] DotPositions = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f};
+		float[] DotPositions = {-3.0f,-3.0f,0.0f,-3.0f,3.0f,-3.0f,
+			-3.0f,0.0f,0.0f,0.0f,3.0f,0.0f,
+			-3.0f,3.0f,0.0f,3.0f,3.0f,3.0f};
 		//	{-3.0f,-3.0f,0.0f,-3.0f,3.0f,-3.0f,-3.0f,0.0f,0.0f,0.0f,3.0f,0.0f,-3.0f,3.0f,0.0f,3.0f,3.0f,3.0f};
 		Vector2 pos = ConvertScreenPosToWorld (_actionStartPos);
 		for(int dot=0; dot<_userInterfaceDots.Count; dot++)
