@@ -17,7 +17,7 @@ public class PipeWeapon : Weapon
 		hitbox.FromWeaponType = WeaponType.Weapon_Melee;
 		hitbox.DamageAmount = 0;
 		hitbox.CanStun = true;
-		hitbox.CanStealthKill = true;
+		hitbox.CanStealthKill = false;
 	}
 
 	public override void ActivateAttack (float attackID)

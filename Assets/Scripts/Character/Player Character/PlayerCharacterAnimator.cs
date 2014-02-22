@@ -156,9 +156,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		OlympusAnimator enemyAnim = null;
 		if (CharInput.AttackActive && CanStealthKill (out enemyAnim) && enemyAnim != null) {
-
-			Debug.Log ("Stealth killing Olympus.");
-
 			// player enter stealth kill anim and spawn a stealth kill attack in front of him
 			MecanimAnimator.SetBool (_stealthKillHash, true);
 
@@ -699,15 +696,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		RaycastHit hitInfo = new RaycastHit();
 		// see if the first thing in our stealth kill distance is the enemy (no obstacles in between)
-		if (Physics.Raycast(vPlayerPos, vDir, out hitInfo, Settings.StealthKillRange) ) {
-			EnemyAI ai = hitInfo.transform.root.GetComponent<EnemyAI>();
-			OlympusAnimator anim = hitInfo.transform.root.GetComponent<OlympusAnimator>();
+		// NOTE: Distance can be buggy unless you include a layer mask.
+		if (Physics.Raycast(vPlayerPos, vDir, out hitInfo, Settings.StealthKillRange, 1 << 11 ) ) {
+				EnemyAI ai = hitInfo.transform.root.GetComponent<EnemyAI>();
+				OlympusAnimator anim = hitInfo.transform.root.GetComponent<OlympusAnimator>();
 
-			if(ai && anim && (ai.Awareness == EnemyAI.AwarenessLevel.Unaware) && anim.IsGrounded) {
-//				Debug.Log ("found standing, unaware Olympus");
-				animRet = anim;
-				return true;
-			}
+				if(ai && anim && (ai.Awareness == EnemyAI.AwarenessLevel.Unaware) && anim.IsGrounded) {
+					animRet = anim;
+					return true;
+				}
 
 		}
 
