@@ -76,7 +76,8 @@ public class PlayerHeartBox : HeartBox
 
 
 		// killed
-		} else if (HitPoints == 0) {
+		} else if (HitPoints <= 0) {
+			// TODO: Controller.MakeDamaged (knockForce);
 			Controller.OnDeath ();
 
 		// hurt or healed

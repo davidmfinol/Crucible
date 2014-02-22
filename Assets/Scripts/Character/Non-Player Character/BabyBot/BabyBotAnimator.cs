@@ -72,7 +72,7 @@ public class BabyBotAnimator : CharacterAnimator
 		//MecanimAnimator.applyRootMotion = false;
 
 		// Disable movement
-		// 	Controller.enabled = false;
+		Controller.enabled = false;
 		IgnoreMovement = true;
 		IgnoreDirection = true;
 

@@ -105,7 +105,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
 		states.Add (Animator.StringToHash ("Air.Backflip"));
 		states.Add (Animator.StringToHash ("Air.Falling"));
-		states.Add (Animator.StringToHash ("Air.Landing"));
+		//states.Add (Animator.StringToHash ("Air.Landing"));
 		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
 		states.Add (Animator.StringToHash ("Moving.StealthKill"));
 		return states;
