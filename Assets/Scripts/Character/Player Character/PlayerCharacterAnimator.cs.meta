@@ -1,8 +1,10 @@
 fileFormatVersion: 2
-guid: b7ae0c063ee37c54b9b76ab56eda6188
+guid: 692cb332031516447b0cd01ad4e43f46
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - CharAvatar: {fileID: 9000000, guid: 8b20cd1961157f44381e107085923b73, type: 3}
+  - StealthKillEvent: {fileID: 100000, guid: 5bc32c44e54d045d1a4b764daec7dd7e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

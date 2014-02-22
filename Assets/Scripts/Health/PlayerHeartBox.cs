@@ -7,27 +7,24 @@ using System.Collections;
 [AddComponentMenu("Health/Player Character Heart Box")]
 public class PlayerHeartBox : HeartBox
 {
+	public Transform HurtEffect;
+	public Transform RegenEffect;
+
 	// The last hitbox we took this frame, or null if no hit this frame
 	private HitBox _hitbox = null;
 
-	// how long do we blink when hurt and healed?  which do we choose based on what happened to us last?
 	// how fast do we regen HP?
-	private int _lastHealthAdjust = 0;
-	private float _hurtBlinkTime = 2.0f;
-	private float _healBlinkTime = 0.3f;
 	private float _regenTimer = 6.0f;
 	// how long at this health?  how far along in regen?
-	private float _timeAtHealth = 0.0f;
 	private float _timeUntilRegen = 0.0f;
-	
-	// Used to control the shader settings for the player character
-	private PlayerCharacterShader _shader;
+
+	private PlayerCharacterAnimator _player;
 
 
 	protected override void OnStart()
 	{
-		_shader = transform.parent.GetComponent<PlayerCharacterShader>();
 		Controller.ModifyState = UpdateHealth;
+		_player = transform.root.GetComponent<PlayerCharacterAnimator> ();
 	}
 
 	void FixedUpdate()
@@ -50,67 +47,46 @@ public class PlayerHeartBox : HeartBox
 			// fly in direction of hit
 			//Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
 			//Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (_hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
-			// adjust health, change shaders, etc.
+			// adjust health, do particles, etc.
 			AdjustHealth (-1 * _hitbox.DamageAmount, knockForce );
 			Destroy (_hitbox.gameObject);
 			_hitbox = null;
 
 		} else
 		{
-			BlinkShield();
 			TryRegenHealth ();
 		}
 	}
 
 	private void AdjustHealth(int deltaHealth, Vector2 knockForce)
 	{
-		int currHealth = HitPoints;
-		HitPoints += deltaHealth;
-		int newHealth = HitPoints;
-	
-		_lastHealthAdjust = deltaHealth;
-		_timeAtHealth = 0.0f;
 		_timeUntilRegen = 0.0f;
-
 
 		// hurt but not killed,
 		if (deltaHealth < 0 && HitPoints > 0) {
 			Controller.MakeDamaged (knockForce);
 
-			// apply shield effect
-			if(!CharShader.CurrentlyHidden)
-				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Hurt);
+			// TODO OBJECT POOL
+			Transform effect = (Transform) Instantiate(HurtEffect, _player.transform.position, HurtEffect.rotation);
+			if(_hitbox.HorizontalDir > 0)
+				effect.Rotate(new Vector3(0, 180, 0));
+			effect.parent = transform;
+			Destroy(effect.gameObject, 2.0f);
+
 
 		// killed
 		} else if (HitPoints == 0) {
 			Controller.OnDeath ();
 
-			if(!CharShader.CurrentlyHidden)
-				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
-
 		// hurt or healed
-		} else if(newHealth != currHealth) {
-			if (HitPoints > 1 && !CharShader.CurrentlyHidden)
-				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Unhurt);
-			else if (HitPoints == 1 && !CharShader.CurrentlyHidden)
-				CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Hurt);
-		
+		} else if(deltaHealth != 0 && HitPoints == MaxHitPoints) {
+
+			// TODO OBJECT POOL
+			Transform effect = (Transform) Instantiate(RegenEffect, _player.transform.position, RegenEffect.rotation);
+			effect.parent = transform;
+			Destroy(effect.gameObject, 2.0f);
 		}
 
-	}
-
-	private void BlinkShield()
-	{
-		_timeAtHealth += Time.deltaTime;
-
-		// blink shield based on whether hurt or healed recently
-		if ((_lastHealthAdjust < 0) && (_timeAtHealth >= _hurtBlinkTime) && !CharShader.OnDefaultShader () && !CharShader.CurrentlyHidden) {
-			CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
-
-		} else if ((_lastHealthAdjust > 0) && (_timeAtHealth >= _healBlinkTime) && !CharShader.OnDefaultShader () && !CharShader.CurrentlyHidden) {
-			CharShader.SetShader (PlayerCharacterShader.ShaderType.Shader_Default);
-
-		}
 	}
 
 	private void TryRegenHealth()
@@ -119,11 +95,5 @@ public class PlayerHeartBox : HeartBox
 		_timeUntilRegen += Time.deltaTime;
 		if( (_timeUntilRegen >= _regenTimer) && (HitPoints < MaxHitPoints)  && (HitPoints > 0) )
 			AdjustHealth(1, new Vector2(0.0f, 0.0f) );
-	}
-
-
-	public PlayerCharacterShader CharShader
-	{
-		get { return _shader; }
 	}
 }
