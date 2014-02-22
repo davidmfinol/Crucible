@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
@@ -33,6 +33,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _backflipHash;
 //	private int _climbStrafeHash;
 	private int _respawnHash;
+	private int _damagedHash;
 
 	// Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -46,7 +47,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
 
-    protected override void Initialize()
+    protected override void OnStart()
     {
 		_arsenal = gameObject.GetComponent<PlayerCharacterArsenal>();
     }
@@ -57,6 +58,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Waiting For Respawn")] = Die;
         StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
+		StateMachine[Animator.StringToHash("Base Layer.Damaged")] = Damaged;
         StateMachine[Animator.StringToHash("Moving.Running")] = Running;
         StateMachine[Animator.StringToHash("Moving.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
@@ -94,6 +96,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_backflipHash = Animator.StringToHash ("Backflip");
 //		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
 		_respawnHash = Animator.StringToHash("Respawn");
+		_damagedHash = Animator.StringToHash("Damaged");
 	}
 	protected override List<int> DefineRootMotionCorrectionState()
 	{
@@ -103,6 +106,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		states.Add (Animator.StringToHash ("Air.Backflip"));
 		states.Add (Animator.StringToHash ("Air.Falling"));
 		states.Add (Animator.StringToHash ("Air.Landing"));
+		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
 		states.Add (Animator.StringToHash ("Moving.StealthKill"));
 		return states;
 	}
@@ -123,20 +127,22 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
 												   (facingLeftLadder && CharInput.Left));
-		bool startClimbPipe = CanClimbPipe && CharInput.Interaction;
+		bool startClimbPipe = CanClimbPipe;
 
 		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
 
+		/*
 		if(startClimbLadder)
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
+		// if not in a climb, reset our auto-climb direction for use next climb.
+		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
+			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+		*/
 
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 
-		// if not in a climb, reset our auto-climb direction for use next climb.
-		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
-			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
 		// if previous state was backflip, change direction
 		if( PreviousState.IsName("Air.Backflip")&&!CurrentState.IsName("Air.Backflip"))
 			Direction = -Direction;
@@ -152,9 +158,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		OlympusAnimator enemyAnim = null;
 		if (CharInput.AttackActive && CanStealthKill (out enemyAnim) && enemyAnim != null) {
-
-			Debug.Log ("Stealth killing Olympus.");
-
 			// player enter stealth kill anim and spawn a stealth kill attack in front of him
 			MecanimAnimator.SetBool (_stealthKillHash, true);
 
@@ -261,6 +264,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_dieHash, true);
     }
 
+	public override void MakeDamaged(Vector2 knockForce) {
+		MecanimAnimator.SetBool (_damagedHash, true);
+		HorizontalSpeed = knockForce.x;
+		VerticalSpeed = knockForce.y;
+
+	}
+
+	protected void Damaged(float elapsedTime) {
+		MecanimAnimator.SetBool (_damagedHash, false);
+		ApplyGravity (elapsedTime);
+
+	}
 	
 	protected void StealthKill(float elapsedTime) {
 		if (MecanimAnimator.GetBool (_stealthKillHash)) {
@@ -453,7 +468,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		    (ActiveHangTarget == null) || (TimeInCurrentState >= Settings.WallSlideDuration) )
 		{
 			MecanimAnimator.SetBool(_grabWallHash, false);
-			//DropHangTarget();
+			DropHangTarget();
 		}
 
 	}
@@ -578,20 +593,27 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 			return;
 		}
-
-		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
-
-		float vertical = UpdateAutoClimbDirection ();
-
-//		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
-//			ApplyClimbingStrafing( CharInput.Horizontal );
-//		else
-			HorizontalSpeed = 0;
-
+		
+		//		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
+		//			ApplyClimbingStrafing( CharInput.Horizontal );
+		//		else
+		HorizontalSpeed = 0;
+		
+		float vertical = CharInput.Vertical;
+		
 		ApplyClimbingVertical(vertical);
-
+		
 		if(ActiveHangTarget.DoesFaceZAxis())
 			Direction = Vector3.zero;
+
+		if(CharInput.InteractionPressed)
+		{
+			MecanimAnimator.SetBool (_fallHash, true);
+			DropHangTarget();
+			return;
+		}
+		else
+			MecanimAnimator.SetBool (_fallHash, false);
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
@@ -601,10 +623,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 			Direction = Vector3.left;
 			MecanimAnimator.SetBool (_jumpHash, true);
+			DropHangTarget();
 
 		} else if (CharInput.JumpRight) {
 			Direction = Vector3.right;
 			MecanimAnimator.SetBool (_jumpHash, true);
+			DropHangTarget();
 
 		}
 
@@ -683,15 +707,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		RaycastHit hitInfo = new RaycastHit();
 		// see if the first thing in our stealth kill distance is the enemy (no obstacles in between)
-		if (Physics.Raycast(vPlayerPos, vDir, out hitInfo, Settings.StealthKillRange) ) {
-			EnemyAI ai = hitInfo.transform.root.GetComponent<EnemyAI>();
-			OlympusAnimator anim = hitInfo.transform.root.GetComponent<OlympusAnimator>();
+		// NOTE: Distance can be buggy unless you include a layer mask.
+		if (Physics.Raycast(vPlayerPos, vDir, out hitInfo, Settings.StealthKillRange, 1 << 11 ) ) {
+				EnemyAI ai = hitInfo.transform.root.GetComponent<EnemyAI>();
+				OlympusAnimator anim = hitInfo.transform.root.GetComponent<OlympusAnimator>();
 
-			if(ai && anim && (ai.Awareness == EnemyAI.AwarenessLevel.Unaware) && anim.IsGrounded) {
-//				Debug.Log ("found standing, unaware Olympus");
-				animRet = anim;
-				return true;
-			}
+				if(ai && anim && (ai.Awareness == EnemyAI.AwarenessLevel.Unaware) && anim.IsGrounded) {
+					animRet = anim;
+					return true;
+				}
 
 		}
 
