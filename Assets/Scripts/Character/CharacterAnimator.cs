@@ -128,11 +128,16 @@ public abstract class CharacterAnimator : MonoBehaviour
 	{
 		Destroy(gameObject);
 	}
+
+	public virtual bool IsDead() {
+		return true;
+	}
+
     protected virtual void UpdateMecanimVariables()
     {
         // Empty by default; child classes should override
     }
-
+	
 	void Update()
 	{
 		// Disable root-based motion

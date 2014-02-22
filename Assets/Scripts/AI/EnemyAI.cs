@@ -346,7 +346,7 @@ public class EnemyAI : MonoBehaviour
 		CharacterAnimator player = GameManager.Player.GetComponent<CharacterAnimator>();// FIXME: SLOW
 		GameObject playerGO = player.gameObject;
 
-		if (playerGO == null || player == null)
+		if (playerGO == null || player == null || player.IsDead())
 			return false;
 
 

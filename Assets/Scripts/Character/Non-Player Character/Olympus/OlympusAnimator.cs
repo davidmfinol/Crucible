@@ -282,7 +282,13 @@ public class OlympusAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
 		
 	}
-	
+
+	public override bool IsDead() {
+		// TODO: fix. slow.
+		return(CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Stealth Death") );
+		
+	}
+
 	protected void StealthDeath(float elapsedTime) {
 		HorizontalSpeed = 0;
 		VerticalSpeed = 0;

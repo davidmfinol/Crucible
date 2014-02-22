@@ -289,6 +289,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			Debug.LogWarning("ShootGun() called with: " + weapon);
 	}
 
+	public override bool IsDead() {
+		// TODO: fix. slow.
+		return(CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Waiting For Respawn") );
+
+	}
 	
     public override void OnDeath()
     {
