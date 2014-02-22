@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 8b20cd1961157f44381e107085923b73
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: f_pinky_01_R
     100002: f_pinky_02_R
@@ -186,7 +186,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .88161701
+      - time: .764543831
         functionName: EndMelee
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -1520,5 +1520,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 3
-  additionalBone: 0
   userData: 
