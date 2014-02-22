@@ -10,6 +10,7 @@ using System.Collections.Generic;
 public class PlayerCharacterAnimator : CharacterAnimator
 {
 	public GameObject StealthKillEvent;
+	public Transform ChaseVignette;
 
 	// Mecanim hashes
 	private int _verticalSpeedHash;
@@ -47,9 +48,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
 
+	private Transform _vignetteInstance;
+
     protected override void OnStart()
     {
 		_arsenal = gameObject.GetComponent<PlayerCharacterArsenal>();
+		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
+		_vignetteInstance.renderer.enabled = false;
     }
 	
 	protected override void CreateStateMachine()
@@ -115,6 +120,32 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		UpdateMovementAnimations();
 		UpdateAttackAnimations();
+		UpdatePlayerHUD();
+	
+	}
+
+	protected void UpdatePlayerHUD() {
+		_vignetteInstance.renderer.enabled = (GameManager.AI.EnemiesAware > 0);
+
+
+		if (_vignetteInstance.renderer.enabled) {
+				// how far into an <x>-second cycle are we?
+				float alphaValue = (Time.timeSinceLevelLoad % 2.0f);
+				alphaValue = alphaValue / 2.0f;
+
+				// convert that to radians
+				alphaValue *= (2.0f * Mathf.PI);
+
+				// take a fixed alpha plus/minus whatever cycle offset enhancement we want
+				alphaValue = 0.7f + (Mathf.Cos (alphaValue) * 0.3f);
+
+				_vignetteInstance.renderer.material.color = new Vector4 (_vignetteInstance.renderer.material.color.r, 
+	                                             			_vignetteInstance.renderer.material.color.g, 
+	                                          			    _vignetteInstance.renderer.material.color.b,
+		                                    			     alphaValue);
+
+		}
+
 	}
 
 	protected void UpdateMovementAnimations()
