@@ -61,6 +61,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 
+	/*
 	// Auto-climb code for ladders and pipes
 	protected enum AutoClimbDirection : int
 	{
@@ -70,6 +71,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 	};
 	
 	protected AutoClimbDirection _autoClimbDir;
+	*/
 
 	void Start()
 	{
@@ -431,15 +433,16 @@ public abstract class CharacterAnimator : MonoBehaviour
             VerticalSpeed = 0.0f;
 	}
 
+	/*
 	protected float UpdateAutoClimbDirection()
 	{
 		// start or stop auto-climbing
-		if (CharInput.Up)
+		if (CharInput.Up && _autoClimbDir == AutoClimbDirection.AutoClimb_None)
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
-		else if (CharInput.Down)
+		else if (CharInput.Down && _autoClimbDir == AutoClimbDirection.AutoClimb_None)
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Down;
-		else if (CharInput.InteractionPressed)
-			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+		//else if ((CharInput.Down && _autoClimbDir = AutoClimbDirection.AutoClimb_Up) || (CharInput.Up && _autoClimbDir = AutoClimbDirection.AutoClimb_Down))
+		//	_autoClimbDir = AutoClimbDirection.AutoClimb_None;
 		
 		// always give a speed based on the auto-climb direction
 		float vertical;
@@ -452,6 +455,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 		
 		return vertical;
 	}
+	*/
 
 	protected virtual void ApplyClimbingStrafing(float horizontal)
 	{

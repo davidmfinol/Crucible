@@ -76,9 +76,11 @@ public class OlympusAnimator : CharacterAnimator
 		bool startClimbPipe = CanClimbPipe && CharInput.Interaction;
 		
 		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
-		
+
+		/*
 		if(startClimbLadder)
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
+		*/
 		
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
@@ -261,16 +263,16 @@ public class OlympusAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 			return;
 		}
-		
+
+		/*
 		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
-		
-		Debug.Log ("BEFORE: " + _autoClimbDir);
+
 		float vertical = UpdateAutoClimbDirection ();
-		Debug.Log ("AFTER: " + _autoClimbDir);
+		*/
 		
 		HorizontalSpeed = 0;
 		
-		ApplyClimbingVertical(vertical);
+		ApplyClimbingVertical(CharInput.Vertical);
 		
 		if(ActiveHangTarget.DoesFaceZAxis())
 			Direction = Vector3.zero;
