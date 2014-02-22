@@ -41,6 +41,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     
     // Used for backflipping
 	private float _desiredSpeed;
+	private float _desiredDirectionX;
 	
 	//TODO: Figure out this comment
 	private float _timeUntilNextFootStepSound = -1f;
@@ -108,7 +109,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		List<int> states = new List<int> ();
 		states.Add (Animator.StringToHash ("Wall.Walljumping"));
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
-		states.Add (Animator.StringToHash ("Air.Backflip"));
+		//states.Add (Animator.StringToHash ("Air.Backflip"));
 		states.Add (Animator.StringToHash ("Air.Falling"));
 		//states.Add (Animator.StringToHash ("Air.Landing"));
 		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
@@ -173,10 +174,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
-
-		// if previous state was backflip, change direction
-		if( PreviousState.IsName("Air.Backflip")&&!CurrentState.IsName("Air.Backflip"))
-			Direction = -Direction;
 
 	}
 	protected void UpdateAttackAnimations()
@@ -453,13 +450,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(MecanimAnimator.GetBool(_backflipHash))
 		{
 			MecanimAnimator.SetBool(_backflipHash, false);
+			_desiredDirectionX = -Direction.x;
 			_desiredSpeed = -HorizontalSpeed;
 			VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 		}
 		else
 			ApplyGravity(elapsedTime);
 		
+		
 		float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
+		if(TimeInCurrentState > 0.15f)
+		{
+			Vector3 newDir = new Vector3(Mathf.Lerp(Direction.x, _desiredDirectionX, accelerationSmoothing), 0, 0);
+			if (newDir.x * Direction.x < 0)
+				HorizontalSpeed = -HorizontalSpeed;
+			Direction = newDir;
+		}
+		
+		accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
 		HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, _desiredSpeed, accelerationSmoothing);
 
 		MecanimAnimator.SetBool(_hangHash, 
