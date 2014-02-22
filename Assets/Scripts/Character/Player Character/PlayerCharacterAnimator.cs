@@ -127,20 +127,22 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
 												   (facingLeftLadder && CharInput.Left));
-		bool startClimbPipe = CanClimbPipe && CharInput.Interaction;
+		bool startClimbPipe = CanClimbPipe;
 
 		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
 
+		/*
 		if(startClimbLadder)
 			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
+		// if not in a climb, reset our auto-climb direction for use next climb.
+		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
+			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
+		*/
 
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 
-		// if not in a climb, reset our auto-climb direction for use next climb.
-		if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
-			_autoClimbDir = AutoClimbDirection.AutoClimb_None;
 		// if previous state was backflip, change direction
 		if( PreviousState.IsName("Air.Backflip")&&!CurrentState.IsName("Air.Backflip"))
 			Direction = -Direction;
@@ -466,7 +468,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		    (ActiveHangTarget == null) || (TimeInCurrentState >= Settings.WallSlideDuration) )
 		{
 			MecanimAnimator.SetBool(_grabWallHash, false);
-			//DropHangTarget();
+			DropHangTarget();
 		}
 
 	}
@@ -591,20 +593,27 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 			return;
 		}
-
-		MecanimAnimator.SetBool (_fallHash, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
-
-		float vertical = UpdateAutoClimbDirection ();
-
-//		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
-//			ApplyClimbingStrafing( CharInput.Horizontal );
-//		else
-			HorizontalSpeed = 0;
-
+		
+		//		if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
+		//			ApplyClimbingStrafing( CharInput.Horizontal );
+		//		else
+		HorizontalSpeed = 0;
+		
+		float vertical = CharInput.Vertical;
+		
 		ApplyClimbingVertical(vertical);
-
+		
 		if(ActiveHangTarget.DoesFaceZAxis())
 			Direction = Vector3.zero;
+
+		if(CharInput.InteractionPressed)
+		{
+			MecanimAnimator.SetBool (_fallHash, true);
+			DropHangTarget();
+			return;
+		}
+		else
+			MecanimAnimator.SetBool (_fallHash, false);
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
@@ -614,10 +623,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 			Direction = Vector3.left;
 			MecanimAnimator.SetBool (_jumpHash, true);
+			DropHangTarget();
 
 		} else if (CharInput.JumpRight) {
 			Direction = Vector3.right;
 			MecanimAnimator.SetBool (_jumpHash, true);
+			DropHangTarget();
 
 		}
 

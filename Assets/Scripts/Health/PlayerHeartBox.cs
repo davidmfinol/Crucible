@@ -61,7 +61,8 @@ public class PlayerHeartBox : HeartBox
 	private void AdjustHealth(int deltaHealth, Vector2 knockForce)
 	{
 		_timeUntilRegen = 0.0f;
-
+		HitPoints += deltaHealth;
+		
 		// hurt but not killed,
 		if (deltaHealth < 0 && HitPoints > 0) {
 			Controller.MakeDamaged (knockForce);
