@@ -8,19 +8,8 @@ using Pathfinding.Serialization.JsonFx;
 ///  Creates a custom A* graph to be used to traverse through zones in the game
 /// </summary>
 [JsonOptIn]
-public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
+public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 {
-    public override Node[] CreateNodes(int number)
-    {
-        ZoneNode[] tmp = new ZoneNode[number];
-        for (int i = 0; i < number; i++)
-        {
-            tmp[i] = new ZoneNode();
-            tmp[i].penalty = initialPenalty;
-        }
-        nodes = tmp;
-        return tmp as Node[];
-    }
 
     [JsonMember]
     // Game Objects tagged with this tag will be considered nodes on the ZoneGraph
@@ -44,23 +33,44 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
     // Waypoints with bounds will be subdivided into more points that are this distance away from each other for fidelity of traversal
     public float WaypointSubdivisionSize = 7;
 
+    // All the ZoneNodes in the ZoneGraph
+    public ZoneNode[] nodes;
+
+    // The number of ZoneNodes in the ZoneGraph
+    public int nodeCount;
+
     // Map of all the waypoints (as nodes on the node graph) to their respective zones (areas indicated by Bounds)
-    Dictionary<Bounds, HashSet<ZoneNode>> ZonesWithWaypoints;
+    private Dictionary<Bounds, HashSet<ZoneNode>> ZonesWithWaypoints;
 
     // Map of all the transition waypoints (as nodes on the node graph) to their respective transition zones (areas indicated by Bounds)
-    Dictionary<Bounds, HashSet<ZoneNode>> TransitionZonesWithWaypoints;
+    private Dictionary<Bounds, HashSet<ZoneNode>> TransitionZonesWithWaypoints;
+    
+    public override void CreateNodes(int number)
+    {
+        ZoneNode[] tmp = new ZoneNode[number];
+        for (int i = 0; i < number; i++)
+            tmp[i] = new ZoneNode(AstarPath.active);
+        nodes = tmp;
+        nodeCount = number;
+    }
+
+    public override void GetNodes (GraphNodeDelegateCancelable del)
+    {
+        if (nodes == null) return;
+        for (int i=0;i<nodeCount && del (nodes[i]);i++) {}
+    }
 	
 	/// <summary>
-    /// Scans the scene and creates the zone graph to be used by A* for pathfinding
+    /// Scans the scene and creates the zone graph to be used by A* for pathfinding.
 	/// </summary>
-    public override void Scan()
+    public override void ScanInternal(OnScanStatus statusCallback)
     {
         GenerateNodes();
         ConnectNodes();
     }
 
     /// <summary>
-    /// Finds all the waypoints in the scenes and creates nodes on the node graph for them
+    /// Finds all the waypoints in the scenes and creates nodes on the node graph for them.
     /// </summary>
     public void GenerateNodes()
     {
@@ -131,7 +141,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
             ZonesWithWaypoints.Add(zoneGO.collider.bounds, new HashSet<ZoneNode>());
 
         // Create and set up the nodes based off the organized waypoints
-        nodes = CreateNodes(ZoneWaypoints.Count + TransitionWaypoints.Count);
+        CreateNodes(ZoneWaypoints.Count + TransitionWaypoints.Count);
         int nodeNum = 0;
         foreach (KeyValuePair<Vector3, GameObject> waypointKV in ZoneWaypoints)
         {
@@ -146,7 +156,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         {
 			Vector3 waypoint = new Vector3(waypointKV.Key.x, waypointKV.Key.y, waypointKV.Value.transform.position.z);
             nodes[nodeNum].position = (Int3)waypoint;
-            nodes[nodeNum].walkable = !Physics.CheckSphere(waypoint, 0.0001f, CollisionMask.value);
+            nodes[nodeNum].Walkable = !Physics.CheckSphere(waypoint, 0.0001f, CollisionMask.value);
             ((ZoneNode)nodes[nodeNum]).GO = waypointKV.Value;
             ((ZoneNode)nodes[nodeNum]).isTransition = true;
             ((ZoneNode)nodes[nodeNum]).isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
@@ -164,7 +174,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 					if(!node.isTransition)
 						nodePos.z = zoneBounds.center.z;
 					node.position = (Int3)nodePos;
-            		node.walkable = !Physics.CheckSphere(nodePos, 0.0001f, CollisionMask.value);
+            		node.Walkable = !Physics.CheckSphere(nodePos, 0.0001f, CollisionMask.value);
                     ZonesWithWaypoints[zoneBounds].Add(node);
 				}
 			}
@@ -175,10 +185,10 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
     }
 	
 	/// <summary>
-    /// Takes the bounds of a waypoint and subdivides it into a set of waypoints
+    /// Takes the bounds of a waypoint and subdivides it into a set of waypoints.
 	/// </summary>
-	/// <param name="waypointBounds"></param>
-	/// <returns></returns>
+    /// <param name="waypointBounds">The bounds of an object marked as waypoint.</param>
+	/// <returns>The points inside the bounds.</returns>
     public HashSet<Vector3> subdivideWaypoint(Bounds waypointBounds)
 	{
         HashSet<Vector3> subdividedWaypoints = new HashSet<Vector3>();
@@ -206,10 +216,10 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 	}
 	
 	/// <summary>
-    /// Takes the bounds of a waypoint and returns points directly above it
+    /// Takes the bounds of a waypoint and returns points directly above it.
 	/// </summary>
-	/// <param name="waypointBounds"></param>
-	/// <returns></returns>
+	/// <param name="waypointBounds">The bounds of an object marked as waypoint.</param>
+	/// <returns>The points above the bounds.</returns>
 	public HashSet<Vector3> getWaypointsAbove(Bounds waypointBounds)
 	{
         HashSet<Vector3> aboveWaypoints = new HashSet<Vector3>();
@@ -232,8 +242,8 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
     public void ConnectNodes()
     {
         // To avoid too many allocations, these lists are reused for each node
-        List<Node> connections = new List<Node>(3);
-        List<int> costs = new List<int>(3);
+        List<ZoneNode> connections = new List<ZoneNode>(3);
+        List<uint> costs = new List<uint>(3);
 
         // Get the transition zones ready
         foreach (KeyValuePair<Bounds, HashSet<ZoneNode>> transitionZoneWaypointsPair in TransitionZonesWithWaypoints)
@@ -255,7 +265,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
                         if (IsValidConnection(node, other, out dist))
                         {
                             connections.Add(other);
-                            costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                            costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
                         }
                     }
                 }
@@ -267,7 +277,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
                     if (IsValidConnection(node, other, out dist))
                     {
                         connections.Add(other);
-                        costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                        costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
                     }
                 }
 
@@ -284,8 +294,24 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
                 connections.Clear();
                 costs.Clear();
 
-                connections = node.connections != null ? new List<Node>(node.connections) : new List<Node>(3);
-                costs = node.connectionCosts != null ? new List<int>(node.connectionCosts) : new List<int>(3);
+                if(node.connections != null)
+                {
+                    connections = new List<ZoneNode>(node.connections.Length);
+                    foreach(ZoneNode connectedNode in node.connections)
+                        connections.Add(connectedNode);
+                }
+                else
+                    connections = new List<ZoneNode>(3);
+
+
+                if(node.connectionCosts != null)
+                {
+                    costs = new List<uint>(node.connectionCosts.Length);
+                    foreach(uint val in node.connectionCosts)
+                        costs.Add(val);
+                }
+                else
+                    costs = new List<uint>(3);
 
                 foreach (ZoneNode other in zoneWaypointsPair.Value)
                 {
@@ -295,7 +321,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
                     if (IsValidConnection(node, other, out dist))
                     {
                         connections.Add(other);
-                        costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                        costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
                     }
                 }
                 foreach (KeyValuePair<Bounds, HashSet<ZoneNode>> transitionZoneWaypointsPair in TransitionZonesWithWaypoints)
@@ -310,7 +336,7 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
                         if (IsValidConnection(node, other, out dist))
                         {
                             connections.Add(other);
-                            costs.Add(Mathf.RoundToInt(dist * Int3.FloatPrecision));
+                            costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
                         }
                     }
                 }
@@ -322,17 +348,17 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
     }
 	
 	/// <summary>
-    /// Checks if going from Node A to Node B is a valid movement for a character
+    /// Checks if going from Node A to Node B is a valid movement for a character.
 	/// </summary>
-	/// <param name="A"></param>
-	/// <param name="B"></param>
-	/// <param name="dist"></param>
-	/// <returns></returns>
+	/// <param name="A">The first node.</param>
+	/// <param name="B">The second node.</param>
+	/// <param name="dist">The distance between the two nodes.</param>
+	/// <returns>Whether or not the connection between the nodes is valid.</returns>
     public bool IsValidConnection(ZoneNode A, ZoneNode B, out float dist)
     {
         dist = 0;
 
-        if (!A.walkable || !B.walkable)
+        if (!A.Walkable || !B.Walkable)
             return false;
 		
         // account for jump distances
@@ -341,10 +367,10 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 
         Vector3 dir = (Vector3)(A.position - B.position);
         dist = dir.magnitude;
-
+        
         Ray ray = new Ray((Vector3)A.position, (Vector3)(B.position - A.position));
         Ray invertRay = new Ray((Vector3)B.position, (Vector3)(A.position - B.position));
-
+        
         bool obstructedByGround = Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
         bool pathExists = false;
         if (A.GO != null && B.GO != null)
@@ -357,15 +383,36 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
         return !obstructedByGround && !pathExists;
     }
 
-    public override NNInfo GetNearest(Vector3 position, NNConstraint constraint, Node hint)
+    /// <summary>
+    /// Checks if there is a ground object between two points.
+    /// </summary>
+    /// <returns><c>true</c>, if by ground was obstructeded, <c>false</c> otherwise.</returns>
+    /// <param name="posA">Position a.</param>
+    /// <param name="posB">Position b.</param>
+    public bool ObstructedByGround(Vector3 posA, Vector3 posB, out float dist)
     {
-        ZoneNode a = new ZoneNode();
-        a.position = (Int3)position;
-        a.walkable = true;
-        a.GO = null;
-        Node nearestNode = a;
+        Vector3 dir = (posA - posB);
+        dist = dir.magnitude;
+        
+        Ray ray = new Ray(posA, (posB - posA));
+        Ray invertRay = new Ray(posB, posA - posB);
+        
+        return Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
+    }
+
+    /// <summary>
+    /// Gets the nearest node on this graph to specified position.
+    /// </summary>
+    /// <returns>The nearest node on this graph.</returns>
+    /// <param name="position">The position examined.</param>
+    /// <param name="constraint">Ignored.</param>
+    /// <param name="hint">Ignored.</param>
+    public override NNInfo GetNearest(Vector3 position, NNConstraint constraint, GraphNode hint)
+    {
+        ZoneNode nearestNode = null;
         float minDist = float.MaxValue / 1100;
-        foreach (KeyValuePair<Bounds, HashSet<ZoneNode>> zoneWithWaypoints in ZonesWithWaypoints)
+
+        foreach (KeyValuePair<Bounds, HashSet<ZoneNode> > zoneWithWaypoints in ZonesWithWaypoints)
         {
             if(!zoneWithWaypoints.Key.Contains(position))
                 continue;
@@ -374,8 +421,12 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
             while (nodesInZone.MoveNext())
             {
                 float dist = float.MaxValue / 1100;
-				
-				bool isValid = IsValidConnection(a, (ZoneNode)nodesInZone.Current, out dist);
+
+                Vector3 endPos = (Vector3) ((ZoneNode)nodesInZone.Current).position;
+                bool canJump = EnemyAISettings.CanJump(position, endPos);
+                bool obstructedByGround = ObstructedByGround(position, endPos, out dist);
+				bool isValid = canJump && !obstructedByGround;
+
 				float zPenalty = 1000 * Mathf.Max(Mathf.Abs(position.z - nodesInZone.Current.position.z), 1);
 				dist*= zPenalty;
                 if (isValid && dist < minDist)
@@ -396,15 +447,8 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 			return;
 		}
 		
-		if (!drawNodes)
+        if (!drawNodes || nodes == null)
 			return;
-		
-		if (nodes == null)
-			Scan ();
-		
-		if (nodes == null)
-			return;
-		
 		
 		for (int i=0;i<nodes.Length;i++)
 		{
@@ -424,24 +468,4 @@ public class ZoneGraph : NavGraph, ISerializableGraph// TODO:, IUpdatableGraph
 			
 		}
 	}
-
-    // Deprecated Serialization
-    public void SerializeNodes(Node[] nodes, AstarSerializer serializer){}
-    public void DeSerializeNodes(Node[] nodes, AstarSerializer serializer){}
-    public void SerializeSettings(AstarSerializer serializer)
-    {
-        serializer.AddValue("WaypointTag", WaypointTag);
-        serializer.AddValue("ZonesTag", ZonesTag);
-        serializer.AddValue("TransitionZonesTag", TransitionZonesTag);
-        serializer.AddValue("CollisionMask", CollisionMask.value);
-        serializer.AddValue("WaypointSubdivisionSize", WaypointSubdivisionSize);
-    }
-    public void DeSerializeSettings(AstarSerializer serializer)
-    {
-        WaypointTag = (string)serializer.GetValue("WaypointTag", typeof(string));
-        ZonesTag = (string)serializer.GetValue("ZonesTag", typeof(string));
-        TransitionZonesTag = (string)serializer.GetValue("TransitionZonesTag", typeof(string));
-        CollisionMask.value = (int)serializer.GetValue("CollisionMask", typeof(int));
-        WaypointSubdivisionSize = (float)serializer.GetValue("WaypointSubdivisionSize", typeof(float));
-    }
 }

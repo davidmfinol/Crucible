@@ -79,6 +79,7 @@ namespace Pathfinding.Threading {
 			Parallel instance = new Parallel ();
 			instance.Initialize ();
 			instance.ForLoop (start,stop,stepLength,loopBody, close);
+			
 		}
 		
 			

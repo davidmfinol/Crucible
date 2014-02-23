@@ -151,7 +151,7 @@ public class CloudsToyEditor : Editor {
 				else
 				if(i != 0 && i != 3)
 					EditorGUILayout.Separator();
-				CloudSystem.CloudsTextAdd[i] = (Texture2D)EditorGUILayout.ObjectField(CloudSystem.CloudsTextAdd[i], typeof(Texture2D), GUILayout.Width(70), GUILayout.Height(70));
+                CloudSystem.CloudsTextAdd[i] = (Texture2D)EditorGUILayout.ObjectField(CloudSystem.CloudsTextAdd[i], typeof(Texture2D), true, GUILayout.Width(70), GUILayout.Height(70));
 			}
 			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.Separator();
@@ -168,7 +168,7 @@ public class CloudsToyEditor : Editor {
 				else
 				if(i != 0 && i != 3)
 					EditorGUILayout.Separator();
-				CloudSystem.CloudsTextBlended[i] = (Texture2D)EditorGUILayout.ObjectField(CloudSystem.CloudsTextBlended[i], typeof(Texture2D), GUILayout.Width(70), GUILayout.Height(70));
+                CloudSystem.CloudsTextBlended[i] = (Texture2D)EditorGUILayout.ObjectField(CloudSystem.CloudsTextBlended[i], typeof(Texture2D), true,  GUILayout.Width(70), GUILayout.Height(70));
 			}
 			EditorGUILayout.EndHorizontal();
 			EditorGUILayout.Separator();
@@ -237,11 +237,11 @@ public class CloudsToyEditor : Editor {
 				EditorGUILayout.Separator();
 				EditorGUILayout.BeginHorizontal();
 				EditorGUILayout.Space();
-				ProcText.MyTexture = (Texture2D)EditorGUILayout.ObjectField(ProcText.MyTexture, typeof(Texture2D), GUILayout.Width(MyWidth), GUILayout.Height(MyWidth));
+                ProcText.MyTexture = (Texture2D)EditorGUILayout.ObjectField(ProcText.MyTexture, typeof(Texture2D), true,  GUILayout.Width(MyWidth), GUILayout.Height(MyWidth));
 				EditorGUILayout.Separator();
 				EditorGUILayout.Space();
 				if(CloudSystem.PT1UseAlphaTexture)
-					ProcText.MyAlphaDrawTexture = (Texture2D)EditorGUILayout.ObjectField(ProcText.MyAlphaDrawTexture, typeof(Texture2D), GUILayout.Width(MyWidth), GUILayout.Height(MyWidth));
+                    ProcText.MyAlphaDrawTexture = (Texture2D)EditorGUILayout.ObjectField(ProcText.MyAlphaDrawTexture, typeof(Texture2D), true,  GUILayout.Width(MyWidth), GUILayout.Height(MyWidth));
 				EditorGUILayout.Separator();
 				EditorGUILayout.EndHorizontal();
 				EditorGUILayout.Separator();

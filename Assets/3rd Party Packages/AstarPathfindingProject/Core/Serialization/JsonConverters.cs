@@ -33,7 +33,7 @@ namespace Pathfinding.Serialization
 			if (values.ContainsKey ("GUID")) {
 				string guid = (string)values["GUID"];
 				
-				UnityReferenceHelper[] helpers = UnityEngine.Object.FindObjectsOfType (typeof(UnityReferenceHelper)) as UnityReferenceHelper[];
+				UnityReferenceHelper[] helpers = UnityEngine.Object.FindObjectsOfType(typeof(UnityReferenceHelper)) as UnityReferenceHelper[];
 				
 				for (int i=0;i<helpers.Length;i++) {
 					if (helpers[i].GetGUID () == guid) {
@@ -258,5 +258,3 @@ namespace Pathfinding.Serialization
         }
     }
 }
-
-

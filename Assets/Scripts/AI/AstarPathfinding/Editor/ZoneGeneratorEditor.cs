@@ -40,7 +40,7 @@ public class ZoneGraphEditor : GraphEditor
 					Gizmos.color = AstarColor.BoundsHandles;
 				if(node.isGround)
 					Gizmos.color = AstarColor.ConnectionLowLerp;
-				if(!node.walkable)
+				if(!node.Walkable)
 					Gizmos.color = AstarColor.UnwalkableNode;
                 Gizmos.DrawCube((Vector3)node.position, Vector3.one * HandleUtility.GetHandleSize((Vector3)node.position) * 0.1F);
 			}

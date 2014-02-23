@@ -48,7 +48,7 @@ public class MeshToGameObjectsMenu
 	static void MeshToGameObjects ()
 	{
 		// TODO: UPDATE THIS UNDO TO NONDEPRECATED VERSION
-		Undo.RegisterSceneUndo("Create Game Objects from Meshes");	
+		// Undo.RegisterSceneUndo("Create Game Objects from Meshes");	
 		
 		playerPrefab = (GameObject) Resources.Load("PlayerCharacter");
 		ledgePrefab = (GameObject) Resources.Load("Ledge");
