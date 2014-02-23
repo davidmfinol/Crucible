@@ -35,7 +35,7 @@ public class DynamicMusicPlayer : AudioPlayer
 		_audioFadingIn = false;
 		_audio1 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio1.dopplerLevel = 0;
-		_audio1.volume = 0.2f;
+		_audio1.volume = 0.5f;
 		_audio1.panLevel = 0;
 		_audio2 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio2.dopplerLevel = 0;
@@ -55,10 +55,6 @@ public class DynamicMusicPlayer : AudioPlayer
 	void Update()
 	{
 		PlayDanger(DangerLevel);
-		if(_audioFadingOut)
-			FadeOut (_audio1);
-		if(_audioFadingIn)
-			FadeIn (_audio1);
 	}
 	
 	public void PlayDanger(int dangerLevel)
@@ -66,25 +62,27 @@ public class DynamicMusicPlayer : AudioPlayer
 		// Do nothing if the danger level hasn't changed
 //		Debug.Log (dangerLevel + " " + _audioFadingIn + _audioFadingOut);
 		if(dangerLevel == _prevDangerLevel)
+		{
+			if (_audioFadingIn)
+				FadeIn(_audio1);
+			else if (_audioFadingOut)
+				FadeOut(_audio1);
 			return;
-		
+		}
+
         if (dangerLevel <= 0 )
 		{
+			Debug.Log("Fading");
 			_audioFadingOut = true;
-			if(_audioFadingIn)
-				_audioFadingIn = false;
 			_audio2.Stop();
 			_audio3.Stop();
 		}
 		else if (dangerLevel == 1)
 		{
-			if(_prevDangerLevel < 1)
+			if(!_audioFadingIn)
 				_audio1.Play();
-			if(_audioFadingOut)
-			{
-				_audioFadingIn = true;
-				_audioFadingOut = false;
-			}
+			_audioFadingIn = true;
+
 		}
 		else if (dangerLevel == 2)
 		{
@@ -107,27 +105,27 @@ public class DynamicMusicPlayer : AudioPlayer
 
 	public void FadeOut(AudioSource audio)
 	{
+		_audioFadingIn = false;
 		if(audio.volume <= 0)
 		{
 			_audioFadingOut = false;
 			audio.Stop();
-			audio.volume = 0.2f;
-	//		Debug.Log ("Done Fading Out");
+			audio.volume = 0.5f;
+			Debug.Log ("Done Fading Out");
 		}
 		else
-			audio.volume -= Fade*.0015f;
+			audio.volume -= Fade*.0025f;
 	}
 	public void FadeIn(AudioSource audio)
 	{
-		if(audio.volume >= .2f)
+		_audioFadingOut = false;
+		if(audio.volume >= .5f)
 		{
 			_audioFadingIn = false;
-			audio.Stop();
-			audio.volume = .2f;
-	//		Debug.Log ("Done Fading In");
+			Debug.Log ("Done Fading In");
 		}
 		else
-			audio.volume += Fade*.001f;
+			audio.volume += Fade*.01f;
 	}
 	
 	public int DangerLevel
