@@ -14,9 +14,6 @@ public class PlayerCharacterArsenal : MonoBehaviour
 	public Transform PipePrefab;
 	public Transform MinePrefab;
 	public Transform GravityGunPrefab;
-
-	// Noise player makes when running
-	public Transform FootStepNoise;
     
     // We keep track of which weapon is currently equipped here
     private Transform _currentWeapon;

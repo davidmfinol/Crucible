@@ -43,9 +43,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private float _desiredSpeed;
 	private float _desiredDirectionX;
 	
-	//TODO: Figure out this comment
-	private float _timeUntilNextFootStepSound = -1f;
-	
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
 
@@ -356,9 +353,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected virtual void Idle(float elapsedTime)
 	{
-		// TODO: Make this more efficient later
-		_timeUntilNextFootStepSound = 0;
-
 		//TODO: SET up different idles by modifying this variable
 		MecanimAnimator.SetFloat(_randomIdleHash, 0);
 		
@@ -373,16 +367,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Running(float elapsedTime)
 	{
-		// Create sound for footstep only when running
-		if(Time.time > _timeUntilNextFootStepSound && (Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed) > 0.5f))
-		{
-			// instantiate noise
-			Vector3 footStepPosition = transform.position;
-			footStepPosition.y -= Height/2;	// 
-			Instantiate(Arsenal.FootStepNoise, footStepPosition, Quaternion.identity);
-			_timeUntilNextFootStepSound = Time.time + Settings.FootStepNoiseFrequency;
-		}
-
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
 		ApplyBiDirection();

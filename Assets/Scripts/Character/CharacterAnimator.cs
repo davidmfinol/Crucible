@@ -514,6 +514,16 @@ public abstract class CharacterAnimator : MonoBehaviour
         if (ActiveHangTarget == null)
             _activePlatform = null;
 	}
+
+	public void CreateFootstep()
+	{
+		if(Mathf.Abs(HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed)
+			return;
+
+		Vector3 footStepPosition = transform.position;
+		footStepPosition.y -= Height/2;	// 
+		Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
+	}
 	
 	
 	// Movement/Animation Properties

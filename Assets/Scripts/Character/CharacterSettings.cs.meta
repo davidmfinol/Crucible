@@ -2,7 +2,8 @@ fileFormatVersion: 2
 guid: f51d69106470b754ba4cd90eb83bd645
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - FootStepNoise: {fileID: 400000, guid: 64afae565a5fd4e0795663ea6c14b967, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

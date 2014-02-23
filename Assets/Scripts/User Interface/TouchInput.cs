@@ -53,7 +53,7 @@ public class TouchInput : MonoBehaviour
 
 		_actionID = -1;
 		_actionStartPos = Vector2.zero;
-		_actionMin = Screen.width / 32.0f;
+		_actionMin = Screen.width / 24.0f;
 		_lastActionPos = Vector2.zero;
 
 		/*TODO
@@ -171,7 +171,7 @@ public class TouchInput : MonoBehaviour
 		{
 			_actionID = touch.fingerId;
 			_actionStartPos = touch.position;
-			_lastActionPos = Vector2.zero;
+			_lastActionPos = touch.position;
 		} 
 		else if (touch.fingerId == _actionID)
 		{
@@ -236,9 +236,9 @@ public class TouchInput : MonoBehaviour
 			return;
 		}
 		
-		float[] DotPositions = {-3.0f,-3.0f,0.0f,-3.0f,3.0f,-3.0f,
-			-3.0f,0.0f,0.0f,0.0f,3.0f,0.0f,
-			-3.0f,3.0f,0.0f,3.0f,3.0f,3.0f};
+		float[] DotPositions = {-6.0f,-6.0f,0.0f,-6.0f,6.0f,-6.0f,
+			-6.0f,0.0f,0.0f,0.0f,6.0f,0.0f,
+			-6.0f,6.0f,0.0f,6.0f,6.0f,6.0f};
 		//	{-3.0f,-3.0f,0.0f,-3.0f,3.0f,-3.0f,-3.0f,0.0f,0.0f,0.0f,3.0f,0.0f,-3.0f,3.0f,0.0f,3.0f,3.0f,3.0f};
 		Vector2 pos = ConvertScreenPosToWorld (_actionStartPos);
 		for(int dot=0; dot<_userInterfaceDots.Count; dot++)
@@ -260,9 +260,9 @@ public class TouchInput : MonoBehaviour
 			action = (deg > 25.0f && deg <= 75.0f) ? 8 : action;
 			action = (deg > 75.0f && deg <= 105.0f) ? 7 : action;
 			action = (deg > 105.0f && deg <= 155.0f) ? 6 : action;
-			action = (deg > 155.0f && deg <= 210.0f) ? 3 : action;
-			action = (deg > 210.0f && deg <= 330.0f) ? 2 : action;
-			action = (deg > 330.0f || deg <= 25.0f) ? 5 : action;
+			action = (deg > 155.0f && deg <= 210.0f) || (deg > -205.0f && deg <= -150.0f) || (deg > 515.0f && deg <= 570.0f) ? 3 : action;
+			action = (deg > 210.0f && deg <= 330.0f) || (deg > -150.0f && deg <= -30.0f) || (deg > 570.0f && deg <= 690.0f) ? 1 : action;
+			action = ((deg > 330.0f && deg <= 360.0f) || (deg >= 0.0f && deg < 25.0f)) || ((deg > -30.0f && deg <= 0.0f) || (deg >= -360.0f && deg < -335.0f)) || ((deg > 690.0f && deg <= 720.0f) || (deg >= 360.0f && deg < 385.0f))? 5 : action;
 			action = (deg == -1) ? 4 : action;
 			if(action == dot)
 				_userInterfaceDots[dot].renderer.material.color = Color.green;

@@ -135,4 +135,9 @@ public class BabyBotAnimator : CharacterAnimator
         HitBox d = o.GetComponentInChildren<HitBox> ();
         d.MakeBabyBotExplosion(this.gameObject);
     }
+
+	public void PlayAwake()
+	{
+		// TODO: 
+	}
 }

@@ -8,6 +8,9 @@
 [AddComponentMenu("Character/Character Settings")]
 public sealed class CharacterSettings : MonoBehaviour
 {
+	// Noise player makes when running
+	public Transform FootStepNoise;
+
 	// What is the name of the rooot bone? Used to zero-root based animation motion
 	public string RootBoneName = "hip";
 
