@@ -25,8 +25,8 @@ public class CameraTargetAttributes : MonoBehaviour
 	public float MaxZoomIn = 0.75f;
 	public float MaxZoomOut = 1.5f;
     public float ZoomInAcceleration = 0.35f;// How fast does the camera zoom in?
-    public float ZoomOutAcceleration = 0.5f;// How fast does the camera zoom out? //TODO
-    public float ZoomOutDelay = 0.1f; // How much time passes before we start zooming out? //TODO
+    public float ZoomOutAcceleration = 0.5f;// How fast does the camera zoom out?
+    public float ZoomOutDelay = 0.1f; // How much time passes before we start zooming out?
 	private float _distanceModifier = 1.0f;// How much should we zoom the camera based on this target?
 
 	// Keep track of the character we are following
@@ -46,13 +46,21 @@ public class CameraTargetAttributes : MonoBehaviour
         if (_character == null || _settings == null)
 			return;
 
-        float desired = ZoomOffset - (Mathf.Abs(_character.Velocity.x) / _settings.MaxHorizontalSpeed);
-		if (desired < MaxZoomIn)
-			desired = MaxZoomIn;
-		else if (desired > MaxZoomOut)
-			desired = MaxZoomOut;
+        if(Mathf.Abs(_character.HorizontalSpeed) > 0.1)
+        {
+            float desired = ZoomOffset - (Mathf.Abs(_character.Velocity.x) / _settings.MaxHorizontalSpeed);
+    		if (desired < MaxZoomIn)
+    			desired = MaxZoomIn;
+    		else if (desired > MaxZoomOut)
+    			desired = MaxZoomOut;
 
-		_distanceModifier = Mathf.Lerp (_distanceModifier, desired, ZoomInAcceleration * Time.deltaTime);
+            // TODO: ONLY ZOOM IN? OR HAVE MAXZOOMOUT BE LOWER THAN WHEN COMPLETELY PAUSED
+    		_distanceModifier = Mathf.Lerp (_distanceModifier, desired, ZoomInAcceleration * Time.deltaTime);
+        }
+        else
+        {
+            // PAUSE FOR ZOOMOUTDELAY, THEN ZOOM OUT AT ZOOMACCELERATION
+        }
     }
 
 

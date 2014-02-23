@@ -114,7 +114,7 @@ public class DynamicMusicPlayer : AudioPlayer
 			Debug.Log ("Done Fading Out");
 		}
 		else
-			audio.volume -= Fade*.0025f;
+			audio.volume -= Fade*.0025f; // FIXME : MAKE THIS FRAMERATE DEPENDENT
 	}
 	public void FadeIn(AudioSource audio)
 	{
@@ -128,6 +128,7 @@ public class DynamicMusicPlayer : AudioPlayer
 			audio.volume += Fade*.01f;
 	}
 	
+
 	public int DangerLevel
 	{
 		get { return GameManager.AI.EnemiesAware; }
