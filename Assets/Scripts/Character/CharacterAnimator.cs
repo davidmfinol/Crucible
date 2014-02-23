@@ -338,8 +338,9 @@ public abstract class CharacterAnimator : MonoBehaviour
 		}
 	}
 
-	public virtual void MakeDamaged(Vector2 knockForce) {
-
+	public virtual void MakeDamaged(Vector2 knockForce)
+    {
+        // TODO?
 
 	}
 	
@@ -381,8 +382,9 @@ public abstract class CharacterAnimator : MonoBehaviour
         yield return new WaitForSeconds(5);
 		this.enabled = true;
 		CharacterSettings.ActivateRagDoll(transform, true, true);
-		//Transform root = CharacterSettings.SearchHierarchyForBone(transform, "Root");
-		//transform.position = root.transform.position;
+		Transform root = CharacterSettings.SearchHierarchyForBone(transform, "Root");
+		transform.position = root.transform.position;
+        root.localPosition = Vector3.zero;
         MecanimAnimator.enabled = true;
         Controller.enabled = true;
         CharInput.enabled = true;

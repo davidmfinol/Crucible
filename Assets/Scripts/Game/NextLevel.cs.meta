@@ -2,6 +2,8 @@ fileFormatVersion: 2
 guid: b6b4dc2f31afac047b2625f43e09e9c8
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LoadingScreen: {fileID: 400000, guid: 83f081ea8c1f068439b9678863b1d98e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
+  userData: 

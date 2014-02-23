@@ -15,8 +15,8 @@ public class AudioPlayer : MonoBehaviour
 	public bool TriggersOnce = true;
 
 	private AudioClipGroup _audioClipGroup;
-	private bool _isTriggered = false;
-	private bool _hasTriggered = false;
+	//private bool _isTriggered = false;
+	//private bool _hasTriggered = false;
 
     // TODO: MAKE SETTINGS OF AUDIOSOURCE MATCH TYPE IN AudioManager.AudioTypes type
 	void Start()
@@ -29,9 +29,10 @@ public class AudioPlayer : MonoBehaviour
 		if (_audioClipGroup != null && number >= 0 && number < _audioClipGroup.Clips.Length)
 			audio.clip = _audioClipGroup.Clips[number];
 		audio.Play();
-		_isTriggered = false;
+		//_isTriggered = false;
     }
 
+    /*
 	void OnTriggerEnter(Collider collider)
 	{
 		if((_hasTriggered && TriggersOnce) || _isTriggered || !collider.CompareTag("Player")) 
@@ -45,4 +46,5 @@ public class AudioPlayer : MonoBehaviour
 	{
 		OnTriggerEnter(collision.collider);
 	}
+ */   
 }

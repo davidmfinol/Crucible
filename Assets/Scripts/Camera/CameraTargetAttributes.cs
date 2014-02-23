@@ -31,19 +31,22 @@ public class CameraTargetAttributes : MonoBehaviour
 
 	// Keep track of the character we are following
 	private CharacterAnimator _character;
+    private CharacterSettings _settings;
+
 
 	void Start()
 	{
-		_character = GameManager.Player.GetComponent<CharacterAnimator> ();
+        _character = GameManager.Player.GetComponent<CharacterAnimator> ();
+        _settings = GameManager.Player.GetComponent<CharacterSettings> ();
 	}
 
     // We handle the camera moving in on the character here
     void Update()
     {
-		if (_character == null)
+        if (_character == null || _settings == null)
 			return;
 
-		float desired = ZoomOffset - (Mathf.Abs(_character.Velocity.x) / _character.Settings.MaxHorizontalSpeed);
+        float desired = ZoomOffset - (Mathf.Abs(_character.Velocity.x) / _settings.MaxHorizontalSpeed);
 		if (desired < MaxZoomIn)
 			desired = MaxZoomIn;
 		else if (desired > MaxZoomOut)

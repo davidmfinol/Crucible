@@ -106,9 +106,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		List<int> states = new List<int> ();
 		states.Add (Animator.StringToHash ("Wall.Walljumping"));
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
-		//states.Add (Animator.StringToHash ("Air.Backflip"));
 		states.Add (Animator.StringToHash ("Air.Falling"));
-		//states.Add (Animator.StringToHash ("Air.Landing"));
 		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
 		states.Add (Animator.StringToHash ("Moving.StealthKill"));
 		return states;
@@ -289,7 +287,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			Debug.LogWarning("ShootGun() called with: " + weapon);
 	}
 
-	public override bool IsDead() {
+	public override bool IsDead()
+    {
 		// TODO: fix. slow.
 		return(CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Waiting For Respawn") );
 
@@ -317,7 +316,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void StealthKill(float elapsedTime)
 	{
-		if (MecanimAnimator.GetBool (_stealthKillHash)) {
+		if (MecanimAnimator.GetBool (_stealthKillHash))
+        {
 			Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
 
 			_arsenal.Weapon.RotateAround ( rightHand.position, new Vector3(0, 1, 1), -90.0f);
@@ -331,7 +331,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 
-	public void RestoreWeaponRotation() {
+	public void RestoreWeaponRotation()
+    {
 		Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
 		
 		_arsenal.Weapon.RotateAround ( rightHand.position, new Vector3(0, 1, 1), 90.0f);
@@ -654,7 +655,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
-//		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpLeft || CharInput.JumpRight);
 
 		if (CharInput.JumpLeft) {
 
@@ -707,7 +707,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         base.OnControllerColliderHit(hit);
 
         // We can pick up items
-        if (hit.gameObject.tag == "Item")
+        if (hit.gameObject.CompareTag("Item"))
         {
            // HasPackage = true; // TODO: seperate script for inventory
             //Destroy(hit.gameObject);
@@ -728,8 +728,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// no melee equipped, don't even bother to cast any rays
 		if (!IsGrounded || !_arsenal.WeaponCanStealthKill ())
 			return false;
-
-		//Debug.Log ("Can stealth kill.");
 		
 		// see if anything in range
 		Vector3 vPlayerPos = transform.position;
