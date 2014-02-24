@@ -35,7 +35,7 @@ public class DynamicMusicPlayer : AudioPlayer
 		_audioFadingIn = false;
 		_audio1 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio1.dopplerLevel = 0;
-		_audio1.volume = 0.5f;
+		_audio1.volume = 0.2f;
 		_audio1.panLevel = 0;
 		_audio2 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio2.dopplerLevel = 0;
@@ -119,7 +119,7 @@ public class DynamicMusicPlayer : AudioPlayer
 	public void FadeIn(AudioSource audio)
 	{
 		_audioFadingOut = false;
-		if(audio.volume >= .5f)
+		if(audio.volume >= 0.2f)
 		{
 			_audioFadingIn = false;
 			Debug.Log ("Done Fading In");

@@ -526,6 +526,13 @@ public abstract class CharacterAnimator : MonoBehaviour
 		footStepPosition.y -= Height/2;	// 
 		Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
 	}
+
+	public void PlayHit()
+	{
+		// TODO: MOVE THIS ELSEWHERE
+		Debug.Log ("Play!");
+		audio.Play ();
+	}
 	
 	
 	// Movement/Animation Properties

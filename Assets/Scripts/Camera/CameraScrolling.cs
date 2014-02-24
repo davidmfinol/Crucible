@@ -18,6 +18,14 @@ public class CameraScrolling : MonoBehaviour
     // How strict should the camera follow the target?  Lower values make the camera more lazy.
     public float Springiness = 4.0f;
 
+	private PlayerCharacterAnimator _charAnimator;
+	private ShakeEffect _shakeEffect;
+
+	void Start() {
+		_charAnimator = GameManager.Player.GetComponent<PlayerCharacterAnimator> ();
+		_shakeEffect = null;
+
+	}
 
     // You almost always want camera motion to go inside of LateUpdate (), so that the camera follows
     // the target _after_ it has moved.  Otherwise, the camera may lag one frame behind.
@@ -30,6 +38,14 @@ public class CameraScrolling : MonoBehaviour
         }
     }
 
+	public void AddShake() {
+		// Look for CameraTargetAttributes in our target.
+		CameraTargetAttributes cameraTargetAttributes = Target.GetComponent(typeof(CameraTargetAttributes)) as CameraTargetAttributes;
+
+		_shakeEffect = new ShakeEffect (1.5f, cameraTargetAttributes.DistanceModifier);
+
+	}
+	               
     // Based on the camera attributes and the target's special camera attributes, find out where the
     // camera should move to.
     public Vector3 GetGoalPosition()
@@ -45,7 +61,6 @@ public class CameraScrolling : MonoBehaviour
         float velocityLookAheadX = 0.0f;
 		float velocityLookAheadY = 0.0f;
         Vector2 maxLookAhead = new Vector2(0.0f, 0.0f);
-        //float chaos = 0.0f;
 
         // Look for CameraTargetAttributes in our target.
         CameraTargetAttributes cameraTargetAttributes = Target.GetComponent(typeof(CameraTargetAttributes)) as CameraTargetAttributes;
@@ -54,11 +69,19 @@ public class CameraScrolling : MonoBehaviour
         if (cameraTargetAttributes)
         {
             heightOffset = cameraTargetAttributes.HeightOffset;
-            distanceModifier = cameraTargetAttributes.DistanceModifier;
+
+			if(_charAnimator.IsDead())
+				distanceModifier = cameraTargetAttributes.DeathZoom;
+
+			else if(_shakeEffect != null)
+				distanceModifier = _shakeEffect.OldDistanceModifier;
+
+			else 
+				distanceModifier = cameraTargetAttributes.DistanceModifier;
+			                                                                            
 			velocityLookAheadX = cameraTargetAttributes.VelocityLookAheadX;
 			velocityLookAheadY = cameraTargetAttributes.VelocityLookAheadY;
             maxLookAhead = cameraTargetAttributes.MaxLookAhead;
-            //chaos = cameraTargetAttributes.chaos;
         }
 
         Vector3 goalPosition = Target.position + new Vector3(0, heightOffset, -Distance * distanceModifier);
@@ -103,8 +126,22 @@ public class CameraScrolling : MonoBehaviour
         // Now add in our lookAhead calculation.  Our camera following is now a bit better!
         goalPosition += lookAhead;
 
-        // We will also make it so that the positions beyond the level boundaries are never seen. 
+		// shake the camera if told
+		if(_shakeEffect != null) {
+			if(! _shakeEffect.IsDone ()) {
+				Vector3 shakeAmount = _shakeEffect.Shake (Time.deltaTime);
 
+				Debug.Log ("Shaking " + shakeAmount);
+				goalPosition += shakeAmount;
+
+			} else {
+				_shakeEffect = null;
+
+			}
+
+		}
+
+        // We will also make it so that the positions beyond the level boundaries are never seen. 
         Vector3 clampOffset = Vector3.zero;
 
         // Temporarily set the camera to the goal position so we can test positions for clamping.

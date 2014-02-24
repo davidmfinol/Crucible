@@ -19,12 +19,13 @@ public class PlayerHeartBox : HeartBox
 	private float _timeUntilRegen = 0.0f;
 
 	private PlayerCharacterAnimator _player;
-
+	private CameraScrolling _camScroll;
 
 	protected override void OnStart()
 	{
 		Controller.ModifyState = UpdateHealth;
 		_player = transform.root.GetComponent<PlayerCharacterAnimator> ();
+		_camScroll = Camera.main.GetComponent<CameraScrolling> ();
 	}
 
 	void FixedUpdate()
@@ -74,14 +75,18 @@ public class PlayerHeartBox : HeartBox
 			effect.parent = transform;
 			Destroy(effect.gameObject, 2.0f);
 
+			// shake when hit
+			_camScroll.AddShake();
 
 		// killed
 		} else if (HitPoints <= 0) {
 			// TODO: Controller.MakeDamaged (knockForce);
 			Controller.OnDeath ();
 
-		// hurt or healed
-		} else if(deltaHealth != 0 && HitPoints == MaxHitPoints) {
+			_camScroll.AddShake();
+
+		// healed
+		} else if(deltaHealth > 0 && HitPoints == MaxHitPoints) {
 
 			// TODO OBJECT POOL
 			Transform effect = (Transform) Instantiate(RegenEffect, _player.transform.position, RegenEffect.rotation);

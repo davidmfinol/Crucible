@@ -22,12 +22,15 @@ public class CameraTargetAttributes : MonoBehaviour
 
 	// Allow for dynamic zoom based off speed of the character
 	public float ZoomOffset = 1.5f;
-	public float MaxZoomIn = 0.75f;
-	public float MaxZoomOut = 1.5f;
+	public float MaxZoomIn = 0.9f;
+	public float MaxZoomOut = 2.0f;
     public float ZoomInAcceleration = 0.35f;// How fast does the camera zoom in?
-    public float ZoomOutAcceleration = 0.5f;// How fast does the camera zoom out?
-    public float ZoomOutDelay = 0.1f; // How much time passes before we start zooming out?
+    public float ZoomOutAcceleration = 0.75f;// How fast does the camera zoom out?
+    public float ZoomOutDelay = 2.0f; // How much time passes before we start zooming out?
+	public  float DeathZoom = 0.75f;  // how close to zoom on player death
 	private float _distanceModifier = 1.0f;// How much should we zoom the camera based on this target?
+	// how long the character has been staying still?
+	private float _timeStationary;
 
 	// Keep track of the character we are following
 	private CharacterAnimator _character;
@@ -38,6 +41,7 @@ public class CameraTargetAttributes : MonoBehaviour
 	{
         _character = GameManager.Player.GetComponent<CharacterAnimator> ();
         _settings = GameManager.Player.GetComponent<CharacterSettings> ();
+		_timeStationary = 0;
 	}
 
     // We handle the camera moving in on the character here
@@ -48,18 +52,23 @@ public class CameraTargetAttributes : MonoBehaviour
 
         if(Mathf.Abs(_character.HorizontalSpeed) > 0.1)
         {
+			_timeStationary = 0;
             float desired = ZoomOffset - (Mathf.Abs(_character.Velocity.x) / _settings.MaxHorizontalSpeed);
     		if (desired < MaxZoomIn)
     			desired = MaxZoomIn;
-    		else if (desired > MaxZoomOut)
+    		else if (desired > 1)
     			desired = MaxZoomOut;
 
-            // TODO: ONLY ZOOM IN? OR HAVE MAXZOOMOUT BE LOWER THAN WHEN COMPLETELY PAUSED
     		_distanceModifier = Mathf.Lerp (_distanceModifier, desired, ZoomInAcceleration * Time.deltaTime);
         }
         else
         {
             // PAUSE FOR ZOOMOUTDELAY, THEN ZOOM OUT AT ZOOMACCELERATION
+			_timeStationary += Time.deltaTime;
+			if(_timeStationary > ZoomOutDelay)
+			{
+				_distanceModifier = Mathf.Lerp (_distanceModifier, MaxZoomOut, ZoomOutAcceleration * Time.deltaTime);
+			}
         }
     }
 
