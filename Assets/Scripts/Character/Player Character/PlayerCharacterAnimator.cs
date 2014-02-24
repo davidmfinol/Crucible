@@ -294,9 +294,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 	
-    public override void OnDeath()
+    public override void OnDeath(Vector2 knockForce)
     {
 		MecanimAnimator.SetBool(_dieHash, true);
+		HorizontalSpeed = knockForce.x;
+		VerticalSpeed = knockForce.y;
+
     }
 
 	public override void MakeDamaged(Vector2 knockForce)
@@ -339,12 +342,34 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 
+	protected void ApplyDeathFriction(float elapsedTime) {
+		if(HorizontalSpeed > 0.0f) {
+			HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, 0.0f, Mathf.Pow(CurrentState.normalizedTime, 2.0f) );
+
+			// TODO: ask David why this doesn't work...  elapsedTime is super low.  
+//			HorizontalSpeed -= Settings.DeathFriction * elapsedTime;
+
+			if(HorizontalSpeed < 0.1f)
+				HorizontalSpeed = 0.0f;
+			
+		} else if(HorizontalSpeed < 0.0f) {
+			HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, 0.0f, Mathf.Pow(CurrentState.normalizedTime, 2.0f) );
+
+			// TODO: ask David why this doesn't work...
+			// TODO: ask David why this doesn't work...  elapsedTime is super low. 
+			if(HorizontalSpeed > -0.1f)
+				HorizontalSpeed = 0.0f;
+			
+		}
+	}                                                 
+
 	protected void Die(float elapsedTime)
 	{
-		HorizontalSpeed = 0.0f;
-		if (IsGrounded)
+		if (IsGrounded) {
+			ApplyDeathFriction (elapsedTime);
 			VerticalSpeed = GroundVerticalSpeed;
-		else
+
+		} else
 			ApplyGravity (elapsedTime);
 
         MecanimAnimator.SetBool(_jumpHash, false);

@@ -296,9 +296,11 @@ public class OlympusAnimator : CharacterAnimator
 
 	}
 
-	public override void OnStealthDeath()
+	public override void OnStealthDeath(Vector2 knockForce)
 	{
 		MecanimAnimator.SetBool (_stealthDeathHash, true);
+		HorizontalSpeed = knockForce.x;
+		VerticalSpeed = knockForce.y;
 		Invoke ("DoRagDoll", 3.0f);
 	}
 
@@ -309,9 +311,11 @@ public class OlympusAnimator : CharacterAnimator
 		MecanimAnimator.SetBool (_dieHash, false);
 	}
 	
-	public override void OnDeath()
+	public override void OnDeath(Vector2 knockForce)
 	{
 		MecanimAnimator.SetBool (_dieHash, true);
+		HorizontalSpeed = knockForce.x;
+		VerticalSpeed = knockForce.y;
 		Invoke ("DoRagDoll", 1.0f);
 	}
 	

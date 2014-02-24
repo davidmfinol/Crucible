@@ -66,8 +66,6 @@ public class PlayerHeartBox : HeartBox
 		
 		// hurt but not killed,
 		if (deltaHealth < 0 && HitPoints > 0) {
-			Controller.MakeDamaged (knockForce);
-
 			// TODO OBJECT POOL
 			Transform effect = (Transform) Instantiate(HurtEffect, _player.transform.position, HurtEffect.rotation);
 			if(_hitbox.HorizontalDir > 0)
@@ -75,19 +73,18 @@ public class PlayerHeartBox : HeartBox
 			effect.parent = transform;
 			Destroy(effect.gameObject, 2.0f);
 
+
+			Controller.MakeDamaged (knockForce);
 			// shake when hit
 			_camScroll.AddShake();
 
 		// killed
 		} else if (HitPoints <= 0) {
-			// TODO: Controller.MakeDamaged (knockForce);
-			Controller.OnDeath ();
-
+			Controller.OnDeath (knockForce);
 			_camScroll.AddShake();
 
 		// healed
 		} else if(deltaHealth > 0 && HitPoints == MaxHitPoints) {
-
 			// TODO OBJECT POOL
 			Transform effect = (Transform) Instantiate(RegenEffect, _player.transform.position, RegenEffect.rotation);
 			effect.parent = transform;

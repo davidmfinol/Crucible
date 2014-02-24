@@ -131,7 +131,6 @@ public class CameraScrolling : MonoBehaviour
 			if(! _shakeEffect.IsDone ()) {
 				Vector3 shakeAmount = _shakeEffect.Shake (Time.deltaTime);
 
-				Debug.Log ("Shaking " + shakeAmount);
 				goalPosition += shakeAmount;
 
 			} else {

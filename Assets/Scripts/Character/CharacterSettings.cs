@@ -61,7 +61,7 @@ public sealed class CharacterSettings : MonoBehaviour
 
 	// how close do we need to be to initiate a stealth kill?
 	public float StealthKillRange = 3.0f;
-
+	
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone(Transform current, string name)
     {
