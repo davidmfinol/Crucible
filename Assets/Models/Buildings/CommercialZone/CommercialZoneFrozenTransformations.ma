@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
-//Name: CommercialZone.ma
-//Last modified: Sun, Feb 23, 2014 07:55:00 PM
+//Name: CommercialZoneFrozenTransformations.ma
+//Last modified: Sun, Feb 23, 2014 07:56:15 PM
 //Codeset: UTF-8
 requires maya "2014";
 currentUnit -l centimeter -a degree -t film;
@@ -7029,4 +7029,4 @@ connectAttr "lambert2.msg" ":defaultShaderList1.s" -na;
 connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
 connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
-// End of CommercialZone.ma
+// End of CommercialZoneFrozenTransformations.ma
