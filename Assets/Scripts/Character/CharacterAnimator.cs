@@ -128,8 +128,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 	{
 		Destroy(gameObject);
 	}
-
-	public virtual bool IsDead() {
+	public virtual bool IsDead()
+    {
 		return true;
 	}
 

@@ -18,13 +18,14 @@ public class CameraScrolling : MonoBehaviour
     // How strict should the camera follow the target?  Lower values make the camera more lazy.
     public float Springiness = 4.0f;
 
+    // We track these for special effects that we add on to the camera
 	private PlayerCharacterAnimator _charAnimator;
 	private ShakeEffect _shakeEffect;
 
-	void Start() {
+	void Start()
+    {
 		_charAnimator = GameManager.Player.GetComponent<PlayerCharacterAnimator> ();
 		_shakeEffect = null;
-
 	}
 
     // You almost always want camera motion to go inside of LateUpdate (), so that the camera follows
@@ -38,7 +39,8 @@ public class CameraScrolling : MonoBehaviour
         }
     }
 
-	public void AddShake() {
+	public void AddShake()
+    {
 		// Look for CameraTargetAttributes in our target.
 		CameraTargetAttributes cameraTargetAttributes = Target.GetComponent(typeof(CameraTargetAttributes)) as CameraTargetAttributes;
 
@@ -126,18 +128,13 @@ public class CameraScrolling : MonoBehaviour
         // Now add in our lookAhead calculation.  Our camera following is now a bit better!
         goalPosition += lookAhead;
 
-		// shake the camera if told
-		if(_shakeEffect != null) {
-			if(! _shakeEffect.IsDone ()) {
-				Vector3 shakeAmount = _shakeEffect.Shake (Time.deltaTime);
-
-				goalPosition += shakeAmount;
-
-			} else {
+		// Shake the camera if told
+		if(_shakeEffect != null)
+        {
+			if(! _shakeEffect.IsDone ())
+				goalPosition += _shakeEffect.Shake (Time.deltaTime);
+            else
 				_shakeEffect = null;
-
-			}
-
 		}
 
         // We will also make it so that the positions beyond the level boundaries are never seen. 

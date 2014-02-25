@@ -27,7 +27,7 @@ public sealed class CharacterSettings : MonoBehaviour
     public float Gravity = 40.0f;
 
     // Maximum fall speed
-    public float MaxFallSpeed = 20.0f;
+    public float MaxFallSpeed = 30.0f;
 	
     // How fast the character rotates
     public float RotationSmoothing = 6.0f;
@@ -46,9 +46,6 @@ public sealed class CharacterSettings : MonoBehaviour
 	
 	// How fast the character strafes ladders
 	public float LadderStrafingSpeed = 5.0f;
- 
-	// How often the character makes noise when running
-	public float FootStepNoiseFrequency = 0.3f;
 
 	// How long you can wall slide before you get auto-dropped
 	public float WallSlideDuration = 1.0f;
@@ -57,7 +54,7 @@ public sealed class CharacterSettings : MonoBehaviour
 	public float WallSlideSpeed = -5.0f;
 
 	// You must be moving at least this fast vertically to grab onto a wall
-	public float MinWallGrabSpeed = -30.0f;
+	public float MinWallGrabSpeed = -20.0f;
 
 	// how close do we need to be to initiate a stealth kill?
 	public float StealthKillRange = 3.0f;
