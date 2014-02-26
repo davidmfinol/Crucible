@@ -3,7 +3,7 @@ guid: f51d69106470b754ba4cd90eb83bd645
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - FootStepNoise: {fileID: 400000, guid: 64afae565a5fd4e0795663ea6c14b967, type: 2}
+  - FootStepNoise: {fileID: 400000, guid: 3eced00dc8f010d45bf21cf45b5e7e9a, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
