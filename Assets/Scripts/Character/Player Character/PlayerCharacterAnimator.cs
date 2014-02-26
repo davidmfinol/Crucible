@@ -35,6 +35,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //	private int _climbStrafeHash;
 	private int _respawnHash;
 	private int _damagedHash;
+	private int _pickupHash;
 
 	// Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -80,6 +81,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Moving.Stealth Kill")] = StealthKill;
+		StateMachine[Animator.StringToHash("Moving.Pickup")] = Pickup;
 
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
@@ -104,6 +106,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
 		_respawnHash = Animator.StringToHash("Respawn");
 		_damagedHash = Animator.StringToHash("Damaged");
+		_pickupHash = Animator.StringToHash("Pickup");
 	}
 	protected override List<int> DefineRootMotionCorrectionState()
 	{
@@ -183,6 +186,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
+
+		MecanimAnimator.SetBool (_pickupHash, CharInput.Pickup);
 
 	}
 	protected void UpdateAttackAnimations()
@@ -733,6 +738,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpPressed);
 //		//MecanimAnimator.SetBool(_climbLadderHash, CanClimbP);
 //	}
+	protected void Pickup(float elapsedTime)
+	{
+		HorizontalSpeed = 0;
+		VerticalSpeed = GroundVerticalSpeed;
+		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+		MecanimAnimator.SetBool(_pickupHash, false);
+	}
 	
 	// TODO: DETERMINE HOW WE PICK STUFF UP
     public override void OnControllerColliderHit(ControllerColliderHit hit)
