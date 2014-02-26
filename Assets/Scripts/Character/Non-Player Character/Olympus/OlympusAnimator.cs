@@ -114,12 +114,12 @@ public class OlympusAnimator : CharacterAnimator
 	{
 		// find where to place the attack event
 		Vector3 meleePos = transform.position;
-		meleePos.x += (2.0f * Direction.x);
+		meleePos.x += (1.0f * Direction.x);
 		
 		// attack in front of us
 		GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
 		HitBox d = o.GetComponent<HitBox> ();
-		d.MakeOlympusMelee(this.gameObject, Direction.x);
+		d.MakeOlympusMelee(this.gameObject);
 	}
 	
 	protected virtual void Idle(float elapsedTime)
@@ -312,6 +312,7 @@ public class OlympusAnimator : CharacterAnimator
 
 	public override void OnStealthDeath(Vector2 knockForce)
 	{
+		Debug.Log ("STealth death");
 		MecanimAnimator.SetBool (_stealthDeathHash, true);
 		HorizontalSpeed = knockForce.x;
 		VerticalSpeed = knockForce.y;
@@ -320,13 +321,14 @@ public class OlympusAnimator : CharacterAnimator
 
 	protected void Death(float elapsedTime)
 	{
-		HorizontalSpeed = 0;
-		VerticalSpeed = 0;
+		//HorizontalSpeed = 0;
+		//VerticalSpeed = 0;
 		MecanimAnimator.SetBool (_dieHash, false);
 	}
 	
 	public override void OnDeath(Vector2 knockForce)
 	{
+		Debug.Log ("Death " + knockForce);
 		MecanimAnimator.SetBool (_dieHash, true);
 		HorizontalSpeed = knockForce.x;
 		VerticalSpeed = knockForce.y;

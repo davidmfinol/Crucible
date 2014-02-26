@@ -38,9 +38,17 @@ public class EnemyHeartBox : HeartBox
             Controller.ActivateFloat();
         else
         {
+			Vector2 dirToPlayer = new Vector2( transform.position.x - hitbox.transform.position.x, transform.position.y - hitbox.transform.position.y);
+
+			if(dirToPlayer.x < 0)
+				dirToPlayer.x = -1;
+			else if(dirToPlayer.x > 0)
+				dirToPlayer.x = 1;
+
             HitPoints -= hitbox.DamageAmount;
             if(HitPoints <= 0)
-				Controller.OnDeath( new Vector2(hitbox.KnockBackAmount, hitbox.KnockUpAmount) );
+				Controller.OnDeath( new Vector2(hitbox.KnockBackAmount * dirToPlayer.x, hitbox.KnockUpAmount) );
+
         }
 
 		TimeSinceHit = 0;

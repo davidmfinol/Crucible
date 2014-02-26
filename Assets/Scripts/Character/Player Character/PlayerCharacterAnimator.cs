@@ -228,7 +228,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// place so enemy can die appropriately
 		GameObject o = (GameObject)Instantiate (StealthKillEvent, killPos, Quaternion.identity);
 		HitBox d = o.GetComponent<HitBox> ();
-		d.MakePlayerStealthKill(this.gameObject, Direction.x);
+		d.MakePlayerStealthKill(this.gameObject);
 
 	}
 
