@@ -88,11 +88,9 @@ public class OlympusAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
 
-
-
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		
-		MecanimAnimator.SetBool(_meleeAttackHash, !CurrentState.IsName("Base Layer.TakingDamage") && CharInput.AttackActive);
+		MecanimAnimator.SetBool(_meleeAttackHash, CharInput.AttackActive);
 
 	}
 

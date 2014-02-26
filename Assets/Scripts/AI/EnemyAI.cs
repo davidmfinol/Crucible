@@ -121,7 +121,12 @@ public class EnemyAI : MonoBehaviour
 			facingPlayer = facingPlayer || _animator.Direction.x < 0 && _animator.transform.position.x > _playerAnimator.transform.position.x;
 
 			// randomly attack
-			_animator.CharInput.Attack = facingPlayer && PlayerIsInAttackRange() && (Random.Range(0.0f, 1.0f) > 0.95f) ? 1 : 0;
+			bool randomChance = (Random.Range(0.0f, 1.0f) > 0.95f);
+			bool isStunned = _animator.CurrentState.IsName("Base Layer.Stun");
+			bool shouldAttack = facingPlayer && PlayerIsInAttackRange() && randomChance && !isStunned;
+
+			_animator.CharInput.Attack = shouldAttack ? 1 : 0;
+
 		}
 		
 		// Jump selectively
