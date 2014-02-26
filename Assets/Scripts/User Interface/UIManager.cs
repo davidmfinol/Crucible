@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// User interface manager manages all the UI components.
+/// </summary>
+[AddComponentMenu("User Interface/UIManager")]
 public class UIManager : MonoBehaviour
 {
 	public Transform ChaseVignette;
-	public Transform WeaponsGUI;
+	public Transform WeaponsGUI; //TODO
 
 	private Transform _vignetteInstance;
 	private float _vignetteAlpha;

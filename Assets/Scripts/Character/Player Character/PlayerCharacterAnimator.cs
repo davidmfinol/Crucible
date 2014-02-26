@@ -267,6 +267,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 	
+	public override void OnDeath()
+	{
+		OnDeath (Vector2.zero);
+	}
     public override void OnDeath(Vector2 knockForce)
     {
 		MecanimAnimator.SetBool(_dieHash, true);

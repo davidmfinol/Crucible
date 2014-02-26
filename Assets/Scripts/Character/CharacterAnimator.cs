@@ -119,7 +119,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 	protected virtual void OnStart()
 	{
 		// Child classes should override this method if they want to initialize variables on Start()
-    }
+	}
+	public virtual void OnDeath()
+	{
+		OnDeath (Vector2.zero);
+	}
     public virtual void OnDeath(Vector2 knockForce)
     {
         Destroy(gameObject);

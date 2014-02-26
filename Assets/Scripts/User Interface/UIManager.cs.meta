@@ -2,7 +2,9 @@ fileFormatVersion: 2
 guid: 7f32f2969d220344f8e7a58fcff9fcde
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - ChaseVignette: {fileID: 400000, guid: 6bde6f180fa5e49fabec9e89d5cba209, type: 2}
+  - WeaponsGUI: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
