@@ -321,8 +321,6 @@ public class OlympusAnimator : CharacterAnimator
 
 	protected void Death(float elapsedTime)
 	{
-		//HorizontalSpeed = 0;
-		//VerticalSpeed = 0;
 		MecanimAnimator.SetBool (_dieHash, false);
 	}
 	
