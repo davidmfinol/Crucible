@@ -173,6 +173,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 
+		MecanimAnimator.SetBool (_pickupHash, CharInput.Pickup);
+
 	}
 	protected void UpdateAttackAnimations()
 	{
