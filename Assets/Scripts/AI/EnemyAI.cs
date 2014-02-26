@@ -113,7 +113,7 @@ public class EnemyAI : MonoBehaviour
 		// For now, all decision making is based off A* and a little bit of logic
 		if(!UpdateAStar())
 			return;
-		
+
 		// attack if we're facing the player and are close enough
 		if(_playerAnimator != null)
 		{
@@ -155,9 +155,11 @@ public class EnemyAI : MonoBehaviour
 				_animator.CharInput.Vertical = 0;
 		}
 
-		bool isLastNode = (_currentPathWaypoint == _path.vectorPath.Count - 1) && !_playerAnimator.IsGrounded;
+		bool isLastNode = (_currentPathWaypoint == _path.vectorPath.Count - 1);
 		bool isMidAir = !_animator.IsGrounded;
-		bool shouldStayStill = (isLastNode || isMidAir) && Mathf.Abs (_path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x) < Settings.StopRange;
+		bool isCloseEnoughGround = Mathf.Abs (_path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x) < Settings.StopRange;
+		bool isCloseEnoughAir = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
+		bool shouldStayStill = (isLastNode && isCloseEnoughGround) || (isCloseEnoughAir && isMidAir);
 
 		// Pressing left or right based on horizontal position
 		if(shouldStayStill)

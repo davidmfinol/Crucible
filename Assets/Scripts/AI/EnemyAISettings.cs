@@ -8,16 +8,16 @@ using System.Collections;
 public class EnemyAISettings : MonoBehaviour
 {
     // How far away can an opponent be and still be in range of a Enemy's attack?
-    public float AttackRange = 3.0f;
+	public float AttackRange; // = 3.0f;
 
     // How far away the Enemy can notice and become aware of the player
-    public float AwarenessRange = 25.0f;
+	public float AwarenessRange; // = 25.0f;
 	
 	// How many seconds between every calculation of a new path
-	public float RepathTime = 0.75f;
+	public float RepathTime; // = 0.75f;
 
 	// If we're close enough to our end target, stop moving
-	public float StopRange = 1.0f;
+	public float StopRange; // = 2.0f;
 	
 	// Used by A* to calculate graph
     public static float MaxJump = 9.0f; // jumpheight + capsulecollider.height/2
@@ -25,10 +25,10 @@ public class EnemyAISettings : MonoBehaviour
     public static float MaxGravity = 40.0f;
 
 	// SENSORY
-	public bool CanSee = true;         // toggle AI vision and hearing sensory inputs.
-	public bool CanHear = true;
-	public float VisionMemory = 1.0f;           // how long to forget that we saw the player
-    public float SoundInspectionRange = 1.0f;  // how close to succesfully visually inspect a sound source
+	public bool CanSee; // = true;         // toggle AI vision and hearing sensory inputs.
+	public bool CanHear; // = true;
+	public float VisionMemory; // = 1.0f;           // how long to forget that we saw the player
+	public float SoundInspectionRange; // = 1.0f;  // how close to succesfully visually inspect a sound source
 	
     /// <summary>
     /// Returns whether a Enemy can jump from one position to another
