@@ -998,6 +998,7 @@ public void  PrintPT1Paramaters (){
 
 
 public void  SaveProceduralTexture (){
+        /* NOTE: COMMENTED OUT EVERYTHING HERE TO GET RID OF WARNINGS; COMMENT BELOW MAKES ME BELIEVE IT IS OK
 	int screenshotCount = 0;
    	string PTAddFilename;
 	string PTBlendedFilename;
@@ -1021,7 +1022,7 @@ public void  SaveProceduralTexture (){
 		bytes = ProceduralTexture.MyAlphaTexture.EncodeToPNG();
 		System.IO.File.WriteAllBytes(PTBlendedFilename, bytes);
 	#endif
-
+*/
 }
 
 }

@@ -27,9 +27,12 @@ public class CameraTargetAttributes : MonoBehaviour
     public float ZoomInAcceleration = 0.35f;// How fast does the camera zoom in?
     public float ZoomOutAcceleration = 0.75f;// How fast does the camera zoom out?
     public float ZoomOutDelay = 2.0f; // How much time passes before we start zooming out?
-	public  float DeathZoom = 0.75f;  // how close to zoom on player death
-	private float _distanceModifier = 1.0f;// How much should we zoom the camera based on this target?
-	// how long the character has been staying still?
+	public float DeathZoom = 0.75f;  // How close to zoom on player death
+
+    // How much should we zoom the camera based on this target?
+	private float _distanceModifier = 1.0f;
+
+    // How long the character has been staying still?
 	private float _timeStationary;
 
 	// Keep track of the character we are following
@@ -63,12 +66,10 @@ public class CameraTargetAttributes : MonoBehaviour
         }
         else
         {
-            // PAUSE FOR ZOOMOUTDELAY, THEN ZOOM OUT AT ZOOMACCELERATION
+            // Pause for zoom out delay, then zoom out at zoomoutacceleration
 			_timeStationary += Time.deltaTime;
 			if(_timeStationary > ZoomOutDelay)
-			{
 				_distanceModifier = Mathf.Lerp (_distanceModifier, MaxZoomOut, ZoomOutAcceleration * Time.deltaTime);
-			}
         }
     }
 

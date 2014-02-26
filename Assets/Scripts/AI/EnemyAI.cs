@@ -113,7 +113,7 @@ public class EnemyAI : MonoBehaviour
 		// For now, all decision making is based off A* and a little bit of logic
 		if(!UpdateAStar())
 			return;
-		
+
 		// attack if we're facing the player and are close enough
 		if(_playerAnimator != null)
 		{
@@ -121,7 +121,12 @@ public class EnemyAI : MonoBehaviour
 			facingPlayer = facingPlayer || _animator.Direction.x < 0 && _animator.transform.position.x > _playerAnimator.transform.position.x;
 
 			// randomly attack
-			_animator.CharInput.Attack = facingPlayer && PlayerIsInAttackRange() && (Random.Range(0.0f, 1.0f) > 0.95f) ? 1 : 0;
+			bool randomChance = (Random.Range(0.0f, 1.0f) > 0.95f);
+			bool isStunned = _animator.CurrentState.IsName("Base Layer.Stun");
+			bool shouldAttack = facingPlayer && PlayerIsInAttackRange() && randomChance && !isStunned;
+
+			_animator.CharInput.Attack = shouldAttack ? 1 : 0;
+
 		}
 		
 		// Jump selectively
@@ -150,9 +155,11 @@ public class EnemyAI : MonoBehaviour
 				_animator.CharInput.Vertical = 0;
 		}
 
-		bool isLastNode = (_currentPathWaypoint == _path.vectorPath.Count - 1) && !_playerAnimator.IsGrounded;
+		bool isLastNode = (_currentPathWaypoint == _path.vectorPath.Count - 1);
 		bool isMidAir = !_animator.IsGrounded;
-		bool shouldStayStill = (isLastNode || isMidAir) && Mathf.Abs (_path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x) < Settings.StopRange;
+		bool isCloseEnoughGround = Mathf.Abs (_path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x) < Settings.StopRange;
+		bool isCloseEnoughAir = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
+		bool shouldStayStill = (isLastNode && isCloseEnoughGround) || (isCloseEnoughAir && isMidAir);
 
 		// Pressing left or right based on horizontal position
 		if(shouldStayStill)
@@ -165,6 +172,10 @@ public class EnemyAI : MonoBehaviour
 	
 	private void UpdateAwareness()
 	{
+		// current awareness
+		AwarenessLevel oldAwareness = _awareness;
+
+		// try to change it
 		if (_settings.CanSee && IsSeeingPlayer()) {
 			Awareness = AwarenessLevel.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
@@ -182,6 +193,16 @@ public class EnemyAI : MonoBehaviour
 
 		} else {
 			_timeSincePlayerSeen -= Time.deltaTime;
+		}
+
+		// if we transitioned to chasing, enter acquire state
+		if (oldAwareness != AwarenessLevel.Chasing && _awareness == AwarenessLevel.Chasing) {
+			if(_animator is OlympusAnimator) {
+				OlympusAnimator oa = (OlympusAnimator) _animator;
+				oa.OnAcquireTarget();
+
+			}
+
 		}
 
 	}

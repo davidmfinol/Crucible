@@ -12,55 +12,57 @@ public sealed class CharacterSettings : MonoBehaviour
 	public Transform FootStepNoise;
 
 	// What is the name of the rooot bone? Used to zero-root based animation motion
-	public string RootBoneName = "hip";
+	public string RootBoneName;     // = "hip";
 
     // How fast the character runs
-    public float MaxHorizontalSpeed = 16.0f;
+	public float MaxHorizontalSpeed;   // = 16.0f;
 
     // How fast the character accelerates
-    public float HorizontalAcceleration = 6.0f;
+	public float HorizontalAcceleration;  // = 6.0f;
 
     // How high the character jumps
-    public float JumpHeight = 6.0f;
+	public float JumpHeight;  // = 6.0f;
 	
     // Rate of change of vertical fall speed
-    public float Gravity = 40.0f;
+	public float Gravity;  // = 40.0f;
 
     // Maximum fall speed
-    public float MaxFallSpeed = 20.0f;
+	public float MaxFallSpeed;  // = 20.0f;
 	
     // How fast the character rotates
-    public float RotationSmoothing = 6.0f;
+	public float RotationSmoothing;  // = 6.0f;
 
     // How fast the character moves across the Z-Axis
-    public float ZLerp = 10.0f;
+	public float ZLerp;  // = 10.0f;
 	
 	// How fast the character climbs ledges
-	public float LedgeClimbingSpeed = 6.0f;
+	public float LedgeClimbingSpeed;  // = 6.0f;
 	
 	// How close the character has to be to the top of a ledge to grab onto it
-	public float LedgeLeniency = 0.3f;
+	public float LedgeLeniency;  // = 0.3f;
 	
 	// How fast the character climbs ladders
-	public float LadderClimbingSpeed = 5.0f;
+	public float LadderClimbingSpeed;  // = 5.0f;
 	
 	// How fast the character strafes ladders
-	public float LadderStrafingSpeed = 5.0f;
+	public float LadderStrafingSpeed;  // = 5.0f;
  
 	// How often the character makes noise when running
-	public float FootStepNoiseFrequency = 0.3f;
+	public float FootStepNoiseFrequency;  // = 0.3f;
 
 	// How long you can wall slide before you get auto-dropped
-	public float WallSlideDuration = 1.0f;
+	public float WallSlideDuration;  // = 1.0f;
 
 	// How fast you slide down walls that you have grabbed
-	public float WallSlideSpeed = -5.0f;
+	public float WallSlideSpeed;  // = -5.0f;
 
 	// You must be moving at least this fast vertically to grab onto a wall
-	public float MinWallGrabSpeed = -30.0f;
+	public float MinWallGrabSpeed;  // = -30.0f;
 
 	// how close do we need to be to initiate a stealth kill?
-	public float StealthKillRange = 3.0f;
+	public float StealthKillRange;  // = 3.0f;
+
+	public float DeathFriction;  // = 15.0f;
 
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone(Transform current, string name)

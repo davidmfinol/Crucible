@@ -10,7 +10,6 @@ using System.Collections.Generic;
 public class PlayerCharacterAnimator : CharacterAnimator
 {
 	public GameObject StealthKillEvent;
-	public Transform ChaseVignette;
 
 	// Mecanim hashes
 	private int _verticalSpeedHash;
@@ -35,6 +34,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //	private int _climbStrafeHash;
 	private int _respawnHash;
 	private int _damagedHash;
+	private int _pickupHash;
 
 	// Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -46,13 +46,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
 
-	private Transform _vignetteInstance;
-
     protected override void OnStart()
     {
 		_arsenal = gameObject.GetComponent<PlayerCharacterArsenal>();
-		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
-		_vignetteInstance.renderer.enabled = false;
     }
 	
 	protected override void CreateStateMachine()
@@ -76,6 +72,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
 		StateMachine[Animator.StringToHash("Moving.Stealth Kill")] = StealthKill;
+		StateMachine[Animator.StringToHash("Moving.Pickup")] = Pickup;
 
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
@@ -100,6 +97,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //		_climbStrafeHash = Animator.StringToHash ("ClimbStrafe");
 		_respawnHash = Animator.StringToHash("Respawn");
 		_damagedHash = Animator.StringToHash("Damaged");
+		_pickupHash = Animator.StringToHash("Pickup");
 	}
 	protected override List<int> DefineRootMotionCorrectionState()
 	{
@@ -116,33 +114,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		UpdateMovementAnimations();
 		UpdateAttackAnimations();
-		UpdatePlayerHUD(); //TODO: MOVE THIS
-	}
-
-	protected void UpdatePlayerHUD()
-	{
-		_vignetteInstance.renderer.enabled = (GameManager.AI.EnemiesAware > 0);
-
-
-		if (_vignetteInstance.renderer.enabled)
-		{
-				// how far into an <x>-second cycle are we?
-				float alphaValue = (Time.timeSinceLevelLoad % 2.0f);
-				alphaValue = alphaValue / 2.0f;
-
-				// convert that to radians
-				alphaValue *= (2.0f * Mathf.PI);
-
-				// take a fixed alpha plus/minus whatever cycle offset enhancement we want
-				alphaValue = 0.7f + (Mathf.Cos (alphaValue) * 0.3f);
-
-				_vignetteInstance.renderer.material.color = new Vector4 (_vignetteInstance.renderer.material.color.r, 
-	                                             			_vignetteInstance.renderer.material.color.g, 
-	                                          			    _vignetteInstance.renderer.material.color.b,
-		                                    			     alphaValue);
-
-		}
-
 	}
 
 	protected void UpdateMovementAnimations()
@@ -170,6 +141,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
+
+		MecanimAnimator.SetBool (_pickupHash, CharInput.Pickup);
 
 	}
 	protected void UpdateAttackAnimations()
@@ -210,7 +183,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// place so enemy can die appropriately
 		GameObject o = (GameObject)Instantiate (StealthKillEvent, killPos, Quaternion.identity);
 		HitBox d = o.GetComponent<HitBox> ();
-		d.MakePlayerStealthKill(this.gameObject, Direction.x);
+		d.MakePlayerStealthKill(this.gameObject);
 
 	}
 
@@ -294,9 +267,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 	
-    public override void OnDeath()
+	public override void OnDeath()
+	{
+		OnDeath (Vector2.zero);
+	}
+    public override void OnDeath(Vector2 knockForce)
     {
 		MecanimAnimator.SetBool(_dieHash, true);
+		HorizontalSpeed = knockForce.x;
+		VerticalSpeed = knockForce.y;
+
     }
 
 	public override void MakeDamaged(Vector2 knockForce)
@@ -339,12 +319,29 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 
+	protected void ApplyDeathFriction(float elapsedTime) {
+		if(HorizontalSpeed > 0.0f) {
+			HorizontalSpeed -= Settings.DeathFriction * elapsedTime;
+
+			if(HorizontalSpeed < 0.1f)
+				HorizontalSpeed = 0.0f;
+			
+		} else if(HorizontalSpeed < 0.0f) {
+			HorizontalSpeed += Settings.DeathFriction * elapsedTime;
+			 
+			if(HorizontalSpeed > -0.1f)
+				HorizontalSpeed = 0.0f;
+			
+		}
+	}                                                 
+
 	protected void Die(float elapsedTime)
 	{
-		HorizontalSpeed = 0.0f;
-		if (IsGrounded)
+		if (IsGrounded) {
+			ApplyDeathFriction (elapsedTime);
 			VerticalSpeed = GroundVerticalSpeed;
-		else
+
+		} else
 			ApplyGravity (elapsedTime);
 
         MecanimAnimator.SetBool(_jumpHash, false);
@@ -417,9 +414,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
 			if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
+			{
+				Direction = Vector3.left;
 				HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
+			}
 			else if(CharInput.JumpRight || CharInput.JumpRightReleased)
+			{
+				Direction = Vector3.right;
 				HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
+			}
 
         	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 			MecanimAnimator.SetBool(_jumpHash, false);
@@ -700,6 +703,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpPressed);
 //		//MecanimAnimator.SetBool(_climbLadderHash, CanClimbP);
 //	}
+	protected void Pickup(float elapsedTime)
+	{
+		HorizontalSpeed = 0;
+		VerticalSpeed = GroundVerticalSpeed;
+		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+		MecanimAnimator.SetBool(_pickupHash, false);
+	}
 	
 	// TODO: DETERMINE HOW WE PICK STUFF UP
     public override void OnControllerColliderHit(ControllerColliderHit hit)

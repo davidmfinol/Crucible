@@ -27,7 +27,6 @@ public class HitBox : MonoBehaviour
 	public TeamAllegiance Allegiance;
 	public GameObject FromObject = null; 
 	public WeaponType FromWeaponType = 0;
-	public float HorizontalDir = 0;
 	public int DamageAmount = 0;
 	public float KnockBackAmount = 0;
 	public float KnockUpAmount = 0;
@@ -39,12 +38,11 @@ public class HitBox : MonoBehaviour
 	private float _radius = 0.0f;
 	
 	
-	public void MakeOlympusMelee(GameObject from, float horizontalDir)
+	public void MakeOlympusMelee(GameObject from)
 	{
 		Allegiance = TeamAllegiance.Enemies;
 		FromObject = from;
 		FromWeaponType = WeaponType.Weapon_Melee;
-		HorizontalDir = horizontalDir;
 		DamageAmount = 1;
 		KnockBackAmount = 15.0f;
 		KnockUpAmount = 10.0f;
@@ -61,15 +59,16 @@ public class HitBox : MonoBehaviour
         DamageAmount = 5;
 		KnockBackAmount = 20.0f;
 		KnockUpAmount = 15.0f;
+		CanStun = false;
+		DestroyTime = 0.1f;
 		Radius = 5.0f;
     }
 
-	public void MakePlayerStealthKill(GameObject from, float horizontalDir)
+	public void MakePlayerStealthKill(GameObject from)
 	{
 		Allegiance = TeamAllegiance.Player;
 		FromObject = from;
 		FromWeaponType = WeaponType.Weapon_Melee;
-		HorizontalDir = horizontalDir;
 		DamageAmount = 1;
 		KnockBackAmount = 0.0f;
 		KnockUpAmount = 0.0f;

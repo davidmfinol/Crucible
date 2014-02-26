@@ -26,6 +26,7 @@ public class OlympusAnimator : CharacterAnimator
 	private int _stunHash;
 	private int _dieHash;
 	private int _stealthDeathHash;
+	private int _acquiringTargetHash;
 	
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
@@ -35,6 +36,7 @@ public class OlympusAnimator : CharacterAnimator
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
+		StateMachine[Animator.StringToHash("Base Layer.Acquiring Target")] = AcquireTarget;
 		StateMachine[Animator.StringToHash("Base Layer.Stun")] = Stun;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Death;
 		StateMachine[Animator.StringToHash("Base Layer.Stealth Death")] = StealthDeath;
@@ -51,6 +53,7 @@ public class OlympusAnimator : CharacterAnimator
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
 		_horizontalSpeedHash = Animator.StringToHash("HorizontalSpeed");
 		_jumpHash = Animator.StringToHash("Jump");
+		_acquiringTargetHash = Animator.StringToHash ("AcquireTarget");
 		_fallHash = Animator.StringToHash("Fall");
 		_hangHash = Animator.StringToHash("Hang");
 		_climbLadderHash = Animator.StringToHash("ClimbLadder");
@@ -85,13 +88,24 @@ public class OlympusAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
 
-
-
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		
-		MecanimAnimator.SetBool(_meleeAttackHash, !CurrentState.IsName("Base Layer.TakingDamage") && CharInput.AttackActive);
+		MecanimAnimator.SetBool(_meleeAttackHash, CharInput.AttackActive);
+
 	}
 
+	public void OnAcquireTarget() {
+		MecanimAnimator.SetBool (_acquiringTargetHash, true);
+
+	}
+
+	protected void AcquireTarget(float elapsedTime) {
+		MecanimAnimator.SetBool (_acquiringTargetHash, false);
+		HorizontalSpeed = 0.0f;
+		VerticalSpeed = GroundVerticalSpeed;
+
+	}
+	
 	protected void StartMelee(float elapsedTime)
 	{
         // Empty; we wait until the end of the attack to create the hitbox
@@ -100,12 +114,12 @@ public class OlympusAnimator : CharacterAnimator
 	{
 		// find where to place the attack event
 		Vector3 meleePos = transform.position;
-		meleePos.x += (2.0f * Direction.x);
+		meleePos.x += (1.0f * Direction.x);
 		
 		// attack in front of us
 		GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
 		HitBox d = o.GetComponent<HitBox> ();
-		d.MakeOlympusMelee(this.gameObject, Direction.x);
+		d.MakeOlympusMelee(this.gameObject);
 	}
 	
 	protected virtual void Idle(float elapsedTime)
@@ -296,22 +310,28 @@ public class OlympusAnimator : CharacterAnimator
 
 	}
 
-	public override void OnStealthDeath()
+	public override void OnStealthDeath(Vector2 knockForce)
 	{
+		Debug.Log ("STealth death");
 		MecanimAnimator.SetBool (_stealthDeathHash, true);
+		HorizontalSpeed = knockForce.x;
+		VerticalSpeed = knockForce.y;
 		Invoke ("DoRagDoll", 3.0f);
 	}
 
 	protected void Death(float elapsedTime)
 	{
-		HorizontalSpeed = 0;
-		VerticalSpeed = 0;
+		//HorizontalSpeed = 0;
+		//VerticalSpeed = 0;
 		MecanimAnimator.SetBool (_dieHash, false);
 	}
 	
-	public override void OnDeath()
+	public override void OnDeath(Vector2 knockForce)
 	{
+		Debug.Log ("Death " + knockForce);
 		MecanimAnimator.SetBool (_dieHash, true);
+		HorizontalSpeed = knockForce.x;
+		VerticalSpeed = knockForce.y;
 		Invoke ("DoRagDoll", 1.0f);
 	}
 	

@@ -43,7 +43,16 @@ public class PlayerHeartBox : HeartBox
 		// process attacks
 		if (_hitbox != null)
         {
-			Vector2 knockForce = new Vector2(_hitbox.KnockBackAmount * _hitbox.HorizontalDir, _hitbox.KnockUpAmount);
+			Vector2 dirToPlayer = new Vector2( transform.position.x - _hitbox.transform.position.x, transform.position.y - _hitbox.transform.position.y);
+
+			if(dirToPlayer.x < 0)
+				dirToPlayer.x = -1;
+			else if(dirToPlayer.x > 0)
+				dirToPlayer.x = 1;
+
+			Vector2 knockForce = new Vector2(_hitbox.KnockBackAmount * dirToPlayer.x, _hitbox.KnockUpAmount);
+
+			Debug.Log ("Knocking " + _hitbox.KnockBackAmount + " dir " + dirToPlayer.x);
 
 			// fly in direction of hit
 			//Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
@@ -66,28 +75,26 @@ public class PlayerHeartBox : HeartBox
 		
 		// hurt but not killed,
 		if (deltaHealth < 0 && HitPoints > 0) {
-			Controller.MakeDamaged (knockForce);
-
 			// TODO OBJECT POOL
 			Transform effect = (Transform) Instantiate(HurtEffect, _player.transform.position, HurtEffect.rotation);
-			if(_hitbox.HorizontalDir > 0)
+
+			if(knockForce.x > 0)
 				effect.Rotate(new Vector3(0, 180, 0));
 			effect.parent = transform;
 			Destroy(effect.gameObject, 2.0f);
 
+
+			Controller.MakeDamaged (knockForce);
 			// shake when hit
 			_camScroll.AddShake();
 
 		// killed
 		} else if (HitPoints <= 0) {
-			// TODO: Controller.MakeDamaged (knockForce);
-			Controller.OnDeath ();
-
+			Controller.OnDeath (knockForce);
 			_camScroll.AddShake();
 
 		// healed
 		} else if(deltaHealth > 0 && HitPoints == MaxHitPoints) {
-
 			// TODO OBJECT POOL
 			Transform effect = (Transform) Instantiate(RegenEffect, _player.transform.position, RegenEffect.rotation);
 			effect.parent = transform;

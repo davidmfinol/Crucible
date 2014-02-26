@@ -31,16 +31,24 @@ public class EnemyHeartBox : HeartBox
 			return;
 
 		if(hitbox.CanStealthKill && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware)
-			Controller.OnStealthDeath();
+			Controller.OnStealthDeath( new Vector2(0.0f, 0.0f)  );
 		else if(hitbox.CanStun)
 			Controller.MecanimAnimator.SetBool("Stun", true);
         else if(hitbox.DoesFloat)
             Controller.ActivateFloat();
         else
         {
+			Vector2 dirToPlayer = new Vector2( transform.position.x - hitbox.transform.position.x, transform.position.y - hitbox.transform.position.y);
+
+			if(dirToPlayer.x < 0)
+				dirToPlayer.x = -1;
+			else if(dirToPlayer.x > 0)
+				dirToPlayer.x = 1;
+
             HitPoints -= hitbox.DamageAmount;
             if(HitPoints <= 0)
-                Controller.OnDeath();
+				Controller.OnDeath( new Vector2(hitbox.KnockBackAmount * dirToPlayer.x, hitbox.KnockUpAmount) );
+
         }
 
 		TimeSinceHit = 0;
