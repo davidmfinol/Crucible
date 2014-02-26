@@ -51,7 +51,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected override void OnStart()
     {
 		_arsenal = gameObject.GetComponent<PlayerCharacterArsenal>();
-		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation); //TODO: OBJECT POOLING
+		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
 		_vignetteInstance.renderer.enabled = false;
     }
 	
@@ -119,7 +119,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		UpdatePlayerHUD(); //TODO: MOVE THIS
 	}
 
-    // TODO: MOVE THIS
 	protected void UpdatePlayerHUD()
 	{
 		_vignetteInstance.renderer.enabled = (GameManager.AI.EnemiesAware > 0);
@@ -156,7 +155,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
 												   (facingLeftLadder && CharInput.Left));
-		bool startClimbPipe = CanClimbPipe && !IsGrounded && !CharInput.Interaction;
+		bool startClimbPipe = CanClimbPipe;
 
 		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
 
@@ -182,7 +181,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 
 		OlympusAnimator enemyAnim = null;
-		if ((CharInput.AttackActive || CharInput.Interaction) && CanStealthKill (out enemyAnim) && enemyAnim != null)
+		if (CharInput.AttackActive && CanStealthKill (out enemyAnim) && enemyAnim != null)
 		{
 			// player enter stealth kill anim and spawn a stealth kill attack in front of him
 			MecanimAnimator.SetBool (_stealthKillHash, true);
@@ -190,7 +189,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			Invoke ("GenerateStealthKillEvent", 1.0f);
 
 		}
-		else if(! CurrentState.IsName("Moving.Stealth Kill") && !IsDead())
+		else if(! CurrentState.IsName("Moving.Stealth Kill"))
 		{
 
 			MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
@@ -343,22 +342,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 
-	protected void ApplyDeathFriction(float elapsedTime)
-    {
+	protected void ApplyDeathFriction(float elapsedTime) {
 		if(HorizontalSpeed > 0.0f) {
-			HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, 0.0f, Mathf.Pow(CurrentState.normalizedTime, 2.0f) );
-
-			// TODO: ask David why this doesn't work...  elapsedTime is super low.  
-//			HorizontalSpeed -= Settings.DeathFriction * elapsedTime;
+			HorizontalSpeed -= Settings.DeathFriction * elapsedTime;
 
 			if(HorizontalSpeed < 0.1f)
 				HorizontalSpeed = 0.0f;
 			
 		} else if(HorizontalSpeed < 0.0f) {
-			HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, 0.0f, Mathf.Pow(CurrentState.normalizedTime, 2.0f) );
-
-			// TODO: ask David why this doesn't work...
-			// TODO: ask David why this doesn't work...  elapsedTime is super low. 
+			HorizontalSpeed += Settings.DeathFriction * elapsedTime;
+			 
 			if(HorizontalSpeed > -0.1f)
 				HorizontalSpeed = 0.0f;
 			
@@ -444,15 +437,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
 			if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
-            {
-                Direction = Vector3.left;
 				HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
-            }
 			else if(CharInput.JumpRight || CharInput.JumpRightReleased)
-            {
-                Direction = Vector3.right;
 				HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
-            }
 
         	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 			MecanimAnimator.SetBool(_jumpHash, false);
