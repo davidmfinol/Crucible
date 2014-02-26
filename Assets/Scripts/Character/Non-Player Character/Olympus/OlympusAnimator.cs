@@ -26,6 +26,7 @@ public class OlympusAnimator : CharacterAnimator
 	private int _stunHash;
 	private int _dieHash;
 	private int _stealthDeathHash;
+	private int _acquiringTargetHash;
 	
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
@@ -35,6 +36,7 @@ public class OlympusAnimator : CharacterAnimator
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
+		StateMachine[Animator.StringToHash("Base Layer.Acquiring Target")] = AcquireTarget;
 		StateMachine[Animator.StringToHash("Base Layer.Stun")] = Stun;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Death;
 		StateMachine[Animator.StringToHash("Base Layer.Stealth Death")] = StealthDeath;
@@ -51,6 +53,7 @@ public class OlympusAnimator : CharacterAnimator
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
 		_horizontalSpeedHash = Animator.StringToHash("HorizontalSpeed");
 		_jumpHash = Animator.StringToHash("Jump");
+		_acquiringTargetHash = Animator.StringToHash ("AcquireTarget");
 		_fallHash = Animator.StringToHash("Fall");
 		_hangHash = Animator.StringToHash("Hang");
 		_climbLadderHash = Animator.StringToHash("ClimbLadder");
@@ -90,8 +93,21 @@ public class OlympusAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		
 		MecanimAnimator.SetBool(_meleeAttackHash, !CurrentState.IsName("Base Layer.TakingDamage") && CharInput.AttackActive);
+
 	}
 
+	public void OnAcquireTarget() {
+		MecanimAnimator.SetBool (_acquiringTargetHash, true);
+
+	}
+
+	protected void AcquireTarget(float elapsedTime) {
+		MecanimAnimator.SetBool (_acquiringTargetHash, false);
+		HorizontalSpeed = 0.0f;
+		VerticalSpeed = GroundVerticalSpeed;
+
+	}
+	
 	protected void StartMelee(float elapsedTime)
 	{
         // Empty; we wait until the end of the attack to create the hitbox

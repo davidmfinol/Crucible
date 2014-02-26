@@ -46,13 +46,17 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
 
+	// TODO: move these to a HUD manager
 	private Transform _vignetteInstance;
+	private float _vignetteAlpha;
+	private int _vignetteAlphaDir;
 
     protected override void OnStart()
     {
 		_arsenal = gameObject.GetComponent<PlayerCharacterArsenal>();
 		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
-		_vignetteInstance.renderer.enabled = false;
+
+		_vignetteAlpha = 0.0f;
     }
 	
 	protected override void CreateStateMachine()
@@ -121,27 +125,37 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	protected void UpdatePlayerHUD()
 	{
-		_vignetteInstance.renderer.enabled = (GameManager.AI.EnemiesChasing > 0);
+		if ( (GameManager.AI.EnemiesChasing > 0) ) {
+			if(_vignetteAlpha >= 0.9f)
+				_vignetteAlphaDir = -1;
+			else if(_vignetteAlpha <= 0.3) 
+				_vignetteAlphaDir = 1;
 
-		if (_vignetteInstance.renderer.enabled)
-		{
-				// how far into an <x>-second cycle are we?
-				float alphaValue = (Time.timeSinceLevelLoad % 2.0f);
-				alphaValue = alphaValue / 2.0f;
+			if(_vignetteAlphaDir == 1)
+				_vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 1.0f, Time.deltaTime * 2.0f);
+			else if(_vignetteAlphaDir == -1)
+				_vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 0.2f, Time.deltaTime * 2.0f);
 
-				// convert that to radians
-				alphaValue *= (2.0f * Mathf.PI);
 
-				// take a fixed alpha plus/minus whatever cycle offset enhancement we want
-				alphaValue = 0.7f + (Mathf.Cos (alphaValue) * 0.3f);
+//			// how far into an <x>-second cycle are we?
+//			_vignetteAlpha = (Time.timeSinceLevelLoad % 2.0f);
+//			_vignetteAlpha /= 2.0f;
+//
+//			// convert that to radians
+//			_vignetteAlpha *= (2.0f * Mathf.PI);
+//
+//			// take a fixed alpha plus/minus whatever cycle offset enhancement we want
+//			_vignetteAlpha = 0.7f + (Mathf.Cos (_vignetteAlpha) * 0.3f);
 
-				_vignetteInstance.renderer.material.color = new Vector4 (_vignetteInstance.renderer.material.color.r, 
-	                                             			_vignetteInstance.renderer.material.color.g, 
-	                                          			    _vignetteInstance.renderer.material.color.b,
-		                                    			     alphaValue);
+		} else {
+			_vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 0, Time.deltaTime * 4.0f);
 
 		}
 
+		_vignetteInstance.renderer.material.color = new Vector4 (_vignetteInstance.renderer.material.color.r, 
+		                                                         _vignetteInstance.renderer.material.color.g, 
+		                                                         _vignetteInstance.renderer.material.color.b,
+		                                                         _vignetteAlpha);
 	}
 
 	protected void UpdateMovementAnimations()
