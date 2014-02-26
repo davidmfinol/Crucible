@@ -390,6 +390,19 @@ ModelImporter:
     100768: transform56
     100770: transform57
     100772: transform58
+    100774: polySurface201
+    100776: polySurface202
+    100778: polySurface203
+    100780: polySurface204
+    100782: polySurface205
+    100784: polySurface206
+    100786: pPlane1
+    100788: pPlane3
+    100790: pPlane4
+    100792: pPlane5
+    100794: pPlane6
+    100796: pPlane7
+    100798: transform59
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -777,6 +790,19 @@ ModelImporter:
     400768: transform56
     400770: transform57
     400772: transform58
+    400774: polySurface201
+    400776: polySurface202
+    400778: polySurface203
+    400780: polySurface204
+    400782: polySurface205
+    400784: polySurface206
+    400786: pPlane1
+    400788: pPlane3
+    400790: pPlane4
+    400792: pPlane5
+    400794: pPlane6
+    400796: pPlane7
+    400798: transform59
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1015,6 +1041,17 @@ ModelImporter:
     2300470: polySurface195
     2300472: polySurface199
     2300474: polySurface200
+    2300476: polySurface201
+    2300478: polySurface202
+    2300480: polySurface203
+    2300482: polySurface204
+    2300484: polySurface205
+    2300486: polySurface206
+    2300488: pPlane1
+    2300490: pPlane4
+    2300492: pPlane5
+    2300494: pPlane6
+    2300496: pPlane7
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1253,6 +1290,17 @@ ModelImporter:
     3300470: polySurface195
     3300472: polySurface199
     3300474: polySurface200
+    3300476: polySurface201
+    3300478: polySurface202
+    3300480: polySurface203
+    3300482: polySurface204
+    3300484: polySurface205
+    3300486: polySurface206
+    3300488: pPlane1
+    3300490: pPlane4
+    3300492: pPlane5
+    3300494: pPlane6
+    3300496: pPlane7
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1488,6 +1536,17 @@ ModelImporter:
     4300464: polySurface194
     4300466: polySurface195
     4300468: polySurface200
+    4300470: polySurface204
+    4300472: polySurface205
+    4300474: polySurface206
+    4300476: pPlane1
+    4300478: polySurface201
+    4300480: polySurface202
+    4300482: polySurface203
+    4300484: pPlane4
+    4300486: pPlane5
+    4300488: pPlane6
+    4300490: pPlane7
     7400000: Take 001
     9500000: //RootNode
   materials:
