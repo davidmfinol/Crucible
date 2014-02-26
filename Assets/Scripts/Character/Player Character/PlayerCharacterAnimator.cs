@@ -455,9 +455,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
 			if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
+			{
+				Direction = Vector3.left;
 				HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
+			}
 			else if(CharInput.JumpRight || CharInput.JumpRightReleased)
+			{
+				Direction = Vector3.right;
 				HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
+			}
 
         	VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
 			MecanimAnimator.SetBool(_jumpHash, false);
