@@ -34,4 +34,16 @@ public class AIManager : MonoBehaviour
 			return EnemiesAware;
 		}
 	}
+
+	public int EnemiesChasing
+	{
+		get
+		{
+			int Enemies = 0;
+			foreach(EnemyAI Enemy in _enemies)
+				if(Enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
+					Enemies++;
+			return Enemies;
+		}
+	}
 }

@@ -121,8 +121,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	protected void UpdatePlayerHUD()
 	{
-		_vignetteInstance.renderer.enabled = (GameManager.AI.EnemiesAware > 0);
-
+		_vignetteInstance.renderer.enabled = (GameManager.AI.EnemiesChasing > 0);
 
 		if (_vignetteInstance.renderer.enabled)
 		{
