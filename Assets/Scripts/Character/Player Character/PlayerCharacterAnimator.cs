@@ -10,7 +10,6 @@ using System.Collections.Generic;
 public class PlayerCharacterAnimator : CharacterAnimator
 {
 	public GameObject StealthKillEvent;
-	public Transform ChaseVignette;
 
 	// Mecanim hashes
 	private int _verticalSpeedHash;
@@ -47,17 +46,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of the player character's weaponry
 	private PlayerCharacterArsenal _arsenal;
 
-	// TODO: move these to a HUD manager
-	private Transform _vignetteInstance;
-	private float _vignetteAlpha;
-	private int _vignetteAlphaDir;
-
     protected override void OnStart()
     {
 		_arsenal = gameObject.GetComponent<PlayerCharacterArsenal>();
-		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
-
-		_vignetteAlpha = 0.0f;
     }
 	
 	protected override void CreateStateMachine()
@@ -123,42 +114,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		UpdateMovementAnimations();
 		UpdateAttackAnimations();
-		UpdatePlayerHUD(); //TODO: MOVE THIS
-	}
-
-	protected void UpdatePlayerHUD()
-	{
-		if ( (GameManager.AI.EnemiesChasing > 0) ) {
-			if(_vignetteAlpha >= 0.9f)
-				_vignetteAlphaDir = -1;
-			else if(_vignetteAlpha <= 0.3) 
-				_vignetteAlphaDir = 1;
-
-			if(_vignetteAlphaDir == 1)
-				_vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 1.0f, Time.deltaTime * 2.0f);
-			else if(_vignetteAlphaDir == -1)
-				_vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 0.2f, Time.deltaTime * 2.0f);
-
-
-//			// how far into an <x>-second cycle are we?
-//			_vignetteAlpha = (Time.timeSinceLevelLoad % 2.0f);
-//			_vignetteAlpha /= 2.0f;
-//
-//			// convert that to radians
-//			_vignetteAlpha *= (2.0f * Mathf.PI);
-//
-//			// take a fixed alpha plus/minus whatever cycle offset enhancement we want
-//			_vignetteAlpha = 0.7f + (Mathf.Cos (_vignetteAlpha) * 0.3f);
-
-		} else {
-			_vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 0, Time.deltaTime * 4.0f);
-
-		}
-
-		_vignetteInstance.renderer.material.color = new Vector4 (_vignetteInstance.renderer.material.color.r, 
-		                                                         _vignetteInstance.renderer.material.color.g, 
-		                                                         _vignetteInstance.renderer.material.color.b,
-		                                                         _vignetteAlpha);
 	}
 
 	protected void UpdateMovementAnimations()
@@ -312,6 +267,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 	
+	public override void OnDeath()
+	{
+		OnDeath (Vector2.zero);
+	}
     public override void OnDeath(Vector2 knockForce)
     {
 		MecanimAnimator.SetBool(_dieHash, true);
