@@ -24,7 +24,8 @@ public class DynamicMusicPlayer : AudioPlayer
 	//private float audio2Volume;
 	//private float audio3Volume;
 	
-	private int _prevDangerLevel;
+	private int _prevAwareLevel;
+	private int _prevChasingLevel;
 	
 	
 	void Start()
@@ -35,11 +36,12 @@ public class DynamicMusicPlayer : AudioPlayer
 		_audioFadingIn = false;
 		_audio1 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio1.dopplerLevel = 0;
-		_audio1.volume = 0.2f;
+		_audio1.volume = 0.1f;
 		_audio1.panLevel = 0;
 		_audio2 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio2.dopplerLevel = 0;
 		_audio2.panLevel = 0;
+		_audio2.volume = 0.1f;
 		_audio3 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio3.dopplerLevel = 0;
 		_audio3.panLevel = 0;
@@ -49,19 +51,20 @@ public class DynamicMusicPlayer : AudioPlayer
 		_audio1.clip = _enemyDangerClips.Clips[0];
 		_audio2.clip = _enemyDangerClips.Clips[1];
 		_audio3.clip = _enemyDangerClips.Clips[2];
-		_prevDangerLevel = 0;
+		_prevAwareLevel = 0;
+		_prevChasingLevel = 0;
 	}
 	
 	void Update()
 	{
-		PlayDanger(DangerLevel);
+		PlayDanger(AwareLevel,ChasingLevel);
 	}
 	
-	public void PlayDanger(int dangerLevel)
+	public void PlayDanger(int awareLevel, int chasingLevel)
     {
 		// Do nothing if the danger level hasn't changed
 //		Debug.Log (dangerLevel + " " + _audioFadingIn + _audioFadingOut);
-		if(dangerLevel == _prevDangerLevel)
+		if(awareLevel == _prevAwareLevel && chasingLevel == _prevChasingLevel)
 		{
 			if (_audioFadingIn)
 				FadeIn(_audio1);
@@ -70,21 +73,29 @@ public class DynamicMusicPlayer : AudioPlayer
 			return;
 		}
 
-        if (dangerLevel <= 0 )
+        if (awareLevel <= 0 && chasingLevel <= 0)
 		{
 			Debug.Log("Fading");
 			_audioFadingOut = true;
 			_audio2.Stop();
 			_audio3.Stop();
 		}
-		else if (dangerLevel == 1)
+		else if (awareLevel == 1 && chasingLevel == 0)
 		{
 			if(!_audioFadingIn)
 				_audio1.Play();
+			_audio2.Stop();
 			_audioFadingIn = true;
-
 		}
-		else if (dangerLevel == 2)
+		else if (awareLevel == 1 && chasingLevel == 1)
+		{
+			//if(!_audioFadingIn)
+			_audio1.Play();
+			_audio2.timeSamples = _audio1.timeSamples;
+		    _audio2.Play();
+			//_audioFadingIn = true;
+		}
+		else if (awareLevel == 2)
 		{
 			_audio2.timeSamples = _audio1.timeSamples;
 			if (!_audio2.isPlaying)
@@ -93,14 +104,15 @@ public class DynamicMusicPlayer : AudioPlayer
 			//			Debug.Log(audio2.timeSamples);
 			//
 		}
-		else if (dangerLevel >= 3)
+		else if (awareLevel >= 3)
 		{
 			//FadeAndChange(audio3,
 			_audio3.timeSamples = _audio1.timeSamples;
 			_audio3.Play();
 		}
 		
-		_prevDangerLevel = dangerLevel;
+		_prevAwareLevel = awareLevel;
+		_prevChasingLevel = chasingLevel;
     }
 
 	public void FadeOut(AudioSource audio)
@@ -110,7 +122,7 @@ public class DynamicMusicPlayer : AudioPlayer
 		{
 			_audioFadingOut = false;
 			audio.Stop();
-			audio.volume = 0.5f;
+			audio.volume = 0.1f;
 			Debug.Log ("Done Fading Out");
 		}
 		else
@@ -119,7 +131,7 @@ public class DynamicMusicPlayer : AudioPlayer
 	public void FadeIn(AudioSource audio)
 	{
 		_audioFadingOut = false;
-		if(audio.volume >= 0.2f)
+		if(audio.volume >= 0.1f)
 		{
 			_audioFadingIn = false;
 			Debug.Log ("Done Fading In");
@@ -129,7 +141,12 @@ public class DynamicMusicPlayer : AudioPlayer
 	}
 	
 
-	public int DangerLevel
+	public int AwareLevel
+	{
+		get { return GameManager.AI.EnemiesAware; }
+	}
+
+	public int ChasingLevel
 	{
 		get { return GameManager.AI.EnemiesAware; }
 	}
