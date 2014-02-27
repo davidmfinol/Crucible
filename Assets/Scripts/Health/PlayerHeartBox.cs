@@ -10,9 +10,6 @@ public class PlayerHeartBox : HeartBox
 	public Transform HurtEffect;
 	public Transform RegenEffect;
 
-	// The last hitbox we took this frame, or null if no hit this frame
-	private HitBox _hitbox = null;
-
 	// how fast do we regen HP?
 	private float _regenTimer = 6.0f;
 	// how long at this health?  how far along in regen?
@@ -23,7 +20,6 @@ public class PlayerHeartBox : HeartBox
 
 	protected override void OnStart()
 	{
-		Controller.ModifyState = UpdateHealth;
 		_player = transform.root.GetComponent<PlayerCharacterAnimator> ();
 		_camScroll = Camera.main.GetComponent<CameraScrolling> ();
 	}
@@ -33,36 +29,33 @@ public class PlayerHeartBox : HeartBox
 		if (Controller.CurrentState.IsName("Base Layer.Waiting For Respawn") && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed) )
 			GameManager.SpawnPlayer ();
 	}
-	
-	protected override void Interpret(HitBox hitbox)
-	{
-		_hitbox = hitbox;
-	}
-	public void UpdateHealth(float elapsedTime) 
+
+	public override void UpdateHealth(float elapsedTime) 
 	{
 		// process attacks
-		if (_hitbox != null)
+		if (LastHit != null)
         {
-			Vector2 dirToPlayer = new Vector2( transform.position.x - _hitbox.transform.position.x, transform.position.y - _hitbox.transform.position.y);
+			Vector2 dirToPlayer = new Vector2( transform.position.x - LastHit.transform.position.x, transform.position.y - LastHit.transform.position.y);
 
 			if(dirToPlayer.x < 0)
 				dirToPlayer.x = -1;
 			else if(dirToPlayer.x > 0)
 				dirToPlayer.x = 1;
 
-			Vector2 knockForce = new Vector2(_hitbox.KnockBackAmount * dirToPlayer.x, _hitbox.KnockUpAmount);
+			Vector2 knockForce = new Vector2(LastHit.KnockBackAmount * dirToPlayer.x, LastHit.KnockUpAmount);
 
-			Debug.Log ("Knocking " + _hitbox.KnockBackAmount + " dir " + dirToPlayer.x);
+			Debug.Log ("Knocking " + LastHit.KnockBackAmount + " dir " + dirToPlayer.x);
 
 			// fly in direction of hit
 			//Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
-			//Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (_hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
+			//Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (Hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
 			// adjust health, do particles, etc.
-			AdjustHealth (-1 * _hitbox.DamageAmount, knockForce );
-			Destroy (_hitbox.gameObject);
-			_hitbox = null;
+			AdjustHealth (-1 * LastHit.DamageAmount, knockForce );
+			Destroy (LastHit.gameObject);
+			LastHit = null;
 
-		} else
+		}
+		else
 		{
 			TryRegenHealth ();
 		}

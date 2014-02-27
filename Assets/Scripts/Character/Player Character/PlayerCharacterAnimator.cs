@@ -319,22 +319,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 
-	protected void ApplyDeathFriction(float elapsedTime) {
-		if(HorizontalSpeed > 0.0f) {
-			HorizontalSpeed -= Settings.DeathFriction * elapsedTime;
-
-			if(HorizontalSpeed < 0.1f)
-				HorizontalSpeed = 0.0f;
-			
-		} else if(HorizontalSpeed < 0.0f) {
-			HorizontalSpeed += Settings.DeathFriction * elapsedTime;
-			 
-			if(HorizontalSpeed > -0.1f)
-				HorizontalSpeed = 0.0f;
-			
-		}
-	}                                                 
-
+                                             
 	protected void Die(float elapsedTime)
 	{
 		if (IsGrounded) {
