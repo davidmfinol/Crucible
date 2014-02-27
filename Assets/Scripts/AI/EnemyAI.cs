@@ -67,7 +67,7 @@ public class EnemyAI : MonoBehaviour
 		switch(Awareness)
 		{
 		case AwarenessLevel.Unaware: Wander(); break;
-		case AwarenessLevel.Searching : Search(); break;
+		case AwarenessLevel.Searching : Chase(); break; //TODO: Better searching
 		case AwarenessLevel.Chasing : Chase(); break;
 		default : Wander(); break;
 		}
@@ -130,8 +130,13 @@ public class EnemyAI : MonoBehaviour
 		}
 		
 		// Jump selectively
-		_animator.CharInput.Jump = (_animator.VerticalSpeed > 0 || (_currentPathWaypoint >= _path.vectorPath.Count - 1)) ? Vector2.zero : 
-			new Vector2(_path.vectorPath[_currentPathWaypoint].x - _animator.transform.position.x, _path.vectorPath[_currentPathWaypoint].y -_animator.transform.position.y);
+		if(_animator.VerticalSpeed > 0 || (_currentPathWaypoint >= _path.vectorPath.Count - 1))
+			_animator.CharInput.Jump = Vector2.zero;
+			
+		else if(_path.vectorPath[_currentPathWaypoint].y -_animator.transform.position.y > 0)
+		{
+			_animator.CharInput.Jump = Vector2.up;
+		}
 		
 		// Pressing up or down depends on both y and z positions
 		if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _animator.DesiredZ) < 1 || (_playerAnimator != null && _playerAnimator.DesiredZ == _animator.DesiredZ))
@@ -217,7 +222,8 @@ public class EnemyAI : MonoBehaviour
         _timeSinceRepath += Time.deltaTime;
 
 		// Set a target location to move to, and then calculate the path to get there
-		return UpdateAStarTarget(targetPos) && UpdateAStarPath();
+		bool hasValidAstarPath = UpdateAStarTarget(targetPos) && UpdateAStarPath();
+		return hasValidAstarPath;
 	}
 	
 	/// <summary>
@@ -234,7 +240,7 @@ public class EnemyAI : MonoBehaviour
 	public bool UpdateAStarTarget(Vector3 target)
 	{
 		if(_playerAnimator == null && GameManager.Player != null)
-			 _playerAnimator = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
+			 _playerAnimator = GameManager.Player.GetComponent<PlayerCharacterAnimator>(); //TODO: GETCOMPONENET
 		
 		if(target != Vector3.zero)
 		{
@@ -242,7 +248,7 @@ public class EnemyAI : MonoBehaviour
 			_target = target;
 			return true;
 		}
-		else if(Awareness == AwarenessLevel.Chasing && _playerAnimator != null)
+		else if(_playerAnimator != null)
 		{
             _target = _playerAnimator.transform.position;
 			return true;
@@ -294,7 +300,9 @@ public class EnemyAI : MonoBehaviour
 		// Stop if we're at the end of the path
 		bool isFinalNode = _currentPathWaypoint >= _path.vectorPath.Count;
 		if (isFinalNode)
+		{
 			return false;
+		}
 
 		bool isWaypointLongerThanPath = (_currentPathWaypoint >= _path.path.Count);
 		
@@ -306,7 +314,7 @@ public class EnemyAI : MonoBehaviour
 		if ( isTouchingNextNode && !isFinalNode && (!isNodeTouchingGround || isCharacterTouchingGround) )
     		_currentPathWaypoint++;
 
-        return _currentPathWaypoint < _path.vectorPath.Count;
+		return _currentPathWaypoint < _path.vectorPath.Count;
 	}
 	
 	/// <summary>
