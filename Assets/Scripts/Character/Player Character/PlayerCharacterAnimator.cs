@@ -598,15 +598,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void ClimbingLedge(float elapsedTime)
 	{
-		if(ActiveHangTarget != null)
-			_ledge = ActiveHangTarget as Ledge;
+		if(MecanimAnimator.GetBool(_climbLedgeHash))
+		{
+			MecanimAnimator.SetBool(_climbLedgeHash, false);
+			if(ActiveHangTarget != null)
+				_ledge = ActiveHangTarget as Ledge;
+		}
+
+		if(_ledge == null)
+		{
+			Debug.LogWarning("Player Character's Ledge Lost!");
+			return;
+		}
 
 		if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
 		    || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
 		    || MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
 		{
 			VerticalSpeed = GroundVerticalSpeed;
-			MecanimAnimator.SetBool(_climbLedgeHash, false);
 		}
       	else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height/2)
 			VerticalSpeed = 0;
