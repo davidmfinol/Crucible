@@ -44,8 +44,6 @@ public class PlayerHeartBox : HeartBox
 
 			Vector2 knockForce = new Vector2(LastHit.KnockBackAmount * dirToPlayer.x, LastHit.KnockUpAmount);
 
-			Debug.Log ("Knocking " + LastHit.KnockBackAmount + " dir " + dirToPlayer.x);
-
 			// fly in direction of hit
 			//Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
 			//Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (Hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
