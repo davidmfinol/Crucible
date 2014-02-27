@@ -27,11 +27,11 @@ public class AIManager : MonoBehaviour
 	{
 		get
 		{
-			int EnemiesAware = 0;
-			foreach(EnemyAI Enemy in _enemies)
-				if(Enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
-					EnemiesAware++;
-			return EnemiesAware;
+			int enemiesSearching = 0;
+			foreach(EnemyAI enemy in _enemies)
+                if(enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
+					enemiesSearching++;
+			return enemiesSearching;
 		}
 	}
 
@@ -39,11 +39,11 @@ public class AIManager : MonoBehaviour
 	{
 		get
 		{
-			int Enemies = 0;
-			foreach(EnemyAI Enemy in _enemies)
-				if(Enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
-					Enemies++;
-			return Enemies;
+			int enemiesChasing = 0;
+            foreach(EnemyAI enemy in _enemies)
+                if(enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
+					enemiesChasing++;
+			return enemiesChasing;
 		}
 	}
 }

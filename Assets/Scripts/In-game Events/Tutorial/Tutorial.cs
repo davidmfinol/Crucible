@@ -20,18 +20,22 @@ public class Tutorial : MonoBehaviour
 	public Transform Olympus;
 	public Transform SewerDoor;
 
-	private bool reachedTrigger1;
+	private bool _reachedTrigger1;
+    private bool _sewerDoorOpen;
+    private CharacterAnimator _player;
 
 
 	void Start ()
 	{
-		reachedTrigger1 = false;
+		_reachedTrigger1 = false;
+        _sewerDoorOpen = false;
+        _player = GameManager.Player.GetComponent<CharacterAnimator>();
 		StartCoroutine("WaitToShowInstructions");
 	}
 
 	public void ReachTrigger1()
 	{
-		reachedTrigger1 = true;
+		_reachedTrigger1 = true;
 	}
 	
 	public void ReachTrigger2()
@@ -41,11 +45,12 @@ public class Tutorial : MonoBehaviour
 	
 	public void ReachTrigger3()
 	{
-		// TODO
+        Olympus.gameObject.SetActive(true);
+        StartCoroutine("OperateDoor");
 	}
 	public void LeftTrigger3()
-	{
-		// TODO
+    {
+        StopCoroutine("OperateDoor");
 	}
 
 	public IEnumerator WaitToShowInstructions()
@@ -54,7 +59,7 @@ public class Tutorial : MonoBehaviour
 		while (elapsedTime < 10)
 		{
 			elapsedTime += Time.deltaTime;
-			if(reachedTrigger1)
+			if(_reachedTrigger1)
 				StopCoroutine("WaitToShowInstructions");
 			yield return null;
 		}
@@ -62,4 +67,24 @@ public class Tutorial : MonoBehaviour
 		Instantiate (JumpSign);
 		StopCoroutine("WaitToShowInstructions");
 	}
+
+    public IEnumerator OperateDoor()
+    {
+        while (true)
+        {
+            if(_sewerDoorOpen && Mathf.Abs(_player.CharInput.Horizontal) > 0.5)
+            {
+                SewerDoor.animation.Play("Close");
+                _sewerDoorOpen = false;
+                yield return new WaitForSeconds(0.5f);
+            }
+            else if (!_sewerDoorOpen && Mathf.Abs(_player.CharInput.Horizontal) < 0.5)
+            {
+                SewerDoor.animation.Play("Open");
+                _sewerDoorOpen = true;
+                yield return new WaitForSeconds(0.5f);
+            }
+            yield return null;
+        }
+    }
 }

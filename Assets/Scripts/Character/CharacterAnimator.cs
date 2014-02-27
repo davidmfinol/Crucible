@@ -408,14 +408,18 @@ public abstract class CharacterAnimator : MonoBehaviour
         VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
     }
 
-	protected void ApplyDeathFriction(float elapsedTime) {
-		if(HorizontalSpeed > 0.0f) {
+	protected void ApplyDeathFriction(float elapsedTime)
+    {
+		if(HorizontalSpeed > 0.0f)
+        {
 			HorizontalSpeed -= Settings.DeathFriction * elapsedTime;
 			
 			if(HorizontalSpeed < 0.1f)
 				HorizontalSpeed = 0.0f;
 			
-		} else if(HorizontalSpeed < 0.0f) {
+		}
+        else if(HorizontalSpeed < 0.0f)
+        {
 			HorizontalSpeed += Settings.DeathFriction * elapsedTime;
 			
 			if(HorizontalSpeed > -0.1f)
@@ -539,6 +543,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             _activePlatform = null;
 	}
 
+    // Useful animation events
 	public void CreateFootstep()
 	{
 		if(Mathf.Abs(HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed)
@@ -548,7 +553,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 		footStepPosition.y -= Height/2;	// 
 		Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
 	}
-
 	public void PlayHit()
 	{
 		// TODO: MOVE THIS ELSEWHERE

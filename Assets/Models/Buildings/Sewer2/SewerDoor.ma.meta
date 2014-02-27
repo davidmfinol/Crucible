@@ -29,6 +29,8 @@ ModelImporter:
     3300000: pasted__polySurface189
     4300000: pasted__polySurface189
     7400000: Take 001
+    7400002: Open
+    7400004: Close
     9500000: //RootNode
     11100000: //RootNode
   materials:
@@ -51,6 +53,102 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 1
       lastFrame: 28.0000019
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: pasted__polySurface139
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172/pasted__polySurface180
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172/pasted__polySurface180/pasted__polySurface189
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172/pasted__polySurface180/pasted__transform52
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172/pasted__transform48
+        weight: 1
+      - path: pasted__SignHolder
+        weight: 1
+      - path: pasted__SignHolder/pasted__group8
+        weight: 1
+      - path: pasted__SignHolder/pasted__transform55
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Open
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: pasted__polySurface139
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172/pasted__polySurface180
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172/pasted__polySurface180/pasted__polySurface189
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172/pasted__polySurface180/pasted__transform52
+        weight: 1
+      - path: pasted__polySurface139/pasted__polySurface169/pasted__polySurface172/pasted__transform48
+        weight: 1
+      - path: pasted__SignHolder
+        weight: 1
+      - path: pasted__SignHolder/pasted__group8
+        weight: 1
+      - path: pasted__SignHolder/pasted__transform55
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Close
+      takeName: Take 001
+      firstFrame: 15
+      lastFrame: 27
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

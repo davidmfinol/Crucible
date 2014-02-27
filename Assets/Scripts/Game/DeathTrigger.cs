@@ -9,14 +9,16 @@ using System.Collections;
 public class DeathTrigger : MonoBehaviour
 {
 
-    // Whoever enters the DeathTrigger gets an OnDeath message sent to them; no response is necessary
+    // Triggers death
     void OnTriggerEnter(Collider other)
     {
-        other.gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+        CharacterAnimator animator = other.GetComponent<CharacterAnimator>();
+        if(animator != null)
+            animator.OnDeath();
     }
     void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+        OnTriggerEnter(collision.collider);
     }
 
     // We'll draw a gizmo in the scene view, so it can be seen

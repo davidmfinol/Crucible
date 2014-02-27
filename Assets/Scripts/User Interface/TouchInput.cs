@@ -18,7 +18,6 @@ public class TouchInput : MonoBehaviour
 	private Transform _verticalSlider;
 	private Transform _moveButton;
 	private List<Transform> _userInterfaceDots;
-    private Camera _uiCamera;
 
     // Swipe information related to movement
 	private int _moveID;
@@ -85,8 +84,6 @@ public class TouchInput : MonoBehaviour
 			dot.parent = transform;
 			_userInterfaceDots.Add(dot);
 		}
-
-        _uiCamera = GetComponentInChildren<Camera>();
 
 #if (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
 		_input.UpdateInputMethod = UpdateInput;
@@ -169,7 +166,7 @@ public class TouchInput : MonoBehaviour
 		_verticalSlider.renderer.enabled = moveTouched;
 		_moveButton.renderer.enabled = moveTouched;
 
-		Vector3 pos = ConvertTouchPosToWorldPoint (_moveStartPos);
+        Vector3 pos = ConvertTouchPosToWorldPoint (_moveStartPos);
 		_horizontalSlider.transform.position = pos;
 		_verticalSlider.transform.position = pos;
 		_moveButton.transform.position = ConvertTouchPosToWorldPoint (_lastMovePos); // TODO: MAKE THE BUTTON BE FIXED TO EITHER THE HORIZONTAL OR VERTICAL AXIS?
@@ -193,42 +190,28 @@ public class TouchInput : MonoBehaviour
     private void InterpretInteraction()
     {
         _actionID = -1;
-        
-        Vector2 delta = _lastActionPos - _actionStartPos;
-        float deg = -1000;
-        if (delta.magnitude > _actionMin) 
-        {
-            float rad = Mathf.Atan2(delta.y, delta.x);
-            deg = rad * 180.0f / Mathf.PI;
-        } 
-        
-        // TODO: BETTER MAPPING
-        // jump right
-        if(deg > 25.0f && deg <= 75.0f)
+
+        float deg = CalculateActionDegree();
+
+        if(IsJumpRight(deg))
             _input.Jump = new Vector2( 1,1);
-        
-        // straight up
-        else if(deg > 75.0f && deg <= 105.0f)
+
+        else if(IsJumpUp(deg))
             _input.Jump = new Vector2( 0, 1);
-        
-        // jump left
-        else if(deg > 105.0f && deg <= 155.0f)
+
+        else if(IsJumpLeft(deg))
             _input.Jump = new Vector2( -1 ,1);
-        
-        // attack left
-        else if((deg > 155.0f && deg <= 210.0f) || (deg > -205.0f && deg <= -150.0f) || (deg > 515.0f && deg <= 570.0f))
+
+        else if(IsAttackLeft(deg))
             _input.Attack = -1;
-        
-        // pickup
-        else if((deg > 210.0f && deg <= 330.0f) || (deg > -150.0f && deg <= -30.0f) || (deg > 570.0f && deg <= 690.0f))
+
+        else if(IsPickup(deg))
             _input.Pickup = true;
-        
-        // attack right
-        else if(((deg > 330.0f && deg <= 360.0f) || (deg >= 0.0f && deg < 25.0f)) || ((deg > -30.0f && deg <= 0.0f) || (deg >= -360.0f && deg < -335.0f)) || ((deg > 690.0f && deg <= 720.0f) || (deg >= 360.0f && deg < 385.0f))) 
+
+        else if(IsAttackRight(deg)) 
             _input.Attack = 1;
-        
-        // TODO: make this context-sensitive for ladders & climbing
-        else if(deg == -1000)
+
+        else if(IsInteraction(deg))
             _input.Interaction = true;
     }
 	private void DisplayActionDots(bool actTouched)
@@ -248,55 +231,82 @@ public class TouchInput : MonoBehaviour
 		{
 			_userInterfaceDots[dot].transform.position = new Vector3(pos.x + dotPositions[dot*2], pos.y + dotPositions[dot*2+1], 0);
 			_userInterfaceDots[dot].renderer.enabled = true;
-			_userInterfaceDots[dot].renderer.material.color = Color.white;
-			
-			Vector2 delta = _lastActionPos - _actionStartPos;
-			float deg = -1000;
-			if (delta.magnitude > _actionMin) 
-			{
-				float rad = Mathf.Atan2(delta.y, delta.x);
-				deg = rad * 180.0f / Mathf.PI;
-			} 
+            _userInterfaceDots[dot].renderer.material.color = Color.white;
             
-            // TODO: BETTER MAPPING
-            // jump right
-            if(deg > 25.0f && deg <= 75.0f && dot == 8)
+            float deg = CalculateActionDegree();
+
+            if( IsJumpRight(deg) && dot == 8)
                 _userInterfaceDots[dot].renderer.material.color = Color.blue;
-            
-            // straight up
-            else if(deg > 75.0f && deg <= 105.0f && dot == 7)
+
+            else if( IsJumpUp(deg) && dot == 7)
                 _userInterfaceDots[dot].renderer.material.color = Color.blue;
-            
-            // jump left
-            else if(deg > 105.0f && deg <= 155.0f && dot == 6)
+
+            else if( IsJumpLeft(deg) && dot == 6)
                 _userInterfaceDots[dot].renderer.material.color = Color.blue;
-            
-            // attack left
-            else if(((deg > 155.0f && deg <= 210.0f) || (deg > -205.0f && deg <= -150.0f) || (deg > 515.0f && deg <= 570.0f)) && dot == 3 )
+
+            else if( IsAttackLeft(deg) && dot == 3 )
                 _userInterfaceDots[dot].renderer.material.color = Color.red;
-            
-            // pickup
-            else if(((deg > 210.0f && deg <= 330.0f) || (deg > -150.0f && deg <= -30.0f) || (deg > 570.0f && deg <= 690.0f)) && (dot == 0 || dot == 1 || dot == 2))
+
+            else if( IsPickup(deg) && (dot == 0 || dot == 1 || dot == 2))
                 _userInterfaceDots[dot].renderer.material.color = Color.green;
-            
-            // attack right
-            else if((((deg > 330.0f && deg <= 360.0f) || (deg >= 0.0f && deg < 25.0f)) || ((deg > -30.0f && deg <= 0.0f) || (deg >= -360.0f && deg < -335.0f)) || ((deg > 690.0f && deg <= 720.0f) || (deg >= 360.0f && deg < 385.0f))) && dot == 5) 
+
+            else if( IsAttackRight(deg) && dot == 5) 
                 _userInterfaceDots[dot].renderer.material.color = Color.red;
-            
-            // TODO: make this context-sensitive for ladders & climbing 
-            else if(deg == -1000 && dot == 4)
+
+            else if( IsInteraction(deg) && dot == 4)
                 _userInterfaceDots[dot].renderer.material.color = Color.black;
 		}
-	}
-	
-	public Vector3 ConvertTouchPosToWorldPoint(Vector2 touchPos)
-	{
+        // TODO: LINE FROM START TO END/ PARTICLE EFFECT SURROUNDING FINGER
+    }
+
+    public float CalculateActionDegree()
+    {
+        Vector2 delta = _lastActionPos - _actionStartPos;
+        float deg = -1000;
+        if (delta.magnitude > _actionMin) 
+        {
+            float rad = Mathf.Atan2(delta.y, delta.x);
+            deg = rad * 180.0f / Mathf.PI;
+        } 
+        return deg;
+    }
+    public bool IsJumpRight(float deg)
+    {
+        return deg > 25.0f && deg <= 80.0f;
+    }
+    public bool IsJumpUp(float deg)
+    {
+        return deg > 80.0f && deg <= 100.0f;
+    }
+    public bool IsJumpLeft(float deg)
+    {
+        return deg > 100.0f && deg <= 155.0f;
+    }
+    public bool IsAttackLeft(float deg)
+    {
+        return ((deg > 155.0f && deg <= 210.0f) || (deg > -205.0f && deg <= -150.0f) || (deg > 515.0f && deg <= 570.0f));
+    }
+    public bool IsPickup(float deg)
+    {
+        return ((deg > 210.0f && deg <= 330.0f) || (deg > -150.0f && deg <= -30.0f) || (deg > 570.0f && deg <= 690.0f));
+    }
+    public bool IsAttackRight(float deg)
+    {
+        return (((deg > 330.0f && deg <= 360.0f) || (deg >= 0.0f && deg < 25.0f)) || ((deg > -30.0f && deg <= 0.0f) || (deg >= -360.0f && deg < -335.0f)) || ((deg > 690.0f && deg <= 720.0f) || (deg >= 360.0f && deg < 385.0f)));
+    }
+    public bool IsInteraction(float deg)
+    {
+        return deg == -1000;
+    }
+    
+    public Vector3 ConvertTouchPosToWorldPoint(Vector2 touchPos)
+    {
         Vector3 cameraPos = touchPos;
         cameraPos.x /= Screen.width;
         cameraPos.y /= Screen.height;
-        cameraPos.z = -_uiCamera.transform.position.z;
-        return _uiCamera.ViewportToWorldPoint(cameraPos);
-	}
+        cameraPos.z = -GameManager.UI.UICamera.transform.position.z;
+        return GameManager.UI.UICamera.ViewportToWorldPoint(cameraPos);
+    }
 
 
 	public float DistanceForMaxSpeed

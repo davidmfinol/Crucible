@@ -27,7 +27,9 @@ public class ShakeEffect {
 	private const float _maxYSpread = 10.0f;
 	private const float _maxZSpread = 5.0f;
 
-	public ShakeEffect (float lifetime, float oldDistanceModifier) {
+
+	public ShakeEffect (float lifetime, float oldDistanceModifier)
+    {
 		_pos = new Vector3 (0.0f, 0.0f, 0.0f);
 
 		_startLifetime = lifetime;
@@ -38,7 +40,8 @@ public class ShakeEffect {
 		OldDistanceModifier = oldDistanceModifier;
 	}
 
-	void PickNewTarget() {
+	void PickNewTarget() 
+    {
 		float normalizedLifetime = (_lifetime / _startLifetime);
 
 		_target = new Vector3 (Random.Range (-_maxXSpread, _maxXSpread) * normalizedLifetime, 
@@ -48,20 +51,24 @@ public class ShakeEffect {
 
 	}
 
-	public bool IsDone() {
+	public bool IsDone()
+    {
 		return(_lifetime <= 0.0f);
-
 	}
 	
-	public Vector3 Shake (float time) {
+	public Vector3 Shake (float time)
+    {
 		// if close enough, pick new, otherwise, get closer
 		Vector3 dist = _target - _pos;
 		float d = dist.magnitude;
 
-		if (d <= _closeEnough) {
+		if (d <= _closeEnough)
+        {
 			PickNewTarget ();
 
-		} else {
+		}
+        else
+        {
 			Vector3 dir = dist.normalized;
 
 			_pos += (dir * (_speed * time));

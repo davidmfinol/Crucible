@@ -66,7 +66,7 @@ public class MeshToGameObjectsMenu
 			bool containsName = false;
 			foreach (string objName in objectNames)
 			{
-				if(name.Contains(objName))
+				if(name.Contains(objName.ToLower()))
 				   containsName = true;
 			}
 

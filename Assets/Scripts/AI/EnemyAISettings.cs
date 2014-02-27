@@ -18,18 +18,23 @@ public class EnemyAISettings : MonoBehaviour
 
 	// If we're close enough to our end target, stop moving
 	public float StopRange; // = 2.0f;
-	
-	// Used by A* to calculate graph
+
+	// Toggles for the different sensory inputs of the enemy ai
+	public bool CanSee; // = true; 
+	public bool CanHear; // = true;
+
+    // how long before the enemy forgets that it saw the player
+	public float VisionMemory; // = 1.0f
+
+    // how close the enemy must be to succesfully visually inspect a sound source
+    public float SoundInspectionRange; // = 1.0f;
+    
+    // Used by A* to calculate graph
     public static float MaxJump = 9.0f; // jumpheight + capsulecollider.height/2
     public static float MaxSpeed = 12.0f;
     public static float MaxGravity = 40.0f;
-
-	// SENSORY
-	public bool CanSee; // = true;         // toggle AI vision and hearing sensory inputs.
-	public bool CanHear; // = true;
-	public float VisionMemory; // = 1.0f;           // how long to forget that we saw the player
-	public float SoundInspectionRange; // = 1.0f;  // how close to succesfully visually inspect a sound source
 	
+
     /// <summary>
     /// Returns whether a Enemy can jump from one position to another
     /// </summary>

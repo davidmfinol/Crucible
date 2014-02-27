@@ -42,9 +42,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
     // Used for backflipping
 	private float _desiredSpeed;
 	private float _desiredDirectionX;
+
+    // Keep track of wall jumps to scale their difficulty
+    private int _wallJumpCount;
 	
-	// Used to keep track of the player character's weaponry
+	// Used to keep track of the player character's weaponry and inventory
 	private PlayerCharacterArsenal _arsenal;
+ //   private PlayerCharacterInventory _inventory; // TODO
 
     protected override void OnStart()
     {
@@ -112,6 +116,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected override void UpdateMecanimVariables()
 	{
+        if(IsGrounded)
+            _wallJumpCount = 0;
+
 		UpdateMovementAnimations();
 		UpdateAttackAnimations();
 	}
@@ -267,10 +274,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 	
-	public override void OnDeath()
-	{
-		OnDeath (Vector2.zero);
-	}
     public override void OnDeath(Vector2 knockForce)
     {
 		MecanimAnimator.SetBool(_dieHash, true);
@@ -485,7 +488,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected void Wallgrabbing(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
-		VerticalSpeed = Settings.WallSlideSpeed * elapsedTime;
+        if(_wallJumpCount > 0)
+		    VerticalSpeed = Settings.WallSlideSpeed * elapsedTime; // TODO: MAKE THIS LINEAR BASED OFF WALLJUMPCOUNT?
+        else
+            VerticalSpeed = 0;
 
 		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
 		MecanimAnimator.SetBool(_jumpWallHash, jump);
@@ -505,6 +511,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 			Direction = -Direction;
 			VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
+            _wallJumpCount++;
 			MecanimAnimator.SetBool(_jumpWallHash, false);
 		}
 		else
@@ -532,7 +539,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		VerticalSpeed = 0;
 		if(MecanimAnimator.GetBool(_hangHash))
 		{
-			VerticalSpeed = 0;
 			
 			if(ActiveHangTarget == null)
 			{
@@ -558,7 +564,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		
 		if(ActiveHangTarget != null)
-			ActivePlatform = ActiveHangTarget.transform;
+            ActivePlatform = ActiveHangTarget.transform;
+
+        MecanimAnimator.SetBool(_fallHash, false);
 		
         if(ActiveHangTarget == null)
 		{
@@ -583,23 +591,23 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void ClimbingLedge(float elapsedTime)
 	{
-		if(MecanimAnimator.GetBool(_climbLedgeHash))
-		{
-			MecanimAnimator.SetBool(_climbLedgeHash, false);
-			if(ActiveHangTarget != null)
-				_ledge = ActiveHangTarget as Ledge;
-		}
+		if(ActiveHangTarget != null && ActiveHangTarget is Ledge)
+			_ledge = ActiveHangTarget as Ledge;
 
-		if(_ledge == null)
-		{
-			Debug.LogWarning("Player Character's Ledge Lost!");
-			return;
-		}
+        if(_ledge == null)
+        {
+            Debug.LogWarning("Player Character's Ledge Not Found!");
+            MecanimAnimator.SetBool(_fallHash, true);
+            return;
+        }
+
+        MecanimAnimator.SetBool(_fallHash, false);
 
 		if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
 		    || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
-		    || MecanimAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9)
-		{
+		    || CurrentState.normalizedTime > 0.9)
+        {
+            MecanimAnimator.SetBool(_climbLedgeHash, false);
 			VerticalSpeed = GroundVerticalSpeed;
 		}
       	else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height/2)
@@ -639,7 +647,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		ApplyClimbingVertical(vertical);
 		
 		if(ActiveHangTarget.DoesFaceZAxis())
-			Direction = Vector3.zero;
+            Direction = Vector3.zero;
+        
+        MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
+        MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
 
 		if(CharInput.InteractionPressed)
 		{
@@ -649,22 +660,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		else
 			MecanimAnimator.SetBool (_fallHash, false);
-		
-		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
-		MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
 
-		if (CharInput.JumpLeft) {
-
-			Direction = Vector3.left;
+		if (CharInput.JumpActive)
+        {
 			MecanimAnimator.SetBool (_jumpHash, true);
 			DropHangTarget();
-
-		} else if (CharInput.JumpRight) {
-			Direction = Vector3.right;
-			MecanimAnimator.SetBool (_jumpHash, true);
-			DropHangTarget();
-
-		}
+		} 
 
 	}
 	
@@ -697,26 +698,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //		MecanimAnimator.SetBool(_jumpHash, CharInput.JumpPressed);
 //		//MecanimAnimator.SetBool(_climbLadderHash, CanClimbP);
 //	}
+
 	protected void Pickup(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
 		VerticalSpeed = GroundVerticalSpeed;
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
 		MecanimAnimator.SetBool(_pickupHash, false);
-	}
-	
-	// TODO: DETERMINE HOW WE PICK STUFF UP
-    public override void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        base.OnControllerColliderHit(hit);
-
-        // We can pick up items
-        if (hit.gameObject.CompareTag("Item"))
-        {
-           // HasPackage = true; // TODO: seperate script for inventory
-            //Destroy(hit.gameObject);
-			//countItems += 1;
-        }
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)

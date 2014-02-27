@@ -181,7 +181,8 @@ public class EnemyAI : MonoBehaviour
 		AwarenessLevel oldAwareness = _awareness;
 
 		// try to change it
-		if (_settings.CanSee && IsSeeingPlayer()) {
+		if (_settings.CanSee && IsSeeingPlayer())
+        {
 			Awareness = AwarenessLevel.Chasing;
 			_timeSincePlayerSeen = _settings.VisionMemory;
 
@@ -190,26 +191,25 @@ public class EnemyAI : MonoBehaviour
 				_personalHearingRadius.ForgetAllSounds();
 
 
-		} else if (_settings.CanHear && HasHeardSound ) {
+		} 
+        else if (_settings.CanHear && HasHeardSound )
 			Awareness = AwarenessLevel.Searching;
 
-		} else if (_timeSincePlayerSeen <= 0.0f) {
+        else if (_timeSincePlayerSeen <= 0.0f) 
 			Awareness = AwarenessLevel.Unaware;
 
-		} else {
+        else
 			_timeSincePlayerSeen -= Time.deltaTime;
-		}
 
 		// if we transitioned to chasing, enter acquire state
-		if (oldAwareness != AwarenessLevel.Chasing && _awareness == AwarenessLevel.Chasing) {
-			if(_animator is OlympusAnimator) {
+		if (oldAwareness != AwarenessLevel.Chasing && _awareness == AwarenessLevel.Chasing)
+        {
+			if(_animator is OlympusAnimator)
+            {
 				OlympusAnimator oa = (OlympusAnimator) _animator;
 				oa.OnAcquireTarget();
-
 			}
-
 		}
-
 	}
 
 	private bool UpdateAStar()
