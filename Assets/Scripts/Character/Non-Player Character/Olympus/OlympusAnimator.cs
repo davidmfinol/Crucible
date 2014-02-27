@@ -101,6 +101,7 @@ public class OlympusAnimator : CharacterAnimator
 
 	protected void AcquireTarget(float elapsedTime) {
 		MecanimAnimator.SetBool (_acquiringTargetHash, false);
+
 		HorizontalSpeed = 0.0f;
 		VerticalSpeed = GroundVerticalSpeed;
 
@@ -312,7 +313,6 @@ public class OlympusAnimator : CharacterAnimator
 
 	public override void OnStealthDeath(Vector2 knockForce)
 	{
-		Debug.Log ("STealth death");
 		MecanimAnimator.SetBool (_stealthDeathHash, true);
 		HorizontalSpeed = knockForce.x;
 		VerticalSpeed = knockForce.y;
@@ -322,15 +322,24 @@ public class OlympusAnimator : CharacterAnimator
 	protected void Death(float elapsedTime)
 	{
 		MecanimAnimator.SetBool (_dieHash, false);
+
+		if (IsGrounded) {	
+			ApplyDeathFriction (elapsedTime);
+			VerticalSpeed = GroundVerticalSpeed;
+
+		} else {
+			ApplyGravity (elapsedTime);
+
+		}
 	}
 	
 	public override void OnDeath(Vector2 knockForce)
 	{
-		Debug.Log ("Death " + knockForce);
 		MecanimAnimator.SetBool (_dieHash, true);
+		Invoke ("DoRagDoll", 2.0f);
 		HorizontalSpeed = knockForce.x;
 		VerticalSpeed = knockForce.y;
-		Invoke ("DoRagDoll", 1.0f);
+
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)

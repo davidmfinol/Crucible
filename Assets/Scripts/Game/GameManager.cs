@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 	private static Transform _player;
 	
     // Global Managers
-    private static Transform _ui;
+    private static UIManager _ui;
 	private static AIManager _aiManager;
 	private static AudioManager _audioManager;
 	private static SubtitlesManager _subtitlesManager;
@@ -108,8 +108,11 @@ public class GameManager : MonoBehaviour
     
     private void SetupUI()
     {
-        if(_ui == null)
-            _ui = (Transform)Instantiate(UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);   
+        if(_ui != null) //TODO: BETTER TRANSFER
+            return;
+
+        Transform ui = (Transform)Instantiate(UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);
+        _ui = ui.GetComponent<UIManager>();
     }
 	
 	private void SetupAI()
@@ -165,10 +168,9 @@ public class GameManager : MonoBehaviour
     /// <value>
     /// The User Interface.
     /// </value>
-    public static Transform UI
+    public static UIManager UI
     {
         get { return _ui; }
-        set { _ui = value; }
     }
 	
 	/// <summary>

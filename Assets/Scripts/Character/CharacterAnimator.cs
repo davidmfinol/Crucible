@@ -371,6 +371,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 		CharInput.enabled = false; // Destroy(CharInput);
 		Controller.enabled = false; // Destroy(Controller);
 		MecanimAnimator.enabled = false; // Destroy(MecanimAnimator);
+		this.enabled = false;
 	}
 	public void ActivateFloat()
     {
@@ -406,6 +407,27 @@ public abstract class CharacterAnimator : MonoBehaviour
         VerticalSpeed -= Settings.Gravity * elapsedTime;
         VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
     }
+
+	protected void ApplyDeathFriction(float elapsedTime)
+    {
+		if(HorizontalSpeed > 0.0f)
+        {
+			HorizontalSpeed -= Settings.DeathFriction * elapsedTime;
+			
+			if(HorizontalSpeed < 0.1f)
+				HorizontalSpeed = 0.0f;
+			
+		}
+        else if(HorizontalSpeed < 0.0f)
+        {
+			HorizontalSpeed += Settings.DeathFriction * elapsedTime;
+			
+			if(HorizontalSpeed > -0.1f)
+				HorizontalSpeed = 0.0f;
+			
+		}
+	}   
+
 	protected virtual void ApplyBiDirection()
 	{
         if (CharInput.Left && !CharInput.Right)
@@ -521,6 +543,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             _activePlatform = null;
 	}
 
+    // Useful animation events
 	public void CreateFootstep()
 	{
 		if(Mathf.Abs(HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed)
@@ -530,7 +553,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 		footStepPosition.y -= Height/2;	// 
 		Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
 	}
-
 	public void PlayHit()
 	{
 		// TODO: MOVE THIS ELSEWHERE

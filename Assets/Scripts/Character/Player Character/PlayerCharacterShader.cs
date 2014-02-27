@@ -10,9 +10,7 @@ public class PlayerCharacterShader : MonoBehaviour
 	public enum ShaderType : int
 	{
 		Shader_Default = 0,
-		Shader_Stealth,
-		Shader_Hurt,
-		Shader_Unhurt
+		Shader_Stealth
 	};
 
 	private List<Material> _changeableMaterials;
@@ -50,31 +48,25 @@ public class PlayerCharacterShader : MonoBehaviour
         }
         
         _currentShader = type;
+
+        Color mainColor = Color.white;
+        Color outlineColor = Color.clear;
         
-        if (type == ShaderType.Shader_Default) {
-            _changeableMaterials [0].SetColor ("_Color", new Color(0.7f, 0.7f, 0.7f, 1.0f));
-            _changeableMaterials [0].SetColor ("_OutlineColor", Color.clear);
-            _changeableMaterials [1].SetColor ("_Color", new Color(0.7f, 0.7f, 0.7f, 1.0f));
-            _changeableMaterials [1].SetColor ("_OutlineColor", Color.clear);
-            
-        } else if (type == ShaderType.Shader_Hurt) {
-            _changeableMaterials [0].SetColor ("_Color", new Color (0.7f, 0.7f, 0.7f, 1.0f));
-            _changeableMaterials [0].SetColor ("_OutlineColor", Color.red);
-            _changeableMaterials [1].SetColor ("_Color", new Color (0.7f, 0.7f, 0.7f, 1.0f));
-            _changeableMaterials [1].SetColor ("_OutlineColor", Color.red);
-            
-        } else if (type == ShaderType.Shader_Unhurt) {
-            _changeableMaterials [0].SetColor ("_Color", new Color (0.7f, 0.7f, 0.7f, 1.0f));
-            _changeableMaterials [0].SetColor ("_OutlineColor", Color.blue);
-            _changeableMaterials [1].SetColor ("_Color", new Color (0.7f, 0.7f, 0.7f, 1.0f));
-            _changeableMaterials [1].SetColor ("_OutlineColor", Color.blue);
-            
-        } else if (type == ShaderType.Shader_Stealth) {
-            _changeableMaterials [0].SetColor ("_Color", new Color (0.0f, 0.0f, 0.0f, 1.0f));
-            _changeableMaterials [0].SetColor ("_OutlineColor", Color.white);
-            _changeableMaterials [1].SetColor ("_Color", new Color (0.0f, 0.0f, 0.0f, 1.0f));
-            _changeableMaterials [1].SetColor ("_OutlineColor", Color.white);
-            
+        if (type == ShaderType.Shader_Default)
+        {
+            mainColor =  new Color(0.7f, 0.7f, 0.7f, 1.0f);
+            outlineColor = Color.clear;
+        }
+        else if (type == ShaderType.Shader_Stealth)
+        {
+            mainColor =  new Color (0.0f, 0.0f, 0.0f, 1.0f);
+            outlineColor =  Color.white;
+        }
+
+        foreach (Material mat in _changeableMaterials)
+        {
+            mat.SetColor("_Color", mainColor);
+            mat.SetColor("_OutlineColor", outlineColor);
         }
         
     }

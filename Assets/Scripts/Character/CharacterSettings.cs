@@ -62,6 +62,7 @@ public sealed class CharacterSettings : MonoBehaviour
 	// how close do we need to be to initiate a stealth kill?
 	public float StealthKillRange;  // = 3.0f;
 
+    // how much friction is applied to the character as it slides across the ground on death?
 	public float DeathFriction;  // = 15.0f;
 
     // Helper Method to find a bone attached to a character

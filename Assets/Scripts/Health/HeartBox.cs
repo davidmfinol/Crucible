@@ -12,6 +12,9 @@ public abstract class HeartBox : MonoBehaviour
 	public int HitPoints;
 	public int MaxHitPoints = 2;
 	
+	// The last hitbox we took this frame, or null if no hit this frame
+	private HitBox _lastHit = null;
+	
 	// We need to be able to call OnDeath() as necessary
 	private CharacterAnimator _controller;
 
@@ -22,17 +25,21 @@ public abstract class HeartBox : MonoBehaviour
 
 		_controller = transform.parent.GetComponent<CharacterAnimator>();
 
+		Controller.ModifyState = UpdateHealth;
+
 		OnStart ();
 	}
 	protected virtual void OnStart() { } // Child classes may override
-	
-	void OnTriggerStay(Collider other)
+
+	// TODO: figure out why OnTriggerStay causes repeated executes.
+	void OnTriggerEnter(Collider other)
 	{
 		HitBox attackData = other.GetComponent<HitBox>();
 		if (attackData != null && attackData.enabled && attackData.Allegiance != this.Allegiance)
-			Interpret(attackData);
+			_lastHit = attackData;
+		
 	}
-	protected virtual void Interpret(HitBox hitbox)
+	public virtual void UpdateHealth(float elapsedTime)
 	{
 		// Child classes should override
 	}
@@ -42,4 +49,10 @@ public abstract class HeartBox : MonoBehaviour
 	{
 		get { return _controller; }
 	}
+	public HitBox LastHit
+	{
+		get { return _lastHit; }
+		set { _lastHit = value; }
+	}
+	
 }

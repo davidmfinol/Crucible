@@ -21,6 +21,7 @@ public class BabyBotAnimator : CharacterAnimator
 	private int _jumpHash;
 	private int _isGroundedHash;
 	
+
 	protected override void CreateStateMachine()
 	{
 		AudioSource[] sounds = GetComponents<AudioSource>();
