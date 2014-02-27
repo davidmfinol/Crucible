@@ -59,22 +59,34 @@ public class MeshToGameObjectsMenu
 		
 		selected.ForEach(transform => {
 			MeshFilter meshFilter = transform.GetComponent<MeshFilter>();
-            if (!meshFilter) return;
+            if (!meshFilter)
+				return;
+			
+			string name = meshFilter.name.ToLower();
+			bool containsName = false;
+			foreach (string objName in objectNames)
+			{
+				if(name.Contains(objName))
+				   containsName = true;
+			}
+
+			if(!containsName)
+				return;
+
+			// Set up the object
+			SetupObject(transform);
 
             // Create the object
-			string name = meshFilter.name.ToLower();
 			if (name.Contains("ledge"))
 			{
-				SetupObject(transform);
 				CreateLedge(transform);
 			}
-			else if (name.Contains("ground"))
-			{
-				SetupObject(transform);
-			}
+//			else if (name.Contains("ground"))
+//			{
+//				SetupObject(transform);
+//			}
 			else if (name.Contains("wall"))
 			{
-				SetupObject(transform);
 				CreateWall(transform); 
 			}
 			else if (name.Contains("ladder"))
@@ -117,8 +129,8 @@ public class MeshToGameObjectsMenu
 		Bounds ledgeBounds = ledge.collider.bounds;
 		Vector3 topLeft = ledgeBounds.center - new Vector3(ledgeBounds.extents.x, 0, 0) + new Vector3(0, ledgeBounds.extents.y, 0);
 		Vector3 topRight = ledgeBounds.center + new Vector3(ledgeBounds.extents.x, 0, 0) + new Vector3(0, ledgeBounds.extents.y, 0);
-		Vector3 leftLedgeLocation = topLeft - new Vector3(0, 0.5f, 0);
-		Vector3 rightLedgeLocation = topRight - new Vector3(0, 0.5f, 0);
+		Vector3 leftLedgeLocation = topLeft;
+		Vector3 rightLedgeLocation = topRight;
 		
 		// Set up the left ledge
 		GameObject leftLedge = GameObject.Instantiate(ledgePrefab, leftLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
