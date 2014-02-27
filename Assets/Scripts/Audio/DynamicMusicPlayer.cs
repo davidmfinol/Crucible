@@ -12,8 +12,10 @@ public class DynamicMusicPlayer : AudioPlayer
 	private AudioSource _audio1;
 	private AudioSource _audio2;
 	private AudioSource _audio3;
-	private bool _audioFadingOut;
-	private bool _audioFadingIn;
+	private bool _audio1FadingOut;
+	private bool _audio1FadingIn;
+	private bool _audio2FadingOut;
+	private bool _audio2FadingIn;
 	public float Fade;
 	
 	// The songs that we are going to layer
@@ -32,8 +34,10 @@ public class DynamicMusicPlayer : AudioPlayer
 	{
 		// Set up the audio
 		_enemyDangerClips = GetComponent<AudioClipGroup>();
-		_audioFadingOut = false;
-		_audioFadingIn = false;
+		_audio1FadingOut = false;
+		_audio1FadingIn = false;
+		_audio2FadingOut = false;
+		_audio2FadingIn = false;
 		_audio1 = (AudioSource)gameObject.AddComponent("AudioSource");
 		_audio1.dopplerLevel = 0;
 		_audio1.volume = 0.1f;
@@ -66,9 +70,13 @@ public class DynamicMusicPlayer : AudioPlayer
 //		Debug.Log (dangerLevel + " " + _audioFadingIn + _audioFadingOut);
 		if(awareLevel == _prevAwareLevel && chasingLevel == _prevChasingLevel)
 		{
-			if (_audioFadingIn)
+			if (_audio1FadingIn)
 				FadeIn(_audio1);
-			else if (_audioFadingOut)
+			else if (_audio1FadingOut)
+				FadeOut(_audio1);
+			if (_audio2FadingIn)
+				FadeIn(_audio1);
+			else if (_audio2FadingOut)
 				FadeOut(_audio1);
 			return;
 		}
@@ -76,16 +84,16 @@ public class DynamicMusicPlayer : AudioPlayer
         if (awareLevel <= 0 && chasingLevel <= 0)
 		{
 			Debug.Log("Fading");
-			_audioFadingOut = true;
+			_audio1FadingOut = true;
 			_audio2.Stop();
 			_audio3.Stop();
 		}
 		else if (awareLevel == 1 && chasingLevel == 0)
 		{
-			if(!_audioFadingIn)
+			if(!_audio1FadingIn)
 				_audio1.Play();
-			_audio2.Stop();
-			_audioFadingIn = true;
+			_audio2FadingOut = true;
+			_audio1FadingIn = true;
 		}
 		else if (awareLevel == 1 && chasingLevel == 1)
 		{
@@ -117,10 +125,12 @@ public class DynamicMusicPlayer : AudioPlayer
 
 	public void FadeOut(AudioSource audio)
 	{
-		_audioFadingIn = false;
+		_audio1FadingIn = false;
+		_audio2FadingIn = false;
 		if(audio.volume <= 0)
 		{
-			_audioFadingOut = false;
+			_audio1FadingOut = false;
+			_audio2FadingOut = false;
 			audio.Stop();
 			audio.volume = 0.1f;
 			Debug.Log ("Done Fading Out");
@@ -130,10 +140,12 @@ public class DynamicMusicPlayer : AudioPlayer
 	}
 	public void FadeIn(AudioSource audio)
 	{
-		_audioFadingOut = false;
+		_audio1FadingOut = false;
+		_audio1FadingOut = false;
 		if(audio.volume >= 0.1f)
 		{
-			_audioFadingIn = false;
+			_audio1FadingIn = false;
+			_audio2FadingIn = false;
 			Debug.Log ("Done Fading In");
 		}
 		else
