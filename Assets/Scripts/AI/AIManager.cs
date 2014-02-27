@@ -23,13 +23,13 @@ public class AIManager : MonoBehaviour
 		get { return _enemies; }
 	}
 	
-	public int EnemiesAware
+	public int EnemiesSearching
 	{
 		get
 		{
 			int EnemiesAware = 0;
 			foreach(EnemyAI Enemy in _enemies)
-				if(Enemy.Awareness == EnemyAI.AwarenessLevel.Searching || Enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
+				if(Enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
 					EnemiesAware++;
 			return EnemiesAware;
 		}
