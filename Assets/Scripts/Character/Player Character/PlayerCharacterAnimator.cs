@@ -526,12 +526,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 			MecanimAnimator.SetBool(_grabWallHash, true);
 		}
-
-//		if ((CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
-//			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up))
-//		{
-//			MecanimAnimator.SetBool (_hangHash, true);
-//		}
+		
+		
+		if(!(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
+		   (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+		   || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up))
+		{
+			MecanimAnimator.SetBool(_hangHash, true);
+			VerticalSpeed = 0;
+			HorizontalSpeed = 0;
+		}
+		else 
+			MecanimAnimator.SetBool(_hangHash, false);
 	}
 	
 	protected void Hanging(float elapsedTime)
