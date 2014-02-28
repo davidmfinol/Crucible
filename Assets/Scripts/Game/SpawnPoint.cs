@@ -11,7 +11,7 @@ public class SpawnPoint : MonoBehaviour
 	// We can update the player's defined spawnpoint if it collides with this object
     void OnTriggerEnter(Collider other)
     {
-		PlayerCharacterArsenal player = other.GetComponent<PlayerCharacterArsenal>();
+		PlayerCharacterInventory player = other.GetComponent<PlayerCharacterInventory>();
         if (player != null)
         {
 			// At the least, we will set the new spawnpoint

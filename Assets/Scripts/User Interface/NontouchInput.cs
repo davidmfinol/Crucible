@@ -12,16 +12,11 @@ public class NontouchInput : MonoBehaviour
 	
 	// Where we store the input
 	private CharacterInput _input;
-	
-	// TODO: REMOVE THIS
-	private PlayerCharacterArsenal _arsenal;
-	private int currentWeapon = 0;
 
 
 	void Start()
 	{
 		_input = GameManager.Player.GetComponent<CharacterInput>();
-		_arsenal = GameManager.Player.GetComponent<PlayerCharacterArsenal>();
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
 		_input.UpdateInputMethod = UpdateInput;
 #endif
@@ -52,19 +47,9 @@ public class NontouchInput : MonoBehaviour
 
 			// Cycle through weapons
 			if(Input.GetKeyDown(KeyCode.Joystick1Button4))
-			{
-				currentWeapon++;
-				if(currentWeapon > 2)
-					currentWeapon = 0;
-				UpdateWeapon();
-			}
+				GameManager.UI.CycleToNextWeapon();
 			else if(Input.GetKeyDown(KeyCode.Joystick1Button5))
-			{
-				currentWeapon--;
-				if(currentWeapon < 0)
-					currentWeapon = 2;
-				UpdateWeapon();
-			}
+				GameManager.UI.CycleToPreviousWeapon();
 		}
 		else 
 		{
@@ -77,32 +62,12 @@ public class NontouchInput : MonoBehaviour
 			_input.Attack = Input.GetAxis("Attack");
             _input.Pickup = Input.GetButton ("Pickup");
 
+			// TODO: MAKE THIS MORE RESPONSIVE LATER
             // Cycle through weapons
             if(Input.GetKeyDown(KeyCode.Q))
-            {
-                currentWeapon++;
-                if(currentWeapon > 2)
-                    currentWeapon = 0;
-                UpdateWeapon();
-            }
+				GameManager.UI.CycleToNextWeapon();
             else if(Input.GetKeyDown(KeyCode.E))
-            {
-                currentWeapon--;
-                if(currentWeapon < 0)
-                    currentWeapon = 2;
-                UpdateWeapon();
-            }
+				GameManager.UI.CycleToPreviousWeapon();
 		}
-	}
-	// TODO: MOVE THIS
-	private void UpdateWeapon()
-	{
-		if (currentWeapon == 0)
-			_arsenal.Weapon = _arsenal.PipePrefab;
-		else if (currentWeapon == 1)
-			_arsenal.Weapon = _arsenal.MinePrefab;
-		else if (currentWeapon == 2)
-			_arsenal.Weapon = _arsenal.GravityGunPrefab;
-
 	}
 }

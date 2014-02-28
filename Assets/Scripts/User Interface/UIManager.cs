@@ -8,15 +8,21 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
 	public Transform ChaseVignette;
-    public Transform WeaponsGUI; //TODO
+	public float GUIWheelRadius;
 
     private Camera _uiCamera;
 
 	private Transform _vignetteInstance;
 	private float _vignetteAlpha;
 	private int _vignetteAlphaDir;
-
-    //private Transform _weaponsGUI;
+	
+	private Vector3 _weaponsGuiPos;
+	private PlayerCharacterInventory _inventory;
+	private int _currentWeapon = 0;
+	
+	private Transform _previousWeaponsImage;
+	private Transform _currentWeaponsImage;
+	private Transform _nextWeaponsImage;
 
 
 	void Start()
@@ -26,13 +32,14 @@ public class UIManager : MonoBehaviour
 		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
 		_vignetteAlpha = 0.0f;
 
-        // _weaponsGUI = (Transform) Instantiate(WeaponsGUI, WeaponsGUI.position, WeaponsGUI.rotation);
+		_weaponsGuiPos = new Vector3 (1, 1, -2);
+		_weaponsGuiPos = _uiCamera.ViewportToWorldPoint (_weaponsGuiPos);
+		_inventory = GameManager.Player.GetComponent<PlayerCharacterInventory>();
 	}
 
 	void Update()
 	{
         UpdateVignette();
-        UpdateWeaponsGUI();
 	}
 
     private void UpdateVignette()
@@ -59,13 +66,58 @@ public class UIManager : MonoBehaviour
                                                                  _vignetteInstance.renderer.material.color.g, 
                                                                  _vignetteInstance.renderer.material.color.b,
                                                                  _vignetteAlpha);
-    }
+	}
+	
+	public void CycleToNextWeapon()
+	{
+		_currentWeapon++;
+		if(_currentWeapon >= _inventory.Weapons.Count)
+			_currentWeapon = 0;
+		_inventory.CurrentWeapon = _inventory.Weapons [_currentWeapon];
+		UpdateWeaponImage ();
+	}
+	public void CycleToPreviousWeapon()
+	{
+		_currentWeapon--;
+		if(_currentWeapon < 0)
+			_currentWeapon = _inventory.Weapons.Count - 1;
+		_inventory.CurrentWeapon = _inventory.Weapons [_currentWeapon];
+		UpdateWeaponImage();
+	}
 
-    private void UpdateWeaponsGUI()
-    {
-        // TODO:
-        //_weaponsGUI.rotate();
-    }
+	private void UpdateWeaponImage()
+	{
+		// First, find the images that we want to show
+		Transform prevWeaponImage;
+		if(_currentWeapon == 0)
+			prevWeaponImage =_inventory.Weapons [_inventory.Weapons.Count - 1].GUIImage;
+		else
+			prevWeaponImage =_inventory.Weapons [_currentWeapon - 1].GUIImage;
+		Transform currentWeaponImage = _inventory.CurrentWeapon.GUIImage;
+		Transform nextWeaponImage = _inventory.Weapons [(_currentWeapon + 1) % _inventory.Weapons.Count].GUIImage;
+
+		// Next, show the middle image
+		if(_currentWeaponsImage != null)
+			Destroy (_currentWeaponsImage);
+		Vector3 imageLocation = _weaponsGuiPos;
+		Vector3 directional = (new Vector3 (-1, -1, 0)).normalized;
+		imageLocation += directional * GUIWheelRadius;
+		_currentWeaponsImage = (Transform) Instantiate(currentWeaponImage, imageLocation, Quaternion.identity);
+		if(_inventory.Weapons.Count == 1)
+			return;
+
+		// Then show the image to the left
+		if(_previousWeaponsImage != null)
+			Destroy(_previousWeaponsImage);
+		imageLocation = _weaponsGuiPos + Vector3.left * GUIWheelRadius;
+		_previousWeaponsImage = (Transform) Instantiate (prevWeaponImage, imageLocation, Quaternion.identity);
+
+		// Then show the right image
+		if (_nextWeaponsImage != null)
+			Destroy (_nextWeaponsImage);
+		imageLocation = _weaponsGuiPos + Vector3.down * GUIWheelRadius;
+		_nextWeaponsImage = (Transform) Instantiate (nextWeaponImage, imageLocation, Quaternion.identity);
+	}
 
 
     public Camera UICamera

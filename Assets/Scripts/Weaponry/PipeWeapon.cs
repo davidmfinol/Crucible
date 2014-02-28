@@ -41,9 +41,8 @@ public class PipeWeapon : Weapon
     }
 
 	// can the weapon stealth kill
-	public override bool CanStealthKill()
+	public override bool CanStealthKill
 	{ 
-		return true;
-
+		get { return true; }
 	}
 }

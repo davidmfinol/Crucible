@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -58,21 +58,20 @@ public class GameManager : MonoBehaviour
 		if(_player == null)
 			_player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
 
-		PlayerCharacterArsenal arsenal = Player.GetComponent<PlayerCharacterArsenal>();
-		if(arsenal != null)
-		{
-			arsenal.SpawnPoint = _currentLevel.StartPoint;
-			arsenal.Weapon = arsenal.PipePrefab;
-		}
+		PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
+		if(inventory != null)
+			inventory.SpawnPoint = _currentLevel.StartPoint;
+		else
+			Debug.LogWarning("Err: player misssing inventory");
 
 		SpawnPlayer ();
 	}
 	public static void SpawnPlayer() // TODO: Optimize this method? lots of getcomponents
 	{
 		// Move the player to the correct spot
-		PlayerCharacterArsenal arsenal = Player.GetComponent<PlayerCharacterArsenal>();
-		if(arsenal != null)
-			Player.transform.position = arsenal.SpawnPoint.transform.position;
+		PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
+		if(inventory != null)
+			Player.transform.position = inventory.SpawnPoint.transform.position;
 
 		// Reset it's health to max
 		HeartBox heart = Player.GetComponentInChildren<HeartBox> ();

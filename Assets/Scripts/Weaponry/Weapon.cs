@@ -7,6 +7,8 @@ using System.Collections;
 [AddComponentMenu("Weaponry/Weapon")]
 public class Weapon : MonoBehaviour
 {
+	public Transform GUIImage;
+
     /// <summary>
     /// Activate the weapon's attack based off its attack number
     /// </summary>
@@ -31,8 +33,8 @@ public class Weapon : MonoBehaviour
     }
 
 	// can the weapon stealth kill
-	public virtual bool CanStealthKill()
+	public virtual bool CanStealthKill
 	{
-		return false;
+		get { return false; }
 	}
 }
