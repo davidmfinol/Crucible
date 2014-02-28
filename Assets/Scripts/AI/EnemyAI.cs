@@ -21,10 +21,10 @@ public class EnemyAI : MonoBehaviour
 	
 	// A* PathFinding
     private Seeker _seeker;
-    private Vector3 _target = Vector3.zero; // where the Enemy wants to go
+    private Vector3 _target = Vector3.zero; // where the enemy wants to go
     private Path _path = null; // how it plans to get there
     private int _currentPathWaypoint = 0; // where it is on that path
-    private bool _searchingForPath = false; // Is the Enemy currently looking for a path?
+    private bool _searchingForPath = false; // Is the enemy currently looking for a path?
     private float _timeSinceRepath = 0; // how long has it been since it found a path
 	private bool _hasTransitionRecent = false; // to prevent Z zone spam
 
@@ -302,6 +302,7 @@ public class EnemyAI : MonoBehaviour
         {
             _animator.CharInput.Jump = Vector2.up;
         }
+        // TODO: JUMP IF THE GAMEOBJECT OF THE NEXT NODE IS DIFFERENT FROM THE GAMEOBJECT OF THIS NODE
         
         // Pressing up or down depends on both y and z positions
         if(Mathf.Abs(_path.vectorPath[_currentPathWaypoint].z - _animator.DesiredZ) < 1 || (_playerAnimator != null && _playerAnimator.DesiredZ == _animator.DesiredZ))
