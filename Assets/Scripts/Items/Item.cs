@@ -11,7 +11,7 @@ public enum ItemTypes
 /// <summary>
 /// Item indicates an item that the player can pickup and add to it's inventory
 /// </summary>
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(BoxCollider))]
 [AddComponentMenu("Items/Item")]
 public class Item : MonoBehaviour
 {

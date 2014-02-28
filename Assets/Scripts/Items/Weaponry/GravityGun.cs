@@ -30,7 +30,7 @@ public class GravityGun : Weapon
 
     public override Vector3 Rotation
     {
-        get { return new Vector3(270, 80, 90); }
+        get { return new Vector3(270, 0, 90); }
     }
     
     public override Vector3 Translation

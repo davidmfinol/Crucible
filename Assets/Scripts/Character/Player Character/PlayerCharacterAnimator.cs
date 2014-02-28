@@ -812,7 +812,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public bool CanPickupItem(out GameObject obj)
 	{
 		RaycastHit hitInfo = new RaycastHit ();
-		if(Physics.Raycast(transform.position, Vector3.down, out hitInfo, Height / 2.0f, 1 << 13 ) )
+		if(Physics.Raycast(transform.position + new Vector3(0, Height / 2.0f, 0), Vector3.down, out hitInfo, Height, 1 << 13 ) )
    		{
 			obj = hitInfo.transform.gameObject;
 			return true;
