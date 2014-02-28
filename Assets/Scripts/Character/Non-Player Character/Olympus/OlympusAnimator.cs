@@ -94,12 +94,13 @@ public class OlympusAnimator : CharacterAnimator
 
 	}
 
-	public void OnAcquireTarget() {
+	public void OnAcquireTarget()
+    {
 		MecanimAnimator.SetBool (_acquiringTargetHash, true);
-
 	}
 
-	protected void AcquireTarget(float elapsedTime) {
+	protected void AcquireTarget(float elapsedTime)
+    {
 		MecanimAnimator.SetBool (_acquiringTargetHash, false);
 
 		HorizontalSpeed = 0.0f;
@@ -298,13 +299,15 @@ public class OlympusAnimator : CharacterAnimator
 		
 	}
 
-	public override bool IsDead() {
+	public override bool IsDead()
+    {
 		// TODO: fix. slow.
 		return(CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Stealth Death") );
 		
 	}
 
-	protected void StealthDeath(float elapsedTime) {
+	protected void StealthDeath(float elapsedTime)
+    {
 		HorizontalSpeed = 0;
 		VerticalSpeed = 0;
 		MecanimAnimator.SetBool (_stealthDeathHash, false);
@@ -323,11 +326,14 @@ public class OlympusAnimator : CharacterAnimator
 	{
 		MecanimAnimator.SetBool (_dieHash, false);
 
-		if (IsGrounded) {	
+		if (IsGrounded)
+        {	
 			ApplyDeathFriction (elapsedTime);
 			VerticalSpeed = GroundVerticalSpeed;
 
-		} else {
+		} 
+        else 
+        {
 			ApplyGravity (elapsedTime);
 
 		}
@@ -348,6 +354,7 @@ public class OlympusAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
 	}
+
 
     public override bool CanTransitionZ
     {

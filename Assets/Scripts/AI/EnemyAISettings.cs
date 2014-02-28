@@ -7,10 +7,10 @@ using System.Collections;
 [AddComponentMenu("AI/Enemy AI Settings")]
 public class EnemyAISettings : MonoBehaviour
 {
-    // How far away can an opponent be and still be in range of a Enemy's attack?
+    // How far away can an opponent be and still be in range of an enemy's attack?
 	public float AttackRange; // = 3.0f;
 
-    // How far away the Enemy can notice and become aware of the player
+    // How far away the enemy can notice and become aware of the player
 	public float AwarenessRange; // = 25.0f;
 	
 	// How many seconds between every calculation of a new path
@@ -30,16 +30,16 @@ public class EnemyAISettings : MonoBehaviour
     public float SoundInspectionRange; // = 1.0f;
     
     // Used by A* to calculate graph
-    public static float MaxJump = 9.0f; // jumpheight + capsulecollider.height/2
-    public static float MaxSpeed = 12.0f;
+    public static float MaxJump = 15.0f; // jumpheight + capsulecollider.height/2
+    public static float MaxSpeed = 20.0f;
     public static float MaxGravity = 40.0f;
 	
 
     /// <summary>
-    /// Returns whether a Enemy can jump from one position to another
+    /// Returns whether an enemy can jump from one position to another
     /// </summary>
-    /// <param name="a">the starting position of the Enemy</param>
-    /// <param name="b">the ending position the Enemy is considering</param>
+    /// <param name="a">the starting position of the enemy</param>
+    /// <param name="b">the ending position the enemy is considering</param>
     /// <returns></returns>
     public static bool CanJump(Vector3 a, Vector3 b)
     {

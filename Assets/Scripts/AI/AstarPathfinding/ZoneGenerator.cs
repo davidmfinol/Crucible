@@ -102,13 +102,15 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             {
                 HashSet<Vector3> waypointsAbove = getWaypointsAbove(waypointBounds);
                 foreach (Vector3 aboveWaypoint in waypointsAbove)
-                    ZoneWaypoints.Add(aboveWaypoint, waypointGO);
+                    if(!ZoneWaypoints.ContainsKey(aboveWaypoint))
+                      ZoneWaypoints.Add(aboveWaypoint, waypointGO);
             }
             else // else, just subdivide it and use those points 
             {
                 HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(waypointBounds);
                 foreach (Vector3 subWaypoint in subdividedWaypoints)
-                    ZoneWaypoints.Add(subWaypoint, waypointGO);
+                    if(!ZoneWaypoints.ContainsKey(subWaypoint))
+                       ZoneWaypoints.Add(subWaypoint, waypointGO);
             }
         }
 
@@ -121,7 +123,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             TransitionZonesWithWaypoints.Add(transitionZoneBounds, new HashSet<ZoneNode>());
             HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(transitionZoneBounds);
             foreach (Vector3 subWaypoint in subdividedWaypoints)
-                TransitionWaypoints.Add(subWaypoint, transitionZoneGO);
+                if(!TransitionWaypoints.ContainsKey(subWaypoint))
+                   TransitionWaypoints.Add(subWaypoint, transitionZoneGO);
             /*
             // Should ledges get additional waypoints above them?
             Ledge ledge = transitionZoneGO.GetComponent<Ledge>();
@@ -130,6 +133,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                 Debug.Log("Adding Waypoint above for: " + transitionZoneGO);
                 HashSet<Vector3> waypointsAbove = getWaypointsAbove(transitionZoneBounds);
                 foreach (Vector3 aboveWaypoint in waypointsAbove)
+                 if(!ZoneWaypoints.ContainsKey(aboveWaypoint))
                     ZoneWaypoints.Add(aboveWaypoint, transitionZoneGO);
             }
              * */
@@ -138,7 +142,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // Set up the ZonesToWaypoint mapping
         ZonesWithWaypoints = new Dictionary<Bounds, HashSet<ZoneNode>>();
         foreach (GameObject zoneGO in zoneGOs)
-            ZonesWithWaypoints.Add(zoneGO.collider.bounds, new HashSet<ZoneNode>());
+            if(!ZonesWithWaypoints.ContainsKey(zoneGO.collider.bounds))
+                ZonesWithWaypoints.Add(zoneGO.collider.bounds, new HashSet<ZoneNode>());
 
         // Create and set up the nodes based off the organized waypoints
         CreateNodes(ZoneWaypoints.Count + TransitionWaypoints.Count);
@@ -202,14 +207,14 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         float top = waypointBounds.center.y + waypointBounds.extents.y;
         float bottom = waypointBounds.center.y - waypointBounds.extents.y;
 
-        for (float x = left; x <= right; x += WaypointSubdivisionSize)
+        for (float x = left; x < right; x += WaypointSubdivisionSize)
         {
-            for (float y = top; y >= bottom; y -= WaypointSubdivisionSize)
+            for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
                 subdividedWaypoints.Add(new Vector3(x, y, z));
             subdividedWaypoints.Add(new Vector3(x, bottom, z));
         }
-        for (float y = top; y >= bottom; y -= WaypointSubdivisionSize)
-        	subdividedWaypoints.Add(new Vector3(right, y, z));
+        for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
+            subdividedWaypoints.Add(new Vector3(right, y, z));
         subdividedWaypoints.Add(new Vector3(right, bottom, z));
 		
 		return subdividedWaypoints;
@@ -229,7 +234,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         float right = waypointBounds.center.x + waypointBounds.extents.x;
         float top = waypointBounds.center.y + waypointBounds.extents.y;
 		
-		for(float x = left; x <= right; x += WaypointSubdivisionSize)
+		for(float x = left; x < right; x += WaypointSubdivisionSize)
 			aboveWaypoints.Add(new Vector3(x, top + 1, z));
         aboveWaypoints.Add(new Vector3(right, top + 1, z));
 		
