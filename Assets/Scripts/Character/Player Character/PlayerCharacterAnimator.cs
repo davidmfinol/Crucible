@@ -103,12 +103,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_damagedHash = Animator.StringToHash("Damaged");
 		_pickupHash = Animator.StringToHash("Pickup");
 	}
-	protected override List<int> DefineRootMotionCorrectionState()
+	protected override List<int> DefineRootMotionCorrectionState() // TODO: ERADICATE THIS METHOD
 	{
 		List<int> states = new List<int> ();
-		states.Add (Animator.StringToHash ("Wall.Walljumping"));
+//		states.Add (Animator.StringToHash ("Wall.Walljumping"));
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
-		states.Add (Animator.StringToHash ("Air.Falling"));
+//		states.Add (Animator.StringToHash ("Air.Falling"));
 		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
 		states.Add (Animator.StringToHash ("Moving.StealthKill"));
 		return states;
@@ -465,7 +465,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Falling(float elapsedTime)
 	{
-		ApplyRunning(elapsedTime);
+		if(CharInput.Right || CharInput.Left) // maintain horizontal momentum, but slow down if does input
+			ApplyRunning(elapsedTime / 2.0f);
 		ApplyGravity(elapsedTime);
 		
 		MecanimAnimator.SetBool(_fallHash, false);
