@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Gravity gun causes enemies to float in the air for a while.
 /// </summary>
-[AddComponentMenu("Weaponry/Gravity Gun")]
+[AddComponentMenu("Items/Weaponry/Gravity Gun")]
 public class GravityGun : Weapon
 {
     // TODO: OBJECT POOLING FOR HITBOXES

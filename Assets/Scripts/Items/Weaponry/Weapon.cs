@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Weapon defines a weapon that the player character can wield.
 /// </summary>
-[AddComponentMenu("Weaponry/Weapon")]
+[AddComponentMenu("Items/Weaponry/Weapon")]
 public class Weapon : MonoBehaviour
 {
 	public Transform GUIImage;

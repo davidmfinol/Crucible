@@ -6,7 +6,7 @@ using System.Collections;
 /// It can be used to stun or do a stealth kill.
 /// </summary>
 [RequireComponent(typeof(HitBox))]
-[AddComponentMenu("Weaponry/Pipe Weapon")]
+[AddComponentMenu("Items/Weaponry/Pipe Weapon")]
 public class PipeWeapon : Weapon
 {
 	void Start()
@@ -32,12 +32,12 @@ public class PipeWeapon : Weapon
     
     public override Vector3 Rotation
     {
-        get { return new Vector3(90, 0, 0); }
+        get { return new Vector3(0, 0, 180); }
     }
     
     public override Vector3 Translation
     {
-        get { return new Vector3(-0.1f, 0.7f, 0.1f); }
+        get { return new Vector3(0.15f, 0.7f, 0.15f); }
     }
 
 	// can the weapon stealth kill

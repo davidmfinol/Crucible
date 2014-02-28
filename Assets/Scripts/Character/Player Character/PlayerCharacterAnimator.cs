@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
@@ -49,9 +50,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to keep track of the player character's inventory
 	private PlayerCharacterInventory _inventory;
 
+	// Used to pickup items only at the end of the animation
+	private Item _itemPickedup;
+
     protected override void OnStart()
     {
 		_inventory = gameObject.GetComponent<PlayerCharacterInventory>();
+		_itemPickedup = null;
     }
 	
 	protected override void CreateStateMachine()
@@ -147,8 +152,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
 
 		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
-
-		MecanimAnimator.SetBool (_pickupHash, CharInput.Pickup);
 
 	}
 	protected void UpdateAttackAnimations()
@@ -348,6 +351,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
         MecanimAnimator.SetBool(_fallHash, !MecanimAnimator.GetBool(_fallHash) && !IsGrounded);
 
 		MecanimAnimator.SetBool (_respawnHash, false);
+
+		if(CharInput.Pickup)
+		{
+			GameObject itemObj = null;
+			bool canPickup = CanPickupItem (out itemObj);
+			if (canPickup && itemObj != null)
+				_itemPickedup = itemObj.GetComponent<Item>();
+
+			MecanimAnimator.SetBool (_pickupHash,  canPickup && _itemPickedup != null);
+		}
 	}
 	
 	protected void Running(float elapsedTime)
@@ -707,10 +720,52 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	protected void Pickup(float elapsedTime)
 	{
+		if(MecanimAnimator.GetBool(_pickupHash))
+		{
+			if(_itemPickedup.WeaponPrefab != null)
+			{
+				// Create a new weapon from the item and destroy the item
+				Transform instantiatedWeapon = (Transform) Instantiate(_itemPickedup.WeaponPrefab);
+				Destroy(_itemPickedup.gameObject, 0.5f);
+				
+				// Move the weapon offscreen
+				Rect levelBounds = GameManager.Level.Boundaries;
+				instantiatedWeapon.position = new Vector3(levelBounds.xMax + 1, levelBounds.yMax + 1, 0);
+				
+				// Add it to our list of weapons
+				Weapon pickedUpWeapon = instantiatedWeapon.GetComponent<Weapon>();
+				_inventory.Weapons.Add(pickedUpWeapon);
+
+				// Auto-equip our first item
+				StartCoroutine("AutoEquip");
+			}
+			else
+			{
+				// Move the item off screen
+				StartCoroutine("PickUpItem");
+				
+				// Add it to our inventory
+				_inventory.Items.Add(_itemPickedup);
+			}
+			MecanimAnimator.SetBool(_pickupHash, false);
+		}
+
 		HorizontalSpeed = 0;
 		VerticalSpeed = GroundVerticalSpeed;
-		MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
-		MecanimAnimator.SetBool(_pickupHash, false);
+	}
+	
+	private IEnumerator AutoEquip()
+	{
+		yield return new WaitForSeconds (0.5f);
+		if(_inventory.Weapons.Count == 1)
+			GameManager.UI.CycleToNextWeapon();
+		StopCoroutine ("AutoEquip");
+	}
+	
+	private IEnumerator PickUpItem()
+	{
+		yield return new WaitForSeconds (0.5f);
+		_itemPickedup.transform.position = new Vector3 (GameManager.Level.Boundaries.xMax + 1, GameManager.Level.Boundaries.yMax + 1, 0);
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)
@@ -752,6 +807,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		return false;
 
+	}
+
+	public bool CanPickupItem(out GameObject obj)
+	{
+		RaycastHit hitInfo = new RaycastHit ();
+		if(Physics.Raycast(transform.position, Vector3.down, out hitInfo, Height / 2.0f, 1 << 13 ) )
+   		{
+			obj = hitInfo.transform.gameObject;
+			return true;
+		}
+		obj = null;
+		return false;
 	}
 
 

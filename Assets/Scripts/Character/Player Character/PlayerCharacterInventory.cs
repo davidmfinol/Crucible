@@ -14,7 +14,7 @@ public class PlayerCharacterInventory : MonoBehaviour
 	public List<Weapon> Weapons;
 	
 	// Keep track of all the items in the player's inventory
-	public List<GameObject> Items;
+	public List<Item> Items;
 	
 	// We keep track of the player's hand to put weapons in it
 	private Transform _rightHand;
@@ -34,13 +34,17 @@ public class PlayerCharacterInventory : MonoBehaviour
 		set
 		{
 			// Move the current weapon off screen
-			Rect levelBounds = GameManager.Level.Boundaries;
-			_currentWeapon.transform.position = new Vector3(levelBounds.xMax + 1, levelBounds.yMax + 1, 0);
+			if(_currentWeapon != null)
+			{
+				Rect levelBounds = GameManager.Level.Boundaries;
+				_currentWeapon.transform.position = new Vector3(levelBounds.xMax + 1, levelBounds.yMax + 1, 0);
+			}
 
 			// Move the new weapon into the player's hand
 			_currentWeapon = value;
 			_currentWeapon.transform.parent = _rightHand;
 			_currentWeapon.transform.localPosition = Vector3.zero;
+			_currentWeapon.transform.rotation = _rightHand.rotation;
 			_currentWeapon.transform.Rotate(_currentWeapon.Rotation);
 			_currentWeapon.transform.Translate(_currentWeapon.Translation);
 		}

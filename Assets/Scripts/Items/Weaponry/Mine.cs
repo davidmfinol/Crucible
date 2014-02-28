@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Mine is a basic explosive that can be placed onto the scene and detonated.
 /// </summary>
-[AddComponentMenu("Weaponry/Mine")]
+[AddComponentMenu("Items/Weaponry/Mine")]
 public class Mine : Weapon
 {
 	public Transform mineObject;
