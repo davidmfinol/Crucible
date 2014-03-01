@@ -30,11 +30,11 @@ public class GravityGun : Weapon
 
     public override Vector3 Rotation
     {
-        get { return new Vector3(270, 0, 90); }
+        get { return new Vector3(0, 90, 180); }
     }
     
     public override Vector3 Translation
     {
-        get { return new Vector3(0.1f, -0.05f, -0.25f); }
+        get { return new Vector3(0.25f, 0, -0.4f); }
     }
 }

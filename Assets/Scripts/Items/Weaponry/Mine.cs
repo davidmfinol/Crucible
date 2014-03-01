@@ -75,11 +75,11 @@ public class Mine : Weapon
     
     public override Vector3 Rotation
     {
-        get { return new Vector3(90, 0, 90); }
+        get { return Vector3.zero; }
     }
     
     public override Vector3 Translation
     {
-        get { return new Vector3(0.2f, 0.1f, 0.1f); }
+        get { return new Vector3(-0.21f, 0, 0.7f); }
     }
 }

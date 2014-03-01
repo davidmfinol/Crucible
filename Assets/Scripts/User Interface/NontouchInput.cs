@@ -13,10 +13,16 @@ public class NontouchInput : MonoBehaviour
 	// Where we store the input
 	private CharacterInput _input;
 
+	// Keep track of weapon cycling state
+	private bool _cycleWeaponRight;
+	private bool _cycleWeaponLeft;
+
 
 	void Start()
 	{
 		_input = GameManager.Player.GetComponent<CharacterInput>();
+		_cycleWeaponRight = false;
+		_cycleWeaponLeft = false;
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
 		_input.UpdateInputMethod = UpdateInput;
 #endif
@@ -24,8 +30,9 @@ public class NontouchInput : MonoBehaviour
 
 	public void UpdateInput()
 	{
-
-		if(Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] == "Controller (XBOX 360 For Windows)")
+		bool joystickCycleRight = false;
+		bool joystickCycleLeft = false;
+		if(Input.GetJoystickNames().Length > 0 && Input.GetJoystickNames()[0] == "Controller (XBOX 360 For Windows)") // FIXME: MAC??
 		{
 			_input.Attack = 0;
 			_input.Pickup = false;
@@ -45,11 +52,8 @@ public class NontouchInput : MonoBehaviour
 			else if(Input.GetAxis("Triggers") < -0.5)
 				_input.Attack = 1;
 
-			// Cycle through weapons
-			if(Input.GetKeyDown(KeyCode.Joystick1Button4))
-				GameManager.UI.CycleToNextWeapon();
-			else if(Input.GetKeyDown(KeyCode.Joystick1Button5))
-				GameManager.UI.CycleToPreviousWeapon();
+			joystickCycleLeft = Input.GetKey(KeyCode.Joystick1Button4);
+			joystickCycleRight = Input.GetKey(KeyCode.Joystick1Button5);
 		}
 		else 
 		{
@@ -61,13 +65,16 @@ public class NontouchInput : MonoBehaviour
 			_input.Jump = new Vector2(Input.GetAxis("JumpX"), Input.GetAxis("JumpY"));
 			_input.Attack = Input.GetAxis("Attack");
             _input.Pickup = Input.GetButton ("Pickup");
-
-			// TODO: MAKE THIS MORE RESPONSIVE LATER
-            // Cycle through weapons
-            if(Input.GetKeyDown(KeyCode.Q))
-				GameManager.UI.CycleToNextWeapon();
-            else if(Input.GetKeyDown(KeyCode.E))
-				GameManager.UI.CycleToPreviousWeapon();
 		}
+		
+		// Cycle through weapons
+		bool rightLast = _cycleWeaponRight;
+		bool leftLast = _cycleWeaponLeft;
+		_cycleWeaponRight = Input.GetAxis ("WeaponCycling") > 0.1f || joystickCycleRight;
+		_cycleWeaponLeft = Input.GetAxis ("WeaponCycling") < -0.1f || joystickCycleLeft;
+		if(!rightLast && _cycleWeaponRight)
+			GameManager.UI.CycleToNextWeapon();
+		else if(!leftLast && _cycleWeaponLeft)
+			GameManager.UI.CycleToPreviousWeapon();
 	}
 }
