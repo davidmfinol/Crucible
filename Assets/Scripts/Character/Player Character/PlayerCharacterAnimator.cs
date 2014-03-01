@@ -66,8 +66,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Waiting For Respawn")] = Die;
         StateMachine[Animator.StringToHash("Base Layer.Death")] = Die;
 		StateMachine[Animator.StringToHash("Base Layer.Damaged")] = Damaged;
-        StateMachine[Animator.StringToHash("Moving.Running")] = Running;
-        StateMachine[Animator.StringToHash("Moving.Rolling")] = Rolling;
+        StateMachine[Animator.StringToHash("Ground.Running")] = Running;
+		StateMachine[Animator.StringToHash("Ground.Rolling")] = Rolling;
+		StateMachine[Animator.StringToHash("Ground.Pickup")] = Pickup;
+		StateMachine[Animator.StringToHash("Ground.Stealth Kill")] = StealthKill;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
@@ -79,8 +81,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
 //		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
-		StateMachine[Animator.StringToHash("Moving.Stealth Kill")] = StealthKill;
-		StateMachine[Animator.StringToHash("Moving.Pickup")] = Pickup;
 
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
@@ -114,7 +114,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
 //		states.Add (Animator.StringToHash ("Air.Falling"));
 		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
-		states.Add (Animator.StringToHash ("Moving.StealthKill"));
+		states.Add (Animator.StringToHash ("Ground.StealthKill"));
 		return states;
 	}
 	
@@ -171,7 +171,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			Invoke ("GenerateStealthKillEvent", 1.0f);
 
 		}
-		else if(! CurrentState.IsName("Moving.Stealth Kill"))
+		else if(! CurrentState.IsName("Ground.Stealth Kill"))
 		{
 
 			MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
