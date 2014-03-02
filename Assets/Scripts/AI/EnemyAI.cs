@@ -53,9 +53,8 @@ public class EnemyAI : MonoBehaviour
 
         // Set up Astar
         _seeker = GetComponent<Seeker>();
-		UpdateAStarTarget(Vector3.zero);
 
-        // Finally, map the the output of this class to the input of the animator
+        // Finally, map the output of this class to the input of the animator
 		GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
 	}
 	

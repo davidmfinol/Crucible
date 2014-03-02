@@ -361,7 +361,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 		Destroy(this);
 		*/
 		EnemyAI ai = GetComponent<EnemyAI> ();
-		if (ai != null) {
+		if (ai != null)
+		{
 			GameManager.AI.Enemies.Remove (ai);
 			ai.enabled = false;
 		}
@@ -546,15 +547,15 @@ public abstract class CharacterAnimator : MonoBehaviour
     // Useful animation events
 	public void CreateFootstep()
 	{
+		// TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
+		if(this is BabyBotAnimator || this is OlympusAnimator)// || this is PlayerCharacterAnimator)
+			return;
+
 		if(Mathf.Abs(HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed)
 			return;
 
-		// TODO: object pooling
-		if(this is BabyBotAnimator || this is OlympusAnimator)
-			return;
-
 		Vector3 footStepPosition = transform.position;
-		footStepPosition.y -= Height/2;	// 
+		footStepPosition.y -= Height / 2.0f;
 		Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
 	}
 	public void PlayHit()
