@@ -549,6 +549,10 @@ public abstract class CharacterAnimator : MonoBehaviour
 		if(Mathf.Abs(HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed)
 			return;
 
+		// TODO: object pooling
+		if(this is BabyBotAnimator || this is OlympusAnimator)
+			return;
+
 		Vector3 footStepPosition = transform.position;
 		footStepPosition.y -= Height/2;	// 
 		Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);

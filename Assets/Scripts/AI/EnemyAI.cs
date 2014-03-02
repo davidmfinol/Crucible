@@ -121,6 +121,9 @@ public class EnemyAI : MonoBehaviour
         if(_animator is BabyBotAnimator) // TODO: MOVE THIS TO A SUBCLASS?
             return;
 
+		if(Vector3.Distance(transform.position, GameManager.Player.transform.position) > Settings.MaxActiveDistance)
+			return;
+
 
 	}
 

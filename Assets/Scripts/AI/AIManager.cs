@@ -3,20 +3,30 @@ using System.Collections.Generic;
 
 /// <summary>
 /// AI manager keeps track of all the AI components used in the game.
-/// Currently, this only includes extensions to the A* Pathfinding project.
-/// Plans to include rtNEAT are on the way.
 /// </summary>
 [AddComponentMenu("AI/AI Manager")]
 public class AIManager : MonoBehaviour
 {
 	private List<EnemyAI> _enemies;
+	private GameObject[] _searchPoints;
 	
 	
 	void Awake()
 	{
 		_enemies = new List<EnemyAI>();
 	}
-	
+
+	void Start()
+	{
+		_searchPoints = GameObject.FindGameObjectsWithTag("SearchPoint");
+	}
+
+	public Vector3 GetRandomSearchPoint()
+	{
+		int pointNum = (int) Random.Range (0, _searchPoints.Length);
+		return _searchPoints [pointNum].transform.position;
+	}
+
 	
 	public List<EnemyAI> Enemies
 	{

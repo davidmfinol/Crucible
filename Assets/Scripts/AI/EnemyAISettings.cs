@@ -23,11 +23,14 @@ public class EnemyAISettings : MonoBehaviour
 	public bool CanSee; // = true; 
 	public bool CanHear; // = true;
 
-    // how long before the enemy forgets that it saw the player
+    // How long before the enemy forgets that it saw the player
 	public float VisionMemory; // = 1.0f
 
-    // how close the enemy must be to succesfully visually inspect a sound source
+    // How close the enemy must be to succesfully visually inspect a sound source
     public float SoundInspectionRange; // = 1.0f;
+
+	// If the enemy is farther than this distance, deactivate it
+	public float MaxActiveDistance; // = 100.0f;
     
     // Used by A* to calculate graph
     public static float MaxJump = 15.0f; // jumpheight + capsulecollider.height/2
