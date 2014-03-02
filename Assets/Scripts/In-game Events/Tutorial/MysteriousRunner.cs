@@ -28,12 +28,12 @@ public class MysteriousRunner : MonoBehaviour
 		Camera.main.GetComponent<CameraScrolling>().Target = transform;
 		_input.Horizontal = -1;
 		yield return new WaitForSeconds (1.3f);
-		_input.Jump = new Vector2(-1, 1);
 		_input.Horizontal = 0;
+		_input.Jump = new Vector2(-1, 1);
 		yield return new WaitForSeconds (0.5f);
 		_input.Jump = new Vector2 (1, 1);
+		yield return new WaitForSeconds (0.2f);
 		_input.Horizontal = 1;
-		yield return new WaitForSeconds (0.1f);
 		_input.Jump = Vector2.zero;
 		yield return new WaitForSeconds (0.9f);
 		_input.Jump = new Vector2 (1, 1);
