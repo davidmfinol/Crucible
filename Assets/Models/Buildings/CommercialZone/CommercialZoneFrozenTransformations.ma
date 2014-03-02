@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: CommercialZoneFrozenTransformations.ma
-//Last modified: Sat, Mar 01, 2014 05:57:23 PM
+//Last modified: Sat, Mar 01, 2014 06:46:46 PM
 //Codeset: UTF-8
 requires maya "2014";
 currentUnit -l centimeter -a degree -t film;
@@ -11,19 +11,19 @@ fileInfo "cutIdentifier" "201303010035-864206";
 fileInfo "osv" "Mac OS X 10.9.1";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" 37.298431431647593 64.989052425867186 -50.046262593356047 ;
-	setAttr ".r" -type "double3" 4.8000000000096756 96.399999999999977 0 ;
+	setAttr ".t" -type "double3" 79.216219854050408 86.977414849920777 -54.581068159086207 ;
+	setAttr ".r" -type "double3" -4.2000000000001458 94.399999999999338 0 ;
 	setAttr ".rp" -type "double3" 0 0 8.8817841970012523e-16 ;
 	setAttr ".rpt" -type "double3" 9.4379551201635874e-16 -5.493717047730372e-17 -8.6165390945389328e-16 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".pze" yes;
 	setAttr ".fl" 34.999999999999979;
-	setAttr ".coi" 37.693241205783821;
+	setAttr ".coi" 79.693012343251652;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" -0.028530798647636857 68.143141558178286 -45.859372936230379 ;
+	setAttr ".tp" -type "double3" -0.028530798647636857 81.140842302230737 -48.48351691052153 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	setAttr ".t" -type "double3" 0 100.1 0 ;
@@ -4325,10 +4325,10 @@ createNode mesh -n "Ledge84Shape" -p "Ledge84";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "Ledge86";
+createNode transform -n "Nothing3";
 	setAttr ".rp" -type "double3" 0 17.603822207161897 -48.516678787917485 ;
 	setAttr ".sp" -type "double3" 0 17.603822207161897 -48.516678787917485 ;
-createNode mesh -n "Ledge86Shape" -p "Ledge86";
+createNode mesh -n "Nothing3Shape" -p "Nothing3";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -4828,10 +4828,10 @@ createNode mesh -n "Ledge99Shape" -p "Ledge99";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "Ledge100";
+createNode transform -n "Nothing2";
 	setAttr ".rp" -type "double3" 0 17.520122710359715 -51.308291427454762 ;
 	setAttr ".sp" -type "double3" 0 17.520122710359715 -51.308291427454762 ;
-createNode mesh -n "Ledge100Shape" -p "Ledge100";
+createNode mesh -n "Nothing2Shape" -p "Nothing2";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -5101,11 +5101,11 @@ createNode mesh -n "Ledge107Shape" -p "Ledge107";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "Ledge108";
+createNode transform -n "Nothing";
 	setAttr ".t" -type "double3" -0.24175388983552892 -0.67887240798967241 -13.672435707202638 ;
 	setAttr ".rp" -type "double3" 0 69.048954796867662 -67.261351072631783 ;
 	setAttr ".sp" -type "double3" 0 69.048954796867662 -67.261351072631783 ;
-createNode mesh -n "Ledge108Shape" -p "Ledge108";
+createNode mesh -n "NothingShape" -p "Nothing";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -5141,11 +5141,11 @@ createNode mesh -n "Ledge108Shape" -p "Ledge108";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "Ledge109";
+createNode transform -n "Nothing1";
 	setAttr ".t" -type "double3" -0.24175388983552892 -0.67887240798967241 -13.672435707202638 ;
 	setAttr ".rp" -type "double3" 0 69.048954796867662 -66.758073012734769 ;
 	setAttr ".sp" -type "double3" 0 69.048954796867662 -66.758073012734769 ;
-createNode mesh -n "Ledge109Shape" -p "Ledge109";
+createNode mesh -n "Nothing1Shape" -p "Nothing1";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -6026,7 +6026,7 @@ createNode mesh -n "Ledge127Shape" -p "Ledge127";
 createNode transform -n "Ledge128";
 	setAttr ".t" -type "double3" 0 25.744979368587323 -79.079638434109441 ;
 	setAttr ".s" -type "double3" 2 0.098484929307543351 24.784200889809185 ;
-	setAttr ".rp" -type "double3" 0 -5.5982200881057522e-15 0 ;
+	setAttr ".rp" -type "double3" 0 -5.5982200881057514e-15 0 ;
 	setAttr ".sp" -type "double3" 0 -5.6843418860808015e-14 0 ;
 	setAttr ".spt" -type "double3" 0 5.1245198772702253e-14 0 ;
 createNode mesh -n "LedgeShape128" -p "Ledge128";
@@ -6078,7 +6078,7 @@ createNode mesh -n "LedgeShape128" -p "Ledge128";
 createNode transform -n "polySurface15";
 	setAttr ".t" -type "double3" 0 25.744979368587323 -79.079638434109441 ;
 	setAttr ".s" -type "double3" 2 0.098484929307543351 24.784200889809185 ;
-	setAttr ".rp" -type "double3" 0 -5.5982200881057522e-15 0 ;
+	setAttr ".rp" -type "double3" 0 -5.5982200881057514e-15 0 ;
 	setAttr ".sp" -type "double3" 0 -5.6843418860808015e-14 0 ;
 	setAttr ".spt" -type "double3" 0 5.1245198772702253e-14 0 ;
 createNode mesh -n "polySurfaceShape30" -p "polySurface15";
@@ -6479,7 +6479,7 @@ createNode mesh -n "Ledge83Shape" -p "transform1";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "WallLedge126";
-	setAttr ".t" -type "double3" 0 32.763202051486758 7.439070625298811 ;
+	setAttr ".t" -type "double3" 0 31.584331184924622 7.0461878926358281 ;
 	setAttr -l on ".tx";
 	setAttr ".s" -type "double3" 1.3206026033321361 1.3206026033321361 1.3206026033321361 ;
 	setAttr ".rp" -type "double3" 0 43.047551612511313 -84.50821484224069 ;
@@ -6604,6 +6604,8 @@ createNode mesh -n "WallShape1" -p "Wall1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 4 ".pt[0:3]" -type "float3"  0 0 -1.6053433 0 0 -1.6053433 
+		0 0 -1.6053433 0 0 -1.6053433;
 createNode transform -n "transform4";
 	setAttr ".t" -type "double3" 0 -17.227968747441579 -103.81015137362924 ;
 	setAttr ".r" -type "double3" 89.999999999999986 0 0 ;
@@ -6791,7 +6793,7 @@ createNode mesh -n "WallLedgeShape" -p "WallLedge";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "Ledge140";
-	setAttr ".t" -type "double3" -0.028530798647636857 23.622679714075979 -7.5475914424694324 ;
+	setAttr ".t" -type "double3" -0.028530798647636857 25.175293612017704 -7.5475914424694324 ;
 	setAttr ".rp" -type "double3" 0 41.988863478697631 -47.51656426450252 ;
 	setAttr ".sp" -type "double3" 0 41.988863478697631 -47.51656426450252 ;
 createNode mesh -n "Ledge140Shape" -p "Ledge140";
@@ -6830,95 +6832,10 @@ createNode mesh -n "Ledge140Shape" -p "Ledge140";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "WallLedge127";
-	setAttr ".t" -type "double3" 0 35.950709765539841 19.252464562090825 ;
-	setAttr -l on ".tx";
-	setAttr ".s" -type "double3" 1 1.7239242361205167 1.7239242361205167 ;
-	setAttr ".rp" -type "double3" 0 43.047551612511313 -84.50821484224069 ;
-	setAttr ".sp" -type "double3" 0 43.047551612511313 -84.50821484224069 ;
-createNode mesh -n "WallLedge127Shape" -p "WallLedge127";
-	setAttr -k off ".v";
-	setAttr ".vir" yes;
-	setAttr ".vif" yes;
-	setAttr ".uvst[0].uvsn" -type "string" "map1";
-	setAttr -s 14 ".uvst[0].uvsp[0:13]" -type "float2" 0.375 0 0.625 0 0.375
-		 0.25 0.625 0.25 0.375 0.5 0.625 0.5 0.375 0.75 0.625 0.75 0.375 1 0.625 1 0.875 0
-		 0.875 0.25 0.125 0 0.125 0.25;
-	setAttr ".cuvs" -type "string" "map1";
-	setAttr ".dcc" -type "string" "Ambient+Diffuse";
-	setAttr ".covm[0]"  0 1 1;
-	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 8 ".pt[0:7]" -type "float3"  -0.5 37.121319 -82.699539 
-		0.5 37.121319 -82.699539 -0.5 48.973766 -82.699539 0.5 48.973766 -82.699539 -0.5 
-		48.973766 -86.316895 0.5 48.973766 -86.316895 -0.5 37.121319 -86.316895 0.5 37.121319 
-		-86.316895;
-	setAttr -s 8 ".vt[0:7]"  -0.5 -1 0.5 0.5 -1 0.5 -0.5 1 0.5 0.5 1 0.5
-		 -0.5 1 -0.5 0.5 1 -0.5 -0.5 -1 -0.5 0.5 -1 -0.5;
-	setAttr -s 12 ".ed[0:11]"  0 1 0 2 3 0 4 5 0 6 7 0 0 2 0 1 3 0 2 4 0
-		 3 5 0 4 6 0 5 7 0 6 0 0 7 1 0;
-	setAttr -s 6 -ch 24 ".fc[0:5]" -type "polyFaces" 
-		f 4 0 5 -2 -5
-		mu 0 4 0 1 3 2
-		f 4 1 7 -3 -7
-		mu 0 4 2 3 5 4
-		f 4 2 9 -4 -9
-		mu 0 4 4 5 7 6
-		f 4 3 11 -1 -11
-		mu 0 4 6 7 9 8
-		f 4 -12 -10 -8 -6
-		mu 0 4 1 10 11 3
-		f 4 10 4 6 8
-		mu 0 4 12 0 2 13;
-	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
-	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
-	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "WallLedge128";
-	setAttr ".t" -type "double3" 0 1.3808264440458231 -10.73815754749468 ;
-	setAttr -l on ".tx";
-	setAttr ".s" -type "double3" 1 1.7239242361205167 1.7239242361205167 ;
-	setAttr ".rp" -type "double3" 0 43.047551612511313 -84.50821484224069 ;
-	setAttr ".sp" -type "double3" 0 43.047551612511313 -84.50821484224069 ;
-createNode mesh -n "polySurfaceShape50" -p "WallLedge128";
-	setAttr -k off ".v";
-	setAttr ".io" yes;
-	setAttr ".vir" yes;
-	setAttr ".vif" yes;
-	setAttr ".uvst[0].uvsn" -type "string" "map1";
-	setAttr -s 14 ".uvst[0].uvsp[0:13]" -type "float2" 0.375 0 0.625 0 0.375
-		 0.25 0.625 0.25 0.375 0.5 0.625 0.5 0.375 0.75 0.625 0.75 0.375 1 0.625 1 0.875 0
-		 0.875 0.25 0.125 0 0.125 0.25;
-	setAttr ".cuvs" -type "string" "map1";
-	setAttr ".dcc" -type "string" "Ambient+Diffuse";
-	setAttr ".covm[0]"  0 1 1;
-	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 8 ".pt[0:7]" -type "float3"  -0.5 36.275005 -82.699539 
-		0.5 36.275005 -82.699539 -0.5 49.820076 -82.699539 0.5 49.820076 -82.699539 -0.5 
-		49.820076 -86.316895 0.5 49.820076 -86.316895 -0.5 36.275005 -86.316895 0.5 36.275005 
-		-86.316895;
-	setAttr -s 8 ".vt[0:7]"  -0.5 -1 0.5 0.5 -1 0.5 -0.5 1 0.5 0.5 1 0.5
-		 -0.5 1 -0.5 0.5 1 -0.5 -0.5 -1 -0.5 0.5 -1 -0.5;
-	setAttr -s 12 ".ed[0:11]"  0 1 0 2 3 0 4 5 0 6 7 0 0 2 0 1 3 0 2 4 0
-		 3 5 0 4 6 0 5 7 0 6 0 0 7 1 0;
-	setAttr -s 6 -ch 24 ".fc[0:5]" -type "polyFaces" 
-		f 4 0 5 -2 -5
-		mu 0 4 0 1 3 2
-		f 4 1 7 -3 -7
-		mu 0 4 2 3 5 4
-		f 4 2 9 -4 -9
-		mu 0 4 4 5 7 6
-		f 4 3 11 -1 -11
-		mu 0 4 6 7 9 8
-		f 4 -12 -10 -8 -6
-		mu 0 4 1 10 11 3
-		f 4 10 4 6 8
-		mu 0 4 12 0 2 13;
-	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
-	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
-	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "Ledge141";
-	setAttr ".t" -type "double3" 0.0018339326065728301 22.988513069079744 17.484693717727502 ;
-	setAttr ".rp" -type "double3" 0 50.599288940429688 -73.836196899414062 ;
-	setAttr ".sp" -type "double3" 0 50.599288940429688 -73.836196899414062 ;
+	setAttr ".t" -type "double3" 0.0018339326065728301 22.109985529921374 16.110698716836815 ;
+	setAttr ".rp" -type "double3" 0 52.385831832885742 -73.836196899414062 ;
+	setAttr ".sp" -type "double3" 0 52.385831832885742 -73.836196899414062 ;
 createNode mesh -n "Ledge141Shape" -p "Ledge141";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
@@ -6932,8 +6849,8 @@ createNode mesh -n "Ledge141Shape" -p "Ledge141";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 	setAttr -s 8 ".pt[0:7]" -type "float3"  -0.5 51.104206 -73.294296 
-		0.5 51.104206 -73.294296 -0.5 53.667458 -73.294296 0.5 53.667458 -73.294296 -0.5 
-		53.667458 -74.378098 0.5 53.667458 -74.378098 -0.5 51.104206 -74.378098 0.5 51.104206 
+		0.5 51.104206 -73.294296 -0.5 54.493851 -73.294296 0.5 54.493851 -73.294296 -0.5 
+		54.493851 -74.378098 0.5 54.493851 -74.378098 -0.5 51.104206 -74.378098 0.5 51.104206 
 		-74.378098;
 	setAttr -s 8 ".vt[0:7]"  -0.5 -1 0.5 0.5 -1 0.5 -0.5 1 0.5 0.5 1 0.5
 		 -0.5 1 -0.5 0.5 1 -0.5 -0.5 -1 -0.5 0.5 -1 -0.5;
@@ -6999,9 +6916,9 @@ createNode mesh -n "LedgeShape137" -p "transform7";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "Ledge144";
-	setAttr ".t" -type "double3" 0.0018339326065728301 22.988513069079744 19.934469228917827 ;
-	setAttr ".rp" -type "double3" 0 50.599288940429688 -73.836196899414062 ;
-	setAttr ".sp" -type "double3" 0 50.599288940429688 -73.836196899414062 ;
+	setAttr ".t" -type "double3" 0.0018339326065728301 22.109985529921374 18.56047422802714 ;
+	setAttr ".rp" -type "double3" 0 50.599288940429688 -73.836193084716797 ;
+	setAttr ".sp" -type "double3" 0 50.599288940429688 -73.836193084716797 ;
 createNode mesh -n "Ledge144Shape" -p "Ledge144";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
@@ -7039,7 +6956,7 @@ createNode mesh -n "Ledge144Shape" -p "Ledge144";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "Ledge146";
-	setAttr ".t" -type "double3" 0 27.134288565478016 -39.410695381425548 ;
+	setAttr ".t" -type "double3" 0 27.134288565478016 -39.410695381425555 ;
 	setAttr ".r" -type "double3" 39.653975829009617 0 0 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 0.99999999999999989 ;
 createNode mesh -n "LedgeShape146" -p "Ledge146";
@@ -7053,7 +6970,7 @@ createNode mesh -n "LedgeShape146" -p "Ledge146";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "Ledge145";
-	setAttr ".t" -type "double3" 0 27.134288565478016 -39.410695381425548 ;
+	setAttr ".t" -type "double3" 0 27.134288565478016 -39.410695381425555 ;
 	setAttr ".r" -type "double3" 39.653975829009617 0 0 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 0.99999999999999989 ;
 createNode mesh -n "LedgeShape145" -p "Ledge145";
@@ -7067,7 +6984,7 @@ createNode mesh -n "LedgeShape145" -p "Ledge145";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform8";
-	setAttr ".t" -type "double3" 0 27.134288565478016 -39.410695381425548 ;
+	setAttr ".t" -type "double3" 0 27.134288565478016 -39.410695381425555 ;
 	setAttr ".r" -type "double3" 39.653975829009617 0 0 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 0.99999999999999989 ;
 createNode mesh -n "Ledge122Shape" -p "transform8";
@@ -7101,7 +7018,6 @@ createNode transform -n "transform9";
 createNode mesh -n "WallLedge128Shape" -p "transform9";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
-	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -7109,6 +7025,100 @@ createNode mesh -n "WallLedge128Shape" -p "transform9";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 44 ".vt[0:43]"  -1 35.27500534 -82.1995163 1 35.27500534 -82.1995163
+		 -1 50.82007599 -82.1995163 1 50.82007599 -82.1995163 -1 50.82007599 -86.81689453
+		 1 50.82007599 -86.81689453 -1 35.27500534 -86.81689453 1 35.27500534 -86.81689453
+		 1 49.01159668 -82.1995163 -1 49.01159668 -82.1995163 -1 49.01159668 -86.81689453
+		 1 49.01159668 -86.81689453 1 48.39294815 -82.1995163 -1 48.39294815 -82.1995163 -1 48.39294815 -86.81689453
+		 1 48.39294815 -86.81689453 1 46.556427 -82.1995163 -1 46.556427 -82.1995163 -1 46.556427 -86.81689453
+		 1 46.556427 -86.81689453 1 45.64718628 -82.1995163 -1 45.64718628 -82.1995163 -1 45.64718628 -86.81689453
+		 1 45.64718628 -86.81689453 1 49.01159668 -86.049530029 1 48.39294815 -83.76360321
+		 1 46.556427 -83.76360321 1 45.64718628 -86.049530029 1 35.27500534 -86.049530029
+		 -1 35.27500534 -86.049530029 -1 45.64718628 -86.049530029 -1 46.556427 -83.76360321
+		 -1 48.39294815 -83.76360321 -1 49.01159668 -86.049530029 -1 50.82007599 -86.049530029
+		 1 50.82007599 -86.049530029 -1 46.556427 -82.1995163 1 46.556427 -82.1995163 1 48.39294815 -82.1995163
+		 -1 48.39294815 -82.1995163 1 46.556427 -83.76360321 1 48.39294815 -83.76360321 -1 46.556427 -83.76360321
+		 -1 48.39294815 -83.76360321;
+	setAttr -s 76 ".ed[0:75]"  0 1 0 2 3 0 4 5 0 6 7 0 0 21 0 1 20 0 2 34 0
+		 3 35 0 4 10 0 5 11 0 6 29 0 7 28 0 8 3 0 9 2 0 8 9 0 10 14 0 9 33 0 11 15 0 10 11 0
+		 11 24 0 12 8 0 13 9 0 12 13 0 13 32 0 14 15 0 15 25 0 37 38 0 36 39 0 16 17 0 18 22 0
+		 17 31 0 19 23 0 18 19 0 19 26 0 20 16 0 21 17 0 20 21 0 22 6 0 21 30 0 23 7 0 22 23 0
+		 23 27 0 24 8 0 25 12 0 24 25 0 26 16 0 41 40 0 27 20 0 26 27 0 28 1 0 27 28 0 29 0 0
+		 28 29 0 30 22 0 29 30 0 31 18 0 30 31 0 32 14 0 42 43 0 33 10 0 32 33 0 34 4 0 33 34 0
+		 35 5 0 34 35 0 35 24 0 26 31 0 25 32 0 37 36 0 38 39 0 40 37 0 41 38 0 36 42 0 39 43 0
+		 40 42 0 41 43 0;
+	setAttr -s 34 -ch 136 ".fc[0:33]" -type "polyFaces" 
+		f 4 0 5 36 -5
+		mu 0 4 0 1 32 33
+		f 4 64 63 -3 -62
+		mu 0 4 29 25 5 4
+		f 4 40 39 -4 -38
+		mu 0 4 35 36 7 6
+		f 4 3 11 52 -11
+		mu 0 4 6 7 42 45
+		f 4 -12 -40 41 50
+		mu 0 4 43 10 37 41
+		f 4 10 54 53 37
+		mu 0 4 12 44 46 34
+		f 4 -15 12 -2 -14
+		mu 0 4 15 14 3 2
+		f 4 -60 62 61 8
+		mu 0 4 16 49 31 13
+		f 4 2 9 -19 -9
+		mu 0 4 4 5 18 17
+		f 4 65 -20 -10 -64
+		mu 0 4 23 38 19 11
+		f 4 -23 20 14 -22
+		mu 0 4 21 20 14 15
+		f 4 -58 60 59 15
+		mu 0 4 22 48 49 16
+		f 4 18 17 -25 -16
+		mu 0 4 17 18 24 22
+		f 4 -26 -18 19 44
+		mu 0 4 39 24 19 38
+		f 4 -69 26 69 -28
+		mu 0 4 50 51 52 53
+		f 4 -37 34 28 -36
+		mu 0 4 33 32 26 27
+		f 4 -54 56 55 29
+		mu 0 4 34 46 47 28
+		f 4 32 31 -41 -30
+		mu 0 4 28 30 36 35
+		f 4 -42 -32 33 48
+		mu 0 4 41 37 30 40
+		f 4 -44 -45 42 -21
+		mu 0 4 20 39 38 14
+		f 4 -71 -47 71 -27
+		mu 0 4 51 54 55 52
+		f 4 -48 -49 45 -35
+		mu 0 4 32 41 40 26
+		f 4 -50 -51 47 -6
+		mu 0 4 1 43 41 32
+		f 4 -53 49 -1 -52
+		mu 0 4 45 42 9 8
+		f 4 -55 51 4 38
+		mu 0 4 46 44 0 33
+		f 4 -57 -39 35 30
+		mu 0 4 47 46 33 27
+		f 4 -59 -73 27 73
+		mu 0 4 56 57 50 53
+		f 4 -61 -24 21 16
+		mu 0 4 49 48 21 15
+		f 4 -63 -17 13 6
+		mu 0 4 31 49 15 2
+		f 4 1 7 -65 -7
+		mu 0 4 2 3 25 29
+		f 4 -43 -66 -8 -13
+		mu 0 4 14 38 23 3
+		f 4 46 74 58 -76
+		mu 0 4 55 54 57 56
+		f 4 25 67 57 24
+		mu 0 4 24 39 48 22
+		f 4 -34 -33 -56 -67
+		mu 0 4 40 30 28 47;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "WallLedge130";
 	setAttr ".t" -type "double3" 0 -29.782339473899953 50.439387328082915 ;
 	setAttr ".s" -type "double3" 1 1.7239242361205167 1.7239242361205167 ;
@@ -7247,7 +7257,7 @@ createNode mesh -n "WallShape4" -p "Wall4";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface5";
-	setAttr ".t" -type "double3" 0 13.441712585798227 -64.99686564276837 ;
+	setAttr ".t" -type "double3" 0 13.441712585798228 -64.99686564276837 ;
 	setAttr ".r" -type "double3" 35.946967344119528 0 0 ;
 	setAttr ".s" -type "double3" 2 0.078442847501337523 26.736987705471847 ;
 createNode transform -n "polySurface8" -p "polySurface5";
@@ -7283,13 +7293,13 @@ createNode mesh -n "polySurfaceShape24" -p "polySurface9";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "Ledge148";
-	setAttr ".t" -type "double3" 0 13.441712585798227 -64.99686564276837 ;
+	setAttr ".t" -type "double3" 0 13.441712585798228 -64.99686564276837 ;
 	setAttr ".r" -type "double3" 35.946967344119528 0 0 ;
 	setAttr ".s" -type "double3" 2 0.078442847501337523 26.736987705471847 ;
 	setAttr ".rp" -type "double3" 0 -8.0981623161932301 -12.399313236174862 ;
 	setAttr ".rpt" -type "double3" 0 8.8210538388097852 -2.392597711188313 ;
 	setAttr ".sp" -type "double3" 0 -103.23646545410156 -0.46375131607055664 ;
-	setAttr ".spt" -type "double3" 0 95.138303137908338 -11.935561920104305 ;
+	setAttr ".spt" -type "double3" 0 95.138303137908338 -11.935561920104304 ;
 createNode mesh -n "LedgeShape148" -p "Ledge148";
 	setAttr -k off ".v";
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
@@ -7322,10 +7332,10 @@ createNode mesh -n "LedgeShape148" -p "Ledge148";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "TrainTracks1";
-	setAttr ".t" -type "double3" 83.002411691968419 77.261691980696312 -399.3449736398577 ;
+	setAttr ".t" -type "double3" 83.002411691968419 77.261691980696327 -399.3449736398577 ;
 	setAttr ".s" -type "double3" 0.12039022700312275 0.12039022700312275 0.12039022700312275 ;
 	setAttr ".rp" -type "double3" -92.008393986455516 21.189561620873476 349.14345648451047 ;
-	setAttr ".sp" -type "double3" -92.00839398645553 21.189561620873476 349.14345648451052 ;
+	setAttr ".sp" -type "double3" -92.008393986455516 21.189561620873476 349.14345648451052 ;
 	setAttr ".spt" -type "double3" 1.4210854715202004e-14 0 -5.6843418860808015e-14 ;
 createNode transform -n "Ledge" -p "TrainTracks1";
 	setAttr ".t" -type "double3" -17.540527451570835 -13.008696617515213 5.0843984153307957 ;
@@ -9381,6 +9391,131 @@ createNode mesh -n "TrainTracks:pCubeShape36" -p "TrainTracks:pCube36";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "LedgeWall1";
+	setAttr ".t" -type "double3" 0 3.9090163084356959 79.05601443677773 ;
+	setAttr ".s" -type "double3" 1 1.7239242361205167 1.7239242361205167 ;
+	setAttr ".rp" -type "double3" 0 68.867562050593932 -145.68576319267976 ;
+	setAttr ".sp" -type "double3" 0 39.948137283325195 -84.508216857910156 ;
+	setAttr ".spt" -type "double3" 0 28.91942476726873 -61.177546334769588 ;
+createNode mesh -n "LedgeWallShape1" -p "LedgeWall1";
+	setAttr -k off ".v";
+	setAttr -s 2 ".iog[0].og";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode transform -n "LedgeWall";
+	setAttr ".t" -type "double3" 0 4.7875438475940655 80.430009437668417 ;
+	setAttr ".s" -type "double3" 1 1.7239242361205167 1.7239242361205167 ;
+createNode mesh -n "LedgeWallShape" -p "LedgeWall";
+	setAttr -k off ".v";
+	setAttr -s 2 ".iog[0].og";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode transform -n "transform11";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" 0 4.7875438475940655 80.430009437668417 ;
+	setAttr ".s" -type "double3" 1 1.7239242361205167 1.7239242361205167 ;
+createNode mesh -n "WallLedge127Shape" -p "transform11";
+	setAttr -k off ".v";
+	setAttr ".io" yes;
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 26 ".uvst[0].uvsp[0:25]" -type "float2" 0.375 0 0.625 0 0.375
+		 0.25 0.625 0.25 0.375 0.5 0.625 0.5 0.375 0.75 0.625 0.75 0.375 1 0.625 1 0.875 0
+		 0.875 0.25 0.125 0 0.125 0.25 0.625 0.13812788 0.375 0.13812788 0.125 0.13812788
+		 0.375 0.61187208 0.625 0.61187208 0.875 0.13812788 0.625 0.17389631 0.375 0.17389631
+		 0.125 0.17389631 0.375 0.57610369 0.625 0.57610369 0.875 0.17389631;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 16 ".vt[0:15]"  -1 36.12131882 -82.19953918 1 36.12131882 -82.19953918
+		 -1 49.97376251 -82.19953918 1 49.97376251 -82.19953918 -1 49.97376251 -86.81689453
+		 1 49.97376251 -86.81689453 -1 36.12131882 -86.81689453 1 36.12131882 -86.81689453
+		 1 43.77495575 -82.19953918 -1 43.77495575 -82.19953918 -1 43.77495575 -86.81689453
+		 1 43.77495575 -86.81689453 1 45.7568779 -82.19953918 -1 45.7568779 -82.19953918 -1 45.7568779 -86.81689453
+		 1 45.7568779 -86.81689453;
+	setAttr -s 24 ".ed[0:23]"  0 1 0 2 3 0 4 5 0 6 7 0 0 9 0 1 8 0 2 4 0
+		 3 5 0 4 14 0 5 15 0 6 0 0 7 1 0 8 9 0 10 6 0 9 10 0 11 7 0 10 11 0 11 8 0 12 3 0
+		 13 2 0 12 13 0 13 14 0 14 15 0 15 12 0;
+	setAttr -s 12 -ch 48 ".fc[0:11]" -type "polyFaces" 
+		f 4 0 5 12 -5
+		mu 0 4 0 1 14 15
+		f 4 1 7 -3 -7
+		mu 0 4 2 3 5 4
+		f 4 16 15 -4 -14
+		mu 0 4 17 18 7 6
+		f 4 3 11 -1 -11
+		mu 0 4 6 7 9 8
+		f 4 -12 -16 17 -6
+		mu 0 4 1 10 19 14
+		f 4 10 4 14 13
+		mu 0 4 12 0 15 16
+		f 4 -21 18 -2 -20
+		mu 0 4 21 20 3 2
+		f 4 -22 19 6 8
+		mu 0 4 22 21 2 13
+		f 4 2 9 -23 -9
+		mu 0 4 4 5 24 23
+		f 4 -24 -10 -8 -19
+		mu 0 4 20 25 11 3
+		f 4 21 22 23 20
+		mu 0 4 21 23 25 20
+		f 4 -13 -18 -17 -15
+		mu 0 4 15 14 18 16;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "Ledge151";
+	setAttr ".t" -type "double3" -0.028530798647636857 38.762245791245441 -1.3580530237814372 ;
+	setAttr ".rp" -type "double3" 0 41.988863478697631 -47.51656426450252 ;
+	setAttr ".sp" -type "double3" 0 41.988863478697631 -47.51656426450252 ;
+createNode mesh -n "Ledge151Shape" -p "Ledge151";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 14 ".uvst[0].uvsp[0:13]" -type "float2" 0.375 0 0.625 0 0.375
+		 0.25 0.625 0.25 0.375 0.5 0.625 0.5 0.375 0.75 0.625 0.75 0.375 1 0.625 1 0.875 0
+		 0.875 0.25 0.125 0 0.125 0.25;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 8 ".pt[0:7]" -type "float3"  -0.5 41.840557 -39.012535 
+		0.5 41.840557 -39.012535 -0.5 41.095131 -39.012535 0.5 41.095131 -39.012535 -0.5 
+		41.095131 -49.694843 0.5 41.095131 -49.694843 -0.5 41.840557 -49.694843 0.5 41.840557 
+		-49.694843;
+	setAttr -s 8 ".vt[0:7]"  -0.5 -1 0.5 0.5 -1 0.5 -0.5 1 0.5 0.5 1 0.5
+		 -0.5 1 -0.5 0.5 1 -0.5 -0.5 -1 -0.5 0.5 -1 -0.5;
+	setAttr -s 12 ".ed[0:11]"  0 1 0 2 3 0 4 5 0 6 7 0 0 2 0 1 3 0 2 4 0
+		 3 5 0 4 6 0 5 7 0 6 0 0 7 1 0;
+	setAttr -s 6 -ch 24 ".fc[0:5]" -type "polyFaces" 
+		f 4 0 5 -2 -5
+		mu 0 4 0 1 3 2
+		f 4 1 7 -3 -7
+		mu 0 4 2 3 5 4
+		f 4 2 9 -4 -9
+		mu 0 4 4 5 7 6
+		f 4 3 11 -1 -11
+		mu 0 4 6 7 9 8
+		f 4 -12 -10 -8 -6
+		mu 0 4 1 10 11 3
+		f 4 10 4 6 8
+		mu 0 4 12 0 2 13;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
 	setAttr -s 3 ".lnk";
 	setAttr -s 3 ".slnk";
@@ -9777,102 +9912,6 @@ createNode polyExtrudeFace -n "polyExtrudeFace5";
 	setAttr ".c[0]"  0 1 1;
 	setAttr ".cbn" -type "double3" -1 75.88789316570589 -92.543632428888714 ;
 	setAttr ".cbx" -type "double3" 1 76.608524796114224 -91.57627867234504 ;
-createNode polySplitRing -n "polySplitRing5";
-	setAttr ".uopa" yes;
-	setAttr ".ics" -type "componentList" 2 "e[4:5]" "e[8:9]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".wt" 0.88366222381591797;
-	setAttr ".dr" no;
-	setAttr ".re" 5;
-	setAttr ".sma" 29.999999999999996;
-	setAttr ".p[0]"  0 0 1;
-	setAttr ".fq" yes;
-createNode polySplitRing -n "polySplitRing6";
-	setAttr ".uopa" yes;
-	setAttr ".ics" -type "componentList" 3 "e[4:5]" "e[15]" "e[17]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".wt" 0.95496386289596558;
-	setAttr ".dr" no;
-	setAttr ".re" 5;
-	setAttr ".sma" 29.999999999999996;
-	setAttr ".p[0]"  0 0 1;
-	setAttr ".fq" yes;
-createNode polySplitRing -n "polySplitRing7";
-	setAttr ".uopa" yes;
-	setAttr ".ics" -type "componentList" 3 "e[4:5]" "e[23]" "e[25]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".wt" 0.85999929904937744;
-	setAttr ".dr" no;
-	setAttr ".re" 5;
-	setAttr ".sma" 29.999999999999996;
-	setAttr ".p[0]"  0 0 1;
-	setAttr ".fq" yes;
-createNode polySplitRing -n "polySplitRing8";
-	setAttr ".uopa" yes;
-	setAttr ".ics" -type "componentList" 3 "e[4:5]" "e[31]" "e[33]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".wt" 0.91940337419509888;
-	setAttr ".dr" no;
-	setAttr ".re" 5;
-	setAttr ".sma" 29.999999999999996;
-	setAttr ".p[0]"  0 0 1;
-	setAttr ".fq" yes;
-createNode polySplitRing -n "polySplitRing9";
-	setAttr ".uopa" yes;
-	setAttr ".ics" -type "componentList" 10 "e[6:7]" "e[10:11]" "e[16]" "e[19]" "e[24]" "e[27]" "e[32]" "e[35]" "e[40]" "e[43]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".wt" 0.16618964076042175;
-	setAttr ".re" 19;
-	setAttr ".sma" 29.999999999999996;
-	setAttr ".p[0]"  0 0 1;
-	setAttr ".fq" yes;
-createNode polyTweak -n "polyTweak4";
-	setAttr ".uopa" yes;
-	setAttr -s 4 ".tk";
-	setAttr ".tk[25]" -type "float3" 0 0 2.2859299 ;
-	setAttr ".tk[26]" -type "float3" 0 0 2.2859299 ;
-	setAttr ".tk[31]" -type "float3" 0 0 2.2859299 ;
-	setAttr ".tk[32]" -type "float3" 0 0 2.2859299 ;
-createNode deleteComponent -n "deleteComponent3";
-	setAttr ".dc" -type "componentList" 1 "f[15:17]";
-createNode polyBridgeEdge -n "polyBridgeEdge1";
-	setAttr ".ics" -type "componentList" 2 "e[46]" "e[58]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".c[0]"  0 1 1;
-	setAttr ".dv" 0;
-	setAttr ".sv1" 25;
-	setAttr ".sv2" 31;
-	setAttr ".sma" 98.6897;
-createNode polyBridgeEdge -n "polyBridgeEdge2";
-	setAttr ".ics" -type "componentList" 2 "e[25]" "e[57]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".c[0]"  0 1 1;
-	setAttr ".dv" 0;
-	setAttr ".sv1" 15;
-	setAttr ".sv2" 32;
-	setAttr ".sma" 98.6897;
-createNode polyBridgeEdge -n "polyBridgeEdge3";
-	setAttr ".ics" -type "componentList" 2 "e[33]" "e[55]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".c[0]"  0 1 1;
-	setAttr ".dv" 0;
-	setAttr ".sv1" 26;
-	setAttr ".sv2" 18;
-	setAttr ".sma" 98.6897;
-createNode polySoftEdge -n "polySoftEdge1";
-	setAttr ".uopa" yes;
-	setAttr ".ics" -type "componentList" 1 "e[*]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".a" 0;
 createNode polySplitRing -n "polySplitRing10";
 	setAttr ".uopa" yes;
 	setAttr ".ics" -type "componentList" 2 "e[6:7]" "e[10:11]";
@@ -9933,7 +9972,7 @@ createNode groupParts -n "groupParts25";
 createNode polyChipOff -n "polyChipOff8";
 	setAttr ".ics" -type "componentList" 2 "f[8]" "f[10:13]";
 	setAttr ".ix" -type "matrix" 1 0 0 0 0 0.76991241190998339 0.63814957336579958 0
-		 0 -0.63814957336579958 0.76991241190998339 0 0 27.134288565478016 -39.410695381425548 1;
+		 0 -0.63814957336579958 0.76991241190998339 0 0 27.134288565478016 -39.410695381425555 1;
 	setAttr ".ws" yes;
 	setAttr ".pvt" -type "float3" 0 27.134289 -39.410694 ;
 	setAttr ".rs" 114225796;
@@ -9952,36 +9991,23 @@ createNode groupId -n "groupId75";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts27";
 	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 9 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]";
+	setAttr ".ic" -type "componentList" 1 "f[0:8]";
 createNode groupId -n "groupId76";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts28";
 	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 5 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]";
-createNode polyChipOff -n "polyChipOff9";
-	setAttr ".ics" -type "componentList" 4 "f[14]" "f[20]" "f[26]" "f[31]";
-	setAttr ".ix" -type "matrix" 1 0 0 0 0 1.7239242361205167 0 0 0 0 1.7239242361205167 0
-		 0 -29.782339473899953 50.439387328082915 1;
-	setAttr ".ws" yes;
-	setAttr ".pvt" -type "float3" 0 -29.782339 50.439388 ;
-	setAttr ".rs" 1642157636;
-	setAttr ".dup" no;
+	setAttr ".ic" -type "componentList" 1 "f[0:4]";
 createNode polySeparate -n "polySeparate9";
 	setAttr ".ic" 3;
 	setAttr ".rs" -type "Int32Array" 1 2 ;
 	setAttr -s 2 ".out";
-createNode groupId -n "groupId77";
-	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts29";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:33]";
 createNode groupId -n "groupId78";
 	setAttr ".ihi" 0;
 createNode groupId -n "groupId79";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts30";
 	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 4 "f[0]" "f[1]" "f[2]" "f[3]";
+	setAttr ".ic" -type "componentList" 1 "f[0:3]";
 createNode groupId -n "groupId80";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts31";
@@ -10002,12 +10028,12 @@ createNode groupId -n "groupId81";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts32";
 	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 15 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]";
+	setAttr ".ic" -type "componentList" 1 "f[0:14]";
 createNode groupId -n "groupId82";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts33";
 	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 15 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]" "f[6]" "f[7]" "f[8]" "f[9]" "f[10]" "f[11]" "f[12]" "f[13]" "f[14]";
+	setAttr ".ic" -type "componentList" 1 "f[0:14]";
 createNode polyCube -n "TrainTracks:polyCube1";
 	setAttr ".w" 7.1964832746121203;
 	setAttr ".h" 26.243758782363471;
@@ -10055,15 +10081,30 @@ createNode polyTweak -n "TrainTracks:polyTweak2";
 	setAttr ".uopa" yes;
 	setAttr -s 4 ".tk[12:15]" -type "float3"  -15.96477604 0 -1.9850788e-13
 		 -20.59886551 0 -1.9495516e-13 -20.59886551 0 -1.9495516e-13 -15.96477604 0 -1.9850788e-13;
+createNode polySeparate -n "polySeparate11";
+	setAttr ".ic" 2;
+	setAttr -s 2 ".out";
+createNode groupId -n "groupId84";
+	setAttr ".ihi" 0;
+createNode groupId -n "groupId85";
+	setAttr ".ihi" 0;
+createNode groupParts -n "groupParts35";
+	setAttr ".ihi" 0;
+	setAttr ".ic" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
+createNode groupId -n "groupId86";
+	setAttr ".ihi" 0;
+createNode groupParts -n "groupParts36";
+	setAttr ".ihi" 0;
+	setAttr ".ic" -type "componentList" 6 "f[0]" "f[1]" "f[2]" "f[3]" "f[4]" "f[5]";
 select -ne :time1;
 	setAttr ".o" 1;
 	setAttr ".unw" 1;
 select -ne :renderPartition;
 	setAttr -s 3 ".st";
 select -ne :initialShadingGroup;
-	setAttr -s 221 ".dsm";
+	setAttr -s 225 ".dsm";
 	setAttr ".ro" yes;
-	setAttr -s 49 ".gn";
+	setAttr -s 51 ".gn";
 select -ne :initialParticleSE;
 	setAttr ".ro" yes;
 select -ne :defaultShaderList1;
@@ -10210,8 +10251,6 @@ connectAttr "groupId74.id" "Ledge122Shape.ciog.cog[0].cgid";
 connectAttr "groupParts30.og" "WallShape3.i";
 connectAttr "groupId79.id" "WallShape3.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "WallShape3.iog.og[0].gco";
-connectAttr "groupParts29.og" "WallLedge128Shape.i";
-connectAttr "groupId77.id" "WallLedge128Shape.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "WallLedge128Shape.iog.og[0].gco";
 connectAttr "groupId78.id" "WallLedge128Shape.ciog.cog[0].cgid";
 connectAttr "groupParts32.og" "WallLedgeShape130.i";
@@ -10234,6 +10273,14 @@ connectAttr ":initialShadingGroup.mwc" "LedgeShape148.iog.og[0].gco";
 connectAttr "TrainTracks:polyCube2.out" "|TrainTracks1|Ledge|LedgeShape.i";
 connectAttr "TrainTracks:polyExtrudeFace3.out" "|TrainTracks1|TrainTracks:group1|TrainTracks:pCube1|TrainTracks:pCubeShape1.i"
 		;
+connectAttr "groupParts35.og" "LedgeWallShape1.i";
+connectAttr "groupId85.id" "LedgeWallShape1.iog.og[0].gid";
+connectAttr ":initialShadingGroup.mwc" "LedgeWallShape1.iog.og[0].gco";
+connectAttr "groupParts36.og" "LedgeWallShape.i";
+connectAttr "groupId86.id" "LedgeWallShape.iog.og[0].gid";
+connectAttr ":initialShadingGroup.mwc" "LedgeWallShape.iog.og[0].gco";
+connectAttr ":initialShadingGroup.mwc" "WallLedge127Shape.iog.og[0].gco";
+connectAttr "groupId84.id" "WallLedge127Shape.ciog.cog[0].cgid";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
@@ -10343,26 +10390,6 @@ connectAttr "polySurfaceShape49.o" "polyExtrudeFace4.ip";
 connectAttr "Ledge122Shape.wm" "polyExtrudeFace4.mp";
 connectAttr "polyExtrudeFace4.out" "polyExtrudeFace5.ip";
 connectAttr "Ledge122Shape.wm" "polyExtrudeFace5.mp";
-connectAttr "polySurfaceShape50.o" "polySplitRing5.ip";
-connectAttr "WallLedge128Shape.wm" "polySplitRing5.mp";
-connectAttr "polySplitRing5.out" "polySplitRing6.ip";
-connectAttr "WallLedge128Shape.wm" "polySplitRing6.mp";
-connectAttr "polySplitRing6.out" "polySplitRing7.ip";
-connectAttr "WallLedge128Shape.wm" "polySplitRing7.mp";
-connectAttr "polySplitRing7.out" "polySplitRing8.ip";
-connectAttr "WallLedge128Shape.wm" "polySplitRing8.mp";
-connectAttr "polySplitRing8.out" "polySplitRing9.ip";
-connectAttr "WallLedge128Shape.wm" "polySplitRing9.mp";
-connectAttr "polySplitRing9.out" "polyTweak4.ip";
-connectAttr "polyTweak4.out" "deleteComponent3.ig";
-connectAttr "deleteComponent3.og" "polyBridgeEdge1.ip";
-connectAttr "WallLedge128Shape.wm" "polyBridgeEdge1.mp";
-connectAttr "polyBridgeEdge1.out" "polyBridgeEdge2.ip";
-connectAttr "WallLedge128Shape.wm" "polyBridgeEdge2.mp";
-connectAttr "polyBridgeEdge2.out" "polyBridgeEdge3.ip";
-connectAttr "WallLedge128Shape.wm" "polyBridgeEdge3.mp";
-connectAttr "polyBridgeEdge3.out" "polySoftEdge1.ip";
-connectAttr "WallLedge128Shape.wm" "polySoftEdge1.mp";
 connectAttr "polySurfaceShape51.o" "polySplitRing10.ip";
 connectAttr "GroundShape.wm" "polySplitRing10.mp";
 connectAttr "polySplitRing10.out" "polyChipOff6.ip";
@@ -10390,11 +10417,7 @@ connectAttr "polySeparate8.out[0]" "groupParts27.ig";
 connectAttr "groupId75.id" "groupParts27.gi";
 connectAttr "polySeparate8.out[1]" "groupParts28.ig";
 connectAttr "groupId76.id" "groupParts28.gi";
-connectAttr "polySoftEdge1.out" "polyChipOff9.ip";
-connectAttr "WallLedge128Shape.wm" "polyChipOff9.mp";
 connectAttr "WallLedge128Shape.o" "polySeparate9.ip";
-connectAttr "polyChipOff9.out" "groupParts29.ig";
-connectAttr "groupId77.id" "groupParts29.gi";
 connectAttr "polySeparate9.out[0]" "groupParts30.ig";
 connectAttr "groupId79.id" "groupParts30.gi";
 connectAttr "polySeparate9.out[1]" "groupParts31.ig";
@@ -10417,6 +10440,11 @@ connectAttr "TrainTracks:polyTweak2.out" "TrainTracks:polyExtrudeFace3.ip";
 connectAttr "|TrainTracks1|TrainTracks:group1|TrainTracks:pCube1|TrainTracks:pCubeShape1.wm" "TrainTracks:polyExtrudeFace3.mp"
 		;
 connectAttr "TrainTracks:polyExtrudeFace2.out" "TrainTracks:polyTweak2.ip";
+connectAttr "WallLedge127Shape.o" "polySeparate11.ip";
+connectAttr "polySeparate11.out[0]" "groupParts35.ig";
+connectAttr "groupId85.id" "groupParts35.gi";
+connectAttr "polySeparate11.out[1]" "groupParts36.ig";
+connectAttr "groupId86.id" "groupParts36.gi";
 connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
 connectAttr "MeterManShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge1Shape.iog" ":initialShadingGroup.dsm" -na;
@@ -10505,7 +10533,7 @@ connectAttr "Ledge80Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge81Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge82Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge84Shape.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "Ledge86Shape.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "Nothing3Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge87Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge88Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "WallLedge90Shape.iog" ":initialShadingGroup.dsm" -na;
@@ -10518,15 +10546,15 @@ connectAttr "Ledge96Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge97Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge98Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge99Shape.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "Ledge100Shape.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "Nothing2Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge101Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge102Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "WallLedge103Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge105Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge106Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge107Shape.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "Ledge108Shape.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "Ledge109Shape.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "NothingShape.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "Nothing1Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge110Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge111Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge112Shape.iog" ":initialShadingGroup.dsm" -na;
@@ -10581,7 +10609,6 @@ connectAttr "LedgeShape137.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "WallLedge129Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "WallLedgeShape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge140Shape.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "WallLedge127Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "GroundShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "GroundShape.ciog.cog[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape52.iog.og[0]" ":initialShadingGroup.dsm" -na;
@@ -10645,6 +10672,11 @@ connectAttr "TrainTracks:pCubeShape33.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "TrainTracks:pCubeShape34.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "TrainTracks:pCubeShape35.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "TrainTracks:pCubeShape36.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "WallLedge127Shape.iog.og[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "WallLedge127Shape.ciog.cog[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "LedgeWallShape1.iog.og[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "LedgeWallShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "Ledge151Shape.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "groupId32.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId33.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId34.msg" ":initialShadingGroup.gn" -na;
@@ -10688,12 +10720,14 @@ connectAttr "groupId73.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId74.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId75.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId76.msg" ":initialShadingGroup.gn" -na;
-connectAttr "groupId77.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId78.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId79.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId80.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId81.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId82.msg" ":initialShadingGroup.gn" -na;
+connectAttr "groupId84.msg" ":initialShadingGroup.gn" -na;
+connectAttr "groupId85.msg" ":initialShadingGroup.gn" -na;
+connectAttr "groupId86.msg" ":initialShadingGroup.gn" -na;
 connectAttr "lambert2.msg" ":defaultShaderList1.s" -na;
 connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
 connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;

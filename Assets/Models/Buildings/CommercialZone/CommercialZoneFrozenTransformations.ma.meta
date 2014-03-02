@@ -280,6 +280,15 @@ ModelImporter:
     100548: TrainTracks:pCube7
     100550: TrainTracks:pCube8
     100552: TrainTracks:pCube9
+    100554: Nothing
+    100556: Nothing1
+    100558: Nothing2
+    100560: Nothing3
+    100562: LedgeWall
+    100564: LedgeWall1
+    100566: transform11
+    100568: WallLedge132
+    100570: Ledge151
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -557,6 +566,15 @@ ModelImporter:
     400548: TrainTracks:pCube7
     400550: TrainTracks:pCube8
     400552: TrainTracks:pCube9
+    400554: Nothing
+    400556: Nothing1
+    400558: Nothing2
+    400560: Nothing3
+    400562: LedgeWall
+    400564: LedgeWall1
+    400566: transform11
+    400568: WallLedge132
+    400570: Ledge151
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -793,6 +811,14 @@ ModelImporter:
     2300466: TrainTracks:pCube7
     2300468: TrainTracks:pCube8
     2300470: TrainTracks:pCube9
+    2300472: Nothing
+    2300474: Nothing1
+    2300476: Nothing2
+    2300478: Nothing3
+    2300480: LedgeWall
+    2300482: LedgeWall1
+    2300484: WallLedge132
+    2300486: Ledge151
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1029,6 +1055,14 @@ ModelImporter:
     3300466: TrainTracks:pCube7
     3300468: TrainTracks:pCube8
     3300470: TrainTracks:pCube9
+    3300472: Nothing
+    3300474: Nothing1
+    3300476: Nothing2
+    3300478: Nothing3
+    3300480: LedgeWall
+    3300482: LedgeWall1
+    3300484: WallLedge132
+    3300486: Ledge151
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -1265,6 +1299,14 @@ ModelImporter:
     4300466: TrainTracks:pCube34
     4300468: TrainTracks:pCube35
     4300470: TrainTracks:pCube36
+    4300472: Nothing3
+    4300474: Nothing2
+    4300476: Nothing
+    4300478: Nothing1
+    4300480: LedgeWall1
+    4300482: LedgeWall
+    4300484: WallLedge132
+    4300486: Ledge151
     9500000: //RootNode
   materials:
     importMaterials: 1
