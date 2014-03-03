@@ -319,8 +319,9 @@ public class EnemyAI : MonoBehaviour
 		bool isNodeAbove = _path.vectorPath [_currentPathWaypoint].y - _animator.transform.position.y > 0;
 		bool isNodeOnOtherPlatform = false; // TODO: ALLOW JUMPING FROM PLATFORM TO PLATFORM, EVEN IF NEXT PLATFORM IS AT OR BELOW IN Y
 		bool shouldJump = !isAlreadyGoingUp && !isAtFinalNode && (isNodeAbove || isNodeOnOtherPlatform);
+		bool jump = shouldJump && EnemyAISettings.CanJump (transform.position, _path.vectorPath [_currentPathWaypoint]);
 
-		if(shouldJump)
+		if(jump)
 		{
 			bool isToRight = _path.vectorPath[_currentPathWaypoint].x > _animator.transform.position.x;
 			if(isCloseEnoughGround)
