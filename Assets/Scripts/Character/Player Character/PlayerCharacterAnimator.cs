@@ -732,7 +732,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				Weapon pickedUpWeapon = instantiatedWeapon.GetComponent<Weapon>();
 				_inventory.Weapons.Add(pickedUpWeapon);
 
-				// Auto-equip our first item
+				// Auto-equip our items
 				StartCoroutine("AutoEquip");
 			}
 			else
@@ -754,7 +754,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		yield return new WaitForSeconds (0.5f);
 		if(_inventory.Weapons.Count == 1)
-			GameManager.UI.CycleToNextWeapon();
+            GameManager.UI.CycleToNextWeapon();
+        else if(_inventory.Weapons.Count <= 3)
+        {
+            GameManager.UI.CycleToNextWeapon();
+            GameManager.UI.CycleToPreviousWeapon();
+        }
 		StopCoroutine ("AutoEquip");
 	}
 	

@@ -33,11 +33,9 @@ public class TouchInput : MonoBehaviour
 	private Vector2 _lastActionPos;
     
     // Swipe information related to weapon selection
-	/* TODO: WEAPON SELECTION
 	private int _guiID;
 	private Vector2 _guiStartPos;
 	private float _guiMin;
-	*/
 	
     // Where we store the input
 	private CharacterInput _input;
@@ -56,11 +54,9 @@ public class TouchInput : MonoBehaviour
 		_actionMin = Screen.width / 32.0f;
 		_lastActionPos = Vector2.zero;
 
-		/*TODO
 		_guiID = -1;
 		_guiStartPos = Vector2.zero;
 		_guiMin = Screen.width / 16.0f;
-		*/
 
 		_input = GameManager.Player.GetComponent<CharacterInput>();
 
@@ -121,11 +117,10 @@ public class TouchInput : MonoBehaviour
 				InterpretMovementSwipe(touch);
 			else
 			{
-				InterpretInteractSwipe(touch);
-				// TODO: 
-				/*if (touchPos.x > 2 * Screen.width / 3 && touchPos.y > 3 * Screen.height / 4)
-				InterpretWeaponsGuiSwipe(touch);
-				*/
+                if (touchPos.x > 2 * Screen.width / 3 && touchPos.y > 3 * Screen.height / 4)
+				    InterpretWeaponsGuiSwipe(touch);
+                else
+                    InterpretInteractSwipe(touch);
 			}
 		}
 
@@ -257,6 +252,32 @@ public class TouchInput : MonoBehaviour
                 _userInterfaceDots[dot].renderer.material.color = Color.black;
 		}
         // TODO: LINE FROM START TO END/ PARTICLE EFFECT SURROUNDING FINGER
+    }
+
+    private void InterpretWeaponsGuiSwipe(Touch touch)
+    {
+        if (touch.phase == TouchPhase.Began && _guiID == -1)
+        {
+            _guiID = touch.fingerId;
+            _guiStartPos = touch.position;
+        } 
+        else if (touch.fingerId == _guiID)
+        {
+            Vector2 delta = touch.position - _guiStartPos;
+            if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+                _guiID = -1;
+            else if (delta.magnitude > _guiMin) 
+            {
+                _guiID = -1;
+                if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
+                {               
+                    if (delta.x > 0)
+                        GameManager.UI.CycleToNextWeapon();
+                    else
+                        GameManager.UI.CycleToPreviousWeapon();
+                }
+            }
+        }
     }
 
     public float CalculateActionDegree()
