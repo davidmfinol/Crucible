@@ -731,7 +731,7 @@ ModelImporter:
       lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -811,7 +811,7 @@ ModelImporter:
       lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -1447,7 +1447,7 @@ ModelImporter:
     - serializedVersion: 16
       name: JumpLandingFixed
       takeName: JumpLanding
-      firstFrame: -1
+      firstFrame: 0
       lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0

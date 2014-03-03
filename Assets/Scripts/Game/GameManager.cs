@@ -163,11 +163,12 @@ public class GameManager : MonoBehaviour
 			
 			
 			// Set up the player's inventory
-			PlayerSaveState playerSave = gameSaveState.PlayerState;
+
 		}
 		catch (System.SystemException err)
 		{
 			// If we fail to find the file, don't do anything
+			Debug.Log(err);
 		}
 		finally 
 		{

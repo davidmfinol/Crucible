@@ -9,7 +9,8 @@ public class LevelSaveState
 	public LevelSaveState()
 	{
 		enemyStates = new List<EnemySaveState>();
-
 	}
+
+
 
 }
