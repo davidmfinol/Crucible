@@ -821,6 +821,19 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		return false;
 	}
 
+	public PlayerSaveState SaveState()
+	{
+		PlayerSaveState save = new PlayerSaveState ();
+
+		foreach(Item item in Inventory.Items)
+			save.ItemsHeld.Add(item.ItemType);
+
+		foreach(Weapon weapon in Inventory.Weapons)
+			save.WeaponsHeld.Add(weapon.WeaponType);
+
+		return save;
+	}
+
 
 	public PlayerCharacterInventory Inventory
 	{

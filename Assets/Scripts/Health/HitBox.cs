@@ -8,14 +8,6 @@ public enum TeamAllegiance
 	Explosions = 2
 };
 
-public enum WeaponType
-{
-	Weapon_None = 0,
-	Weapon_Melee = 1,
-	Weapon_Trap = 2,
-	Weapon_Projectile = 3
-};
-
 /// <summary>
 /// Hitbox keeps data about an attack and transfers it to a heartbox.
 /// </summary>
@@ -26,7 +18,6 @@ public class HitBox : MonoBehaviour
 {
 	public TeamAllegiance Allegiance;
 	public GameObject FromObject = null; 
-	public WeaponType FromWeaponType = 0;
 	public int DamageAmount = 0;
 	public float KnockBackAmount = 0;
 	public float KnockUpAmount = 0;
@@ -42,7 +33,6 @@ public class HitBox : MonoBehaviour
 	{
 		Allegiance = TeamAllegiance.Enemies;
 		FromObject = from;
-		FromWeaponType = WeaponType.Weapon_Melee;
 		DamageAmount = 1;
 		KnockBackAmount = 15.0f;
 		KnockUpAmount = 10.0f;
@@ -55,7 +45,6 @@ public class HitBox : MonoBehaviour
     {
         Allegiance = TeamAllegiance.Explosions;
         FromObject = from;
-        FromWeaponType = WeaponType.Weapon_Trap;
         DamageAmount = 5;
 		KnockBackAmount = 20.0f;
 		KnockUpAmount = 15.0f;
@@ -68,7 +57,6 @@ public class HitBox : MonoBehaviour
 	{
 		Allegiance = TeamAllegiance.Player;
 		FromObject = from;
-		FromWeaponType = WeaponType.Weapon_Melee;
 		DamageAmount = 1;
 		KnockBackAmount = 0.0f;
 		KnockUpAmount = 0.0f;
