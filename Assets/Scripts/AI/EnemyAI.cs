@@ -206,7 +206,7 @@ public class EnemyAI : MonoBehaviour
 		if(target == Vector3.zero)
 		{
 			if(_playerAnimator == null && GameManager.Player != null)
-				_playerAnimator = GameManager.Player.GetComponent<PlayerCharacterAnimator>();
+				_playerAnimator = GameManager.Player;
 			if(_playerAnimator != null)
 				_target = _playerAnimator.transform.position;
 			else
@@ -369,7 +369,7 @@ public class EnemyAI : MonoBehaviour
     {
         get
         {
-            CharacterAnimator player = GameManager.Player.GetComponent<CharacterAnimator>();// FIXME: SLOW
+            PlayerCharacterAnimator player = GameManager.Player;
             GameObject playerGO = player.gameObject;
             
             if (playerGO == null || player == null || player.IsDead())
@@ -436,10 +436,9 @@ public class EnemyAI : MonoBehaviour
     {
         get 
         {
-            GameObject player = GameManager.Player.gameObject;
-            if (player != null && _playerAnimator != null)
-                return (Mathf.Abs(transform.position.x - player.transform.position.x) < _settings.AttackRange)
-                    && (Mathf.Abs(transform.position.y - player.transform.position.y) < _settings.AttackRange)
+            if (_playerAnimator != null)
+                return (Mathf.Abs(transform.position.x - _playerAnimator.transform.position.x) < _settings.AttackRange)
+                    && (Mathf.Abs(transform.position.y - _playerAnimator.transform.position.y) < _settings.AttackRange)
                     && _animator.DesiredZ == _playerAnimator.DesiredZ;
             return false;
         }

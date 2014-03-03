@@ -23,15 +23,13 @@ public class Tutorial : MonoBehaviour
 
 	private bool _reachedTrigger1;
     private bool _sewerDoorOpen;
-    private CharacterAnimator _player;
 	private CharacterAnimator _olympusAnimator;
 
 	void Start ()
 	{
 		_reachedTrigger1 = false;
         _sewerDoorOpen = false;
-        _player = GameManager.Player.GetComponent<CharacterAnimator>();
-		_olympusAnimator = GameManager.Player.GetComponent<CharacterAnimator>();
+        _olympusAnimator = Olympus.GetComponent<CharacterAnimator>();
 		StartCoroutine("WaitToShowInstructions");
 	}
 
@@ -76,13 +74,13 @@ public class Tutorial : MonoBehaviour
     {
         while (true)
         {
-            if(_sewerDoorOpen && Mathf.Abs(_player.CharInput.Horizontal) > 0.5)
+            if(_sewerDoorOpen && Mathf.Abs(GameManager.Player.CharInput.Horizontal) > 0.5)
             {
                 SewerDoor.animation.Play("Close");
                 _sewerDoorOpen = false;
                 yield return new WaitForSeconds(0.5f);
             }
-            else if (!_sewerDoorOpen && Mathf.Abs(_player.CharInput.Horizontal) < 0.5)
+            else if (!_sewerDoorOpen && Mathf.Abs(GameManager.Player.CharInput.Horizontal) < 0.5)
             {
                 SewerDoor.animation.Play("Open");
                 _sewerDoorOpen = true;

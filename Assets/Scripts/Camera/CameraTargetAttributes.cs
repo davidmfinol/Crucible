@@ -42,7 +42,7 @@ public class CameraTargetAttributes : MonoBehaviour
 
 	void Start()
 	{
-        _character = GameManager.Player.GetComponent<CharacterAnimator> ();
+        _character = GameManager.Player;
         _settings = GameManager.Player.GetComponent<CharacterSettings> ();
 		_timeStationary = 0;
 	}

@@ -37,7 +37,7 @@ public class MysteriousRunner : MonoBehaviour
 		_input.Jump = Vector2.zero;
 		yield return new WaitForSeconds (0.9f);
 		_input.Jump = new Vector2 (1, 1);
-		Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player;
+		Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
        // GameManager.Player.GetComponent<CharacterInput>().UpdateInputMethod = null;
 		yield return new WaitForSeconds (0.1f);
 		_input.Jump = Vector2.zero;
@@ -76,7 +76,7 @@ public class MysteriousRunner : MonoBehaviour
 		_input.Horizontal = -1;
 		SewerDoor.animation.Play("Close");
 		yield return new WaitForSeconds (1.0f);
-        Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player;
+        Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
     //    GameManager.Player.GetComponent<CharacterInput>().UpdateInputMethod = GameManager.UI.GetComponent<NontouchInput>().UpdateInput;
         #if (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
         GameManager.Player.GetComponent<CharacterInput>().UpdateInputMethod = GameManager.UI.GetComponent<TouchInput>().UpdateInput;

@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Serialization;
 using System.IO;
 
 /// <summary>
@@ -13,7 +11,7 @@ using System.IO;
 [AddComponentMenu("Game/Game Manager")]
 public class GameManager : MonoBehaviour
 {
-    // The GameManager is in charge of creating the player and his camera
+    // The GameManager is in charge of creating the player, his camera, and setting up the UI
     public Transform PlayerPrefab;
 	public Camera CameraPrefab;
 	public Transform UIPrefab;
@@ -22,16 +20,17 @@ public class GameManager : MonoBehaviour
     private static GameLevel _currentLevel;
 	
 	// There should always be access to the player
-	private static Transform _player;
+	private static PlayerCharacterAnimator _player;
 	
     // Global Managers
-    private static UIManager _ui;
+    private static UIManager _uiManager;
 	private static AIManager _aiManager;
 	private static AudioManager _audioManager;
 	private static SubtitlesManager _subtitlesManager;
 
-	private const string _gameSaveStatePath = "game_progress.xml";
-	private const string _levelSaveStatePrefix = "level_";
+    // We keep track of where we save the game here
+    public static readonly string GameSaveStatePath = Path.Combine(Application.persistentDataPath, "game_progress.xml");
+    public static readonly string LevelSaveStatePrefix = Path.Combine(Application.persistentDataPath, "level_");
 	
 
     // Set up level, player/camera, and find the Global Managers
@@ -63,7 +62,10 @@ public class GameManager : MonoBehaviour
 	private void SetupPlayer()
 	{
 		if(_player == null)
-			_player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
+        {
+            Transform player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
+            _player = player.GetComponent<PlayerCharacterAnimator>();
+        }
 
 		PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
 		if(inventory != null)
@@ -73,7 +75,7 @@ public class GameManager : MonoBehaviour
 
 		SpawnPlayer ();
 	}
-	public static void SpawnPlayer() // TODO: Optimize this method? lots of getcomponents
+	public static void SpawnPlayer()
 	{
 		// Move the player to the correct spot
 		PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
@@ -114,11 +116,11 @@ public class GameManager : MonoBehaviour
     
     private void SetupUI()
     {
-        if(_ui != null) //TODO: BETTER TRANSFER
+        if(_uiManager != null) //TODO: BETTER TRANSFER
             return;
 
         Transform ui = (Transform)Instantiate(UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);
-        _ui = ui.GetComponent<UIManager>();
+        _uiManager = ui.GetComponent<UIManager>();
     }
 	
 	private void SetupAI()
@@ -147,130 +149,84 @@ public class GameManager : MonoBehaviour
 	
 	public static void LoadGameState()
 	{
-		XmlSerializer serializer = new XmlSerializer(typeof(GameSaveState));
-		FileStream stream = null;
-		try
-		{ 
-			stream = new FileStream(_gameSaveStatePath, FileMode.Open);
-			GameSaveState gameSaveState = serializer.Deserialize(stream) as GameSaveState;
-			
-			// Load the correct level
-			string levelName = gameSaveState.LevelName;
-			Application.LoadLevel(levelName);
-			LoadLevelState();
-			
-			// Put the character at the correct location
-			
-			
-			// Set up the player's inventory
+        // Get the saved data
+        GameSaveState gameSave = GameSaveState.Load(GameSaveStatePath);
+        if(gameSave == null)
+        {
+            Debug.LogWarning("No game save data!");
+            return;
+        }
 
-		}
-		catch (System.SystemException err)
-		{
-			// If we fail to find the file, don't do anything
-			Debug.Log(err);
-		}
-		finally 
-		{
-			if(stream != null)
-				stream.Close ();
-		}
+        // Use the save data to set up the game
+        Application.LoadLevel(gameSave.LevelName);
+        LoadLevelState(gameSave.LevelName);
+        // TODO
 	}
 	
-	public static void LoadLevelState()
+	public static void LoadLevelState(string levelName)
 	{
+        // Get the saved data
+        string path = LevelSaveStatePrefix + levelName + ".xml";
+        LevelSaveState levelSave = LevelSaveState.Load(path);
+        if(levelSave == null)
+        {
+            Debug.LogWarning("No level save data!");
+            return;
+        }
+
+        // Use the save data to set up the level
+        // TODO
 	}
 	
 	public static void SaveGameState(Checkpoint.CheckpointLocation loc)
 	{
 		GameSaveState g = new GameSaveState ();
-		
 		g.LevelName = Application.loadedLevelName;
 		g.Checkpoint = loc;
 		g.PlayerState = GameManager.Player.GetComponent<PlayerCharacterInventory> ().SaveState ();
-		
-		XmlSerializer serializer = new XmlSerializer( typeof(GameSaveState) );
-		FileStream stream = new FileStream(_gameSaveStatePath, FileMode.Create);
-		serializer.Serialize(stream, g);
-		stream.Close();
+        g.Save(GameSaveStatePath);
 	}
 	
 	public static void SaveLevelState(string levelName)
 	{
-		string filename = _levelSaveStatePrefix + levelName + ".xml";
-		
-		LevelSaveState l = new LevelSaveState ();
-		
+		string path = LevelSaveStatePrefix + levelName + ".xml";
+
+		LevelSaveState level = new LevelSaveState ();
+        List<EnemySaveState> enemySaves = new List<EnemySaveState>();
 		foreach (EnemyAI enemyAI in GameManager.AI.Enemies)
-			l.enemyStates.Add ( enemyAI.SaveState() );
-		
-		XmlSerializer serializer = new XmlSerializer( typeof(LevelSaveState) );
-		FileStream stream = new FileStream(filename, FileMode.Create);
-		serializer.Serialize(stream, l);
-		stream.Close();
+            enemySaves.Add ( enemyAI.SaveState() );
+        level.enemyStates = enemySaves.ToArray();
+
+        level.Save(path);
 	}
 	
 
-	/// <summary>
-	/// Gets the current GameLevel.
-	/// </summary>
-	/// <value>
-	/// The current GameLevel.
-	/// </value>
     public static GameLevel Level
     {
         get { return _currentLevel; }
     }
-	
-	/// <summary>
-	/// Gets or sets the player.
-	/// </summary>
-	/// <value>
-	/// The player.
-	/// </value>
-	public static Transform Player
+
+    public static PlayerCharacterAnimator Player
 	{
 		get { return _player; }
 		set { _player = value; }
     }
-    
-    /// <summary>
-    /// Gets or sets the User Interface.
-    /// </summary>
-    /// <value>
-    /// The User Interface.
-    /// </value>
+
     public static UIManager UI
     {
-        get { return _ui; }
+        get { return _uiManager; }
     }
-	
-	/// <summary>
-	/// Gets the AI Manager.
-	/// </summary>
-	/// <value>
-	/// The AI Manager.
-	/// </value>
+
 	public static AIManager AI
 	{
 		get { return _aiManager; }
 	}
-	
-	/// <summary>
-	/// Gets the Audio Manager.
-	/// </summary>
-	/// <value>
-	/// The Audio Manager.
-	/// </value>
+
 	public static AudioManager Audio
 	{
 		get { return _audioManager; }
 	}
 
-	/// <summary>
-	/// Gets the subtitles.
-	/// </summary>
-	/// <value>The subtitles.</value>
 	public static SubtitlesManager Subtitles
 	{
 		get { return _subtitlesManager; }

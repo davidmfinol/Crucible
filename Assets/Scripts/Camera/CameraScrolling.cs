@@ -18,13 +18,11 @@ public class CameraScrolling : MonoBehaviour
     // How strict should the camera follow the target?  Lower values make the camera more lazy.
     public float Springiness = 4.0f;
 
-    // We track these for special effects that we add on to the camera
-	private PlayerCharacterAnimator _charAnimator;
+    // We track this for a shake effect that we add on to the camera
 	private ShakeEffect _shakeEffect;
 
 	void Start()
     {
-		_charAnimator = GameManager.Player.GetComponent<PlayerCharacterAnimator> ();
 		_shakeEffect = null;
 	}
 
@@ -72,7 +70,7 @@ public class CameraScrolling : MonoBehaviour
         {
             heightOffset = cameraTargetAttributes.HeightOffset;
 
-			if(_charAnimator.IsDead())
+			if(GameManager.Player.IsDead())
 				distanceModifier = cameraTargetAttributes.DeathZoom;
 
 			else if(_shakeEffect != null)
