@@ -33,39 +33,6 @@ public class GameManager : MonoBehaviour
 	private const string _gameSaveStatePath = "game_progress.xml";
 	private const string _levelSaveStatePrefix = "level_";
 	
-	public static void SaveLevelState(string levelName)
-	{
-		string filename = _levelSaveStatePrefix + levelName + ".xml";
-
-		LevelSaveState l = new LevelSaveState ();
-
-		foreach (EnemyAI enemyAI in GameManager.AI.Enemies) {
-			l.enemyStates.Add ( enemyAI.SaveState() );
-			
-		}
-
-		XmlSerializer serializer = new XmlSerializer( typeof(LevelSaveState) );
-		FileStream stream = new FileStream(filename, FileMode.Create);
-		serializer.Serialize(stream, l);
-		stream.Close();
-
-
-	}
-
-	public static void SaveGameState(Checkpoint.CheckpointLocation loc)
-	{
-		GameSaveState g = new GameSaveState ();
-
-		g.LevelName = Application.loadedLevelName;
-		g.Checkpoint = loc;
-		g.PlayerState = GameManager.Player.GetComponent<PlayerCharacterAnimator> ().SaveState ();
-
-		XmlSerializer serializer = new XmlSerializer( typeof(GameSaveState) );
-		FileStream stream = new FileStream(_gameSaveStatePath, FileMode.Create);
-		serializer.Serialize(stream, g);
-		stream.Close();
-
-	}
 
     // Set up level, player/camera, and find the Global Managers
     void Start()
@@ -177,6 +144,71 @@ public class GameManager : MonoBehaviour
 			Destroy(GameManager._subtitlesManager.gameObject); // TODO: TRANSFER SUBTITLES MANAGER BETTER
 		GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager>();
 	}
+	
+	public static void LoadGameState()
+	{
+		XmlSerializer serializer = new XmlSerializer(typeof(GameSaveState));
+		FileStream stream = null;
+		try
+		{ 
+			stream = new FileStream(_gameSaveStatePath, FileMode.Open);
+			GameSaveState gameSaveState = serializer.Deserialize(stream) as GameSaveState;
+			
+			// Load the correct level
+			string levelName = gameSaveState.LevelName;
+			Application.LoadLevel(levelName);
+			LoadLevelState();
+			
+			// Put the character at the correct location
+			
+			
+			// Set up the player's inventory
+			PlayerSaveState playerSave = gameSaveState.PlayerState;
+		}
+		catch (System.SystemException err)
+		{
+			// If we fail to find the file, don't do anything
+		}
+		finally 
+		{
+			if(stream != null)
+				stream.Close ();
+		}
+	}
+	
+	public static void LoadLevelState()
+	{
+	}
+	
+	public static void SaveGameState(Checkpoint.CheckpointLocation loc)
+	{
+		GameSaveState g = new GameSaveState ();
+		
+		g.LevelName = Application.loadedLevelName;
+		g.Checkpoint = loc;
+		g.PlayerState = GameManager.Player.GetComponent<PlayerCharacterInventory> ().SaveState ();
+		
+		XmlSerializer serializer = new XmlSerializer( typeof(GameSaveState) );
+		FileStream stream = new FileStream(_gameSaveStatePath, FileMode.Create);
+		serializer.Serialize(stream, g);
+		stream.Close();
+	}
+	
+	public static void SaveLevelState(string levelName)
+	{
+		string filename = _levelSaveStatePrefix + levelName + ".xml";
+		
+		LevelSaveState l = new LevelSaveState ();
+		
+		foreach (EnemyAI enemyAI in GameManager.AI.Enemies)
+			l.enemyStates.Add ( enemyAI.SaveState() );
+		
+		XmlSerializer serializer = new XmlSerializer( typeof(LevelSaveState) );
+		FileStream stream = new FileStream(filename, FileMode.Create);
+		serializer.Serialize(stream, l);
+		stream.Close();
+	}
+	
 
 	/// <summary>
 	/// Gets the current GameLevel.

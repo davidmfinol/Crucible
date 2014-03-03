@@ -22,9 +22,23 @@ public class PlayerCharacterInventory : MonoBehaviour
     // We keep track of which weapon is currently equipped here
     private Weapon _currentWeapon;
 
+
 	void Start()
 	{
 		_rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
+	}
+	
+	public PlayerSaveState SaveState()
+	{
+		PlayerSaveState save = new PlayerSaveState ();
+		
+		foreach(Item item in Items)
+			save.ItemsHeld.Add(item.ItemType);
+		
+		foreach(Weapon weapon in Weapons)
+			save.WeaponsHeld.Add(weapon.WeaponType);
+		
+		return save;
 	}
 	
 	
@@ -52,7 +66,7 @@ public class PlayerCharacterInventory : MonoBehaviour
 
 	public bool CanWeaponStealthKill
     {
-		get { return _currentWeapon.GetComponent<Weapon>().CanStealthKill ; } //FIXME : SLOW
+		get { return _currentWeapon.CanStealthKill ; }
 	}
 	
 }

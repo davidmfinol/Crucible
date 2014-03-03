@@ -7,7 +7,6 @@ using System.IO;
 
 public class Checkpoint : MonoBehaviour
 {
-
 	public enum CheckpointLocation
 	{
 		Checkpoint_UpperOCourse,
