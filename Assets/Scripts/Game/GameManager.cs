@@ -29,13 +29,17 @@ public class GameManager : MonoBehaviour
 	private static SubtitlesManager _subtitlesManager;
 
     // We keep track of where we save the game here
-    public static readonly string GameSaveStatePath = Path.Combine(Application.persistentDataPath, "game_progress.xml");
-    public static readonly string LevelSaveStatePrefix = Path.Combine(Application.persistentDataPath, "level_");
+	private static string _gameSaveStatePath;
+    private static string _levelSaveStatePrefix;
 	
 
     // Set up level, player/camera, and find the Global Managers
     void Start()
     {
+		_gameSaveStatePath = Path.Combine(Application.persistentDataPath, "game_progress.xml");
+
+		_levelSaveStatePrefix = Path.Combine(Application.persistentDataPath, "level_");
+
 		SetupLevel();
 		
 		SetupPlayer();
@@ -205,31 +209,34 @@ public class GameManager : MonoBehaviour
     {
         get { return _currentLevel; }
     }
-
     public static PlayerCharacterAnimator Player
 	{
 		get { return _player; }
 		set { _player = value; }
     }
-
     public static UIManager UI
     {
         get { return _uiManager; }
     }
-
 	public static AIManager AI
 	{
 		get { return _aiManager; }
 	}
-
 	public static AudioManager Audio
 	{
 		get { return _audioManager; }
 	}
-
 	public static SubtitlesManager Subtitles
 	{
 		get { return _subtitlesManager; }
 	}
-	
+
+	public static string GameSaveStatePath
+	{
+		get { return _gameSaveStatePath; }
+	}
+	public static string LevelSaveStatePrefix
+	{
+		get { return _levelSaveStatePrefix; } 
+	}
 }

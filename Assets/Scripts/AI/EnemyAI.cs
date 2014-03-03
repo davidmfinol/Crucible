@@ -321,7 +321,16 @@ public class EnemyAI : MonoBehaviour
 		bool shouldJump = !isAlreadyGoingUp && !isAtFinalNode && (isNodeAbove || isNodeOnOtherPlatform);
 
 		if(shouldJump)
-			_animator.CharInput.Jump = Vector2.up;
+		{
+			bool isToRight = _path.vectorPath[_currentPathWaypoint].x > _animator.transform.position.x;
+			if(isCloseEnoughGround)
+				_animator.CharInput.Jump = Vector2.up;
+			else if (isToRight)
+				_animator.CharInput.Jump = new Vector2(1, 1);
+			else
+				_animator.CharInput.Jump = new Vector2(-1, 1);
+
+		}
 		else
 			_animator.CharInput.Jump = Vector2.zero;
     }
