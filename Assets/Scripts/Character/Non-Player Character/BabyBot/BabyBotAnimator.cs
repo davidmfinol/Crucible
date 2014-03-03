@@ -9,9 +9,6 @@ public class BabyBotAnimator : CharacterAnimator
 {
     // TODO: REPLACE THIS WITH SOME KIND OF POOL OF HITBOX OBJECTS
     public GameObject MeleeEvent;
-	private AudioSource _attackSound;
-	private AudioSource _runningSound;
-	private AudioSource _jumpSound;
 
 	// Mecanim hashes
 	private int _awakeHash;
@@ -20,14 +17,12 @@ public class BabyBotAnimator : CharacterAnimator
 	private int _fallHash;
 	private int _jumpHash;
 	private int _isGroundedHash;
+
+	private BabybotAudioPlayer _sound;
 	
 
 	protected override void CreateStateMachine()
 	{
-		AudioSource[] sounds = GetComponents<AudioSource>();
-		_attackSound = sounds[0];
-		_runningSound = sounds[1];
-		_jumpSound = sounds[2];
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Awake")] = Idle;
@@ -61,7 +56,7 @@ public class BabyBotAnimator : CharacterAnimator
 	}
 	protected void Run(float elapsedTime)
 	{
-		_runningSound.Play();
+		// TODO: _runningSound.Play();
 		MecanimAnimator.SetBool (_awakeHash, false);
 		MecanimAnimator.SetFloat (_horizontalSpeedHash, Mathf.Abs(CharInput.Horizontal));
 		HorizontalSpeed = 0;
@@ -99,7 +94,7 @@ public class BabyBotAnimator : CharacterAnimator
 	}
 	protected void Jump(float elapsedTime)
 	{
-		_jumpSound.Play();
+		// TODO: _jumpSound.Play();
 		if(Mathf.Abs(CharInput.Horizontal) > 0.1)
 			ApplyRunning(elapsedTime/2.0f);
 		
@@ -130,7 +125,7 @@ public class BabyBotAnimator : CharacterAnimator
     public void SelfDestruct()
     {
 		// TODO: OBJECT POOLING
-		_attackSound.Play();
+		// TODO: _sound.Play();
         GameObject o = (GameObject) Instantiate (MeleeEvent, transform.position, Quaternion.identity);
 		o.transform.parent = GameManager.Player.transform;
         HitBox d = o.GetComponentInChildren<HitBox> ();
