@@ -1,5 +1,9 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
 
 /// <summary>
 /// Game manager is a global class in charge of keeping track of all global components.
@@ -25,8 +29,44 @@ public class GameManager : MonoBehaviour
 	private static AIManager _aiManager;
 	private static AudioManager _audioManager;
 	private static SubtitlesManager _subtitlesManager;
+
+	private const string _gameSaveStatePath = "game_progress.xml";
+	private const string _levelSaveStatePrefix = "level_";
 	
-	
+	public static void SaveLevelState(string levelName)
+	{
+		string filename = _levelSaveStatePrefix + levelName + ".xml";
+
+		LevelSaveState l = new LevelSaveState ();
+
+		foreach (EnemyAI enemyAI in GameManager.AI.Enemies) {
+			l.enemyStates.Add ( enemyAI.SaveState() );
+			
+		}
+
+		XmlSerializer serializer = new XmlSerializer( typeof(LevelSaveState) );
+		FileStream stream = new FileStream(filename, FileMode.Create);
+		serializer.Serialize(stream, l);
+		stream.Close();
+
+
+	}
+
+	public static void SaveGameState(Checkpoint.CheckpointLocation loc)
+	{
+		GameSaveState g = new GameSaveState ();
+
+		g.LevelName = Application.loadedLevelName;
+		g.Checkpoint = loc;
+		g.PlayerState = GameManager.Player.GetComponent<PlayerCharacterAnimator> ().SaveState ();
+
+		XmlSerializer serializer = new XmlSerializer( typeof(GameSaveState) );
+		FileStream stream = new FileStream(_gameSaveStatePath, FileMode.Create);
+		serializer.Serialize(stream, g);
+		stream.Close();
+
+	}
+
     // Set up level, player/camera, and find the Global Managers
     void Start()
     {

@@ -110,9 +110,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected override List<int> DefineRootMotionCorrectionState() // TODO: ERADICATE THIS METHOD
 	{
 		List<int> states = new List<int> ();
-//		states.Add (Animator.StringToHash ("Wall.Walljumping"));
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
-//		states.Add (Animator.StringToHash ("Air.Falling"));
 		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
 		states.Add (Animator.StringToHash ("Ground.StealthKill"));
 		return states;
@@ -496,7 +494,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		else 
 			MecanimAnimator.SetBool(_hangHash, false);
 	}
-	
 
 	protected void Wallgrabbing(float elapsedTime)
 	{
@@ -645,7 +642,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			}
 		}
 	}
-
 	
 	protected void ClimbingVertical(float elapsedTime)
 	{
@@ -819,6 +815,19 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		obj = null;
 		return false;
+	}
+
+	public PlayerSaveState SaveState()
+	{
+		PlayerSaveState save = new PlayerSaveState ();
+
+		foreach(Item item in Inventory.Items)
+			save.ItemsHeld.Add(item.ItemType);
+
+		foreach(Weapon weapon in Inventory.Weapons)
+			save.WeaponsHeld.Add(weapon.WeaponType);
+
+		return save;
 	}
 
 

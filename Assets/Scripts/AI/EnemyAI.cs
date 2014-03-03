@@ -326,6 +326,21 @@ public class EnemyAI : MonoBehaviour
 			_animator.CharInput.Jump = Vector2.zero;
     }
 
+	public EnemySaveState SaveState()
+	{
+		EnemySaveState s = new EnemySaveState ();
+
+		if (_animator is OlympusAnimator)
+			s.type = EnemyType.Enemy_Olympus; 
+		else if(_animator is BabyBotAnimator)
+			s.type = EnemyType.Enemy_BabyBot;
+
+		s.pos = transform.position;
+		s.dir = _animator.Direction;
+		s.health = GetComponentInChildren<EnemyHeartBox>().HitPoints;
+		return s;
+
+	}
 	
 	// Generic Properties
 	public EnemyAISettings Settings

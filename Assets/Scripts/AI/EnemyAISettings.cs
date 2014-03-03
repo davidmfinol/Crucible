@@ -33,7 +33,7 @@ public class EnemyAISettings : MonoBehaviour
 	public float MaxActiveDistance; // = 100.0f;
 
 	// How much time we're willing to spend going to a target before just giving up and choosing a new one
-	public float WanderTargetTime; // = 45.0f;
+	public float WanderTargetTime; // = 15.0f;
     
     // Used by A* to calculate graph
     public static float MaxJump = 15.0f; // jumpheight + capsulecollider.height/2
