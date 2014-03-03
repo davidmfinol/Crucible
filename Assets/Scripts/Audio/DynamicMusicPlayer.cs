@@ -61,7 +61,7 @@ public class DynamicMusicPlayer : AudioPlayer
 	
 	void Update()
 	{
-		//TODO: SLOW?: PlayDanger(SearchingLevel,ChasingLevel);
+		PlayDanger(SearchingLevel,ChasingLevel);
 	}
 	
 	public void PlayDanger(int searchingLevel, int chasingLevel)

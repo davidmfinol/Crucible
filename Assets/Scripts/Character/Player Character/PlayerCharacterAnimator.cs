@@ -509,7 +509,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
 		MecanimAnimator.SetBool(_jumpWallHash, jump);
 
-		if(CharInput.InteractionPressed || CharInput.DownPressed || InputMoveBackward || jump || IsGrounded ||
+		if(CharInput.InteractionPressed || CharInput.DownPressed || jump || IsGrounded ||
 		    (ActiveHangTarget == null) || (TimeInCurrentState >= Settings.WallSlideDuration) )
 		{
 			MecanimAnimator.SetBool(_grabWallHash, false);

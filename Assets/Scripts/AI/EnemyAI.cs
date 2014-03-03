@@ -128,16 +128,18 @@ public class EnemyAI : MonoBehaviour
 			return;
 
 		// We should retarget every now and then
+		Vector3 targetPos = GameManager.AI.GetRandomSearchPoint();
 		_timeToRetarget -= Time.fixedDeltaTime; // NOTE: WE USE FIXEDDELATA SINCE WE ASSUME WE RUN IN FIXED UPDATE/ SHOULD PASS IN TIME?
 		if(_timeToRetarget <= 0)
 		{
 			_timeToRetarget = Settings.WanderTargetTime;
-			UpdateAStarTarget(GameManager.AI.GetRandomSearchPoint());
+			if(!targetPos.Equals(Vector3.zero))
+				UpdateAStarTarget(targetPos);
 		}
 
 		// If we've reached our random target, find a new random target
-		if(_animator.Controller.bounds.Contains(_target))
-			UpdateAStarTarget(GameManager.AI.GetRandomSearchPoint());
+		if(_animator.Controller.bounds.Contains(_target) && !targetPos.Equals(Vector3.zero))
+			UpdateAStarTarget(targetPos);
 
 		// Return if we can't get a path
 		if(!UpdateAStarPath())
@@ -170,7 +172,7 @@ public class EnemyAI : MonoBehaviour
 			return;
 
 		// Finally, go check out our random target point.
-        AstarNavigateToTarget(0.5f);
+        AstarNavigateToTarget(0.7f);
 	}
 
 	// The enemy actively hunts the player down!

@@ -19,18 +19,26 @@ public class Tutorial : MonoBehaviour
 	public Transform MysteriousRunner2;
 	public Transform Olympus;
 	public Transform SewerDoor;
+	public Transform NextLevel;
 
 	private bool _reachedTrigger1;
     private bool _sewerDoorOpen;
     private CharacterAnimator _player;
-
+	private CharacterAnimator _olympusAnimator;
 
 	void Start ()
 	{
 		_reachedTrigger1 = false;
         _sewerDoorOpen = false;
         _player = GameManager.Player.GetComponent<CharacterAnimator>();
+		_olympusAnimator = GameManager.Player.GetComponent<CharacterAnimator>();
 		StartCoroutine("WaitToShowInstructions");
+	}
+
+	void Update()
+	{
+		if(_olympusAnimator.IsDead())
+			NextLevel.gameObject.SetActive(true);
 	}
 
 	public void ReachTrigger1()
@@ -47,10 +55,6 @@ public class Tutorial : MonoBehaviour
 	{
         Olympus.gameObject.SetActive(true);
         StartCoroutine("OperateDoor");
-	}
-	public void LeftTrigger3()
-    {
-        StopCoroutine("OperateDoor");
 	}
 
 	public IEnumerator WaitToShowInstructions()

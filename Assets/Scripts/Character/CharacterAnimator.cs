@@ -561,7 +561,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 	public void PlayHit()
 	{
 		// TODO: MOVE THIS ELSEWHERE
-		Debug.Log ("Play!");
 		audio.Play ();
 	}
 	
