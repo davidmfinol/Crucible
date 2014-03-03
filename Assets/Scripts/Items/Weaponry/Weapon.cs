@@ -5,7 +5,7 @@ using System.Collections;
 /// Weapon defines a weapon that the player character can wield.
 /// </summary>
 [AddComponentMenu("Items/Weaponry/Weapon")]
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
 	public Transform GUIImage;
 
@@ -36,5 +36,11 @@ public class Weapon : MonoBehaviour
 	public virtual bool CanStealthKill
 	{
 		get { return false; }
+	}
+
+	// Each weapon keeps track of its type
+	public abstract WeaponType WeaponType
+	{
+		get;
 	}
 }

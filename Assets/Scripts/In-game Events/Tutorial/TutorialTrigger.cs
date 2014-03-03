@@ -8,17 +8,10 @@ using System.Collections;
 public class TutorialTrigger : MonoBehaviour
 {
 	public string Message;
-	public string Message2;
 
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.CompareTag("Player"))
 		   SendMessageUpwards(Message);
-	}
-
-	void OnTriggerExit(Collider other)
-	{
-		if(other.CompareTag("Player") && Message2 != null && !Message2.Equals(""))
-			SendMessageUpwards(Message2);
 	}
 }

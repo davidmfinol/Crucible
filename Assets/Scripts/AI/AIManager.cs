@@ -23,6 +23,8 @@ public class AIManager : MonoBehaviour
 
 	public Vector3 GetRandomSearchPoint()
 	{
+		if(_searchPoints.Length <= 0)
+			return Vector3.zero;
 		int pointNum = (int) Random.Range (0, _searchPoints.Length);
 		return _searchPoints [pointNum].transform.position;
 	}

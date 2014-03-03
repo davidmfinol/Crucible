@@ -36,5 +36,10 @@ public class GravityGun : Weapon
     public override Vector3 Translation
     {
         get { return new Vector3(0.25f, 0, -0.4f); }
-    }
+	}
+	
+	public override WeaponType WeaponType
+	{
+		get { return WeaponType.Weapon_GravityGun; }
+	}
 }

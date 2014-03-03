@@ -14,7 +14,6 @@ public class PipeWeapon : Weapon
 		HitBox hitbox = GetComponent<HitBox> ();
 		hitbox.Allegiance = TeamAllegiance.Player;
 		hitbox.FromObject = this.gameObject;
-		hitbox.FromWeaponType = WeaponType.Weapon_Melee;
 		hitbox.DamageAmount = 0;
 		hitbox.CanStun = true;
 		hitbox.CanStealthKill = false;
@@ -44,5 +43,10 @@ public class PipeWeapon : Weapon
 	public override bool CanStealthKill
 	{ 
 		get { return true; }
+	}
+
+	public override WeaponType WeaponType
+	{
+		get { return WeaponType.Weapon_Pipe; }
 	}
 }

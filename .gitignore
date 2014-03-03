@@ -26,3 +26,6 @@ screenshot*.png
 *ehthumbs.db
 *Thumbs.db
 ProjectSettings/EditorBuildSettings*
+checkpointCheckpoint_UpperOCourse.xml
+game_progress.xml
+level_OCourse.xml
