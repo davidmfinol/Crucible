@@ -128,7 +128,7 @@ public class OlympusAnimator : CharacterAnimator
 	{
 		ApplyRunning(elapsedTime);
 		VerticalSpeed = GroundVerticalSpeed;
-		ApplyTriDirection();
+		ApplyBiDirection();
 		
 		if(!MecanimAnimator.GetBool(_fallHash) && !IsGrounded)
 			MecanimAnimator.SetBool(_fallHash, true);
