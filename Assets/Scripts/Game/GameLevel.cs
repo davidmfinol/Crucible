@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 /// <summary>
 /// Game level is a class used to keep track of the attributes of the level in the scene.
@@ -98,4 +100,25 @@ public class GameLevel : MonoBehaviour
         Gizmos.DrawLine(upperRight, lowerRight);
         Gizmos.DrawLine(lowerRight, lowerLeft);
     }
+
+	public void RemoveDynamicObjects() {
+		GameObject[] objs = GameObject.FindGameObjectsWithTag ("Enemy");
+		foreach (GameObject obj in objs) {
+			Destroy (obj);
+
+		}
+
+		objs = GameObject.FindGameObjectsWithTag ("WeaponPickup");
+		foreach (GameObject obj in objs) {
+			Destroy (obj);
+			
+		}
+
+		objs = GameObject.FindGameObjectsWithTag ("ItemPickup");
+		foreach (GameObject obj in objs) {
+			Destroy (obj);
+			
+		}
+
+	}
 }

@@ -15,7 +15,14 @@ public class GameManager : MonoBehaviour
     public Transform PlayerPrefab;
 	public Camera CameraPrefab;
 	public Transform UIPrefab;
-	
+
+	// Enemy prefabs used for level loading.
+	public Transform OlympusPrefab;
+	public Transform BabybotPrefab;
+
+	// Keep track of the current game manager instance
+	private static GameManager _instance;
+
     // Each scene should correspond to a level, and each level should have exactly one GameLevel
     private static GameLevel _currentLevel;
 	
@@ -31,36 +38,44 @@ public class GameManager : MonoBehaviour
     // We keep track of where we save the game here
 	private static string _gameSaveStatePath;
     private static string _levelSaveStatePrefix;
-	
 
     // Set up level, player/camera, and find the Global Managers
     void Start()
     {
+		_instance = this;
 		_gameSaveStatePath = Path.Combine(Application.persistentDataPath, "game_progress.xml");
-
 		_levelSaveStatePrefix = Path.Combine(Application.persistentDataPath, "level_");
 
+		Debug.Log (Application.persistentDataPath);
+
 		SetupLevel();
-		
+
+		SetupAI();
+
+		SetupUI();
+
 		SetupPlayer();
 		
 		SetupCamera();
-		
-		SetupUI();
-		
-		SetupAI();
-		
+
 		SetupAudio();
 		
 		SetupSubtitles();
+
     }
 	
 	private void SetupLevel()
 	{
+		string lastLevelName = "";
+
 		// We need to keep only one GameLevel instance
-		if(GameManager._currentLevel != null)
+		if(GameManager._currentLevel != null) {
+			lastLevelName = GameManager._currentLevel.name;
 			Destroy(GameManager._currentLevel.gameObject);
+
+		}
 		GameManager._currentLevel = GetComponent<GameLevel>();
+
 	}
 	
 	private void SetupPlayer()
@@ -81,11 +96,18 @@ public class GameManager : MonoBehaviour
 	}
 	public static void SpawnPlayer()
 	{
-		// Move the player to the correct spot
+		Debug.Log ("Loading game state.");
+		_instance.LoadGameStateHelper ();
+		Debug.Log ("Loading level state");
+		_instance.LoadLevelStateHelper (Application.loadedLevelName);
+
+//		// Move the player to the correct spot
 		PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
-		if(inventory != null)
+		if (inventory != null) {
+			Debug.Log ("Moving player to proper spawn spot " + inventory.SpawnPoint.transform.position);
 			Player.transform.position = inventory.SpawnPoint.transform.position;
 
+		}
 		// Reset it's health to max
 		HeartBox heart = Player.GetComponentInChildren<HeartBox> ();
 		if(heart != null)
@@ -151,7 +173,12 @@ public class GameManager : MonoBehaviour
 		GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager>();
 	}
 	
-	public static void LoadGameState()
+	public static void LoadGameState() {
+		_instance.LoadGameStateHelper ();
+
+	}
+	
+	private void LoadGameStateHelper()
 	{
         // Get the saved data
         GameSaveState gameSave = GameSaveState.Load(GameSaveStatePath);
@@ -161,25 +188,62 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // Use the save data to set up the game
-        Application.LoadLevel(gameSave.LevelName);
-        LoadLevelState(gameSave.LevelName);
-        // TODO
 	}
 	
-	public static void LoadLevelState(string levelName)
+	private void LoadLevelStateHelper(string levelName)
 	{
         // Get the saved data
         string path = LevelSaveStatePrefix + levelName + ".xml";
         LevelSaveState levelSave = LevelSaveState.Load(path);
-        if(levelSave == null)
+
+		if(levelSave != null)
         {
-            Debug.LogWarning("No level save data!");
-            return;
+			Debug.Log ("Removed all dynamic objects.");
+			GameManager.Level.RemoveDynamicObjects();
+
+			GameManager.AI.Reset ();
+
+			foreach (EnemySaveState enemyState in levelSave.enemyStates)
+			{
+				Transform newEnemy;
+				EnemyHeartBox h;
+
+				// instantiate proper enemy
+				switch(enemyState.type)
+				{
+					case EnemyType.Enemy_Olympus:
+					{
+						Debug.Log ("Loaded Olympus");
+						newEnemy = (Transform) Instantiate(OlympusPrefab, enemyState.pos, Quaternion.identity);
+						OlympusAnimator oanim = newEnemy.gameObject.GetComponent<OlympusAnimator>();
+						oanim.Direction = enemyState.dir;	
+						h = newEnemy.gameObject.GetComponentInChildren<EnemyHeartBox>();
+						h.HitPoints = enemyState.health;
+						break;
+					}
+
+					case EnemyType.Enemy_BabyBot:
+					{
+						Debug.Log ("Loaded Babybot");
+						newEnemy = (Transform) Instantiate(BabybotPrefab, enemyState.pos, Quaternion.identity);
+						BabyBotAnimator bbanim = newEnemy.gameObject.GetComponent<BabyBotAnimator>();
+						bbanim.Direction = enemyState.dir;	
+						h = newEnemy.gameObject.GetComponentInChildren<EnemyHeartBox>();
+						h.HitPoints = enemyState.health;
+						break;
+
+					}
+					default:
+					{
+						Debug.Log ("Invalid enemy type in LoadLevelState()");
+						break;
+					}
+				}
+
+			}
+
         }
 
-        // Use the save data to set up the level
-        // TODO
 	}
 	
 	public static void SaveGameState(Checkpoint.CheckpointLocation loc)
