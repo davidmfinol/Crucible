@@ -296,6 +296,10 @@ ModelImporter:
     100580: Ledge154
     100582: Ledge155
     100584: WallLedge133
+    100586: Ledge156
+    100588: pPlane1
+    100590: WallLedge134
+    100592: WallLedge135
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -589,6 +593,10 @@ ModelImporter:
     400580: Ledge154
     400582: Ledge155
     400584: WallLedge133
+    400586: Ledge156
+    400588: pPlane1
+    400590: WallLedge134
+    400592: WallLedge135
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -839,6 +847,10 @@ ModelImporter:
     2300494: Ledge154
     2300496: Ledge155
     2300498: WallLedge133
+    2300500: Ledge156
+    2300502: pPlane1
+    2300504: WallLedge134
+    2300506: WallLedge135
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1089,6 +1101,10 @@ ModelImporter:
     3300494: Ledge154
     3300496: Ledge155
     3300498: WallLedge133
+    3300500: Ledge156
+    3300502: pPlane1
+    3300504: WallLedge134
+    3300506: WallLedge135
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -1339,6 +1355,10 @@ ModelImporter:
     4300494: Ledge154
     4300496: Ledge155
     4300498: WallLedge133
+    4300500: pPlane1
+    4300502: Ledge156
+    4300504: WallLedge134
+    4300506: WallLedge135
     9500000: //RootNode
   materials:
     importMaterials: 1
