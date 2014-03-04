@@ -667,6 +667,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		
 		if(ActiveHangTarget.DoesFaceZAxis())
             Direction = Vector3.zero;
+		else
+		{
+			bool ladderToRight = ActiveHangTarget.transform.position.x - transform.position.x > 0.0f;
+			if(ladderToRight)
+				Direction = Vector3.right;
+			else
+				Direction = Vector3.left;
+		}
         
         MecanimAnimator.SetFloat(_horizontalSpeedHash, HorizontalSpeed);
         MecanimAnimator.SetFloat(_verticalSpeedHash, VerticalSpeed);
