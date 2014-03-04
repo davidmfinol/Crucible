@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Footstep audio player plays the sounds that comes from characters' feet.
+/// </summary>
 [AddComponentMenu("Audio/Footstep Audio Player")]
 public class FootstepAudioPlayer : AudioPlayer 
 {

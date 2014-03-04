@@ -6,14 +6,15 @@ using System.IO;
 
 public class LevelSaveState
 {
-	public EnemySaveState[] enemyStates;
+	public EnemySaveState[] EnemyStates;
+    public ItemSaveState[] ItemStates;
 
 	public LevelSaveState()
 	{
-        enemyStates = null;
+        EnemyStates = null;
+        ItemStates = null;
 	}
-    
-    
+
     public void Save(string path)
     {
         XmlSerializer serializer = new XmlSerializer( typeof(LevelSaveState) );

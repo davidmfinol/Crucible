@@ -4,15 +4,11 @@ using System.Collections.Generic;
 
 public enum WeaponType
 {
+    Weapon_None,
 	Weapon_Pipe,
 	Weapon_MINE,
 	Weapon_GravityGun
 	
-};
-
-public enum ItemType
-{
-
 };
 
 public class PlayerSaveState

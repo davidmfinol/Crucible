@@ -199,6 +199,8 @@ public class EnemyAI : MonoBehaviour
 		
 		// Hunt that player down!
         AstarNavigateToTarget(1.0f);
+
+        // TODO: KEEP MOVING TOWARD THE PLAYER EVEN IF WE ARE AT THE END OF THE PATH
 	}
 
 	public void UpdateAStarTarget(Vector3 target)
@@ -255,8 +257,6 @@ public class EnemyAI : MonoBehaviour
 			_path = p;
 			_currentPathWaypoint = 1; // Start at 1 since 0 is the position of where the enemy started
 		}
-		else
-			Debug.LogWarning("Astar Pathfinding errored!");
 	}
 
 	public bool UpdateAStarPath()
@@ -300,37 +300,38 @@ public class EnemyAI : MonoBehaviour
     private void AstarNavigateToTarget(float speedRatio)
 	{
 		// Determine horizontal
-		bool isLastNode = (_currentPathWaypoint == _path.vectorPath.Count - 1);
+        float horizontalDifference = _path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x;
+        bool isNodeToRight = horizontalDifference > 0;
+		bool isLastNode = (_currentPathWaypoint >= _path.vectorPath.Count - 1);
 		bool isMidAir = !_animator.IsGrounded;
-		bool isCloseEnoughGround = Mathf.Abs (_path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x) < Settings.StopRange;
+        bool isCloseEnoughGround = Mathf.Abs (horizontalDifference) < Settings.StopRange;
 		bool isCloseEnoughAir = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
-		bool shouldStayStill = (isLastNode && isCloseEnoughGround) || (isCloseEnoughAir && isMidAir);
+        bool shouldStayStill = (isLastNode && isCloseEnoughGround) || (isCloseEnoughAir && isMidAir);
 
 		if(shouldStayStill)
 			_animator.CharInput.Horizontal = 0;
+        else if (isMidAir)
+            _animator.CharInput.Horizontal = horizontalDifference/_animator.Settings.MaxHorizontalSpeed;
 		else
-			_animator.CharInput.Horizontal = _path.vectorPath[_currentPathWaypoint].x > _animator.transform.position.x ? speedRatio : -speedRatio;
+            _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
 		
 		// TODO: Determine vertical
 
         // Determine jump
 		bool isAlreadyGoingUp = _animator.VerticalSpeed > 0;
-		bool isAtFinalNode = (_currentPathWaypoint >= _path.vectorPath.Count - 1);
 		bool isNodeAbove = _path.vectorPath [_currentPathWaypoint].y - _animator.transform.position.y > 0;
 		bool isNodeOnOtherPlatform = false; // TODO: ALLOW JUMPING FROM PLATFORM TO PLATFORM, EVEN IF NEXT PLATFORM IS AT OR BELOW IN Y
-		bool shouldJump = !isAlreadyGoingUp && !isAtFinalNode && (isNodeAbove || isNodeOnOtherPlatform);
+        bool shouldJump = !isMidAir && !isAlreadyGoingUp && !isLastNode && (isNodeAbove || isNodeOnOtherPlatform);
 		bool jump = shouldJump && EnemyAISettings.CanJump (transform.position, _path.vectorPath [_currentPathWaypoint]);
 
 		if(jump)
 		{
-			bool isToRight = _path.vectorPath[_currentPathWaypoint].x > _animator.transform.position.x;
 			if(isCloseEnoughGround)
 				_animator.CharInput.Jump = Vector2.up;
-			else if (isToRight)
+			else if (isNodeToRight)
 				_animator.CharInput.Jump = new Vector2(1, 1);
 			else
-				_animator.CharInput.Jump = new Vector2(-1, 1);
-
+                _animator.CharInput.Jump = new Vector2(-1, 1);
 		}
 		else
 			_animator.CharInput.Jump = Vector2.zero;
@@ -340,18 +341,19 @@ public class EnemyAI : MonoBehaviour
 	{
 		EnemySaveState s = new EnemySaveState ();
 
+        // TODO: MAKE THE ANIMATOR COMPONENT RETURN ITS TYPE (_ANIMATOR.ENEMYTYPE)
 		if (_animator is OlympusAnimator)
-			s.type = EnemyType.Enemy_Olympus; 
+			s.Type = EnemyType.Enemy_Olympus; 
 		else if(_animator is BabyBotAnimator)
-			s.type = EnemyType.Enemy_BabyBot;
+			s.Type = EnemyType.Enemy_BabyBot;
 
-		s.pos = transform.position;
-		s.dir = _animator.Direction;
-		s.health = GetComponentInChildren<EnemyHeartBox>().HitPoints;
+		s.Position = transform.position;
+		s.Direction = _animator.Direction;
+		s.Health = GetComponentInChildren<EnemyHeartBox>().HitPoints;
 		return s;
-
 	}
 	
+
 	// Generic Properties
 	public EnemyAISettings Settings
 	{

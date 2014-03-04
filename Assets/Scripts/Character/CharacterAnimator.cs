@@ -134,7 +134,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 	}
 	public virtual bool IsDead()
     {
-		return true;
+		return false;
 	}
 
     protected virtual void UpdateMecanimVariables()
@@ -351,15 +351,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 	public void DoRagDoll()
 	{
 		CharacterSettings.ActivateRagDoll(transform, false, true);
-		/*
-		CharacterAnimatorDebugger debug = GetComponent<CharacterAnimatorDebugger>();
-		if (debug != null)
-			Destroy(debug);
-		EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger>();
-		if (debug2 != null)
-			Destroy(debug2);
-		Destroy(this);
-		*/
 		EnemyAI ai = GetComponent<EnemyAI> ();
 		if (ai != null)
 		{
@@ -556,7 +547,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 		Transform footstep = (Transform)Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
 		footstep.GetComponent<FootstepAudioPlayer>().PlayRandomFootstep();
 	}
-
 	public void PlayLand()
 	{
 		Vector3 landingPosition = transform.position;
@@ -573,6 +563,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 		landing.GetComponent<FootstepAudioPlayer>().PlayLanding();
 	}
 	
+
 	// Movement/Animation Properties
 	public AnimatorStateInfo CurrentState
 	{

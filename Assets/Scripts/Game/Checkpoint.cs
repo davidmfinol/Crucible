@@ -28,16 +28,17 @@ public class Checkpoint : MonoBehaviour
 		PlayerCharacterInventory player = other.GetComponent<PlayerCharacterInventory>();
         if (other.CompareTag("Player") && player != null && !GameManager.Player.IsDead ())
         {
-			// At the least, we will set the new spawnpoint
-            player.SpawnPoint = transform;
-			
-			// We can also add support for particles that may be attached to the checkpoints
+			// We have support for particles that may be attached to the checkpoints
 			ParticleSystem prevParticles = player.SpawnPoint.GetComponent<ParticleSystem>();
             if(prevParticles != null)
 				prevParticles.Stop();
             ParticleSystem newParticles = GetComponent<ParticleSystem>();
 			if(newParticles != null)
 				newParticles.Play();
+
+            
+            // At the least, we will set the new spawnpoint
+            player.SpawnPoint = transform;
 			
 			// Save the game at checkpoints
 			Debug.Log ("Saved game state");

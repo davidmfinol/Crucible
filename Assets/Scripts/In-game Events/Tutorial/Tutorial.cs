@@ -35,7 +35,7 @@ public class Tutorial : MonoBehaviour
 
 	void Update()
 	{
-		if(_olympusAnimator.IsDead())
+        if(Olympus.gameObject.activeSelf && _olympusAnimator.IsDead())
 			NextLevel.gameObject.SetActive(true);
 	}
 
