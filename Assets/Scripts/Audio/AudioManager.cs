@@ -9,17 +9,7 @@ using System.Collections.Generic;
 [AddComponentMenu("Audio/Audio Manager")]
 public class AudioManager : MonoBehaviour
 {
-	private List<EnemyAudioPlayer> _enemies;
 
-    void Awake()
-    {
-		_enemies = new List<EnemyAudioPlayer>();
-    }
-	
-	public List<EnemyAudioPlayer> Enemies
-	{
-		get { return _enemies; }
-	}
 	
     public enum AudioTypes
     {
