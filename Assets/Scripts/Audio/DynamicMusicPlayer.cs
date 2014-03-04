@@ -66,7 +66,6 @@ public class DynamicMusicPlayer : AudioPlayer
 	
 	public void PlayDanger(int searchingLevel, int chasingLevel)
     {
-		Debug.Log (searchingLevel + " " + chasingLevel);
 		// Do nothing if the danger level hasn't changed
 //		Debug.Log (dangerLevel + " " + _audioFadingIn + _audioFadingOut);
 		if(searchingLevel == _prevSearchingLevel && chasingLevel == _prevChasingLevel)
@@ -137,7 +136,6 @@ public class DynamicMusicPlayer : AudioPlayer
 		
 			audio.Stop();
 			audio.volume = 0.1f;
-			Debug.Log ("Done Fading Out");
 		}
 		else
 			audio.volume -= Fade*.00025f; // FIXME : MAKE THIS FRAMERATE DEPENDENT
@@ -150,7 +148,6 @@ public class DynamicMusicPlayer : AudioPlayer
 		{
 			_audio1FadingIn = false;
 			_audio2FadingIn = false;
-			Debug.Log ("Done Fading In");
 		}
 		else
 			audio.volume += Fade*.01f;

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ea89738966340c04e9f2e5a76c903da2
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Giggle: {fileID: 8300000, guid: 1a0776728df7dd146bf935337ffff632, type: 3}
+  - Jump: {fileID: 8300000, guid: 70779379a36ef534d9b6b3881ae33f62, type: 3}
+  - SlowAwake: {fileID: 8300000, guid: e141403d58c342541b338086416cf73f, type: 3}
+  - SlowAwake2: {fileID: 8300000, guid: e71cfdcb1bb4dc341a16f98d0cb0ab9b, type: 3}
+  - FastAwake: {fileID: 8300000, guid: 5eb1d44defff1bb4cb2d93ab2811a136, type: 3}
+  - AlmostAwake: {fileID: 8300000, guid: a5ca53b426ed5c548b11f850d3cc17c7, type: 3}
+  - Running: {fileID: 8300000, guid: baf89e2f09ab2fe40b91230083a5c452, type: 3}
+  - Landing: {fileID: 8300000, guid: ec3c9281bde233f42ac9bc944ba8aa91, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

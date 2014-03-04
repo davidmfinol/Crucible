@@ -37,6 +37,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _damagedHash;
 	private int _pickupHash;
 
+	//The player's sound effects, yeah!
+	private PlayerCharacterAudioPlayer _sound;
+
 	// Used to keep track of a ledge we are climbing
     private Ledge _ledge;
     
@@ -56,6 +59,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected override void OnStart()
     {
 		_inventory = gameObject.GetComponent<PlayerCharacterInventory>();
+		_sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer>();
 		_itemPickedup = null;
     }
 	
@@ -773,6 +777,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		base.ApplyRunning(elapsedTime);
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
+	}
+
+	public void PlayHit()
+	{
+		_sound.Play(_sound.Hit);
 	}
 
 	public bool CanStealthKill(out OlympusAnimator animRet)

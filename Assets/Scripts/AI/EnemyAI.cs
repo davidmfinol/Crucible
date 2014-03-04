@@ -379,7 +379,7 @@ public class EnemyAI : MonoBehaviour
     {
         get
         {
-            PlayerCharacterAnimator player = GameManager.Player;
+            CharacterAnimator player = GameManager.Player;
             GameObject playerGO = player.gameObject;
             
             if (playerGO == null || player == null || player.IsDead())

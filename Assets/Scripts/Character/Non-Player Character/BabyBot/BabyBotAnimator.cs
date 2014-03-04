@@ -9,9 +9,6 @@ public class BabyBotAnimator : CharacterAnimator
 {
     // TODO: REPLACE THIS WITH SOME KIND OF POOL OF HITBOX OBJECTS
     public GameObject MeleeEvent;
-	private AudioSource _attackSound;
-	private AudioSource _runningSound;
-	private AudioSource _jumpSound;
 
 	// Mecanim hashes
 	private int _awakeHash;
@@ -20,14 +17,16 @@ public class BabyBotAnimator : CharacterAnimator
 	private int _fallHash;
 	private int _jumpHash;
 	private int _isGroundedHash;
-	
+
+	private BabybotAudioPlayer _sound;
+
+	protected override void OnStart ()
+	{
+		_sound = GetComponentInChildren<BabybotAudioPlayer>();
+	}
 
 	protected override void CreateStateMachine()
 	{
-		AudioSource[] sounds = GetComponents<AudioSource>();
-		_attackSound = sounds[0];
-		_runningSound = sounds[1];
-		_jumpSound = sounds[2];
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
 		StateMachine[Animator.StringToHash("Base Layer.Awake")] = Idle;
@@ -52,6 +51,7 @@ public class BabyBotAnimator : CharacterAnimator
 	}
 	protected void Idle(float elapsedTime)
 	{
+		_sound.DelayedStop();
 		if (CharInput.Left || CharInput.Right)
 			MecanimAnimator.SetBool (_awakeHash, true);
 		HorizontalSpeed = 0;
@@ -61,7 +61,8 @@ public class BabyBotAnimator : CharacterAnimator
 	}
 	protected void Run(float elapsedTime)
 	{
-		_runningSound.Play();
+		if(TimeInCurrentState == 0)
+			_sound.PlayLoop(_sound.Running);
 		MecanimAnimator.SetBool (_awakeHash, false);
 		MecanimAnimator.SetFloat (_horizontalSpeedHash, Mathf.Abs(CharInput.Horizontal));
 		HorizontalSpeed = 0;
@@ -99,12 +100,12 @@ public class BabyBotAnimator : CharacterAnimator
 	}
 	protected void Jump(float elapsedTime)
 	{
-		_jumpSound.Play();
 		if(Mathf.Abs(CharInput.Horizontal) > 0.1)
 			ApplyRunning(elapsedTime/2.0f);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
+			_sound.Play(_sound.Jump);
 			if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
 				HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
 			else if(CharInput.JumpRight || CharInput.JumpRightReleased)
@@ -126,19 +127,26 @@ public class BabyBotAnimator : CharacterAnimator
 		
 		MecanimAnimator.SetBool(_fallHash, false);
 	}
+	protected void Awaken()
+	{
+		if(Mathf.Abs(CharInput.Horizontal) >= 0.8)
+			_sound.Play(_sound.FastAwake);
+		else
+			_sound.Play (((int)(Time.timeSinceLevelLoad % 2)) == 0 ? _sound.SlowAwake : _sound.SlowAwake2);
+	}
+
+	public void Giggle()
+	{
+		_sound.Play(_sound.Giggle);
+	}
 
     public void SelfDestruct()
     {
 		// TODO: OBJECT POOLING
-		_attackSound.Play();
+		// TODO: _sound.Play();
         GameObject o = (GameObject) Instantiate (MeleeEvent, transform.position, Quaternion.identity);
 		o.transform.parent = GameManager.Player.transform;
         HitBox d = o.GetComponentInChildren<HitBox> ();
         d.MakeBabyBotExplosion(this.gameObject);
     }
-
-	public void PlayAwake()
-	{
-		// TODO: 
-	}
 }

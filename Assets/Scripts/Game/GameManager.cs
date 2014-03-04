@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     private static GameLevel _currentLevel;
 	
 	// There should always be access to the player
-	private static PlayerCharacterAnimator _player;
+	private static CharacterAnimator _player;
 	
     // Global Managers
     private static UIManager _uiManager;
@@ -83,7 +83,8 @@ public class GameManager : MonoBehaviour
 		if(_player == null)
         {
             Transform player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
-            _player = player.GetComponent<PlayerCharacterAnimator>();
+            _player = player.GetComponent<CharacterAnimator>();
+			_player.gameObject.AddComponent<AudioListener>();
         }
 
 		PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
@@ -273,7 +274,7 @@ public class GameManager : MonoBehaviour
     {
         get { return _currentLevel; }
     }
-    public static PlayerCharacterAnimator Player
+    public static CharacterAnimator Player
 	{
 		get { return _player; }
 		set { _player = value; }
