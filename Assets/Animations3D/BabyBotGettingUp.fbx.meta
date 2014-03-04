@@ -187,6 +187,7 @@ ModelImporter:
     7400000: Take 001
     7400002: Idle
     7400004: Awake
+    7400006: Awake Fast
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -448,6 +449,133 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 128
       lastFrame: 177
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .174531177
+        functionName: Awaken
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/LeftLeg
+        weight: 1
+      - path: Root/LeftLeg/BabyBotMon:pCylinder21
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCube18
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCylinder1
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee/LeftFoot
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder19
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder20
+        weight: 1
+      - path: Root/RightLeg
+        weight: 1
+      - path: Root/RightLeg/BabyBotMon:pCylinder15
+        weight: 0
+      - path: Root/RightLeg/RightKnee
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece1
+        weight: 0
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece2
+        weight: 0
+      - path: Root/RightLeg/RightKnee/RKnee
+        weight: 0
+      - path: Root/RightLeg/RightKnee/RShin
+        weight: 0
+      - path: Root/Torso
+        weight: 1
+      - path: Root/Torso/BabyBotMon:pCube11
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube12
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube20
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube21
+        weight: 0
+      - path: Root/Torso/LeftShoulder
+        weight: 1
+      - path: Root/Torso/LeftShoulder/BabyBotMon:pCylinder22
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow
+        weight: 1
+      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCube17
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCylinder23
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand
+        weight: 1
+      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand/BabyBotMon:pCube1
+        weight: 0
+      - path: Root/Torso/Neck
+        weight: 1
+      - path: Root/Torso/Neck/BabyBotMon:pCylinder18
+        weight: 0
+      - path: Root/Torso/Neck/Head
+        weight: 1
+      - path: Root/Torso/Neck/Head/Head 1
+        weight: 1
+      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface25
+        weight: 0
+      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface26
+        weight: 0
+      - path: Root/Torso/RightShoulder
+        weight: 1
+      - path: Root/Torso/RightShoulder/BabyBotMon:pCylinder16
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow
+        weight: 1
+      - path: Root/Torso/RightShoulder/RightElbow/BabyBotMon:pCylinder17
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow/RElbow
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow/RightHand
+        weight: 1
+      - path: Root/Torso/RightShoulder/RightElbow/RightHand/RightHand 1
+        weight: 0
+      - path: Root/Torso/Torso 1
+        weight: 0
+      - path: Root/Torso/TorsoGlowRing
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Awake Fast
+      takeName: Take 001
+      firstFrame: 143
+      lastFrame: 160
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

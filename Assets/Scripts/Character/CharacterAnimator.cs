@@ -547,23 +547,31 @@ public abstract class CharacterAnimator : MonoBehaviour
     // Useful animation events
 	public void CreateFootstep()
 	{
-		// TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
-		if(this is BabyBotAnimator || this is OlympusAnimator)// || this is PlayerCharacterAnimator)
-			return;
-
+		// TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
 		if(Mathf.Abs(HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed)
 			return;
 
 		Vector3 footStepPosition = transform.position;
 		footStepPosition.y -= Height / 2.0f;
-		Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
+		Transform footstep = (Transform)Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
+		footstep.GetComponent<FootstepAudioPlayer>().PlayRandomFootstep();
 	}
-	public void PlayHit()
+
+	public void PlayLand()
 	{
-		// TODO: MOVE THIS ELSEWHERE
-		audio.Play ();
+		Vector3 landingPosition = transform.position;
+		landingPosition.y -= Height / 2.0f;
+		Transform landing = (Transform)Instantiate(Settings.FootStepNoise, landingPosition, Quaternion.identity);
+		landing.GetComponent<FootstepAudioPlayer>().PlayLanding();
 	}
-	
+
+	public void PlayJumpLanding()
+	{
+		Vector3 landingPosition = transform.position;
+		landingPosition.y -= Height / 2.0f;
+		Transform landing = (Transform)Instantiate(Settings.FootStepNoise, landingPosition, Quaternion.identity);
+		landing.GetComponent<FootstepAudioPlayer>().PlayLanding();
+	}
 	
 	// Movement/Animation Properties
 	public AnimatorStateInfo CurrentState

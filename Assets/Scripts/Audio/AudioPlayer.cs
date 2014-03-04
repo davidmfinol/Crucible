@@ -11,40 +11,29 @@ using System.Collections.Generic;
 public class AudioPlayer : MonoBehaviour
 {
 	public AudioManager.AudioTypes Type;
-	public Subtitle[] AssociatedSubtitles;
-	public bool TriggersOnce = true;
+	//TODO: add subtitle requirement for each sound public Subtitle[] AssociatedSubtitles;
 
-	private AudioClipGroup _audioClipGroup;
-	//private bool _isTriggered = false;
-	//private bool _hasTriggered = false;
-
-    // TODO: MAKE SETTINGS OF AUDIOSOURCE MATCH TYPE IN AudioManager.AudioTypes type
-	void Start()
+	public void Play(AudioClip clip)
 	{
-		_audioClipGroup = GetComponent <AudioClipGroup>();
-	}
-
-    public virtual void Play(int number = -1)
-    {
-		if (_audioClipGroup != null && number >= 0 && number < _audioClipGroup.Clips.Length)
-			audio.clip = _audioClipGroup.Clips[number];
+		audio.clip = clip;
+		audio.loop = false;
 		audio.Play();
-		//_isTriggered = false;
-    }
-
-    /*
-	void OnTriggerEnter(Collider collider)
-	{
-		if((_hasTriggered && TriggersOnce) || _isTriggered || !collider.CompareTag("Player")) 
-			return;
-
-		_isTriggered = true;
-		_hasTriggered = true;
-		Play();
 	}
-	void OnCollisionEnter(Collision collision)
+
+	public void PlayLoop(AudioClip clip)
 	{
-		OnTriggerEnter(collision.collider);
+		audio.clip = clip;
+		audio.loop = true;
+		audio.Play();
 	}
- */   
+
+	public void DelayedStop()
+	{
+		audio.loop = false;
+	}
+
+	public void Stop()
+	{
+		audio.Stop();
+	}
 }

@@ -9,8 +9,6 @@ using System.Collections.Generic;
 [AddComponentMenu("Audio/Audio Manager")]
 public class AudioManager : MonoBehaviour
 {
-
-	
     public enum AudioTypes
     {
         SPEECH,
