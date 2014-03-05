@@ -54,13 +54,13 @@ public class PlayerCharacterShader : MonoBehaviour
         
         if (type == ShaderType.Shader_Default)
         {
-            mainColor =  new Color(0.7f, 0.7f, 0.7f, 1.0f);
+            mainColor = new Color(0.7f, 0.7f, 0.7f, 1.0f);
             outlineColor = Color.clear;
         }
         else if (type == ShaderType.Shader_Stealth)
         {
-            mainColor =  new Color (0.0f, 0.0f, 0.0f, 1.0f);
-            outlineColor =  Color.white;
+            mainColor = new Color (0.0f, 0.0f, 0.0f, 1.0f);
+            outlineColor = Color.white;
         }
 
         foreach (Material mat in _changeableMaterials)
