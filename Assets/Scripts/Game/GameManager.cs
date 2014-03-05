@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
 
 	public IEnumerator DelayedSpawnPlayer() {
 		// TODO: ensure enough time for consistent spawning without crash.
-		yield return new WaitForSeconds (0.1f);
+		yield return new WaitForSeconds (1.0f);
 		SpawnPlayer ();
 
 	}
