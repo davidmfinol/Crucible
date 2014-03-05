@@ -318,6 +318,18 @@ ModelImporter:
     100624: WallLedge136
     100626: WallLedge137
     100628: WallLedge138
+    100630: Ledge170
+    100632: Ledge171
+    100634: Ledge172
+    100636: Ledge173
+    100638: WallLedge139
+    100640: WallLedge140
+    100642: Ledge174
+    100644: Ledge175
+    100646: Ledge176
+    100648: Ledge177
+    100650: WallLedge141
+    100652: WallLedge142
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -633,6 +645,18 @@ ModelImporter:
     400624: WallLedge136
     400626: WallLedge137
     400628: WallLedge138
+    400630: Ledge170
+    400632: Ledge171
+    400634: Ledge172
+    400636: Ledge173
+    400638: WallLedge139
+    400640: WallLedge140
+    400642: Ledge174
+    400644: Ledge175
+    400646: Ledge176
+    400648: Ledge177
+    400650: WallLedge141
+    400652: WallLedge142
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -904,6 +928,18 @@ ModelImporter:
     2300536: WallLedge136
     2300538: WallLedge137
     2300540: WallLedge138
+    2300542: Ledge170
+    2300544: Ledge171
+    2300546: Ledge172
+    2300548: Ledge173
+    2300550: WallLedge139
+    2300552: WallLedge140
+    2300554: Ledge174
+    2300556: Ledge175
+    2300558: Ledge176
+    2300560: Ledge177
+    2300562: WallLedge141
+    2300564: WallLedge142
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1175,6 +1211,18 @@ ModelImporter:
     3300536: WallLedge136
     3300538: WallLedge137
     3300540: WallLedge138
+    3300542: Ledge170
+    3300544: Ledge171
+    3300546: Ledge172
+    3300548: Ledge173
+    3300550: WallLedge139
+    3300552: WallLedge140
+    3300554: Ledge174
+    3300556: Ledge175
+    3300558: Ledge176
+    3300560: Ledge177
+    3300562: WallLedge141
+    3300564: WallLedge142
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -1446,6 +1494,18 @@ ModelImporter:
     4300536: WallLedge136
     4300538: WallLedge137
     4300540: WallLedge138
+    4300542: Ledge170
+    4300544: Ledge171
+    4300546: Ledge172
+    4300548: Ledge173
+    4300550: WallLedge139
+    4300552: WallLedge140
+    4300554: Ledge174
+    4300556: Ledge175
+    4300558: Ledge176
+    4300560: Ledge177
+    4300562: WallLedge142
+    4300564: WallLedge141
     9500000: //RootNode
   materials:
     importMaterials: 1
