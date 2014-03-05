@@ -15,107 +15,75 @@ public class GameManager : MonoBehaviour
     public Transform PlayerPrefab;
 	public Camera CameraPrefab;
 	public Transform UIPrefab;
-	
+
+	// Enemy prefabs used for level loading.
+	public Transform OlympusPrefab;
+	public Transform BabybotPrefab;
+
+	// Keep track of the current game manager instance
+	private static GameManager _instance;
+
     // Each scene should correspond to a level, and each level should have exactly one GameLevel
     private static GameLevel _currentLevel;
-	
-	// There should always be access to the player
-	private static PlayerCharacterAnimator _player;
 	
     // Global Managers
     private static UIManager _uiManager;
 	private static AIManager _aiManager;
 	private static AudioManager _audioManager;
-	private static SubtitlesManager _subtitlesManager;
+    private static SubtitlesManager _subtitlesManager;
+    
+    // There should always be access to the player
+    private static CharacterAnimator _player;
 
     // We keep track of where we save the game here
 	private static string _gameSaveStatePath;
     private static string _levelSaveStatePrefix;
-	
 
     // Set up level, player/camera, and find the Global Managers
     void Start()
     {
+		_instance = this;
 		_gameSaveStatePath = Path.Combine(Application.persistentDataPath, "game_progress.xml");
-
 		_levelSaveStatePrefix = Path.Combine(Application.persistentDataPath, "level_");
 
+		Debug.Log (Application.persistentDataPath);
+
 		SetupLevel();
-		
-		SetupPlayer();
-		
-		SetupCamera();
-		
-		SetupUI();
-		
+
 		SetupAI();
-		
+
+		SetupUI();
+
 		SetupAudio();
 		
-		SetupSubtitles();
+        SetupSubtitles();
+        
+        SetupPlayer();
+        
+        SetupCamera();
+
     }
 	
 	private void SetupLevel()
 	{
+		string lastLevelName = "";
+
 		// We need to keep only one GameLevel instance
 		if(GameManager._currentLevel != null)
-			Destroy(GameManager._currentLevel.gameObject);
-		GameManager._currentLevel = GetComponent<GameLevel>();
-	}
-	
-	private void SetupPlayer()
-	{
-		if(_player == null)
         {
-            Transform player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
-            _player = player.GetComponent<PlayerCharacterAnimator>();
-        }
-
-		PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
-		if(inventory != null)
-			inventory.SpawnPoint = _currentLevel.StartPoint;
-		else
-			Debug.LogWarning("Err: player misssing inventory");
-
-		SpawnPlayer ();
-	}
-	public static void SpawnPlayer()
-	{
-		// Move the player to the correct spot
-		PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
-		if(inventory != null)
-			Player.transform.position = inventory.SpawnPoint.transform.position;
-
-		// Reset it's health to max
-		HeartBox heart = Player.GetComponentInChildren<HeartBox> ();
-		if(heart != null)
-			heart.HitPoints = heart.MaxHitPoints;
-
-		// And update the animation system if necessary
-		Animator animator = Player.GetComponent<Animator> ();
-		if(animator != null)
-			animator.SetBool ("Respawn", true);
-	}
-	
-	private void SetupCamera()
-	{
-		if(Camera.main == null)
-			Instantiate(CameraPrefab, CameraPrefab.transform.position, CameraPrefab.transform.rotation);
-		
-        CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
-        if (cameraScript != null && Player != null)
-            cameraScript.Target = Player.transform;
-
-
-		// set far clip plane properly to minimize any popping issues
-		if( RenderSettings.fogMode == FogMode.Linear ) {
-			Camera.main.farClipPlane = RenderSettings.fogEndDistance;
-		} else if( RenderSettings.fogMode == FogMode.Exponential ) {
-			Camera.main.farClipPlane = Mathf.Log( 1f / 0.0019f ) / RenderSettings.fogDensity;
-		} else if( RenderSettings.fogMode == FogMode.ExponentialSquared ) {
-			Camera.main.farClipPlane = Mathf.Sqrt( Mathf.Log( 1f / 0.0019f ) ) / RenderSettings.fogDensity;
+			lastLevelName = GameManager._currentLevel.name;
+			Destroy(GameManager._currentLevel.gameObject);
 		}
+		GameManager._currentLevel = GetComponent<GameLevel>();
 
+    }
+    
+    private void SetupAI()
+    {
+        // We need to keep one instance of the ai manager
+        if(GameManager._aiManager != null)
+            Destroy(GameManager._aiManager.gameObject); // TODO: TRANSFER AI MANAGER BETTER
+        GameManager._aiManager = GetComponentInChildren<AIManager>();
     }
     
     private void SetupUI()
@@ -126,14 +94,6 @@ public class GameManager : MonoBehaviour
         Transform ui = (Transform)Instantiate(UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);
         _uiManager = ui.GetComponent<UIManager>();
     }
-	
-	private void SetupAI()
-	{
-		// We need to keep one instance of the ai manager
-		if(GameManager._aiManager != null)
-			Destroy(GameManager._aiManager.gameObject); // TODO: TRANSFER AI MANAGER BETTER
-		GameManager._aiManager = GetComponentInChildren<AIManager>();
-	}
 	
 	private void SetupAudio()
 	{
@@ -149,9 +109,78 @@ public class GameManager : MonoBehaviour
 		if(GameManager._subtitlesManager != null)
 			Destroy(GameManager._subtitlesManager.gameObject); // TODO: TRANSFER SUBTITLES MANAGER BETTER
 		GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager>();
-	}
+    }
+    
+    private void SetupPlayer()
+    {
+        if(_player == null)
+        {
+            Transform player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
+            _player = player.GetComponent<CharacterAnimator>();
+            _player.gameObject.AddComponent<AudioListener>();
+        }
+        
+        PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
+        if(inventory != null)
+            inventory.SpawnPoint = _currentLevel.StartPoint;
+        
+        SpawnPlayer ();
+    }
+
+    public static void SpawnPlayer()
+    {
+        Debug.Log ("Loading game state.");
+        _instance.LoadGameStateHelper ();
+        Debug.Log ("Loading level state");
+        _instance.LoadLevelStateHelper (Application.loadedLevelName);
+
+        // Move the player to the correct spot
+        PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
+        if (inventory != null)
+        {
+            Debug.Log ("Moving player to proper spawn spot " + inventory.SpawnPoint.transform.position);
+            Player.transform.position = inventory.SpawnPoint.transform.position;
+        }
+
+        // Reset it's health to max
+        HeartBox heart = Player.GetComponentInChildren<HeartBox> ();
+        if(heart != null)
+            heart.HitPoints = heart.MaxHitPoints;
+        
+        // And update the animation system if necessary
+        Animator animator = Player.GetComponent<Animator> ();
+        if(animator != null)
+            animator.SetBool ("Respawn", true);
+    }
+    
+    private void SetupCamera()
+    {
+        if(Camera.main == null)
+            Instantiate(CameraPrefab, CameraPrefab.transform.position, CameraPrefab.transform.rotation);
+        
+        CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
+        if (cameraScript != null && Player != null)
+            cameraScript.Target = Player.transform;
+        else
+            Debug.LogWarning("Failed to point camera at player!");
+        
+        
+        // set far clip plane properly to minimize any popping issues
+        if( RenderSettings.fogMode == FogMode.Linear ) {
+            Camera.main.farClipPlane = RenderSettings.fogEndDistance;
+        } else if( RenderSettings.fogMode == FogMode.Exponential ) {
+            Camera.main.farClipPlane = Mathf.Log( 1f / 0.0019f ) / RenderSettings.fogDensity;
+        } else if( RenderSettings.fogMode == FogMode.ExponentialSquared ) {
+            Camera.main.farClipPlane = Mathf.Sqrt( Mathf.Log( 1f / 0.0019f ) ) / RenderSettings.fogDensity;
+        }
+        
+    }
 	
 	public static void LoadGameState()
+    {
+		_instance.LoadGameStateHelper ();
+	}
+	private void LoadGameStateHelper()
 	{
         // Get the saved data
         GameSaveState gameSave = GameSaveState.Load(GameSaveStatePath);
@@ -160,26 +189,64 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No game save data!");
             return;
         }
-
-        // Use the save data to set up the game
-        Application.LoadLevel(gameSave.LevelName);
-        LoadLevelState(gameSave.LevelName);
-        // TODO
+        // TODO?
 	}
-	
-	public static void LoadLevelState(string levelName)
+	private void LoadLevelStateHelper(string levelName)
 	{
         // Get the saved data
         string path = LevelSaveStatePrefix + levelName + ".xml";
         LevelSaveState levelSave = LevelSaveState.Load(path);
-        if(levelSave == null)
+
+		if(levelSave == null)
         {
             Debug.LogWarning("No level save data!");
             return;
         }
 
-        // Use the save data to set up the level
-        // TODO
+		Debug.Log ("Removed all dynamic objects.");
+		GameManager.Level.RemoveDynamicObjects();
+
+        // Restore all the enemies in the level
+		GameManager.AI.Reset ();
+		foreach (EnemySaveState enemyState in levelSave.EnemyStates)
+		{
+			Transform newEnemy;
+			EnemyHeartBox h;
+
+			// instantiate proper enemy
+			switch(enemyState.Type)
+			{
+				case EnemyType.Enemy_Olympus:
+				{
+					Debug.Log ("Loaded Olympus");
+					newEnemy = (Transform) Instantiate(OlympusPrefab, enemyState.Position, Quaternion.identity);
+					OlympusAnimator oanim = newEnemy.gameObject.GetComponent<OlympusAnimator>();
+					oanim.Direction = enemyState.Direction;	
+					h = newEnemy.gameObject.GetComponentInChildren<EnemyHeartBox>();
+					h.HitPoints = enemyState.Health;
+					break;
+				}
+
+				case EnemyType.Enemy_BabyBot:
+				{
+					Debug.Log ("Loaded Babybot");
+					newEnemy = (Transform) Instantiate(BabybotPrefab, enemyState.Position, Quaternion.identity);
+					BabyBotAnimator bbanim = newEnemy.gameObject.GetComponent<BabyBotAnimator>();
+					bbanim.Direction = enemyState.Direction;	
+					h = newEnemy.gameObject.GetComponentInChildren<EnemyHeartBox>();
+					h.HitPoints = enemyState.Health;
+					break;
+
+				}
+				default:
+				{
+					Debug.LogWarning ("Invalid enemy type in LoadLevelState()");
+					break;
+				}
+			}
+		}
+
+        //TODO: RESTORE ALL THE ITEMS IN THE LEVEL
 	}
 	
 	public static void SaveGameState(Checkpoint.CheckpointLocation loc)
@@ -194,12 +261,19 @@ public class GameManager : MonoBehaviour
 	public static void SaveLevelState(string levelName)
 	{
 		string path = LevelSaveStatePrefix + levelName + ".xml";
-
 		LevelSaveState level = new LevelSaveState ();
+
         List<EnemySaveState> enemySaves = new List<EnemySaveState>();
 		foreach (EnemyAI enemyAI in GameManager.AI.Enemies)
             enemySaves.Add ( enemyAI.SaveState() );
-        level.enemyStates = enemySaves.ToArray();
+        level.EnemyStates = enemySaves.ToArray();
+
+        List<ItemSaveState> itemSaves = new List<ItemSaveState>();
+        foreach(GameObject item in GameObject.FindGameObjectsWithTag("ItemPickup"))
+            itemSaves.Add(item.GetComponent<Item>().SaveState());
+        foreach(GameObject item in GameObject.FindGameObjectsWithTag("WeaponPickup"))
+            itemSaves.Add(item.GetComponent<Item>().SaveState());
+        level.ItemStates = itemSaves.ToArray();
 
         level.Save(path);
 	}
@@ -209,7 +283,7 @@ public class GameManager : MonoBehaviour
     {
         get { return _currentLevel; }
     }
-    public static PlayerCharacterAnimator Player
+    public static CharacterAnimator Player
 	{
 		get { return _player; }
 		set { _player = value; }

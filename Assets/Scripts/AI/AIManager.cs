@@ -21,6 +21,13 @@ public class AIManager : MonoBehaviour
 		_searchPoints = GameObject.FindGameObjectsWithTag("SearchPoint");
 	}
 
+	public void Reset()
+	{
+		_enemies = new List<EnemyAI> ();
+		_searchPoints = GameObject.FindGameObjectsWithTag("SearchPoint");
+
+	}
+
 	public Vector3 GetRandomSearchPoint()
 	{
 		if(_searchPoints.Length <= 0)

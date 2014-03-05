@@ -14,14 +14,15 @@ public class NextLevel : MonoBehaviour
 
     public Transform LoadingScreen;
 	
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         CharacterAnimator player = other.GetComponent<CharacterAnimator>();
-        if (player != null && (!RequiresUp || player.CharInput.Up))
+        if (player != null && !GameManager.Player.IsDead () && (!RequiresUp || player.CharInput.Up))
         {
             // TODO: OBJECT POOLING
             Instantiate(LoadingScreen);
             Application.LoadLevel(NextLevelName);
+
         }
     }	
 }

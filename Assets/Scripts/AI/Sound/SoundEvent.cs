@@ -8,10 +8,6 @@ using System.Collections.Generic;
 [RequireComponent(typeof(SphereCollider))]
 public class SoundEvent : MonoBehaviour
 {
-	public float DecayTime = 1;
-
-	private float _existTime = 0;
-
 	private List<HearingRadius> _heardBy;
 
 	void Awake()
@@ -26,13 +22,6 @@ public class SoundEvent : MonoBehaviour
 				hearingRadius.ObjectsHeard.Remove(this);
 	}
 
-	void Update()
-	{
-		_existTime += Time.deltaTime;
-		if (_existTime > DecayTime)
-			Destroy (this.gameObject);
-	}
-	
 	public List<HearingRadius> HeardBy
 	{
 		get { return _heardBy; }

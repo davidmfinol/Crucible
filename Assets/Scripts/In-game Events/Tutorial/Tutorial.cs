@@ -17,26 +17,27 @@ public class Tutorial : MonoBehaviour
 	// Scripted characters in the scene
 	public Transform MysteriousRunner1;
 	public Transform MysteriousRunner2;
-	public Transform Olympus;
+	public Transform OlympusPosition;
+	public Transform OlympusPrefab;
 	public Transform SewerDoor;
 	public Transform NextLevel;
 
 	private bool _reachedTrigger1;
+	private bool _reachedTrigger3;
     private bool _sewerDoorOpen;
-	private CharacterAnimator _olympusAnimator;
 
 	void Start ()
 	{
 		_reachedTrigger1 = false;
+		_reachedTrigger3 = false;
         _sewerDoorOpen = false;
-        _olympusAnimator = Olympus.GetComponent<CharacterAnimator>();
 		StartCoroutine("WaitToShowInstructions");
 	}
 
 	void Update()
 	{
-		if(_olympusAnimator.IsDead())
-			NextLevel.gameObject.SetActive(true);
+		if(GameManager.AI.Enemies.Count > 0)
+			NextLevel.gameObject.SetActive(GameManager.AI.Enemies[0].GetComponent<CharacterAnimator>().IsDead());
 	}
 
 	public void ReachTrigger1()
@@ -51,7 +52,11 @@ public class Tutorial : MonoBehaviour
 	
 	public void ReachTrigger3()
 	{
-        Olympus.gameObject.SetActive(true);
+		if(_reachedTrigger3)
+			return;
+
+		_reachedTrigger3 = true;
+		Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
         StartCoroutine("OperateDoor");
 	}
 

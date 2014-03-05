@@ -10,10 +10,11 @@ public class Checkpoint : MonoBehaviour
 {
 	public enum CheckpointLocation
 	{
-		Checkpoint_UpperOCourse,
-		Checkpoint_LowerOCourse,
-		Checkpoint_UpperArea
-		
+		Checkpoint_LeftOCourse,
+		Checkpoint_CentralOCourse,
+		Checkpoint_RightOCourse,
+		Checkpoint_OCourseToAnvilPark
+	
 	};
 
 	public CheckpointLocation loc;
@@ -25,22 +26,26 @@ public class Checkpoint : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 		PlayerCharacterInventory player = other.GetComponent<PlayerCharacterInventory>();
-        if (other.CompareTag("Player") && player != null)
+        if (other.CompareTag("Player") && player != null && !GameManager.Player.IsDead ())
         {
-			// At the least, we will set the new spawnpoint
-            player.SpawnPoint = transform;
-			
-			// We can also add support for particles that may be attached to the checkpoints
+			// We have support for particles that may be attached to the checkpoints
 			ParticleSystem prevParticles = player.SpawnPoint.GetComponent<ParticleSystem>();
             if(prevParticles != null)
 				prevParticles.Stop();
             ParticleSystem newParticles = GetComponent<ParticleSystem>();
 			if(newParticles != null)
 				newParticles.Play();
+
+            
+            // At the least, we will set the new spawnpoint
+            player.SpawnPoint = transform;
 			
 			// Save the game at checkpoints
-			GameManager.SaveLevelState(Application.loadedLevelName);
+			Debug.Log ("Saved game state");
 			GameManager.SaveGameState (loc);
+			Debug.Log ("Saved level state " + Application.loadedLevelName);
+			GameManager.SaveLevelState(Application.loadedLevelName);
+
         }
     }
 

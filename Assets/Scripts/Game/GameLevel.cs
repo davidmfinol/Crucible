@@ -1,15 +1,17 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 /// <summary>
 /// Game level is a class used to keep track of the attributes of the level in the scene.
-/// Main things: Start point, render settings, and boundaries of scene.
+/// Main things: Render settings and boundaries of scene.
 /// </summary>
 [AddComponentMenu("Game/Game Level")]
 public class GameLevel : MonoBehaviour
 {
 	// Where the player starts in the level
-    public Transform StartPoint;
+    public Transform StartPoint; // TODO: DELETE THIS, AND JUST BASE START POINT OFF SAVE DATA AND CHECKPOINTS IN GAMEMANAGER
 	
 	// Render settings to be set when this scene loads
 	public bool fog;
@@ -98,4 +100,20 @@ public class GameLevel : MonoBehaviour
         Gizmos.DrawLine(upperRight, lowerRight);
         Gizmos.DrawLine(lowerRight, lowerLeft);
     }
+
+	public void RemoveDynamicObjects()
+    {
+		GameObject[] objs = GameObject.FindGameObjectsWithTag ("Enemy");
+		foreach (GameObject obj in objs)
+			Destroy (obj);
+
+		objs = GameObject.FindGameObjectsWithTag ("WeaponPickup");
+		foreach (GameObject obj in objs)
+			Destroy (obj);
+
+		objs = GameObject.FindGameObjectsWithTag ("ItemPickup");
+		foreach (GameObject obj in objs)
+			Destroy (obj);
+
+	}
 }
