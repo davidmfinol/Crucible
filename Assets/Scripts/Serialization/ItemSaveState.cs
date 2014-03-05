@@ -13,4 +13,5 @@ public class ItemSaveState
     public WeaponType WeaponType;
     public int Quantity;
     public Vector3 Position;
+	public Quaternion Rotation;
 }

@@ -13,13 +13,15 @@ public enum WeaponType
 
 public class PlayerSaveState
 {
-	public List<WeaponType> WeaponsHeld;
-	public List<ItemType> ItemsHeld;
-
+	public WeaponType[] WeaponsHeld;
+	public ItemType[] ItemsHeld;
+	public int CurrentWeapon;
 
 	public PlayerSaveState()
 	{
-		WeaponsHeld = new List<WeaponType> ();
-		ItemsHeld = new List<ItemType> ();
+		WeaponsHeld = null;
+		ItemsHeld = null;
+		CurrentWeapon = 0;
+
 	}
 }

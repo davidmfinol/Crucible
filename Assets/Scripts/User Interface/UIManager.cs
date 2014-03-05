@@ -132,4 +132,13 @@ public class UIManager : MonoBehaviour
         set { _uiCamera = value; }
     }
 
+	public int CurrentWeapon {
+		get { return _currentWeapon; }
+
+	}
+
+	public PlayerCharacterInventory Inventory {
+		set { _inventory = value; }
+
+	}
 }

@@ -29,10 +29,10 @@ public class Checkpoint : MonoBehaviour
         if (other.CompareTag("Player") && player != null && !GameManager.Player.IsDead ())
         {
 			// We have support for particles that may be attached to the checkpoints
-			ParticleSystem prevParticles = player.SpawnPoint.GetComponent<ParticleSystem>();
+			ParticleSystem prevParticles = player.SpawnPoint.GetComponentInChildren<ParticleSystem>();
             if(prevParticles != null)
 				prevParticles.Stop();
-            ParticleSystem newParticles = GetComponent<ParticleSystem>();
+            ParticleSystem newParticles = GetComponentInChildren<ParticleSystem>();
 			if(newParticles != null)
 				newParticles.Play();
 

@@ -115,17 +115,22 @@ public class GameManager : MonoBehaviour
     {
         if(_player == null)
         {
-            Transform player = (Transform)Instantiate(PlayerPrefab, _currentLevel.StartPoint.position, Quaternion.identity);
+            Transform player = (Transform)Instantiate(PlayerPrefab, _currentLevel.OffscreenPosition, Quaternion.identity);
             _player = player.GetComponent<CharacterAnimator>();
             _player.gameObject.AddComponent<AudioListener>();
         }
         
-        PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
-        if(inventory != null)
-            inventory.SpawnPoint = _currentLevel.StartPoint;
-        
-        SpawnPlayer ();
+		// must delay Player spawn so that right hand can cache, etc.
+		StartCoroutine ("DelayedSpawnPlayer");
+
     }
+
+	public IEnumerator DelayedSpawnPlayer() {
+		// TODO: ensure enough time for consistent spawning without crash.
+		yield return new WaitForSeconds (0.1f);
+		SpawnPlayer ();
+
+	}
 
     public static void SpawnPlayer()
     {
@@ -151,6 +156,7 @@ public class GameManager : MonoBehaviour
         Animator animator = Player.GetComponent<Animator> ();
         if(animator != null)
             animator.SetBool ("Respawn", true);
+
     }
     
     private void SetupCamera()
@@ -175,22 +181,87 @@ public class GameManager : MonoBehaviour
         }
         
     }
-	
+
+	public static void DeleteSaves() {
+		string[] files = Directory.GetFiles (Application.persistentDataPath);
+
+		foreach( string filePath in files) {
+			File.Delete(filePath);
+
+		}
+
+	}
+
+
 	public static void LoadGameState()
     {
 		_instance.LoadGameStateHelper ();
 	}
 	private void LoadGameStateHelper()
 	{
-        // Get the saved data
+		// restore player inventory
+		PlayerCharacterInventory inventory = GameManager.Player.GetComponent<PlayerCharacterInventory> ();
+	
+		// Get the saved data
         GameSaveState gameSave = GameSaveState.Load(GameSaveStatePath);
         if(gameSave == null)
         {
+		
             Debug.LogWarning("No game save data!");
+			inventory.SpawnPoint = _currentLevel.StartPoint;
             return;
+
         }
-        // TODO?
+
+		foreach(WeaponType weaponType in gameSave.PlayerState.WeaponsHeld) {
+			GameObject newWeapon;
+
+			if(weaponType == WeaponType.Weapon_Pipe) {
+				newWeapon = (GameObject) Instantiate ( Resources.Load ("InHand/Pipe Weapon"), _currentLevel.OffscreenPosition, Quaternion.identity);
+				inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
+
+			} else if(weaponType == WeaponType.Weapon_GravityGun) {
+				newWeapon = (GameObject) Instantiate ( Resources.Load ("InHand/GravityGun"), _currentLevel.OffscreenPosition, Quaternion.identity);
+				inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
+				
+			} else if(weaponType == WeaponType.Weapon_MINE) {
+				newWeapon = (GameObject) Instantiate ( Resources.Load ("InHand/Mine"), _currentLevel.OffscreenPosition, Quaternion.identity);
+				inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
+				
+			} 
+
+		}
+
+		// move player to his last checkpoint.
+		GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag ("Respawn");
+
+		foreach (GameObject obj in spawnPoints) {
+			Checkpoint c = obj.GetComponent<Checkpoint>();
+			if(c != null && c.loc == gameSave.Checkpoint) {
+				GameManager.Player.transform.position = c.transform.position;
+				inventory.SpawnPoint = c.transform;
+				break;
+			}
+
+		}
+
+		// load the current weapon
+		// (prevent case of only one weapon)
+		GameManager.UI.CycleToNextWeapon ();
+		GameManager.UI.CycleToPreviousWeapon ();
+
+		while (GameManager.UI.CurrentWeapon != gameSave.PlayerState.CurrentWeapon)
+			GameManager.UI.CycleToNextWeapon ();
+
+		// TODO: maybe prevent double-loading once level re-loads.
+		if (gameSave.LevelName != Application.loadedLevelName) {
+			Application.LoadLevel(gameSave.LevelName);
+
+		}
+		    
 	}
+
+
 	private void LoadLevelStateHelper(string levelName)
 	{
         // Get the saved data
@@ -246,9 +317,29 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-        //TODO: RESTORE ALL THE ITEMS IN THE LEVEL
-	}
+		foreach (ItemSaveState itemState in levelSave.ItemStates)
+		{
+			GameObject newItem;
+
+			if(itemState.WeaponType == WeaponType.Weapon_Pipe) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("OnField/PipeWeapon"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 	
+			} else if(itemState.WeaponType == WeaponType.Weapon_GravityGun) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("OnField/GravityGun"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+				
+			} else if(itemState.WeaponType == WeaponType.Weapon_MINE) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("OnField/M.I.N.E."), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			}
+
+		}
+
+	}
+
+
 	public static void SaveGameState(Checkpoint.CheckpointLocation loc)
 	{
 		GameSaveState g = new GameSaveState ();
@@ -269,9 +360,7 @@ public class GameManager : MonoBehaviour
         level.EnemyStates = enemySaves.ToArray();
 
         List<ItemSaveState> itemSaves = new List<ItemSaveState>();
-        foreach(GameObject item in GameObject.FindGameObjectsWithTag("ItemPickup"))
-            itemSaves.Add(item.GetComponent<Item>().SaveState());
-        foreach(GameObject item in GameObject.FindGameObjectsWithTag("WeaponPickup"))
+        foreach(GameObject item in GameObject.FindGameObjectsWithTag("Pickup"))
             itemSaves.Add(item.GetComponent<Item>().SaveState());
         level.ItemStates = itemSaves.ToArray();
 

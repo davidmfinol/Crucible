@@ -27,17 +27,27 @@ public class PlayerCharacterInventory : MonoBehaviour
 	{
 		_rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
 	}
-	
+
 	public PlayerSaveState SaveState()
 	{
 		PlayerSaveState save = new PlayerSaveState ();
-		
+
+		// items
+		List<ItemType> items = new List<ItemType> ();
 		foreach(Item item in Items)
-			save.ItemsHeld.Add(item.ItemType);
-		
+			items.Add(item.ItemType);
+
+		save.ItemsHeld = items.ToArray ();
+
+		// weapons
+		List<WeaponType> weapons = new List<WeaponType> ();
 		foreach(Weapon weapon in Weapons)
-			save.WeaponsHeld.Add(weapon.WeaponType);
+			weapons.Add(weapon.WeaponType);
 		
+		save.WeaponsHeld = weapons.ToArray ();
+
+		save.CurrentWeapon = GameManager.UI.CurrentWeapon;
+
 		return save;
 	}
 	

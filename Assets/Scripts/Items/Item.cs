@@ -22,6 +22,7 @@ public class Item : MonoBehaviour
             itemSave.ItemType = ItemType;
         itemSave.Quantity = Quantity;
         itemSave.Position = transform.position;
+		itemSave.Rotation = transform.rotation;
 
         return itemSave;
     }

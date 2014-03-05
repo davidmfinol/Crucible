@@ -107,13 +107,14 @@ public class GameLevel : MonoBehaviour
 		foreach (GameObject obj in objs)
 			Destroy (obj);
 
-		objs = GameObject.FindGameObjectsWithTag ("WeaponPickup");
+		objs = GameObject.FindGameObjectsWithTag ("Pickup");
 		foreach (GameObject obj in objs)
 			Destroy (obj);
 
-		objs = GameObject.FindGameObjectsWithTag ("ItemPickup");
-		foreach (GameObject obj in objs)
-			Destroy (obj);
+	}
+
+	public Vector3 OffscreenPosition {
+		get { return new Vector3(Boundaries.xMax + 1.0f, Boundaries.yMax + 1.0f, 0.0f); }
 
 	}
 }
