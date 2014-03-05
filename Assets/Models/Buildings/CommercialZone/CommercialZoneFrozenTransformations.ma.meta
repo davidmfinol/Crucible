@@ -401,6 +401,9 @@ ModelImporter:
     100790: WallLedge161
     100792: WallLedge162
     100794: WallLedge163
+    100796: polySurface46
+    100798: transform26
+    100800: WallLedge164
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -799,6 +802,9 @@ ModelImporter:
     400790: WallLedge161
     400792: WallLedge162
     400794: WallLedge163
+    400796: polySurface46
+    400798: transform26
+    400800: WallLedge164
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1141,6 +1147,8 @@ ModelImporter:
     2300678: WallLedge161
     2300680: WallLedge162
     2300682: WallLedge163
+    2300684: polySurface46
+    2300686: WallLedge164
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1483,6 +1491,8 @@ ModelImporter:
     3300678: WallLedge161
     3300680: WallLedge162
     3300682: WallLedge163
+    3300684: polySurface46
+    3300686: WallLedge164
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -1825,6 +1835,8 @@ ModelImporter:
     4300678: WallLedge163
     4300680: WallLedge162
     4300682: WallLedge161
+    4300684: WallLedge164
+    4300686: polySurface46
     9500000: //RootNode
   materials:
     importMaterials: 1
