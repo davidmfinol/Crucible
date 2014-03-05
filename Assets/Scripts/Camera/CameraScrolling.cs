@@ -63,14 +63,17 @@ public class CameraScrolling : MonoBehaviour
         Vector2 maxLookAhead = new Vector2(0.0f, 0.0f);
 
         // Look for CameraTargetAttributes in our target.
-        CameraTargetAttributes cameraTargetAttributes = Target.GetComponent(typeof(CameraTargetAttributes)) as CameraTargetAttributes;
+		CameraTargetAttributes cameraTargetAttributes = Target.GetComponent(typeof(CameraTargetAttributes)) as CameraTargetAttributes;
+
+		// Look for CharacterAnimator in our target
+		CharacterAnimator targetController = Target.GetComponent<CharacterAnimator>();
 
         // If our target has special attributes, use these instead of our above defaults.
         if (cameraTargetAttributes)
         {
             heightOffset = cameraTargetAttributes.HeightOffset;
 
-			if(GameManager.Player.IsDead())
+			if(targetController != null && targetController.IsDead())
 				distanceModifier = cameraTargetAttributes.DeathZoom;
 
 			else if(_shakeEffect != null)
@@ -98,8 +101,7 @@ public class CameraScrolling : MonoBehaviour
         if (targetRigidbody)
             targetVelocity = targetRigidbody.velocity;
 
-        // If we find a platformerController with a velocity, we use that velocity
-       CharacterAnimator targetController = Target.GetComponent<CharacterAnimator>();
+        // If the target has a velocity, we use that velocity
        if (targetController)
 			targetVelocity = targetController.Velocity;
 
@@ -120,7 +122,7 @@ public class CameraScrolling : MonoBehaviour
 		lookAhead *= distanceModifier;
 
 		// Stop looking ahead if we tagged it to false
-		if(targetController.CurrentState.IsTag("NoLookAhead"))
+		if(targetController != null && targetController.CurrentState.IsTag("NoLookAhead"))
 		   lookAhead = Vector3.zero;
 
         // Now add in our lookAhead calculation.  Our camera following is now a bit better!

@@ -411,9 +411,7 @@ public class EnemyAI : MonoBehaviour
             
             // abort if player on opposite side of vision
             if ((dirToPlayer.x * _animator.Direction.x) < 0)
-            {
                 return false;
-            }
             
             bool canSeePlayer = false;
             

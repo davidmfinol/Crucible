@@ -17,9 +17,9 @@ public class Checkpoint : MonoBehaviour
 	
 	};
 
-	public CheckpointLocation loc;
-	public string caption;
-	public Color col;
+	public CheckpointLocation Location;
+	public string Caption;
+	public Color Color;
 
 
 	// When the player reaches the checkpoint, do the appropriate logic
@@ -42,7 +42,7 @@ public class Checkpoint : MonoBehaviour
 			
 			// Save the game at checkpoints
 			Debug.Log ("Saved game state");
-			GameManager.SaveGameState (loc);
+			GameManager.SaveGameState (Location);
 			Debug.Log ("Saved level state " + Application.loadedLevelName);
 			GameManager.SaveLevelState(Application.loadedLevelName);
 

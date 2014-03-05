@@ -9,7 +9,8 @@ public class AIManager : MonoBehaviour
 {
 	private List<EnemyAI> _enemies;
 	private GameObject[] _searchPoints;
-	
+
+	private bool _ready;
 	
 	void Awake()
 	{
@@ -19,13 +20,13 @@ public class AIManager : MonoBehaviour
 	void Start()
 	{
 		_searchPoints = GameObject.FindGameObjectsWithTag("SearchPoint");
+		_ready = true;
 	}
 
 	public void Reset()
 	{
 		_enemies = new List<EnemyAI> ();
 		_searchPoints = GameObject.FindGameObjectsWithTag("SearchPoint");
-
 	}
 
 	public Vector3 GetRandomSearchPoint()
@@ -64,5 +65,10 @@ public class AIManager : MonoBehaviour
 					enemiesChasing++;
 			return enemiesChasing;
 		}
+	}
+	
+	public bool Ready
+	{
+		get { return _ready; }
 	}
 }

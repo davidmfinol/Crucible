@@ -5,7 +5,7 @@ using System.IO;
 
 /// <summary>
 /// Game manager is a global class in charge of keeping track of all global components.
-/// The global components include Level, Player, AI, and Audio
+/// The global components include Level, AI, UI, Audio, and Subtitles.
 /// </summary>
 [RequireComponent(typeof(GameLevel))]
 [AddComponentMenu("Game/Game Manager")]
@@ -22,13 +22,11 @@ public class GameManager : MonoBehaviour
 
 	// Keep track of the current game manager instance
 	private static GameManager _instance;
-
-    // Each scene should correspond to a level, and each level should have exactly one GameLevel
-    private static GameLevel _currentLevel;
 	
-    // Global Managers
-    private static UIManager _uiManager;
+	// Global Managers
+	private static GameLevel _currentLevel; //TODO: RENAME TO LEVELMANAGER
 	private static AIManager _aiManager;
+    private static UIManager _uiManager;
 	private static AudioManager _audioManager;
     private static SubtitlesManager _subtitlesManager;
     
@@ -39,14 +37,16 @@ public class GameManager : MonoBehaviour
 	private static string _gameSaveStatePath;
     private static string _levelSaveStatePrefix;
 
+
     // Set up level, player/camera, and find the Global Managers
     void Start()
     {
+		if(_instance != null)
+			Destroy(_instance.gameObject);
+
 		_instance = this;
 		_gameSaveStatePath = Path.Combine(Application.persistentDataPath, "game_progress.xml");
 		_levelSaveStatePrefix = Path.Combine(Application.persistentDataPath, "level_");
-
-		Debug.Log (Application.persistentDataPath);
 
 		SetupLevel();
 
@@ -56,39 +56,32 @@ public class GameManager : MonoBehaviour
 
 		SetupAudio();
 		
-        SetupSubtitles();
+		SetupSubtitles();
+		
+		SetupCamera();
         
         SetupPlayer();
-        
-        SetupCamera();
 
     }
 	
 	private void SetupLevel()
 	{
-		string lastLevelName = "";
-
-		// We need to keep only one GameLevel instance
 		if(GameManager._currentLevel != null)
-        {
-			lastLevelName = GameManager._currentLevel.name;
 			Destroy(GameManager._currentLevel.gameObject);
-		}
 		GameManager._currentLevel = GetComponent<GameLevel>();
 
     }
     
     private void SetupAI()
     {
-        // We need to keep one instance of the ai manager
         if(GameManager._aiManager != null)
-            Destroy(GameManager._aiManager.gameObject); // TODO: TRANSFER AI MANAGER BETTER
+            Destroy(GameManager._aiManager.gameObject);
         GameManager._aiManager = GetComponentInChildren<AIManager>();
     }
     
     private void SetupUI()
     {
-        if(_uiManager != null) //TODO: BETTER TRANSFER
+        if(_uiManager != null) // We don't need to recreate the UI from scene to scene
             return;
 
         Transform ui = (Transform)Instantiate(UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);
@@ -109,35 +102,52 @@ public class GameManager : MonoBehaviour
 		if(GameManager._subtitlesManager != null)
 			Destroy(GameManager._subtitlesManager.gameObject); // TODO: TRANSFER SUBTITLES MANAGER BETTER
 		GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager>();
-    }
+	}
+	
+	private void SetupCamera()
+	{
+		if(Camera.main == null) //TODO: WE DON'T NEED TO DESTROY THE CAMERA BETWEEN SCENES
+			Instantiate(CameraPrefab, CameraPrefab.transform.position, CameraPrefab.transform.rotation);
+		
+		// set far clip plane properly to minimize any popping issues
+		if( RenderSettings.fogMode == FogMode.Linear ) {
+			Camera.main.farClipPlane = RenderSettings.fogEndDistance;
+		} else if( RenderSettings.fogMode == FogMode.Exponential ) {
+			Camera.main.farClipPlane = Mathf.Log( 1f / 0.0019f ) / RenderSettings.fogDensity;
+		} else if( RenderSettings.fogMode == FogMode.ExponentialSquared ) {
+			Camera.main.farClipPlane = Mathf.Sqrt( Mathf.Log( 1f / 0.0019f ) ) / RenderSettings.fogDensity;
+		}
+	}
     
     private void SetupPlayer()
     {
+		// We don't need to recreate the Player from scene to scene
         if(_player == null)
         {
             Transform player = (Transform)Instantiate(PlayerPrefab, _currentLevel.OffscreenPosition, Quaternion.identity);
             _player = player.GetComponent<CharacterAnimator>();
             _player.gameObject.AddComponent<AudioListener>();
+			_player.IgnoreMovement = true;
         }
         
-		// must delay Player spawn so that right hand can cache, etc.
+		// Must delay player spawn to make sure all components are ready
 		StartCoroutine ("DelayedSpawnPlayer");
-
     }
 
-	public IEnumerator DelayedSpawnPlayer() {
-		// TODO: ensure enough time for consistent spawning without crash.
-		yield return new WaitForSeconds (1.0f);
-		SpawnPlayer ();
+	public IEnumerator DelayedSpawnPlayer()
+	{
+		while (!AllManagersReady)
+			yield return null;
 
+		SpawnPlayer ();
+		StopCoroutine ("DelayedSpawnPlayer");
 	}
 
     public static void SpawnPlayer()
-    {
-        Debug.Log ("Loading game state.");
-        _instance.LoadGameStateHelper ();
-        Debug.Log ("Loading level state");
-        _instance.LoadLevelStateHelper (Application.loadedLevelName);
+	{
+		// Load from the last save files
+		_instance.LoadGameStateHelper ();
+		_instance.LoadLevelStateHelper (Application.loadedLevelName);
 
         // Move the player to the correct spot
         PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
@@ -147,52 +157,34 @@ public class GameManager : MonoBehaviour
             Player.transform.position = inventory.SpawnPoint.transform.position;
         }
 
+		// Enable it
+		_player.IgnoreMovement = false;
+
         // Reset it's health to max
         HeartBox heart = Player.GetComponentInChildren<HeartBox> ();
         if(heart != null)
             heart.HitPoints = heart.MaxHitPoints;
         
-        // And update the animation system if necessary
+        // Update the animation system if necessary
         Animator animator = Player.GetComponent<Animator> ();
         if(animator != null)
-            animator.SetBool ("Respawn", true);
+			animator.SetBool ("Respawn", true);
 
-    }
-    
-    private void SetupCamera()
-    {
-        if(Camera.main == null)
-            Instantiate(CameraPrefab, CameraPrefab.transform.position, CameraPrefab.transform.rotation);
-        
-        CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
-        if (cameraScript != null && Player != null)
-            cameraScript.Target = Player.transform;
-        else
-            Debug.LogWarning("Failed to point camera at player!");
-        
-        
-        // set far clip plane properly to minimize any popping issues
-        if( RenderSettings.fogMode == FogMode.Linear ) {
-            Camera.main.farClipPlane = RenderSettings.fogEndDistance;
-        } else if( RenderSettings.fogMode == FogMode.Exponential ) {
-            Camera.main.farClipPlane = Mathf.Log( 1f / 0.0019f ) / RenderSettings.fogDensity;
-        } else if( RenderSettings.fogMode == FogMode.ExponentialSquared ) {
-            Camera.main.farClipPlane = Mathf.Sqrt( Mathf.Log( 1f / 0.0019f ) ) / RenderSettings.fogDensity;
-        }
-        
-    }
-
-	public static void DeleteSaves() {
-		string[] files = Directory.GetFiles (Application.persistentDataPath);
-
-		foreach( string filePath in files) {
-			File.Delete(filePath);
-
-		}
-
+		// Make sure the camera is looking at the player
+		CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
+		if (cameraScript != null && Player != null)
+			cameraScript.Target = Player.transform;
+		else
+			Debug.LogWarning("Failed to point camera at player!");
 	}
 
-
+	public static void DeleteSaves()
+	{
+		string[] files = Directory.GetFiles (Application.persistentDataPath);
+		foreach( string filePath in files)
+			File.Delete(filePath);
+	}
+	
 	public static void LoadGameState()
     {
 		_instance.LoadGameStateHelper ();
@@ -203,16 +195,15 @@ public class GameManager : MonoBehaviour
 		PlayerCharacterInventory inventory = GameManager.Player.GetComponent<PlayerCharacterInventory> ();
 	
 		// Get the saved data
-        GameSaveState gameSave = GameSaveState.Load(GameSaveStatePath);
-        if(gameSave == null)
+		GameSaveState gameSave = GameSaveState.Load(GameSaveStatePath);
+		if(gameSave == null)
         {
-		
             Debug.LogWarning("No game save data!");
 			inventory.SpawnPoint = _currentLevel.StartPoint;
             return;
-
-        }
-
+		}
+		
+		// TODO: MAKE THIS MORE GENERIC
 		foreach(WeaponType weaponType in gameSave.PlayerState.WeaponsHeld) {
 			GameObject newWeapon;
 
@@ -232,33 +223,35 @@ public class GameManager : MonoBehaviour
 
 		}
 
-		// move player to his last checkpoint.
+		// Move player to his last checkpoint.
 		GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag ("Respawn");
 
-		foreach (GameObject obj in spawnPoints) {
-			Checkpoint c = obj.GetComponent<Checkpoint>();
-			if(c != null && c.loc == gameSave.Checkpoint) {
-				GameManager.Player.transform.position = c.transform.position;
-				inventory.SpawnPoint = c.transform;
+		bool checkpointFound = false;
+		foreach (GameObject obj in spawnPoints)
+		{
+			Checkpoint checkpoint = obj.GetComponent<Checkpoint>();
+			if(checkpoint != null && checkpoint.Location == gameSave.Checkpoint)
+			{
+				GameManager.Player.transform.position = checkpoint.transform.position;
+				inventory.SpawnPoint = checkpoint.transform;
+				checkpointFound = true;
 				break;
 			}
-
+		}
+		if(!checkpointFound)
+		{
+			Debug.LogWarning("Saved checkpoint not found!");
+			inventory.SpawnPoint = _currentLevel.StartPoint;
 		}
 
-		// load the current weapon
-		// (prevent case of only one weapon)
-		GameManager.UI.CycleToNextWeapon ();
-		GameManager.UI.CycleToPreviousWeapon ();
-
+		GameManager.UI.UpdateWeaponImage ();
 		while (GameManager.UI.CurrentWeapon != gameSave.PlayerState.CurrentWeapon)
 			GameManager.UI.CycleToNextWeapon ();
 
-		// TODO: maybe prevent double-loading once level re-loads.
-		if (gameSave.LevelName != Application.loadedLevelName) {
-			Application.LoadLevel(gameSave.LevelName);
-
-		}
-		    
+		// TODO: THIS CURRENTLY DOESN'T WORK BECAUSE LOAD GAME IS CALLED WHEN YOU START UP A SCENE, AND YOU THEN MOVE TO THE PREVIOUS SCENE
+		// ONE SOLUTION IS TO SAVE THE SCENE BEFORE THEN, BUT THAT WOULD REQUIRE KEEPING TRACK OF THE CHECKPOINT
+	//	if (gameSave.LevelName != Application.loadedLevelName)
+	//		Application.LoadLevel(gameSave.LevelName);
 	}
 
 
@@ -276,6 +269,8 @@ public class GameManager : MonoBehaviour
 
 		Debug.Log ("Removed all dynamic objects.");
 		GameManager.Level.RemoveDynamicObjects();
+
+		// TODO: MAKE THIS MORE GENERIC
 
         // Restore all the enemies in the level
 		GameManager.AI.Reset ();
@@ -339,14 +334,13 @@ public class GameManager : MonoBehaviour
 
 	}
 
-
-	public static void SaveGameState(Checkpoint.CheckpointLocation loc)
+	public static void SaveGameState(Checkpoint.CheckpointLocation location)
 	{
-		GameSaveState g = new GameSaveState ();
-		g.LevelName = Application.loadedLevelName;
-		g.Checkpoint = loc;
-		g.PlayerState = GameManager.Player.GetComponent<PlayerCharacterInventory> ().SaveState ();
-        g.Save(GameSaveStatePath);
+		GameSaveState gameSave = new GameSaveState ();
+		gameSave.LevelName = Application.loadedLevelName;
+		gameSave.Checkpoint = location;
+		gameSave.PlayerState = GameManager.Player.GetComponent<PlayerCharacterInventory> ().SaveState ();
+        gameSave.Save(GameSaveStatePath);
 	}
 	
 	public static void SaveLevelState(string levelName)
@@ -366,7 +360,12 @@ public class GameManager : MonoBehaviour
 
         level.Save(path);
 	}
-	
+
+
+	public static GameManager Instance
+	{
+		get { return _instance; }
+	}	
 
     public static GameLevel Level
     {
@@ -376,15 +375,15 @@ public class GameManager : MonoBehaviour
 	{
 		get { return _player; }
 		set { _player = value; }
-    }
-    public static UIManager UI
-    {
-        get { return _uiManager; }
-    }
+	}
 	public static AIManager AI
 	{
 		get { return _aiManager; }
 	}
+    public static UIManager UI
+    {
+        get { return _uiManager; }
+    }
 	public static AudioManager Audio
 	{
 		get { return _audioManager; }
@@ -392,6 +391,16 @@ public class GameManager : MonoBehaviour
 	public static SubtitlesManager Subtitles
 	{
 		get { return _subtitlesManager; }
+	}
+	public bool AllManagersReady
+	{
+		get
+		{
+			PlayerCharacterInventory inventory = _player.GetComponent<PlayerCharacterInventory>();
+			return (_currentLevel != null && _currentLevel.Ready) && (inventory == null || inventory.Ready) && 
+				(_aiManager != null &&_aiManager.Ready) && (_uiManager != null &&_uiManager.Ready) && 
+				(_audioManager != null &&_audioManager.Ready) && (_subtitlesManager != null && _subtitlesManager.Ready);
+		}
 	}
 
 	public static string GameSaveStatePath

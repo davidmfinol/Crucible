@@ -36,6 +36,7 @@ public class Tutorial : MonoBehaviour
 
 	void Update()
 	{
+		// FIXME: SLOW
 		if(GameManager.AI.Enemies.Count > 0)
 			NextLevel.gameObject.SetActive(GameManager.AI.Enemies[0].GetComponent<CharacterAnimator>().IsDead());
 	}
@@ -91,7 +92,7 @@ public class Tutorial : MonoBehaviour
                 _sewerDoorOpen = true;
                 yield return new WaitForSeconds(0.5f);
             }
-            yield return null;
+            yield return null; // FIXME: SLOW
         }
     }
 }

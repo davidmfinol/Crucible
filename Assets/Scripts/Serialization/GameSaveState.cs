@@ -22,17 +22,17 @@ public class GameSaveState
     {
         GameSaveState gameSave = null;
 
-        XmlSerializer serializer = new XmlSerializer(typeof(GameSaveState));
         FileStream stream = null;
         try
-        { 
+		{
+			// Try to load the save file
+			XmlSerializer serializer = new XmlSerializer(typeof(GameSaveState));
             stream = new FileStream(path, FileMode.Open);
             gameSave = serializer.Deserialize(stream) as GameSaveState;
         }
-        catch (System.SystemException err)
+        catch
         {
-            // If we fail to load the file, log it and return null
-            Debug.Log(err);
+            // If we fail to load the file just return null
             gameSave = null;
         }
         finally 

@@ -23,4 +23,10 @@ public class SubtitlesManager : MonoBehaviour
 	{
 		subtitleQueue.Enqueue(subtitle);
 	}
+
+
+	public bool Ready
+	{
+		get { return true; }
+	}
 }

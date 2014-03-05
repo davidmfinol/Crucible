@@ -156,6 +156,13 @@ public abstract class CharacterAnimator : MonoBehaviour
 	}
 	private void UpdateZones()
 	{
+		// Make sure all our zones are valid
+		List<Zone> tempZones = new List<Zone> ();
+		foreach(Zone zone in Zones)
+			if(zone != null)
+				tempZones.Add(zone);
+		Zones = tempZones;
+
 		// Do nothing if we're not in any zones
 		if (Zones.Count < 1)
 			return;
@@ -777,7 +784,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 	}
     public List<Zone> Zones
     {
-        get { return _zones; }
+		get { return _zones; }
+		set { _zones = value; }
     }
     public virtual bool CanTransitionZ
     {

@@ -24,17 +24,25 @@ public class UIManager : MonoBehaviour
 	private Transform _currentWeaponsImage;
 	private Transform _nextWeaponsImage;
 
+	private bool _ready;
+
 
 	void Start()
     {
         _uiCamera = GetComponentInChildren<Camera>();
 
 		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
+		_vignetteInstance.parent = transform;
 		_vignetteAlpha = 0.0f;
 
 		_weaponsGuiPos = new Vector3 (1, 1, 8);
 		_weaponsGuiPos = _uiCamera.ViewportToWorldPoint (_weaponsGuiPos);
 		_inventory = GameManager.Player.GetComponent<PlayerCharacterInventory>();
+		
+		 // TODO: DontDestroyOnLoad(transform.gameObject);
+		// MAIN PROBLEM IS THAT INVENTORY CAN CHANGE
+
+		_ready = true;
 	}
 
 	void Update()
@@ -70,36 +78,36 @@ public class UIManager : MonoBehaviour
 	
 	public void CycleToNextWeapon()
 	{
-		if(_inventory.Weapons.Count <= 0)
-			return;
-
 		_currentWeapon++;
 		if(_currentWeapon >= _inventory.Weapons.Count)
 			_currentWeapon = 0;
-		_inventory.CurrentWeapon = _inventory.Weapons [_currentWeapon];
+
 		UpdateWeaponImage ();
 	}
 	public void CycleToPreviousWeapon()
 	{
-		if(_inventory.Weapons.Count <= 0)
-			return;
-
 		_currentWeapon--;
 		if(_currentWeapon < 0)
 			_currentWeapon = _inventory.Weapons.Count - 1;
-		_inventory.CurrentWeapon = _inventory.Weapons [_currentWeapon];
+
 		UpdateWeaponImage();
 	}
 
-	private void UpdateWeaponImage()
+	public void UpdateWeaponImage()
 	{
+		if(_inventory.Weapons.Count <= 0)
+			return;
+
+		// Make sure the player has equipped the weapon whose image we are going to show
+		_inventory.CurrentWeapon = _inventory.Weapons [_currentWeapon];
+
 		// First, find the images that we want to show
 		Transform prevWeaponImage;
 		if(_currentWeapon == 0)
 			prevWeaponImage =_inventory.Weapons [_inventory.Weapons.Count - 1].GUIImage;
 		else
 			prevWeaponImage =_inventory.Weapons [_currentWeapon - 1].GUIImage;
-		Transform currentWeaponImage = _inventory.CurrentWeapon.GUIImage;
+		Transform currentWeaponImage = _inventory.Weapons[_currentWeapon].GUIImage;
 		Transform nextWeaponImage = _inventory.Weapons [(_currentWeapon + 1) % _inventory.Weapons.Count].GUIImage;
 
 		// Next, show the middle image
@@ -132,13 +140,13 @@ public class UIManager : MonoBehaviour
         set { _uiCamera = value; }
     }
 
-	public int CurrentWeapon {
+	public int CurrentWeapon
+	{
 		get { return _currentWeapon; }
-
 	}
 
-	public PlayerCharacterInventory Inventory {
-		set { _inventory = value; }
-
+	public bool Ready
+	{
+		get { return _ready; }
 	}
 }

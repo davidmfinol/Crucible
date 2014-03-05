@@ -22,10 +22,17 @@ public class PlayerCharacterInventory : MonoBehaviour
     // We keep track of which weapon is currently equipped here
     private Weapon _currentWeapon;
 
+	private bool _ready;
+
 
 	void Start()
 	{
 		_rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
+		
+		// TODO: DontDestroyOnLoad(transform.gameObject);
+		// MAIN PROBLEM IS THE FACT THAT THE ITEMS ARE OFFSCREEN FOR THE LEVEL, AND ON LEVEL LOAD, THE OFFSCREEN POSITION CHANGES
+
+		_ready = true;
 	}
 
 	public PlayerSaveState SaveState()
@@ -59,10 +66,7 @@ public class PlayerCharacterInventory : MonoBehaviour
 		{
 			// Move the current weapon off screen
 			if(_currentWeapon != null)
-			{
-				Rect levelBounds = GameManager.Level.Boundaries;
-				_currentWeapon.transform.position = new Vector3(levelBounds.xMax + 1, levelBounds.yMax + 1, 0);
-			}
+				_currentWeapon.transform.position = GameManager.Level.OffscreenPosition;
 
 			// Move the new weapon into the player's hand
 			_currentWeapon = value;
@@ -79,4 +83,8 @@ public class PlayerCharacterInventory : MonoBehaviour
 		get { return _currentWeapon.CanStealthKill ; }
 	}
 	
+	public bool Ready
+	{
+		get { return _ready; }
+	}
 }

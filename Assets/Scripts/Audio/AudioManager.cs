@@ -17,4 +17,10 @@ public class AudioManager : MonoBehaviour
         ZONE,
         INTERFACE
     }
+
+
+	public bool Ready
+	{
+		get { return true; }
+	}
 }

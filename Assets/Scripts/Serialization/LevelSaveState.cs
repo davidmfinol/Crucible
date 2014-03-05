@@ -34,10 +34,9 @@ public class LevelSaveState
             stream = new FileStream(path, FileMode.Open);
             levelSave = serializer.Deserialize(stream) as LevelSaveState;
         }
-        catch (System.SystemException err)
+        catch
         {
-            // If we fail to load the file, log it and return null
-            Debug.Log(err);
+            // If we fail to load the file just return null
             levelSave = null;
         }
         finally

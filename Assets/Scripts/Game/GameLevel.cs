@@ -33,12 +33,16 @@ public class GameLevel : MonoBehaviour
 	private GameObject _rightBoundary;
 	private GameObject _topBoundary;
 	private GameObject _bottomBoundary;
+
+	private bool _ready;
 	
 	void Awake()
 	{
 		SetupRenderSettings();
 		
 		CreateBoundaries();
+
+		_ready = true;
 	}
 	
 	// Each level has it's own render settings
@@ -113,8 +117,13 @@ public class GameLevel : MonoBehaviour
 
 	}
 
-	public Vector3 OffscreenPosition {
+	public Vector3 OffscreenPosition
+	{
 		get { return new Vector3(Boundaries.xMax + 1.0f, Boundaries.yMax + 1.0f, 0.0f); }
-
+	}
+	
+	public bool Ready
+	{
+		get { return _ready; }
 	}
 }

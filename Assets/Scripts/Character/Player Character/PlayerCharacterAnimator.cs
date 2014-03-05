@@ -308,14 +308,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
 
 			_inventory.CurrentWeapon.transform.RotateAround ( rightHand.position, new Vector3(0, 1, 1), -90.0f);
-
 		}
 
 		MecanimAnimator.SetBool (_stealthKillHash, false);
 
 		HorizontalSpeed = 0.0f;
 		VerticalSpeed = 0.0f;
-
 	}
 
 	public void RestoreWeaponRotation()
@@ -737,8 +735,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				Destroy(_itemPickedup.gameObject, 0.5f);
 				
 				// Move the weapon offscreen
-				Rect levelBounds = GameManager.Level.Boundaries;
-				instantiatedWeapon.position = new Vector3(levelBounds.xMax + 1, levelBounds.yMax + 1, 0);
+				instantiatedWeapon.position = GameManager.Level.OffscreenPosition;
 				
 				// Add it to our list of weapons
 				Weapon pickedUpWeapon = instantiatedWeapon.GetComponent<Weapon>();
@@ -768,17 +765,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(_inventory.Weapons.Count == 1)
             GameManager.UI.CycleToNextWeapon();
         else if(_inventory.Weapons.Count <= 3)
-        {
-            GameManager.UI.CycleToNextWeapon();
-            GameManager.UI.CycleToPreviousWeapon();
-        }
+			GameManager.UI.UpdateWeaponImage();
 		StopCoroutine ("AutoEquip");
 	}
 	
 	private IEnumerator PickUpItem()
 	{
 		yield return new WaitForSeconds (0.5f);
-		_itemPickedup.transform.position = new Vector3 (GameManager.Level.Boundaries.xMax + 1, GameManager.Level.Boundaries.yMax + 1, 0);
+		_itemPickedup.transform.position = GameManager.Level.OffscreenPosition;
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)
@@ -824,7 +818,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 
 		return false;
-
 	}
 
 	public bool CanPickupItem(out GameObject obj)
