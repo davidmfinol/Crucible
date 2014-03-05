@@ -13,7 +13,8 @@ public class Checkpoint : MonoBehaviour
 		Checkpoint_LeftOCourse,
 		Checkpoint_CentralOCourse,
 		Checkpoint_RightOCourse,
-		Checkpoint_OCourseToAnvilPark
+		Checkpoint_OCourseToAnvilPark,
+		Checkpoint_UpperAnvilPark
 	
 	};
 
@@ -21,6 +22,12 @@ public class Checkpoint : MonoBehaviour
 	public string Caption;
 	public Color Color;
 
+	private CheckpointFader _checkpointFader;
+
+	void Start() {
+		_checkpointFader = GameManager.UI.GetComponent<CheckpointFader> ();
+
+	}
 
 	// When the player reaches the checkpoint, do the appropriate logic
     void OnTriggerEnter(Collider other)
@@ -45,6 +52,8 @@ public class Checkpoint : MonoBehaviour
 			GameManager.SaveGameState (Location);
 			Debug.Log ("Saved level state " + Application.loadedLevelName);
 			GameManager.SaveLevelState(Application.loadedLevelName);
+
+			_checkpointFader.StartFading(Caption, Color);
 
         }
     }
