@@ -300,6 +300,24 @@ ModelImporter:
     100588: pPlane1
     100590: WallLedge134
     100592: WallLedge135
+    100594: Ledge157
+    100596: Ledge159
+    100598: Ledge160
+    100600: Ledge161
+    100602: Ledge162
+    100604: Ledge163
+    100606: polySurface35
+    100608: polySurface38
+    100610: transform13
+    100612: Ledge164
+    100614: Ledge166
+    100616: polySurface39
+    100618: Ledge167
+    100620: Ledge168
+    100622: Ledge169
+    100624: WallLedge136
+    100626: WallLedge137
+    100628: WallLedge138
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -597,6 +615,24 @@ ModelImporter:
     400588: pPlane1
     400590: WallLedge134
     400592: WallLedge135
+    400594: Ledge157
+    400596: Ledge159
+    400598: Ledge160
+    400600: Ledge161
+    400602: Ledge162
+    400604: Ledge163
+    400606: polySurface35
+    400608: polySurface38
+    400610: transform13
+    400612: Ledge164
+    400614: Ledge166
+    400616: polySurface39
+    400618: Ledge167
+    400620: Ledge168
+    400622: Ledge169
+    400624: WallLedge136
+    400626: WallLedge137
+    400628: WallLedge138
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -851,6 +887,23 @@ ModelImporter:
     2300502: pPlane1
     2300504: WallLedge134
     2300506: WallLedge135
+    2300508: Ledge157
+    2300510: Ledge159
+    2300512: Ledge160
+    2300514: Ledge161
+    2300516: Ledge162
+    2300518: Ledge163
+    2300520: polySurface35
+    2300522: polySurface38
+    2300524: Ledge164
+    2300526: Ledge166
+    2300528: polySurface39
+    2300530: Ledge167
+    2300532: Ledge168
+    2300534: Ledge169
+    2300536: WallLedge136
+    2300538: WallLedge137
+    2300540: WallLedge138
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1105,6 +1158,23 @@ ModelImporter:
     3300502: pPlane1
     3300504: WallLedge134
     3300506: WallLedge135
+    3300508: Ledge157
+    3300510: Ledge159
+    3300512: Ledge160
+    3300514: Ledge161
+    3300516: Ledge162
+    3300518: Ledge163
+    3300520: polySurface35
+    3300522: polySurface38
+    3300524: Ledge164
+    3300526: Ledge166
+    3300528: polySurface39
+    3300530: Ledge167
+    3300532: Ledge168
+    3300534: Ledge169
+    3300536: WallLedge136
+    3300538: WallLedge137
+    3300540: WallLedge138
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -1359,6 +1429,23 @@ ModelImporter:
     4300502: Ledge156
     4300504: WallLedge134
     4300506: WallLedge135
+    4300508: Ledge157
+    4300510: Ledge159
+    4300512: Ledge160
+    4300514: Ledge161
+    4300516: Ledge162
+    4300518: Ledge163
+    4300520: polySurface35
+    4300522: polySurface38
+    4300524: polySurface39
+    4300526: Ledge164
+    4300528: Ledge166
+    4300530: Ledge167
+    4300532: Ledge168
+    4300534: Ledge169
+    4300536: WallLedge136
+    4300538: WallLedge137
+    4300540: WallLedge138
     9500000: //RootNode
   materials:
     importMaterials: 1
