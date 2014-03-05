@@ -119,13 +119,8 @@ public class MeshToGameObjectsMenu
 
     static void CreateLedge (Transform ledge)
 	{
-		// We need to find where we're going to put the ledges we grab onto
+		// First determine what we need to do
 		Bounds ledgeBounds = ledge.collider.bounds;
-		Vector3 topLeft = ledgeBounds.center - new Vector3(ledgeBounds.extents.x, 0, 0) + new Vector3(0, ledgeBounds.extents.y, 0);
-		Vector3 topRight = ledgeBounds.center + new Vector3(ledgeBounds.extents.x, 0, 0) + new Vector3(0, ledgeBounds.extents.y, 0);
-		Vector3 leftLedgeLocation = topLeft;
-		Vector3 rightLedgeLocation = topRight;
-
 		bool ignoreLocationName = !ledge.name.ToLower ().Contains ("left") && !ledge.name.ToLower ().Contains ("right");
 		bool createLeftLedge = ignoreLocationName || ledge.name.ToLower ().Contains ("left");
 		bool createRightLedge = ignoreLocationName || ledge.name.ToLower ().Contains ("right");
@@ -133,23 +128,35 @@ public class MeshToGameObjectsMenu
 		// Set up the left ledge
 		if(createLeftLedge)
 		{
+			// Find out where to put it
+			Vector3 leftOffset = new Vector3 (ledgeBounds.extents.x, 0, 0) + new Vector3 (0, ledgeBounds.extents.y, 0);
+			Vector3 topLeft = ledgeBounds.center - leftOffset;
+			Vector3 leftLedgeLocation = topLeft;
+
+			// Actually put it there and set it up
 			GameObject leftLedge = GameObject.Instantiate(ledgePrefab, leftLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
-			leftLedge.transform.parent = ledge.transform;
 			leftLedge.GetComponent<Ledge> ().Left = true;
-			leftLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.Contains ("Obstacle"));
+			leftLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower().Contains ("obstacle"));
 			BoxCollider col = leftLedge.GetComponent<BoxCollider> ();
-			col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 10);
+			col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100);
+			leftLedge.transform.parent = ledge.transform;
 		}
 
 		// Set up the right ledge
 		if(createRightLedge)
 		{
+			// Find out where to put it
+			Vector3 rightOffset = new Vector3(ledgeBounds.extents.x, 0, 0) + new Vector3(0, ledgeBounds.extents.y, 0);
+			Vector3 topRight = ledgeBounds.center + rightOffset;
+			Vector3 rightLedgeLocation = topRight;
+			
+			// Actually put it there and set it up
 			GameObject rightLedge = GameObject.Instantiate(ledgePrefab, rightLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
-			rightLedge.transform.parent = ledge.transform;
 			rightLedge.GetComponent<Ledge> ().Left = false;
-			rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.Contains ("Obstacle"));
+			rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower().Contains ("obstacle"));
 			BoxCollider col = rightLedge.GetComponent<BoxCollider> ();
-			col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 10);
+			col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100);
+			rightLedge.transform.parent = ledge.transform;
 		}
 	}
 	static void CreateWall(Transform wall)
