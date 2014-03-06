@@ -191,7 +191,7 @@ public class EnemyAI : MonoBehaviour
 			// randomly attack
 			bool randomChance = (Random.Range(0.0f, 1.0f) > 0.95f);
 			bool isStunned = _animator.CurrentState.IsName("Base Layer.Stun");
-            bool shouldAttack = facingPlayer && IsPlayerInAttackRange && randomChance && !isStunned;
+            bool shouldAttack = facingPlayer && IsPlayerInAttackRange && randomChance && !isStunned && !_animator.IsDead();
 
 			_animator.CharInput.Attack = shouldAttack ? 1 : 0;
 
