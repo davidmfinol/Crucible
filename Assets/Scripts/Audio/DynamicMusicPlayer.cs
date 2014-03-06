@@ -4,7 +4,6 @@ using System.Collections.Generic;
 /// <summary>
 /// Dynamic music plays the background music by layering different songs based off the environment.
 /// </summary>
-[RequireComponent(typeof(AudioClipGroup))]
 [AddComponentMenu("Audio/Dynamic Music Player")]
 public class DynamicMusicPlayer : AudioPlayer
 {
@@ -19,7 +18,7 @@ public class DynamicMusicPlayer : AudioPlayer
 	public float Fade;
 	
 	// The songs that we are going to layer
-	private AudioClipGroup _enemyDangerClips;
+	public AudioClip[] EnemyDangerClips;
 	
 	// TODO: The volume for each of the audio layers (so they fade in and out)
 	//private float audio1Volume;
@@ -33,7 +32,6 @@ public class DynamicMusicPlayer : AudioPlayer
 	void Start()
 	{
 		// Set up the audio
-		_enemyDangerClips = GetComponent<AudioClipGroup>();
 		_audio1FadingOut = false;
 		_audio1FadingIn = false;
 		_audio2FadingOut = false;
@@ -52,9 +50,9 @@ public class DynamicMusicPlayer : AudioPlayer
 		_audio1.loop = true;
 		_audio2.loop = true;
 		_audio3.loop = true;
-		_audio1.clip = _enemyDangerClips.Clips[0];
-		_audio2.clip = _enemyDangerClips.Clips[1];
-		_audio3.clip = _enemyDangerClips.Clips[2];
+		_audio1.clip = EnemyDangerClips[0];
+		_audio2.clip = EnemyDangerClips[1];
+		_audio3.clip = EnemyDangerClips[2];
 		_prevSearchingLevel = 0;
 		_prevChasingLevel = 0;
 	}
