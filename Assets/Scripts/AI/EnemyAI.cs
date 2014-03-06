@@ -201,6 +201,7 @@ public class EnemyAI : MonoBehaviour
         AstarNavigateToTarget(1.0f);
 
         // TODO: KEEP MOVING TOWARD THE PLAYER EVEN IF WE ARE AT THE END OF THE PATH
+
 	}
 
 	public void UpdateAStarTarget(Vector3 target)

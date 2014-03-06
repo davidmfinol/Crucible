@@ -129,8 +129,8 @@ public class MeshToGameObjectsMenu
 		if(createLeftLedge)
 		{
 			// Find out where to put it
-			Vector3 leftOffset = new Vector3 (ledgeBounds.extents.x, 0, 0) + new Vector3 (0, ledgeBounds.extents.y, 0);
-			Vector3 topLeft = ledgeBounds.center - leftOffset;
+			Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, 0, 0) + new Vector3 (0, ledgeBounds.extents.y, 0);
+			Vector3 topLeft = ledgeBounds.center + leftOffset;
 			Vector3 leftLedgeLocation = topLeft;
 
 			// Actually put it there and set it up

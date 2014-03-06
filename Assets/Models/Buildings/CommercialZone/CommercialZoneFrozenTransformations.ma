@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: CommercialZoneFrozenTransformations.ma
-//Last modified: Wed, Mar 05, 2014 06:07:13 PM
+//Last modified: Wed, Mar 05, 2014 08:29:15 PM
 //Codeset: UTF-8
 requires maya "2014";
 currentUnit -l centimeter -a degree -t film;
@@ -11,18 +11,18 @@ fileInfo "cutIdentifier" "201303010035-864206";
 fileInfo "osv" "Mac OS X 10.9.1";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" 179.86234953844135 64.5104052221225 9.2819751522062166 ;
-	setAttr ".r" -type "double3" -13.200000000000196 81.199999999995555 -1.0394931840477079e-14 ;
+	setAttr ".t" -type "double3" 25.794415918256565 54.893004285644139 -36.421748287757254 ;
+	setAttr ".r" -type "double3" -6.0000000000000435 83.999999999995239 0 ;
 	setAttr ".rpt" -type "double3" 5.8541916972959969e-17 -1.1998575666381109e-16 -4.3892264882142993e-18 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".pze" yes;
 	setAttr ".fl" 34.999999999999979;
-	setAttr ".coi" 186.94410957927093;
+	setAttr ".coi" 26.079364258448869;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" 0 21.821555137634277 -18.562187671661377 ;
+	setAttr ".tp" -type "double3" 0 52.166968416711086 -39.132850646972656 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	setAttr ".t" -type "double3" 0 100.1 0 ;
@@ -2051,7 +2051,8 @@ createNode mesh -n "Ledge95Shape" -p "Ledge95";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "Ledge96";
-	setAttr ".t" -type "double3" 0 0.72992427303432805 0 ;
+	setAttr ".t" -type "double3" 0 0.72992427303432805 -0.94955800635997178 ;
+	setAttr ".s" -type "double3" 1 1 1.4489194659100619 ;
 	setAttr ".rp" -type "double3" 0 51.848260488432118 -39.132852782271456 ;
 	setAttr ".sp" -type "double3" 0 51.848260488432118 -39.132852782271456 ;
 createNode mesh -n "Ledge96Shape" -p "Ledge96";
@@ -7427,7 +7428,7 @@ createNode mesh -n "Ledge169Shape" -p "Ledge169";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "WallLedge136";
-	setAttr ".t" -type "double3" 0 6.2758164447816398 97.939443565234825 ;
+	setAttr ".t" -type "double3" 0 6.2758164447816398 99.252142005735905 ;
 	setAttr ".s" -type "double3" 3.1843889069612485 1.7239242361205167 1.7239242361205167 ;
 	setAttr ".rp" -type "double3" 1.0351582050972954 82.516188860379998 -145.68576319267976 ;
 	setAttr ".sp" -type "double3" 1.0351582050972954 47.865322113037109 -84.508216857910156 ;

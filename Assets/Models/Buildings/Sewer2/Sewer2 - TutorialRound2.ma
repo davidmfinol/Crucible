@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: Sewer2 - TutorialRound2.ma
-//Last modified: Wed, Mar 05, 2014 06:26:25 PM
+//Last modified: Wed, Mar 05, 2014 06:57:58 PM
 //Codeset: UTF-8
 requires maya "2014";
 currentUnit -l centimeter -a degree -t film;
@@ -11,19 +11,19 @@ fileInfo "cutIdentifier" "201303010035-864206";
 fileInfo "osv" "Mac OS X 10.9.1";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" -34.641991453756987 34.636088507426649 54.972138514829076 ;
-	setAttr ".r" -type "double3" -7.7999999999999776 -26.400000000000013 -2.2192928173493794e-16 ;
+	setAttr ".t" -type "double3" -19.345020491005499 46.64120352738059 25.907695692541608 ;
+	setAttr ".r" -type "double3" -7.7999999999999776 -26.400000000000009 0 ;
 	setAttr ".rp" -type "double3" -2.1316282072803009e-14 0 7.1054273576010019e-15 ;
 	setAttr ".rpt" -type "double3" -3.1102294484532534e-14 2.2702708695577449e-14 -2.9420836328152805e-16 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".pze" yes;
 	setAttr ".fl" 147.81932961751093;
-	setAttr ".coi" 65.042864094497418;
+	setAttr ".coi" 28.045308604787508;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" -5.9892215728759766 25.808758974075317 -2.7484921216964722 ;
+	setAttr ".tp" -type "double3" -6.9904634634462024 42.835018415985168 1.0196019469702975 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	setAttr ".t" -type "double3" 18.016396136797461 102.54600972433607 -5.8065941217971284 ;
