@@ -28,6 +28,17 @@ public class WindAudioPlayer : AudioPlayer
 		StartCoroutine ("DelayedWindPlay");
 	}
 
+	void Update()
+	{
+		foreach(AudioSource audiosource in _audios)
+		{
+			if(audiosource.pan >= 0)
+				audiosource.pan += 0.05f*Time.deltaTime;
+			else
+				audiosource.pan -= 0.05f*Time.deltaTime;
+		}
+	}
+
 	IEnumerator DelayedWindPlay()
 	{
 		while(true)
