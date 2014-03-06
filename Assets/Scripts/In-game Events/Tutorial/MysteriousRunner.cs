@@ -26,6 +26,8 @@ public class MysteriousRunner : MonoBehaviour
 	public IEnumerator ShowWallJump1 ()
 	{
 		Camera.main.GetComponent<CameraScrolling>().Target = transform;
+		Destroy (GameManager.Player.GetComponent<AudioListener> ());
+		this.gameObject.AddComponent<AudioListener> ();
 		_input.Horizontal = -1;
 		yield return new WaitForSeconds (1.3f);
 		_input.Horizontal = 0;
@@ -38,6 +40,8 @@ public class MysteriousRunner : MonoBehaviour
 		yield return new WaitForSeconds (0.9f);
 		_input.Jump = new Vector2 (1, 1);
 		Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
+		Destroy (gameObject.GetComponent<AudioListener> ());
+		GameManager.Player.gameObject.AddComponent<AudioListener> ();
 		yield return new WaitForSeconds (0.1f);
 		_input.Jump = Vector2.zero;
 		yield return new WaitForSeconds (2.5f);
@@ -50,6 +54,8 @@ public class MysteriousRunner : MonoBehaviour
 	public IEnumerator ShowWallJump2 ()
 	{
 		Camera.main.GetComponent<CameraScrolling>().Target = transform;
+		Destroy (GameManager.Player.GetComponent<AudioListener> ());
+		this.gameObject.AddComponent<AudioListener> ();
 		yield return new WaitForSeconds (1.0f);
 		_input.Jump = new Vector2(-1, 1);
 		yield return new WaitForSeconds (0.75f);
@@ -75,7 +81,9 @@ public class MysteriousRunner : MonoBehaviour
 		_input.Horizontal = -1;
 		SewerDoor.animation.Play("Close");
 		yield return new WaitForSeconds (1.0f);
-        Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
+		Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
+		Destroy (gameObject.GetComponent<AudioListener> ());
+		GameManager.Player.gameObject.AddComponent<AudioListener> ();
         yield return new WaitForSeconds (0.5f);
         SewerDoor.animation.Play("Close");
 		gameObject.SetActive (false);
