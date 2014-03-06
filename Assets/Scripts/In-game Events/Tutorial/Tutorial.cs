@@ -30,7 +30,8 @@ public class Tutorial : MonoBehaviour
 	{
 		_reachedTrigger1 = false;
 		_reachedTrigger3 = false;
-        _sewerDoorOpen = false;
+		_sewerDoorOpen = false;
+		StartCoroutine("WaitToShowExample");
 		StartCoroutine("WaitToShowInstructions");
 	}
 
@@ -39,6 +40,13 @@ public class Tutorial : MonoBehaviour
 		// FIXME: SLOW
 		if(GameManager.AI.Enemies.Count > 0)
 			NextLevel.gameObject.SetActive(GameManager.AI.Enemies[0].GetComponent<CharacterAnimator>().IsDead());
+	}
+
+	IEnumerator WaitToShowExample()
+	{
+		yield return new WaitForSeconds (5.0f);
+		MysteriousRunner1.gameObject.SetActive (true);
+		StopCoroutine ("WaitToShowExample");
 	}
 
 	public void ReachTrigger1()
