@@ -357,7 +357,11 @@ public class EnemyAI : MonoBehaviour
 		s.Health = GetComponentInChildren<EnemyHeartBox>().HitPoints;
 		return s;
 	}
-	
+
+	public void OnDestroy() {
+		GameManager.AI.Enemies.Remove (this);
+
+	}
 
 	// Generic Properties
 	public EnemyAISettings Settings
