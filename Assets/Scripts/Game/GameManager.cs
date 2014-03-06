@@ -194,6 +194,12 @@ public class GameManager : MonoBehaviour
 		// restore player inventory
 		PlayerCharacterInventory inventory = GameManager.Player.GetComponent<PlayerCharacterInventory> ();
 	
+		if (inventory != null) {
+			inventory.Weapons.Clear ();
+			GameManager.UI.UpdateWeaponImage();
+		}
+
+
 		// Get the saved data
 		GameSaveState gameSave = GameSaveState.Load(GameSaveStatePath);
 		if(gameSave == null)
