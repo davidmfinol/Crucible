@@ -405,6 +405,62 @@ ModelImporter:
     100798: transform26
     100800: WallLedge164
     100802: Wall8
+    100804: WallLedgeRightOnly
+    100806: WallLedgeLeftOnly
+    100808: WallLedgeRightOnly1
+    100810: LedgeLeftOnly
+    100812: LedgeLeftOnly1
+    100814: LedgeRightOnly
+    100816: LedgeRightOnly1
+    100818: nothing
+    100820: nothing1
+    100822: nothing2
+    100824: nothing3
+    100826: polySurface51
+    100828: polySurface55
+    100830: polySurface56
+    100832: Wall9
+    100834: WallLedge165
+    100836: WallLedgeLeftOnly1
+    100838: WallLedgeRightOnly2
+    100840: WallLedge166
+    100842: LedgeLeftOnly2
+    100844: LedgeRightOnly2
+    100846: Nothing6
+    100848: DiagonalLedge186
+    100850: DiagonalLedge187
+    100852: DiagonalMeshLedge
+    100854: MeshLedge
+    100856: MeshLedge1
+    100858: MeshLedge2
+    100860: DiagonalLedge187RightOnly
+    100862: WallLedge167
+    100864: Ledge206
+    100866: DiagonalLedge
+    100868: WallLedge168
+    100870: DiagonalLedge188
+    100872: DiagonalLedge189
+    100874: LedgeRightOnly3
+    100876: LeftOnlyLedge
+    100878: WallLedgeRightOnly3
+    100880: Nada
+    100882: Nada1
+    100884: Nada2
+    100886: Box
+    100888: Box1
+    100890: LedgeRightOnly4
+    100892: WallLedgeLeftOnly2
+    100894: WallLedgeRightOnly4
+    100896: MeshDiagonalLedge
+    100898: Box2
+    100900: LedgeLeftOnly3
+    100902: MeshDiagonalLedgeRightOnly
+    100904: DiagonalBox
+    100906: DiagonalBox1
+    100908: MeshLedgeDiagonalLeftOnly
+    100910: MeshLedgeDiagonalRightOnly
+    100912: Nothing7
+    100914: Nothing8
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -807,6 +863,62 @@ ModelImporter:
     400798: transform26
     400800: WallLedge164
     400802: Wall8
+    400804: WallLedgeRightOnly
+    400806: WallLedgeLeftOnly
+    400808: WallLedgeRightOnly1
+    400810: LedgeLeftOnly
+    400812: LedgeLeftOnly1
+    400814: LedgeRightOnly
+    400816: LedgeRightOnly1
+    400818: nothing
+    400820: nothing1
+    400822: nothing2
+    400824: nothing3
+    400826: polySurface51
+    400828: polySurface55
+    400830: polySurface56
+    400832: Wall9
+    400834: WallLedge165
+    400836: WallLedgeLeftOnly1
+    400838: WallLedgeRightOnly2
+    400840: WallLedge166
+    400842: LedgeLeftOnly2
+    400844: LedgeRightOnly2
+    400846: Nothing6
+    400848: DiagonalLedge186
+    400850: DiagonalLedge187
+    400852: DiagonalMeshLedge
+    400854: MeshLedge
+    400856: MeshLedge1
+    400858: MeshLedge2
+    400860: DiagonalLedge187RightOnly
+    400862: WallLedge167
+    400864: Ledge206
+    400866: DiagonalLedge
+    400868: WallLedge168
+    400870: DiagonalLedge188
+    400872: DiagonalLedge189
+    400874: LedgeRightOnly3
+    400876: LeftOnlyLedge
+    400878: WallLedgeRightOnly3
+    400880: Nada
+    400882: Nada1
+    400884: Nada2
+    400886: Box
+    400888: Box1
+    400890: LedgeRightOnly4
+    400892: WallLedgeLeftOnly2
+    400894: WallLedgeRightOnly4
+    400896: MeshDiagonalLedge
+    400898: Box2
+    400900: LedgeLeftOnly3
+    400902: MeshDiagonalLedgeRightOnly
+    400904: DiagonalBox
+    400906: DiagonalBox1
+    400908: MeshLedgeDiagonalLeftOnly
+    400910: MeshLedgeDiagonalRightOnly
+    400912: Nothing7
+    400914: Nothing8
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1152,6 +1264,62 @@ ModelImporter:
     2300684: polySurface46
     2300686: WallLedge164
     2300688: Wall8
+    2300690: WallLedgeRightOnly
+    2300692: WallLedgeLeftOnly
+    2300694: WallLedgeRightOnly1
+    2300696: LedgeLeftOnly
+    2300698: LedgeLeftOnly1
+    2300700: LedgeRightOnly
+    2300702: LedgeRightOnly1
+    2300704: nothing
+    2300706: nothing1
+    2300708: nothing2
+    2300710: nothing3
+    2300712: polySurface51
+    2300714: polySurface55
+    2300716: polySurface56
+    2300718: Wall9
+    2300720: WallLedge165
+    2300722: WallLedgeLeftOnly1
+    2300724: WallLedgeRightOnly2
+    2300726: WallLedge166
+    2300728: LedgeLeftOnly2
+    2300730: LedgeRightOnly2
+    2300732: Nothing6
+    2300734: DiagonalLedge186
+    2300736: DiagonalLedge187
+    2300738: DiagonalMeshLedge
+    2300740: MeshLedge
+    2300742: MeshLedge1
+    2300744: MeshLedge2
+    2300746: DiagonalLedge187RightOnly
+    2300748: WallLedge167
+    2300750: Ledge206
+    2300752: DiagonalLedge
+    2300754: WallLedge168
+    2300756: DiagonalLedge188
+    2300758: DiagonalLedge189
+    2300760: LedgeRightOnly3
+    2300762: LeftOnlyLedge
+    2300764: WallLedgeRightOnly3
+    2300766: Nada
+    2300768: Nada1
+    2300770: Nada2
+    2300772: Box
+    2300774: Box1
+    2300776: LedgeRightOnly4
+    2300778: WallLedgeLeftOnly2
+    2300780: WallLedgeRightOnly4
+    2300782: MeshDiagonalLedge
+    2300784: Box2
+    2300786: LedgeLeftOnly3
+    2300788: MeshDiagonalLedgeRightOnly
+    2300790: DiagonalBox
+    2300792: DiagonalBox1
+    2300794: MeshLedgeDiagonalLeftOnly
+    2300796: MeshLedgeDiagonalRightOnly
+    2300798: Nothing7
+    2300800: Nothing8
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1497,6 +1665,62 @@ ModelImporter:
     3300684: polySurface46
     3300686: WallLedge164
     3300688: Wall8
+    3300690: WallLedgeRightOnly
+    3300692: WallLedgeLeftOnly
+    3300694: WallLedgeRightOnly1
+    3300696: LedgeLeftOnly
+    3300698: LedgeLeftOnly1
+    3300700: LedgeRightOnly
+    3300702: LedgeRightOnly1
+    3300704: nothing
+    3300706: nothing1
+    3300708: nothing2
+    3300710: nothing3
+    3300712: polySurface51
+    3300714: polySurface55
+    3300716: polySurface56
+    3300718: Wall9
+    3300720: WallLedge165
+    3300722: WallLedgeLeftOnly1
+    3300724: WallLedgeRightOnly2
+    3300726: WallLedge166
+    3300728: LedgeLeftOnly2
+    3300730: LedgeRightOnly2
+    3300732: Nothing6
+    3300734: DiagonalLedge186
+    3300736: DiagonalLedge187
+    3300738: DiagonalMeshLedge
+    3300740: MeshLedge
+    3300742: MeshLedge1
+    3300744: MeshLedge2
+    3300746: DiagonalLedge187RightOnly
+    3300748: WallLedge167
+    3300750: Ledge206
+    3300752: DiagonalLedge
+    3300754: WallLedge168
+    3300756: DiagonalLedge188
+    3300758: DiagonalLedge189
+    3300760: LedgeRightOnly3
+    3300762: LeftOnlyLedge
+    3300764: WallLedgeRightOnly3
+    3300766: Nada
+    3300768: Nada1
+    3300770: Nada2
+    3300772: Box
+    3300774: Box1
+    3300776: LedgeRightOnly4
+    3300778: WallLedgeLeftOnly2
+    3300780: WallLedgeRightOnly4
+    3300782: MeshDiagonalLedge
+    3300784: Box2
+    3300786: LedgeLeftOnly3
+    3300788: MeshDiagonalLedgeRightOnly
+    3300790: DiagonalBox
+    3300792: DiagonalBox1
+    3300794: MeshLedgeDiagonalLeftOnly
+    3300796: MeshLedgeDiagonalRightOnly
+    3300798: Nothing7
+    3300800: Nothing8
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -1842,6 +2066,62 @@ ModelImporter:
     4300684: WallLedge164
     4300686: polySurface46
     4300688: Wall8
+    4300690: WallLedgeRightOnly
+    4300692: WallLedgeRightOnly1
+    4300694: WallLedgeLeftOnly
+    4300696: LedgeRightOnly
+    4300698: WallLedgeLeftOnly1
+    4300700: nothing1
+    4300702: nothing2
+    4300704: nothing
+    4300706: nothing3
+    4300708: WallLedge165
+    4300710: WallLedgeRightOnly2
+    4300712: LedgeLeftOnly
+    4300714: LedgeLeftOnly1
+    4300716: polySurface51
+    4300718: LedgeRightOnly1
+    4300720: polySurface55
+    4300722: polySurface56
+    4300724: Wall9
+    4300726: WallLedge166
+    4300728: LedgeRightOnly2
+    4300730: Nothing6
+    4300732: LedgeLeftOnly2
+    4300734: DiagonalMeshLedge
+    4300736: MeshLedge
+    4300738: MeshLedge1
+    4300740: MeshLedge2
+    4300742: DiagonalLedge186
+    4300744: DiagonalLedge187
+    4300746: WallLedge167
+    4300748: DiagonalLedge187RightOnly
+    4300750: Ledge206
+    4300752: DiagonalLedge
+    4300754: WallLedge168
+    4300756: DiagonalLedge188
+    4300758: LedgeRightOnly3
+    4300760: DiagonalLedge189
+    4300762: WallLedgeRightOnly3
+    4300764: LeftOnlyLedge
+    4300766: Nada1
+    4300768: Nada2
+    4300770: Nada
+    4300772: WallLedgeRightOnly4
+    4300774: WallLedgeLeftOnly2
+    4300776: Box
+    4300778: Box1
+    4300780: LedgeRightOnly4
+    4300782: MeshDiagonalLedge
+    4300784: LedgeLeftOnly3
+    4300786: MeshDiagonalLedgeRightOnly
+    4300788: Box2
+    4300790: DiagonalBox1
+    4300792: MeshLedgeDiagonalLeftOnly
+    4300794: MeshLedgeDiagonalRightOnly
+    4300796: DiagonalBox
+    4300798: Nothing7
+    4300800: Nothing8
     9500000: //RootNode
   materials:
     importMaterials: 1
