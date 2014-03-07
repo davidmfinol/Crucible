@@ -4,7 +4,12 @@ using System.Collections;
 
 public enum ItemType
 {
-    Item_None
+	Item_BatteryPack,
+	Item_ComputerParts,
+	Item_Engine,
+	Item_Flare,
+	Item_Fuel,
+	Item_Propellant
 };
 
 public class ItemSaveState

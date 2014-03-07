@@ -19,6 +19,10 @@ public class CraftingMenu : MonoBehaviour {
 
 	// camera used to position wheels appropriately
 	private Camera _uiCamera;
+	// keep track of player inventory for displaying craftable items
+	private PlayerCharacterInventory _inventory;
+
+	private int _currentItem;
 
 	private GameObject _weaponWheel;
 	private GameObject _itemWheel;
@@ -27,10 +31,13 @@ public class CraftingMenu : MonoBehaviour {
 	private CraftingMenuState _state;
 	private float _timeInState;
 	
-
+	private Transform[] _itemImage;   // 0 to 4 counter-clockwise.
+	
 	void Start() {
 		_uiCamera = transform.root.GetComponentInChildren<Camera>();
+		_inventory = GameManager.Player.GetComponent<PlayerCharacterInventory>();
 	
+
 		// wheelcenter
 		Vector3 wheelCenter = _uiCamera.ViewportToWorldPoint ( new Vector3 (1.0f, 1.0f, 7.0f) );
 		_weaponWheel = (GameObject) Instantiate (WeaponWheelPrefab, wheelCenter, Quaternion.identity);
@@ -42,11 +49,16 @@ public class CraftingMenu : MonoBehaviour {
 		_craftingBackdrop = (GameObject) Instantiate (CraftingBackdropPrefab, Vector3.zero, Quaternion.identity);
 		_craftingBackdrop.renderer.enabled = false;
 
+		_currentItem = 0;
+
 		_state = CraftingMenuState.CraftingMenu_Closed;
 		_timeInState = 0.0f;
+
+		_itemImage = new Transform[5];
 		               
 	}
-	
+
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetButtonDown ("CraftingMenu")) {
@@ -67,10 +79,9 @@ public class CraftingMenu : MonoBehaviour {
 
 	}
 
+
 	// animation of crafting menu
 	void AnimateCraftingMenu() {
-		Debug.Log ("State " + _state);
-
 		_timeInState += Time.deltaTime;
 
 		if (_state == CraftingMenuState.CraftingMenu_Opening)
@@ -95,7 +106,7 @@ public class CraftingMenu : MonoBehaviour {
 		} else if(_state == CraftingMenuState.CraftingMenu_Open) 
 		{
 			_itemWheel.renderer.enabled = true;
-
+		
 		} else if (_state == CraftingMenuState.CraftingMenu_Closing)
 		{
 			float alpha = Mathf.Max ( 1.0f - (float)(_timeInState / FadeTime), 0.0f);
@@ -123,6 +134,63 @@ public class CraftingMenu : MonoBehaviour {
 				
 		} 
 
+	}
+
+	public void RefreshItemWheel() {
+		if(_inventory.Weapons.Count <= 0)
+			return;
+
+//
+//
+//		// First, find the images that we want to show
+//		Transform prevWeaponImage;
+//		if(_currentWeapon == 0)
+//			prevWeaponImage =_inventory.Weapons [_inventory.Weapons.Count - 1].GUIImage;
+//		else
+//			prevWeaponImage =_inventory.Weapons [_currentWeapon - 1].GUIImage;
+//		Transform currentWeaponImage = _inventory.Weapons[_currentWeapon].GUIImage;
+//		Transform nextWeaponImage = _inventory.Weapons [(_currentWeapon + 1) % _inventory.Weapons.Count].GUIImage;
+//		
+//		// Next, show the middle image
+//		if(_currentWeaponsImage != null)
+//			Destroy (_currentWeaponsImage.gameObject);
+//		Vector3 imageLocation = _weaponsGuiPos;
+//		Vector3 directional = (new Vector3 (-1, -1, 0)).normalized;
+//		imageLocation += directional * GUIWheelRadius;
+//		_currentWeaponsImage = (Transform) Instantiate(currentWeaponImage, imageLocation, Quaternion.identity);
+//		if(_inventory.Weapons.Count == 1)
+//			return;
+//		
+//		// Then show the image to the left
+//		if(_previousWeaponsImage != null)
+//			Destroy(_previousWeaponsImage.gameObject);
+//		imageLocation = _weaponsGuiPos + Vector3.left * GUIWheelRadius;
+//		_previousWeaponsImage = (Transform) Instantiate (prevWeaponImage, imageLocation, Quaternion.identity);
+//		
+//		// Then show the right image
+//		if (_nextWeaponsImage != null)
+//			Destroy (_nextWeaponsImage.gameObject);
+//		imageLocation = _weaponsGuiPos + Vector3.down * GUIWheelRadius;
+//		_nextWeaponsImage = (Transform) Instantiate (nextWeaponImage, imageLocation, Quaternion.identity);
+//
+	}
+
+	public void CycleToNextItem()
+	{
+		_currentItem++;
+		if(_currentItem >= _inventory.Weapons.Count)
+			_currentItem = 0;
+		
+		RefreshItemWheel();
+	}
+
+	public void CycleToPreviousItem()
+	{
+		_currentItem--;
+		if(_currentItem < 0)
+			_currentItem = _inventory.Weapons.Count - 1;
+		
+		RefreshItemWheel();
 	}
 
 }
