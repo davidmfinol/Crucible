@@ -8,7 +8,17 @@ using System.Collections;
 [AddComponentMenu("Items/Item")]
 public class Item : MonoBehaviour
 {
-	public ItemType ItemType;
+	public enum ItemType
+	{
+		Item_BatteryPack,
+		Item_ComputerParts,
+		Item_Engine,
+		Item_Fuel,
+		Item_Propellant
+	};
+
+
+	public Item.ItemType Type;
 	public int Quantity;
 	public Transform WeaponPrefab;
 
@@ -19,7 +29,7 @@ public class Item : MonoBehaviour
         if(WeaponPrefab != null)
             itemSave.WeaponType = WeaponPrefab.GetComponent<Weapon>().WeaponType;
         else
-            itemSave.ItemType = ItemType;
+            itemSave.ItemType = Type;
         itemSave.Quantity = Quantity;
         itemSave.Position = transform.position;
 		itemSave.Rotation = transform.rotation;

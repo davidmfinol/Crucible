@@ -225,9 +225,14 @@ public class GameManager : MonoBehaviour
 				newWeapon = (GameObject) Instantiate ( Resources.Load ("InHand/Mine"), _currentLevel.OffscreenPosition, Quaternion.identity);
 				inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
 				
-			} 
+			}
 
 		}
+
+		// reload player inventory
+		foreach(InventoryItem invItem in gameSave.PlayerState.ItemsHeld)
+			inventory.AddItem( InventoryItemFactory.CreateFromType(invItem.Type, invItem.Quantity) );
+
 
 		// Move player to his last checkpoint.
 		GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag ("Respawn");
@@ -332,6 +337,18 @@ public class GameManager : MonoBehaviour
 				
 			} else if(itemState.WeaponType == WeaponType.Weapon_MINE) {
 				newItem = (GameObject) Instantiate ( Resources.Load ("OnField/M.I.N.E."), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_ComputerParts) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("ComputerParts"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Engine) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Engine"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Propellant) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Propellant"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 
 			}

@@ -14,7 +14,7 @@ public class PlayerCharacterInventory : MonoBehaviour
 	public List<Weapon> Weapons;
 	
 	// Keep track of all the items in the player's inventory
-	public List<Item> Items;
+	public List<InventoryItem> Items;
 	
 	// We keep track of the player's hand to put weapons in it
 	private Transform _rightHand;
@@ -28,11 +28,14 @@ public class PlayerCharacterInventory : MonoBehaviour
 	void Start()
 	{
 		_rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
-		
+
+		Items = new List<InventoryItem> ();
+
 		// TODO: DontDestroyOnLoad(transform.gameObject);
 		// MAIN PROBLEM IS THE FACT THAT THE ITEMS ARE OFFSCREEN FOR THE LEVEL, AND ON LEVEL LOAD, THE OFFSCREEN POSITION CHANGES
 
 		_ready = true;
+
 	}
 
 	public PlayerSaveState SaveState()
@@ -40,11 +43,7 @@ public class PlayerCharacterInventory : MonoBehaviour
 		PlayerSaveState save = new PlayerSaveState ();
 
 		// items
-		List<ItemType> items = new List<ItemType> ();
-		foreach(Item item in Items)
-			items.Add(item.ItemType);
-
-		save.ItemsHeld = items.ToArray ();
+		save.ItemsHeld = Items.ToArray ();
 
 		// weapons
 		List<WeaponType> weapons = new List<WeaponType> ();
@@ -57,8 +56,33 @@ public class PlayerCharacterInventory : MonoBehaviour
 
 		return save;
 	}
+
+	public void AddItem(InventoryItem newItem) {
+		// if item already exists, add quantity
+		foreach (InventoryItem item in Items)
+			if (item.Type == newItem.Type)
+			{
+				item.Quantity += newItem.Quantity;
+				item.Quantity = Mathf.Min (item.MaxQuantity, item.Quantity);
+				Debug.Log ("Update item: " + item.Quantity + " " + item.Name);
+				return;
+
+			}	
+
+		Items.Add (newItem);
+		Debug.Log ("New item: " + newItem.Quantity + " " + newItem.Name);
+
+	}
 	
-	
+	public bool HasWeapon(Weapon w) {
+		foreach (Weapon weaponHeld in Weapons)
+			if (weaponHeld.WeaponType == w.WeaponType)
+					return true;
+
+		return false;
+
+	}
+
 	public Weapon CurrentWeapon
 	{
 		get { return _currentWeapon; }

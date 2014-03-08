@@ -14,7 +14,7 @@ public enum WeaponType
 public class PlayerSaveState
 {
 	public WeaponType[] WeaponsHeld;
-	public ItemType[] ItemsHeld;
+	public InventoryItem[] ItemsHeld;
 	public int CurrentWeapon;
 
 	public PlayerSaveState()
