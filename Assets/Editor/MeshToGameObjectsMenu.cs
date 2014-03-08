@@ -9,7 +9,7 @@ using System.Collections.Generic;
 /// </summary>
 public class MeshToGameObjectsMenu
 {
-	static List<string> objectNames = new List<string>(new string[]{"Ledge", "Ground", "Wall", "Ladder", "Pipe"});
+	static List<string> objectNames = new List<string>(new string[]{"ledge", "box", "ground", "wall", "ladder"});
 	static GameObject playerPrefab;
 	static GameObject ledgePrefab;
 	static GameObject ladderXPrefab;
@@ -29,7 +29,7 @@ public class MeshToGameObjectsMenu
 		for(int i = 0; i < selection.Count ; i++)
 			AddChildren (selected, selection[i]);
 		return selected.Exists(transform => transform.GetComponent<MeshFilter>() 
-			&& objectNames.Exists(objectName => transform.name.Contains(objectName))
+			&& objectNames.Exists(objectName => transform.name.ToLower().Contains(objectName))
 		);
 	}
 	// Helper Method to add all the children to a selection

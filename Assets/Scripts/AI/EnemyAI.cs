@@ -178,9 +178,17 @@ public class EnemyAI : MonoBehaviour
 	// The enemy actively hunts the player down!
 	private void Chase()
 	{
-		// Make sure we have an up-to date, valid path
-		if(!UpdateAStarPath())
-			return;
+		// Use astar while we have a valid path, up until the end
+        bool validPath = UpdateAStarPath();
+
+        if(validPath )
+            AstarNavigateToTarget(1.0f);
+        else
+        {
+            // 
+            Vector3 playerPos = GameManager.Player.transform.position;
+
+        }
 
 		// attack if we're facing the player and are close enough
 		if(_playerAnimator != null)
@@ -196,11 +204,6 @@ public class EnemyAI : MonoBehaviour
 			_animator.CharInput.Attack = shouldAttack ? 1 : 0;
 
         }
-		
-		// Hunt that player down!
-        AstarNavigateToTarget(1.0f);
-
-        // TODO: KEEP MOVING TOWARD THE PLAYER EVEN IF WE ARE AT THE END OF THE PATH
 
 	}
 
