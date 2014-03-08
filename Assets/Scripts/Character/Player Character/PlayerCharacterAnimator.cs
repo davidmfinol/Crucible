@@ -356,11 +356,16 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 			GameObject itemObj = null;
 			bool canPickup = CanPickupItem (out itemObj);
-			if (canPickup && itemObj != null)
+			if (canPickup && itemObj != null) {
+				Debug.Log ("Starting pickup for " + itemObj.name);
 				_itemPickedup = itemObj.GetComponent<Item>();
 
+			}
+
 			MecanimAnimator.SetBool (_pickupHash,  canPickup && _itemPickedup != null);
+		
 		}
+
 	}
 	
 	protected void Running(float elapsedTime)
@@ -733,24 +738,30 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				// Create a new weapon from the item and destroy the item
 				Transform instantiatedWeapon = (Transform) Instantiate(_itemPickedup.WeaponPrefab);
 				Destroy(_itemPickedup.gameObject, 0.5f);
-				
+
 				// Move the weapon offscreen
 				instantiatedWeapon.position = GameManager.Level.OffscreenPosition;
-				
+
 				// Add it to our list of weapons
 				Weapon pickedUpWeapon = instantiatedWeapon.GetComponent<Weapon>();
-				_inventory.Weapons.Add(pickedUpWeapon);
+
+				if(! _inventory.HasWeapon(pickedUpWeapon))
+					_inventory.Weapons.Add(pickedUpWeapon);
 
 				// Auto-equip our items
 				StartCoroutine("AutoEquip");
+
 			}
 			else
 			{
 				// Move the item off screen
 				StartCoroutine("PickUpItem");
-				
-				// Add it to our inventory
-				_inventory.Items.Add(_itemPickedup);
+
+				// generate a new inventory item and add it.
+				InventoryItem newInvItem = InventoryItemFactory.CreateFromType(_itemPickedup.Type, _itemPickedup.Quantity);
+
+				_inventory.AddItem( newInvItem );
+
 			}
 			MecanimAnimator.SetBool(_pickupHash, false);
 		}
