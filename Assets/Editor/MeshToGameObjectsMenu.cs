@@ -9,7 +9,7 @@ using System.Collections.Generic;
 /// </summary>
 public class MeshToGameObjectsMenu
 {
-	static List<string> objectNames = new List<string>(new string[]{"ledge", "box", "ground", "wall", "ladder"});
+	static List<string> objectNames = new List<string>(new string[]{"ledge", "box", "ground", "mesh", "wall", "ladder"});
 	static GameObject playerPrefab;
 	static GameObject ledgePrefab;
 	static GameObject ladderXPrefab;
