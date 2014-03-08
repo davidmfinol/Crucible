@@ -96,8 +96,11 @@ public class MeshToGameObjectsMenu
 		Collider collider = transform.GetComponent<Collider>();
 		if (collider) Object.DestroyImmediate(collider);
 		
-		// We use box colliders
-		collider = transform.gameObject.AddComponent<BoxCollider>();
+		// We use box colliders unless told to use mesh collider
+        if(transform.name.ToLower().Contains("mesh"))
+            collider = transform.gameObject.AddComponent<MeshCollider>();
+        else
+		    collider = transform.gameObject.AddComponent<BoxCollider>();
 
 		// Put it on the ground layer
         transform.gameObject.layer = LayerMask.NameToLayer("Ground");
