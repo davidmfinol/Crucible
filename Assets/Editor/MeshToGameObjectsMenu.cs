@@ -9,7 +9,7 @@ using System.Collections.Generic;
 /// </summary>
 public class MeshToGameObjectsMenu
 {
-	static List<string> objectNames = new List<string>(new string[]{"Ledge", "Ground", "Wall", "Ladder", "Pipe"});
+	static List<string> objectNames = new List<string>(new string[]{"ledge", "box", "ground", "wall", "ladder"});
 	static GameObject playerPrefab;
 	static GameObject ledgePrefab;
 	static GameObject ladderXPrefab;
@@ -29,7 +29,7 @@ public class MeshToGameObjectsMenu
 		for(int i = 0; i < selection.Count ; i++)
 			AddChildren (selected, selection[i]);
 		return selected.Exists(transform => transform.GetComponent<MeshFilter>() 
-			&& objectNames.Exists(objectName => transform.name.Contains(objectName))
+			&& objectNames.Exists(objectName => transform.name.ToLower().Contains(objectName))
 		);
 	}
 	// Helper Method to add all the children to a selection
@@ -96,8 +96,11 @@ public class MeshToGameObjectsMenu
 		Collider collider = transform.GetComponent<Collider>();
 		if (collider) Object.DestroyImmediate(collider);
 		
-		// We use box colliders
-		collider = transform.gameObject.AddComponent<BoxCollider>();
+		// We use box colliders unless told to use mesh collider
+        if(transform.name.ToLower().Contains("mesh"))
+            collider = transform.gameObject.AddComponent<MeshCollider>();
+        else
+		    collider = transform.gameObject.AddComponent<BoxCollider>();
 
 		// Put it on the ground layer
         transform.gameObject.layer = LayerMask.NameToLayer("Ground");

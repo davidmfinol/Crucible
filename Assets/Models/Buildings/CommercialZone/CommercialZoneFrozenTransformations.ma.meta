@@ -461,6 +461,19 @@ ModelImporter:
     100910: MeshLedgeDiagonalRightOnly
     100912: Nothing7
     100914: Nothing8
+    100916: Ledge207
+    100918: LedgeLeftOnly4
+    100920: LedgeLeftOnly5
+    100922: LedgeRightOnly5
+    100924: LedgeRightOnly6
+    100926: WallLedgeRightOnly5
+    100928: Box3
+    100930: Ledge208
+    100932: Ledge209
+    100934: Wall10
+    100936: Wall11
+    100938: LedgeRightOnly7
+    100940: LedgeMesh
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -919,6 +932,19 @@ ModelImporter:
     400910: MeshLedgeDiagonalRightOnly
     400912: Nothing7
     400914: Nothing8
+    400916: Ledge207
+    400918: LedgeLeftOnly4
+    400920: LedgeLeftOnly5
+    400922: LedgeRightOnly5
+    400924: LedgeRightOnly6
+    400926: WallLedgeRightOnly5
+    400928: Box3
+    400930: Ledge208
+    400932: Ledge209
+    400934: Wall10
+    400936: Wall11
+    400938: LedgeRightOnly7
+    400940: LedgeMesh
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1320,6 +1346,19 @@ ModelImporter:
     2300796: MeshLedgeDiagonalRightOnly
     2300798: Nothing7
     2300800: Nothing8
+    2300802: Ledge207
+    2300804: LedgeLeftOnly4
+    2300806: LedgeLeftOnly5
+    2300808: LedgeRightOnly5
+    2300810: LedgeRightOnly6
+    2300812: WallLedgeRightOnly5
+    2300814: Box3
+    2300816: Ledge208
+    2300818: Ledge209
+    2300820: Wall10
+    2300822: Wall11
+    2300824: LedgeRightOnly7
+    2300826: LedgeMesh
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1721,6 +1760,19 @@ ModelImporter:
     3300796: MeshLedgeDiagonalRightOnly
     3300798: Nothing7
     3300800: Nothing8
+    3300802: Ledge207
+    3300804: LedgeLeftOnly4
+    3300806: LedgeLeftOnly5
+    3300808: LedgeRightOnly5
+    3300810: LedgeRightOnly6
+    3300812: WallLedgeRightOnly5
+    3300814: Box3
+    3300816: Ledge208
+    3300818: Ledge209
+    3300820: Wall10
+    3300822: Wall11
+    3300824: LedgeRightOnly7
+    3300826: LedgeMesh
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2122,6 +2174,20 @@ ModelImporter:
     4300796: DiagonalBox
     4300798: Nothing7
     4300800: Nothing8
+    4300802: WallLedgeRightOnly5
+    4300804: LedgeRightOnly6
+    4300806: LedgeLeftOnly5
+    4300808: LedgeLeftOnly4
+    4300810: Ledge207
+    4300812: LedgeRightOnly5
+    4300814: Ledge208
+    4300816: Ledge209
+    4300818: Box3
+    4300820: Wall10
+    4300822: Wall11
+    4300824: LedgeRightOnly7
+    4300826: LedgeMesh
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1

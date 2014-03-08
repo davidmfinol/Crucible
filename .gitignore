@@ -30,3 +30,5 @@ ProjectSettings/EditorBuildSettings*
 screenshot*.png
 game_progress.xml
 level_*.xml
+
+Assets/Models/Items/Materials/FlareTop.mat
