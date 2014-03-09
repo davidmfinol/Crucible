@@ -130,7 +130,7 @@ public class EnemyAI : MonoBehaviour
 		// We should retarget every now and then
 		Vector3 targetPos = GameManager.AI.GetRandomSearchPoint();
 		_timeToRetarget -= Time.fixedDeltaTime; // NOTE: WE USE FIXEDDELATA SINCE WE ASSUME WE RUN IN FIXED UPDATE/ SHOULD PASS IN TIME?
-		if(_timeToRetarget <= 0)
+		if(_target == Vector3.zero || (_timeToRetarget <= 0 && Settings.WanderTargetTime > 0))
 		{
 			_timeToRetarget = Settings.WanderTargetTime;
 			if(!targetPos.Equals(Vector3.zero))
@@ -141,9 +141,12 @@ public class EnemyAI : MonoBehaviour
 		if(_animator.Controller.bounds.Contains(_target) && !targetPos.Equals(Vector3.zero))
 			UpdateAStarTarget(targetPos);
 
-		// Return if we can't get a path
+		// Stop if we can't get a path
 		if(!UpdateAStarPath())
+        {
+            Debug.Log("Unable to use path while wandering!");
 			return;
+        }
 
 		// Go to our location
 		AstarNavigateToTarget (0.2f);
@@ -178,33 +181,25 @@ public class EnemyAI : MonoBehaviour
 	// The enemy actively hunts the player down!
 	private void Chase()
 	{
-		// Use astar while we have a valid path, up until the end
+		// Use astar while we have a valid path, but keep going even when we don't
         bool validPath = UpdateAStarPath();
-
-        if(validPath )
+        if(validPath)
+        {
             AstarNavigateToTarget(1.0f);
+        }
         else
         {
-            // 
             Vector3 playerPos = GameManager.Player.transform.position;
-
+            _animator.CharInput.Horizontal = playerPos.x - transform.position.x;
         }
+        // TODO: SETTINGS.STOPRANGE?
 
-		// attack if we're facing the player and are close enough
-		if(_playerAnimator != null)
-		{
-			bool facingPlayer = _animator.Direction.x > 0 && _animator.transform.position.x < _playerAnimator.transform.position.x;
-			facingPlayer = facingPlayer || _animator.Direction.x < 0 && _animator.transform.position.x > _playerAnimator.transform.position.x;
-
-			// randomly attack
-			bool randomChance = (Random.Range(0.0f, 1.0f) > 0.95f);
-			bool isStunned = _animator.CurrentState.IsName("Base Layer.Stun");
-            bool shouldAttack = facingPlayer && IsPlayerInAttackRange && randomChance && !isStunned && !_animator.IsDead();
-
-			_animator.CharInput.Attack = shouldAttack ? 1 : 0;
-
-        }
-
+        // Determine attack
+		//bool randomChance = (Random.Range(0.0f, 1.0f) > 0.95f);
+		bool isStunned = _animator.CurrentState.IsName("Base Layer.Stun");
+        bool shouldAttack = IsPlayerInAttackRange && !isStunned && !_animator.IsDead(); //&& randomChance;
+		_animator.CharInput.Attack = shouldAttack ? 1 : 0;
+        // TODO: VERTICAL ATTACK
 	}
 
 	public void UpdateAStarTarget(Vector3 target)
@@ -306,11 +301,10 @@ public class EnemyAI : MonoBehaviour
 		// Determine horizontal
         float horizontalDifference = _path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x;
         bool isNodeToRight = horizontalDifference > 0;
-		bool isLastNode = (_currentPathWaypoint >= _path.vectorPath.Count - 1);
+        bool isLastNode = (_currentPathWaypoint >= _path.vectorPath.Count - 1);
 		bool isMidAir = !_animator.IsGrounded;
-        bool isCloseEnoughGround = Mathf.Abs (horizontalDifference) < Settings.StopRange;
-		bool isCloseEnoughAir = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
-        bool shouldStayStill = (isLastNode && isCloseEnoughGround) || (isCloseEnoughAir && isMidAir);
+        bool isCloseEnough =  _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
+        bool shouldStayStill = isCloseEnough && isMidAir;
 
 		if(shouldStayStill)
 			_animator.CharInput.Horizontal = 0;
@@ -319,10 +313,11 @@ public class EnemyAI : MonoBehaviour
 		else
             _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
 		
-		// TODO: Determine vertical
+		// Determine vertical
+        _animator.CharInput.Vertical = _path.vectorPath [_currentPathWaypoint].y - _animator.transform.position.y;
 
         // Determine jump
-		bool isAlreadyGoingUp = _animator.VerticalSpeed > 0;
+        bool isClimbing = _animator.CurrentState.IsName("Climbing.ClimbingLadder") || _animator.CurrentState.IsName("Climbing.ClimbingPipe");
 		bool isNodeAbove = _path.vectorPath [_currentPathWaypoint].y - _animator.transform.position.y > 0;
 		bool isNodeOnOtherPlatform = false;
 		if(_currentPathWaypoint < _path.path.Count)
@@ -330,12 +325,12 @@ public class EnemyAI : MonoBehaviour
 			ZoneNode currentNode = (ZoneNode) _path.path [_currentPathWaypoint - 1]; // we index off one since the first is the position of the enemy
 			isNodeOnOtherPlatform = currentNode.GO != ((ZoneNode)_path.path[_currentPathWaypoint]).GO;
 		}
-        bool shouldJump = !isMidAir && !isAlreadyGoingUp && !isLastNode && (isNodeAbove || isNodeOnOtherPlatform);
+        bool shouldJump = (!isMidAir || isClimbing) && !isLastNode && (isNodeAbove || isNodeOnOtherPlatform);
 		bool jump = shouldJump && EnemyAISettings.CanJump (transform.position, _path.vectorPath [_currentPathWaypoint]);
 
 		if(jump)
 		{
-			if(isCloseEnoughGround)
+            if(isCloseEnough)
 				_animator.CharInput.Jump = Vector2.up;
 			else if (isNodeToRight)
 				_animator.CharInput.Jump = new Vector2(1, 1);
@@ -461,8 +456,7 @@ public class EnemyAI : MonoBehaviour
         {
             if (_playerAnimator != null)
                 return (Mathf.Abs(transform.position.x - _playerAnimator.transform.position.x) < _settings.AttackRange)
-                    && (Mathf.Abs(transform.position.y - _playerAnimator.transform.position.y) < _settings.AttackRange)
-                    && _animator.DesiredZ == _playerAnimator.DesiredZ;
+                    && (Mathf.Abs(transform.position.y - _playerAnimator.transform.position.y) < _settings.AttackRange);
             return false;
         }
     }

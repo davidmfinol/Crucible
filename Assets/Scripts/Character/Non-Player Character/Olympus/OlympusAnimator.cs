@@ -20,7 +20,7 @@ public class OlympusAnimator : CharacterAnimator
 	private int _hangHash;
 	private int _climbLadderHash;
 	private int _isGroundedHash;
-	private int _meleeAttackHash;
+	private int _attackHorizontalHash;
 	private int _climbLedgeHash;
 	private int _climbPipeHash;
 	private int _stunHash;
@@ -58,7 +58,7 @@ public class OlympusAnimator : CharacterAnimator
 		_hangHash = Animator.StringToHash("Hang");
 		_climbLadderHash = Animator.StringToHash("ClimbLadder");
 		_isGroundedHash = Animator.StringToHash("IsGrounded");
-		_meleeAttackHash = Animator.StringToHash("AttackMelee");
+		_attackHorizontalHash = Animator.StringToHash("AttackHorizontal");
 		_climbLedgeHash = Animator.StringToHash("ClimbLedge");
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_stunHash = Animator.StringToHash("Stun");
@@ -67,30 +67,32 @@ public class OlympusAnimator : CharacterAnimator
 	}
 	
 	protected override void UpdateMecanimVariables()
-	{
-		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpActive)
-			MecanimAnimator.SetBool(_jumpHash, true);
-
-		bool facingRightLadder = (ActiveHangTarget && ActiveHangTarget.transform.position.x - transform.position.x > 0.0f);
-		bool facingLeftLadder = (ActiveHangTarget && transform.position.x - ActiveHangTarget.transform.position.x > 0.0f);
+    {
+        if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpPressed)
+            MecanimAnimator.SetBool(_jumpHash, true);
+        
+        bool facingRightLadder = (ActiveHangTarget && ActiveHangTarget.transform.position.x - transform.position.x > 0.0f);
+        bool facingLeftLadder = (ActiveHangTarget && transform.position.x - ActiveHangTarget.transform.position.x > 0.0f);
+        
+        bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
+                                                   (facingLeftLadder && CharInput.Left));
+        bool startClimbPipe = CanClimbPipe;
+        
+        MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
+        
+        /*
+        if(startClimbLadder)
+            _autoClimbDir = AutoClimbDirection.AutoClimb_Up;
+        // if not in a climb, reset our auto-climb direction for use next climb.
+        if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
+            _autoClimbDir = AutoClimbDirection.AutoClimb_None;
+        */
+        
+        MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
+        
+        MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		
-		bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
-		                                           (facingLeftLadder && CharInput.Left));
-		bool startClimbPipe = CanClimbPipe && CharInput.Interaction;
-		
-		MecanimAnimator.SetBool(_climbLadderHash,  startClimbLadder);
-
-		/*
-		if(startClimbLadder)
-			_autoClimbDir = AutoClimbDirection.AutoClimb_Up;
-		*/
-		
-		MecanimAnimator.SetBool(_climbPipeHash,  startClimbPipe);
-
-
-		MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
-		
-		MecanimAnimator.SetBool(_meleeAttackHash, CharInput.AttackActive);
+		MecanimAnimator.SetBool(_attackHorizontalHash, CharInput.AttackActive);
 
 	}
 
@@ -157,7 +159,7 @@ public class OlympusAnimator : CharacterAnimator
 	protected void Jumping(float elapsedTime)
 	{
 		if(Mathf.Abs(CharInput.Horizontal) > 0.1)
-			ApplyRunning(elapsedTime/2.0f);
+			ApplyRunning(elapsedTime);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
@@ -178,7 +180,7 @@ public class OlympusAnimator : CharacterAnimator
 		else
 			ApplyGravity(elapsedTime);
 		
-		//ApplyBiDirection();
+		ApplyBiDirection();
 		
 		if(transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool(_fallHash, false);
@@ -191,7 +193,7 @@ public class OlympusAnimator : CharacterAnimator
 	protected void Falling(float elapsedTime)
 	{
 		if(CharInput.Right || CharInput.Left) // maintain horizontal momentum, but slow down if does input
-			ApplyRunning(elapsedTime / 2.0f);
+			ApplyRunning(elapsedTime);
 		ApplyGravity(elapsedTime);
 		
 		MecanimAnimator.SetBool(_fallHash, false);
@@ -270,7 +272,7 @@ public class OlympusAnimator : CharacterAnimator
 		
 		if(_ledge == null)
 		{
-			Debug.LogWarning("Player Character's Ledge Not Found!");
+			Debug.LogWarning("Olympus's Ledge Not Found!");
 			MecanimAnimator.SetBool(_fallHash, true);
 			return;
 		}

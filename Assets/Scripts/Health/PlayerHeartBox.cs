@@ -26,6 +26,7 @@ public class PlayerHeartBox : HeartBox
 
 	void FixedUpdate()
 	{
+        // FIXME: SLOW
 		if (Controller.CurrentState.IsName("Base Layer.Waiting For Respawn") && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed) )
 			GameManager.SpawnPlayer ();
 	}
@@ -43,6 +44,7 @@ public class PlayerHeartBox : HeartBox
 				dirToPlayer.x = 1;
 
 			Vector2 knockForce = new Vector2(LastHit.KnockBackAmount * dirToPlayer.x, LastHit.KnockUpAmount);
+            // TODO: ALLOW KNOCKFOURCE TO BE PASSED IN, INSTEAD OF CALCLULATED. I.E.: OLYMPUS HITS YOU WITH KNOCKFORCE BASED OFF HIS DIRECTION
 
 			// fly in direction of hit
 			//Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);

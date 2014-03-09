@@ -39,10 +39,9 @@ public abstract class HeartBox : MonoBehaviour
 			_lastHit = attackData;
 		
 	}
-	public virtual void UpdateHealth(float elapsedTime)
-	{
-		// Child classes should override
-	}
+
+    // Child classes must override updatehealth
+    public abstract void UpdateHealth(float elapsedTime);
 
 
 	public CharacterAnimator Controller
