@@ -483,6 +483,24 @@ ModelImporter:
     100954: Mesh
     100956: Mesh1
     100958: Mesh2
+    100960: WallLedgeRightOnly6
+    100962: LeftOnlyLedge1
+    100964: WallLedge169
+    100966: LedgeMesh1
+    100968: Ledge210
+    100970: WallLedge170
+    100972: WallLedge171
+    100974: Ledge211
+    100976: WallLedgeLeftOnly4
+    100978: WallLedgeMesh
+    100980: WallLedge172
+    100982: Mesh3
+    100984: Mesh4
+    100986: LedgeLeftOnly6
+    100988: Nada3
+    100990: Nada4
+    100992: Nada5
+    100994: WallLedge173
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -963,6 +981,24 @@ ModelImporter:
     400954: Mesh
     400956: Mesh1
     400958: Mesh2
+    400960: WallLedgeRightOnly6
+    400962: LeftOnlyLedge1
+    400964: WallLedge169
+    400966: LedgeMesh1
+    400968: Ledge210
+    400970: WallLedge170
+    400972: WallLedge171
+    400974: Ledge211
+    400976: WallLedgeLeftOnly4
+    400978: WallLedgeMesh
+    400980: WallLedge172
+    400982: Mesh3
+    400984: Mesh4
+    400986: LedgeLeftOnly6
+    400988: Nada3
+    400990: Nada4
+    400992: Nada5
+    400994: WallLedge173
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1386,6 +1422,24 @@ ModelImporter:
     2300840: Mesh
     2300842: Mesh1
     2300844: Mesh2
+    2300846: WallLedgeRightOnly6
+    2300848: LeftOnlyLedge1
+    2300850: WallLedge169
+    2300852: LedgeMesh1
+    2300854: Ledge210
+    2300856: WallLedge170
+    2300858: WallLedge171
+    2300860: Ledge211
+    2300862: WallLedgeLeftOnly4
+    2300864: WallLedgeMesh
+    2300866: WallLedge172
+    2300868: Mesh3
+    2300870: Mesh4
+    2300872: LedgeLeftOnly6
+    2300874: Nada3
+    2300876: Nada4
+    2300878: Nada5
+    2300880: WallLedge173
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1809,6 +1863,24 @@ ModelImporter:
     3300840: Mesh
     3300842: Mesh1
     3300844: Mesh2
+    3300846: WallLedgeRightOnly6
+    3300848: LeftOnlyLedge1
+    3300850: WallLedge169
+    3300852: LedgeMesh1
+    3300854: Ledge210
+    3300856: WallLedge170
+    3300858: WallLedge171
+    3300860: Ledge211
+    3300862: WallLedgeLeftOnly4
+    3300864: WallLedgeMesh
+    3300866: WallLedge172
+    3300868: Mesh3
+    3300870: Mesh4
+    3300872: LedgeLeftOnly6
+    3300874: Nada3
+    3300876: Nada4
+    3300878: Nada5
+    3300880: WallLedge173
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2232,6 +2304,24 @@ ModelImporter:
     4300840: Box6
     4300842: Mesh1
     4300844: Mesh2
+    4300846: WallLedgeRightOnly6
+    4300848: LeftOnlyLedge1
+    4300850: WallLedge169
+    4300852: LedgeMesh1
+    4300854: WallLedge170
+    4300856: WallLedge171
+    4300858: Ledge210
+    4300860: Ledge211
+    4300862: WallLedgeLeftOnly4
+    4300864: WallLedgeMesh
+    4300866: WallLedge172
+    4300868: Mesh4
+    4300870: Mesh3
+    4300872: LedgeLeftOnly6
+    4300874: Nada4
+    4300876: Nada5
+    4300878: Nada3
+    4300880: WallLedge173
     7400000: Take 001
     9500000: //RootNode
   materials:
