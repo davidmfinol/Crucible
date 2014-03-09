@@ -41,17 +41,20 @@ public static class InventoryItemFactory {
 		} else if(t == Item.ItemType.Item_Engine) {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Engine";
-			newItem.Caption = "EngineIcon";
+			newItem.Caption = "Powers various moving devices.";
+			newItem.TexturePath = "EngineIcon";
 
 		} else if(t == Item.ItemType.Item_Fuel) {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Fuel";
-			newItem.Caption = "FuelIcon";
+			newItem.Caption = "Fuel for various devices";
+			newItem.TexturePath = "FuelIcon";
 
 		} else if(t == Item.ItemType.Item_Propellant) {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Propellant";
-			newItem.Caption = "PropellantIcon";
+			newItem.Caption = "Used to propel devices";
+			newItem.TexturePath = "PropellantIcon";
 
 		} else {
 			Debug.Log ("ItemFactory: invalid item type " + t);

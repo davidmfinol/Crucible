@@ -14,6 +14,7 @@ public class Checkpoint : MonoBehaviour
 		Checkpoint_CentralOCourse,
 		Checkpoint_RightOCourse,
 		Checkpoint_OCourseToAnvilPark,
+		Checkpoint_OcourseStart,
 		Checkpoint_UpperAnvilPark,
 		Checkpoint_LowerAnvilPark
 	

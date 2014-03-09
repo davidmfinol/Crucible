@@ -159,7 +159,7 @@ public class OlympusAnimator : CharacterAnimator
 	protected void Jumping(float elapsedTime)
 	{
 		if(Mathf.Abs(CharInput.Horizontal) > 0.1)
-			ApplyRunning(elapsedTime/2.0f);
+			ApplyRunning(elapsedTime);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
@@ -180,7 +180,7 @@ public class OlympusAnimator : CharacterAnimator
 		else
 			ApplyGravity(elapsedTime);
 		
-		//ApplyBiDirection();
+		ApplyBiDirection();
 		
 		if(transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool(_fallHash, false);
@@ -193,7 +193,7 @@ public class OlympusAnimator : CharacterAnimator
 	protected void Falling(float elapsedTime)
 	{
 		if(CharInput.Right || CharInput.Left) // maintain horizontal momentum, but slow down if does input
-			ApplyRunning(elapsedTime / 2.0f);
+			ApplyRunning(elapsedTime);
 		ApplyGravity(elapsedTime);
 		
 		MecanimAnimator.SetBool(_fallHash, false);

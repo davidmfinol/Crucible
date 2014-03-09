@@ -317,7 +317,7 @@ public class EnemyAI : MonoBehaviour
         _animator.CharInput.Vertical = _path.vectorPath [_currentPathWaypoint].y - _animator.transform.position.y;
 
         // Determine jump
-		bool isAlreadyGoingUp = _animator.VerticalSpeed > 0;
+        bool isClimbing = _animator.CurrentState.IsName("Climbing.ClimbingLadder") || _animator.CurrentState.IsName("Climbing.ClimbingPipe");
 		bool isNodeAbove = _path.vectorPath [_currentPathWaypoint].y - _animator.transform.position.y > 0;
 		bool isNodeOnOtherPlatform = false;
 		if(_currentPathWaypoint < _path.path.Count)
@@ -325,7 +325,7 @@ public class EnemyAI : MonoBehaviour
 			ZoneNode currentNode = (ZoneNode) _path.path [_currentPathWaypoint - 1]; // we index off one since the first is the position of the enemy
 			isNodeOnOtherPlatform = currentNode.GO != ((ZoneNode)_path.path[_currentPathWaypoint]).GO;
 		}
-        bool shouldJump = !isMidAir && !isAlreadyGoingUp && !isLastNode && (isNodeAbove || isNodeOnOtherPlatform);
+        bool shouldJump = (!isMidAir || isClimbing) && !isLastNode && (isNodeAbove || isNodeOnOtherPlatform);
 		bool jump = shouldJump && EnemyAISettings.CanJump (transform.position, _path.vectorPath [_currentPathWaypoint]);
 
 		if(jump)
