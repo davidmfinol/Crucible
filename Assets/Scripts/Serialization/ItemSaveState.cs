@@ -8,4 +8,5 @@ public class ItemSaveState
     public int Quantity;
     public Vector3 Position;
 	public Quaternion Rotation;
+
 }

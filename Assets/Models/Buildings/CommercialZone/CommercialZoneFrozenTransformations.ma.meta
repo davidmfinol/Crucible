@@ -474,6 +474,7 @@ ModelImporter:
     100936: Wall11
     100938: LedgeRightOnly7
     100940: LedgeMesh
+    100942: LedgeRightOnly8
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -945,6 +946,7 @@ ModelImporter:
     400936: Wall11
     400938: LedgeRightOnly7
     400940: LedgeMesh
+    400942: LedgeRightOnly8
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1359,6 +1361,7 @@ ModelImporter:
     2300822: Wall11
     2300824: LedgeRightOnly7
     2300826: LedgeMesh
+    2300828: LedgeRightOnly8
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1773,6 +1776,7 @@ ModelImporter:
     3300822: Wall11
     3300824: LedgeRightOnly7
     3300826: LedgeMesh
+    3300828: LedgeRightOnly8
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2187,6 +2191,7 @@ ModelImporter:
     4300822: Wall11
     4300824: LedgeRightOnly7
     4300826: LedgeMesh
+    4300828: LedgeRightOnly8
     7400000: Take 001
     9500000: //RootNode
   materials:
