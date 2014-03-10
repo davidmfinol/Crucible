@@ -252,22 +252,14 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
         Vector3 rotationPoint = waypointBounds.center;
         Vector3 rotationAngle = RotatePointAroundPivot(waypointGO.transform.localRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
-        if(waypointGO.name.Equals("DiagonalTestOriginalLedge"))
-        {
-            Debug.Log(waypoint);
-            Debug.Log(rotationPoint);
-            Debug.Log(rotationAngle);
-        }
 		
 		for(float x = left; x < right; x += WaypointSubdivisionSize)
         {
-            Vector3 originalPoint = new Vector3(x, top + 1, z);
-            Vector3 newPoint = RotatePointAroundPivot(originalPoint, rotationPoint, rotationAngle);
-            if(waypointGO.name.Equals("DiagonalTestOriginalLedge"))
-                Debug.Log(originalPoint + " " + newPoint);
-            aboveWaypoints.Add(newPoint);
+            Vector3 abovePoint = new Vector3(x, top + waypointGO.transform.lossyScale.y, z);
+            Vector3 rotatedPoint = RotatePointAroundPivot(abovePoint, rotationPoint, rotationAngle);
+            aboveWaypoints.Add(rotatedPoint);
         }
-        aboveWaypoints.Add(RotatePointAroundPivot(new Vector3(right, top + 1, z), rotationPoint, rotationAngle));
+        aboveWaypoints.Add(RotatePointAroundPivot(new Vector3(right, top + waypointGO.transform.lossyScale.y, z), rotationPoint, rotationAngle));
 		
 		return aboveWaypoints;
     }

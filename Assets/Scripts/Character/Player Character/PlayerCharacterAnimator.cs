@@ -36,6 +36,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _respawnHash;
 	private int _damagedHash;
 	private int _pickupHash;
+    private int _doublejumpHash;
 
 	//The player's sound effects, yeah!
 	private PlayerCharacterAudioPlayer _sound;
@@ -74,7 +75,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Ground.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Ground.Pickup")] = Pickup;
 		StateMachine[Animator.StringToHash("Ground.Stealth Kill")] = StealthKill;
-		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
+        StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
+        StateMachine[Animator.StringToHash("Air.Doublejumping")] = Doublejumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
 		StateMachine[Animator.StringToHash("Air.Backflip")] = Backflip;
@@ -110,6 +112,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_respawnHash = Animator.StringToHash("Respawn");
 		_damagedHash = Animator.StringToHash("Damaged");
 		_pickupHash = Animator.StringToHash("Pickup");
+        _doublejumpHash = Animator.StringToHash("Doublejump");
 	}
 	protected override List<int> DefineRootMotionCorrectionState() // TODO: ERADICATE THIS METHOD
 	{
@@ -446,6 +449,42 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
 	}
+
+    protected void Doublejumping(float elapsedTime)
+    {
+        if(Mathf.Abs(CharInput.Horizontal) > 0.1)
+            ApplyRunning(elapsedTime/2.0f);
+        
+        if(MecanimAnimator.GetBool(_doublejumpHash))
+        {
+            if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
+            {
+                Direction = Vector3.left;
+                HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
+            }
+            else if(CharInput.JumpRight || CharInput.JumpRightReleased)
+            {
+                Direction = Vector3.right;
+                HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
+            }
+            
+            VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
+            MecanimAnimator.SetBool(_doublejumpHash, false);
+        }
+        else
+            ApplyGravity(elapsedTime);
+        
+        //ApplyBiDirection();
+        
+        if(transform.position.y >= LastGroundHeight - 1)
+            MecanimAnimator.SetBool(_fallHash, false);
+        
+        MecanimAnimator.SetBool(_grabWallHash, CanGrabWall);
+        
+        MecanimAnimator.SetBool(_hangHash, 
+                                (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+                                || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+    }
 	
 	protected void Backflip(float elapsedTime)
 	{

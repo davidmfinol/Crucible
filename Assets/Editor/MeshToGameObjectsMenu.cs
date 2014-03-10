@@ -105,8 +105,10 @@ public class MeshToGameObjectsMenu
 		// Put it on the ground layer
         transform.gameObject.layer = LayerMask.NameToLayer("Ground");
 
-        // Mark it as waypoint for the AI system
-		transform.tag = "Waypoint";
+        // Mark it as waypoint for the AI system, unless told not to
+        if(!transform.name.ToLower().Contains("waypointless"))
+		    transform.tag = "Waypoint";
+
 		// Get rid of any child objects that may exist
 		DestroyChildren(transform);
 	}
