@@ -506,6 +506,21 @@ ModelImporter:
     101000: DiagonalTestOriginal
     101002: DiagonalTestScaled
     101004: DiagonalTestScaledThenRotated
+    101006: DiagonalLedge190
+    101008: DiagonalLedge191
+    101010: DiagonalLedge192
+    101012: DiagonalLedge193
+    101014: DiagonalLedge194
+    101016: DiagonalLedge195
+    101018: Box7
+    101020: DiagonalLedgeLeftOnly
+    101022: DiagonalLedgeRightOnly
+    101024: DiagonalLedgeRightOnly1
+    101026: DiagonalLedgeRightOnly2
+    101028: LedgeRightOnly10
+    101030: LedgeLeftOnly7
+    101032: LedgeRightOnly11
+    101034: DiagonalLedgeRightOnly3
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -1009,6 +1024,21 @@ ModelImporter:
     401000: DiagonalTestOriginal
     401002: DiagonalTestScaled
     401004: DiagonalTestScaledThenRotated
+    401006: DiagonalLedge190
+    401008: DiagonalLedge191
+    401010: DiagonalLedge192
+    401012: DiagonalLedge193
+    401014: DiagonalLedge194
+    401016: DiagonalLedge195
+    401018: Box7
+    401020: DiagonalLedgeLeftOnly
+    401022: DiagonalLedgeRightOnly
+    401024: DiagonalLedgeRightOnly1
+    401026: DiagonalLedgeRightOnly2
+    401028: LedgeRightOnly10
+    401030: LedgeLeftOnly7
+    401032: LedgeRightOnly11
+    401034: DiagonalLedgeRightOnly3
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1455,6 +1485,21 @@ ModelImporter:
     2300886: DiagonalTestOriginal
     2300888: DiagonalTestScaled
     2300890: DiagonalTestScaledThenRotated
+    2300892: DiagonalLedge190
+    2300894: DiagonalLedge191
+    2300896: DiagonalLedge192
+    2300898: DiagonalLedge193
+    2300900: DiagonalLedge194
+    2300902: DiagonalLedge195
+    2300904: Box7
+    2300906: DiagonalLedgeLeftOnly
+    2300908: DiagonalLedgeRightOnly
+    2300910: DiagonalLedgeRightOnly1
+    2300912: DiagonalLedgeRightOnly2
+    2300914: LedgeRightOnly10
+    2300916: LedgeLeftOnly7
+    2300918: LedgeRightOnly11
+    2300920: DiagonalLedgeRightOnly3
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1901,6 +1946,21 @@ ModelImporter:
     3300886: DiagonalTestOriginal
     3300888: DiagonalTestScaled
     3300890: DiagonalTestScaledThenRotated
+    3300892: DiagonalLedge190
+    3300894: DiagonalLedge191
+    3300896: DiagonalLedge192
+    3300898: DiagonalLedge193
+    3300900: DiagonalLedge194
+    3300902: DiagonalLedge195
+    3300904: Box7
+    3300906: DiagonalLedgeLeftOnly
+    3300908: DiagonalLedgeRightOnly
+    3300910: DiagonalLedgeRightOnly1
+    3300912: DiagonalLedgeRightOnly2
+    3300914: LedgeRightOnly10
+    3300916: LedgeLeftOnly7
+    3300918: LedgeRightOnly11
+    3300920: DiagonalLedgeRightOnly3
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2347,6 +2407,21 @@ ModelImporter:
     4300886: DiagonalTestFreezeTransformations
     4300888: DiagonalTestScaled
     4300890: DiagonalTestScaledThenRotated
+    4300892: DiagonalLedge190
+    4300894: DiagonalLedge191
+    4300896: DiagonalLedge192
+    4300898: DiagonalLedge193
+    4300900: DiagonalLedge194
+    4300902: DiagonalLedge195
+    4300904: LedgeRightOnly10
+    4300906: Box7
+    4300908: DiagonalLedgeRightOnly2
+    4300910: DiagonalLedgeRightOnly1
+    4300912: DiagonalLedgeRightOnly
+    4300914: DiagonalLedgeLeftOnly
+    4300916: LedgeLeftOnly7
+    4300918: LedgeRightOnly11
+    4300920: DiagonalLedgeRightOnly3
     7400000: Take 001
     9500000: //RootNode
   materials:
