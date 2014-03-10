@@ -501,6 +501,11 @@ ModelImporter:
     100990: Nada4
     100992: Nada5
     100994: WallLedge173
+    100996: DiagonalTestDuplicated
+    100998: DiagonalTestFreezeTransformations
+    101000: DiagonalTestOriginal
+    101002: DiagonalTestScaled
+    101004: DiagonalTestScaledThenRotated
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -999,6 +1004,11 @@ ModelImporter:
     400990: Nada4
     400992: Nada5
     400994: WallLedge173
+    400996: DiagonalTestDuplicated
+    400998: DiagonalTestFreezeTransformations
+    401000: DiagonalTestOriginal
+    401002: DiagonalTestScaled
+    401004: DiagonalTestScaledThenRotated
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1440,6 +1450,11 @@ ModelImporter:
     2300876: Nada4
     2300878: Nada5
     2300880: WallLedge173
+    2300882: DiagonalTestDuplicated
+    2300884: DiagonalTestFreezeTransformations
+    2300886: DiagonalTestOriginal
+    2300888: DiagonalTestScaled
+    2300890: DiagonalTestScaledThenRotated
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1881,6 +1896,11 @@ ModelImporter:
     3300876: Nada4
     3300878: Nada5
     3300880: WallLedge173
+    3300882: DiagonalTestDuplicated
+    3300884: DiagonalTestFreezeTransformations
+    3300886: DiagonalTestOriginal
+    3300888: DiagonalTestScaled
+    3300890: DiagonalTestScaledThenRotated
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2322,6 +2342,11 @@ ModelImporter:
     4300876: Nada5
     4300878: Nada3
     4300880: WallLedge173
+    4300882: DiagonalTestOriginal
+    4300884: DiagonalTestDuplicated
+    4300886: DiagonalTestFreezeTransformations
+    4300888: DiagonalTestScaled
+    4300890: DiagonalTestScaledThenRotated
     7400000: Take 001
     9500000: //RootNode
   materials:
