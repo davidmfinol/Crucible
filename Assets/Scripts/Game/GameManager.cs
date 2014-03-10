@@ -196,6 +196,7 @@ public class GameManager : MonoBehaviour
 	
 		if (inventory != null) {
 			inventory.Weapons.Clear ();
+			inventory.Items.Clear ();
 			GameManager.UI.UpdateWeaponImage();
 		}
 
@@ -207,8 +208,9 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No game save data!");
 			inventory.SpawnPoint = _currentLevel.StartPoint;
             return;
+
 		}
-		
+
 		// TODO: MAKE THIS MORE GENERIC
 		foreach(WeaponType weaponType in gameSave.PlayerState.WeaponsHeld) {
 			GameObject newWeapon;
