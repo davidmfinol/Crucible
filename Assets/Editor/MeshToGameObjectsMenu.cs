@@ -138,6 +138,7 @@ public class MeshToGameObjectsMenu
 
 			// Actually put it there and set it up
 			GameObject leftLedge = GameObject.Instantiate(ledgePrefab, leftLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
+            leftLedge.name = "Left Ledge";
 			leftLedge.GetComponent<Ledge> ().Left = true;
 			leftLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower().Contains ("obstacle"));
 			BoxCollider col = leftLedge.GetComponent<BoxCollider> ();
@@ -155,7 +156,8 @@ public class MeshToGameObjectsMenu
 			
 			// Actually put it there and set it up
 			GameObject rightLedge = GameObject.Instantiate(ledgePrefab, rightLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
-			rightLedge.GetComponent<Ledge> ().Left = false;
+            rightLedge.name = "Right Ledge";
+            rightLedge.GetComponent<Ledge> ().Left = false;
 			rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower().Contains ("obstacle"));
 			BoxCollider col = rightLedge.GetComponent<BoxCollider> ();
 			col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100);

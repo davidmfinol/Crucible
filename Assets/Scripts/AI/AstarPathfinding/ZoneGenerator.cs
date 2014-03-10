@@ -91,23 +91,17 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         Dictionary<Vector3, GameObject> ZoneWaypoints = new Dictionary<Vector3, GameObject>();
         foreach (GameObject waypointGO in waypointGOs)
         {
-            // Get the way point and its bounds
-            Vector3 waypoint = waypointGO.transform.position;
-            Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
-            if (waypointGO.collider != null)
-                waypointBounds = waypointGO.collider.bounds;
-
             // If the waypoint is on the ground, use the points above it
             if ((CollisionMask.value & 1 << waypointGO.layer) != 0)
             {
-                HashSet<Vector3> waypointsAbove = getWaypointsAbove(waypointBounds);
+                HashSet<Vector3> waypointsAbove = getWaypointsAbove(waypointGO);
                 foreach (Vector3 aboveWaypoint in waypointsAbove)
                     if(!ZoneWaypoints.ContainsKey(aboveWaypoint))
                       ZoneWaypoints.Add(aboveWaypoint, waypointGO);
             }
             else // else, just subdivide it and use those points 
             {
-                HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(waypointBounds);
+                HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(waypointGO);
                 foreach (Vector3 subWaypoint in subdividedWaypoints)
                     if(!ZoneWaypoints.ContainsKey(subWaypoint))
                        ZoneWaypoints.Add(subWaypoint, waypointGO);
@@ -121,7 +115,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         {
             Bounds transitionZoneBounds = transitionZoneGO.collider.bounds;
             TransitionZonesWithWaypoints.Add(transitionZoneBounds, new HashSet<ZoneNode>());
-            HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(transitionZoneBounds);
+            HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(transitionZoneGO);
             foreach (Vector3 subWaypoint in subdividedWaypoints)
                 if(!TransitionWaypoints.ContainsKey(subWaypoint))
                    TransitionWaypoints.Add(subWaypoint, transitionZoneGO);
@@ -150,11 +144,21 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         int nodeNum = 0;
         foreach (KeyValuePair<Vector3, GameObject> waypointKV in ZoneWaypoints)
         {
+            ZoneNode node = (ZoneNode)nodes[nodeNum];
 			Vector3 waypoint = new Vector3(waypointKV.Key.x, waypointKV.Key.y, waypointKV.Value.transform.position.z);
-            nodes[nodeNum].position = (Int3)waypoint;
-            ((ZoneNode)nodes[nodeNum]).GO = waypointKV.Value;
-            ((ZoneNode)nodes[nodeNum]).isTransition = false;
-            ((ZoneNode)nodes[nodeNum]).isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
+            node.position = (Int3)waypoint;
+            node.GO = waypointKV.Value;
+            node.isTransition = false;
+            node.isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
+            Collider goCollider = waypointKV.Value.collider;
+            if(waypointKV.Value.name.ToLower().Contains("ledge") && goCollider != null)
+            {
+                Bounds goBounds = goCollider.bounds;
+                if(waypoint.x == goBounds.min.x)
+                    node.isLeftLedge = true;
+                if(waypoint.x == goBounds.max.x)
+                    node.isRightLedge = true;
+            }
             nodeNum++;
         }
         foreach (KeyValuePair<Vector3, GameObject> waypointKV in TransitionWaypoints)
@@ -188,14 +192,15 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                     TransitionZonesWithWaypoints[transitionZoneBounds].Add(node);
         }
     }
-	
-	/// <summary>
-    /// Takes the bounds of a waypoint and subdivides it into a set of waypoints.
-	/// </summary>
-    /// <param name="waypointBounds">The bounds of an object marked as waypoint.</param>
-	/// <returns>The points inside the bounds.</returns>
-    public HashSet<Vector3> subdivideWaypoint(Bounds waypointBounds)
-	{
+
+    public HashSet<Vector3> subdivideWaypoint(GameObject waypointGO)
+    {
+        // Get the way point and its bounds
+        Vector3 waypoint = waypointGO.transform.position;
+        Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
+        if (waypointGO.collider != null)
+            waypointBounds = waypointGO.collider.bounds;
+
         HashSet<Vector3> subdividedWaypoints = new HashSet<Vector3>();
         subdividedWaypoints.Add(waypointBounds.center);
         if (waypointBounds.size == Vector3.zero)
@@ -219,14 +224,15 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 		
 		return subdividedWaypoints;
 	}
-	
-	/// <summary>
-    /// Takes the bounds of a waypoint and returns points directly above it.
-	/// </summary>
-	/// <param name="waypointBounds">The bounds of an object marked as waypoint.</param>
-	/// <returns>The points above the bounds.</returns>
-	public HashSet<Vector3> getWaypointsAbove(Bounds waypointBounds)
-	{
+
+    public HashSet<Vector3> getWaypointsAbove(GameObject waypointGO)
+    {
+        // Get the way point and its bounds
+        Vector3 waypoint = waypointGO.transform.position;
+        Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
+        if (waypointGO.collider != null)
+            waypointBounds = waypointGO.collider.bounds;
+
         HashSet<Vector3> aboveWaypoints = new HashSet<Vector3>();
 
         float z = waypointBounds.center.z;

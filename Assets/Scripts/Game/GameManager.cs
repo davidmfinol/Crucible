@@ -244,7 +244,8 @@ public class GameManager : MonoBehaviour
 			if(checkpoint != null && checkpoint.Location == gameSave.Checkpoint)
 			{
 				GameManager.Player.transform.position = checkpoint.transform.position;
-				inventory.SpawnPoint = checkpoint.transform;
+                if(inventory != null)
+			    	inventory.SpawnPoint = checkpoint.transform;
 				checkpointFound = true;
 				break;
 			}

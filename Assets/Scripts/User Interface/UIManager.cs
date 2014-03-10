@@ -95,7 +95,7 @@ public class UIManager : MonoBehaviour
 
 	public void UpdateWeaponImage()
 	{
-		if(_inventory.Weapons.Count <= 0)
+		if(_inventory == null || _inventory.Weapons.Count <= 0)
 			return;
 
 		// Make sure the player has equipped the weapon whose image we are going to show

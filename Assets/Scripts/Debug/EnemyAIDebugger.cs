@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// It also works with the CharacterAnimator Debugger by showing the information right below that debugger's location.
 /// </summary>
 [RequireComponent(typeof(EnemyAI))]
-[AddComponentMenu("Debug/Enemy AI")]
+[AddComponentMenu("Debug/Enemy AI Debugger")]
 public class EnemyAIDebugger : MonoBehaviour
 {
 	public bool Hide = true;

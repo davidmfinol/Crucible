@@ -396,7 +396,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if(MecanimAnimator.GetBool(_climbLedgeHash))
 		{
 			MecanimAnimator.SetBool(_climbLedgeHash, false);
-			Bounds ledgeBounds = ActiveHangTarget.collider.bounds;
+			Bounds ledgeBounds = ActiveHangTarget.collider.bounds; //TODO: ENSURE THIS IS NEVER NULL
 			float distanceToClimb = ledgeBounds.max.y - Controller.bounds.min.y;
 			float distanceToMove = Direction.x > 0 ?
 				ledgeBounds.max.x - Controller.bounds.center.x :
@@ -598,6 +598,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		else if (ActiveHangTarget is Ledge && (CharInput.Up || InputMoveForward))	
 		{
+            _ledge = ActiveHangTarget as Ledge;
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}
 		else if(CharInput.JumpPressed)
@@ -614,9 +615,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void ClimbingLedge(float elapsedTime)
 	{
-		if(ActiveHangTarget != null && ActiveHangTarget is Ledge)
-			_ledge = ActiveHangTarget as Ledge;
-
         if(_ledge == null)
         {
             Debug.LogWarning("Player Character's Ledge Not Found!");
