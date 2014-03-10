@@ -193,6 +193,11 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         }
     }
 
+    /// <summary>
+    /// Subdivides the waypoint gameobject into a bunch smaller waypoints.
+    /// </summary>
+    /// <returns>A list of all the waypoints in that gameobject.</returns>
+    /// <param name="waypointGO">Waypoint Gameobject to be subdivided.</param>
     public HashSet<Vector3> subdivideWaypoint(GameObject waypointGO)
     {
         // Get the way point and its bounds
@@ -215,16 +220,21 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         for (float x = left; x < right; x += WaypointSubdivisionSize)
         {
             for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
-                subdividedWaypoints.Add(new Vector3(x, y, z));
-            subdividedWaypoints.Add(new Vector3(x, bottom, z));
+                subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(x, y, z), waypoint, waypointGO.transform.rotation.eulerAngles));
+            subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(x, bottom, z), waypoint, waypointGO.transform.rotation.eulerAngles));
         }
         for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
-            subdividedWaypoints.Add(new Vector3(right, y, z));
-        subdividedWaypoints.Add(new Vector3(right, bottom, z));
+            subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(right, y, z), waypoint, waypointGO.transform.rotation.eulerAngles));
+        subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(right, bottom, z), waypoint, waypointGO.transform.rotation.eulerAngles));
 		
 		return subdividedWaypoints;
 	}
 
+    /// <summary>
+    /// Gets the waypoints above the game object.
+    /// </summary>
+    /// <returns>The waypoints above the gameobject.</returns>
+    /// <param name="waypointGO">The waypoint gameobject.</param>
     public HashSet<Vector3> getWaypointsAbove(GameObject waypointGO)
     {
         // Get the way point and its bounds
@@ -239,13 +249,43 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         float left = waypointBounds.center.x - waypointBounds.extents.x;
         float right = waypointBounds.center.x + waypointBounds.extents.x;
         float top = waypointBounds.center.y + waypointBounds.extents.y;
+
+        Vector3 rotationPoint = waypointBounds.center;
+        Vector3 rotationAngle = RotatePointAroundPivot(waypointGO.transform.localRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
+        if(waypointGO.name.Equals("DiagonalTestOriginalLedge"))
+        {
+            Debug.Log(waypoint);
+            Debug.Log(rotationPoint);
+            Debug.Log(rotationAngle);
+        }
 		
 		for(float x = left; x < right; x += WaypointSubdivisionSize)
-			aboveWaypoints.Add(new Vector3(x, top + 1, z));
-        aboveWaypoints.Add(new Vector3(right, top + 1, z));
+        {
+            Vector3 originalPoint = new Vector3(x, top + 1, z);
+            Vector3 newPoint = RotatePointAroundPivot(originalPoint, rotationPoint, rotationAngle);
+            if(waypointGO.name.Equals("DiagonalTestOriginalLedge"))
+                Debug.Log(originalPoint + " " + newPoint);
+            aboveWaypoints.Add(newPoint);
+        }
+        aboveWaypoints.Add(RotatePointAroundPivot(new Vector3(right, top + 1, z), rotationPoint, rotationAngle));
 		
 		return aboveWaypoints;
-	}
+    }
+
+    /// <summary>
+    /// Rotates the point around pivot.
+    /// </summary>
+    /// <returns>The point around pivot.</returns>
+    /// <param name="point">Point.</param>
+    /// <param name="pivot">Pivot.</param>
+    /// <param name="angles">Angles.</param>
+    public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    {
+        Vector3 dir = point - pivot; // get point direction relative to pivot
+        dir = Quaternion.Euler(angles) * dir; // rotate it
+        point = dir + pivot; // calculate rotated point
+        return point; // return it
+    }
 
     /// <summary>
     /// Connects all the nodes in the graph
