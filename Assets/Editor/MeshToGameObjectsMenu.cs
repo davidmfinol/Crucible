@@ -48,7 +48,7 @@ public class MeshToGameObjectsMenu
 	static void MeshToGameObjects ()
 	{
 		// TODO: UPDATE THIS UNDO TO NONDEPRECATED VERSION
-		Undo.RegisterSceneUndo("Create Game Objects from Meshes");	
+		//Undo.RegisterSceneUndo("Create Game Objects from Meshes");	
 		
 		playerPrefab = (GameObject) Resources.Load("PlayerCharacter");
 		ledgePrefab = (GameObject) Resources.Load("Ledge");
@@ -125,47 +125,53 @@ public class MeshToGameObjectsMenu
     static void CreateLedge (Transform ledge)
 	{
 		// First determine what we need to do
-		Bounds ledgeBounds = ledge.collider.bounds;
 		bool ignoreLocationName = !ledge.name.ToLower ().Contains ("left") && !ledge.name.ToLower ().Contains ("right");
 		bool createLeftLedge = ignoreLocationName || ledge.name.ToLower ().Contains ("left");
 		bool createRightLedge = ignoreLocationName || ledge.name.ToLower ().Contains ("right");
-		
+
+        // Deal with rotation
+        Quaternion storedRotation = ledge.localRotation;
+        ledge.localRotation = Quaternion.identity;
+        Bounds ledgeBounds = ledge.collider.bounds;
+
 		// Set up the left ledge
 		if(createLeftLedge)
 		{
-			// Find out where to put it
-			Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, 0, 0) + new Vector3 (0, ledgeBounds.extents.y, 0);
-			Vector3 topLeft = ledgeBounds.center + leftOffset;
-			Vector3 leftLedgeLocation = topLeft;
-
-			// Actually put it there and set it up
-			GameObject leftLedge = GameObject.Instantiate(ledgePrefab, leftLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
+            // Create the ledge
+            GameObject leftLedge = GameObject.Instantiate(ledgePrefab, ledgePrefab.transform.position, ledgePrefab.transform.rotation) as GameObject;
             leftLedge.name = "Left Ledge";
 			leftLedge.GetComponent<Ledge> ().Left = true;
 			leftLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower().Contains ("obstacle"));
 			BoxCollider col = leftLedge.GetComponent<BoxCollider> ();
 			col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100);
-			leftLedge.transform.parent = ledge.transform;
-		}
 
+            // And put it at the right spot
+            Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
+            Vector3 topLeft = ledgeBounds.center + leftOffset;
+            leftLedge.transform.position = topLeft;
+            leftLedge.transform.parent = ledge.transform;
+        }
 		// Set up the right ledge
 		if(createRightLedge)
-		{
-			// Find out where to put it
-			Vector3 rightOffset = new Vector3(ledgeBounds.extents.x, 0, 0) + new Vector3(0, ledgeBounds.extents.y, 0);
-			Vector3 topRight = ledgeBounds.center + rightOffset;
-			Vector3 rightLedgeLocation = topRight;
-			
-			// Actually put it there and set it up
-			GameObject rightLedge = GameObject.Instantiate(ledgePrefab, rightLedgeLocation, ledgePrefab.transform.rotation) as GameObject;
+        {
+            // Create the ledge
+            GameObject rightLedge = GameObject.Instantiate(ledgePrefab, ledgePrefab.transform.position, ledgePrefab.transform.rotation) as GameObject;
             rightLedge.name = "Right Ledge";
             rightLedge.GetComponent<Ledge> ().Left = false;
-			rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower().Contains ("obstacle"));
-			BoxCollider col = rightLedge.GetComponent<BoxCollider> ();
-			col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100);
-			rightLedge.transform.parent = ledge.transform;
-		}
-	}
+            rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower().Contains ("obstacle"));
+            BoxCollider col = rightLedge.GetComponent<BoxCollider> ();
+            col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100);
+            
+            // And put it at the right spot
+			Vector3 rightOffset = new Vector3(ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
+			Vector3 topRight = ledgeBounds.center + rightOffset;
+            rightLedge.transform.position = topRight;
+            rightLedge.transform.parent = ledge.transform;
+        }
+
+        // Restore the rotation
+        ledge.localRotation = storedRotation;
+    }
 	static void CreateWall(Transform wall)
 	{
 		// Create the wall at the correct position

@@ -57,6 +57,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to pickup items only at the end of the animation
 	private Item _itemPickedup;
 
+    // Can only double-jump once
+    private bool _hasDoubleJumped;
+
     protected override void OnStart()
     {
 		_inventory = gameObject.GetComponent<PlayerCharacterInventory>();
@@ -126,7 +129,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected override void UpdateMecanimVariables()
 	{
         if(IsGrounded)
+        {
             _wallJumpCount = 0;
+            _hasDoubleJumped = false;
+        }
 
 		UpdateMovementAnimations();
 		UpdateAttackAnimations();
@@ -448,6 +454,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+
+        if(CharInput.JumpPressed)
+            MecanimAnimator.SetBool(_doublejumpHash, true);
 	}
 
     protected void Doublejumping(float elapsedTime)
@@ -457,6 +466,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
         
         if(MecanimAnimator.GetBool(_doublejumpHash))
         {
+            _hasDoubleJumped = true;
+
             if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
             {
                 Direction = Vector3.left;
@@ -538,7 +549,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
             HorizontalSpeed = 0;
         }
 		else 
-			MecanimAnimator.SetBool(_hangHash, false);
+            MecanimAnimator.SetBool(_hangHash, false);
+
+        if(CharInput.JumpPressed && !_hasDoubleJumped)
+            MecanimAnimator.SetBool(_doublejumpHash, true);
 	}
 
 	protected void Wallgrabbing(float elapsedTime)
@@ -558,7 +572,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_grabWallHash, false);
 			DropHangTarget();
 		}
-
 	}
 
 	protected void Walljumping(float elapsedTime)

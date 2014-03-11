@@ -22,6 +22,7 @@ public class EnemyAI : MonoBehaviour
 	private float _timeToRetarget;
 	
 	// A* PathFinding
+    private ZoneGraph _graph;
     private Seeker _seeker;
     private Vector3 _target = Vector3.zero; // where the enemy wants to go
     private Path _path = null; // how it plans to get there
@@ -54,6 +55,7 @@ public class EnemyAI : MonoBehaviour
         GameManager.AI.Enemies.Add(this);
 
         // Set up Astar
+        _graph = (ZoneGraph)AstarPath.active.graphs[0];
         _seeker = GetComponent<Seeker>();
 
         // Finally, map the output of this class to the input of the animator
@@ -334,8 +336,9 @@ public class EnemyAI : MonoBehaviour
 			ZoneNode currentNode = (ZoneNode) _path.path [_currentPathWaypoint - 1]; // we index off one since the first is the position of the enemy
 			isNodeOnOtherPlatform = currentNode.GO != ((ZoneNode)_path.path[_currentPathWaypoint]).GO;
 		}
-        bool shouldJump = (!isMidAir || isClimbing) && (isNodeAbove || isNodeOnOtherPlatform);
-		bool jump = shouldJump && EnemyAISettings.CanJump (transform.position, _path.vectorPath [_currentPathWaypoint]);
+        bool canFall = _graph.CanFall(transform.position, _path.vectorPath[_currentPathWaypoint]);
+        bool shouldJump = (!isMidAir || isClimbing) && (isNodeAbove || (isNodeOnOtherPlatform && !canFall));
+		bool jump = shouldJump && _graph.CanJump (transform.position, _path.vectorPath [_currentPathWaypoint]);
 
 		if(jump)
         {

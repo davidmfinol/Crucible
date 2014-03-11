@@ -24,10 +24,10 @@ public sealed class CharacterSettings : MonoBehaviour
 	public float JumpHeight;  // = 6.0f;
 	
     // Rate of change of vertical fall speed
-	public float Gravity;  // = 40.0f;
+	public float Gravity;  // = 50.0f;
 
     // Maximum fall speed
-	public float MaxFallSpeed;  // = 20.0f;
+	public float MaxFallSpeed;  // = 35.0f;
 	
     // How fast the character rotates
 	public float RotationSmoothing;  // = 6.0f;
@@ -46,9 +46,6 @@ public sealed class CharacterSettings : MonoBehaviour
 	
 	// How fast the character strafes ladders
 	public float LadderStrafingSpeed;  // = 5.0f;
- 
-	// How often the character makes noise when running
-	public float FootStepNoiseFrequency;  // = 0.3f;
 
 	// How long you can wall slide before you get auto-dropped
 	public float WallSlideDuration;  // = 1.0f;

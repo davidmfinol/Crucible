@@ -34,31 +34,4 @@ public class EnemyAISettings : MonoBehaviour
 
 	// How much time we're willing to spend going to a target before just giving up and choosing a new one
 	public float WanderTargetTime; // = 15.0f;
-    
-    // Used by A* to calculate graph
-    public static float MaxJump = 12.0f; // jumpheight + capsulecollider.height/2
-    public static float MaxSpeed = 20.0f;
-    public static float MaxGravity = 40.0f;
-	
-
-    /// <summary>
-    /// Returns whether an enemy can jump from one position to another
-    /// </summary>
-    /// <param name="a">the starting position of the enemy</param>
-    /// <param name="b">the ending position the enemy is considering</param>
-    /// <returns></returns>
-    public static bool CanJump(Vector3 a, Vector3 b)
-    {
-        float xDist = Mathf.Abs(b.x - a.x);
-        float yDist = b.y - a.y;
-        float yVel = Mathf.Sqrt(2 * MaxJump * MaxGravity);
-        float t = yVel / MaxGravity;
-        float yMax = MaxJump;
-        if (xDist > MaxSpeed * t)
-        {
-            t = xDist / MaxSpeed;
-            yMax = (yVel * t) + ((-MaxGravity * t * t) / 2);
-        }
-        return yDist < yMax;
-    }
 }
