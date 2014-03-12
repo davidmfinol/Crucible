@@ -102,16 +102,16 @@ public static class InventoryItemFactory {
 		}
 
 		if(sResult == "CPPR") {
-			return "Computer Gun";
+			return "Moving Computer";
 
 		} else if(sResult == "CPEN") {
 			return "Computer Car";
 
 		} else if(sResult == "ENENEN") {
-			return "Triple engine of death";
+			return "Triple engine";
 
 		} else {
-			return "--- invalid combination ---";
+			return "Unknown Item:\n" + sResult;
 
 		}
 	

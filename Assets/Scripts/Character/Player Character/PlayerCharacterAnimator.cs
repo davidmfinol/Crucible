@@ -176,7 +176,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	protected void UpdateAttackAnimations()
 	{
-		if(GameManager.Inventory.CurrentWeapon == null)
+		if(GameManager.Inventory.CurrentWeapon == null || IsDead ())
 			return;
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;

@@ -213,16 +213,22 @@ public class CraftingMenu : MonoBehaviour {
 					// an item from the wheel
 					if(!itemQuad.IsDraggedCopy) {
 						_draggingQuad = itemQuad.CreateDraggableCopy();
-						Debug.Log ("draggable copy ");
 
 					// an item already in a crafting slot, just moving it.
 					} else { 
 						_draggingQuad = itemQuad.gameObject;
 
+						// take it out of whichever slot it was in.
+						for(int i=0; i <= _craftingSlots.Length - 1; i++)
+							if(_craftingSlots[i] == _draggingQuad)
+								_craftingSlots[i] = null;
+
 					}
 				}
 				
 			}
+
+			UpdateCraftResult();
 			
 		} else if(Input.GetMouseButtonUp(0)) {
 			if(_draggingQuad != null) {
@@ -243,9 +249,6 @@ public class CraftingMenu : MonoBehaviour {
 						// stop dragging
 						_draggingQuad = null;
 
-						UpdateCraftResult();
-						return;
-
 					}
 
 				}
@@ -255,6 +258,8 @@ public class CraftingMenu : MonoBehaviour {
 				_draggingQuad = null;
 
 			}
+
+			UpdateCraftResult();
 
 		}
 
@@ -321,14 +326,11 @@ public class CraftingMenu : MonoBehaviour {
 	}
 
 	public void RefreshItemWheel() {
-        if(_inventory == null)
-            return;
-
 		for(int i=0;i < 5; i++) {
-			if( i <= _inventory.Items.Count - 1) {
+			if( i <= GameManager.Inventory.Items.Count - 1) {
 				_itemQuads[i].renderer.enabled = true;
-				_itemQuads[i].renderer.material.mainTexture = _inventory.Items[i].GetTexture();
-				_itemQuads[i].GetComponent<ItemQuad>().invItem = _inventory.Items[i];
+				_itemQuads[i].renderer.material.mainTexture = GameManager.Inventory.Items[i].GetTexture();
+				_itemQuads[i].GetComponent<ItemQuad>().invItem = GameManager.Inventory.Items[i];
 
 			} else {
 				_itemQuads[i].renderer.enabled = false;
