@@ -10,15 +10,26 @@ public class CraftingMenu : MonoBehaviour {
 		CraftingMenu_Closed
 		
 	}
-
-	// set in editor
+	
+	// graphical prefabs and radius of items to sit in them.
 	public GameObject WeaponWheelPrefab;
 	public GameObject ItemWheelPrefab;
 	public GameObject CraftingBackdropPrefab;
 	public GameObject ItemQuadPrefab;
 	public float ItemWheelRadius;
 
+	// how long for GUI to fade
 	public float FadeTime;
+
+	// where are the droppable crafting points
+	public Rect ItemDescriptionBounds;
+
+	// normalized coordinates for crafting points.
+	public Vector3[] CraftingPoints;
+
+	public float CraftingDropDistance;
+
+	//--------------------------------
 
 	// camera used to position wheels appropriately
 	private Camera _uiCamera;
@@ -27,16 +38,30 @@ public class CraftingMenu : MonoBehaviour {
 
 	private int _currentItem;
 
+	// instances of graphical prefabs that are shown/hidden
 	private GameObject _weaponWheel;
 	private GameObject _itemWheel;
 	private GameObject _craftingBackdrop;
 
+	// state of opening, opened, closing
 	private CraftingMenuState _state;
 	private float _timeInState;
 
 	// five quads for the inventory items (0 to 4 counter-clockwise)
 	private GameObject[] _itemQuads;
+
+	// last clicked item
+	private InventoryItem _lastClickedItem;
+
+	// crafting slots
+	private GameObject[] _craftingSlots;
 	
+	// on mousedown an item quad, we clone into a dragging quad
+	private GameObject _draggingQuad;
+
+	// TODO: make into whatever prefab or inventory item, etc.
+	private string _resultingItem;
+
 	void Start() {
 		_uiCamera = transform.root.GetComponentInChildren<Camera>();
 		_inventory = GameManager.Player.GetComponent<PlayerCharacterInventory>();
@@ -80,6 +105,27 @@ public class CraftingMenu : MonoBehaviour {
 		quadPos = wheelCenter + Vector3.down * ItemWheelRadius;
 		_itemQuads[4] = (GameObject) Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
 	
+		_lastClickedItem = null;
+		_draggingQuad = null;
+
+		// *** translate GUI positionings into screen coords ***
+		ItemDescriptionBounds = new Rect (ItemDescriptionBounds.x * Screen.width, 
+		                                  ItemDescriptionBounds.y * Screen.height, 
+		                                  ItemDescriptionBounds.width * Screen.width, 
+		                                  ItemDescriptionBounds.height * Screen.height);
+
+		// crafting points get translated into screen res coords for checking distance from mouse pointer
+		for (int i=0; i <= CraftingPoints.Length - 1; i++)
+			CraftingPoints [i] = new Vector3 (CraftingPoints [i].x * Screen.width, 
+			                                  CraftingPoints [i].y * Screen.height, 
+			                                  7.0f);
+
+		_craftingSlots = new GameObject[CraftingPoints.Length];
+		for (int i=0; i <= _craftingSlots.Length - 1; i++)
+			_craftingSlots [i] = null;
+
+		CraftingDropDistance *= Screen.width;
+
 	}
 
 
@@ -94,6 +140,18 @@ public class CraftingMenu : MonoBehaviour {
 				_state = CraftingMenuState.CraftingMenu_Closing;
 				_timeInState = 0.0f;
 
+				// destroy all cloned item quads placed into crafting slots
+				_lastClickedItem = null;
+
+				for(int i=0; i <= _craftingSlots.Length - 1; i++) {
+					if(_craftingSlots[i] != null) {
+						Destroy (_craftingSlots[i]);
+						_craftingSlots[i] = null;
+
+					}
+
+				}
+
 			}
 
 		}
@@ -102,7 +160,95 @@ public class CraftingMenu : MonoBehaviour {
 		AnimateCraftingMenu ();
 		RefreshItemWheel();
 
+		ProcessMouse ();
+
 	}
+
+	void OnGUI() {
+		if (_lastClickedItem != null) {
+			GUI.skin.textArea.normal.background = null;
+			GUI.skin.textArea.active.background = null;
+			
+			GUI.Label ( ItemDescriptionBounds, _lastClickedItem.Name + "\n\n" + _lastClickedItem.Caption );
+			GUI.Label ( new Rect(400, 200, 100, 100), _resultingItem );
+
+		}
+
+	}
+
+	void ProcessMouse() {
+		if (_state != CraftingMenuState.CraftingMenu_Open)
+			return;
+
+
+		// catch mouse down/up to begin/end dragging
+		if (Input.GetMouseButtonDown (0)) {
+			Ray rayToGUI = _uiCamera.ScreenPointToRay(Input.mousePosition);
+
+			RaycastHit hit;
+			if (Physics.Raycast (rayToGUI, out hit)) {
+				ItemQuad itemQuad = hit.collider.GetComponent<ItemQuad>();
+
+				if(itemQuad != null) {
+					_lastClickedItem = itemQuad.invItem;
+
+					// an item from the wheel
+					if(!itemQuad.IsDraggedCopy) {
+						_draggingQuad = itemQuad.CreateDraggableCopy();
+						Debug.Log ("draggable copy ");
+
+					// an item already in a crafting slot, just moving it.
+					} else { 
+						_draggingQuad = itemQuad.gameObject;
+
+					}
+				}
+				
+			}
+			
+		} else if(Input.GetMouseButtonUp(0)) {
+			if(_draggingQuad != null) {
+				Vector2 mousePoint2D = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+				for(int i=0; i <= CraftingPoints.Length - 1; i++) {
+					if( Vector2.Distance(mousePoint2D, CraftingPoints[i]) <= CraftingDropDistance) {
+						// remove any existing item in the slot
+						if(_craftingSlots[i] != null) {
+							Destroy (_craftingSlots[i]);
+							_craftingSlots[i] = null;
+							
+						}
+
+						// put new item in the slot
+						_craftingSlots[i] = _draggingQuad;
+						_draggingQuad.transform.position = _uiCamera.ScreenToWorldPoint( CraftingPoints[i] );
+						// stop dragging
+						_draggingQuad = null;
+
+						UpdateCraftResult();
+						return;
+
+					}
+
+				}
+
+				// got here, no crafting point for it, so destroy it
+				Destroy (_draggingQuad);
+				_draggingQuad = null;
+
+			}
+
+		}
+
+
+		// if dragging something, put it under mouse
+		if(_draggingQuad != null) {
+			_draggingQuad.transform.position = _uiCamera.ScreenToWorldPoint( new Vector3(Input.mousePosition.x, Input.mousePosition.y, 2.0f ) );
+
+		}
+
+	}
+
 
 	void ShowWithAlpha(GameObject obj, float alpha) {
 		obj.renderer.enabled = (alpha == 1.0f);
@@ -161,6 +307,7 @@ public class CraftingMenu : MonoBehaviour {
 			if( i <= _inventory.Items.Count - 1) {
 				_itemQuads[i].renderer.enabled = true;
 				_itemQuads[i].renderer.material.mainTexture = _inventory.Items[i].GetTexture();
+				_itemQuads[i].GetComponent<ItemQuad>().invItem = _inventory.Items[i];
 
 			} else {
 				_itemQuads[i].renderer.enabled = false;
@@ -169,37 +316,22 @@ public class CraftingMenu : MonoBehaviour {
 	
 		}
 
-//		// First, find the images that we want to show
-//		Transform prevWeaponImage;
-//		if(_currentWeapon == 0)
-//			prevWeaponImage =_inventory.Weapons [_inventory.Weapons.Count - 1].GUIImage;
-//		else
-//			prevWeaponImage =_inventory.Weapons [_currentWeapon - 1].GUIImage;
-//		Transform currentWeaponImage = _inventory.Weapons[_currentWeapon].GUIImage;
-//		Transform nextWeaponImage = _inventory.Weapons [(_currentWeapon + 1) % _inventory.Weapons.Count].GUIImage;
-//		
-//		// Next, show the middle image
-//		if(_currentWeaponsImage != null)
-//			Destroy (_currentWeaponsImage.gameObject);
-//		Vector3 imageLocation = _weaponsGuiPos;
-//		Vector3 directional = (new Vector3 (-1, -1, 0)).normalized;
-//		imageLocation += directional * GUIWheelRadius;
-//		_currentWeaponsImage = (Transform) Instantiate(currentWeaponImage, imageLocation, Quaternion.identity);
-//		if(_inventory.Weapons.Count == 1)
-//			return;
-//		
-//		// Then show the image to the left
-//		if(_previousWeaponsImage != null)
-//			Destroy(_previousWeaponsImage.gameObject);
-//		imageLocation = _weaponsGuiPos + Vector3.left * GUIWheelRadius;
-//		_previousWeaponsImage = (Transform) Instantiate (prevWeaponImage, imageLocation, Quaternion.identity);
-//		
-//		// Then show the right image
-//		if (_nextWeaponsImage != null)
-//			Destroy (_nextWeaponsImage.gameObject);
-//		imageLocation = _weaponsGuiPos + Vector3.down * GUIWheelRadius;
-//		_nextWeaponsImage = (Transform) Instantiate (nextWeaponImage, imageLocation, Quaternion.identity);
-//
+	}
+
+	public void UpdateCraftResult() {
+		InventoryItemFactory.ResetIngredients ();
+
+		for(int i=0; i <= _craftingSlots.Length - 1; i++) {
+			if(_craftingSlots[i] != null) {
+				InventoryItemFactory.AddIngredient(_craftingSlots[i].GetComponent <ItemQuad>().invItem.Type);
+
+			}
+
+		}
+
+		_resultingItem = InventoryItemFactory.GetCraftResult ();
+		Debug.Log ("Resulting item is " + _resultingItem);
+
 	}
 
 	public void CycleToNextItem()
