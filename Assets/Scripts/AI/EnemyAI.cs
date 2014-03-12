@@ -196,7 +196,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Don't jump at the player
-        bool isLastNode = (_currentPathWaypoint >= _path.vectorPath.Count - 1);
+        bool isLastNode = _path != null && (_currentPathWaypoint >= _path.vectorPath.Count - 1);
         if(isLastNode)
             _animator.CharInput.Jump = Vector2.zero;
 
@@ -205,6 +205,7 @@ public class EnemyAI : MonoBehaviour
 		bool isStunned = _animator.CurrentState.IsName("Base Layer.Stun");
         bool shouldAttack = IsPlayerInAttackRange && !isStunned && !_animator.IsDead(); //&& randomChance;
 		_animator.CharInput.Attack = shouldAttack ? 1 : 0;
+
         // TODO: VERTICAL ATTACK
 	}
 

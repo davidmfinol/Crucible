@@ -42,7 +42,7 @@ public class TouchInput : MonoBehaviour
 
 
 	void Start ()
-	{
+    {
 		_moveID = -1;
 		_moveStartPos = Vector2.zero;
 		_moveMin = Screen.width / 32.0f;
@@ -80,13 +80,20 @@ public class TouchInput : MonoBehaviour
 			dot.parent = transform;
 			_userInterfaceDots.Add(dot);
 		}
+    }
 
-#if (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
-		_input.UpdateInputMethod = UpdateInput;
-#endif
+    public void Enable()
+    {
+        this.enabled = true;
+        _input.UpdateInputMethod = this.UpdateInput;
     }
     
-#if (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
+    public void Disable()
+    {
+        _input.UpdateInputMethod = null;
+        this.enabled = false;
+    }
+
     void Update()
     {
         foreach (Touch touch in Input.touches) 
@@ -97,7 +104,6 @@ public class TouchInput : MonoBehaviour
                 InterpretInteraction();
         }
     }
-#endif
     
 	public void UpdateInput ()
 	{	

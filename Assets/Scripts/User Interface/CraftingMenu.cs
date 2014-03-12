@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [AddComponentMenu("User Interface/Crafting Menu")]
@@ -34,7 +34,7 @@ public class CraftingMenu : MonoBehaviour {
 	// camera used to position wheels appropriately
 	private Camera _uiCamera;
 	// keep track of player inventory for displaying craftable items
-	private PlayerCharacterInventory _inventory;
+	private InventoryManager _inventory;
 
 	private int _currentItem;
 
@@ -64,7 +64,7 @@ public class CraftingMenu : MonoBehaviour {
 
 	void Start() {
 		_uiCamera = transform.root.GetComponentInChildren<Camera>();
-		_inventory = GameManager.Player.GetComponent<PlayerCharacterInventory>();
+		_inventory = GameManager.Player.GetComponent<InventoryManager>();
 
 		// wheelcenter
 		Vector3 wheelCenter = _uiCamera.ViewportToWorldPoint ( new Vector3 (1.0f, 1.0f, 7.0f) );
@@ -303,6 +303,9 @@ public class CraftingMenu : MonoBehaviour {
 	}
 
 	public void RefreshItemWheel() {
+        if(_inventory == null)
+            return;
+
 		for(int i=0;i < 5; i++) {
 			if( i <= _inventory.Items.Count - 1) {
 				_itemQuads[i].renderer.enabled = true;

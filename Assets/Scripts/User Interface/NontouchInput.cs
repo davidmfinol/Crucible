@@ -19,14 +19,23 @@ public class NontouchInput : MonoBehaviour
 
 
 	void Start()
-	{
+    {
 		_input = GameManager.Player.GetComponent<CharacterInput>();
 		_cycleWeaponRight = false;
 		_cycleWeaponLeft = false;
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
-		_input.UpdateInputMethod = UpdateInput;
-#endif
 	}
+
+    public void Enable()
+    {
+        this.enabled = true;
+        _input.UpdateInputMethod = this.UpdateInput;
+    }
+
+    public void Disable()
+    {
+        _input.UpdateInputMethod = null;
+        this.enabled = false;
+    }
 
 	public void UpdateInput()
 	{
