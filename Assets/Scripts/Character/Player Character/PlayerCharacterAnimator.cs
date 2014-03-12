@@ -928,8 +928,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	public bool CanPickupItem(out GameObject obj)
 	{
-		RaycastHit hitInfo = new RaycastHit (); //TODO: MAKE THIS MORE FORGIVING ABOUT POSITION
-		if(Physics.Raycast(transform.position + new Vector3(0, Height / 2.0f, 0), Vector3.down, out hitInfo, Height, 1 << 13 ) )
+		RaycastHit hitInfo = new RaycastHit (); 
+		// test from player's front downward to item.
+		if(Physics.Raycast(transform.position + new Vector3(Direction.x * Radius, Height / 2.0f, 0), Vector3.down, out hitInfo, Height, 1 << 13 ) )
    		{
 			obj = hitInfo.transform.gameObject;
 			return true;
