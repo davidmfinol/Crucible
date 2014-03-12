@@ -29,6 +29,8 @@ public class InventoryManager : MonoBehaviour
 
 		Items = new List<InventoryItem> ();
 
+		StartCoroutine ("FindRightHand");
+
 		_ready = true;
 	}
 
@@ -103,7 +105,6 @@ public class InventoryManager : MonoBehaviour
             if(_currentWeapon == null)
                 return;
 
-			// Move the new weapon into the player's hand
 			_currentWeapon.transform.parent = _rightHand;
 			_currentWeapon.transform.localPosition = Vector3.zero;
 			_currentWeapon.transform.rotation = _rightHand.rotation;
