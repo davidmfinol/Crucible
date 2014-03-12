@@ -522,6 +522,8 @@ ModelImporter:
     101032: LedgeRightOnly11
     101034: DiagonalLedgeRightOnly3
     101036: LedgeMesh2
+    101038: WallLedgeLeftOnly5
+    101040: Mesh5
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -1041,6 +1043,8 @@ ModelImporter:
     401032: LedgeRightOnly11
     401034: DiagonalLedgeRightOnly3
     401036: LedgeMesh2
+    401038: WallLedgeLeftOnly5
+    401040: Mesh5
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1503,6 +1507,8 @@ ModelImporter:
     2300918: LedgeRightOnly11
     2300920: DiagonalLedgeRightOnly3
     2300922: LedgeMesh2
+    2300924: WallLedgeLeftOnly5
+    2300926: Mesh5
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1965,6 +1971,8 @@ ModelImporter:
     3300918: LedgeRightOnly11
     3300920: DiagonalLedgeRightOnly3
     3300922: LedgeMesh2
+    3300924: WallLedgeLeftOnly5
+    3300926: Mesh5
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2427,6 +2435,8 @@ ModelImporter:
     4300918: LedgeRightOnly11
     4300920: DiagonalLedgeRightOnly3
     4300922: LedgeMesh2
+    4300924: WallLedgeLeftOnly5
+    4300926: Mesh5
     7400000: Take 001
     9500000: //RootNode
   materials:
