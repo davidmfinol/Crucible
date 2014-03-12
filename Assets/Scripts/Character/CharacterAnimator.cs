@@ -594,7 +594,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     public float Radius
     {
-        get { return Controller != null ? Controller.radius : GetComponent<CharacterController>().radius; }
+        get { return Controller != null ? transform.localScale.x * Controller.radius : transform.localScale.x * GetComponent<CharacterController>().radius; }
     }
 	public Animator MecanimAnimator
 	{

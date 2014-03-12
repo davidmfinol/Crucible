@@ -433,7 +433,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 			return false;
 
         // Then do a basic check to see if there's any ground objects in the way
-        Vector3 dir = (Vector3)(A.position - B.position);
+        Vector3 dir = (Vector3)(B.position - A.position);
         dist = dir.magnitude;
         
         Ray ray = new Ray((Vector3)A.position, (Vector3)(B.position - A.position));
@@ -444,13 +444,11 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             return false;
 
         // Then do a more rigorous check to see if the character's charactercontroller will fit between the two points
-        /*
-        Vector3 footPos = (Vector3)A.position;
+        Vector3 footPos = ((Vector3)A.position);
         Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height;
-        if(Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask))
+        if(Physics.CapsuleCast(footPos, headPos, 0.001f, dir, dist, CollisionMask))
             return false;
-        */
-        
+
         // Finally, check to see if there already is a path
         if (A.GO != null && B.GO != null)
         {
