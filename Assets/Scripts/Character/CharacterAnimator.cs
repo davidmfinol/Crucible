@@ -399,6 +399,15 @@ public abstract class CharacterAnimator : MonoBehaviour
         VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
     }
 
+	public virtual void StepDown() {
+
+	}
+
+	public virtual void StandUp() {
+
+
+	}
+
 	protected void ApplyDeathFriction(float elapsedTime)
     {
 		if(HorizontalSpeed > 0.0f)
@@ -418,7 +427,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 			
 		}
 	}   
-
+	
 	protected virtual void ApplyBiDirection()
 	{
         if (CharInput.Left && !CharInput.Right)

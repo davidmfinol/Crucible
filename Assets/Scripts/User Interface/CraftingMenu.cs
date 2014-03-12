@@ -62,6 +62,8 @@ public class CraftingMenu : MonoBehaviour {
 	// TODO: make into whatever prefab or inventory item, etc.
 	private string _resultingItem;
 
+
+	// --------------------------------
 	void Start() {
 		_uiCamera = transform.root.GetComponentInChildren<Camera>();
 		_inventory = GameManager.Player.GetComponent<InventoryManager>();
@@ -132,25 +134,16 @@ public class CraftingMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetButtonDown ("CraftingMenu")) {
-			if(_state == CraftingMenuState.CraftingMenu_Closed) {
-				_state = CraftingMenuState.CraftingMenu_Opening;
-				_timeInState = 0.0f;
+			if(_state == CraftingMenuState.CraftingMenu_Closed && (GameManager.Player.CurrentState.IsName("Base Layer.Idle") ||
+			                                                       GameManager.Player.CurrentState.IsName("Ground.Running"))) {
+				GameManager.UI.DisableInput();
+				GameManager.Player.StepDown();
+				Open ();
 
-			} else if(_state == CraftingMenuState.CraftingMenu_Open) {
-				_state = CraftingMenuState.CraftingMenu_Closing;
-				_timeInState = 0.0f;
-
-				// destroy all cloned item quads placed into crafting slots
-				_lastClickedItem = null;
-
-				for(int i=0; i <= _craftingSlots.Length - 1; i++) {
-					if(_craftingSlots[i] != null) {
-						Destroy (_craftingSlots[i]);
-						_craftingSlots[i] = null;
-
-					}
-
-				}
+			}  else if(_state == CraftingMenuState.CraftingMenu_Open && GameManager.Player.CurrentState.IsName("Ground.Stepping Down")) {
+				GameManager.UI.EnableInput();
+				GameManager.Player.StandUp();
+				Close ();
 
 			}
 
@@ -162,6 +155,31 @@ public class CraftingMenu : MonoBehaviour {
 
 		ProcessMouse ();
 
+	}
+
+
+	public void Open() {
+		_state = CraftingMenuState.CraftingMenu_Opening;
+		_timeInState = 0.0f;
+
+	}
+
+	public void Close() {
+		_state = CraftingMenuState.CraftingMenu_Closing;
+		_timeInState = 0.0f;
+		
+		// destroy all cloned item quads placed into crafting slots
+		_lastClickedItem = null;
+		
+		for(int i=0; i <= _craftingSlots.Length - 1; i++) {
+			if(_craftingSlots[i] != null) {
+				Destroy (_craftingSlots[i]);
+				_craftingSlots[i] = null;
+				
+			}
+			
+		}
+	
 	}
 
 	void OnGUI() {

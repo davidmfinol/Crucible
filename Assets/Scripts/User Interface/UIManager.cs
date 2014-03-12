@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     private Camera _uiCamera;
     private TouchInput _touchInput;
     private NontouchInput _nontouchInput;
+	private CraftingMenu _craftingMenu;
 
 	private Transform _vignetteInstance;
 	private float _vignetteAlpha;
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
         _uiCamera = GetComponentInChildren<Camera>();
         _touchInput = GetComponent<TouchInput>();
         _nontouchInput = GetComponent<NontouchInput>();
+		_craftingMenu = GetComponent<CraftingMenu> ();
 
 		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
 		_vignetteInstance.parent = transform;
@@ -168,6 +170,12 @@ public class UIManager : MonoBehaviour
         get { return _uiCamera; }
         set { _uiCamera = value; }
     }
+
+	public CraftingMenu CraftingMenu
+	{
+		get { return _craftingMenu; }
+
+	}
 
 	public int CurrentWeapon
 	{
