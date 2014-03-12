@@ -269,7 +269,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         Vector3 rotationPoint = waypointBounds.center;
         Vector3 rotationAngle = Vector3.zero;
         if(waypointGO.transform.parent != null)
-            RotatePointAroundPivot(storedRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
+            rotationAngle = RotatePointAroundPivot(storedRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
 
         // ACtually get the list of all the waypoints
 		for(float x = left; x < right; x += WaypointSubdivisionSize)
