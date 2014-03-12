@@ -42,4 +42,9 @@ public class GravityGun : Weapon
 	{
 		get { return WeaponType.Weapon_GravityGun; }
 	}
+
+	public override Texture2D GetTexture() {
+		return Resources.Load <Texture2D> ("GravityGunIcon");
+		
+	}
 }

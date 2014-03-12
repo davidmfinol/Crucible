@@ -871,7 +871,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if(GameManager.Inventory.Weapons.Count == 1)
             GameManager.UI.CycleToNextWeapon();
         else if(GameManager.Inventory.Weapons.Count <= 3)
-			GameManager.UI.UpdateWeaponImage();
+			GameManager.UI.RefreshWeaponWheel();
 		StopCoroutine ("AutoEquip");
 	}
 	
