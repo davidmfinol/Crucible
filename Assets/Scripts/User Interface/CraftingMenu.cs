@@ -134,16 +134,11 @@ public class CraftingMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetButtonDown ("CraftingMenu")) {
-			if(_state == CraftingMenuState.CraftingMenu_Closed && (GameManager.Player.CurrentState.IsName("Base Layer.Idle") ||
-			                                                       GameManager.Player.CurrentState.IsName("Ground.Running"))) {
-				GameManager.UI.DisableInput();
-				GameManager.Player.StepDown();
-				Open ();
+			if(_state == CraftingMenuState.CraftingMenu_Closed) {
+				TryOpen();
 
-			}  else if(_state == CraftingMenuState.CraftingMenu_Open && GameManager.Player.CurrentState.IsName("Ground.Stepping Down")) {
-				GameManager.UI.EnableInput();
-				GameManager.Player.StandUp();
-				Close ();
+			}  else if(_state == CraftingMenuState.CraftingMenu_Open) {
+				TryClose();
 
 			}
 
@@ -157,6 +152,25 @@ public class CraftingMenu : MonoBehaviour {
 
 	}
 
+	public void TryOpen() {
+		if (GameManager.Player.CurrentState.IsName("Base Layer.Idle") ||
+		    GameManager.Player.CurrentState.IsName("Ground.Running")) {
+			GameManager.UI.DisableInput();
+			GameManager.Player.StepDown();
+			Open ();
+
+		}
+
+	}
+
+	public void TryClose() {
+		if (GameManager.Player.CurrentState.IsName("Ground.Stepping Down")) {
+			GameManager.UI.EnableInput();
+			GameManager.Player.StandUp();
+			Close ();
+
+		}
+	}
 
 	public void Open() {
 		_state = CraftingMenuState.CraftingMenu_Opening;

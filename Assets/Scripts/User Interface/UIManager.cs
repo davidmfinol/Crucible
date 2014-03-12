@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
 	public Transform ChaseVignette;
 	public GameObject WeaponQuadPrefab;
 	public float WeaponWheelRadius;
+	public float MinSwipeDistance;
 
     private Camera _uiCamera;
     private TouchInput _touchInput;
@@ -27,6 +28,9 @@ public class UIManager : MonoBehaviour
 
 	// weapon quads (0 to 2 counter-clockwise)
 	private GameObject[] _weaponQuads;
+
+	private bool _isTrackingSwipe;
+	private Vector3 _swipeStartPos;
 
 	private bool _ready;
 	
@@ -90,6 +94,54 @@ public class UIManager : MonoBehaviour
 	void Update()
 	{
         UpdateVignette();
+
+		ProcessMouse ();
+
+	}
+
+	private void ProcessMouse() {
+		Vector3 mouseWorldPos = _uiCamera.ScreenToWorldPoint (Input.mousePosition);
+		mouseWorldPos.z = _weaponWheelPos.z;
+
+		// swipe started
+		if (Input.GetMouseButtonDown (0) && Vector3.Distance(_weaponWheelPos, mouseWorldPos) <= (WeaponWheelRadius * 2.0f)) {
+			_isTrackingSwipe = true;
+			_swipeStartPos = mouseWorldPos;
+		
+		// swipe accepted
+		} else if(_isTrackingSwipe && (Vector3.Distance(_swipeStartPos, mouseWorldPos) >= MinSwipeDistance)) {
+			float deltaY = mouseWorldPos.y - _swipeStartPos.y;
+			float deltaX = mouseWorldPos.x - _swipeStartPos.x;
+
+			// deltaY is inverted due to world coords vs screen coords.
+			float rad = Mathf.Atan2(deltaY, deltaX);
+			float deg = rad * 180.0f / Mathf.PI;
+
+			Debug.Log ("Deg " + deg);
+
+			// swipe - take proper action based on angle.
+			if(deg >= 0.0f && deg <= 90.0f) {
+				_craftingMenu.TryClose ();
+
+			} else if(deg >= 90.0f && deg <= 180.0f) {
+				CycleToNextWeapon();
+
+			} else if(deg <= 0.0f && deg >= -90.0f) {
+				CycleToPreviousWeapon();
+
+			} else if(deg >= -180.0f && deg <= -90.0f) {
+				_craftingMenu.TryOpen();
+
+			}
+
+			_isTrackingSwipe = false;
+
+		// swipe cancelled.
+		} else if(Input.GetMouseButtonUp (0)) {
+			_isTrackingSwipe = false;
+
+		}
+
 	}
 
     private void UpdateVignette()
