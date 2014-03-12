@@ -154,7 +154,8 @@ public class CraftingMenu : MonoBehaviour {
 
 	public void TryOpen() {
 		if (GameManager.Player.CurrentState.IsName("Base Layer.Idle") ||
-		    GameManager.Player.CurrentState.IsName("Ground.Running")) {
+		    GameManager.Player.CurrentState.IsName("Ground.Running") ||
+		    GameManager.Player.CurrentState.IsName("Ground.Standing Up") ) {
 			GameManager.UI.DisableInput();
 			GameManager.Player.StepDown();
 			Open ();
