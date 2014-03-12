@@ -36,6 +36,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _respawnHash;
 	private int _damagedHash;
 	private int _pickupHash;
+    private int _doublejumpHash;
 
 	//The player's sound effects, yeah!
 	private PlayerCharacterAudioPlayer _sound;
@@ -56,6 +57,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Used to pickup items only at the end of the animation
 	private Item _itemPickedup;
 
+    // Can only double-jump once
+    private bool _hasDoubleJumped;
+
     protected override void OnStart()
     {
 		_inventory = gameObject.GetComponent<PlayerCharacterInventory>();
@@ -74,7 +78,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Ground.Rolling")] = Rolling;
 		StateMachine[Animator.StringToHash("Ground.Pickup")] = Pickup;
 		StateMachine[Animator.StringToHash("Ground.Stealth Kill")] = StealthKill;
-		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
+        StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
+        StateMachine[Animator.StringToHash("Air.Doublejumping")] = Doublejumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
 		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
 		StateMachine[Animator.StringToHash("Air.Backflip")] = Backflip;
@@ -110,6 +115,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_respawnHash = Animator.StringToHash("Respawn");
 		_damagedHash = Animator.StringToHash("Damaged");
 		_pickupHash = Animator.StringToHash("Pickup");
+        _doublejumpHash = Animator.StringToHash("Doublejump");
 	}
 	protected override List<int> DefineRootMotionCorrectionState() // TODO: ERADICATE THIS METHOD
 	{
@@ -123,7 +129,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected override void UpdateMecanimVariables()
 	{
         if(IsGrounded)
+        {
             _wallJumpCount = 0;
+            _hasDoubleJumped = false;
+        }
 
 		UpdateMovementAnimations();
 		UpdateAttackAnimations();
@@ -396,7 +405,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if(MecanimAnimator.GetBool(_climbLedgeHash))
 		{
 			MecanimAnimator.SetBool(_climbLedgeHash, false);
-			Bounds ledgeBounds = ActiveHangTarget.collider.bounds;
+			Bounds ledgeBounds = ActiveHangTarget.collider.bounds; //TODO: ENSURE THIS IS NEVER NULL
 			float distanceToClimb = ledgeBounds.max.y - Controller.bounds.min.y;
 			float distanceToMove = Direction.x > 0 ?
 				ledgeBounds.max.x - Controller.bounds.center.x :
@@ -445,7 +454,48 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		MecanimAnimator.SetBool(_hangHash, 
 			(CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
 			|| (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+
+        if(CharInput.JumpPressed)
+            MecanimAnimator.SetBool(_doublejumpHash, true);
 	}
+
+    protected void Doublejumping(float elapsedTime)
+    {
+        if(Mathf.Abs(CharInput.Horizontal) > 0.1)
+            ApplyRunning(elapsedTime/2.0f);
+        
+        if(MecanimAnimator.GetBool(_doublejumpHash))
+        {
+            _hasDoubleJumped = true;
+
+            if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
+            {
+                Direction = Vector3.left;
+                HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
+            }
+            else if(CharInput.JumpRight || CharInput.JumpRightReleased)
+            {
+                Direction = Vector3.right;
+                HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
+            }
+            
+            VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
+            MecanimAnimator.SetBool(_doublejumpHash, false);
+        }
+        else
+            ApplyGravity(elapsedTime);
+        
+        //ApplyBiDirection();
+        
+        if(transform.position.y >= LastGroundHeight - 1)
+            MecanimAnimator.SetBool(_fallHash, false);
+        
+        MecanimAnimator.SetBool(_grabWallHash, CanGrabWall);
+        
+        MecanimAnimator.SetBool(_hangHash, 
+                                (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+                                || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up));
+    }
 	
 	protected void Backflip(float elapsedTime)
 	{
@@ -499,7 +549,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
             HorizontalSpeed = 0;
         }
 		else 
-			MecanimAnimator.SetBool(_hangHash, false);
+            MecanimAnimator.SetBool(_hangHash, false);
+
+        if(CharInput.JumpPressed && !_hasDoubleJumped)
+            MecanimAnimator.SetBool(_doublejumpHash, true);
 	}
 
 	protected void Wallgrabbing(float elapsedTime)
@@ -519,7 +572,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_grabWallHash, false);
 			DropHangTarget();
 		}
-
 	}
 
 	protected void Walljumping(float elapsedTime)
@@ -598,6 +650,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		else if (ActiveHangTarget is Ledge && (CharInput.Up || InputMoveForward))	
 		{
+            _ledge = ActiveHangTarget as Ledge;
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}
 		else if(CharInput.JumpPressed)
@@ -614,9 +667,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void ClimbingLedge(float elapsedTime)
 	{
-		if(ActiveHangTarget != null && ActiveHangTarget is Ledge)
-			_ledge = ActiveHangTarget as Ledge;
-
         if(_ledge == null)
         {
             Debug.LogWarning("Player Character's Ledge Not Found!");

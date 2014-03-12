@@ -10,6 +10,8 @@ public class ZoneNode : PointNode
 
 	public bool isTransition;
     public bool isGround;
+    public bool isLeftLedge;
+    public bool isRightLedge;
 
     public ZoneNode (AstarPath astar) : base (astar) { }
 }

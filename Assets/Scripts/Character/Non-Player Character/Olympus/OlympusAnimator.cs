@@ -92,13 +92,17 @@ public class OlympusAnimator : CharacterAnimator
         
         MecanimAnimator.SetBool(_isGroundedHash, IsGrounded);
 		
-		MecanimAnimator.SetBool(_attackHorizontalHash, CharInput.AttackActive);
+        MecanimAnimator.SetBool(_attackHorizontalHash, CharInput.AttackActive);
+
+        if(!IsGrounded)
+            MecanimAnimator.SetBool (_acquiringTargetHash, false);
 
 	}
 
 	public void OnAcquireTarget()
     {
-		MecanimAnimator.SetBool (_acquiringTargetHash, true);
+        if(IsGrounded)
+	    	MecanimAnimator.SetBool (_acquiringTargetHash, true);
 	}
 
 	protected void AcquireTarget(float elapsedTime)
@@ -250,7 +254,8 @@ public class OlympusAnimator : CharacterAnimator
 			MecanimAnimator.SetBool(_fallHash, true);
 		}
 		else if (ActiveHangTarget is Ledge && (CharInput.Up || InputMoveForward))	
-		{
+        {
+            _ledge = ActiveHangTarget as Ledge;
 			MecanimAnimator.SetBool(_climbLedgeHash, true);
 		}
 		else if(CharInput.JumpPressed)
@@ -267,9 +272,6 @@ public class OlympusAnimator : CharacterAnimator
 
 	protected void ClimbingLedge(float elapsedTime)
 	{
-		if(ActiveHangTarget != null && ActiveHangTarget is Ledge)
-			_ledge = ActiveHangTarget as Ledge;
-		
 		if(_ledge == null)
 		{
 			Debug.LogWarning("Olympus's Ledge Not Found!");
@@ -344,7 +346,7 @@ public class OlympusAnimator : CharacterAnimator
 	public override bool IsDead()
     {
 		// TODO: fix. slow.
-		return(CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Stealth Death") );
+		return (CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Stealth Death") );
 		
 	}
 

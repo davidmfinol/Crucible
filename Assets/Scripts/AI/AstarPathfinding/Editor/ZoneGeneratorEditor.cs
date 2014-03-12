@@ -39,7 +39,9 @@ public class ZoneGraphEditor : GraphEditor
 				if(node.isTransition)
 					Gizmos.color = AstarColor.BoundsHandles;
 				if(node.isGround)
-					Gizmos.color = AstarColor.ConnectionLowLerp;
+                    Gizmos.color = AstarColor.ConnectionLowLerp;
+                if(node.isLeftLedge || node.isRightLedge)
+                    Gizmos.color = AstarColor.ConnectionHighLerp;
 				if(!node.Walkable)
 					Gizmos.color = AstarColor.UnwalkableNode;
                 Gizmos.DrawCube((Vector3)node.position, Vector3.one * HandleUtility.GetHandleSize((Vector3)node.position) * 0.1F);

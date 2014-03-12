@@ -590,7 +590,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 	}
     public float Height
     {
-        get { return Controller != null ? transform.localScale.y * Controller.height : 0; }
+        get { return Controller != null ? transform.localScale.y * Controller.height : transform.localScale.y * GetComponent<CharacterController>().height; }
+    }
+    public float Radius
+    {
+        get { return Controller != null ? Controller.radius : GetComponent<CharacterController>().radius; }
     }
 	public Animator MecanimAnimator
 	{

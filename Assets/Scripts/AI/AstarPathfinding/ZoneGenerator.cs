@@ -33,6 +33,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     // Waypoints with bounds will be subdivided into more points that are this distance away from each other for fidelity of traversal
     public float WaypointSubdivisionSize = 7;
 
+    // We need to know the character animator settings of the enemies to determine the graph
+    private CharacterAnimator _olympusAnimator; 
+    private CharacterSettings _olympusSettings;
+
     // All the ZoneNodes in the ZoneGraph
     public ZoneNode[] nodes;
 
@@ -65,6 +69,12 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 	/// </summary>
     public override void ScanInternal(OnScanStatus statusCallback)
     {
+        // First, get the components we need
+        GameObject OlympusPrefab = (GameObject) Resources.Load("Olympus");
+        _olympusAnimator = OlympusPrefab.GetComponent<CharacterAnimator>();
+        _olympusSettings = OlympusPrefab.GetComponent<CharacterSettings>();
+
+        // Then, create the nodes and connect them
         GenerateNodes();
         ConnectNodes();
     }
@@ -91,23 +101,17 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         Dictionary<Vector3, GameObject> ZoneWaypoints = new Dictionary<Vector3, GameObject>();
         foreach (GameObject waypointGO in waypointGOs)
         {
-            // Get the way point and its bounds
-            Vector3 waypoint = waypointGO.transform.position;
-            Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
-            if (waypointGO.collider != null)
-                waypointBounds = waypointGO.collider.bounds;
-
             // If the waypoint is on the ground, use the points above it
             if ((CollisionMask.value & 1 << waypointGO.layer) != 0)
             {
-                HashSet<Vector3> waypointsAbove = getWaypointsAbove(waypointBounds);
+                HashSet<Vector3> waypointsAbove = getWaypointsAbove(waypointGO);
                 foreach (Vector3 aboveWaypoint in waypointsAbove)
                     if(!ZoneWaypoints.ContainsKey(aboveWaypoint))
                       ZoneWaypoints.Add(aboveWaypoint, waypointGO);
             }
             else // else, just subdivide it and use those points 
             {
-                HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(waypointBounds);
+                HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(waypointGO);
                 foreach (Vector3 subWaypoint in subdividedWaypoints)
                     if(!ZoneWaypoints.ContainsKey(subWaypoint))
                        ZoneWaypoints.Add(subWaypoint, waypointGO);
@@ -121,7 +125,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         {
             Bounds transitionZoneBounds = transitionZoneGO.collider.bounds;
             TransitionZonesWithWaypoints.Add(transitionZoneBounds, new HashSet<ZoneNode>());
-            HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(transitionZoneBounds);
+            HashSet<Vector3> subdividedWaypoints = subdivideWaypoint(transitionZoneGO);
             foreach (Vector3 subWaypoint in subdividedWaypoints)
                 if(!TransitionWaypoints.ContainsKey(subWaypoint))
                    TransitionWaypoints.Add(subWaypoint, transitionZoneGO);
@@ -150,18 +154,28 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         int nodeNum = 0;
         foreach (KeyValuePair<Vector3, GameObject> waypointKV in ZoneWaypoints)
         {
+            ZoneNode node = (ZoneNode)nodes[nodeNum];
 			Vector3 waypoint = new Vector3(waypointKV.Key.x, waypointKV.Key.y, waypointKV.Value.transform.position.z);
-            nodes[nodeNum].position = (Int3)waypoint;
-            ((ZoneNode)nodes[nodeNum]).GO = waypointKV.Value;
-            ((ZoneNode)nodes[nodeNum]).isTransition = false;
-            ((ZoneNode)nodes[nodeNum]).isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
+            node.position = (Int3)waypoint;
+            node.GO = waypointKV.Value;
+            node.isTransition = false;
+            node.isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
+            Collider goCollider = waypointKV.Value.collider;
+            if(waypointKV.Value.name.ToLower().Contains("ledge") && goCollider != null)
+            {
+                Bounds goBounds = goCollider.bounds;
+                if(waypoint.x == goBounds.min.x)
+                    node.isLeftLedge = true;
+                if(waypoint.x == goBounds.max.x)
+                    node.isRightLedge = true;
+            }
             nodeNum++;
         }
         foreach (KeyValuePair<Vector3, GameObject> waypointKV in TransitionWaypoints)
         {
 			Vector3 waypoint = new Vector3(waypointKV.Key.x, waypointKV.Key.y, waypointKV.Value.transform.position.z);
             nodes[nodeNum].position = (Int3)waypoint;
-            nodes[nodeNum].Walkable = !Physics.CheckSphere(waypoint, 0.0001f, CollisionMask.value);
+            nodes[nodeNum].Walkable = !Physics.CheckSphere(waypoint, 0.0001f, CollisionMask.value) && CanFit(waypoint);
             ((ZoneNode)nodes[nodeNum]).GO = waypointKV.Value;
             ((ZoneNode)nodes[nodeNum]).isTransition = true;
             ((ZoneNode)nodes[nodeNum]).isGround = (CollisionMask.value & 1 << waypointKV.Value.layer) != 0;
@@ -179,7 +193,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 					if(!node.isTransition)
 						nodePos.z = zoneBounds.center.z;
 					node.position = (Int3)nodePos;
-            		node.Walkable = !Physics.CheckSphere(nodePos, 0.0001f, CollisionMask.value);
+                    node.Walkable = !Physics.CheckSphere(nodePos, 0.0001f, CollisionMask.value) && CanFit(nodePos);
                     ZonesWithWaypoints[zoneBounds].Add(node);
 				}
 			}
@@ -188,14 +202,20 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                     TransitionZonesWithWaypoints[transitionZoneBounds].Add(node);
         }
     }
-	
-	/// <summary>
-    /// Takes the bounds of a waypoint and subdivides it into a set of waypoints.
-	/// </summary>
-    /// <param name="waypointBounds">The bounds of an object marked as waypoint.</param>
-	/// <returns>The points inside the bounds.</returns>
-    public HashSet<Vector3> subdivideWaypoint(Bounds waypointBounds)
-	{
+
+    /// <summary>
+    /// Subdivides the waypoint gameobject into a bunch smaller waypoints.
+    /// </summary>
+    /// <returns>A list of all the waypoints in that gameobject.</returns>
+    /// <param name="waypointGO">Waypoint Gameobject to be subdivided.</param>
+    public HashSet<Vector3> subdivideWaypoint(GameObject waypointGO)
+    {
+        // Get the way point and its bounds
+        Vector3 waypoint = waypointGO.transform.position;
+        Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
+        if (waypointGO.collider != null)
+            waypointBounds = waypointGO.collider.bounds;
+
         HashSet<Vector3> subdividedWaypoints = new HashSet<Vector3>();
         subdividedWaypoints.Add(waypointBounds.center);
         if (waypointBounds.size == Vector3.zero)
@@ -210,36 +230,77 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         for (float x = left; x < right; x += WaypointSubdivisionSize)
         {
             for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
-                subdividedWaypoints.Add(new Vector3(x, y, z));
-            subdividedWaypoints.Add(new Vector3(x, bottom, z));
+                subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(x, y, z), waypoint, waypointGO.transform.rotation.eulerAngles));
+            subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(x, bottom, z), waypoint, waypointGO.transform.rotation.eulerAngles));
         }
         for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
-            subdividedWaypoints.Add(new Vector3(right, y, z));
-        subdividedWaypoints.Add(new Vector3(right, bottom, z));
+            subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(right, y, z), waypoint, waypointGO.transform.rotation.eulerAngles));
+        subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(right, bottom, z), waypoint, waypointGO.transform.rotation.eulerAngles));
 		
 		return subdividedWaypoints;
 	}
-	
-	/// <summary>
-    /// Takes the bounds of a waypoint and returns points directly above it.
-	/// </summary>
-	/// <param name="waypointBounds">The bounds of an object marked as waypoint.</param>
-	/// <returns>The points above the bounds.</returns>
-	public HashSet<Vector3> getWaypointsAbove(Bounds waypointBounds)
-	{
+
+    /// <summary>
+    /// Gets the waypoints above the game object.
+    /// </summary>
+    /// <returns>The waypoints above the gameobject.</returns>
+    /// <param name="waypointGO">The waypoint gameobject.</param>
+    public HashSet<Vector3> getWaypointsAbove(GameObject waypointGO)
+    {
         HashSet<Vector3> aboveWaypoints = new HashSet<Vector3>();
 
+        // Deal with rotation
+        Quaternion storedRotation = waypointGO.transform.localRotation;
+        waypointGO.transform.localRotation = Quaternion.identity;
+
+        // Get the way point and its bounds
+        Vector3 waypoint = waypointGO.transform.position;
+        Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
+        if (waypointGO.collider != null)
+            waypointBounds = waypointGO.collider.bounds;
+
+        // Find the extents of that bound
         float z = waypointBounds.center.z;
         float left = waypointBounds.center.x - waypointBounds.extents.x;
         float right = waypointBounds.center.x + waypointBounds.extents.x;
         float top = waypointBounds.center.y + waypointBounds.extents.y;
-		
+
+        // Helpers for rotation
+        Vector3 rotationPoint = waypointBounds.center;
+        Vector3 rotationAngle = RotatePointAroundPivot(storedRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
+
+        // ACtually get the list of all the waypoints
 		for(float x = left; x < right; x += WaypointSubdivisionSize)
-			aboveWaypoints.Add(new Vector3(x, top + 1, z));
-        aboveWaypoints.Add(new Vector3(right, top + 1, z));
+        {
+            Vector3 abovePoint = new Vector3(x, top + 1, z);
+            Vector3 rotatedPoint = RotatePointAroundPivot(abovePoint, rotationPoint, rotationAngle);
+            aboveWaypoints.Add(rotatedPoint);
+        }
+        Vector3 topRight = new Vector3(right, top + 1, z);
+        topRight = RotatePointAroundPivot(topRight, rotationPoint, rotationAngle);
+        aboveWaypoints.Add(topRight);
+
+        //Restore rotation
+        waypointGO.transform.localRotation = storedRotation;
 		
 		return aboveWaypoints;
-	}
+    }
+
+    /// <summary>
+    /// Rotates the point around pivot.
+    /// </summary>
+    /// <returns>The point around pivot.</returns>
+    /// <param name="point">Point.</param>
+    /// <param name="pivot">Pivot.</param>
+    /// <param name="angles">Angles.</param>
+    public static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    {
+        Vector3 dir = point - pivot; // get point direction relative to pivot
+        dir = Quaternion.Euler(angles) * dir; // rotate it
+        point = dir + pivot; // calculate rotated point
+        return point; // return it
+    }
+
 
     /// <summary>
     /// Connects all the nodes in the graph
@@ -363,13 +424,15 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     {
         dist = 0;
 
+        // First check that both nodes are walkable
         if (!A.Walkable || !B.Walkable)
             return false;
 		
-        // account for jump distances
-		if(!EnemyAISettings.CanJump((Vector3)A.position, (Vector3)B.position) )
+        // Then check that the character is capable of jumping from the first node to the second
+		if(!CanJump((Vector3)A.position, (Vector3)B.position) )
 			return false;
 
+        // Then do a basic check to see if there's any ground objects in the way
         Vector3 dir = (Vector3)(A.position - B.position);
         dist = dir.magnitude;
         
@@ -377,15 +440,31 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         Ray invertRay = new Ray((Vector3)B.position, (Vector3)(A.position - B.position));
         
         bool obstructedByGround = Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
-        bool pathExists = false;
+        if(obstructedByGround)
+            return false;
+
+        // Then do a more rigorous check to see if the character's charactercontroller will fit between the two points
+        /*
+        Vector3 footPos = (Vector3)A.position;
+        Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height;
+        if(Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask))
+            return false;
+        */
+        
+        // Finally, check to see if there already is a path
         if (A.GO != null && B.GO != null)
         {
             RaycastHit[] hits = Physics.RaycastAll(ray, dist);
             foreach (RaycastHit hit in hits)
-                pathExists = hit.collider.CompareTag(WaypointTag) && hit.collider.gameObject != A.GO && hit.collider.gameObject != B.GO;
+            {
+                // If there's already a path, return false
+                if(hit.collider.CompareTag(WaypointTag) && hit.collider.gameObject != A.GO && hit.collider.gameObject != B.GO)
+                    return false;
+            }
         }
 
-        return !obstructedByGround && !pathExists;
+        // If we pass all the checks, return true
+        return true;
     }
 
     /// <summary>
@@ -403,6 +482,46 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         Ray invertRay = new Ray(posB, posA - posB);
         
         return Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
+    }
+    
+    /// <summary>
+    /// Returns whether an enemy can jump from one position to another
+    /// </summary>
+    /// <param name="a">the starting position of the enemy</param>
+    /// <param name="b">the ending position the enemy is considering</param>
+    /// <returns></returns>
+    public bool CanJump(Vector3 a, Vector3 b)
+    {
+        float xDist = Mathf.Abs(b.x - a.x);
+        float yDist = b.y - a.y;
+        float yVel = Mathf.Sqrt(2.0f * _olympusSettings.JumpHeight * _olympusSettings.Gravity);
+        float t = yVel / _olympusSettings.Gravity;
+        float yMax = _olympusSettings.JumpHeight + _olympusAnimator.Height / 2.0f;
+        if (xDist > _olympusSettings.MaxHorizontalSpeed * t)
+        {
+            t = xDist / _olympusSettings.MaxHorizontalSpeed;
+            yMax = (yVel * t) + ((-_olympusSettings.Gravity * t * t) / 2.0f);
+        }
+        return yDist < yMax;
+    }
+    public bool CanFall(Vector3 a, Vector3 b)
+    {
+        float xDist = Mathf.Abs(b.x - a.x);
+        float yDist = b.y - a.y;
+        float t = xDist / _olympusSettings.MaxHorizontalSpeed;
+        float yMax = (-_olympusSettings.Gravity * t * t) / 2.0f;
+        return yDist < yMax;
+    }
+
+    /// <summary>
+    /// Determines whether an enemy character is small enough to walk at the specified point.
+    /// </summary>
+    /// <returns>Whether an enemy character is small enough to walk at the specified point.</returns>
+    /// <param name="point">The point to examine.</param>
+    public bool CanFit(Vector3 point)
+    {
+        float dist = 0;
+        return !ObstructedByGround(point, point + Vector3.up * _olympusAnimator.Height, out dist);
     }
 
     /// <summary>
@@ -428,7 +547,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                 float dist = float.MaxValue / 1100;
 
                 Vector3 endPos = (Vector3) ((ZoneNode)nodesInZone.Current).position;
-                bool canJump = EnemyAISettings.CanJump(position, endPos);
+                bool canJump = CanJump(position, endPos);
                 bool obstructedByGround = ObstructedByGround(position, endPos, out dist);
 				bool isValid = canJump && !obstructedByGround;
 
