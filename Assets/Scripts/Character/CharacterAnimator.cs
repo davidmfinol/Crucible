@@ -103,18 +103,10 @@ public abstract class CharacterAnimator : MonoBehaviour
 		// Let child classes initialize as necessary
 		OnStart();
 	}
-	protected virtual void CreateStateMachine()
-	{
-		// TODO: DYNAMICALLY GENERATE IF POSSIBLE
-		StateMachine[Animator.StringToHash("Base Layer.Idle")] = DoNothing;
-	}
+    protected abstract void CreateStateMachine();// Must be overwritten by child classes to set up _stateMachine
 	protected virtual List<int> DefineRootMotionCorrectionState()
-	{
+	{ //TODO: ERADICATE THIS METHOD
 		return new List<int> (); // Should be overwritten by child classes
-	}
-	public void DoNothing(float elapsedTime)
-	{
-		Debug.LogWarning("State Machine using default doNothing");
 	}
 	protected virtual void OnStart()
 	{
@@ -146,7 +138,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 	{
 		// Disable root-based motion
 		if (_root != null && _rootMotionCorrectionStates.Contains ( CurrentState.nameHash ))
-			_root.localPosition = Vector3.zero;
+			_root.localPosition = Vector3.zero; // TODO: DELETE THIS
 
 		// Handle all the z-zone stuff in one location
 		UpdateZones();
@@ -594,7 +586,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     public float Radius
     {
-        get { return Controller != null ? Controller.radius : GetComponent<CharacterController>().radius; }
+        get { return Controller != null ? transform.localScale.x * Controller.radius : transform.localScale.x * GetComponent<CharacterController>().radius; }
     }
 	public Animator MecanimAnimator
 	{

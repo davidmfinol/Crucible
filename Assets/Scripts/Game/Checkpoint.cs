@@ -26,19 +26,19 @@ public class Checkpoint : MonoBehaviour
 
 	private CheckpointFader _checkpointFader;
 
-	void Start() {
-		_checkpointFader = GameManager.UI.GetComponent<CheckpointFader> ();
 
+	void Start()
+    {
+		_checkpointFader = GameManager.UI.GetComponent<CheckpointFader> ();
 	}
 
 	// When the player reaches the checkpoint, do the appropriate logic
     void OnTriggerEnter(Collider other)
     {
-		PlayerCharacterInventory player = other.GetComponent<PlayerCharacterInventory>();
-        if (other.CompareTag("Player") && player != null && !GameManager.Player.IsDead ())
+        if (other.CompareTag("Player") && !GameManager.Player.IsDead ())
         {
 			// We have support for particles that may be attached to the checkpoints
-			ParticleSystem prevParticles = player.SpawnPoint.GetComponentInChildren<ParticleSystem>();
+			ParticleSystem prevParticles = GameManager.Instance.LastCheckPoint.GetComponentInChildren<ParticleSystem>();
             if(prevParticles != null)
 				prevParticles.Stop();
             ParticleSystem newParticles = GetComponentInChildren<ParticleSystem>();
@@ -47,7 +47,7 @@ public class Checkpoint : MonoBehaviour
 
             
             // At the least, we will set the new spawnpoint
-            player.SpawnPoint = transform;
+            GameManager.Instance.LastCheckPoint = transform;
 			
 			// Save the game at checkpoints
 			Debug.Log ("Saved game state");

@@ -5,9 +5,9 @@ using System.IO;
 
 /// <summary>
 /// Game manager is a global class in charge of keeping track of all global components.
-/// The global components include Level, AI, UI, Audio, and Subtitles.
+/// The global components include Level, AI, Inventory, UI, Audio, and Subtitles.
 /// </summary>
-[RequireComponent(typeof(GameLevel))]
+[RequireComponent(typeof(LevelManager))]
 [AddComponentMenu("Game/Game Manager")]
 public class GameManager : MonoBehaviour
 {
@@ -20,12 +20,16 @@ public class GameManager : MonoBehaviour
 	public Transform OlympusPrefab;
 	public Transform BabybotPrefab;
 
+    // The GameManager keeps track of the last checkpoint, so that the player can go back there after death
+    public Transform LastCheckPoint; 
+
 	// Keep track of the current game manager instance
 	private static GameManager _instance;
 	
 	// Global Managers
-	private static GameLevel _currentLevel; //TODO: RENAME TO LEVELMANAGER
+	private static LevelManager _currentLevel;
 	private static AIManager _aiManager;
+    private static InventoryManager _inventory;
     private static UIManager _uiManager;
 	private static AudioManager _audioManager;
     private static SubtitlesManager _subtitlesManager;
@@ -52,6 +56,8 @@ public class GameManager : MonoBehaviour
 
 		SetupAI();
 
+        SetupInventory();
+
 		SetupUI();
 
 		SetupAudio();
@@ -68,7 +74,7 @@ public class GameManager : MonoBehaviour
 	{
 		if(GameManager._currentLevel != null)
 			Destroy(GameManager._currentLevel.gameObject);
-		GameManager._currentLevel = GetComponent<GameLevel>();
+		GameManager._currentLevel = GetComponent<LevelManager>();
 
     }
     
@@ -79,13 +85,23 @@ public class GameManager : MonoBehaviour
         GameManager._aiManager = GetComponentInChildren<AIManager>();
     }
     
+    private void SetupInventory()
+    {
+        if(_inventory != null) // We don't need to recreate the UI from scene to scene
+            return;
+        
+        GameObject invObj = new GameObject("Inventory");
+        invObj.AddComponent<InventoryManager>();
+        _inventory = invObj.GetComponent<InventoryManager>(); //TODO: DON'T DESTROY ON LOAD
+    }
+    
     private void SetupUI()
     {
         if(_uiManager != null) // We don't need to recreate the UI from scene to scene
             return;
 
         Transform ui = (Transform)Instantiate(UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);
-        _uiManager = ui.GetComponent<UIManager>();
+        _uiManager = ui.GetComponent<UIManager>(); //TODO: DON'T DESTROY ON LOAD
     }
 	
 	private void SetupAudio()
@@ -122,7 +138,7 @@ public class GameManager : MonoBehaviour
     private void SetupPlayer()
     {
 		// We don't need to recreate the Player from scene to scene
-        if(_player == null)
+        if(_player == null) //TODO: DON'T DESTROY ON LOAD
         {
             Transform player = (Transform)Instantiate(PlayerPrefab, _currentLevel.OffscreenPosition, Quaternion.identity);
             _player = player.GetComponent<CharacterAnimator>();
@@ -150,14 +166,10 @@ public class GameManager : MonoBehaviour
 		_instance.LoadLevelStateHelper (Application.loadedLevelName);
 
         // Move the player to the correct spot
-        PlayerCharacterInventory inventory = Player.GetComponent<PlayerCharacterInventory>();
-        if (inventory != null)
-        {
-            Debug.Log ("Moving player to proper spawn spot " + inventory.SpawnPoint.transform.position);
-            Player.transform.position = inventory.SpawnPoint.transform.position;
-        }
+        Debug.Log ("Moving player to proper spawn spot " + _instance.LastCheckPoint.position);
+        Player.transform.position = _instance.LastCheckPoint.position;
 
-		// Enable it
+		// Allow the player to start moving
 		_player.IgnoreMovement = false;
 
         // Reset it's health to max
@@ -176,6 +188,9 @@ public class GameManager : MonoBehaviour
 			cameraScript.Target = Player.transform;
 		else
 			Debug.LogWarning("Failed to point camera at player!");
+
+        // Enable the input
+        GameManager.UI.EnableInput();
 	}
 
 	public static void DeleteSaves()
@@ -191,14 +206,10 @@ public class GameManager : MonoBehaviour
 	}
 	private void LoadGameStateHelper()
 	{
-		// restore player inventory
-		PlayerCharacterInventory inventory = GameManager.Player.GetComponent<PlayerCharacterInventory> ();
-	
-		if (inventory != null) {
-			inventory.Weapons.Clear ();
-			inventory.Items.Clear ();
-			GameManager.UI.UpdateWeaponImage();
-		}
+		// Restore player inventory
+		Inventory.Weapons.Clear ();
+        Inventory.Items.Clear ();
+		GameManager.UI.UpdateWeaponImage();
 
 
 		// Get the saved data
@@ -206,34 +217,34 @@ public class GameManager : MonoBehaviour
 		if(gameSave == null)
         {
             Debug.LogWarning("No game save data!");
-			inventory.SpawnPoint = _currentLevel.StartPoint;
+			LastCheckPoint = _currentLevel.StartPoint;
             return;
-
 		}
 
 		// TODO: MAKE THIS MORE GENERIC
-		foreach(WeaponType weaponType in gameSave.PlayerState.WeaponsHeld) {
+		foreach(WeaponType weaponType in gameSave.PlayerState.WeaponsHeld)
+        {
 			GameObject newWeapon;
 
 			if(weaponType == WeaponType.Weapon_Pipe) {
-				newWeapon = (GameObject) Instantiate ( Resources.Load ("InHand/Pipe Weapon"), _currentLevel.OffscreenPosition, Quaternion.identity);
-				inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
+				newWeapon = (GameObject) Instantiate ( Resources.Load ("Weapons/InHand/Pipe Weapon"), _currentLevel.OffscreenPosition, Quaternion.identity);
+                Inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
 
 			} else if(weaponType == WeaponType.Weapon_GravityGun) {
-				newWeapon = (GameObject) Instantiate ( Resources.Load ("InHand/GravityGun"), _currentLevel.OffscreenPosition, Quaternion.identity);
-				inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
+                newWeapon = (GameObject) Instantiate ( Resources.Load ("Weapons/InHand/GravityGun"), _currentLevel.OffscreenPosition, Quaternion.identity);
+                Inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
 				
 			} else if(weaponType == WeaponType.Weapon_MINE) {
-				newWeapon = (GameObject) Instantiate ( Resources.Load ("InHand/Mine"), _currentLevel.OffscreenPosition, Quaternion.identity);
-				inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
+                newWeapon = (GameObject) Instantiate ( Resources.Load ("Weapons/InHand/Mine"), _currentLevel.OffscreenPosition, Quaternion.identity);
+                Inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
 				
 			}
 
 		}
 
-		// reload player inventory
+		// Reload player inventory
 		foreach(InventoryItem invItem in gameSave.PlayerState.ItemsHeld)
-			inventory.AddItem( InventoryItemFactory.CreateFromType(invItem.Type, invItem.Quantity) );
+            Inventory.AddItem( InventoryItemFactory.CreateFromType(invItem.Type, invItem.Quantity) );
 
 
 		// Move player to his last checkpoint.
@@ -246,8 +257,7 @@ public class GameManager : MonoBehaviour
 			if(checkpoint != null && checkpoint.Location == gameSave.Checkpoint)
 			{
 				GameManager.Player.transform.position = checkpoint.transform.position;
-                if(inventory != null)
-			    	inventory.SpawnPoint = checkpoint.transform;
+                LastCheckPoint = checkpoint.transform;
 				checkpointFound = true;
 				break;
 			}
@@ -255,11 +265,12 @@ public class GameManager : MonoBehaviour
 		if(!checkpointFound)
 		{
 			Debug.LogWarning("Saved checkpoint not found!");
-			inventory.SpawnPoint = _currentLevel.StartPoint;
+			LastCheckPoint = _currentLevel.StartPoint;
 		}
 
+        // Display the correct weapon
 		GameManager.UI.UpdateWeaponImage ();
-		while (GameManager.UI.CurrentWeapon != gameSave.PlayerState.CurrentWeapon)
+		while (GameManager.UI.CurrentWeapon != gameSave.PlayerState.CurrentWeapon) // TODO: STRESS TEST TO AVOID INFINITE LOOP
 			GameManager.UI.CycleToNextWeapon ();
 
 		// TODO: THIS CURRENTLY DOESN'T WORK BECAUSE LOAD GAME IS CALLED WHEN YOU START UP A SCENE, AND YOU THEN MOVE TO THE PREVIOUS SCENE
@@ -331,15 +342,15 @@ public class GameManager : MonoBehaviour
 			GameObject newItem;
 
 			if(itemState.WeaponType == WeaponType.Weapon_Pipe) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("OnField/PipeWeapon"), itemState.Position, itemState.Rotation);
+                newItem = (GameObject) Instantiate ( Resources.Load ("Weapons/OnField/PipeWeapon"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 	
 			} else if(itemState.WeaponType == WeaponType.Weapon_GravityGun) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("OnField/GravityGun"), itemState.Position, itemState.Rotation);
+                newItem = (GameObject) Instantiate ( Resources.Load ("Weapons/OnField/GravityGun"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 				
 			} else if(itemState.WeaponType == WeaponType.Weapon_MINE) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("OnField/M.I.N.E."), itemState.Position, itemState.Rotation);
+                newItem = (GameObject) Instantiate ( Resources.Load ("Weapons/OnField/M.I.N.E."), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 
 			} else if(itemState.ItemType == Item.ItemType.Item_ComputerParts) {
@@ -365,7 +376,7 @@ public class GameManager : MonoBehaviour
 		GameSaveState gameSave = new GameSaveState ();
 		gameSave.LevelName = Application.loadedLevelName;
 		gameSave.Checkpoint = location;
-		gameSave.PlayerState = GameManager.Player.GetComponent<PlayerCharacterInventory> ().SaveState ();
+		gameSave.PlayerState = Inventory.SaveState ();
         gameSave.Save(GameSaveStatePath);
 	}
 	
@@ -393,19 +404,18 @@ public class GameManager : MonoBehaviour
 		get { return _instance; }
 	}	
 
-    public static GameLevel Level
+    public static LevelManager Level
     {
         get { return _currentLevel; }
     }
-    public static CharacterAnimator Player
-	{
-		get { return _player; }
-		set { _player = value; }
-	}
 	public static AIManager AI
 	{
 		get { return _aiManager; }
-	}
+    }
+    public static InventoryManager Inventory
+    {
+        get { return _inventory; }
+    }
     public static UIManager UI
     {
         get { return _uiManager; }
@@ -422,12 +432,17 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			PlayerCharacterInventory inventory = _player.GetComponent<PlayerCharacterInventory>();
-			return (_currentLevel != null && _currentLevel.Ready) && (inventory == null || inventory.Ready) && 
-				(_aiManager != null &&_aiManager.Ready) && (_uiManager != null &&_uiManager.Ready) && 
+            return (_currentLevel != null && _currentLevel.Ready) && (_aiManager != null &&_aiManager.Ready) && 
+                (_inventory != null && _inventory.Ready) && (_uiManager != null &&_uiManager.Ready) && 
 				(_audioManager != null &&_audioManager.Ready) && (_subtitlesManager != null && _subtitlesManager.Ready);
 		}
-	}
+    }
+
+    public static CharacterAnimator Player
+    {
+        get { return _player; }
+        set { _player = value; }
+    }
 
 	public static string GameSaveStatePath
 	{

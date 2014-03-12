@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 
 /// <summary>
-/// Game level is a class used to keep track of the attributes of the level in the scene.
+/// Level manager keeps track of the attributes of the current level in the scene.
 /// Main things: Render settings and boundaries of scene.
 /// </summary>
-[AddComponentMenu("Game/Game Level")]
-public class GameLevel : MonoBehaviour
+[AddComponentMenu("Game/Level Manager")]
+public class LevelManager : MonoBehaviour
 {
 	// Where the player starts in the level
     public Transform StartPoint; // TODO: DELETE THIS, AND JUST BASE START POINT OFF SAVE DATA AND CHECKPOINTS IN GAMEMANAGER
@@ -36,6 +36,7 @@ public class GameLevel : MonoBehaviour
 
 	private bool _ready;
 	
+
 	void Awake()
 	{
 		SetupRenderSettings();
@@ -116,6 +117,7 @@ public class GameLevel : MonoBehaviour
 			Destroy (obj);
 
 	}
+
 
 	public Vector3 OffscreenPosition
 	{

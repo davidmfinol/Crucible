@@ -5,7 +5,6 @@ using System.Collections.Generic;
 /// <summary>
 /// Player character defines the motion for the character that the player controls.
 /// </summary>
-[RequireComponent(typeof(PlayerCharacterInventory))]
 [RequireComponent(typeof(PlayerCharacterShader))]
 [AddComponentMenu("Character/Player Character/Player Character Animator")]
 public class PlayerCharacterAnimator : CharacterAnimator
@@ -50,9 +49,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     // Keep track of wall jumps to scale their difficulty
     private int _wallJumpCount;
-	
-	// Used to keep track of the player character's inventory
-	private PlayerCharacterInventory _inventory;
 
 	// Used to pickup items only at the end of the animation
 	private Item _itemPickedup;
@@ -60,9 +56,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
     // Can only double-jump once
     private bool _hasDoubleJumped;
 
+
     protected override void OnStart()
     {
-		_inventory = gameObject.GetComponent<PlayerCharacterInventory>();
 		_sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer>();
 		_itemPickedup = null;
     }
@@ -167,10 +163,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	protected void UpdateAttackAnimations()
 	{
-		if(Inventory.CurrentWeapon == null)
+		if(GameManager.Inventory.CurrentWeapon == null)
 			return;
 
-		Weapon currentWeapon = Inventory.CurrentWeapon;
+        Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
 
 		OlympusAnimator enemyAnim = null;
@@ -209,13 +205,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	void StartMelee()
 	{
-		if(Inventory.CurrentWeapon == null)
+        if(GameManager.Inventory.CurrentWeapon == null)
 		{
 			Debug.LogWarning("StartMelee() called with no weapon found");
 			return;
 		}
 
-		Weapon weapon = Inventory.CurrentWeapon;
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
 		if (weapon != null && weapon is PipeWeapon)
 		{
 			weapon.ActivateAttack (0);
@@ -225,13 +221,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void EndMelee()
 	{
-		if(Inventory.CurrentWeapon == null)
+        if(GameManager.Inventory.CurrentWeapon == null)
 		{
 			Debug.LogWarning("EndMelee() called with no weapon found");
 			return;
 		}
 		
-		Weapon weapon = Inventory.CurrentWeapon;
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
 		if(weapon != null && weapon is PipeWeapon)
 			weapon.Deactivate();
 		else
@@ -239,13 +235,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void PlaceMine()
 	{
-		if(Inventory.CurrentWeapon == null)
+        if(GameManager.Inventory.CurrentWeapon == null)
 		{
 			Debug.LogWarning("PlaceMine() called with no weapon found");
 			return;
 		}
 		
-		Weapon weapon = Inventory.CurrentWeapon;
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
 		if(weapon != null && weapon is Mine)
 			weapon.ActivateAttack(0);
 		else
@@ -253,13 +249,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void DetonateMine()
 	{
-		if(Inventory.CurrentWeapon == null)
+        if(GameManager.Inventory.CurrentWeapon == null)
 		{
 			Debug.LogWarning("DetonateMine() called with no weapon found");
 			return;
 		}
 		
-		Weapon weapon = Inventory.CurrentWeapon;
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
 		if(weapon != null && weapon is Mine)
 			weapon.ActivateAttack(1);
 		else
@@ -267,13 +263,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void ShootGun()
 	{
-		if(Inventory.CurrentWeapon == null)
+        if(GameManager.Inventory.CurrentWeapon == null)
 		{
 			Debug.LogWarning("ShootGun() called with no weapon found");
 			return;
 		}
 		
-		Weapon weapon = Inventory.CurrentWeapon;
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
 		if(weapon != null && weapon is GravityGun)
 			weapon.ActivateAttack();
 		else
@@ -316,7 +312,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         {
 			Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
 
-			_inventory.CurrentWeapon.transform.RotateAround ( rightHand.position, new Vector3(0, 1, 1), -90.0f);
+            GameManager.Inventory.CurrentWeapon.transform.RotateAround ( rightHand.position, new Vector3(0, 1, 1), -90.0f);
 		}
 
 		MecanimAnimator.SetBool (_stealthKillHash, false);
@@ -329,7 +325,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
 		Transform rightHand = CharacterSettings.SearchHierarchyForBone(transform, "hand_R");
 		
-		_inventory.CurrentWeapon.transform.RotateAround ( rightHand.position, new Vector3(0, 1, 1), 90.0f);
+        GameManager.Inventory.CurrentWeapon.transform.RotateAround ( rightHand.position, new Vector3(0, 1, 1), 90.0f);
 
 	}
 
@@ -795,8 +791,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				// Add it to our list of weapons
 				Weapon pickedUpWeapon = instantiatedWeapon.GetComponent<Weapon>();
 
-				if(! _inventory.HasWeapon(pickedUpWeapon))
-					_inventory.Weapons.Add(pickedUpWeapon);
+                if(! GameManager.Inventory.HasWeapon(pickedUpWeapon))
+                    GameManager.Inventory.Weapons.Add(pickedUpWeapon);
 
 				// Auto-equip our items
 				StartCoroutine("AutoEquip");
@@ -810,7 +806,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 				// generate a new inventory item and add it.
 				InventoryItem newInvItem = InventoryItemFactory.CreateFromType(_itemPickedup.Type, _itemPickedup.Quantity);
 
-				_inventory.AddItem( newInvItem );
+                GameManager.Inventory.AddItem( newInvItem );
 
 			}
 			MecanimAnimator.SetBool(_pickupHash, false);
@@ -820,20 +816,20 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		VerticalSpeed = GroundVerticalSpeed;
 	}
 	
-	private IEnumerator AutoEquip()
+	IEnumerator AutoEquip()
 	{
 		yield return new WaitForSeconds (0.5f);
-		if(_inventory.Weapons.Count == 1)
+        if(GameManager.Inventory.Weapons.Count == 1)
             GameManager.UI.CycleToNextWeapon();
-        else if(_inventory.Weapons.Count <= 3)
+        else if(GameManager.Inventory.Weapons.Count <= 3)
 			GameManager.UI.UpdateWeaponImage();
 		StopCoroutine ("AutoEquip");
 	}
 	
-	private IEnumerator PickUpItem()
+	IEnumerator PickUpItem()
 	{
 		yield return new WaitForSeconds (0.5f);
-		_itemPickedup.transform.position = GameManager.Level.OffscreenPosition;
+		_itemPickedup.transform.position = GameManager.Level.OffscreenPosition; //TODO: MAYBE DELETE THIS?
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)
@@ -852,7 +848,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		animRet = null;
 
 		// no melee equipped, don't even bother to cast any rays
-		if (!IsGrounded || !_inventory.CanWeaponStealthKill )
+        if (!IsGrounded || !GameManager.Inventory.CanWeaponStealthKill )
 			return false;
 		
 		// see if anything in range
@@ -891,12 +887,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		obj = null;
 		return false;
-	}
-
-
-	public PlayerCharacterInventory Inventory
-	{
-		get { return _inventory; }
 	}
 
 }

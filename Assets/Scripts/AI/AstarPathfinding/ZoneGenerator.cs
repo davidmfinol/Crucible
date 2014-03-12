@@ -267,7 +267,9 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
         // Helpers for rotation
         Vector3 rotationPoint = waypointBounds.center;
-        Vector3 rotationAngle = RotatePointAroundPivot(storedRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
+        Vector3 rotationAngle = Vector3.zero;
+        if(waypointGO.transform.parent != null)
+            RotatePointAroundPivot(storedRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
 
         // ACtually get the list of all the waypoints
 		for(float x = left; x < right; x += WaypointSubdivisionSize)
@@ -433,7 +435,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 			return false;
 
         // Then do a basic check to see if there's any ground objects in the way
-        Vector3 dir = (Vector3)(A.position - B.position);
+        Vector3 dir = (Vector3)(B.position - A.position);
         dist = dir.magnitude;
         
         Ray ray = new Ray((Vector3)A.position, (Vector3)(B.position - A.position));
@@ -444,13 +446,14 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             return false;
 
         // Then do a more rigorous check to see if the character's charactercontroller will fit between the two points
-        /*
-        Vector3 footPos = (Vector3)A.position;
-        Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height;
-        if(Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask))
-            return false;
-        */
-        
+        if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height)
+        {
+            Vector3 footPos = ((Vector3)A.position);
+            Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down;
+            if(Physics.CapsuleCast(footPos, headPos, 0.001f, dir, dist, CollisionMask))
+                return false;
+        }
+
         // Finally, check to see if there already is a path
         if (A.GO != null && B.GO != null)
         {
@@ -494,7 +497,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     {
         float xDist = Mathf.Abs(b.x - a.x);
         float yDist = b.y - a.y;
-        float yVel = Mathf.Sqrt(2.0f * _olympusSettings.JumpHeight * _olympusSettings.Gravity);
+        float yVel = Mathf.Sqrt(2.0f * (_olympusSettings.JumpHeight + _olympusAnimator.Height / 2.0f) * _olympusSettings.Gravity);
         float t = yVel / _olympusSettings.Gravity;
         float yMax = _olympusSettings.JumpHeight + _olympusAnimator.Height / 2.0f;
         if (xDist > _olympusSettings.MaxHorizontalSpeed * t)
@@ -521,7 +524,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     public bool CanFit(Vector3 point)
     {
         float dist = 0;
-        return !ObstructedByGround(point, point + Vector3.up * _olympusAnimator.Height, out dist);
+        return !ObstructedByGround(point, point + Vector3.up * _olympusAnimator.Height + Vector3.down, out dist);
     }
 
     /// <summary>
