@@ -447,7 +447,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         {
             Vector3 footPos = ((Vector3)A.position);
             Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down;
-            if(Physics.CapsuleCast(footPos, headPos, 0.001f, dir, dist, CollisionMask))
+            if(Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask))
                 return false;
         }
 
