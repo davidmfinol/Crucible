@@ -73,7 +73,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // First, get the components we need
         GameObject OlympusPrefab = (GameObject) Resources.Load("Olympus");
         _olympusAnimator = OlympusPrefab.GetComponent<CharacterAnimator>();
-        _olympusSettings = OlympusPrefab.GetComponent<CharacterSettings>();        
+        _olympusSettings = OlympusPrefab.GetComponent<CharacterSettings>();
         _olympusAISettings = OlympusPrefab.GetComponent<EnemyAISettings>();
 
         // Then, create the nodes and connect them
@@ -425,31 +425,39 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // First check that both nodes are walkable
         if (!A.Walkable || !B.Walkable)
             return false;
+
+        // We'll be using these positions a lot, so cache them
+        Vector3 posA = (Vector3)A.position;
+        Vector3 posB = (Vector3)B.position;
 		
         // Then check that the character is capable of jumping from the first node to the second
-		if(!CanJump((Vector3)A.position, (Vector3)B.position) )
+        if(!CanJump(posA, posB))
 			return false;
 
+        // TODO: To avoid jumping too much, we're disregarding points below that you can't fall to
+        //if( (posB.y - posA.y <= 0) && !CanFall(posA, posB) )
+        //    return false;
+
         // Then do a basic check to see if there's any ground objects in the way
-        Vector3 dir = (Vector3)(B.position - A.position);
+        Vector3 dir = posB - posA;
         dist = dir.magnitude;
         
-        Ray ray = new Ray((Vector3)A.position, (Vector3)(B.position - A.position));
-        Ray invertRay = new Ray((Vector3)B.position, (Vector3)(A.position - B.position));
+        Ray ray = new Ray(posA, posB - posA);
+        Ray invertRay = new Ray(posB, posA - posB);
         
         bool obstructedByGround = Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
         if(obstructedByGround)
             return false;
 
         // Then do a more rigorous check to see if the character's charactercontroller will fit between the two points
-      //  if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height
-      //     || Mathf.Abs( ((Vector3)A.position).x - ((Vector3)B.position).x ) < _olympusAISettings.StopRange)
-     //   {
-            Vector3 footPos = ((Vector3)A.position);
-            Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down;
+        if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height
+           || Mathf.Abs( ((Vector3)A.position).x - ((Vector3)B.position).x ) < _olympusAISettings.StopRange)
+        {
+            Vector3 footPos = posA;
+            Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down; // Subtract 1 because node is 1 above ground
             if(Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask))
                 return false;
-     //   }
+        }
 
         // Finally, check to see if there already is a path
         if (A.GO != null && B.GO != null)

@@ -184,7 +184,7 @@ public class OlympusAnimator : CharacterAnimator
 		else
 			ApplyGravity(elapsedTime);
 		
-		ApplyBiDirection();
+		//ApplyBiDirection();
 		
 		if(transform.position.y >= LastGroundHeight - 1)
 			MecanimAnimator.SetBool(_fallHash, false);

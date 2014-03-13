@@ -131,7 +131,6 @@ public class EnemyAI : MonoBehaviour
             if(!_isSearchingForPath)
             {
                 Vector3 targetPos = GameManager.AI.GetRandomSearchPoint(transform.position);
-                Debug.Log("Randomly found "+ targetPos);
     			if(!targetPos.Equals(Vector3.zero))
                     UpdateAStarTarget(targetPos);
                 else
@@ -232,7 +231,6 @@ public class EnemyAI : MonoBehaviour
 	// Waits until we are not searching for a path to then start searching for a new path
 	public IEnumerator YieldRepath()
     {
-        Debug.Log("Gonna Yield repath to " + _target);
 		while (_isSearchingForPath)
 			yield return null;
 
@@ -244,7 +242,6 @@ public class EnemyAI : MonoBehaviour
 	// Starts searching for a new path, if we're not already searching for a path
 	public void Repath()
     {
-        Debug.Log("Should Repath to "+ _target);
 		if(_isSearchingForPath)
 			return;
 
@@ -253,7 +250,6 @@ public class EnemyAI : MonoBehaviour
 
 		_seeker.StartPath( _animator.transform.position, _target, OnPathFound);
         _isSearchingForPath = true;
-        Debug.Log("Repathed to " + _target);
 	}
 	
 	public void OnPathFound(Path p)
@@ -383,6 +379,7 @@ public class EnemyAI : MonoBehaviour
             if(_animator.IsGrounded)
                 _animator.CharInput.Horizontal = 0;
 
+            // TODO: SMALLER STOP RANGE?
             if(isInStopRange)
 				_animator.CharInput.Jump = Vector2.up;
 			else if (isNodeToRight)
