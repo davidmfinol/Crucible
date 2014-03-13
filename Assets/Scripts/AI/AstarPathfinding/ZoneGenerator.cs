@@ -442,14 +442,14 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             return false;
 
         // Then do a more rigorous check to see if the character's charactercontroller will fit between the two points
-        if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height
-           || Mathf.Abs( ((Vector3)A.position).x - ((Vector3)B.position).x ) < _olympusAISettings.StopRange)
-        {
+      //  if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height
+      //     || Mathf.Abs( ((Vector3)A.position).x - ((Vector3)B.position).x ) < _olympusAISettings.StopRange)
+     //   {
             Vector3 footPos = ((Vector3)A.position);
             Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down;
             if(Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask))
                 return false;
-        }
+     //   }
 
         // Finally, check to see if there already is a path
         if (A.GO != null && B.GO != null)
@@ -475,7 +475,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="posB">Position b.</param>
     public bool ObstructedByGround(Vector3 posA, Vector3 posB, out float dist)
     {
-        Vector3 dir = (posA - posB);
+        Vector3 dir = (posB - posA);
         dist = dir.magnitude;
         
         Ray ray = new Ray(posA, (posB - posA));

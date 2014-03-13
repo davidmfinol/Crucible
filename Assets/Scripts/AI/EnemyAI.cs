@@ -308,6 +308,10 @@ public class EnemyAI : MonoBehaviour
     
     private void AstarNavigateToTarget(float speedRatio)
 	{
+        // We don't move while landing
+        if(_animator.IsLanding)
+            return;
+
         // Store the target position
         Vector3 targetPos = _path.vectorPath [_currentPathWaypoint];
 
@@ -329,9 +333,27 @@ public class EnemyAI : MonoBehaviour
         bool shouldStayStill = isCloseEnough && isMidAir;
 
 		if(shouldStayStill)
-			_animator.CharInput.Horizontal = 0;
+        {
+            // Make sure we grab onto things when we can 
+            if(_animator.CanHangOffObject)
+            {
+                if(nextNode.isRightLedge)
+                    _animator.CharInput.Horizontal = -speedRatio;
+                else if(nextNode.isLeftLedge)
+                    _animator.CharInput.Horizontal = speedRatio;
+                else
+                    _animator.CharInput.Horizontal = 0;
+            }
+            else
+            {
+                // Get our speedratio down towards 0 (when it's less than 0.1, it's ignored)
+                float currentSpeedRatio = _animator.HorizontalSpeed/_animator.Settings.MaxHorizontalSpeed;
+                _animator.CharInput.Horizontal = -currentSpeedRatio;
+            }
+        }
         else if (isMidAir)
         {
+            // TODO: MAKE THIS MORE PRECISE AND FLUID
             if(isInStopRange)
                 _animator.CharInput.Horizontal = horizontalDifference / _animator.Settings.MaxHorizontalSpeed;
             else
@@ -352,7 +374,7 @@ public class EnemyAI : MonoBehaviour
         if(prevNode != null && nextNode != null)
             isNodeOnOtherPlatform = prevNode.GO != nextNode.GO;
         bool canFall = GameManager.AI.Graph.CanFall(transform.position, targetPos);
-        bool shouldJump = (!isMidAir || isClimbing) && (isNodeAbove || (isNodeOnOtherPlatform && !canFall));
+        bool shouldJump = (!isMidAir || isClimbing) && isNodeOnOtherPlatform && (isNodeAbove || !canFall);
         bool canJump = GameManager.AI.Graph.CanJump (transform.position, targetPos);
 		bool jump = shouldJump && canJump;
 
