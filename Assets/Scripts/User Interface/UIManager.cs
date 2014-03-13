@@ -205,7 +205,7 @@ public class UIManager : MonoBehaviour
 
 			// *** just a "click" within interval? ***
 			if(_swipeTime < WeaponClickPeriod && Vector3.Distance (mouseWorldPos, _swipeStartPos) < MinSwipeDistance) {
-				CycleToNextWeapon();
+				CycleToPreviousWeapon();
 
 			}
 
