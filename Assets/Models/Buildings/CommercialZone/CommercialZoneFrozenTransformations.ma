@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: CommercialZoneFrozenTransformations.ma
-//Last modified: Wed, Mar 12, 2014 12:24:02 AM
+//Last modified: Wed, Mar 12, 2014 07:12:40 PM
 //Codeset: UTF-8
 requires maya "2014";
 requires -nodeType "mentalrayFramebuffer" -nodeType "mentalrayOutputPass" -nodeType "mentalrayRenderPass"
@@ -89,18 +89,18 @@ fileInfo "cutIdentifier" "201303010035-864206";
 fileInfo "osv" "Mac OS X 10.9.1";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" 36.86881134580851 46.96242797477916 -73.164656525795152 ;
-	setAttr ".r" -type "double3" -10.199999999997017 85.999999999961915 -2.279755921364315e-14 ;
+	setAttr ".t" -type "double3" 65.816953941183016 60.964182163736247 3.956683532732284 ;
+	setAttr ".r" -type "double3" -10.199999999997059 85.999999999961929 0 ;
 	setAttr ".rpt" -type "double3" 5.8541916972959969e-17 -1.1998575666381109e-16 -4.3892264882142993e-18 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".pze" yes;
 	setAttr ".fl" 34.999999999999979;
-	setAttr ".coi" 37.552333018179283;
+	setAttr ".coi" 67.037153692302539;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" 0 40.312482833862305 -75.742774963378906 ;
+	setAttr ".tp" -type "double3" 0 49.092925210374304 -0.64568622825145283 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	setAttr ".t" -type "double3" 0 100.1 0 ;
@@ -7886,7 +7886,7 @@ createNode transform -n "DiagonalLedge188";
 	setAttr ".t" -type "double3" 0 1.8251646648443725 10.687049207140625 ;
 	setAttr ".r" -type "double3" -19.282592156119652 0 0 ;
 	setAttr ".s" -type "double3" 1 1 2.7259501740213374 ;
-	setAttr ".rp" -type "double3" 0 63.489107131958008 -24.431073056218054 ;
+	setAttr ".rp" -type "double3" 0 63.489107131958008 -24.431073056218057 ;
 	setAttr ".rpt" -type "double3" 0 2.314081452076735 -0.5224268971220809 ;
 	setAttr ".sp" -type "double3" 0 63.489107131958008 -27.84144115447998 ;
 	setAttr ".spt" -type "double3" 0 0 3.4103680982619267 ;
@@ -8413,11 +8413,8 @@ createNode mesh -n "DiagonalLedge186Shape" -p "DiagonalLedge186";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "WallLedgeRightOnly5";
-	setAttr ".t" -type "double3" 0 15.938273289232072 24.413943982159765 ;
-	setAttr ".r" -type "double3" -90 0 0 ;
-	setAttr ".s" -type "double3" 1 1 3.0833333729776662 ;
-	setAttr ".rp" -type "double3" 0 34.731870435044939 -25.470846730050884 ;
-	setAttr ".sp" -type "double3" 0 34.731870435044939 -25.470846730050884 ;
+	setAttr ".rp" -type "double3" 0 50.670143724277025 -1.0569027478911153 ;
+	setAttr ".sp" -type "double3" 0 50.670143724277025 -1.0569027478911153 ;
 createNode mesh -n "WallLedgeRightOnly5Shape" -p "WallLedgeRightOnly5";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
@@ -8430,10 +8427,10 @@ createNode mesh -n "WallLedgeRightOnly5Shape" -p "WallLedgeRightOnly5";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 8 ".pt[0:7]" -type "float3"  -0.5 34.825573 -24.278603 
-		0.5 34.825573 -24.278603 -0.5 33.815735 -24.278603 0.5 33.815735 -24.278603 -0.5 
-		33.815735 -27.686152 0.5 33.815735 -27.686152 -0.5 34.825573 -27.686152 0.5 34.825573 
-		-27.686152;
+	setAttr -s 8 ".pt[0:7]" -type "float3"  -0.5 56.887894 -0.65060616 
+		0.5 56.887894 -0.65060616 -0.5 54.887894 -1.6407681 0.5 54.887894 -1.6407681 -0.5 
+		41.297955 -0.64076805 0.5 41.297955 -0.64076805 -0.5 43.297955 0.34939384 0.5 43.297955 
+		0.34939384;
 	setAttr -s 8 ".vt[0:7]"  -0.5 -1 0.5 0.5 -1 0.5 -0.5 1 0.5 0.5 1 0.5
 		 -0.5 1 -0.5 0.5 1 -0.5 -0.5 -1 -0.5 0.5 -1 -0.5;
 	setAttr -s 12 ".ed[0:11]"  0 1 0 2 3 0 4 5 0 6 7 0 0 2 0 1 3 0 2 4 0
