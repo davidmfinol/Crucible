@@ -101,7 +101,7 @@ public class UIManager : MonoBehaviour
 	{
         UpdateVignette();
 
-		//ProcessMouse ();
+		ProcessMouse ();
 
 	}
 
