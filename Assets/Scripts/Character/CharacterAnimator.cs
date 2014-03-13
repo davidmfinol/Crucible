@@ -399,13 +399,12 @@ public abstract class CharacterAnimator : MonoBehaviour
         VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
     }
 
-	public virtual void StepDown() {
-
+	public virtual void StepDown()
+    {
 	}
 
-	public virtual void StandUp() {
-
-
+	public virtual void StandUp()
+    {
 	}
 
 	protected void ApplyDeathFriction(float elapsedTime)
@@ -573,6 +572,10 @@ public abstract class CharacterAnimator : MonoBehaviour
 	
 
 	// Movement/Animation Properties
+    public virtual bool IsLanding
+    {
+        get { return CurrentState.IsName("Air.Landing"); } // FIXME: SLOW
+    }
 	public AnimatorStateInfo CurrentState
 	{
 		get { return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0); }

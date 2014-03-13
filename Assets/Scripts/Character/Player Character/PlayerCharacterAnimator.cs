@@ -195,8 +195,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		{
 			MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
 			MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackActive && currentWeapon is GravityGun); 
-			MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackRightPressed && currentWeapon is Mine); 
-			MecanimAnimator.SetBool(_detonateMineHash, CharInput.AttackLeftPressed && currentWeapon is Mine); 
+			MecanimAnimator.SetBool(_placeMineHash, (CharInput.AttackRightPressed || CharInput.AttackLeftPressed) && currentWeapon is Mine); 
 
 		}
 
@@ -261,6 +260,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	void DetonateMine()
 	{
+		MecanimAnimator.SetBool (_detonateMineHash, false);
+
         if(GameManager.Inventory.CurrentWeapon == null)
 		{
 			Debug.LogWarning("DetonateMine() called with no weapon found");
@@ -387,6 +388,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 			MecanimAnimator.SetBool (_pickupHash,  canPickup && _itemPickedup != null);
 		
+		} else if(CharInput.InteractionPressed) {
+			MecanimAnimator.SetBool (_detonateMineHash, true);
+
 		}
 
 	}
@@ -443,6 +447,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		else 
 			MecanimAnimator.SetBool (_backflipHash, false);
 	
+		if(CharInput.InteractionPressed)
+			MecanimAnimator.SetBool (_detonateMineHash, true);
+		
 	}
 		 
 	protected void Rolling(float elapsedTime)
@@ -502,6 +509,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         if(CharInput.JumpPressed)
             MecanimAnimator.SetBool(_doublejumpHash, true);
+
+		if(CharInput.InteractionPressed)
+			MecanimAnimator.SetBool (_detonateMineHash, true);
+
 	}
 
     protected void Doublejumping(float elapsedTime)
