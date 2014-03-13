@@ -13,7 +13,7 @@ public class ItemQuad : MonoBehaviour {
 		quadCopy.renderer.material.color = new Color (quadCopy.renderer.material.color.r,
 		                                             quadCopy.renderer.material.color.g,
 		                                             quadCopy.renderer.material.color.b,
-		                                             0.6f);
+		                                             1.0f);
 
 		ItemQuad itemQuad = quadCopy.GetComponent<ItemQuad> ();
 		itemQuad.invItem = invItem;
