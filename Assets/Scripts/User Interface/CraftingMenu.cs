@@ -281,7 +281,7 @@ public class CraftingMenu : MonoBehaviour {
 
 		// if dragging something, put it under mouse
 		if(_draggingQuad != null) {
-			_draggingQuad.transform.position = _uiCamera.ScreenToWorldPoint( new Vector3(Input.mousePosition.x, Input.mousePosition.y, 2.0f ) );
+			_draggingQuad.transform.position = _uiCamera.ScreenToWorldPoint( new Vector3(Input.mousePosition.x - 15.0f, Input.mousePosition.y + 15.0f, 2.0f ) );
 
 		}
 
