@@ -11,7 +11,7 @@ using Pathfinding;
 [AddComponentMenu("AI/Enemy AI")]
 public class EnemyAI : MonoBehaviour
 {
-    // Generic enemy AI componenents
+    // Generic enemy AI components
     private CharacterAnimator _animator;
 	private EnemyAISettings _settings;
 	private CharacterAnimator _playerAnimator;
@@ -19,10 +19,8 @@ public class EnemyAI : MonoBehaviour
     private OlympusAwareness _olympusAwareness; //TODO: MOVE THIS OUT OF THIS CLASS
     private HearingRadius _personalHearingRadius;
     private float _timeSincePlayerSeen;
-	private float _timeToRetarget;
 	
 	// A* PathFinding
-    private ZoneGraph _graph;
     private Seeker _seeker;
     private Vector3 _target = Vector3.zero; // where the enemy wants to go
     private Path _path = null; // how it plans to get there
@@ -51,11 +49,9 @@ public class EnemyAI : MonoBehaviour
         _olympusAwareness = GetComponent<OlympusAwareness> ();
         _personalHearingRadius = GetComponentInChildren<HearingRadius> ();
         _timeSincePlayerSeen = 0;
-		_timeToRetarget = 0;
         GameManager.AI.Enemies.Add(this);
 
         // Set up Astar
-        _graph = (ZoneGraph)AstarPath.active.graphs[0];
         _seeker = GetComponent<Seeker>();
 
         // Finally, map the output of this class to the input of the animator
@@ -129,19 +125,19 @@ public class EnemyAI : MonoBehaviour
 		if(Vector3.Distance(transform.position, GameManager.Player.transform.position) > Settings.MaxActiveDistance)
 			return;
 
-		// We should retarget every now and then
-		Vector3 targetPos = GameManager.AI.GetRandomSearchPoint();
-		_timeToRetarget -= Time.fixedDeltaTime; // NOTE: WE USE FIXEDDELATA SINCE WE ASSUME WE RUN IN FIXED UPDATE/ SHOULD PASS IN TIME?
-		if(_target == Vector3.zero || (_timeToRetarget <= 0 && Settings.WanderTargetTime > 0))
+		// We need to retarget every now and then (based off current target and current position)
+        if(_target == Vector3.zero || _playerAnimator != null || _animator.Controller.bounds.Contains(_target))
 		{
-			_timeToRetarget = Settings.WanderTargetTime;
-			if(!targetPos.Equals(Vector3.zero))
-				UpdateAStarTarget(targetPos);
+            if(!_isSearchingForPath)
+            {
+                Vector3 targetPos = GameManager.AI.GetRandomSearchPoint(transform.position);
+                Debug.Log("Randomly found "+ targetPos);
+    			if(!targetPos.Equals(Vector3.zero))
+                    UpdateAStarTarget(targetPos);
+                else
+                    Debug.LogWarning("Failed to find a random search point!");
+            }
 		}
-
-		// If we've reached our random target, find a new random target
-		if(_animator.Controller.bounds.Contains(_target) && !targetPos.Equals(Vector3.zero))
-			UpdateAStarTarget(targetPos);
 
 		// Stop if we can't get a path
 		if(!UpdateAStarPath())
@@ -211,6 +207,7 @@ public class EnemyAI : MonoBehaviour
 
 	public void UpdateAStarTarget(Vector3 target)
 	{
+        // Vector3.zero is our shortcut to go to the location of the player
 		if(target == Vector3.zero)
 		{
 			if(_playerAnimator == null && GameManager.Player != null)
@@ -218,20 +215,24 @@ public class EnemyAI : MonoBehaviour
 			if(_playerAnimator != null)
 				_target = _playerAnimator.transform.position;
 			else
-				Debug.LogWarning("Failed to find player animator while looking for a star target");
-			StartCoroutine ("YieldRepath");
+				Debug.LogWarning("Failed to find player animator while looking for astar target!");
         }
 		else if(target != _target)
 		{
 			_playerAnimator = null;
 			_target = target;
-			StartCoroutine ("YieldRepath");
-		}
+        }
+        else
+            return; // Don't do anything if we already have the target
+
+        // We call yieldRepath because we want to ENSURE that we get a new path for this new target
+        StartCoroutine ("YieldRepath");
 	}
 
 	// Waits until we are not searching for a path to then start searching for a new path
 	public IEnumerator YieldRepath()
-	{
+    {
+        Debug.Log("Gonna Yield repath to " + _target);
 		while (_isSearchingForPath)
 			yield return null;
 
@@ -242,7 +243,8 @@ public class EnemyAI : MonoBehaviour
 
 	// Starts searching for a new path, if we're not already searching for a path
 	public void Repath()
-	{
+    {
+        Debug.Log("Should Repath to "+ _target);
 		if(_isSearchingForPath)
 			return;
 
@@ -250,7 +252,8 @@ public class EnemyAI : MonoBehaviour
 			_target = _playerAnimator.transform.position;
 
 		_seeker.StartPath( _animator.transform.position, _target, OnPathFound);
-		_isSearchingForPath = true;
+        _isSearchingForPath = true;
+        Debug.Log("Repathed to " + _target);
 	}
 	
 	public void OnPathFound(Path p)
@@ -292,7 +295,7 @@ public class EnemyAI : MonoBehaviour
 		}
 
 		// Move on if we reached our waypoint
-		bool isTouchingNextNode = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
+		bool isTouchingNextNode = _animator.Controller.bounds.Contains (_path.vectorPath[_currentPathWaypoint]);
 		bool isWaypointLongerThanPath = (_currentPathWaypoint >= _path.path.Count);
 		bool isNodeTouchingGround = isWaypointLongerThanPath ? true : ((ZoneNode)_path.path [_currentPathWaypoint]).isGround;
 		bool isCharacterTouchingGround = _animator.IsGrounded;
@@ -305,11 +308,23 @@ public class EnemyAI : MonoBehaviour
     
     private void AstarNavigateToTarget(float speedRatio)
 	{
+        // Store the target position
+        Vector3 targetPos = _path.vectorPath [_currentPathWaypoint];
+
+        // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
+        int offset = _path.vectorPath.Count - _path.path.Count;
+        ZoneNode prevNode = null;
+        if(_currentPathWaypoint - (1 + offset) >= 0)
+            prevNode = (ZoneNode) _path.path [_currentPathWaypoint - (1 + offset)];
+        ZoneNode nextNode = null;
+        if(_currentPathWaypoint - offset < _path.path.Count)
+            nextNode = (ZoneNode) _path.path [_currentPathWaypoint - offset];
+
 		// Determine horizontal
-        float horizontalDifference = _path.vectorPath [_currentPathWaypoint].x - _animator.transform.position.x;
+        float horizontalDifference = targetPos.x - transform.position.x;
         bool isNodeToRight = horizontalDifference > 0;
 		bool isMidAir = !_animator.IsGrounded;
-        bool isCloseEnough =  _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
+        bool isCloseEnough =  _animator.Controller.bounds.Contains (targetPos);
         bool isInStopRange = Mathf.Abs(horizontalDifference) < Settings.StopRange;
         bool shouldStayStill = isCloseEnough && isMidAir;
 
@@ -318,7 +333,7 @@ public class EnemyAI : MonoBehaviour
         else if (isMidAir)
         {
             if(isInStopRange)
-                _animator.CharInput.Horizontal = horizontalDifference / Settings.MaxActiveDistance;
+                _animator.CharInput.Horizontal = horizontalDifference / _animator.Settings.MaxHorizontalSpeed;
             else
                 _animator.CharInput.Horizontal = isNodeToRight ? 1 : -1;
         }
@@ -326,20 +341,20 @@ public class EnemyAI : MonoBehaviour
             _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
 		
 		// Determine vertical
-        _animator.CharInput.Vertical = _path.vectorPath [_currentPathWaypoint].y - _animator.transform.position.y;
+        _animator.CharInput.Vertical = targetPos.y - transform.position.y;
+        if(nextNode != null && (nextNode.isLeftLedge || nextNode.isRightLedge))
+            _animator.CharInput.Vertical = 1; // Press up whenever we're on a ledge
 
         // Determine jump
-        bool isClimbing = _animator.CurrentState.IsName("Climbing.ClimbingLadder") || _animator.CurrentState.IsName("Climbing.ClimbingPipe");
-		bool isNodeAbove = _path.vectorPath [_currentPathWaypoint].y - _animator.transform.position.y > 0;
-		bool isNodeOnOtherPlatform = false;
-		if(_currentPathWaypoint < _path.path.Count)
-		{
-			ZoneNode currentNode = (ZoneNode) _path.path [_currentPathWaypoint - 1]; // we index off one since the first is the position of the enemy
-			isNodeOnOtherPlatform = currentNode.GO != ((ZoneNode)_path.path[_currentPathWaypoint]).GO;
-		}
-        bool canFall = _graph.CanFall(transform.position, _path.vectorPath[_currentPathWaypoint]);
+        bool isClimbing = _animator.CurrentState.IsName("Climbing.ClimbingLadder") || _animator.CurrentState.IsName("Climbing.ClimbingPipe");// FIXME: SLOW
+		bool isNodeAbove = targetPos.y - _animator.transform.position.y > 0;
+        bool isNodeOnOtherPlatform = false;
+        if(prevNode != null && nextNode != null)
+            isNodeOnOtherPlatform = prevNode.GO != nextNode.GO;
+        bool canFall = GameManager.AI.Graph.CanFall(transform.position, targetPos);
         bool shouldJump = (!isMidAir || isClimbing) && (isNodeAbove || (isNodeOnOtherPlatform && !canFall));
-		bool jump = shouldJump && _graph.CanJump (transform.position, _path.vectorPath [_currentPathWaypoint]);
+        bool canJump = GameManager.AI.Graph.CanJump (transform.position, targetPos);
+		bool jump = shouldJump && canJump;
 
 		if(jump)
         {
@@ -358,10 +373,10 @@ public class EnemyAI : MonoBehaviour
         
         // Account for things that might be in the way of jumping
         Vector3 xExtension = new Vector3(_animator.Controller.bounds.extents.x, 0, 0);
-        bool isLeftAboveClear = CheckClear(transform.position - xExtension, _path.vectorPath [_currentPathWaypoint]);
-        bool isMiddleAboveClear = CheckClear(transform.position, _path.vectorPath [_currentPathWaypoint]);
-        bool isRightAboveClear = CheckClear(transform.position + xExtension, _path.vectorPath [_currentPathWaypoint]);
-        Vector3 endAtLowerY = _path.vectorPath [_currentPathWaypoint];
+        bool isLeftAboveClear = CheckClear(transform.position - xExtension, targetPos);
+        bool isMiddleAboveClear = CheckClear(transform.position, targetPos);
+        bool isRightAboveClear = CheckClear(transform.position + xExtension, targetPos);
+        Vector3 endAtLowerY = targetPos;
         endAtLowerY.y = transform.position.y - _animator.Height;
 
         if(jump && isLeftAboveClear && (!isMiddleAboveClear || !isRightAboveClear))

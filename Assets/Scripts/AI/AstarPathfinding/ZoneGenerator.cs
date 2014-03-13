@@ -36,6 +36,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     // We need to know the character animator settings of the enemies to determine the graph
     private CharacterAnimator _olympusAnimator; 
     private CharacterSettings _olympusSettings;
+    private EnemyAISettings _olympusAISettings;
 
     // All the ZoneNodes in the ZoneGraph
     public ZoneNode[] nodes;
@@ -72,7 +73,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // First, get the components we need
         GameObject OlympusPrefab = (GameObject) Resources.Load("Olympus");
         _olympusAnimator = OlympusPrefab.GetComponent<CharacterAnimator>();
-        _olympusSettings = OlympusPrefab.GetComponent<CharacterSettings>();
+        _olympusSettings = OlympusPrefab.GetComponent<CharacterSettings>();        
+        _olympusAISettings = OlympusPrefab.GetComponent<EnemyAISettings>();
 
         // Then, create the nodes and connect them
         GenerateNodes();
@@ -129,18 +131,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             foreach (Vector3 subWaypoint in subdividedWaypoints)
                 if(!TransitionWaypoints.ContainsKey(subWaypoint))
                    TransitionWaypoints.Add(subWaypoint, transitionZoneGO);
-            /*
-            // Should ledges get additional waypoints above them?
-            Ledge ledge = transitionZoneGO.GetComponent<Ledge>();
-            if(ledge != null)
-            {
-                Debug.Log("Adding Waypoint above for: " + transitionZoneGO);
-                HashSet<Vector3> waypointsAbove = getWaypointsAbove(transitionZoneBounds);
-                foreach (Vector3 aboveWaypoint in waypointsAbove)
-                 if(!ZoneWaypoints.ContainsKey(aboveWaypoint))
-                    ZoneWaypoints.Add(aboveWaypoint, transitionZoneGO);
-            }
-             * */
         }
 
         // Set up the ZonesToWaypoint mapping
@@ -259,6 +249,12 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         if (waypointGO.collider != null)
             waypointBounds = waypointGO.collider.bounds;
 
+        // We also find a Boxcollider if we can to subtract out it's world space
+        BoxCollider waypointBox = waypointGO.GetComponent<BoxCollider>();
+        Vector3 boxOffset = Vector3.zero;
+        if(waypointBox != null && storedRotation != Quaternion.identity && !waypointGO.name.ToLower().Contains("diagonal"))
+            boxOffset = waypointBox.center;
+
         // Find the extents of that bound
         float z = waypointBounds.center.z;
         float left = waypointBounds.center.x - waypointBounds.extents.x;
@@ -271,16 +267,16 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         if(waypointGO.transform.parent != null)
             rotationAngle = RotatePointAroundPivot(storedRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
 
-        // ACtually get the list of all the waypoints
+        // Actually get the list of all the waypoints
 		for(float x = left; x < right; x += WaypointSubdivisionSize)
         {
             Vector3 abovePoint = new Vector3(x, top + 1, z);
             Vector3 rotatedPoint = RotatePointAroundPivot(abovePoint, rotationPoint, rotationAngle);
-            aboveWaypoints.Add(rotatedPoint);
+            aboveWaypoints.Add(rotatedPoint + boxOffset);
         }
         Vector3 topRight = new Vector3(right, top + 1, z);
         topRight = RotatePointAroundPivot(topRight, rotationPoint, rotationAngle);
-        aboveWaypoints.Add(topRight);
+        aboveWaypoints.Add(topRight + boxOffset);
 
         //Restore rotation
         waypointGO.transform.localRotation = storedRotation;
@@ -446,7 +442,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             return false;
 
         // Then do a more rigorous check to see if the character's charactercontroller will fit between the two points
-        if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height)
+        if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height
+           || Mathf.Abs( ((Vector3)A.position).x - ((Vector3)B.position).x ) < _olympusAISettings.StopRange)
         {
             Vector3 footPos = ((Vector3)A.position);
             Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down;
@@ -497,9 +494,9 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     {
         float xDist = Mathf.Abs(b.x - a.x);
         float yDist = b.y - a.y;
-        float yVel = Mathf.Sqrt(2.0f * (_olympusSettings.JumpHeight + _olympusAnimator.Height / 2.0f) * _olympusSettings.Gravity);
+        float yVel = Mathf.Sqrt(2.0f * (_olympusSettings.JumpHeight) * _olympusSettings.Gravity);
         float t = yVel / _olympusSettings.Gravity;
-        float yMax = _olympusSettings.JumpHeight + _olympusAnimator.Height / 2.0f;
+        float yMax = _olympusSettings.JumpHeight + _olympusAnimator.Height;
         if (xDist > _olympusSettings.MaxHorizontalSpeed * t)
         {
             t = xDist / _olympusSettings.MaxHorizontalSpeed;
