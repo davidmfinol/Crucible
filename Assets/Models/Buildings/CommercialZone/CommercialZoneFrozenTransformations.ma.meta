@@ -527,6 +527,11 @@ ModelImporter:
     101042: Nada6
     101044: Nada7
     101046: WallLedgeLeftOnly6
+    101048: DiagonalBox2
+    101050: DiagonalLedgeLeftOnly1
+    101052: DiagonalLedgeRightOnly4
+    101054: DiagonalLedgeRightOnly5
+    101056: DiagonalMesh
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -1051,6 +1056,11 @@ ModelImporter:
     401042: Nada6
     401044: Nada7
     401046: WallLedgeLeftOnly6
+    401048: DiagonalBox2
+    401050: DiagonalLedgeLeftOnly1
+    401052: DiagonalLedgeRightOnly4
+    401054: DiagonalLedgeRightOnly5
+    401056: DiagonalMesh
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1518,6 +1528,11 @@ ModelImporter:
     2300928: Nada6
     2300930: Nada7
     2300932: WallLedgeLeftOnly6
+    2300934: DiagonalBox2
+    2300936: DiagonalLedgeLeftOnly1
+    2300938: DiagonalLedgeRightOnly4
+    2300940: DiagonalLedgeRightOnly5
+    2300942: DiagonalMesh
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -1985,6 +2000,11 @@ ModelImporter:
     3300928: Nada6
     3300930: Nada7
     3300932: WallLedgeLeftOnly6
+    3300934: DiagonalBox2
+    3300936: DiagonalLedgeLeftOnly1
+    3300938: DiagonalLedgeRightOnly4
+    3300940: DiagonalLedgeRightOnly5
+    3300942: DiagonalMesh
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2452,6 +2472,11 @@ ModelImporter:
     4300928: Nada6
     4300930: Nada7
     4300932: WallLedgeLeftOnly6
+    4300934: DiagonalLedgeLeftOnly1
+    4300936: DiagonalLedgeRightOnly4
+    4300938: DiagonalBox2
+    4300940: DiagonalMesh
+    4300942: DiagonalLedgeRightOnly5
     7400000: Take 001
     9500000: //RootNode
   materials:
