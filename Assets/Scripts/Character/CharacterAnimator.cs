@@ -8,7 +8,6 @@ using System.Collections;
 /// CharacterInput is used to keep track of what input is being passed in during gameplay (ie directional buttons, jump, attack).
 /// </summary>
 [RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CharacterSettings))]
 [RequireComponent(typeof(CharacterInput))]
 [AddComponentMenu("Character/Character Animator")]
@@ -82,9 +81,10 @@ public abstract class CharacterAnimator : MonoBehaviour
         _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
         
 		// HACK: SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS GETS AROUND IT
-        while (_animator.layerCount < 1)
+        while (_animator == null || _animator.layerCount < 1)
 		{
-			Destroy(_animator);
+			Debug.LogWarning("Mecanim animation layers missing. Trying to recreate.");
+			DestroyImmediate(_animator);
 			gameObject.AddComponent("Animator");
 			_animator = GetComponent<Animator>();
 			_animator.avatar = CharAvatar;
