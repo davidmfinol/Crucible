@@ -17,7 +17,7 @@ public class EnemyAISettings : MonoBehaviour
 	public float RepathTime; // = 0.75f;
 
 	// If we're close enough to our end target, stop moving
-	public float StopRange; // = 2.0f;
+	public float StopRange; // = 1.0f;
 
 	// Toggles for the different sensory inputs of the enemy ai
 	public bool CanSee; // = true; 
@@ -31,7 +31,4 @@ public class EnemyAISettings : MonoBehaviour
 
 	// If the enemy is farther than this distance, deactivate it
 	public float MaxActiveDistance; // = 100.0f;
-
-	// How much time we're willing to spend going to a target before just giving up and choosing a new one
-	public float WanderTargetTime; // = 15.0f;
 }
