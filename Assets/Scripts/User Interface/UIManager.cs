@@ -29,9 +29,11 @@ public class UIManager : MonoBehaviour
 	// weapon quads (0 to 2 counter-clockwise)
 	private GameObject[] _weaponQuads;
 
+	// tracking a gui swipe from where, with finger ID if on mobile.
 	private bool _isTrackingSwipe;
+	private int _swipeID;
 	private Vector3 _swipeStartPos;
-
+	
 	private bool _ready;
 	
 	void Start()
@@ -60,6 +62,10 @@ public class UIManager : MonoBehaviour
 
 		quadPos = _weaponWheelPos + Vector3.down * WeaponWheelRadius;
 		_weaponQuads[2] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+
+		_isTrackingSwipe = false;
+		_swipeID = -1;
+		_swipeStartPos = Vector3.zero;
 
 		_ready = true;
 
@@ -99,46 +105,137 @@ public class UIManager : MonoBehaviour
 
 	}
 
-	private void ProcessMouse() {
+	private void TryBeginSwipe() 
+	{
+		// **** began swipe with mouse? ****
 		Vector3 mouseWorldPos = _uiCamera.ScreenToWorldPoint (Input.mousePosition);
 		mouseWorldPos.z = _weaponWheelPos.z;
 
-		// swipe started
-		if (Input.GetMouseButtonDown (0) && Vector3.Distance(_weaponWheelPos, mouseWorldPos) <= (WeaponWheelRadius * 2.0f)) {
+		// *** began swipe with mouse? ***
+		if (Input.GetMouseButtonDown (0) && Vector3.Distance (_weaponWheelPos, mouseWorldPos) <= (WeaponWheelRadius * 2.0f)) {
 			_isTrackingSwipe = true;
 			_swipeStartPos = mouseWorldPos;
-		
-		// swipe accepted
-		} else if(_isTrackingSwipe && (Vector3.Distance(_swipeStartPos, mouseWorldPos) >= MinSwipeDistance)) {
+
+		// *** or began swipe with finger? ***
+		} else {
+			foreach (Touch touch in Input.touches) 
+			{
+				Vector2 touchPos = touch.position;
+				Vector3 touchWorldPos = _uiCamera.ScreenToWorldPoint( new Vector3(touchPos.x, touchPos.y, 0.0f) );
+				touchWorldPos.z = _weaponWheelPos.z;
+				
+				if(touch.phase == TouchPhase.Began && Vector3.Distance (_weaponWheelPos, touchWorldPos) <= (WeaponWheelRadius * 2.0f)) {
+					_isTrackingSwipe = true;
+					_swipeID = touch.fingerId;
+					_swipeStartPos = touchWorldPos;
+
+				}
+				
+			}
+
+		}
+
+	}
+
+	private bool TryEndSwipe(out float degRet) {
+		degRet = 0.0f;
+
+		if (!_isTrackingSwipe)
+			return false;
+
+		// **** ended with mouse? ****
+		Vector3 mouseWorldPos = _uiCamera.ScreenToWorldPoint (Input.mousePosition);
+		mouseWorldPos.z = _weaponWheelPos.z;
+
+		// *** cancel via mouse ***
+		if (Vector3.Distance(_swipeStartPos, mouseWorldPos) >= MinSwipeDistance) {
+			_isTrackingSwipe = false;
+	
 			float deltaY = mouseWorldPos.y - _swipeStartPos.y;
 			float deltaX = mouseWorldPos.x - _swipeStartPos.x;
-
+			
 			// deltaY is inverted due to world coords vs screen coords.
 			float rad = Mathf.Atan2(deltaY, deltaX);
-			float deg = rad * 180.0f / Mathf.PI;
+			degRet = rad * 180.0f / Mathf.PI;
+			return true;
 
-			Debug.Log ("Deg " + deg);
+		
+		} else {
+			foreach (Touch touch in Input.touches) 
+			{
+				Vector2 touchPos = touch.position;
+				Vector3 touchWorldPos = _uiCamera.ScreenToWorldPoint( new Vector3(touchPos.x, touchPos.y, 0.0f) );
+				touchWorldPos.z = _weaponWheelPos.z;
+				
+				if(touch.fingerId == _swipeID && Vector3.Distance (_weaponWheelPos, touchWorldPos) >= MinSwipeDistance) {
+					_isTrackingSwipe = false;
 
-			// swipe - take proper action based on angle.
-			if(deg >= 0.0f && deg <= 90.0f) {
-				_craftingMenu.TryClose ();
+					float deltaY = touchWorldPos.y - _swipeStartPos.y;
+					float deltaX = touchWorldPos.x - _swipeStartPos.x;
+					
+					// deltaY is inverted due to world coords vs screen coords.
+					float rad = Mathf.Atan2(deltaY, deltaX);
+					degRet = rad * 180.0f / Mathf.PI;
+					return true;
 
-			} else if(deg >= 90.0f && deg <= 180.0f) {
-				CycleToNextWeapon();
+				}
+				
+			}
 
-			} else if(deg <= 0.0f && deg >= -90.0f) {
-				CycleToPreviousWeapon();
+		}
 
-			} else if(deg >= -180.0f && deg <= -90.0f) {
-				_craftingMenu.TryOpen();
+		return false;
+	
+	}
+
+	private void TryCancelSwipe() {
+		// *** cancel via mouse ***
+		if (Input.GetMouseButtonUp (0)) {
+			_isTrackingSwipe = false;
+
+		// *** cancel via finger ***
+		} else {
+			foreach (Touch touch in Input.touches) 
+			{
+				// cancelling our orignal
+				if(touch.fingerId == _swipeID && touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended) {
+					_isTrackingSwipe = false;
+
+				}
 
 			}
 
-			_isTrackingSwipe = false;
+		}
+
+	}
+
+	private void ProcessMouse() {
+		float deg;
+
+		// began a swipe?
+		if (!_isTrackingSwipe) {
+			TryBeginSwipe();
+
+		// ending a swipe?
+		} else if(_isTrackingSwipe && TryEndSwipe(out deg)) {
+			// swipe - take proper action based on angle.
+			if(deg >= 0.0f && deg <= 90.0f) {
+				_craftingMenu.TryClose ();
+				
+			} else if(deg >= 90.0f && deg <= 180.0f) {
+				CycleToNextWeapon();
+				
+			} else if(deg <= 0.0f && deg >= -90.0f) {
+				CycleToPreviousWeapon();
+				
+			} else if(deg >= -180.0f && deg <= -90.0f) {
+				_craftingMenu.TryOpen();
+				
+			}
 
 		// swipe cancelled.
-		} else if(Input.GetMouseButtonUp (0)) {
-			_isTrackingSwipe = false;
+		} else {
+			TryCancelSwipe();
 
 		}
 
