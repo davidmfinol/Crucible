@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour
 		// Restore player inventory
 		Inventory.Weapons.Clear ();
         Inventory.Items.Clear ();
-		GameManager.UI.UpdateWeaponImage();
+		GameManager.UI.RefreshWeaponWheel();
 
 
 		// Get the saved data
@@ -269,7 +269,7 @@ public class GameManager : MonoBehaviour
 		}
 
         // Display the correct weapon
-		GameManager.UI.UpdateWeaponImage ();
+		GameManager.UI.RefreshWeaponWheel ();
 		while (GameManager.UI.CurrentWeapon != gameSave.PlayerState.CurrentWeapon) // TODO: STRESS TEST TO AVOID INFINITE LOOP
 			GameManager.UI.CycleToNextWeapon ();
 

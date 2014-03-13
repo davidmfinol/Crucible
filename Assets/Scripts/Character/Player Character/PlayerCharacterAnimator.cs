@@ -14,6 +14,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	// Mecanim hashes
 	private int _verticalSpeedHash;
 	private int _horizontalSpeedHash;
+	private int _xDirectionHash;
 	private int _jumpHash;
 	private int _fallHash;
 	private int _hangHash;
@@ -36,6 +37,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _damagedHash;
 	private int _pickupHash;
     private int _doublejumpHash;
+	private int _steppingDownHash;
+	private int _standingUpHash;
 
 	//The player's sound effects, yeah!
 	private PlayerCharacterAudioPlayer _sound;
@@ -86,10 +89,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
 //		StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingPipe")] = ClimbingVertical;
+		StateMachine[Animator.StringToHash("Ground.Stepping Down")] = SteppingDown;
+		StateMachine[Animator.StringToHash("Ground.Standing Up")] = StandingUp;
+
+
 
 		// Then hash the variables
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
 		_horizontalSpeedHash = Animator.StringToHash("HorizontalSpeed");
+		_xDirectionHash = Animator.StringToHash("XDirection");
 		_jumpHash = Animator.StringToHash("Jump");
 		_fallHash = Animator.StringToHash("Fall");
 		_hangHash = Animator.StringToHash("Hang");
@@ -112,6 +120,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_damagedHash = Animator.StringToHash("Damaged");
 		_pickupHash = Animator.StringToHash("Pickup");
         _doublejumpHash = Animator.StringToHash("Doublejump");
+		_steppingDownHash = Animator.StringToHash ("SteppingDown");
+		_standingUpHash = Animator.StringToHash ("StandingUp");
+
+
 	}
 	protected override List<int> DefineRootMotionCorrectionState() // TODO: ERADICATE THIS METHOD
 	{
@@ -132,8 +144,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		UpdateMovementAnimations();
 		UpdateAttackAnimations();
-	}
 
+	}
+	
 	protected void UpdateMovementAnimations()
 	{
 		if(!MecanimAnimator.GetBool(_jumpHash) && IsGrounded && CharInput.JumpPressed)
@@ -163,7 +176,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	}
 	protected void UpdateAttackAnimations()
 	{
-		if(GameManager.Inventory.CurrentWeapon == null)
+		if(GameManager.Inventory.CurrentWeapon == null || IsDead ())
 			return;
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
@@ -180,7 +193,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		else if(! CurrentState.IsName("Ground.Stealth Kill"))
 		{
-
 			MecanimAnimator.SetBool(_attackMeleeHash, CharInput.AttackActive && currentWeapon is PipeWeapon); 
 			MecanimAnimator.SetBool(_shootGunHash, CharInput.AttackActive && currentWeapon is GravityGun); 
 			MecanimAnimator.SetBool(_placeMineHash, CharInput.AttackRightPressed && currentWeapon is Mine); 
@@ -301,7 +313,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	protected void Damaged(float elapsedTime)
 	{
-		MecanimAnimator.SetBool (_damagedHash, false);
+		if (MecanimAnimator.GetBool (_damagedHash)) {
+			MecanimAnimator.SetBool (_damagedHash, false);
+			GameManager.UI.EnableInput();
+			GameManager.UI.CraftingMenu.Close();
+
+		}
+
 		ApplyGravity (elapsedTime);
 
 	}
@@ -372,7 +390,37 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 
 	}
-	
+
+	public override void StepDown() {
+		MecanimAnimator.SetFloat (_xDirectionHash, Direction.x);
+		MecanimAnimator.SetBool (_steppingDownHash, true);
+
+	}
+
+	public override void StandUp() {
+		MecanimAnimator.SetBool (_standingUpHash, true);
+				
+	}
+
+
+	protected void SteppingDown(float elapsedTime) {
+		MecanimAnimator.SetBool (_steppingDownHash, false);
+
+		// can't use friction because you can slide off a ledge right into the crafting animation
+		HorizontalSpeed = 0;
+		VerticalSpeed = 0;
+
+	}
+
+	protected void StandingUp(float elapsedTime) {
+		MecanimAnimator.SetBool (_standingUpHash, false);
+
+		HorizontalSpeed = 0;
+		VerticalSpeed = 0;
+
+	}
+
+
 	protected void Running(float elapsedTime)
 	{
 		ApplyRunning(elapsedTime);
@@ -394,7 +442,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
         }
 		else 
 			MecanimAnimator.SetBool (_backflipHash, false);
-	 }
+	
+	}
 		 
 	protected void Rolling(float elapsedTime)
 	{
@@ -822,7 +871,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if(GameManager.Inventory.Weapons.Count == 1)
             GameManager.UI.CycleToNextWeapon();
         else if(GameManager.Inventory.Weapons.Count <= 3)
-			GameManager.UI.UpdateWeaponImage();
+			GameManager.UI.RefreshWeaponWheel();
 		StopCoroutine ("AutoEquip");
 	}
 	
@@ -879,8 +928,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	public bool CanPickupItem(out GameObject obj)
 	{
-		RaycastHit hitInfo = new RaycastHit (); //TODO: MAKE THIS MORE FORGIVING ABOUT POSITION
-		if(Physics.Raycast(transform.position + new Vector3(0, Height / 2.0f, 0), Vector3.down, out hitInfo, Height, 1 << 13 ) )
+		RaycastHit hitInfo = new RaycastHit (); 
+		// test from player's front downward to item.
+		if(Physics.Raycast(transform.position + new Vector3(Direction.x * Radius, Height / 2.0f, 0), Vector3.down, out hitInfo, Height, 1 << 13 ) )
    		{
 			obj = hitInfo.transform.gameObject;
 			return true;

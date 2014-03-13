@@ -7,8 +7,6 @@ using System.Collections;
 [AddComponentMenu("Items/Weaponry/Weapon")]
 public abstract class Weapon : MonoBehaviour
 {
-	public Transform GUIImage; // TODO: MAKE THIS RETURN A TEXTURE OR A MATERIAL
-
     /// <summary>
     /// Activate the weapon's attack based off its attack number
     /// </summary>
@@ -43,4 +41,9 @@ public abstract class Weapon : MonoBehaviour
 	{
 		get;
 	}
+
+	public virtual Texture2D GetTexture() {
+		return null;
+	}
+
 }

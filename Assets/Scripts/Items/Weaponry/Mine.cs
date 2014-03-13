@@ -87,4 +87,9 @@ public class Mine : Weapon
 	{
 		get { return WeaponType.Weapon_MINE; }
 	}
+
+	public override Texture2D GetTexture() {
+		return Resources.Load <Texture2D> ("MINEIcon");
+		
+	}
 }

@@ -62,6 +62,8 @@ public class CraftingMenu : MonoBehaviour {
 	// TODO: make into whatever prefab or inventory item, etc.
 	private string _resultingItem;
 
+
+	// --------------------------------
 	void Start() {
 		_uiCamera = transform.root.GetComponentInChildren<Camera>();
 		_inventory = GameManager.Player.GetComponent<InventoryManager>();
@@ -133,24 +135,10 @@ public class CraftingMenu : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown ("CraftingMenu")) {
 			if(_state == CraftingMenuState.CraftingMenu_Closed) {
-				_state = CraftingMenuState.CraftingMenu_Opening;
-				_timeInState = 0.0f;
+				TryOpen();
 
-			} else if(_state == CraftingMenuState.CraftingMenu_Open) {
-				_state = CraftingMenuState.CraftingMenu_Closing;
-				_timeInState = 0.0f;
-
-				// destroy all cloned item quads placed into crafting slots
-				_lastClickedItem = null;
-
-				for(int i=0; i <= _craftingSlots.Length - 1; i++) {
-					if(_craftingSlots[i] != null) {
-						Destroy (_craftingSlots[i]);
-						_craftingSlots[i] = null;
-
-					}
-
-				}
+			}  else if(_state == CraftingMenuState.CraftingMenu_Open) {
+				TryClose();
 
 			}
 
@@ -162,6 +150,51 @@ public class CraftingMenu : MonoBehaviour {
 
 		ProcessMouse ();
 
+	}
+
+	public void TryOpen() {
+		if (GameManager.Player.CurrentState.IsName("Base Layer.Idle") ||
+		    GameManager.Player.CurrentState.IsName("Ground.Running") ||
+		    GameManager.Player.CurrentState.IsName("Ground.Standing Up") ) {
+			GameManager.UI.DisableInput();
+			GameManager.Player.StepDown();
+			Open ();
+
+		}
+
+	}
+
+	public void TryClose() {
+		if (GameManager.Player.CurrentState.IsName("Ground.Stepping Down")) {
+			GameManager.UI.EnableInput();
+			GameManager.Player.StandUp();
+			Close ();
+
+		}
+	}
+
+	public void Open() {
+		_state = CraftingMenuState.CraftingMenu_Opening;
+		_timeInState = 0.0f;
+
+	}
+
+	public void Close() {
+		_state = CraftingMenuState.CraftingMenu_Closing;
+		_timeInState = 0.0f;
+		
+		// destroy all cloned item quads placed into crafting slots
+		_lastClickedItem = null;
+		
+		for(int i=0; i <= _craftingSlots.Length - 1; i++) {
+			if(_craftingSlots[i] != null) {
+				Destroy (_craftingSlots[i]);
+				_craftingSlots[i] = null;
+				
+			}
+			
+		}
+	
 	}
 
 	void OnGUI() {
@@ -195,16 +228,22 @@ public class CraftingMenu : MonoBehaviour {
 					// an item from the wheel
 					if(!itemQuad.IsDraggedCopy) {
 						_draggingQuad = itemQuad.CreateDraggableCopy();
-						Debug.Log ("draggable copy ");
 
 					// an item already in a crafting slot, just moving it.
 					} else { 
 						_draggingQuad = itemQuad.gameObject;
 
+						// take it out of whichever slot it was in.
+						for(int i=0; i <= _craftingSlots.Length - 1; i++)
+							if(_craftingSlots[i] == _draggingQuad)
+								_craftingSlots[i] = null;
+
 					}
 				}
 				
 			}
+
+			UpdateCraftResult();
 			
 		} else if(Input.GetMouseButtonUp(0)) {
 			if(_draggingQuad != null) {
@@ -225,9 +264,6 @@ public class CraftingMenu : MonoBehaviour {
 						// stop dragging
 						_draggingQuad = null;
 
-						UpdateCraftResult();
-						return;
-
 					}
 
 				}
@@ -237,6 +273,8 @@ public class CraftingMenu : MonoBehaviour {
 				_draggingQuad = null;
 
 			}
+
+			UpdateCraftResult();
 
 		}
 
@@ -303,14 +341,11 @@ public class CraftingMenu : MonoBehaviour {
 	}
 
 	public void RefreshItemWheel() {
-        if(_inventory == null)
-            return;
-
 		for(int i=0;i < 5; i++) {
-			if( i <= _inventory.Items.Count - 1) {
+			if( i <= GameManager.Inventory.Items.Count - 1) {
 				_itemQuads[i].renderer.enabled = true;
-				_itemQuads[i].renderer.material.mainTexture = _inventory.Items[i].GetTexture();
-				_itemQuads[i].GetComponent<ItemQuad>().invItem = _inventory.Items[i];
+				_itemQuads[i].renderer.material.mainTexture = GameManager.Inventory.Items[i].GetTexture();
+				_itemQuads[i].GetComponent<ItemQuad>().invItem = GameManager.Inventory.Items[i];
 
 			} else {
 				_itemQuads[i].renderer.enabled = false;

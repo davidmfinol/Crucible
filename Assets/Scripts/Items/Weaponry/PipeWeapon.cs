@@ -49,4 +49,9 @@ public class PipeWeapon : Weapon
 	{
 		get { return WeaponType.Weapon_Pipe; }
 	}
+
+	public override Texture2D GetTexture() {
+		return Resources.Load <Texture2D> ("PipeIcon");
+
+	}
 }

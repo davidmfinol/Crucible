@@ -10,41 +10,59 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
 	public Transform ChaseVignette;
-	public float GUIWheelRadius;
+	public GameObject WeaponQuadPrefab;
+	public float WeaponWheelRadius;
+	public float MinSwipeDistance;
 
     private Camera _uiCamera;
     private TouchInput _touchInput;
     private NontouchInput _nontouchInput;
+	private CraftingMenu _craftingMenu;
 
 	private Transform _vignetteInstance;
 	private float _vignetteAlpha;
 	private int _vignetteAlphaDir;
 	
-	private Vector3 _weaponsGuiPos;
+	private Vector3 _weaponWheelPos;
 	private int _currentWeapon;
-	
-	private Transform _previousWeaponsImage;
-	private Transform _currentWeaponsImage;
-	private Transform _nextWeaponsImage;
+
+	// weapon quads (0 to 2 counter-clockwise)
+	private GameObject[] _weaponQuads;
+
+	private bool _isTrackingSwipe;
+	private Vector3 _swipeStartPos;
 
 	private bool _ready;
-
-
+	
 	void Start()
     {
         _uiCamera = GetComponentInChildren<Camera>();
         _touchInput = GetComponent<TouchInput>();
         _nontouchInput = GetComponent<NontouchInput>();
+		_craftingMenu = GetComponent<CraftingMenu> ();
 
 		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
 		_vignetteInstance.parent = transform;
 		_vignetteAlpha = 0.0f;
 
-		_weaponsGuiPos = new Vector3 (1, 1, 8);
-		_weaponsGuiPos = _uiCamera.ViewportToWorldPoint (_weaponsGuiPos);
+		_weaponWheelPos = new Vector3 (1, 1, 8);
+		_weaponWheelPos = _uiCamera.ViewportToWorldPoint (_weaponWheelPos);
         _currentWeapon = 0;
 
+		// weapon quads at proper positions
+		_weaponQuads = new GameObject[3];
+		
+		Vector3 quadPos = _weaponWheelPos + Vector3.left * WeaponWheelRadius;
+		_weaponQuads[0] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+
+		quadPos = _weaponWheelPos + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponWheelRadius;
+		_weaponQuads[1] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+
+		quadPos = _weaponWheelPos + Vector3.down * WeaponWheelRadius;
+		_weaponQuads[2] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+
 		_ready = true;
+
     }
     
     public void EnableInput()
@@ -76,6 +94,54 @@ public class UIManager : MonoBehaviour
 	void Update()
 	{
         UpdateVignette();
+
+		ProcessMouse ();
+
+	}
+
+	private void ProcessMouse() {
+		Vector3 mouseWorldPos = _uiCamera.ScreenToWorldPoint (Input.mousePosition);
+		mouseWorldPos.z = _weaponWheelPos.z;
+
+		// swipe started
+		if (Input.GetMouseButtonDown (0) && Vector3.Distance(_weaponWheelPos, mouseWorldPos) <= (WeaponWheelRadius * 2.0f)) {
+			_isTrackingSwipe = true;
+			_swipeStartPos = mouseWorldPos;
+		
+		// swipe accepted
+		} else if(_isTrackingSwipe && (Vector3.Distance(_swipeStartPos, mouseWorldPos) >= MinSwipeDistance)) {
+			float deltaY = mouseWorldPos.y - _swipeStartPos.y;
+			float deltaX = mouseWorldPos.x - _swipeStartPos.x;
+
+			// deltaY is inverted due to world coords vs screen coords.
+			float rad = Mathf.Atan2(deltaY, deltaX);
+			float deg = rad * 180.0f / Mathf.PI;
+
+			Debug.Log ("Deg " + deg);
+
+			// swipe - take proper action based on angle.
+			if(deg >= 0.0f && deg <= 90.0f) {
+				_craftingMenu.TryClose ();
+
+			} else if(deg >= 90.0f && deg <= 180.0f) {
+				CycleToNextWeapon();
+
+			} else if(deg <= 0.0f && deg >= -90.0f) {
+				CycleToPreviousWeapon();
+
+			} else if(deg >= -180.0f && deg <= -90.0f) {
+				_craftingMenu.TryOpen();
+
+			}
+
+			_isTrackingSwipe = false;
+
+		// swipe cancelled.
+		} else if(Input.GetMouseButtonUp (0)) {
+			_isTrackingSwipe = false;
+
+		}
+
 	}
 
     private void UpdateVignette()
@@ -103,14 +169,14 @@ public class UIManager : MonoBehaviour
                                                                  _vignetteInstance.renderer.material.color.b,
                                                                  _vignetteAlpha);
 	}
-	
+
 	public void CycleToNextWeapon()
 	{
 		_currentWeapon++;
 		if(_currentWeapon >= GameManager.Inventory.Weapons.Count)
 			_currentWeapon = 0;
 
-		UpdateWeaponImage ();
+		RefreshWeaponWheel ();
 	}
 	public void CycleToPreviousWeapon()
 	{
@@ -118,48 +184,46 @@ public class UIManager : MonoBehaviour
 		if(_currentWeapon < 0)
 			_currentWeapon = GameManager.Inventory.Weapons.Count - 1;
 
-		UpdateWeaponImage();
+		RefreshWeaponWheel();
 	}
-
-    // TODO: MAKE THIS USE A SET OF QUADS
-	public void UpdateWeaponImage()
+	
+	public void RefreshWeaponWheel()
 	{
-		if(GameManager.Inventory.Weapons.Count <= 0)
-			return;
+		int weaponToShow = _currentWeapon;
+		int weaponPos = 1;
+		int weaponsShown = 0;
 
-		// Make sure the player has equipped the weapon whose image we are going to show
-        GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
+		// no items means skip to the section where we hide the quads.
+		bool bPlacedAll = (GameManager.Inventory.Weapons.Count == 0);
 
-		// First, find the images that we want to show
-		Transform prevWeaponImage;
-		if(_currentWeapon == 0)
-			prevWeaponImage = GameManager.Inventory.Weapons [GameManager.Inventory.Weapons.Count - 1].GUIImage;
-		else
-			prevWeaponImage = GameManager.Inventory.Weapons [_currentWeapon - 1].GUIImage;
-		Transform currentWeaponImage = GameManager.Inventory.Weapons[_currentWeapon].GUIImage;
-		Transform nextWeaponImage = GameManager.Inventory.Weapons [(_currentWeapon + 1) % GameManager.Inventory.Weapons.Count].GUIImage;
+		while (!bPlacedAll) {
+			// show proper texture
+			_weaponQuads[weaponPos].gameObject.renderer.enabled = true;
+			_weaponQuads[weaponPos].gameObject.renderer.material.mainTexture = GameManager.Inventory.Weapons[weaponToShow].GetTexture();
 
-		// Next, show the middle image
-		if(_currentWeaponsImage != null)
-			Destroy (_currentWeaponsImage.gameObject);
-		Vector3 imageLocation = _weaponsGuiPos;
-		Vector3 directional = (new Vector3 (-1, -1, 0)).normalized;
-		imageLocation += directional * GUIWheelRadius;
-		_currentWeaponsImage = (Transform) Instantiate(currentWeaponImage, imageLocation, Quaternion.identity);
-		if(GameManager.Inventory.Weapons.Count == 1)
-			return;
+			weaponToShow = (weaponToShow + 1) % GameManager.Inventory.Weapons.Count;
+			weaponPos = (weaponPos + 1) % 3;
+			weaponsShown++;
 
-		// Then show the image to the left
-		if(_previousWeaponsImage != null)
-			Destroy(_previousWeaponsImage.gameObject);
-		imageLocation = _weaponsGuiPos + Vector3.left * GUIWheelRadius;
-		_previousWeaponsImage = (Transform) Instantiate (prevWeaponImage, imageLocation, Quaternion.identity);
 
-		// Then show the right image
-		if (_nextWeaponsImage != null)
-			Destroy (_nextWeaponsImage.gameObject);
-		imageLocation = _weaponsGuiPos + Vector3.down * GUIWheelRadius;
-		_nextWeaponsImage = (Transform) Instantiate (nextWeaponImage, imageLocation, Quaternion.identity);
+			// placed 3 or all of our stuff, stop trying
+			bPlacedAll = (weaponsShown == 3 || weaponsShown == GameManager.Inventory.Weapons.Count);
+
+		}
+
+		// *** hide the slots that didn't get filled *** 
+		while(weaponsShown < 3) {
+			_weaponQuads[weaponPos].gameObject.renderer.enabled = false;
+
+			weaponPos = (weaponPos + 1) % 3;
+			weaponsShown++;
+
+		}
+
+		// select the weapon
+		if(GameManager.Inventory.Weapons.Count > 0)
+			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
+
 	}
 
 
@@ -168,6 +232,12 @@ public class UIManager : MonoBehaviour
         get { return _uiCamera; }
         set { _uiCamera = value; }
     }
+
+	public CraftingMenu CraftingMenu
+	{
+		get { return _craftingMenu; }
+
+	}
 
 	public int CurrentWeapon
 	{
