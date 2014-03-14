@@ -16,8 +16,8 @@ public class EnemyAISettings : MonoBehaviour
 	// How many seconds between every calculation of a new path
 	public float RepathTime; // = 0.75f;
 
-	// If we're close enough to our end target, stop moving
-	public float StopRange; // = 1.0f;
+	// X-Distance to be close enough to do just a regular vertical jump to reach our next target
+	public float JumpStopRange; // = 1.0f;
 
 	// Toggles for the different sensory inputs of the enemy ai
 	public bool CanSee; // = true; 

@@ -450,14 +450,18 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             return false;
 
         // Then do a more rigorous check to see if the character's charactercontroller will fit between the two points
-        if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height
-           || Mathf.Abs( ((Vector3)A.position).x - ((Vector3)B.position).x ) < _olympusAISettings.StopRange)
+        /*if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height
+           || Mathf.Abs( ((Vector3)A.position).x - ((Vector3)B.position).x ) < _olympusAISettings.JumpStopRange)
         {
             Vector3 footPos = posA;
             Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down; // Subtract 1 because node is 1 above ground
             if(Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask))
                 return false;
         }
+        */
+        // If the waypoint are on two different platforms, make sure we are either capable of jumping over or falling over
+        if(A.GO != B.GO && !CanFall(posA, posB) && !JumpClear(posA, posB))
+            return false;
 
         // Finally, check to see if there already is a path
         if (A.GO != null && B.GO != null)
@@ -478,7 +482,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <summary>
     /// Checks if there is a ground object between two points.
     /// </summary>
-    /// <returns><c>true</c>, if by ground was obstructeded, <c>false</c> otherwise.</returns>
+    /// <returns><c>true</c>, if by ground was obstructed, <c>false</c> otherwise.</returns>
     /// <param name="posA">Position a.</param>
     /// <param name="posB">Position b.</param>
     public bool ObstructedByGround(Vector3 posA, Vector3 posB, out float dist)
@@ -486,8 +490,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         Vector3 dir = (posB - posA);
         dist = dir.magnitude;
         
-        Ray ray = new Ray(posA, (posB - posA));
-        Ray invertRay = new Ray(posB, posA - posB);
+        Ray ray = new Ray(posA, (posB - posA).normalized);
+        Ray invertRay = new Ray(posB, (posA - posB).normalized);
         
         return Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
     }
@@ -512,13 +516,37 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         }
         return yDist < yMax;
     }
+    public bool JumpClear(Vector3 start, Vector3 end)
+    {
+        Vector3 midPoint = (start + end) / 2.0f;
+        float radius = Vector3.Distance (start, midPoint);
+        Vector3 normal = Vector3.Cross((end - start).normalized, Vector3.back);
+        if(end.x - start.x < 0)
+            normal = Vector3.Cross((end - start).normalized, Vector3.forward);
+        Collider[] colliders = Physics.OverlapSphere(midPoint, radius, CollisionMask);
+
+        float slope = (end.y - start.y) / (end.x - start.x);
+        float b = -1.0f * slope * start.x + start.y;
+
+        foreach(Collider collider in colliders)
+        {
+            Vector3 closestPoint = collider.ClosestPointOnBounds(midPoint);
+            float yAtX = slope * closestPoint.x + b;
+            if(closestPoint.y > yAtX)
+                return false;
+        }
+
+        return true;
+    }
     public bool CanFall(Vector3 a, Vector3 b)
     {
-        float xDist = Mathf.Abs(b.x - a.x);
-        float yDist = b.y - a.y;
-        float t = xDist / _olympusSettings.MaxHorizontalSpeed;
-        float yMax = (-_olympusSettings.Gravity * t * t) / 2.0f;
-        return yDist < yMax;
+        if(b.y > a.y)
+            return false;
+
+        float yDist = Mathf.Abs(b.y - a.y);
+        float t = Mathf.Sqrt(2.0f * yDist / _olympusSettings.Gravity);
+        float xDist = Mathf.Abs( b.x - a.x);
+        return xDist < _olympusSettings.MaxHorizontalSpeed * t;
     }
 
     /// <summary>
@@ -542,7 +570,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     public override NNInfo GetNearest(Vector3 position, NNConstraint constraint, GraphNode hint)
     {
         ZoneNode nearestNode = null;
-        float minDist = float.MaxValue / 1100;
+        float minDist = float.MaxValue;
 
         foreach (KeyValuePair<Bounds, HashSet<ZoneNode> > zoneWithWaypoints in ZonesWithWaypoints)
         {
@@ -552,15 +580,12 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             HashSet<ZoneNode>.Enumerator nodesInZone = zoneWithWaypoints.Value.GetEnumerator();
             while (nodesInZone.MoveNext())
             {
-                float dist = float.MaxValue / 1100;
+                float dist = float.MaxValue;
 
                 Vector3 endPos = (Vector3) ((ZoneNode)nodesInZone.Current).position;
                 bool canJump = CanJump(position, endPos);
                 bool obstructedByGround = ObstructedByGround(position, endPos, out dist);
 				bool isValid = canJump && !obstructedByGround;
-
-				float zPenalty = 1000 * Mathf.Max(Mathf.Abs(position.z - nodesInZone.Current.position.z), 1);
-				dist*= zPenalty;
                 if (isValid && dist < minDist)
                 {
                     minDist = dist;
