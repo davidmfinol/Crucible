@@ -310,6 +310,7 @@ public class EnemyAI : MonoBehaviour
 
         // Store the target position
         Vector3 targetPos = _path.vectorPath [_currentPathWaypoint];
+        Vector3 xExtension = new Vector3(_animator.Controller.bounds.extents.x, 0, 0);
 
         // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
         int offset = _path.vectorPath.Count - _path.path.Count;
@@ -325,10 +326,10 @@ public class EnemyAI : MonoBehaviour
         bool isNodeToRight = horizontalDifference > 0;
 		bool isMidAir = !_animator.IsGrounded;
         bool isCloseEnough =  _animator.Controller.bounds.Contains (targetPos);
-        bool isInStopRange = Mathf.Abs(horizontalDifference) < Settings.StopRange;
-        bool shouldStayStill = isCloseEnough && isMidAir;
+        bool isInStopRange = Mathf.Abs(horizontalDifference) < Settings.JumpStopRange;
+        bool shouldStayStillMidair = isCloseEnough && isMidAir;
 
-		if(shouldStayStill)
+		if(shouldStayStillMidair) // Try to stay still while midair
         {
             // Make sure we grab onto things when we can 
             if(_animator.CanHangOffObject)
@@ -347,16 +348,31 @@ public class EnemyAI : MonoBehaviour
                 _animator.CharInput.Horizontal = -currentSpeedRatio;
             }
         }
-        else if (isMidAir)
+        else if (isMidAir) // Basic horizontal movement while in the air
         {
-            // TODO: MAKE THIS MORE PRECISE AND FLUID
             if(isInStopRange)
-                _animator.CharInput.Horizontal = horizontalDifference / _animator.Settings.MaxHorizontalSpeed;
+            {
+                float timeToTravel = TimeToJump(transform.position, targetPos);
+                float distanceToTravel = targetPos.x - transform.position.x;
+                float desiredSpeed = distanceToTravel / timeToTravel;
+                _animator.CharInput.Horizontal = desiredSpeed / _animator.Settings.MaxHorizontalSpeed;
+            }
             else
                 _animator.CharInput.Horizontal = isNodeToRight ? 1 : -1;
         }
-		else
-            _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
+		else // Basic horizontal movement while on the ground
+        {
+            bool isLeftBelowClear = CheckClear(transform.position - xExtension, targetPos);
+            bool isMiddleBelowClear = CheckClear(transform.position, targetPos);
+            bool isRightBelowClear = CheckClear(transform.position + xExtension, targetPos);
+
+            if(isLeftBelowClear && (!isMiddleBelowClear || !isRightBelowClear))
+                _animator.CharInput.Horizontal = -speedRatio;
+            else if(isRightBelowClear && (!isMiddleBelowClear || !isLeftBelowClear))
+                _animator.CharInput.Horizontal = speedRatio;
+            else
+                _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
+        }
 		
 		// Determine vertical
         _animator.CharInput.Vertical = targetPos.y - transform.position.y;
@@ -379,9 +395,14 @@ public class EnemyAI : MonoBehaviour
             if(_animator.IsGrounded)
                 _animator.CharInput.Horizontal = 0;
 
-            // TODO: SMALLER STOP RANGE?
             if(isInStopRange)
+            {
+                if(nextNode.isLeftLedge)
+                    _animator.CharInput.Horizontal = speedRatio;
+                if(nextNode.isRightLedge)
+                    _animator.CharInput.Horizontal = -speedRatio;
 				_animator.CharInput.Jump = Vector2.up;
+            }
 			else if (isNodeToRight)
 				_animator.CharInput.Jump = new Vector2(1, 1);
 			else
@@ -391,7 +412,6 @@ public class EnemyAI : MonoBehaviour
             _animator.CharInput.Jump = Vector2.zero;
         
         // Account for things that might be in the way of jumping
-        Vector3 xExtension = new Vector3(_animator.Controller.bounds.extents.x, 0, 0);
         bool isLeftAboveClear = CheckClear(transform.position - xExtension, targetPos);
         bool isMiddleAboveClear = CheckClear(transform.position, targetPos);
         bool isRightAboveClear = CheckClear(transform.position + xExtension, targetPos);
@@ -415,6 +435,19 @@ public class EnemyAI : MonoBehaviour
     {
         Vector3 dir = end - start;
         return !Physics.Raycast(start, dir, dir.magnitude, 1 << 12); 
+    }
+
+    
+    public float TimeToJump(Vector3 pointA, Vector3 pointB)
+    {
+        float a = 0.5f * -_animator.Settings.Gravity;
+        float b = _animator.VerticalSpeed;
+        float c = pointA.y - pointB.y;
+        float root1 = (-b + Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
+        float root2 = (-b - Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
+        if(Mathf.Max(root1, root2) <= 0)
+            Debug.LogWarning("Negative time!");
+        return Mathf.Max(root1, root2);
     }
 
 	public EnemySaveState SaveState()

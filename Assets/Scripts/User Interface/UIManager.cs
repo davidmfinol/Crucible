@@ -44,7 +44,9 @@ public class UIManager : MonoBehaviour
     {
         _uiCamera = GetComponentInChildren<Camera>();
         _touchInput = GetComponent<TouchInput>();
+        _touchInput.enabled = false;
         _nontouchInput = GetComponent<NontouchInput>();
+        _nontouchInput.enabled = false;
 		_craftingMenu = GetComponent<CraftingMenu> ();
 
 		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
