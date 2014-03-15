@@ -434,10 +434,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         if(!CanJump(posA, posB))
 			return false;
 
-        // TODO: To avoid jumping too much, we're disregarding points below that you can't fall to
-        //if( (posB.y - posA.y <= 0) && !CanFall(posA, posB) )
-        //    return false;
-
         // Then do a basic check to see if there's any ground objects in the way
         Vector3 dir = posB - posA;
         dist = dir.magnitude;
@@ -449,16 +445,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         if(obstructedByGround)
             return false;
 
-        // Then do a more rigorous check to see if the character's charactercontroller will fit between the two points
-        /*if(Mathf.Abs( ((Vector3)A.position).y - ((Vector3)B.position).y ) < _olympusAnimator.Height
-           || Mathf.Abs( ((Vector3)A.position).x - ((Vector3)B.position).x ) < _olympusAISettings.JumpStopRange)
-        {
-            Vector3 footPos = posA;
-            Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down; // Subtract 1 because node is 1 above ground
-            if(Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask))
-                return false;
-        }
-        */
         // If the waypoint are on two different platforms, make sure we are either capable of jumping over or falling over
         if(A.GO != B.GO && !CanFall(posA, posB) && !JumpClear(posA, posB))
             return false;
@@ -487,10 +473,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="posB">Position b.</param>
     public bool ObstructedByGround(Vector3 posA, Vector3 posB, out float dist)
     {
-        Vector3 dir = (posB - posA);
+        Vector3 dir = posB - posA;
         dist = dir.magnitude;
         
-        Ray ray = new Ray(posA, (posB - posA).normalized);
+        Ray ray = new Ray(posA, dir.normalized);
         Ray invertRay = new Ray(posB, (posA - posB).normalized);
         
         return Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
@@ -516,18 +502,60 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         }
         return yDist < yMax;
     }
+
+    /// <summary>
+    /// Returns whether the area between two points is clear of obstacles, so that the character may jump between those points.
+    /// </summary>
+    /// <returns>Whether the jump area is clear.</returns>
+    /// <param name="start">The start point.</param>
+    /// <param name="end">The end point.</param>
     public bool JumpClear(Vector3 start, Vector3 end)
+    {
+        bool jumpClear = true;
+
+        // OLD: We use capsule cast for steep vertical areas, and a hemisphere test for more horizontal jumps
+        //if(Mathf.Abs( start.x - end.x ) < _olympusAISettings.JumpStopRange)
+        //    jumpClear = CapsuleCastTest(start, end);
+        //else
+            jumpClear = OverlapSphereTest(start, end);
+
+        return jumpClear;
+    }
+
+    /// <summary>
+    /// Does a capsule cast from start to end to determine if there is an obstacle in the way.
+    /// </summary>
+    /// <returns><c>true</c>, if the area is clear, <c>false</c> otherwise.</returns>
+    /// <param name="start">The start point.</param>
+    /// <param name="end">The end point.</param>
+    public bool CapsuleCastTest(Vector3 start, Vector3 end)
+    {
+        Vector3 footPos = start;
+        Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down; // Subtract 1 because node is 1 above ground
+        float halfHeight = _olympusAnimator.Height / 2.0f;
+
+        Vector3 dir = (end + Vector3.up * halfHeight + Vector3.down) - (headPos + Vector3.down * halfHeight);
+        float dist = dir.magnitude;
+        dir = dir.normalized;
+
+        return !Physics.CapsuleCast(footPos, headPos, _olympusAnimator.Radius, dir, dist, CollisionMask);
+    }
+
+    /// <summary>
+    /// Tests a hemisphere area between the two specified points to determine if they are clear of obstacles.
+    /// </summary>
+    /// <returns><c>true</c>, if the area is clear, <c>false</c> otherwise.</returns>
+    /// <param name="start">The start point.</param>
+    /// <param name="end">The end point.</param>
+    public bool OverlapSphereTest(Vector3 start, Vector3 end)
     {
         Vector3 midPoint = (start + end) / 2.0f;
         float radius = Vector3.Distance (start, midPoint);
-        Vector3 normal = Vector3.Cross((end - start).normalized, Vector3.back);
-        if(end.x - start.x < 0)
-            normal = Vector3.Cross((end - start).normalized, Vector3.forward);
         Collider[] colliders = Physics.OverlapSphere(midPoint, radius, CollisionMask);
-
+        
         float slope = (end.y - start.y) / (end.x - start.x);
         float b = -1.0f * slope * start.x + start.y;
-
+        
         foreach(Collider collider in colliders)
         {
             Vector3 closestPoint = collider.ClosestPointOnBounds(midPoint);
@@ -535,9 +563,16 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             if(closestPoint.y > yAtX)
                 return false;
         }
-
+        
         return true;
     }
+
+    /// <summary>
+    /// Determines whether the enemy character can fall (without jumping) from point a to point b.
+    /// </summary>
+    /// <returns>Whether the fall is possible.</returns>
+    /// <param name="a">The start point.</param>
+    /// <param name="b">The end point.</param>
     public bool CanFall(Vector3 a, Vector3 b)
     {
         if(b.y > a.y)
@@ -569,33 +604,47 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="hint">Ignored.</param>
     public override NNInfo GetNearest(Vector3 position, NNConstraint constraint, GraphNode hint)
     {
-        ZoneNode nearestNode = null;
-        float minDist = float.MaxValue;
+        // We assume that we are passed in the midpoint of the character, 
+        // but we really want to look at the position a little above it's foot
+        position = position + Vector3.down * (_olympusAnimator.Height / 2.0f) + Vector3.up;
 
+        // We are going to look for the nearest node by constantly looking for smaller and smaller distances
+        ZoneNode nearestNode = null;
+        float nearestDist = float.MaxValue;
+
+        // We can go through each of our zones and check to see if the nearest node could be in that zone
         foreach (KeyValuePair<Bounds, HashSet<ZoneNode> > zoneWithWaypoints in ZonesWithWaypoints)
         {
             if(!zoneWithWaypoints.Key.Contains(position))
                 continue;
 
+            // If we reach a zone that could contain the nearest node, look through all the nodes in that zone
             HashSet<ZoneNode>.Enumerator nodesInZone = zoneWithWaypoints.Value.GetEnumerator();
             while (nodesInZone.MoveNext())
             {
-                float dist = float.MaxValue;
+                ZoneNode currentNode = nodesInZone.Current;
+                float nodeDist = float.MaxValue;
+                Vector3 nodePos = (Vector3) currentNode.position;
 
-                Vector3 endPos = (Vector3) ((ZoneNode)nodesInZone.Current).position;
-                bool canJump = CanJump(position, endPos);
-                bool obstructedByGround = ObstructedByGround(position, endPos, out dist);
-				bool isValid = canJump && !obstructedByGround;
-                if (isValid && dist < minDist)
+                // Make sure there's no object in the way, and calculate the distance
+                bool isValid = !ObstructedByGround(position, nodePos, out nodeDist);
+
+                // If the distance is the smallest found so far, set it as the current nearest node
+                if(isValid && nodeDist < nearestDist)
                 {
-                    minDist = dist;
-                    nearestNode = nodesInZone.Current;
+                    nearestDist = nodeDist;
+                    nearestNode = currentNode;
                 }
             }
         }
-        return new NNInfo(nearestNode);
+
+        // Return an NNInfo for the Nearest Node that we found
+        return nearestNode != null ? new NNInfo(nearestNode) : new NNInfo();
     }
 	
+    /// <summary>
+    /// Used to draw the graph for debugging purposes.
+    /// </summary>
 	public override void OnDrawGizmos (bool drawNodes)
 	{
 		if(AstarPath.active.debugMode != GraphDebugMode.Areas && AstarPath.active.debugMode != GraphDebugMode.Connections)

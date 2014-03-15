@@ -141,7 +141,7 @@ public class EnemyAI : MonoBehaviour
 		// Stop if we can't get a path
 		if(!UpdateAStarPath())
         {
-            Debug.Log("Unable to use path while wandering!");
+            Debug.LogWarning("Unable to use path while wandering!");
 			return;
         }
 
@@ -262,6 +262,8 @@ public class EnemyAI : MonoBehaviour
 			_path = p;
 			_currentPathWaypoint = 1; // Start at 1 since 0 is the position of where the enemy started
 		}
+        else
+            Debug.LogWarning("Pathfinding errored!: " + p.errorLog);
 	}
 
 	public bool UpdateAStarPath()
@@ -362,16 +364,7 @@ public class EnemyAI : MonoBehaviour
         }
 		else // Basic horizontal movement while on the ground
         {
-            bool isLeftBelowClear = CheckClear(transform.position - xExtension, targetPos);
-            bool isMiddleBelowClear = CheckClear(transform.position, targetPos);
-            bool isRightBelowClear = CheckClear(transform.position + xExtension, targetPos);
-
-            if(isLeftBelowClear && (!isMiddleBelowClear || !isRightBelowClear))
-                _animator.CharInput.Horizontal = -speedRatio;
-            else if(isRightBelowClear && (!isMiddleBelowClear || !isLeftBelowClear))
-                _animator.CharInput.Horizontal = speedRatio;
-            else
-                _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
+            _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
         }
 		
 		// Determine vertical
@@ -415,20 +408,20 @@ public class EnemyAI : MonoBehaviour
         bool isLeftAboveClear = CheckClear(transform.position - xExtension, targetPos);
         bool isMiddleAboveClear = CheckClear(transform.position, targetPos);
         bool isRightAboveClear = CheckClear(transform.position + xExtension, targetPos);
-        Vector3 endAtLowerY = targetPos;
-        endAtLowerY.y = transform.position.y - _animator.Height;
+        //Vector3 endAtLowerY = targetPos;
+       // endAtLowerY.y = transform.position.y - _animator.Height;
 
-        if(jump && isLeftAboveClear && (!isMiddleAboveClear || !isRightAboveClear))
+        if(isLeftAboveClear && (!isMiddleAboveClear || !isRightAboveClear))
         {
             _animator.CharInput.Horizontal = -speedRatio;
-            if(!CheckClear(transform.position - xExtension, endAtLowerY))
-                _animator.CharInput.Jump = Vector2.zero;
+            //if(jump && !CheckClear(transform.position - xExtension, endAtLowerY))
+            //    _animator.CharInput.Jump = Vector2.zero;
         }
-        else if(jump && isRightAboveClear && (!isMiddleAboveClear || !isLeftAboveClear))
+        else if(isRightAboveClear && (!isMiddleAboveClear || !isLeftAboveClear))
         {
             _animator.CharInput.Horizontal = speedRatio;
-            if(!CheckClear(transform.position + xExtension, endAtLowerY))
-                _animator.CharInput.Jump = Vector2.zero;
+            //if(jump && !CheckClear(transform.position + xExtension, endAtLowerY))
+             //   _animator.CharInput.Jump = Vector2.zero;
         }
     }
     private bool CheckClear(Vector3 start, Vector3 end)
@@ -446,7 +439,7 @@ public class EnemyAI : MonoBehaviour
         float root1 = (-b + Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
         float root2 = (-b - Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
         if(Mathf.Max(root1, root2) <= 0)
-            Debug.LogWarning("Negative time!");
+            Debug.LogWarning("Negative time!: " + root1 + " " + root2);
         return Mathf.Max(root1, root2);
     }
 

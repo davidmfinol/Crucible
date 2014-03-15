@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: a95e890d1142446dd8926ecbdaadab95
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Char_a_1
     100002: Char_a_2
@@ -534,6 +534,11 @@ ModelImporter:
     101056: DiagonalMesh
     101058: LedgeRightOnly12
     101060: WallLedgeLeftOnly7
+    101062: WallLedge174
+    101064: WallLedge175
+    101066: LedgeLeftOnly8
+    101068: LedgeRightOnly13
+    101070: WaypointlessMesh
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -1065,6 +1070,11 @@ ModelImporter:
     401056: DiagonalMesh
     401058: LedgeRightOnly12
     401060: WallLedgeLeftOnly7
+    401062: WallLedge174
+    401064: WallLedge175
+    401066: LedgeLeftOnly8
+    401068: LedgeRightOnly13
+    401070: WaypointlessMesh
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1539,6 +1549,11 @@ ModelImporter:
     2300942: DiagonalMesh
     2300944: LedgeRightOnly12
     2300946: WallLedgeLeftOnly7
+    2300948: WallLedge174
+    2300950: WallLedge175
+    2300952: LedgeLeftOnly8
+    2300954: LedgeRightOnly13
+    2300956: WaypointlessMesh
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -2013,6 +2028,11 @@ ModelImporter:
     3300942: DiagonalMesh
     3300944: LedgeRightOnly12
     3300946: WallLedgeLeftOnly7
+    3300948: WallLedge174
+    3300950: WallLedge175
+    3300952: LedgeLeftOnly8
+    3300954: LedgeRightOnly13
+    3300956: WaypointlessMesh
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2487,6 +2507,11 @@ ModelImporter:
     4300942: DiagonalLedgeRightOnly5
     4300944: LedgeRightOnly12
     4300946: WallLedgeLeftOnly7
+    4300948: WallLedge175
+    4300950: WallLedge174
+    4300952: LedgeRightOnly13
+    4300954: LedgeLeftOnly8
+    4300956: WaypointlessMesh
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -2525,7 +2550,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 1
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
     human: []
@@ -2539,5 +2564,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
+  additionalBone: 0
   userData: 

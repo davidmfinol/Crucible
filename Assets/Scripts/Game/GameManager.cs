@@ -166,7 +166,6 @@ public class GameManager : MonoBehaviour
 		_instance.LoadLevelStateHelper (Application.loadedLevelName);
 
         // Move the player to the correct spot
-        Debug.Log ("Moving player to proper spawn spot " + _instance.LastCheckPoint.position);
         Player.transform.position = _instance.LastCheckPoint.position;
 
 		// Allow the player to start moving
