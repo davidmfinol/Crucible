@@ -1,0 +1,1878 @@
+fileFormatVersion: 2
+guid: 2aba0004545dd40c1b82ebb70d8b457f
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: DeadManWalking
+    100002: MAN_FINAL:armJLf_01
+    100004: MAN_FINAL:armJLf_02
+    100006: MAN_FINAL:armJRt_01
+    100008: MAN_FINAL:armJRt_02
+    100010: MAN_FINAL:bodyJ_01
+    100012: MAN_FINAL:clavJLf_01
+    100014: MAN_FINAL:clavJRt_01
+    100016: MAN_FINAL:eyeJLf_01
+    100018: MAN_FINAL:eyeJLf_0End
+    100020: MAN_FINAL:eyeJRt_01
+    100022: MAN_FINAL:eyeJRt_0End
+    100024: MAN_FINAL:footJLf_01
+    100026: MAN_FINAL:footJLf_02
+    100028: MAN_FINAL:footJLf_0End
+    100030: MAN_FINAL:footJRt_01
+    100032: MAN_FINAL:footJRt_02
+    100034: MAN_FINAL:footJRt_0End
+    100036: MAN_FINAL:forearmJLf_25
+    100038: MAN_FINAL:forearmJLf_50
+    100040: MAN_FINAL:forearmJLf_75
+    100042: MAN_FINAL:forearmJRt_25
+    100044: MAN_FINAL:forearmJRt_50
+    100046: MAN_FINAL:forearmJRt_75
+    100048: MAN_FINAL:handJLf_01
+    100050: MAN_FINAL:handJLf_0End
+    100052: MAN_FINAL:handJRt_01
+    100054: MAN_FINAL:handJRt_0End
+    100056: MAN_FINAL:headJ_01
+    100058: MAN_FINAL:headJ_0End
+    100060: MAN_FINAL:indxJLf_01
+    100062: MAN_FINAL:indxJLf_02
+    100064: MAN_FINAL:indxJLf_03
+    100066: MAN_FINAL:indxJLf_04
+    100068: MAN_FINAL:indxJLf_0End
+    100070: MAN_FINAL:indxJRt_01
+    100072: MAN_FINAL:indxJRt_02
+    100074: MAN_FINAL:indxJRt_03
+    100076: MAN_FINAL:indxJRt_04
+    100078: MAN_FINAL:indxJRt_0End
+    100080: MAN_FINAL:jawJ_01
+    100082: MAN_FINAL:jawJ_0End
+    100084: MAN_FINAL:L_ankle_Null
+    100086: MAN_FINAL:L_arm_IK
+    100088: MAN_FINAL:L_elbow_LOC
+    100090: MAN_FINAL:L_FOOT
+    100092: MAN_FINAL:L_HAND
+    100094: MAN_FINAL:L_knee_Group
+    100096: MAN_FINAL:L_leg_IK
+    100098: MAN_FINAL:L_leg_LOC
+    100100: MAN_FINAL:L_wrist_Null
+    100102: MAN_FINAL:legJLf_01
+    100104: MAN_FINAL:legJLf_02
+    100106: MAN_FINAL:legJLf_03
+    100108: MAN_FINAL:legJRt_01
+    100110: MAN_FINAL:legJRt_02
+    100112: MAN_FINAL:legJRt_03
+    100114: MAN_FINAL:MAN_A
+    100116: MAN_FINAL:midJLf_01
+    100118: MAN_FINAL:midJLf_02
+    100120: MAN_FINAL:midJLf_03
+    100122: MAN_FINAL:midJLf_04
+    100124: MAN_FINAL:midJLf_0End
+    100126: MAN_FINAL:midJRt_01
+    100128: MAN_FINAL:midJRt_02
+    100130: MAN_FINAL:midJRt_03
+    100132: MAN_FINAL:midJRt_04
+    100134: MAN_FINAL:midJRt_0End
+    100136: MAN_FINAL:pelvisJ_01
+    100138: MAN_FINAL:pelvisJ_0End
+    100140: MAN_FINAL:pinkJLf_01
+    100142: MAN_FINAL:pinkJLf_02
+    100144: MAN_FINAL:pinkJLf_03
+    100146: MAN_FINAL:pinkJLf_04
+    100148: MAN_FINAL:pinkJLf_0End
+    100150: MAN_FINAL:pinkJRt_01
+    100152: MAN_FINAL:pinkJRt_02
+    100154: MAN_FINAL:pinkJRt_03
+    100156: MAN_FINAL:pinkJRt_04
+    100158: MAN_FINAL:pinkJRt_0End
+    100160: MAN_FINAL:R_ankle_Null
+    100162: MAN_FINAL:R_arm_IK
+    100164: MAN_FINAL:R_elbow_LOC
+    100166: MAN_FINAL:R_FOOT
+    100168: MAN_FINAL:R_HAND
+    100170: MAN_FINAL:R_knee_Group
+    100172: MAN_FINAL:R_leg_IK
+    100174: MAN_FINAL:R_leg_LOC
+    100176: MAN_FINAL:R_wrist_Null
+    100178: MAN_FINAL:ringJLf_01
+    100180: MAN_FINAL:ringJLf_02
+    100182: MAN_FINAL:ringJLf_03
+    100184: MAN_FINAL:ringJLf_04
+    100186: MAN_FINAL:ringJLf_0End
+    100188: MAN_FINAL:ringJRt_01
+    100190: MAN_FINAL:ringJRt_02
+    100192: MAN_FINAL:ringJRt_03
+    100194: MAN_FINAL:ringJRt_04
+    100196: MAN_FINAL:ringJRt_0End
+    100198: MAN_FINAL:SKELETON_01
+    100200: MAN_FINAL:SKELETON_01_MeshPart0
+    100202: MAN_FINAL:SKELETON_01_MeshPart1
+    100204: MAN_FINAL:spineJ_01
+    100206: MAN_FINAL:spineJ_02
+    100208: MAN_FINAL:spineJ_03
+    100210: MAN_FINAL:spineJ_04
+    100212: MAN_FINAL:spineJ_05
+    100214: MAN_FINAL:spineJ_06
+    100216: MAN_FINAL:thmbJLf_01
+    100218: MAN_FINAL:thmbJLf_02
+    100220: MAN_FINAL:thmbJLf_03
+    100222: MAN_FINAL:thmbJLf_0End
+    100224: MAN_FINAL:thmbJRt_01
+    100226: MAN_FINAL:thmbJRt_02
+    100228: MAN_FINAL:thmbJRt_03
+    100230: MAN_FINAL:thmbJRt_0End
+    100232: SKELETON_01
+    100234: SKELETON_01_MeshPart0
+    100236: SKELETON_01_MeshPart1
+    100238: //RootNode
+    400000: DeadManWalking
+    400002: MAN_FINAL:armJLf_01
+    400004: MAN_FINAL:armJLf_02
+    400006: MAN_FINAL:armJRt_01
+    400008: MAN_FINAL:armJRt_02
+    400010: MAN_FINAL:bodyJ_01
+    400012: MAN_FINAL:clavJLf_01
+    400014: MAN_FINAL:clavJRt_01
+    400016: MAN_FINAL:eyeJLf_01
+    400018: MAN_FINAL:eyeJLf_0End
+    400020: MAN_FINAL:eyeJRt_01
+    400022: MAN_FINAL:eyeJRt_0End
+    400024: MAN_FINAL:footJLf_01
+    400026: MAN_FINAL:footJLf_02
+    400028: MAN_FINAL:footJLf_0End
+    400030: MAN_FINAL:footJRt_01
+    400032: MAN_FINAL:footJRt_02
+    400034: MAN_FINAL:footJRt_0End
+    400036: MAN_FINAL:forearmJLf_25
+    400038: MAN_FINAL:forearmJLf_50
+    400040: MAN_FINAL:forearmJLf_75
+    400042: MAN_FINAL:forearmJRt_25
+    400044: MAN_FINAL:forearmJRt_50
+    400046: MAN_FINAL:forearmJRt_75
+    400048: MAN_FINAL:handJLf_01
+    400050: MAN_FINAL:handJLf_0End
+    400052: MAN_FINAL:handJRt_01
+    400054: MAN_FINAL:handJRt_0End
+    400056: MAN_FINAL:headJ_01
+    400058: MAN_FINAL:headJ_0End
+    400060: MAN_FINAL:indxJLf_01
+    400062: MAN_FINAL:indxJLf_02
+    400064: MAN_FINAL:indxJLf_03
+    400066: MAN_FINAL:indxJLf_04
+    400068: MAN_FINAL:indxJLf_0End
+    400070: MAN_FINAL:indxJRt_01
+    400072: MAN_FINAL:indxJRt_02
+    400074: MAN_FINAL:indxJRt_03
+    400076: MAN_FINAL:indxJRt_04
+    400078: MAN_FINAL:indxJRt_0End
+    400080: MAN_FINAL:jawJ_01
+    400082: MAN_FINAL:jawJ_0End
+    400084: MAN_FINAL:L_ankle_Null
+    400086: MAN_FINAL:L_arm_IK
+    400088: MAN_FINAL:L_elbow_LOC
+    400090: MAN_FINAL:L_FOOT
+    400092: MAN_FINAL:L_HAND
+    400094: MAN_FINAL:L_knee_Group
+    400096: MAN_FINAL:L_leg_IK
+    400098: MAN_FINAL:L_leg_LOC
+    400100: MAN_FINAL:L_wrist_Null
+    400102: MAN_FINAL:legJLf_01
+    400104: MAN_FINAL:legJLf_02
+    400106: MAN_FINAL:legJLf_03
+    400108: MAN_FINAL:legJRt_01
+    400110: MAN_FINAL:legJRt_02
+    400112: MAN_FINAL:legJRt_03
+    400114: MAN_FINAL:MAN_A
+    400116: MAN_FINAL:midJLf_01
+    400118: MAN_FINAL:midJLf_02
+    400120: MAN_FINAL:midJLf_03
+    400122: MAN_FINAL:midJLf_04
+    400124: MAN_FINAL:midJLf_0End
+    400126: MAN_FINAL:midJRt_01
+    400128: MAN_FINAL:midJRt_02
+    400130: MAN_FINAL:midJRt_03
+    400132: MAN_FINAL:midJRt_04
+    400134: MAN_FINAL:midJRt_0End
+    400136: MAN_FINAL:pelvisJ_01
+    400138: MAN_FINAL:pelvisJ_0End
+    400140: MAN_FINAL:pinkJLf_01
+    400142: MAN_FINAL:pinkJLf_02
+    400144: MAN_FINAL:pinkJLf_03
+    400146: MAN_FINAL:pinkJLf_04
+    400148: MAN_FINAL:pinkJLf_0End
+    400150: MAN_FINAL:pinkJRt_01
+    400152: MAN_FINAL:pinkJRt_02
+    400154: MAN_FINAL:pinkJRt_03
+    400156: MAN_FINAL:pinkJRt_04
+    400158: MAN_FINAL:pinkJRt_0End
+    400160: MAN_FINAL:R_ankle_Null
+    400162: MAN_FINAL:R_arm_IK
+    400164: MAN_FINAL:R_elbow_LOC
+    400166: MAN_FINAL:R_FOOT
+    400168: MAN_FINAL:R_HAND
+    400170: MAN_FINAL:R_knee_Group
+    400172: MAN_FINAL:R_leg_IK
+    400174: MAN_FINAL:R_leg_LOC
+    400176: MAN_FINAL:R_wrist_Null
+    400178: MAN_FINAL:ringJLf_01
+    400180: MAN_FINAL:ringJLf_02
+    400182: MAN_FINAL:ringJLf_03
+    400184: MAN_FINAL:ringJLf_04
+    400186: MAN_FINAL:ringJLf_0End
+    400188: MAN_FINAL:ringJRt_01
+    400190: MAN_FINAL:ringJRt_02
+    400192: MAN_FINAL:ringJRt_03
+    400194: MAN_FINAL:ringJRt_04
+    400196: MAN_FINAL:ringJRt_0End
+    400198: MAN_FINAL:SKELETON_01
+    400200: MAN_FINAL:SKELETON_01_MeshPart0
+    400202: MAN_FINAL:SKELETON_01_MeshPart1
+    400204: MAN_FINAL:spineJ_01
+    400206: MAN_FINAL:spineJ_02
+    400208: MAN_FINAL:spineJ_03
+    400210: MAN_FINAL:spineJ_04
+    400212: MAN_FINAL:spineJ_05
+    400214: MAN_FINAL:spineJ_06
+    400216: MAN_FINAL:thmbJLf_01
+    400218: MAN_FINAL:thmbJLf_02
+    400220: MAN_FINAL:thmbJLf_03
+    400222: MAN_FINAL:thmbJLf_0End
+    400224: MAN_FINAL:thmbJRt_01
+    400226: MAN_FINAL:thmbJRt_02
+    400228: MAN_FINAL:thmbJRt_03
+    400230: MAN_FINAL:thmbJRt_0End
+    400232: SKELETON_01
+    400234: SKELETON_01_MeshPart0
+    400236: SKELETON_01_MeshPart1
+    400238: //RootNode
+    2300000: MAN_FINAL:SKELETON_01_MeshPart0
+    2300002: MAN_FINAL:SKELETON_01_MeshPart1
+    2300004: SKELETON_01_MeshPart0
+    2300006: SKELETON_01_MeshPart1
+    3300000: MAN_FINAL:SKELETON_01_MeshPart0
+    3300002: MAN_FINAL:SKELETON_01_MeshPart1
+    3300004: SKELETON_01_MeshPart0
+    3300006: SKELETON_01_MeshPart1
+    4300000: SKELETON_01_MeshPart0
+    4300002: SKELETON_01_MeshPart1
+    4300004: MAN_FINAL:SKELETON_01_MeshPart0
+    4300006: MAN_FINAL:SKELETON_01_MeshPart1
+    4300008: MAN_FINAL:MAN_A
+    7400000: Take 001
+    7400002: Die
+    9500000: //RootNode
+    13700000: MAN_FINAL:MAN_A
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: -.100000001
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DeadManWalking
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02/MAN_FINAL:legJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02/MAN_FINAL:legJLf_03/MAN_FINAL:footJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02/MAN_FINAL:legJLf_03/MAN_FINAL:footJLf_01/MAN_FINAL:footJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02/MAN_FINAL:legJLf_03/MAN_FINAL:footJLf_01/MAN_FINAL:footJLf_02/MAN_FINAL:footJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02/MAN_FINAL:legJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02/MAN_FINAL:legJRt_03/MAN_FINAL:footJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02/MAN_FINAL:legJRt_03/MAN_FINAL:footJRt_01/MAN_FINAL:footJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02/MAN_FINAL:legJRt_03/MAN_FINAL:footJRt_01/MAN_FINAL:footJRt_02/MAN_FINAL:footJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:pelvisJ_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:forearmJLf_25
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:forearmJLf_50
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:forearmJLf_75
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:handJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01/MAN_FINAL:indxJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01/MAN_FINAL:indxJLf_02/MAN_FINAL:indxJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01/MAN_FINAL:indxJLf_02/MAN_FINAL:indxJLf_03/MAN_FINAL:indxJLf_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01/MAN_FINAL:indxJLf_02/MAN_FINAL:indxJLf_03/MAN_FINAL:indxJLf_04/MAN_FINAL:indxJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01/MAN_FINAL:midJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01/MAN_FINAL:midJLf_02/MAN_FINAL:midJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01/MAN_FINAL:midJLf_02/MAN_FINAL:midJLf_03/MAN_FINAL:midJLf_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01/MAN_FINAL:midJLf_02/MAN_FINAL:midJLf_03/MAN_FINAL:midJLf_04/MAN_FINAL:midJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01/MAN_FINAL:pinkJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01/MAN_FINAL:pinkJLf_02/MAN_FINAL:pinkJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01/MAN_FINAL:pinkJLf_02/MAN_FINAL:pinkJLf_03/MAN_FINAL:pinkJLf_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01/MAN_FINAL:pinkJLf_02/MAN_FINAL:pinkJLf_03/MAN_FINAL:pinkJLf_04/MAN_FINAL:pinkJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01/MAN_FINAL:ringJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01/MAN_FINAL:ringJLf_02/MAN_FINAL:ringJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01/MAN_FINAL:ringJLf_02/MAN_FINAL:ringJLf_03/MAN_FINAL:ringJLf_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01/MAN_FINAL:ringJLf_02/MAN_FINAL:ringJLf_03/MAN_FINAL:ringJLf_04/MAN_FINAL:ringJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:thmbJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:thmbJLf_01/MAN_FINAL:thmbJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:thmbJLf_01/MAN_FINAL:thmbJLf_02/MAN_FINAL:thmbJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:thmbJLf_01/MAN_FINAL:thmbJLf_02/MAN_FINAL:thmbJLf_03/MAN_FINAL:thmbJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:forearmJRt_25
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:forearmJRt_50
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:forearmJRt_75
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:handJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01/MAN_FINAL:indxJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01/MAN_FINAL:indxJRt_02/MAN_FINAL:indxJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01/MAN_FINAL:indxJRt_02/MAN_FINAL:indxJRt_03/MAN_FINAL:indxJRt_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01/MAN_FINAL:indxJRt_02/MAN_FINAL:indxJRt_03/MAN_FINAL:indxJRt_04/MAN_FINAL:indxJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01/MAN_FINAL:midJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01/MAN_FINAL:midJRt_02/MAN_FINAL:midJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01/MAN_FINAL:midJRt_02/MAN_FINAL:midJRt_03/MAN_FINAL:midJRt_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01/MAN_FINAL:midJRt_02/MAN_FINAL:midJRt_03/MAN_FINAL:midJRt_04/MAN_FINAL:midJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01/MAN_FINAL:pinkJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01/MAN_FINAL:pinkJRt_02/MAN_FINAL:pinkJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01/MAN_FINAL:pinkJRt_02/MAN_FINAL:pinkJRt_03/MAN_FINAL:pinkJRt_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01/MAN_FINAL:pinkJRt_02/MAN_FINAL:pinkJRt_03/MAN_FINAL:pinkJRt_04/MAN_FINAL:pinkJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01/MAN_FINAL:ringJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01/MAN_FINAL:ringJRt_02/MAN_FINAL:ringJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01/MAN_FINAL:ringJRt_02/MAN_FINAL:ringJRt_03/MAN_FINAL:ringJRt_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01/MAN_FINAL:ringJRt_02/MAN_FINAL:ringJRt_03/MAN_FINAL:ringJRt_04/MAN_FINAL:ringJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:thmbJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:thmbJRt_01/MAN_FINAL:thmbJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:thmbJRt_01/MAN_FINAL:thmbJRt_02/MAN_FINAL:thmbJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:thmbJRt_01/MAN_FINAL:thmbJRt_02/MAN_FINAL:thmbJRt_03/MAN_FINAL:thmbJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:eyeJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:eyeJLf_01/MAN_FINAL:eyeJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:eyeJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:eyeJRt_01/MAN_FINAL:eyeJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:headJ_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:jawJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:jawJ_01/MAN_FINAL:jawJ_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null/MAN_FINAL:L_FOOT
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null/MAN_FINAL:L_FOOT/MAN_FINAL:L_knee_Group
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null/MAN_FINAL:L_FOOT/MAN_FINAL:L_knee_Group/MAN_FINAL:L_leg_LOC
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null/MAN_FINAL:L_FOOT/MAN_FINAL:L_leg_IK
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_elbow_LOC
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_wrist_Null
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_wrist_Null/MAN_FINAL:L_HAND
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_wrist_Null/MAN_FINAL:L_HAND/MAN_FINAL:L_arm_IK
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null/MAN_FINAL:R_FOOT
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null/MAN_FINAL:R_FOOT/MAN_FINAL:R_knee_Group
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null/MAN_FINAL:R_FOOT/MAN_FINAL:R_knee_Group/MAN_FINAL:R_leg_LOC
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null/MAN_FINAL:R_FOOT/MAN_FINAL:R_leg_IK
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_elbow_LOC
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_wrist_Null
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_wrist_Null/MAN_FINAL:R_HAND
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_wrist_Null/MAN_FINAL:R_HAND/MAN_FINAL:R_arm_IK
+        weight: 0
+      - path: MAN_FINAL:MAN_A
+        weight: 0
+      - path: MAN_FINAL:SKELETON_01
+        weight: 0
+      - path: MAN_FINAL:SKELETON_01/MAN_FINAL:SKELETON_01_MeshPart0
+        weight: 0
+      - path: MAN_FINAL:SKELETON_01/MAN_FINAL:SKELETON_01_MeshPart1
+        weight: 0
+      - path: SKELETON_01
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart0
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart1
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Die
+      takeName: Take 001
+      firstFrame: 90
+      lastFrame: 150
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: .5
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: DeadManWalking
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02/MAN_FINAL:legJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02/MAN_FINAL:legJLf_03/MAN_FINAL:footJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02/MAN_FINAL:legJLf_03/MAN_FINAL:footJLf_01/MAN_FINAL:footJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJLf_01/MAN_FINAL:legJLf_02/MAN_FINAL:legJLf_03/MAN_FINAL:footJLf_01/MAN_FINAL:footJLf_02/MAN_FINAL:footJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02/MAN_FINAL:legJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02/MAN_FINAL:legJRt_03/MAN_FINAL:footJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02/MAN_FINAL:legJRt_03/MAN_FINAL:footJRt_01/MAN_FINAL:footJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:legJRt_01/MAN_FINAL:legJRt_02/MAN_FINAL:legJRt_03/MAN_FINAL:footJRt_01/MAN_FINAL:footJRt_02/MAN_FINAL:footJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:pelvisJ_01/MAN_FINAL:pelvisJ_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:forearmJLf_25
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:forearmJLf_50
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:forearmJLf_75
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:handJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01/MAN_FINAL:indxJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01/MAN_FINAL:indxJLf_02/MAN_FINAL:indxJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01/MAN_FINAL:indxJLf_02/MAN_FINAL:indxJLf_03/MAN_FINAL:indxJLf_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:indxJLf_01/MAN_FINAL:indxJLf_02/MAN_FINAL:indxJLf_03/MAN_FINAL:indxJLf_04/MAN_FINAL:indxJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01/MAN_FINAL:midJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01/MAN_FINAL:midJLf_02/MAN_FINAL:midJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01/MAN_FINAL:midJLf_02/MAN_FINAL:midJLf_03/MAN_FINAL:midJLf_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:midJLf_01/MAN_FINAL:midJLf_02/MAN_FINAL:midJLf_03/MAN_FINAL:midJLf_04/MAN_FINAL:midJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01/MAN_FINAL:pinkJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01/MAN_FINAL:pinkJLf_02/MAN_FINAL:pinkJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01/MAN_FINAL:pinkJLf_02/MAN_FINAL:pinkJLf_03/MAN_FINAL:pinkJLf_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:pinkJLf_01/MAN_FINAL:pinkJLf_02/MAN_FINAL:pinkJLf_03/MAN_FINAL:pinkJLf_04/MAN_FINAL:pinkJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01/MAN_FINAL:ringJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01/MAN_FINAL:ringJLf_02/MAN_FINAL:ringJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01/MAN_FINAL:ringJLf_02/MAN_FINAL:ringJLf_03/MAN_FINAL:ringJLf_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:ringJLf_01/MAN_FINAL:ringJLf_02/MAN_FINAL:ringJLf_03/MAN_FINAL:ringJLf_04/MAN_FINAL:ringJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:thmbJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:thmbJLf_01/MAN_FINAL:thmbJLf_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:thmbJLf_01/MAN_FINAL:thmbJLf_02/MAN_FINAL:thmbJLf_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJLf_01/MAN_FINAL:armJLf_01/MAN_FINAL:armJLf_02/MAN_FINAL:handJLf_01/MAN_FINAL:thmbJLf_01/MAN_FINAL:thmbJLf_02/MAN_FINAL:thmbJLf_03/MAN_FINAL:thmbJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:forearmJRt_25
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:forearmJRt_50
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:forearmJRt_75
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:handJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01/MAN_FINAL:indxJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01/MAN_FINAL:indxJRt_02/MAN_FINAL:indxJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01/MAN_FINAL:indxJRt_02/MAN_FINAL:indxJRt_03/MAN_FINAL:indxJRt_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:indxJRt_01/MAN_FINAL:indxJRt_02/MAN_FINAL:indxJRt_03/MAN_FINAL:indxJRt_04/MAN_FINAL:indxJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01/MAN_FINAL:midJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01/MAN_FINAL:midJRt_02/MAN_FINAL:midJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01/MAN_FINAL:midJRt_02/MAN_FINAL:midJRt_03/MAN_FINAL:midJRt_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:midJRt_01/MAN_FINAL:midJRt_02/MAN_FINAL:midJRt_03/MAN_FINAL:midJRt_04/MAN_FINAL:midJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01/MAN_FINAL:pinkJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01/MAN_FINAL:pinkJRt_02/MAN_FINAL:pinkJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01/MAN_FINAL:pinkJRt_02/MAN_FINAL:pinkJRt_03/MAN_FINAL:pinkJRt_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:pinkJRt_01/MAN_FINAL:pinkJRt_02/MAN_FINAL:pinkJRt_03/MAN_FINAL:pinkJRt_04/MAN_FINAL:pinkJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01/MAN_FINAL:ringJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01/MAN_FINAL:ringJRt_02/MAN_FINAL:ringJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01/MAN_FINAL:ringJRt_02/MAN_FINAL:ringJRt_03/MAN_FINAL:ringJRt_04
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:ringJRt_01/MAN_FINAL:ringJRt_02/MAN_FINAL:ringJRt_03/MAN_FINAL:ringJRt_04/MAN_FINAL:ringJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:thmbJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:thmbJRt_01/MAN_FINAL:thmbJRt_02
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:thmbJRt_01/MAN_FINAL:thmbJRt_02/MAN_FINAL:thmbJRt_03
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:clavJRt_01/MAN_FINAL:armJRt_01/MAN_FINAL:armJRt_02/MAN_FINAL:handJRt_01/MAN_FINAL:thmbJRt_01/MAN_FINAL:thmbJRt_02/MAN_FINAL:thmbJRt_03/MAN_FINAL:thmbJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:eyeJLf_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:eyeJLf_01/MAN_FINAL:eyeJLf_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:eyeJRt_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:eyeJRt_01/MAN_FINAL:eyeJRt_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:headJ_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:jawJ_01
+        weight: 1
+      - path: DeadManWalking/MAN_FINAL:bodyJ_01/MAN_FINAL:spineJ_01/MAN_FINAL:spineJ_02/MAN_FINAL:spineJ_03/MAN_FINAL:spineJ_04/MAN_FINAL:spineJ_05/MAN_FINAL:spineJ_06/MAN_FINAL:headJ_01/MAN_FINAL:jawJ_01/MAN_FINAL:jawJ_0End
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null/MAN_FINAL:L_FOOT
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null/MAN_FINAL:L_FOOT/MAN_FINAL:L_knee_Group
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null/MAN_FINAL:L_FOOT/MAN_FINAL:L_knee_Group/MAN_FINAL:L_leg_LOC
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_ankle_Null/MAN_FINAL:L_FOOT/MAN_FINAL:L_leg_IK
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_elbow_LOC
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_wrist_Null
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_wrist_Null/MAN_FINAL:L_HAND
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:L_wrist_Null/MAN_FINAL:L_HAND/MAN_FINAL:L_arm_IK
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null/MAN_FINAL:R_FOOT
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null/MAN_FINAL:R_FOOT/MAN_FINAL:R_knee_Group
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null/MAN_FINAL:R_FOOT/MAN_FINAL:R_knee_Group/MAN_FINAL:R_leg_LOC
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_ankle_Null/MAN_FINAL:R_FOOT/MAN_FINAL:R_leg_IK
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_elbow_LOC
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_wrist_Null
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_wrist_Null/MAN_FINAL:R_HAND
+        weight: 0
+      - path: DeadManWalking/MAN_FINAL:R_wrist_Null/MAN_FINAL:R_HAND/MAN_FINAL:R_arm_IK
+        weight: 0
+      - path: MAN_FINAL:MAN_A
+        weight: 0
+      - path: MAN_FINAL:SKELETON_01
+        weight: 0
+      - path: MAN_FINAL:SKELETON_01/MAN_FINAL:SKELETON_01_MeshPart0
+        weight: 0
+      - path: MAN_FINAL:SKELETON_01/MAN_FINAL:SKELETON_01_MeshPart1
+        weight: 0
+      - path: SKELETON_01
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart0
+        weight: 0
+      - path: SKELETON_01/SKELETON_01_MeshPart1
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: MAN_FINAL:bodyJ_01
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:legJLf_01
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:legJRt_01
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:legJLf_03
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:legJRt_03
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:footJLf_01
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:footJRt_01
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:spineJ_01
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:spineJ_03
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:spineJ_05
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:headJ_01
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:clavJLf_01
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:clavJRt_01
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:armJLf_01
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:armJRt_01
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:armJLf_02
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:armJRt_02
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:handJLf_01
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:handJRt_01
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:footJLf_02
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:footJRt_02
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:eyeJLf_01
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:eyeJRt_01
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:jawJ_01
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:thmbJLf_01
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:thmbJLf_02
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:thmbJLf_03
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:indxJLf_01
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:indxJLf_02
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:indxJLf_03
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:midJLf_01
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:midJLf_02
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:midJLf_03
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:ringJLf_01
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:ringJLf_02
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:ringJLf_03
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:pinkJLf_01
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:pinkJLf_02
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:pinkJLf_03
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:thmbJRt_01
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:thmbJRt_02
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:thmbJRt_03
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:indxJRt_01
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:indxJRt_02
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:indxJRt_03
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:midJRt_01
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:midJRt_02
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:midJRt_03
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:ringJRt_01
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:ringJRt_02
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:ringJRt_03
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:pinkJRt_01
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:pinkJRt_02
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: MAN_FINAL:pinkJRt_03
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: StealthDeath(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: DeadManWalking
+      position: {x: .220903277, y: 0, z: .357553214}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:bodyJ_01
+      position: {x: .00540249376, y: 1.00398195, z: .0233426876}
+      rotation: {x: .5, y: -.5, z: -.5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:pelvisJ_01
+      position: {x: -.036018014, y: -.380895913, z: .226305768}
+      rotation: {x: 0, y: 1, z: 0, w: 0}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:legJLf_01
+      position: {x: -.0599997044, y: -.0274999626, z: -.11999999}
+      rotation: {x: 0, y: 0, z: -.0348994732, w: .999390841}
+      scale: {x: 1, y: 1.00000012, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:legJLf_02
+      position: {x: -.41500017, y: 9.31322575e-09, z: -1.49011612e-08}
+      rotation: {x: 0, y: 0, z: .0348994732, w: .999390841}
+      scale: {x: 1, y: .999999821, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:legJLf_03
+      position: {x: -.0350000262, y: -1.16415322e-10, z: 0}
+      rotation: {x: 0, y: 0, z: .0784590542, w: .996917367}
+      scale: {x: .999999821, y: .99999994, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:footJLf_01
+      position: {x: -.420000136, y: -2.23517418e-08, z: 7.4505806e-09}
+      rotation: {x: 0, y: 0, z: -.507538378, w: .861629188}
+      scale: {x: 1, y: 1.00000012, z: 1.00000024}
+      transformModified: 1
+    - name: MAN_FINAL:footJLf_02
+      position: {x: -.159999996, y: 8.19563866e-08, z: -1.49011612e-08}
+      rotation: {x: -1.49011612e-08, y: 0, z: -.374606609, w: .927183867}
+      scale: {x: .999999762, y: 1.00000012, z: .999999881}
+      transformModified: 1
+    - name: MAN_FINAL:footJLf_0End
+      position: {x: -.099999994, y: -2.58000578e-17, z: -3.94430444e-33}
+      rotation: {x: -.5, y: -.5, z: -.5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:legJRt_01
+      position: {x: -.0599998832, y: -.02749997, z: .120000005}
+      rotation: {x: 0, y: 0, z: .999390841, w: .0348994732}
+      scale: {x: .999999821, y: .999999821, z: .999999821}
+      transformModified: 1
+    - name: MAN_FINAL:legJRt_02
+      position: {x: .414999932, y: 7.63684511e-08, z: -1.49011612e-08}
+      rotation: {x: 0, y: 0, z: -.0348994732, w: -.999390841}
+      scale: {x: 1, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:legJRt_03
+      position: {x: .0350000858, y: -4.3422915e-08, z: -7.4505806e-09}
+      rotation: {x: 2.98023259e-08, y: -2.98023259e-08, z: .078459166, w: .996917367}
+      scale: {x: .99999994, y: .99999994, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:footJRt_01
+      position: {x: .419999897, y: -6.70552254e-08, z: 4.69482409e-09}
+      rotation: {x: 1.49011612e-08, y: 0, z: .507538438, w: -.861629128}
+      scale: {x: 1, y: 1.00000024, z: 1.00000024}
+      transformModified: 1
+    - name: MAN_FINAL:footJRt_02
+      position: {x: .160000056, y: 1.04308128e-07, z: 0}
+      rotation: {x: 3.7252903e-09, y: 0, z: -.37460658, w: .927183867}
+      scale: {x: .999999881, y: .999999821, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:footJRt_0End
+      position: {x: .0999996066, y: 5.35529621e-09, z: 0}
+      rotation: {x: -.5, y: -.5, z: -.5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:pelvisJ_0End
+      position: {x: -.140000001, y: -6.57813852e-18, z: -4.74708039e-33}
+      rotation: {x: -.5, y: -.5, z: -.5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:spineJ_01
+      position: {x: -.0960180759, y: -.380895913, z: .226305768}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:spineJ_02
+      position: {x: -.064999938, y: -1.48195305e-08, z: -2.86900118e-17}
+      rotation: {x: 2.98023224e-08, y: -2.98023224e-08, z: .052335903, w: .99862957}
+      scale: {x: .99999994, y: .99999994, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:spineJ_03
+      position: {x: -.0650002956, y: 3.3993274e-08, z: 4.66304373e-09}
+      rotation: {x: -2.98023224e-08, y: 2.98023224e-08, z: .034899503, w: .9993909}
+      scale: {x: .99999994, y: .999999821, z: .999999881}
+      transformModified: 1
+    - name: MAN_FINAL:spineJ_04
+      position: {x: -.179999888, y: -1.86264515e-08, z: 2.07117026e-16}
+      rotation: {x: 2.98023224e-08, y: -2.98023224e-08, z: -.0828082561, w: .99656558}
+      scale: {x: 1.00000036, y: 1.00000048, z: 1.00000024}
+      transformModified: 1
+    - name: MAN_FINAL:clavJLf_01
+      position: {x: -.0130003719, y: .0399999283, z: .0249999892}
+      rotation: {x: .0802067369, y: .642039597, z: .116749719, w: .753472984}
+      scale: {x: .999999642, y: 1.00000012, z: .999999642}
+      transformModified: 1
+    - name: MAN_FINAL:armJLf_01
+      position: {x: -.174999893, y: 5.96046448e-08, z: 5.66593371e-07}
+      rotation: {x: .0307242982, y: .0936091691, z: -.172098577, w: .980140507}
+      scale: {x: 1, y: .999999702, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:armJLf_02
+      position: {x: -.294999868, y: -9.31322575e-09, z: 2.52810423e-07}
+      rotation: {x: -.00140864204, y: -.0114695076, z: -.00221738336, w: .999930799}
+      scale: {x: 1.00000024, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:forearmJLf_25
+      position: {x: -.0699999481, y: 5.58793545e-09, z: -5.77347237e-08}
+      rotation: {x: .00223757513, y: 1.49011612e-08, z: 4.47034836e-08, w: .999997556}
+      scale: {x: .999999881, y: .999999762, z: .999999821}
+      transformModified: 1
+    - name: MAN_FINAL:forearmJLf_50
+      position: {x: -.14000009, y: 1.04308128e-07, z: -3.55328666e-07}
+      rotation: {x: .00447512418, y: 1.49011612e-08, z: 3.7252903e-08, w: .999989986}
+      scale: {x: .99999994, y: .999999821, z: .999999881}
+      transformModified: 1
+    - name: MAN_FINAL:forearmJLf_75
+      position: {x: -.205000296, y: -2.98023224e-08, z: -6.31727744e-07}
+      rotation: {x: .00671273004, y: 2.23517418e-08, z: 6.70552254e-08, w: .999977529}
+      scale: {x: .999999702, y: .999999642, z: .999999821}
+      transformModified: 1
+    - name: MAN_FINAL:handJLf_01
+      position: {x: -.250000268, y: -1.2665987e-07, z: -5.83240762e-07}
+      rotation: {x: .00895023067, y: .00119119126, z: 0, w: .99995923}
+      scale: {x: .999999881, y: .999999583, z: .999999881}
+      transformModified: 1
+    - name: MAN_FINAL:handJLf_0End
+      position: {x: -.0700000003, y: 0, z: 0}
+      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:indxJLf_01
+      position: {x: -.0229998156, y: .0160000455, z: .00600042427}
+      rotation: {x: .708669901, y: -.0326328203, z: -.0211633965, w: .704467297}
+      scale: {x: 1.00000012, y: .999999762, z: .999999702}
+      transformModified: 1
+    - name: MAN_FINAL:indxJLf_02
+      position: {x: -.0800000578, y: -5.56145096e-07, z: -1.35973096e-07}
+      rotation: {x: -2.67987957e-07, y: -8.94069274e-07, z: -.040557228, w: .999177217}
+      scale: {x: .99999994, y: 1.00000024, z: 1.00000024}
+      transformModified: 1
+    - name: MAN_FINAL:indxJLf_03
+      position: {x: -.0330001824, y: 5.06872311e-07, z: 1.02445483e-07}
+      rotation: {x: 2.03028193e-07, y: 3.87429964e-07, z: -.0405855849, w: .999176145}
+      scale: {x: .999999881, y: .999999642, z: .999999762}
+      transformModified: 1
+    - name: MAN_FINAL:indxJLf_04
+      position: {x: -.0249998141, y: -2.03610398e-07, z: -7.54371285e-08}
+      rotation: {x: 3.7252903e-09, y: 7.4505806e-08, z: -.017452389, w: .99984777}
+      scale: {x: 1, y: 1.00000036, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:indxJLf_0End
+      position: {x: -.0249999985, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:midJLf_01
+      position: {x: -.0229997542, y: -.00150000909, z: .00150035846}
+      rotation: {x: .700773716, y: -.0137883499, z: -.0109189823, w: .713166833}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:midJLf_02
+      position: {x: -.0850000158, y: 5.21758921e-08, z: -8.56816769e-08}
+      rotation: {x: 1.62981326e-08, y: -1.56834608e-06, z: -.0392725617, w: .999228597}
+      scale: {x: 1, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:midJLf_03
+      position: {x: -.0350000821, y: -8.74511898e-07, z: 9.12696123e-08}
+      rotation: {x: -2.79396772e-08, y: -1.49011612e-08, z: -.00872654468, w: .999961913}
+      scale: {x: .999999702, y: .99999994, z: .999999881}
+      transformModified: 1
+    - name: MAN_FINAL:midJLf_04
+      position: {x: -.0274998862, y: 9.94477887e-07, z: -1.00582838e-07}
+      rotation: {x: 1.67638063e-08, y: -2.98023224e-08, z: -.00872653723, w: .999961913}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000024}
+      transformModified: 1
+    - name: MAN_FINAL:midJLf_0End
+      position: {x: -.0249999985, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJLf_01
+      position: {x: -.0239997115, y: -.032499902, z: .00700031733}
+      rotation: {x: .697547495, y: .0686007142, z: .0462316424, w: .711747229}
+      scale: {x: 1.00000012, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJLf_02
+      position: {x: -.0650000125, y: 1.77933543e-07, z: -7.63684511e-08}
+      rotation: {x: 2.23517294e-08, y: -1.52736817e-07, z: -.0414519049, w: .999140501}
+      scale: {x: .99999994, y: .99999994, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJLf_03
+      position: {x: -.0320001319, y: -6.28126145e-07, z: 1.64844096e-07}
+      rotation: {x: 5.12227416e-09, y: -2.23517418e-08, z: -.0348995142, w: .999390841}
+      scale: {x: .999999762, y: .99999994, z: .999999702}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJLf_04
+      position: {x: -.0224999785, y: 4.89737431e-07, z: -8.28877091e-08}
+      rotation: {x: -7.4505806e-09, y: 7.4505806e-09, z: -.0261769593, w: .999657393}
+      scale: {x: 1.00000024, y: .999999821, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJLf_0End
+      position: {x: -.022499999, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:ringJLf_01
+      position: {x: -.0229998752, y: -.0169999599, z: .00170021504}
+      rotation: {x: .700413346, y: .0263783336, z: .0168930888, w: .713049829}
+      scale: {x: .99999994, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:ringJLf_02
+      position: {x: -.0750000253, y: -3.67654138e-07, z: -9.31322575e-09}
+      rotation: {x: -9.92439695e-08, y: 4.14438148e-07, z: -.0401265025, w: .999194622}
+      scale: {x: .999999881, y: 1, z: .999999821}
+      transformModified: 1
+    - name: MAN_FINAL:ringJLf_03
+      position: {x: -.0374998115, y: 3.94938979e-07, z: -1.14552677e-07}
+      rotation: {x: 1.3038516e-08, y: 2.23517418e-08, z: -.00872652978, w: .999961972}
+      scale: {x: 1, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:ringJLf_04
+      position: {x: -.0260001309, y: 4.99392627e-07, z: 1.67638063e-08}
+      rotation: {x: -3.0733645e-08, y: -2.98023224e-08, z: -.0261769593, w: .999657393}
+      scale: {x: .999999821, y: 1, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:ringJLf_0End
+      position: {x: -.0249999985, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:thmbJLf_01
+      position: {x: -.011999933, y: .0225000363, z: .0130002759}
+      rotation: {x: .878962874, y: -.256488115, z: -.195873126, w: .351100832}
+      scale: {x: 1.00000024, y: 1.00000048, z: 1.00000024}
+      transformModified: 1
+    - name: MAN_FINAL:thmbJLf_02
+      position: {x: -.0449998677, y: -4.09781933e-08, z: -3.12924385e-07}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: .99999994, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:thmbJLf_03
+      position: {x: -.0325000472, y: -2.72877514e-07, z: 7.23171979e-07}
+      rotation: {x: 8.02334e-07, y: 7.27176302e-06, z: -.0383734852, w: .999263465}
+      scale: {x: .999999642, y: .999999583, z: .999999583}
+      transformModified: 1
+    - name: MAN_FINAL:thmbJLf_0End
+      position: {x: -.0350000001, y: 0, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:clavJRt_01
+      position: {x: -.013002052, y: .0399999283, z: -.024999937}
+      rotation: {x: -.642040551, y: .0802061036, z: .753472328, w: -.116748989}
+      scale: {x: .999999642, y: .999999404, z: .999999762}
+      transformModified: 1
+    - name: MAN_FINAL:armJRt_01
+      position: {x: .174999446, y: 8.94069672e-08, z: 1.73924491e-07}
+      rotation: {x: .0307240803, y: .0936084241, z: -.172097817, w: .980140746}
+      scale: {x: 1.00000024, y: .99999994, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:armJRt_02
+      position: {x: .295000106, y: -3.63215804e-08, z: -1.22818165e-08}
+      rotation: {x: -.00140847673, y: -.0114706596, z: -.00221762387, w: .999930799}
+      scale: {x: .99999994, y: .999999881, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:forearmJRt_25
+      position: {x: .0700001717, y: 3.89292836e-07, z: 5.83313522e-08}
+      rotation: {x: .00223757885, y: -1.49011612e-08, z: 2.23517418e-08, w: .999997556}
+      scale: {x: 1.00000012, y: 1.00000036, z: 1.00000048}
+      transformModified: 1
+    - name: MAN_FINAL:forearmJRt_50
+      position: {x: .140000343, y: 3.42726707e-07, z: 1.66763493e-06}
+      rotation: {x: .00447512791, y: -1.49011612e-08, z: 3.7252903e-08, w: .999989986}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:forearmJRt_75
+      position: {x: .205000415, y: 3.39001417e-07, z: 4.08937922e-06}
+      rotation: {x: .0067127971, y: -7.4505806e-09, z: -3.7252903e-08, w: .999977529}
+      scale: {x: .999999821, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:handJRt_01
+      position: {x: .250000775, y: 3.20374966e-07, z: 1.1024531e-07}
+      rotation: {x: .00895023253, y: .00119116146, z: 7.45057971e-09, w: .99995923}
+      scale: {x: 1.00000012, y: 1.00000024, z: 1.00000024}
+      transformModified: 1
+    - name: MAN_FINAL:handJRt_0End
+      position: {x: .0700001717, y: 1.92355728e-07, z: 0}
+      rotation: {x: -.707106829, y: 0, z: -0, w: .707106709}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:indxJRt_01
+      position: {x: .0229999777, y: -.0159999728, z: -.00599899888}
+      rotation: {x: .708669305, y: -.0326506868, z: -.0211604759, w: .704467237}
+      scale: {x: 1, y: .999999702, z: .999999702}
+      transformModified: 1
+    - name: MAN_FINAL:indxJRt_02
+      position: {x: .0799994767, y: -3.67639586e-07, z: 2.75671482e-07}
+      rotation: {x: 7.28468521e-08, y: -1.64477308e-06, z: -.0406088158, w: .999175191}
+      scale: {x: 1, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:indxJRt_03
+      position: {x: .0329997577, y: 2.20909715e-06, z: -1.93715096e-07}
+      rotation: {x: 1.32014875e-07, y: 3.018298e-06, z: -.040569853, w: .9991768}
+      scale: {x: 1, y: .999999702, z: .999999881}
+      transformModified: 1
+    - name: MAN_FINAL:indxJRt_04
+      position: {x: .0249996949, y: 1.7634593e-06, z: 1.81607902e-07}
+      rotation: {x: -1.86264515e-09, y: -5.58793545e-08, z: -.0174524337, w: .99984777}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:indxJRt_0End
+      position: {x: .0250013415, y: 0, z: 2.35654838e-07}
+      rotation: {x: 1, y: -0, z: 0, w: 6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:midJRt_01
+      position: {x: .022999417, y: .0014998829, z: -.00149940595}
+      rotation: {x: .700773776, y: -.0137883723, z: -.010919001, w: .713166833}
+      scale: {x: 1, y: .999999523, z: .999999642}
+      transformModified: 1
+    - name: MAN_FINAL:midJRt_02
+      position: {x: .0850000978, y: 1.85849785e-07, z: -6.70552254e-08}
+      rotation: {x: -4.80067328e-08, y: 3.74687914e-07, z: -.0392590724, w: .999229074}
+      scale: {x: .999999642, y: 1, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:midJRt_03
+      position: {x: .0349989235, y: 5.91971911e-08, z: 1.02445483e-08}
+      rotation: {x: -1.02445483e-08, y: 8.03265721e-09, z: -.00872654375, w: .999961913}
+      scale: {x: 1.00000012, y: 1.00000024, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:midJRt_04
+      position: {x: .027500717, y: -5.84695954e-07, z: 1.38767064e-07}
+      rotation: {x: -1.3038516e-08, y: -3.77185643e-08, z: -.00872654188, w: .999961913}
+      scale: {x: 1.00000012, y: .999999881, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:midJRt_0End
+      position: {x: .0249995701, y: 3.68079782e-06, z: 0}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJRt_01
+      position: {x: .0239998102, y: .0325000174, z: -.0070010284}
+      rotation: {x: .697547495, y: .0686006919, z: .0462316386, w: .711747229}
+      scale: {x: .99999994, y: 1, z: .999999762}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJRt_02
+      position: {x: .0649999157, y: 2.3227476e-06, z: 2.79396772e-08}
+      rotation: {x: 5.48316024e-08, y: -5.25069339e-08, z: -.0414856225, w: .99913919}
+      scale: {x: .999999881, y: .999999762, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJRt_03
+      position: {x: .0319992043, y: 3.87764885e-06, z: 3.95812094e-08}
+      rotation: {x: 5.12227416e-09, y: -4.30736691e-09, z: -.0348995104, w: .9993909}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJRt_04
+      position: {x: .0225018803, y: -2.34962499e-07, z: -1.3038516e-08}
+      rotation: {x: 5.587935e-09, y: -8.14907164e-09, z: -.0261769462, w: .999657333}
+      scale: {x: 1, y: .999999821, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:pinkJRt_0End
+      position: {x: .0224993695, y: 1.59576837e-06, z: 1.57514197e-08}
+      rotation: {x: 1, y: 0, z: 0, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:ringJRt_01
+      position: {x: .0230000541, y: .0170001835, z: -.00169890374}
+      rotation: {x: .700413346, y: .0263783075, z: .0168930646, w: .713049769}
+      scale: {x: .999999821, y: .999999881, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:ringJRt_02
+      position: {x: .0749991089, y: -8.77480488e-09, z: 2.75671482e-07}
+      rotation: {x: 1.24600712e-08, y: -3.66889083e-07, z: -.0401359014, w: .999194205}
+      scale: {x: .999999762, y: .999999821, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:ringJRt_03
+      position: {x: .0375011377, y: 1.81316864e-07, z: 7.63684511e-08}
+      rotation: {x: 1.21071935e-08, y: -2.44472176e-09, z: -.00872653443, w: .999961913}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:ringJRt_04
+      position: {x: .0259980299, y: 4.53379471e-07, z: -2.93366611e-08}
+      rotation: {x: 5.58793545e-09, y: 9.89530236e-09, z: -.02617695, w: .999657393}
+      scale: {x: .999999762, y: .999999881, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:ringJRt_0End
+      position: {x: .0250003636, y: 1.80035545e-06, z: 0}
+      rotation: {x: 1, y: -0, z: 0, w: 6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:thmbJRt_01
+      position: {x: .0119990781, y: -.0225002971, z: -.0130006429}
+      rotation: {x: .87896198, y: -.256492794, z: -.195844829, w: .351115435}
+      scale: {x: 1, y: .999999881, z: .999999881}
+      transformModified: 1
+    - name: MAN_FINAL:thmbJRt_02
+      position: {x: .0450024642, y: 6.33299351e-08, z: 3.29781324e-06}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: .99999994}
+      transformModified: 1
+    - name: MAN_FINAL:thmbJRt_03
+      position: {x: .0325000361, y: 6.51925802e-08, z: -2.0628795e-07}
+      rotation: {x: 2.45869074e-07, y: 1.54180395e-06, z: -.0384030715, w: .999262333}
+      scale: {x: .999999821, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:thmbJRt_0End
+      position: {x: .034998145, y: 1.7912688e-06, z: 0}
+      rotation: {x: 1, y: -0, z: 0, w: 6.12323426e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:spineJ_05
+      position: {x: -.139999852, y: 5.69270924e-08, z: 8.63558025e-09}
+      rotation: {x: 5.96046448e-08, y: -2.98023224e-08, z: .173648119, w: -.984807849}
+      scale: {x: .999999821, y: .999999821, z: .999999881}
+      transformModified: 1
+    - name: MAN_FINAL:spineJ_06
+      position: {x: -.0499996953, y: 2.42143869e-08, z: -1.63763974e-16}
+      rotation: {x: 0, y: -2.98023224e-08, z: .113203168, w: .993571937}
+      scale: {x: 1, y: 1.00000012, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:headJ_01
+      position: {x: -.0700005963, y: -1.04308128e-07, z: 4.14554124e-09}
+      rotation: {x: -5.96046448e-08, y: 0, z: -.0610485524, w: -.998134851}
+      scale: {x: 1.00000024, y: 1.00000012, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:eyeJLf_01
+      position: {x: -.0612452216, y: .0731586814, z: .0291781761}
+      rotation: {x: -.704014778, y: .710185349, z: 1.0058957e-16, w: -2.98023188e-08}
+      scale: {x: .999999881, y: .999999642, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:eyeJLf_0End
+      position: {x: -.0199999996, y: 0, z: 3.92369443e-18}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:eyeJRt_01
+      position: {x: -.0612473823, y: .0731587559, z: -.0291782245}
+      rotation: {x: .710185349, y: .704014778, z: -2.98023188e-08, w: 0}
+      scale: {x: .999999881, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:eyeJRt_0End
+      position: {x: .0199999996, y: 0, z: -1.3322676e-17}
+      rotation: {x: 3.7252903e-09, y: -.707106829, z: 3.7252903e-09, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:headJ_0End
+      position: {x: -.099999994, y: 4.6016481e-17, z: 8.67746991e-32}
+      rotation: {x: -.5, y: .5, z: .5, w: .5}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:jawJ_01
+      position: {x: -.0249996129, y: .0249999911, z: -4.405182e-09}
+      rotation: {x: -.37460658, y: .927183867, z: -4.470348e-08, w: -5.96046377e-08}
+      scale: {x: 1, y: 1, z: 1.00000012}
+      transformModified: 1
+    - name: MAN_FINAL:jawJ_0End
+      position: {x: -.109999999, y: -1.7763568e-17, z: 0}
+      rotation: {x: -.27327624, y: -.652165711, z: -.27327624, w: .652165711}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:L_ankle_Null
+      position: {x: -.119999997, y: .116181813, z: -.0642535388}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:L_FOOT
+      position: {x: -8.881784e-18, y: -1.7763568e-17, z: -1.7763568e-17}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:L_knee_Group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:L_leg_LOC
+      position: {x: 2.84217088e-16, y: 0, z: .199999988}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:L_leg_IK
+      position: {x: 1.7763568e-17, y: 3.5527136e-17, z: 3.5527136e-17}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:L_elbow_LOC
+      position: {x: -.23014468, y: 1.39575267, z: -.245880693}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 5, y: 5, z: 5}
+      transformModified: 1
+    - name: MAN_FINAL:L_wrist_Null
+      position: {x: -.707506716, y: 1.45983183, z: .00543700159}
+      rotation: {x: .707219958, y: .104802489, z: -.100766279, w: .691883385}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:L_HAND
+      position: {x: .391716987, y: .149786577, z: .50949806}
+      rotation: {x: -.340813369, y: .615480006, z: .0892480761, w: .705028653}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:L_arm_IK
+      position: {x: 3.51576542e-13, y: -2.64289914e-12, z: 0}
+      rotation: {x: -.707219958, y: -.104802489, z: .100766279, w: .691883385}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:R_ankle_Null
+      position: {x: .119999997, y: .116181999, z: -.0642535239}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:R_FOOT
+      position: {x: -8.881784e-18, y: -1.7763568e-17, z: -1.7763568e-17}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:R_knee_Group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:R_leg_LOC
+      position: {x: 3.5527136e-17, y: 0, z: -.199999988}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:R_leg_IK
+      position: {x: 1.7763568e-17, y: 3.5527136e-17, z: 3.5527136e-17}
+      rotation: {x: 0, y: .707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:R_elbow_LOC
+      position: {x: .468074858, y: 1.46203387, z: -.199999988}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 5, y: 5, z: 5}
+      transformModified: 1
+    - name: MAN_FINAL:R_wrist_Null
+      position: {x: .707506835, y: 1.45983374, z: .00543701509}
+      rotation: {x: -.691883326, y: -.100766271, z: -.104802482, w: .707219958}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:R_HAND
+      position: {x: -.415187478, y: -.169527858, z: -.522799075}
+      rotation: {x: -.0404921286, y: .659808159, z: -.0248432849, w: .749930918}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:R_arm_IK
+      position: {x: -3.52002851e-13, y: 2.64289914e-12, z: 0}
+      rotation: {x: .691883326, y: .100766271, z: .104802482, w: .707219958}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:MAN_A
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:SKELETON_01
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:SKELETON_01_MeshPart0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: MAN_FINAL:SKELETON_01_MeshPart1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: SKELETON_01
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: SKELETON_01_MeshPart0
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: SKELETON_01_MeshPart1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  userData: 

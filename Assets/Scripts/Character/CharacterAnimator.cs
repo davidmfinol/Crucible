@@ -80,14 +80,13 @@ public abstract class CharacterAnimator : MonoBehaviour
 		_characterInput = GetComponent<CharacterInput>();
         _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
         
-		// HACK: SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS GETS AROUND IT
+		// HACK: SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS TRIES TO GET AROUND IT
         while (_animator == null || _animator.layerCount < 1)
 		{
 			Debug.LogWarning("Mecanim animation layers missing for " + gameObject.name + ". Trying to recreate.");
 			DestroyImmediate(_animator);
-			gameObject.AddComponent("Animator");
-			_animator = GetComponent<Animator>();
-			_animator.avatar = CharAvatar;
+            _animator = gameObject.AddComponent<Animator>();
+            _animator.avatar = CharAvatar;
 		}
 
 		// Set up the mapping between the mecanim state machine and this class's interpretation of it

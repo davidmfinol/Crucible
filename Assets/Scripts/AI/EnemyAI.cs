@@ -245,13 +245,17 @@ public class EnemyAI : MonoBehaviour
 		if(_isSearchingForPath)
 			return;
 
+        // If we set the _playerAnimator, that means we want to hunt the player down
 		if(_playerAnimator != null)
 			_target = _playerAnimator.transform.position;
 
-		_seeker.StartPath( _animator.transform.position, _target, OnPathFound);
+        // We get a path from a point near the feet, since that's where the nodes are
+        Vector3 startPos=  transform.position + (Vector3.down * _animator.Height * 0.5f) + Vector3.up;
+        _seeker.StartPath(startPos, _target, OnPathFound);
         _isSearchingForPath = true;
 	}
 	
+    // This method is called by A* when it finds a path for us
 	public void OnPathFound(Path p)
 	{
 		_isSearchingForPath = false;
@@ -266,6 +270,7 @@ public class EnemyAI : MonoBehaviour
             Debug.LogWarning("Pathfinding errored!: " + p.errorLog);
 	}
 
+    // Make sure that AI's interpretation of the AStar path is up to date and accurate
 	public bool UpdateAStarPath()
 	{
 		// Keep time of track between repaths
@@ -303,8 +308,9 @@ public class EnemyAI : MonoBehaviour
 		// Return whether we're still on the current path
 		return _currentPathWaypoint < _path.vectorPath.Count;
 	}
-    
-    private void AstarNavigateToTarget(float speedRatio)
+
+    // Make the AI input to the Animator the values that will make it reach it's defined A* Target
+    public void AstarNavigateToTarget(float speedRatio)
 	{
         // We don't move while landing
         if(_animator.IsLanding)
@@ -424,13 +430,11 @@ public class EnemyAI : MonoBehaviour
              //   _animator.CharInput.Jump = Vector2.zero;
         }
     }
-    private bool CheckClear(Vector3 start, Vector3 end)
+    public bool CheckClear(Vector3 start, Vector3 end)
     {
         Vector3 dir = end - start;
         return !Physics.Raycast(start, dir, dir.magnitude, 1 << 12); 
     }
-
-    
     public float TimeToJump(Vector3 pointA, Vector3 pointB)
     {
         float a = 0.5f * -_animator.Settings.Gravity;
