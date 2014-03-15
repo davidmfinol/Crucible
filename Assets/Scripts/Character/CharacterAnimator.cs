@@ -573,7 +573,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 	// Movement/Animation Properties
     public virtual bool IsLanding
     {
-        get { return CurrentState.IsName("Air.Landing"); } // FIXME: SLOW
+		// FIXME: SLOW
+		get { return CurrentState.IsName("Air.Landing") || (IsGrounded && (CurrentState.IsName("Air.Jumping") || CurrentState.IsName("Air.Falling"))) ; } 
     }
 	public AnimatorStateInfo CurrentState
 	{
@@ -757,7 +758,8 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return (ActiveHangTarget != null) && transform.position.y < ActiveHangTarget.transform.position.y; ; }
     }
-	public bool CanGrabWall {
+	public bool CanGrabWall
+	{
 		get { return (IsTouchingWall && (ActiveHangTarget is GrabbableObject) && VerticalSpeed > Settings.MinWallGrabSpeed);  }
 	}
 

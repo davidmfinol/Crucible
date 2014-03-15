@@ -130,7 +130,7 @@ public class EnemyAI : MonoBehaviour
             GetRandomSearchPoint();
 
         // We also retarget if our current path fails us
-        if(!UpdateAStarPath())
+        if(!UpdateAStarPath(false))
         {
             Debug.LogWarning("Astar Pathfinding failed while wandering! Choosing new target.");
             GetRandomSearchPoint();
@@ -284,14 +284,14 @@ public class EnemyAI : MonoBehaviour
 		if(!p.error)
 		{
 			_path = p;
-			_currentPathWaypoint = 1; // Start at 1 since 0 is the position of where the enemy started
+			_currentPathWaypoint = _path.vectorPath.Count - _path.path.Count; // If the first point on the vectorpath is not a node, we account for that
 		}
         else
             Debug.LogWarning("Pathfinding errored!: " + p.errorLog);
 	}
 
     // Make sure that AI's interpretation of the AStar path is up to date and accurate
-	public bool UpdateAStarPath()
+	public bool UpdateAStarPath(bool repathOnInvalid = true)
 	{
 		// Keep time of track between repaths
 		_timeSinceRepath += Time.fixedDeltaTime; // NOTE: WE USE FIXED DELTA TIME BECAUSE WE'RE ASSUMING WE'RE IN FIXEDUPDATE
@@ -299,7 +299,8 @@ public class EnemyAI : MonoBehaviour
 		// First make sure we actually have a path
         if (_path == null || _path.error)
         {
-			Repath();
+			if(repathOnInvalid)
+				Repath();
             return false;
         }
 
@@ -313,7 +314,8 @@ public class EnemyAI : MonoBehaviour
 		bool isFinalNode = _currentPathWaypoint >= _path.vectorPath.Count;
 		if (isFinalNode)
 		{
-			Repath();
+			if(repathOnInvalid)
+				Repath();
 			return false;
 		}
 
@@ -337,7 +339,8 @@ public class EnemyAI : MonoBehaviour
             return;
 
         // Store the target position
-        Vector3 targetPos = _path.vectorPath [_currentPathWaypoint];
+		Vector3 targetPos = _path.vectorPath [_currentPathWaypoint];
+		Vector3 xExtension = new Vector3(_animator.Controller.bounds.extents.x, 0, 0);
 
         // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
         int nodeOffset = _path.vectorPath.Count - _path.path.Count;
@@ -380,15 +383,15 @@ public class EnemyAI : MonoBehaviour
         // Basic horizontal movement while in the air
         else if (isMidAir)
         {
+			// If it's in range, let's do a controlled jump
             if(timeToJump > 0)
             {
                 float normalizedDesiredSpeed = desiredHorizontalJumpSpeed / _animator.Settings.MaxHorizontalSpeed;
-                Debug.Log("Calculate movement: " + normalizedDesiredSpeed);
                 _animator.CharInput.Horizontal = normalizedDesiredSpeed;
             }
+			// But if it's too far, go all out
             else
             {
-                Debug.Log("Normal movement: " + (isNodeToRight ? 1 : -1));
                 _animator.CharInput.Horizontal = isNodeToRight ? 1 : -1;
             }
         }
@@ -396,7 +399,7 @@ public class EnemyAI : MonoBehaviour
 		else
         {
             // Normally it's easy to just move left or right depending on location of next node
-            _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
+			_animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
         }
 		
 		// Determine vertical
@@ -415,13 +418,14 @@ public class EnemyAI : MonoBehaviour
 
 		if(jump)
         {
-            // Try to maintain our speedratio while jumping
+            // Do a normal jump if we can make the jump using our normal speedRatio
             if(Mathf.Abs(desiredHorizontalJumpSpeed) < Mathf.Abs(speedRatio *_animator.Settings.MaxHorizontalSpeed))
             {
+				// Make sure we face the direction before we jump
                 if(nextNode.isLeftLedge)
-                    _animator.CharInput.Horizontal = speedRatio;
+                    _animator.CharInput.Horizontal = 0.1f;
                 if(nextNode.isRightLedge)
-                    _animator.CharInput.Horizontal = -speedRatio;
+                    _animator.CharInput.Horizontal = -0.1f;
 				_animator.CharInput.Jump = Vector2.up;
             }
 
@@ -435,7 +439,6 @@ public class EnemyAI : MonoBehaviour
             _animator.CharInput.Jump = Vector2.zero;
         
         // Account for things that might be in the way of our movement
-        Vector3 xExtension = new Vector3(_animator.Controller.bounds.extents.x, 0, 0);
         bool isLeftClear = CheckClear(transform.position - xExtension, targetPos);
         bool isMiddleClear = CheckClear(transform.position, targetPos);
         bool isRightClear = CheckClear(transform.position + xExtension, targetPos);
@@ -457,8 +460,6 @@ public class EnemyAI : MonoBehaviour
         float c = pointA.y - pointB.y;
         float root1 = (-b + Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
         float root2 = (-b - Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
-        if(Mathf.Max(root1, root2) <= 0)
-            Debug.LogWarning("Negative time!: " + root1 + " " + root2);
         return Mathf.Max(root1, root2);
     }
 
