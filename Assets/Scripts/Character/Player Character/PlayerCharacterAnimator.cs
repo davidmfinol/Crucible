@@ -889,7 +889,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	IEnumerator PickUpItem()
 	{
 		yield return new WaitForSeconds (0.5f);
-		_itemPickedup.transform.position = GameManager.Level.OffscreenPosition; //TODO: MAYBE DELETE THIS?
+        _itemPickedup.transform.position = GameManager.Level.OffscreenPosition; //TODO: MAYBE DELETE THIS?
+        StopCoroutine ("PickUpItem");
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)
