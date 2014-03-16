@@ -572,6 +572,11 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="end">The end point.</param>
     public bool JumpClear(Vector3 start, Vector3 end)
     {
+        // Use capsule test for examining locations that are constrained in verticality
+        if(Mathf.Abs(end.y - start.y) < -_olympusAnimator.Height + _olympusSettings.JumpHeight && Mathf.Abs(end.x - start.x) < _olympusAnimator.Radius)
+            return CapsuleCastTest(start, end);
+
+        // Use the overlapsphere test in the default case
         return OverlapSphereTest(start, end);
     }
 
