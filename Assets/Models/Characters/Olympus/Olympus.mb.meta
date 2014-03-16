@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 077e2e426c34b417b843e9c820d84d7a
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: camera1
     100002: group1
@@ -87,13 +87,6 @@ ModelImporter:
     100162: transform7
     100164: UpperShinR1
     100166: UpperShinR2
-    100168: anim_ChestControl
-    100170: anim_global01
-    100172: anim_pelvis01
-    100174: IK
-    100176: polySurface7
-    100178: polySurface8
-    100180: transform8
     400000: camera1
     400002: group1
     400004: Head
@@ -178,13 +171,6 @@ ModelImporter:
     400162: transform7
     400164: UpperShinR1
     400166: UpperShinR2
-    400168: anim_ChestControl
-    400170: anim_global01
-    400172: anim_pelvis01
-    400174: IK
-    400176: polySurface7
-    400178: polySurface8
-    400180: transform8
     2300000: LeftFoot
     2300002: LeftSocket
     2300004: LeftThigh
@@ -226,8 +212,6 @@ ModelImporter:
     2300076: Torso 1
     2300078: UpperShinR1
     2300080: UpperShinR2
-    2300082: polySurface7
-    2300084: polySurface8
     3300000: LeftFoot
     3300002: LeftSocket
     3300004: LeftThigh
@@ -269,8 +253,6 @@ ModelImporter:
     3300076: Torso 1
     3300078: UpperShinR1
     3300080: UpperShinR2
-    3300082: polySurface7
-    3300084: polySurface8
     4300000: polySurface2
     4300002: pCylinder3
     4300004: pCylinder4
@@ -312,8 +294,6 @@ ModelImporter:
     4300076: pTorus2
     4300078: pPlane3
     4300080: pPlane4
-    4300082: polySurface8
-    4300084: polySurface7
     7400000: Face
     9500000: //RootNode
   materials:
@@ -1102,4 +1082,5 @@ ModelImporter:
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 5f05613f59c328b488d794650b822fc7,
     type: 3}
   animationType: 3
+  additionalBone: 0
   userData: 
