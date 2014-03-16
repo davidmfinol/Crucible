@@ -177,7 +177,7 @@ public class OlympusAnimator : CharacterAnimator
 
     IEnumerator DelayedTurnAround()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2.0f);
         Direction = -Direction;
     }
 	
