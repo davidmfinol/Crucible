@@ -17,11 +17,11 @@ public class GameManager : MonoBehaviour
 	public Transform UIPrefab;
 
 	// Enemy prefabs used for level loading.
-	public Transform OlympusPrefab;
+	public Transform OlympusPrefab; // TODO: RESOURCES.LOAD?
 	public Transform BabybotPrefab;
 
     // The GameManager keeps track of the last checkpoint, so that the player can go back there after death
-    public Transform LastCheckPoint; 
+    public Transform LastCheckPoint; // TODO: PUT THIS IN SAVEDATA ONLY?
 
 	// Keep track of the current game manager instance
 	private static GameManager _instance;
@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
 	private static string _gameSaveStatePath;
     private static string _levelSaveStatePrefix;
 
+	// We also keep track of the save data here
+	private static GameSaveState _saveData;
 
     // Set up level, player/camera, and find the Global Managers
     void Start()
@@ -212,8 +214,8 @@ public class GameManager : MonoBehaviour
 
 
 		// Get the saved data
-		GameSaveState gameSave = GameSaveState.Load(GameSaveStatePath);
-		if(gameSave == null)
+		_saveData = GameSaveState.Load(GameSaveStatePath);
+		if(_saveData == null)
         {
             Debug.LogWarning("No game save data!");
 			LastCheckPoint = _currentLevel.StartPoint;
@@ -221,7 +223,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// TODO: MAKE THIS MORE GENERIC
-		foreach(WeaponType weaponType in gameSave.PlayerState.WeaponsHeld)
+		foreach(WeaponType weaponType in _saveData.PlayerState.WeaponsHeld)
         {
 			GameObject newWeapon;
 
@@ -242,7 +244,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		// Reload player inventory
-		foreach(InventoryItem invItem in gameSave.PlayerState.ItemsHeld)
+		foreach(InventoryItem invItem in _saveData.PlayerState.ItemsHeld)
             Inventory.AddItem( InventoryItemFactory.CreateFromType(invItem.Type, invItem.Quantity) );
 
 
@@ -253,7 +255,7 @@ public class GameManager : MonoBehaviour
 		foreach (GameObject obj in spawnPoints)
 		{
 			Checkpoint checkpoint = obj.GetComponent<Checkpoint>();
-			if(checkpoint != null && checkpoint.Location == gameSave.Checkpoint)
+			if(checkpoint != null && checkpoint.Location == _saveData.Checkpoint)
 			{
 				GameManager.Player.transform.position = checkpoint.transform.position;
                 LastCheckPoint = checkpoint.transform;
@@ -269,7 +271,7 @@ public class GameManager : MonoBehaviour
 
         // Display the correct weapon
 		GameManager.UI.RefreshWeaponWheel ();
-		while (GameManager.UI.CurrentWeapon != gameSave.PlayerState.CurrentWeapon) // TODO: STRESS TEST TO AVOID INFINITE LOOP
+		while (GameManager.UI.CurrentWeapon != _saveData.PlayerState.CurrentWeapon) // TODO: STRESS TEST TO AVOID INFINITE LOOP
 			GameManager.UI.CycleToNextWeapon ();
 
 		// TODO: THIS CURRENTLY DOESN'T WORK BECAUSE LOAD GAME IS CALLED WHEN YOU START UP A SCENE, AND YOU THEN MOVE TO THE PREVIOUS SCENE
@@ -372,11 +374,10 @@ public class GameManager : MonoBehaviour
 
 	public static void SaveGameState(Checkpoint.CheckpointLocation location)
 	{
-		GameSaveState gameSave = new GameSaveState ();
-		gameSave.LevelName = Application.loadedLevelName;
-		gameSave.Checkpoint = location;
-		gameSave.PlayerState = Inventory.SaveState ();
-        gameSave.Save(GameSaveStatePath);
+		_saveData.LevelName = Application.loadedLevelName;
+		_saveData.Checkpoint = location;
+		_saveData.PlayerState = Inventory.SaveState ();
+		_saveData.Save(GameSaveStatePath);
 	}
 	
 	public static void SaveLevelState(string levelName)
@@ -450,5 +451,10 @@ public class GameManager : MonoBehaviour
 	public static string LevelSaveStatePrefix
 	{
 		get { return _levelSaveStatePrefix; } 
+	}
+
+	public static GameSaveState SaveData
+	{
+		get { return _saveData; }
 	}
 }
