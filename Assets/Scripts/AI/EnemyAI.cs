@@ -65,6 +65,7 @@ public class EnemyAI : MonoBehaviour
 		_animator.CharInput.Vertical = 0;
 		_animator.CharInput.Jump = Vector2.zero;
 		_animator.CharInput.Attack = 0;
+        _animator.CharInput.Pickup = false;
 
 		UpdateAwareness();
 
@@ -138,7 +139,7 @@ public class EnemyAI : MonoBehaviour
         }
 
 		// Go to our location
-		AstarNavigateToTarget (0.2f);
+		NavigateToAstarTarget (0.2f);
 	}
     // Helper method to find a new location to go to while wandering
     private void GetRandomSearchPoint()
@@ -149,20 +150,20 @@ public class EnemyAI : MonoBehaviour
 
         // Cache the graph
         ZoneGraph graph = GameManager.AI.Graph;
-        if(graph.nodes.Length <= 0)
+        if(graph.Nodes.Length <= 0)
         {
             Debug.LogWarning("ZoneGraph not initialized while searching for a random search point!");
             return;
         }
 
         // Find a random walkable ground node on the graph
-        int nodeNum = (int) Random.Range (0, graph.nodes.Length);
-        ZoneNode randomNode = graph.nodes[nodeNum];
+        int nodeNum = (int) Random.Range (0, graph.Nodes.Length);
+        ZoneNode randomNode = graph.Nodes[nodeNum];
         bool isAcceptable = randomNode.Walkable && randomNode.isGround;
         while (!isAcceptable)
         {
-            nodeNum = (int) Random.Range (0, graph.nodes.Length);
-            randomNode = graph.nodes[nodeNum];
+            nodeNum = (int) Random.Range (0, graph.Nodes.Length);
+            randomNode = graph.Nodes[nodeNum];
             isAcceptable = randomNode.Walkable && randomNode.isGround;
         }
 
@@ -193,7 +194,7 @@ public class EnemyAI : MonoBehaviour
 			return;
 
 		// Finally, go check out our random target point.
-        AstarNavigateToTarget(0.7f);
+        NavigateToAstarTarget(0.7f);
 	}
 
 	// The enemy actively hunts the player down!
@@ -203,7 +204,7 @@ public class EnemyAI : MonoBehaviour
         bool validPath = UpdateAStarPath();
         if(validPath)
         {
-            AstarNavigateToTarget(1.0f);
+            NavigateToAstarTarget(1.0f);
         }
         else
         {
@@ -332,15 +333,11 @@ public class EnemyAI : MonoBehaviour
 	}
 
     // Make the AI input to the Animator the values that will make it reach it's defined A* Target
-    public void AstarNavigateToTarget(float speedRatio)
+    public void NavigateToAstarTarget(float speedRatio)
 	{
-        // We don't move while landing
-        if(_animator.IsLanding)
-            return;
-
         // Store the target position
 		Vector3 targetPos = _path.vectorPath [_currentPathWaypoint];
-		Vector3 xExtension = new Vector3(_animator.Controller.bounds.extents.x, 0, 0);
+		Vector3 xExtension = Vector3.right * _animator.Controller.bounds.extents.x;
 
         // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
         int nodeOffset = _path.vectorPath.Count - _path.path.Count;
@@ -399,7 +396,11 @@ public class EnemyAI : MonoBehaviour
 		else
         {
             // Normally it's easy to just move left or right depending on location of next node
-			_animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
+            _animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
+
+            // But it's important to stop moving while landing
+            if(_animator.IsLanding)
+                _animator.CharInput.Horizontal = 0;
         }
 		
 		// Determine vertical
@@ -414,7 +415,7 @@ public class EnemyAI : MonoBehaviour
         if(prevNode != null && nextNode != null)
             isNodeOnOtherPlatform = prevNode.GO != nextNode.GO;
         bool canFall = GameManager.AI.Graph.CanFall(transform.position, targetPos);
-        bool jump = (!isMidAir || isClimbing) && isNodeOnOtherPlatform && (isNodeAbove || !canFall);
+        bool jump = (!isMidAir || isClimbing) && isNodeOnOtherPlatform && (isNodeAbove || !canFall) && !_animator.IsLanding;
 
 		if(jump)
         {
@@ -422,11 +423,10 @@ public class EnemyAI : MonoBehaviour
             if(Mathf.Abs(desiredHorizontalJumpSpeed) < Mathf.Abs(speedRatio *_animator.Settings.MaxHorizontalSpeed))
             {
 				// Make sure we face the direction before we jump
-                if(nextNode.isLeftLedge)
-                    _animator.CharInput.Horizontal = 0.1f;
-                if(nextNode.isRightLedge)
-                    _animator.CharInput.Horizontal = -0.1f;
-				_animator.CharInput.Jump = Vector2.up;
+                if(nextNode.isLeftLedge && _animator.Direction.x < 0 || nextNode.isRightLedge && _animator.Direction.x > 0 )
+                    _animator.CharInput.Pickup = true;
+                else
+                    _animator.CharInput.Jump = Vector2.up;
             }
 
             // But sometimes we need to take big jumps
