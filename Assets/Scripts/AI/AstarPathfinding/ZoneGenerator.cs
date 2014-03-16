@@ -471,12 +471,17 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="posB">Position b.</param>
     public bool ObstructedByGround(Vector3 posA, Vector3 posB, out float dist)
     {
+        // Get the direction and distance between a and b
         Vector3 dir = posB - posA;
         dist = dir.magnitude;
-        
+
+        // If a and b are equal, we can just return false
+        if(dist == 0)
+            return false;
+
+        // We need to raycast from both a to b, and from b to a to account for objects on both sides
         Ray ray = new Ray(posA, dir.normalized);
         Ray invertRay = new Ray(posB, (posA - posB).normalized);
-        
         return Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
     }
     
@@ -602,10 +607,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="hint">Ignored.</param>
     public override NNInfo GetNearest(Vector3 position, NNConstraint constraint, GraphNode hint)
     {
-        // We assume that we are passed in the midpoint of the character, 
-        // but we really want to look at the position a little above it's foot
-        position = position + Vector3.down * (_olympusAnimator.Height / 2.0f) + Vector3.up;
-
         // We are going to look for the nearest node by constantly looking for smaller and smaller distances
         ZoneNode nearestNode = null;
         float nearestDist = float.MaxValue;
@@ -626,6 +627,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
                 // Make sure there's no object in the way, and calculate the distance
                 bool isValid = !ObstructedByGround(position, nodePos, out nodeDist);
+
+                // If the distance is 0, we know this is an absolute nearest node, and can quit early
+                if(nodeDist == 0)
+                    return new NNInfo(currentNode);
 
                 // If the distance is the smallest found so far, set it as the current nearest node
                 if(isValid && nodeDist < nearestDist)
