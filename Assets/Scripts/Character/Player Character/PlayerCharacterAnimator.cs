@@ -314,7 +314,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	protected void Damaged(float elapsedTime)
 	{
-		if (MecanimAnimator.GetBool (_damagedHash)) {
+		if (MecanimAnimator.GetBool (_damagedHash))
+		{
 			MecanimAnimator.SetBool (_damagedHash, false);
 			GameManager.UI.EnableInput();
 			GameManager.UI.CraftingMenu.Close();
@@ -351,7 +352,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
                                              
 	protected void Die(float elapsedTime)
 	{
-		if (IsGrounded) {
+		if (IsGrounded)
+		{
 			ApplyDeathFriction (elapsedTime);
 			VerticalSpeed = GroundVerticalSpeed;
 
@@ -388,26 +390,31 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 			MecanimAnimator.SetBool (_pickupHash,  canPickup && _itemPickedup != null);
 		
-		} else if(CharInput.InteractionPressed) {
+		}
+		else if(CharInput.InteractionPressed)
+		{
 			MecanimAnimator.SetBool (_detonateMineHash, true);
 
 		}
 
 	}
 
-	public override void StepDown() {
+	public override void StepDown()
+	{
 		MecanimAnimator.SetFloat (_xDirectionHash, Direction.x);
 		MecanimAnimator.SetBool (_steppingDownHash, true);
 
 	}
 
-	public override void StandUp() {
+	public override void StandUp()
+	{
 		MecanimAnimator.SetBool (_standingUpHash, true);
 				
 	}
 
 
-	protected void SteppingDown(float elapsedTime) {
+	protected void SteppingDown(float elapsedTime)
+	{
 		MecanimAnimator.SetBool (_steppingDownHash, false);
 
 		// can't use friction because you can slide off a ledge right into the crafting animation
@@ -416,7 +423,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 
-	protected void StandingUp(float elapsedTime) {
+	protected void StandingUp(float elapsedTime)
+	{
 		MecanimAnimator.SetBool (_standingUpHash, false);
 
 		HorizontalSpeed = 0;

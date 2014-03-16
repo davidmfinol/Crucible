@@ -9,6 +9,8 @@ public class GameSaveState
 	public string LevelName;
 	public Checkpoint.CheckpointLocation Checkpoint;
 	public PlayerSaveState PlayerState;
+	public bool SewerTopReached;
+	public bool TutorialComplete;
 
     public void Save(string path)
     {
