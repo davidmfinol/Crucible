@@ -1249,7 +1249,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Root
-      position: {x: .0257728286, y: 9.03137207, z: -.151546061}
+      position: {x: -.102570429, y: 19.585247, z: -.151546061}
       rotation: {x: .5, y: -.5, z: -.5, w: .5}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
@@ -1395,7 +1395,7 @@ ModelImporter:
       transformModified: 1
     - name: shoulder
       position: {x: -2.6953001, y: 1.29990057e-16, z: -7.21177033e-16}
-      rotation: {x: -.666921437, y: .745128036, z: 2.11077593e-16, w: -1.88923473e-16}
+      rotation: {x: -.988509536, y: .151158527, z: -4.47034836e-08, w: -1.49011612e-08}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: left_shoulder
@@ -1405,7 +1405,7 @@ ModelImporter:
       transformModified: 1
     - name: left_elbow
       position: {x: -3.01094079, y: -1.58131046e-16, z: -.387980431}
-      rotation: {x: .00316083129, y: -.0504599176, z: -.0406292491, w: .997894347}
+      rotation: {x: .00245756493, y: -.0545349494, z: -.0321991704, w: .997989535}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: left_wrist
@@ -1420,22 +1420,22 @@ ModelImporter:
       transformModified: 1
     - name: right_palm
       position: {x: -.37261796, y: -.12973024, z: .0547755733}
-      rotation: {x: .00384598202, y: .0503564812, z: .023693841, w: .998442829}
+      rotation: {x: .0254640877, y: -.288008392, z: .0895975903, w: .953087151}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint1
       position: {x: -.184392631, y: -.0548313484, z: -.207905695}
-      rotation: {x: .001742922, y: .0431650132, z: .0403075777, w: .998252988}
+      rotation: {x: -.00877197739, y: .332710594, z: .0698485523, w: .940397799}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint2
       position: {x: -.40583846, y: -2.52402266e-16, z: 1.66533454e-16}
-      rotation: {x: .00283768377, y: .00775110349, z: .26694721, w: .963675797}
+      rotation: {x: .00294335489, y: .000866925693, z: .0298452508, w: .999549806}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint3
       position: {x: -.375486583, y: -1.87263399e-15, z: -7.2858386e-17}
-      rotation: {x: -.0527219176, y: -.0580323227, z: .115688823, w: .990186214}
+      rotation: {x: -.0531325266, y: -.0166358612, z: .0331650861, w: .997897923}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint4
@@ -1445,17 +1445,17 @@ ModelImporter:
       transformModified: 1
     - name: joint5
       position: {x: -.206759259, y: -.038645044, z: -.569270849}
-      rotation: {x: .00273482618, y: .0279210974, z: .0974435136, w: .994845569}
+      rotation: {x: -.027360674, y: .331121385, z: .0887478441, w: .939006925}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint6
       position: {x: -.396293968, y: -6.40492433e-17, z: 1.73472348e-17}
-      rotation: {x: .00755952345, y: .0187414717, z: .186978191, w: .982156217}
+      rotation: {x: .00769212283, y: .0033969935, z: .0338983871, w: .999389946}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint7
       position: {x: -.400906771, y: 1.3374718e-15, z: -1.87350135e-16}
-      rotation: {x: .0310216229, y: .0351342335, z: .151042223, w: .987415552}
+      rotation: {x: .031381458, y: .008107909, z: .0348489136, w: .998866856}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint8
@@ -1465,17 +1465,17 @@ ModelImporter:
       transformModified: 1
     - name: joint9
       position: {x: -.16435118, y: -.031697493, z: .177206323}
-      rotation: {x: .00119726162, y: .0279417522, z: .0427924544, w: .998692453}
+      rotation: {x: -.0111444937, y: .333140254, z: .0715919212, w: .940089405}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint10
       position: {x: -.340528488, y: -1.55271304e-16, z: 1.00613962e-16}
-      rotation: {x: .0022834125, y: .0069823279, z: .228380233, w: .9735443}
+      rotation: {x: .00234408048, y: .000974888215, z: .0319103524, w: .999487519}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint11
       position: {x: -.349339813, y: -3.23959609e-16, z: -3.36536354e-16}
-      rotation: {x: -.0229202043, y: -.0290415604, z: .121266276, w: .991930306}
+      rotation: {x: -.023084484, y: -.00869779754, z: .0363197401, w: .999035716}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint12
@@ -1485,17 +1485,17 @@ ModelImporter:
       transformModified: 1
     - name: joint13
       position: {x: -.14216885, y: -.0114854779, z: .522225499}
-      rotation: {x: .0029188781, y: .0605022013, z: .0480996333, w: .997004211}
+      rotation: {x: -.00892821979, y: .331714571, z: .0712084472, w: .940646172}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint14
       position: {x: -.38916257, y: -3.81639165e-17, z: 6.24500451e-17}
-      rotation: {x: -.00923971832, y: -.0244224127, z: .262083232, w: .964691997}
+      rotation: {x: -.00957332551, y: -.00278860307, z: .0299359523, w: .999502122}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint15
       position: {x: -.394503444, y: -2.50450702e-17, z: -9.71445147e-17}
-      rotation: {x: .024775682, y: .0256705228, z: .140149117, w: .989487469}
+      rotation: {x: .025014583, y: .00656511961, z: .0358363278, w: .99902302}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint16
@@ -1505,17 +1505,17 @@ ModelImporter:
       transformModified: 1
     - name: joint17
       position: {x: .0315698534, y: -.0767448246, z: .669186294}
-      rotation: {x: .0482419357, y: .372746199, z: .118941508, w: .91901356}
+      rotation: {x: .132808164, y: .411392212, z: .351226747, w: .830516875}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint18
       position: {x: -.35753119, y: -1.38777878e-17, z: 1.11022302e-16}
-      rotation: {x: -.0446356647, y: -.0857030526, z: .219876379, w: .970730186}
+      rotation: {x: -.0459104553, y: -.0114480071, z: .0293698423, w: .998448074}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint19
       position: {x: -.391058683, y: 1.2490009e-15, z: -1.41553436e-15}
-      rotation: {x: -.153026253, y: -.1701314, z: .0288161989, w: .973040581}
+      rotation: {x: -.155262306, y: -.0343823358, z: .00582462084, w: .987257659}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint20
@@ -1585,7 +1585,7 @@ ModelImporter:
       transformModified: 1
     - name: right_shoulder
       position: {x: -.0340631232, y: .24430868, z: 1.81430626}
-      rotation: {x: -.504737854, y: -.511037052, z: .527295172, w: -.453917176}
+      rotation: {x: -.513802946, y: -.49811393, z: .518990338, w: -.467480719}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: right_elbow
@@ -1600,22 +1600,22 @@ ModelImporter:
       transformModified: 1
     - name: right_palm 1
       position: {x: -2.07112898e-05, y: 3.34066812e-07, z: -3.27870652e-07}
-      rotation: {x: .0202129707, y: .998072624, z: -.0261072908, w: .0525447913}
+      rotation: {x: -.0498930365, y: .931549907, z: -.0251029842, w: -.359298348}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint22
       position: {x: .229668677, y: .029711308, z: .294440597}
-      rotation: {x: .0984812677, y: .99513799, z: .00013531484, w: .00136733567}
+      rotation: {x: -.00624434231, y: .922680795, z: -.0378501303, w: .383651465}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint23
       position: {x: -.412189811, y: 8.55356105e-17, z: 1.04712246e-15}
-      rotation: {x: .00605372246, y: .0123476349, z: .255658686, w: .966669321}
+      rotation: {x: .00625944836, y: .00147095439, z: .0304207578, w: .999516487}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint24
       position: {x: -.379857481, y: -1.71802676e-15, z: -1.05818132e-16}
-      rotation: {x: -.0214454159, y: -.0204711389, z: .0940660238, w: .995124459}
+      rotation: {x: -.0215292908, y: -.00825024489, z: .0379080921, w: .999015272}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint25
@@ -1625,17 +1625,17 @@ ModelImporter:
       transformModified: 1
     - name: joint26
       position: {x: .284491301, y: .0182136223, z: .651519954}
-      rotation: {x: .0880320072, y: .995761752, z: .00234466325, w: .0265213288}
+      rotation: {x: -.00900978595, y: .923464835, z: -.031859085, w: .382251978}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint27
       position: {x: -.303903788, y: 8.49743453e-17, z: -3.81639165e-17}
-      rotation: {x: .0122081246, y: .0278097987, z: .234973133, w: .971527278}
+      rotation: {x: .0125585087, y: .00370285986, z: .031274382, w: .999425054}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint28
       position: {x: -.368542403, y: 7.28367019e-16, z: -1.27068495e-16}
-      rotation: {x: .0292378403, y: .0300218668, z: .120805889, w: .991791189}
+      rotation: {x: .0294463877, y: .00900932588, z: .0362545699, w: .998868108}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint29
@@ -1645,17 +1645,17 @@ ModelImporter:
       transformModified: 1
     - name: joint30
       position: {x: .0889438018, y: .0348171182, z: .752823353}
-      rotation: {x: .181336299, y: .938420713, z: .0557948202, w: .28873983}
+      rotation: {x: .298409373, y: .87024051, z: .0689996928, w: .38583985}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint31
       position: {x: -.415198773, y: 2.77555756e-17, z: 0}
-      rotation: {x: .000711934641, y: .00107879238, z: .200200737, w: .97975409}
+      rotation: {x: .000726296043, y: .000181456373, z: .0334211625, w: .999441087}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint32
       position: {x: -.283039272, y: -2.37310172e-15, z: 1.94289029e-16}
-      rotation: {x: .187031001, y: .173167884, z: .0376778729, w: .966236353}
+      rotation: {x: .189925164, y: .033835154, z: .00736260507, w: .981187761}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint33
@@ -1665,17 +1665,17 @@ ModelImporter:
       transformModified: 1
     - name: joint34
       position: {x: .243115842, y: .0317797847, z: -.522445977}
-      rotation: {x: .087278083, y: .996043682, z: .00145958725, w: .01665725}
+      rotation: {x: -.00949135516, y: .923327982, z: -.0323248878, w: .382531732}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint35
       position: {x: -.401105314, y: 9.38241455e-17, z: 2.25514052e-17}
-      rotation: {x: .0106968572, y: .0228500254, z: .259922653, w: .965299785}
+      rotation: {x: .0110754296, y: .00264221337, z: .0300730318, w: .99948293}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint36
       position: {x: -.378478497, y: -3.61554319e-16, z: -2.94902991e-17}
-      rotation: {x: -.0492508076, y: -.0512244329, z: .0646896586, w: .995372117}
+      rotation: {x: -.0493807793, y: -.0245145224, z: .0309600923, w: .997999072}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint37
@@ -1685,17 +1685,17 @@ ModelImporter:
       transformModified: 1
     - name: joint38
       position: {x: .263001531, y: .0264286511, z: -.119589753}
-      rotation: {x: .0881840363, y: .996076822, z: .000651727489, w: .00736154383}
+      rotation: {x: -.00941185467, y: .923141778, z: -.0333635956, w: .382893831}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint39
       position: {x: -.372490704, y: 1.96062716e-16, z: 7.37257477e-17}
-      rotation: {x: -.000285612448, y: -.000608292001, z: .259375006, w: .965776443}
+      rotation: {x: -.000295759004, y: -7.12935362e-05, z: .0302720834, w: .9995417}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint40
       position: {x: -.361502498, y: -9.42652803e-16, z: -2.60208521e-18}
-      rotation: {x: .0024683415, y: .00240957597, z: .0959440619, w: .995380759}
+      rotation: {x: .00247793761, y: .000975371222, z: .0387990065, w: .999243557}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint41

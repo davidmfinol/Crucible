@@ -31,13 +31,11 @@ public class ZoneGraphEditor : GraphEditor
         if (graph == null)
             return;
 
-        if (graph.nodes != null)
+        if (graph.Nodes != null)
 		{
-            foreach(ZoneNode node in graph.nodes)
+            foreach(ZoneNode node in graph.Nodes)
 			{
 				Gizmos.color = AstarColor.NodeConnection;
-				if(node.isTransition)
-					Gizmos.color = AstarColor.BoundsHandles;
 				if(node.isGround)
                     Gizmos.color = AstarColor.ConnectionLowLerp;
                 if(node.isLeftLedge || node.isRightLedge)

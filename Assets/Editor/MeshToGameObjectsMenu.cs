@@ -55,7 +55,7 @@ public class MeshToGameObjectsMenu
 		ladderXPrefab = (GameObject) Resources.Load("LadderX");
 		ladderZPrefab = (GameObject) Resources.Load("LadderZWithoutTop");
 		pipePrefab = (GameObject) Resources.Load("Pipe");
-		wallPrefab = (GameObject) Resources.Load("Grabbable Object");
+		wallPrefab = (GameObject) Resources.Load("Wall");
 		
 		selected.ForEach(transform => {
 			MeshFilter meshFilter = transform.GetComponent<MeshFilter>();

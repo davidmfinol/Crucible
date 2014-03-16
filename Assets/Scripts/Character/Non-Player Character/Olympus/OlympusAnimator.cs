@@ -170,17 +170,11 @@ public class OlympusAnimator : CharacterAnimator
     {
         if(MecanimAnimator.GetBool(_turnAroundHash))
         {
-            MecanimAnimator.applyRootMotion = true;
             MecanimAnimator.SetBool(_turnAroundHash, false);
-            StartCoroutine("DelayedTurnAround");
+            Direction = -Direction;
         }
-    }
-
-    IEnumerator DelayedTurnAround()
-    {
-        yield return new WaitForSeconds(2.0f);
-        MecanimAnimator.applyRootMotion = false;
-        Direction = -Direction;
+        HorizontalSpeed = 0;
+        VerticalSpeed = GroundVerticalSpeed;
     }
 	
 	protected void Jumping(float elapsedTime)
