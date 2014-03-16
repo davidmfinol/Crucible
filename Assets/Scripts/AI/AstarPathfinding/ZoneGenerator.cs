@@ -36,7 +36,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     // We need to know the character animator settings of the enemies to determine the graph
     private CharacterAnimator _olympusAnimator; 
     private CharacterSettings _olympusSettings;
-    private EnemyAISettings _olympusAISettings;
 
     // All the ZoneNodes in the ZoneGraph
     public ZoneNode[] nodes;
@@ -74,7 +73,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         GameObject OlympusPrefab = (GameObject) Resources.Load("Olympus");
         _olympusAnimator = OlympusPrefab.GetComponent<CharacterAnimator>();
         _olympusSettings = OlympusPrefab.GetComponent<CharacterSettings>();
-        _olympusAISettings = OlympusPrefab.GetComponent<EnemyAISettings>();
 
         // Then, create the nodes and connect them
         GenerateNodes();
@@ -271,8 +269,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 		for(float x = left; x < right; x += WaypointSubdivisionSize)
         {
             Vector3 abovePoint = new Vector3(x, top + 1, z);
-            Vector3 rotatedPoint = RotatePointAroundPivot(abovePoint, rotationPoint, rotationAngle);
-            aboveWaypoints.Add(rotatedPoint + boxOffset);
+            abovePoint = RotatePointAroundPivot(abovePoint, rotationPoint, rotationAngle);
+            aboveWaypoints.Add(abovePoint + boxOffset);
         }
         Vector3 topRight = new Vector3(right, top + 1, z);
         topRight = RotatePointAroundPivot(topRight, rotationPoint, rotationAngle);
@@ -518,11 +516,11 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     {
         bool jumpClear = true;
 
-        // OLD: We use capsule cast for steep vertical areas, and a hemisphere test for more horizontal jumps
+        // OLD: We used to use capsule cast for steep vertical areas
         //if(Mathf.Abs( start.x - end.x ) < _olympusAISettings.JumpStopRange)
         //    jumpClear = CapsuleCastTest(start, end);
         //else
-            jumpClear = OverlapSphereTest(start, end);
+        jumpClear = OverlapSphereTest(start, end);
 
         return jumpClear;
     }
