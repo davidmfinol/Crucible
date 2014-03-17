@@ -35,6 +35,7 @@ public class OlympusAnimator : CharacterAnimator
 	//The Olympus's sound effects, yeah!
 	private OlympusAudioPlayer _sound;
 
+
 	protected override void OnStart()
 	{
 		_sound = gameObject.GetComponentInChildren<OlympusAudioPlayer>();
@@ -52,7 +53,7 @@ public class OlympusAnimator : CharacterAnimator
 		StateMachine[Animator.StringToHash("Base Layer.Stealth Death")] = StealthDeath;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
-		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
+		StateMachine[Animator.StringToHash("Air.Landing")] = Landing;
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
@@ -108,6 +109,9 @@ public class OlympusAnimator : CharacterAnimator
         if(!IsGrounded)
             MecanimAnimator.SetBool (_acquiringTargetHash, false);
 
+        // Give Olympus some perfectly hard stops on land
+        if(IsLanding)
+            HorizontalSpeed = 0;
 	}
 
 	public void OnAcquireTarget()
@@ -162,7 +166,13 @@ public class OlympusAnimator : CharacterAnimator
 		
 		if(!MecanimAnimator.GetBool(_fallHash) && !IsGrounded)
 			MecanimAnimator.SetBool(_fallHash, true);
-	}
+    }
+    
+    protected void Landing(float elapsedTime)
+    {
+        HorizontalSpeed = 0;
+        VerticalSpeed = GroundVerticalSpeed;
+    }
 
 	protected void Stun(float elapsedTime)
 	{
@@ -427,7 +437,6 @@ public class OlympusAnimator : CharacterAnimator
 	public void PlayJump()
 	{
 		_sound.Play(_sound.Jumping);
-		Debug.Log("Jump Sound");
 	}
 
 

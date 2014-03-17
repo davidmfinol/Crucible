@@ -761,7 +761,7 @@ ModelImporter:
       lastFrame: 36
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -.150000006
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -1092,7 +1092,7 @@ ModelImporter:
       lastFrame: 52
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -.150000006
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -1420,10 +1420,10 @@ ModelImporter:
       name: AcquireTarget
       takeName: Take 001
       firstFrame: 63
-      lastFrame: 95
+      lastFrame: 94
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -.150000006
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -1759,15 +1759,15 @@ ModelImporter:
       loop: 0
       loopTime: 1
       loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      bodyMask: 00000000010000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000
       curves: []
       events: []
       transformMask:
@@ -2085,7 +2085,7 @@ ModelImporter:
       lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -.150000006
       cycleOffset: 0
       loop: 0
       loopTime: 0

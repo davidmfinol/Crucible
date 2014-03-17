@@ -6,6 +6,8 @@ using Pathfinding;
 /// </summary>
 public class ZoneNode : PointNode
 {
+    public uint[] connectionTags; //TODO
+
     public GameObject GO;
 
     // TODO: SEE IF WE CAN REPLACE THESE WITH THE BUILT-IN TAG SYSTEM?

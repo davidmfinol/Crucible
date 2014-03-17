@@ -462,6 +462,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         if(obstructedByGround)
             return false;
 
+        // Let's avoid ridiculous situations where we have to jump in a circle to make the jump.
+        if((B.isLeftLedge || B.isRightLedge) && Mathf.Abs(posB.x - posA.x) < _olympusAnimator.Radius)
+            return false;
+
         // If the waypoint are on two different platforms, make sure we are either capable of jumping over or falling over
         if(A.GO != B.GO && (!CanFall(posA, posB) || !FallClear(posA, posB)) && !JumpClear(posA, posB))
             return false;
@@ -572,10 +576,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="end">The end point.</param>
     public bool JumpClear(Vector3 start, Vector3 end)
     {
-        // Use capsule test for examining locations that are constrained in verticality
-        if(Mathf.Abs(end.y - start.y) < -_olympusAnimator.Height + _olympusSettings.JumpHeight && Mathf.Abs(end.x - start.x) < _olympusAnimator.Radius)
-            return CapsuleCastTest(start, end);
-
+        // TODO: WE'RE REALLY ONLY ESTIMATING WITH THESE METHODS. IS THERE A WAY TO DETERMINE OUR EXACT SPACE FOR THE JUMP?
         // Use the overlapsphere test in the default case
         return OverlapSphereTest(start, end);
     }

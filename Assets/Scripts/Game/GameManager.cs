@@ -207,22 +207,25 @@ public class GameManager : MonoBehaviour
 	}
 	private void LoadGameStateHelper()
 	{
-		// Restore player inventory
+		// Clear out player inventory
 		Inventory.Weapons.Clear ();
         Inventory.Items.Clear ();
 		GameManager.UI.RefreshWeaponWheel();
 
-
 		// Get the saved data
 		_saveData = GameSaveState.Load(GameSaveStatePath);
+
+        // Do nothing if we failed to load a game save
 		if(_saveData == null)
         {
-            Debug.LogWarning("No game save data!");
 			LastCheckPoint = _currentLevel.StartPoint;
+            _saveData = new GameSaveState();
+            _saveData.Checkpoint = LastCheckPoint.GetComponent<Checkpoint>().Location;
             return;
 		}
 
 		// TODO: MAKE THIS MORE GENERIC
+        // Reload the player's weapons
 		foreach(WeaponType weaponType in _saveData.PlayerState.WeaponsHeld)
         {
 			GameObject newWeapon;
@@ -243,7 +246,7 @@ public class GameManager : MonoBehaviour
 
 		}
 
-		// Reload player inventory
+		// Reload the player's items
 		foreach(InventoryItem invItem in _saveData.PlayerState.ItemsHeld)
             Inventory.AddItem( InventoryItemFactory.CreateFromType(invItem.Type, invItem.Quantity) );
 
@@ -287,13 +290,11 @@ public class GameManager : MonoBehaviour
         string path = LevelSaveStatePrefix + levelName + ".xml";
         LevelSaveState levelSave = LevelSaveState.Load(path);
 
+        // Do nothing if we couldnt load any data
 		if(levelSave == null)
-        {
-            Debug.LogWarning("No level save data!");
             return;
-        }
 
-		Debug.Log ("Removed all dynamic objects.");
+        // Clear out all the items and weapons in the scene
 		GameManager.Level.RemoveDynamicObjects();
 
 		// TODO: MAKE THIS MORE GENERIC
@@ -338,6 +339,7 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
+        // Restore all the items in the scene
 		foreach (ItemSaveState itemState in levelSave.ItemStates)
 		{
 			GameObject newItem;

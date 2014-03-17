@@ -104,7 +104,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 	}
     protected abstract void CreateStateMachine();// Must be overwritten by child classes to set up _stateMachine
 	protected virtual List<int> DefineRootMotionCorrectionState()
-	{ //TODO: ERADICATE THIS METHOD
+	{
+        //TODO: ERADICATE THIS METHOD
 		return new List<int> (); // Should be overwritten by child classes
 	}
 	protected virtual void OnStart()
@@ -444,17 +445,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 	}
 	protected virtual void ApplyClimbingVertical(float vertical)
 	{
-        // Determine the vertical bounds of the object(s) we are climbing
-		//bool insideDown = false;
-		bool insideUp = false;
-		foreach(HangableObject obj in HangQueue)
-		{
-	        //insideDown = insideDown || transform.position.y - Controller.collider.bounds.extents.y >
-	        //        obj.transform.position.y - obj.collider.bounds.extents.y;
-	        insideUp = insideUp || transform.position.y + Controller.collider.bounds.extents.y <
-	              obj.transform.position.y + obj.collider.bounds.extents.y;
-		}
-
 		if(vertical > 0.0f) 
             VerticalSpeed = Settings.LadderClimbingSpeed;
         else if(vertical < 0.0f)
@@ -571,11 +561,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 	
 
 	// Movement/Animation Properties
-    public virtual bool IsLanding
-    {
-		// FIXME: SLOW
-		get { return CurrentState.IsName("Air.Landing") || (IsGrounded && (CurrentState.IsName("Air.Jumping") || CurrentState.IsName("Air.Falling"))) ; } 
-    }
 	public AnimatorStateInfo CurrentState
 	{
 		get { return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0); }
@@ -694,6 +679,11 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return _collisionFlags; }
     }
+    public virtual bool IsLanding
+    {
+        // FIXME: SLOW
+        get { return CurrentState.IsName("Air.Landing") || (IsGrounded && (CurrentState.IsName("Air.Jumping") || CurrentState.IsName("Air.Falling"))) ; } 
+    }
 
 	// Moving Platform Properties
     public Transform ActivePlatform
@@ -728,12 +718,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is GrabbableObject) &&  !(ActiveHangTarget is ClimbableObject);}
     }
-    public bool CanHangOffLedge
-    {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Ledge
-			&& Mathf.Abs(transform.position.y + Height / 2 - ActiveHangTarget.transform.position.y) < _characterSettings.LedgeLeniency
-				&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
-    }
     public bool CanClimbLadder
 	{
 		get { return ActiveHangTarget != null && ActiveHangTarget is Ladder; } //&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
@@ -744,7 +728,19 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     public bool CanHangOffObjectHorizontally
     {
-        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceXAxis() && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)); }
+        get
+        {
+            if(ActiveHangTarget == null)
+                return false;
+
+            bool facingObject = false;
+            if(ActiveHangTarget is Ledge)
+                facingObject = ( (Direction.x > 0 && ((Ledge)ActiveHangTarget).Left) || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left) );
+            else
+                facingObject = ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight));
+
+            return ActiveHangTarget.DoesFaceXAxis() && facingObject;
+        }
     }
     public bool CanHangOffObjectVertically
     {

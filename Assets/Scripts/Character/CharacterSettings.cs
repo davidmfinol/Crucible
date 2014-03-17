@@ -38,9 +38,6 @@ public sealed class CharacterSettings : MonoBehaviour
 	// How fast the character climbs ledges
 	public float LedgeClimbingSpeed;  // = 6.0f;
 	
-	// How close the character has to be to the top of a ledge to grab onto it
-	public float LedgeLeniency;  // = 0.3f;
-	
 	// How fast the character climbs ladders
 	public float LadderClimbingSpeed;  // = 5.0f;
 	
@@ -62,6 +59,7 @@ public sealed class CharacterSettings : MonoBehaviour
     // how much friction is applied to the character as it slides across the ground on death
 	public float DeathFriction;  // = 12.0f;
 	
+
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone(Transform current, string name)
     {

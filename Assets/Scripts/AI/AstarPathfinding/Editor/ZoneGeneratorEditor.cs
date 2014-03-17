@@ -13,6 +13,10 @@ using Pathfinding;
 [CustomGraphEditor (typeof(ZoneGraph), "Zone Graph")]
 public class ZoneGraphEditor : GraphEditor
 {
+    /// <summary>
+    /// Draws the zone graph data in the inspector
+    /// </summary>
+    /// <param name="target">The ZoneGraph.</param>
     public override void OnInspectorGUI(NavGraph target)
     {
         ZoneGraph graph = target as ZoneGraph;
@@ -24,6 +28,9 @@ public class ZoneGraphEditor : GraphEditor
 		graph.WaypointSubdivisionSize = EditorGUILayout.FloatField("Waypoint Subdivison", graph.WaypointSubdivisionSize);
     }
 
+    /// <summary>
+    /// Draws the nodes of the zone graph as the appropriate color.
+    /// </summary>
     public override void OnDrawGizmos()
     {
         ZoneGraph graph = target as ZoneGraph;

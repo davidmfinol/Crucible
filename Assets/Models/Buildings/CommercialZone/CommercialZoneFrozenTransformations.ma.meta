@@ -539,6 +539,7 @@ ModelImporter:
     101066: LedgeLeftOnly8
     101068: LedgeRightOnly13
     101070: WaypointlessMesh
+    101072: Box8
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -1075,6 +1076,7 @@ ModelImporter:
     401066: LedgeLeftOnly8
     401068: LedgeRightOnly13
     401070: WaypointlessMesh
+    401072: Box8
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1554,6 +1556,7 @@ ModelImporter:
     2300952: LedgeLeftOnly8
     2300954: LedgeRightOnly13
     2300956: WaypointlessMesh
+    2300958: Box8
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -2033,6 +2036,7 @@ ModelImporter:
     3300952: LedgeLeftOnly8
     3300954: LedgeRightOnly13
     3300956: WaypointlessMesh
+    3300958: Box8
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2512,6 +2516,7 @@ ModelImporter:
     4300952: LedgeRightOnly13
     4300954: LedgeLeftOnly8
     4300956: WaypointlessMesh
+    4300958: Box8
     7400000: Take 001
     9500000: //RootNode
   materials:

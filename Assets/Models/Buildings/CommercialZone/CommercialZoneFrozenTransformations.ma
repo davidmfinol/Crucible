@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: CommercialZoneFrozenTransformations.ma
-//Last modified: Fri, Mar 14, 2014 06:34:16 PM
+//Last modified: Sun, Mar 16, 2014 09:49:54 PM
 //Codeset: 1252
 requires maya "2014";
 requires -nodeType "mentalrayFramebuffer" -nodeType "mentalrayOutputPass" -nodeType "mentalrayRenderPass"
@@ -2998,9 +2998,9 @@ createNode mesh -n "LedgeShape129" -p "Ledge129";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "polySurface13";
+createNode transform -n "Mesh";
 	setAttr ".t" -type "double3" 0 -0.69419898494451004 0 ;
-createNode mesh -n "polySurfaceShape28" -p "polySurface13";
+createNode mesh -n "MeshShape" -p "Mesh";
 	setAttr -k off ".v";
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:11]";
 	setAttr ".vir" yes;
@@ -13426,8 +13426,8 @@ connectAttr "groupId43.id" "BoxShape6.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "BoxShape6.iog.og[0].gco";
 connectAttr "groupId44.id" "LedgeShape129.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "LedgeShape129.iog.og[0].gco";
-connectAttr "groupId45.id" "polySurfaceShape28.iog.og[0].gid";
-connectAttr ":initialShadingGroup.mwc" "polySurfaceShape28.iog.og[0].gco";
+connectAttr "groupId45.id" "MeshShape.iog.og[0].gid";
+connectAttr ":initialShadingGroup.mwc" "MeshShape.iog.og[0].gco";
 connectAttr ":initialShadingGroup.mwc" "Ledge83Shape.iog.og[0].gco";
 connectAttr "groupId47.id" "Ledge83Shape.ciog.cog[0].cgid";
 connectAttr "groupId168.id" "WallShape.iog.og[0].gid";
@@ -13742,7 +13742,7 @@ connectAttr "WallShape4.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "LedgeShape128.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "BoxShape6.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "LedgeShape129.iog.og[0]" ":initialShadingGroup.dsm" -na;
-connectAttr "polySurfaceShape28.iog.og[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "MeshShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge83Shape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge83Shape.ciog.cog[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape36.iog.og[0]" ":initialShadingGroup.dsm" -na;

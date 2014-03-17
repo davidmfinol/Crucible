@@ -17,7 +17,8 @@ public class EnemyAISettings : MonoBehaviour
     public float SoundInspectionRange; // = 1.0f;
 	
 	// How many seconds between every calculation of a new path
-	public float RepathTime; // = 0.75f;
+    // Note that this will be divided by the speed ratio of the character to determine the real repath
+	public float RepathRate; // = 0.75f;
 
 	// Toggles for the different sensory inputs of the enemy ai
 	public bool CanSee; // = true; 
@@ -28,4 +29,10 @@ public class EnemyAISettings : MonoBehaviour
 
 	// If the enemy is farther than this distance, deactivate it
 	public float MaxActiveDistance; // = 100.0f;
+
+    // The ratio (0, 1] of how fast the enemy character moves in different modes
+    public float WanderSpeedRatio; // = 0.2f;
+    public float SearchSpeedRatio; // = 0.7f;
+    public float ChaseSpeedRatio; // = 1.0f;
+
 }
