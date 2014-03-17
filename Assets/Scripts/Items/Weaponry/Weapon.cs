@@ -7,6 +7,9 @@ using System.Collections;
 [AddComponentMenu("Items/Weaponry/Weapon")]
 public abstract class Weapon : MonoBehaviour
 {
+	public int Quantity;
+	public int MaxQuantity;
+
     /// <summary>
     /// Activate the weapon's attack based off its attack number
     /// </summary>
@@ -46,4 +49,14 @@ public abstract class Weapon : MonoBehaviour
 		return null;
 	}
 
+	public WeaponSaveState SaveState()
+	{
+		WeaponSaveState weaponSave = new WeaponSaveState();
+
+		weaponSave.WeaponType = WeaponType;
+		weaponSave.Quantity = Quantity;
+		return weaponSave;
+
+	}
+	
 }

@@ -11,7 +11,9 @@ public class UIManager : MonoBehaviour
 {
 	public Transform ChaseVignette;
 	public GameObject WeaponQuadPrefab;
-	public float WeaponWheelRadius;
+	public float WeaponRadius;
+	public GameObject WeaponCountQuadPrefab;
+	public float WeaponCountRadius;
 	public float MinSwipeDistance;
 
 	// how long can you go between mousedown then mouseup and have it still change weapons?
@@ -30,7 +32,9 @@ public class UIManager : MonoBehaviour
 	private int _currentWeapon;
 
 	// weapon quads (0 to 2 counter-clockwise)
+	// also weapon counts, if limited ammo
 	private GameObject[] _weaponQuads;
+	private GameObject[] _weaponCountQuads;
 
 	// tracking a gui swipe from where, with finger ID if on mobile.
 	private bool _isTrackingSwipe;
@@ -63,15 +67,22 @@ public class UIManager : MonoBehaviour
 
 		// weapon quads at proper positions
 		_weaponQuads = new GameObject[3];
-		
-		Vector3 quadPos = _weaponWheelPos + Vector3.left * WeaponWheelRadius;
+		_weaponCountQuads = new GameObject[3];
+
+		Vector3 quadPos = _weaponWheelPos + Vector3.left * WeaponRadius;
 		_weaponQuads[0] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
-
-		quadPos = _weaponWheelPos + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponWheelRadius;
+		quadPos = _weaponWheelPos + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponRadius;
 		_weaponQuads[1] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
-
-		quadPos = _weaponWheelPos + Vector3.down * WeaponWheelRadius;
+		quadPos = _weaponWheelPos + Vector3.down * WeaponRadius;
 		_weaponQuads[2] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+
+		quadPos = _weaponWheelPos + Vector3.left * WeaponCountRadius;
+		_weaponCountQuads[0] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
+		quadPos = _weaponWheelPos + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponCountRadius;
+		_weaponCountQuads[1] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
+		quadPos = _weaponWheelPos + Vector3.down * WeaponCountRadius;
+		_weaponCountQuads[2] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
+
 
 		_isTrackingSwipe = false;
 		_swipeID = -1;
@@ -122,7 +133,7 @@ public class UIManager : MonoBehaviour
 		mouseWorldPos.z = _weaponWheelPos.z;
 
 		// *** began swipe with mouse? ***
-		if (Input.GetMouseButtonDown (0) && Vector3.Distance (_weaponWheelPos, mouseWorldPos) <= (WeaponWheelRadius * 2.0f)) {
+		if (Input.GetMouseButtonDown (0) && Vector3.Distance (_weaponWheelPos, mouseWorldPos) <= (WeaponRadius * 2.0f)) {
 			_isTrackingSwipe = true;
 			_swipeStartPos = mouseWorldPos;
 			_swipeTime = 0.0f;
@@ -135,7 +146,7 @@ public class UIManager : MonoBehaviour
 				Vector3 touchWorldPos = _uiCamera.ScreenToWorldPoint( new Vector3(touchPos.x, touchPos.y, 0.0f) );
 				touchWorldPos.z = _weaponWheelPos.z;
 				
-				if(touch.phase == TouchPhase.Began && Vector3.Distance (_weaponWheelPos, touchWorldPos) <= (WeaponWheelRadius * 2.0f)) {
+				if(touch.phase == TouchPhase.Began && Vector3.Distance (_weaponWheelPos, touchWorldPos) <= (WeaponRadius * 2.0f)) {
 					_isTrackingSwipe = true;
 					_swipeID = touch.fingerId;
 					_swipeStartPos = touchWorldPos;
@@ -312,6 +323,11 @@ public class UIManager : MonoBehaviour
 			_currentWeapon = 0;
 
 		RefreshWeaponWheel ();
+
+		// select the weapon
+		if(GameManager.Inventory.Weapons.Count > 0)
+			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
+
 	}
 	public void CycleToPreviousWeapon()
 	{
@@ -320,6 +336,11 @@ public class UIManager : MonoBehaviour
 			_currentWeapon = GameManager.Inventory.Weapons.Count - 1;
 
 		RefreshWeaponWheel();
+
+		// select the weapon
+		if(GameManager.Inventory.Weapons.Count > 0)
+			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
+
 	}
 	
 	public void RefreshWeaponWheel()
@@ -335,6 +356,8 @@ public class UIManager : MonoBehaviour
 			// show proper texture
 			_weaponQuads[weaponPos].gameObject.renderer.enabled = true;
 			_weaponQuads[weaponPos].gameObject.renderer.material.mainTexture = GameManager.Inventory.Weapons[weaponToShow].GetTexture();
+			_weaponCountQuads[weaponPos].gameObject.renderer.enabled = true;
+			_weaponCountQuads[weaponPos].gameObject.renderer.material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Weapons[weaponToShow].Quantity);
 
 			weaponToShow = (weaponToShow + 1) % GameManager.Inventory.Weapons.Count;
 			weaponPos = (weaponPos + 1) % 3;
@@ -349,15 +372,13 @@ public class UIManager : MonoBehaviour
 		// *** hide the slots that didn't get filled *** 
 		while(weaponsShown < 3) {
 			_weaponQuads[weaponPos].gameObject.renderer.enabled = false;
+			_weaponCountQuads[weaponPos].gameObject.renderer.enabled = false;
+
 
 			weaponPos = (weaponPos + 1) % 3;
 			weaponsShown++;
 
 		}
-
-		// select the weapon
-		if(GameManager.Inventory.Weapons.Count > 0)
-			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
 
 	}
 
