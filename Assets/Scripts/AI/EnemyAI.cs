@@ -376,7 +376,7 @@ public class EnemyAI : MonoBehaviour
                 float currentSpeedRatio = _animator.HorizontalSpeed/_animator.Settings.MaxHorizontalSpeed;
                 _animator.CharInput.Horizontal = -currentSpeedRatio;
             }
-        }
+		}
         // Basic horizontal movement while in the air
         else if (isMidAir)
         {
@@ -487,6 +487,7 @@ public class EnemyAI : MonoBehaviour
         float root2 = (-b - Mathf.Sqrt(discriminant)) / divisor;
 
 		// FIXME: SLOW && MAKE MORE OBJECT ORIENTED
+		// If we're jumping, choose the farthest, otherwise choose the closer one
 		return _animator.CurrentState.IsName("Base Layer.Jumping") ? Mathf.Max(root1, root2) : Mathf.Min(root1, root2);
     }
 
