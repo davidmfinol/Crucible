@@ -22,7 +22,7 @@ public class WindAudioPlayer : AudioPlayer
 		_audios = GetComponents<AudioSource> ();
 		foreach(AudioSource audiosource in _audios)
 		{
-			audiosource.volume = 0.1f;
+			audiosource.volume = 0.09f;
 		}
 		_currentAudio = 0;
 		StartCoroutine ("DelayedWindPlay");

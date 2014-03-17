@@ -15,5 +15,24 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
 	public AudioClip ItemPickup;
 	public AudioClip[] Running;
 	public AudioClip Flip;
+
+	private int _currentAudio;
+	private AudioSource[] _audios;
+
+	void Start()
+	{
+		_currentAudio = 0;
+		_audios = GetComponents<AudioSource> ();
+	}
+
+	public override void Play(AudioClip audio)
+	{
+		// Play a random running sound
+		_audios[_currentAudio].clip = audio;
+		_audios[_currentAudio].Play();
+		
+		_currentAudio++;
+		_currentAudio = _currentAudio % 2;
+	}
 }
 
