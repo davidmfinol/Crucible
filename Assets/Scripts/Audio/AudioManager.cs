@@ -14,10 +14,11 @@ public class AudioManager : MonoBehaviour
         SPEECH,
         EFFECT,
         MUSIC,
-        ZONE,
+        AREA,
         INTERFACE
     }
 
+    // TODO
 
 	public bool Ready
 	{

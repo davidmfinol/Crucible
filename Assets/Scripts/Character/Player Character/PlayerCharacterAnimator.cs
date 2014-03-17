@@ -129,8 +129,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		List<int> states = new List<int> ();
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
-		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
-		states.Add (Animator.StringToHash ("Ground.StealthKill"));
 		return states;
 	}
 	
@@ -292,7 +290,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public override bool IsDead()
     {
 		// TODO: fix. slow.
-		return(CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Waiting For Respawn") );
+		return ( CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Waiting For Respawn") );
 
 	}
 	

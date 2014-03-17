@@ -537,18 +537,18 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     }
     
     /// <summary>
-    /// Returns whether an enemy can jump from one position to another
+    /// Returns whether an enemy can jump from one position to another.
     /// </summary>
-    /// <param name="a">the starting position of the enemy</param>
-    /// <param name="b">the ending position the enemy is considering</param>
-    /// <returns></returns>
+    /// <param name="a">The starting position of the enemy.</param>
+    /// <param name="b">The ending position the enemy is considering.</param>
+    /// <returns>Whether a jump is possible.</returns>
     public bool CanJump(Vector3 a, Vector3 b)
     {
         float xDist = Mathf.Abs(b.x - a.x);
         float yDist = b.y - a.y;
         float yVel = Mathf.Sqrt(2.0f * (_olympusSettings.JumpHeight) * _olympusSettings.Gravity);
         float t = yVel / _olympusSettings.Gravity;
-        float yMax = _olympusSettings.JumpHeight + _olympusAnimator.Height;
+        float yMax = _olympusSettings.JumpHeight + (_olympusAnimator.Height / 2.0f);
         if (xDist > _olympusSettings.MaxHorizontalSpeed * t)
         {
             t = xDist / _olympusSettings.MaxHorizontalSpeed;

@@ -28,6 +28,7 @@ public class OlympusAnimator : CharacterAnimator
 	private int _stealthDeathHash;
 	private int _acquiringTargetHash;
     private int _turnAroundHash;
+    private int _xDirectionHash;
 	
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
@@ -76,6 +77,7 @@ public class OlympusAnimator : CharacterAnimator
         _stealthDeathHash = Animator.StringToHash("StealthDeath");
         _acquiringTargetHash = Animator.StringToHash ("AcquireTarget");
         _turnAroundHash = Animator.StringToHash("TurnAround");
+        _xDirectionHash = Animator.StringToHash("XDirection");
 	}
 	
 	protected override void UpdateMecanimVariables()
@@ -112,6 +114,9 @@ public class OlympusAnimator : CharacterAnimator
         // Give Olympus some perfectly hard stops on land
         if(IsLanding)
             HorizontalSpeed = 0;
+
+        // Knowing direction is useful for the turnaround animation
+        MecanimAnimator.SetFloat (_xDirectionHash, Direction.x);
 	}
 
 	public void OnAcquireTarget()
@@ -189,10 +194,28 @@ public class OlympusAnimator : CharacterAnimator
         if(MecanimAnimator.GetBool(_turnAroundHash))
         {
             MecanimAnimator.SetBool(_turnAroundHash, false);
-            Direction = -Direction;
+            StartCoroutine("WaitToChangeDirection");
         }
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
+    }
+    IEnumerator WaitToChangeDirection()
+    {
+        IgnoreDirection = true;
+
+        while(CurrentState.IsName("Base Layer.Turn Around"))
+            yield return null;
+
+        Direction = -Direction;
+
+        IgnoreDirection = false;
+
+        StopCoroutine("WaitToChangeDirection");
+    }
+    void OnAnimatorMove()
+    {
+        if (CurrentState.IsName("Base Layer.Turn Around"))
+            transform.rotation *= MecanimAnimator.deltaRotation;
     }
 	
 	protected void Jumping(float elapsedTime)
