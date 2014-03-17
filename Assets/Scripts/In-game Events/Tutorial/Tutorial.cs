@@ -27,6 +27,7 @@ public class Tutorial : MonoBehaviour
 	private bool _reachedTrigger3;
     private bool _sewerDoorOpen;
 
+
 	void Start ()
 	{
 		_reachedTrigger1 = false;
@@ -54,7 +55,7 @@ public class Tutorial : MonoBehaviour
 	IEnumerator WaitToShowExample()
 	{
 		yield return new WaitForSeconds (5.0f);
-		if(GameManager.SaveData == null || !GameManager.SaveData.SewerTopReached)
+		if(!GameManager.SaveData.SewerTopReached)
 			MysteriousRunner1.gameObject.SetActive (true);
 		StopCoroutine ("WaitToShowExample");
 	}
@@ -76,11 +77,10 @@ public class Tutorial : MonoBehaviour
 
 		_reachedTrigger3 = true;
 
-		if(GameManager.SaveData == null || !GameManager.SaveData.SewerTopReached)
+		if(!GameManager.SaveData.SewerTopReached)
 			Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
 
-		if(GameManager.SaveData != null)
-			GameManager.SaveData.SewerTopReached = true;
+        GameManager.SaveData.SewerTopReached = true;
 
         StartCoroutine("OperateDoor");
 	}
@@ -91,7 +91,7 @@ public class Tutorial : MonoBehaviour
 		while (elapsedTime < 10)
 		{
 			elapsedTime += Time.deltaTime;
-			if(_reachedTrigger1 || (GameManager.SaveData != null && GameManager.SaveData.SewerTopReached))
+			if(_reachedTrigger1 || GameManager.SaveData.SewerTopReached)
 				StopCoroutine("WaitToShowInstructions");
 			yield return null;
 		}

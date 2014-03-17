@@ -374,6 +374,9 @@ public class GameManager : MonoBehaviour
 
 	public static void SaveGameState(Checkpoint.CheckpointLocation location)
 	{
+        if(_saveData == null)
+           _saveData = new GameSaveState();
+
 		_saveData.LevelName = Application.loadedLevelName;
 		_saveData.Checkpoint = location;
 		_saveData.PlayerState = Inventory.SaveState ();
@@ -455,6 +458,12 @@ public class GameManager : MonoBehaviour
 
 	public static GameSaveState SaveData
 	{
-		get { return _saveData; }
+		get
+        {
+            if(_saveData == null)
+                _saveData = new GameSaveState();
+
+            return _saveData; 
+        }
 	}
 }
