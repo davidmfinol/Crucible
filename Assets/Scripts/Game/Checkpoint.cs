@@ -16,7 +16,9 @@ public class Checkpoint : MonoBehaviour
 		Checkpoint_OCourseToAnvilPark,
 		Checkpoint_OcourseStart,
 		Checkpoint_UpperAnvilPark,
-		Checkpoint_LowerAnvilPark
+		Checkpoint_LowerAnvilPark,
+        Checkpoint_SewerStart,
+        Checkpoint_SewerTop
 	
 	};
 

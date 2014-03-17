@@ -129,8 +129,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		List<int> states = new List<int> ();
 		states.Add (Animator.StringToHash ("Wall.Wallgrabbing"));
-		states.Add (Animator.StringToHash ("Base Layer.Damaged"));
-		states.Add (Animator.StringToHash ("Ground.StealthKill"));
 		return states;
 	}
 	
@@ -292,7 +290,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public override bool IsDead()
     {
 		// TODO: fix. slow.
-		return(CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Waiting For Respawn") );
+		return ( CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName("Base Layer.Waiting For Respawn") );
 
 	}
 	
@@ -314,7 +312,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	protected void Damaged(float elapsedTime)
 	{
-		if (MecanimAnimator.GetBool (_damagedHash)) {
+		if (MecanimAnimator.GetBool (_damagedHash))
+		{
 			MecanimAnimator.SetBool (_damagedHash, false);
 			GameManager.UI.EnableInput();
 			GameManager.UI.CraftingMenu.Close();
@@ -351,7 +350,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
                                              
 	protected void Die(float elapsedTime)
 	{
-		if (IsGrounded) {
+		if (IsGrounded)
+		{
 			ApplyDeathFriction (elapsedTime);
 			VerticalSpeed = GroundVerticalSpeed;
 
@@ -388,26 +388,31 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 			MecanimAnimator.SetBool (_pickupHash,  canPickup && _itemPickedup != null);
 		
-		} else if(CharInput.InteractionPressed) {
+		}
+		else if(CharInput.InteractionPressed)
+		{
 			MecanimAnimator.SetBool (_detonateMineHash, true);
 
 		}
 
 	}
 
-	public override void StepDown() {
+	public override void StepDown()
+	{
 		MecanimAnimator.SetFloat (_xDirectionHash, Direction.x);
 		MecanimAnimator.SetBool (_steppingDownHash, true);
 
 	}
 
-	public override void StandUp() {
+	public override void StandUp()
+	{
 		MecanimAnimator.SetBool (_standingUpHash, true);
 				
 	}
 
 
-	protected void SteppingDown(float elapsedTime) {
+	protected void SteppingDown(float elapsedTime)
+	{
 		MecanimAnimator.SetBool (_steppingDownHash, false);
 
 		// can't use friction because you can slide off a ledge right into the crafting animation
@@ -416,7 +421,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	}
 
-	protected void StandingUp(float elapsedTime) {
+	protected void StandingUp(float elapsedTime)
+	{
 		MecanimAnimator.SetBool (_standingUpHash, false);
 
 		HorizontalSpeed = 0;
@@ -903,7 +909,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	IEnumerator PickUpItem()
 	{
 		yield return new WaitForSeconds (0.5f);
-		_itemPickedup.transform.position = GameManager.Level.OffscreenPosition; //TODO: MAYBE DELETE THIS?
+        _itemPickedup.transform.position = GameManager.Level.OffscreenPosition; //TODO: MAYBE DELETE THIS?
+        StopCoroutine ("PickUpItem");
 	}
 	
 	protected override void ApplyRunning (float elapsedTime)
@@ -915,6 +922,35 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public void PlayHit()
 	{
 		_sound.Play(_sound.Hit);
+	}
+
+	public void PlayPickup()
+	{
+		_sound.Play(_sound.ItemPickup);
+	}
+
+	public void PlayCrafting()
+	{
+		_sound.Play(_sound.Craft);
+	}
+
+	public void PlayBackflip()
+	{
+		_sound.Play(_sound.Flip);
+	}
+
+	public void PlayJump()
+	{
+		//TODO: Move this wallkick sound to new wall kick animation and event
+		if(CurrentState.IsName("Wall.Walljumping"))
+			_sound.Play(_sound.WallKick);
+		else _sound.Play(_sound.Jump);
+	}
+
+	public void PlayWallHit()
+	{
+		_sound.Play(_sound.WallHit);
+		Debug.Log ("WallHit Sound");
 	}
 
 	public bool CanStealthKill(out OlympusAnimator animRet)

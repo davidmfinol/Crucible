@@ -49,7 +49,13 @@ public class UIManager : MonoBehaviour
         _uiCamera = GetComponentInChildren<Camera>();
         _touchInput = GetComponent<TouchInput>();
         _nontouchInput = GetComponent<NontouchInput>();
-		_craftingMenu = GetComponent<CraftingMenu> ();
+        _craftingMenu = GetComponent<CraftingMenu> ();
+
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
+        _touchInput.enabled = false;
+#elif (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
+        _nontouchInput.enabled = false;
+#endif
 
 		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
 		_vignetteInstance.parent = transform;

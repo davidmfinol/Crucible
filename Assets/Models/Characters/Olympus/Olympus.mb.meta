@@ -294,7 +294,7 @@ ModelImporter:
     4300076: pTorus2
     4300078: pPlane3
     4300080: pPlane4
-    7400000: Take 001
+    7400000: Face
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -310,7 +310,201 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Face
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 250
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: camera1
+        weight: 0
+      - path: ikHandle1_RightLeg
+        weight: 0
+      - path: ikHandle2_LeftLeg
+        weight: 0
+      - path: ikHandle5_LefArm
+        weight: 0
+      - path: ikHandle6_RightArm
+        weight: 0
+      - path: Root
+        weight: 1
+      - path: Root/left_hip
+        weight: 1
+      - path: Root/left_hip/left_knee
+        weight: 1
+      - path: Root/left_hip/left_knee/left_ankle
+        weight: 1
+      - path: Root/left_hip/left_knee/left_ankle/left_ball
+        weight: 0
+      - path: Root/left_hip/left_knee/left_ankle/left_ball/left_toe
+        weight: 0
+      - path: Root/left_hip/left_knee/left_ankle/LeftFoot
+        weight: 0
+      - path: Root/left_hip/left_knee/LowerShinR
+        weight: 0
+      - path: Root/left_hip/left_knee/UpperShinR2
+        weight: 0
+      - path: Root/left_hip/left_knee/UpperShinR2/pCylinder1
+        weight: 0
+      - path: Root/left_hip/LeftThigh
+        weight: 0
+      - path: Root/left_hip/LeftThigh/pPlane4
+        weight: 0
+      - path: Root/right_hip
+        weight: 1
+      - path: Root/right_hip/right_knee
+        weight: 1
+      - path: Root/right_hip/right_knee/LowerShinR1
+        weight: 0
+      - path: Root/right_hip/right_knee/right_ankle
+        weight: 1
+      - path: Root/right_hip/right_knee/right_ankle/right_ball
+        weight: 0
+      - path: Root/right_hip/right_knee/right_ankle/right_ball/right_toe
+        weight: 0
+      - path: Root/right_hip/right_knee/right_ankle/RightFoot
+        weight: 0
+      - path: Root/right_hip/right_knee/UpperShinR1
+        weight: 0
+      - path: Root/right_hip/right_knee/UpperShinR1/pCylinder2
+        weight: 0
+      - path: Root/right_hip/RightThigh1
+        weight: 0
+      - path: Root/right_hip/RightThigh1/pPlane3
+        weight: 0
+      - path: Root/Root 1
+        weight: 0
+      - path: Root/spine
+        weight: 1
+      - path: Root/spine/LeftSocket
+        weight: 0
+      - path: Root/spine/RightSocket
+        weight: 0
+      - path: Root/spine/shoulder
+        weight: 1
+      - path: Root/spine/shoulder/left_shoulder
+        weight: 1
+      - path: Root/spine/shoulder/left_shoulder/left_elbow
+        weight: 1
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/left_hand
+        weight: 1
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/left_hand/group1
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/left_hand/group1/pCube23
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/left_hand/group1/pCube24
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/left_hand/group1/pCube25
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/left_hand/group1/pCube26
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/left_hand/group1/pCube27
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/left_hand/group1/pCube28
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/RightForeArm1
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/RightForeArm1/polySurface3
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/RightForeArm1/polySurface4
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/left_elbow/RightForeArm1/transform6
+        weight: 0
+      - path: Root/spine/shoulder/left_shoulder/RightArm1
+        weight: 0
+      - path: Root/spine/shoulder/neck
+        weight: 1
+      - path: Root/spine/shoulder/neck/head
+        weight: 1
+      - path: Root/spine/shoulder/neck/head/Head
+        weight: 1
+      - path: Root/spine/shoulder/neck/head/Head/pCylinder3
+        weight: 0
+      - path: Root/spine/shoulder/neck/head/Head/pCylinder4
+        weight: 0
+      - path: Root/spine/shoulder/neck/head/Head/polySurface2
+        weight: 0
+      - path: Root/spine/shoulder/neck/head/Head/transform1
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder
+        weight: 1
+      - path: Root/spine/shoulder/right_shoulder/right_elbow
+        weight: 1
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand
+        weight: 1
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube14
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube15
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube15/transform4
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube16
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube16/transform5
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube17
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube17/transform3
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube18
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube19
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube20
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube21
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand/pCube22
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/RightForeArm
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/RightForeArm/polySurface5
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/RightForeArm/polySurface6
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/right_elbow/RightForeArm/transform7
+        weight: 0
+      - path: Root/spine/shoulder/right_shoulder/RightArm
+        weight: 0
+      - path: Root/spine/Torso
+        weight: 0
+      - path: Root/spine/Torso/Torso 1
+        weight: 0
+      - path: Root/spine/Torso/Torso 1/pPlane1
+        weight: 0
+      - path: Root/spine/Torso/Torso 1/pPlane2
+        weight: 0
+      - path: Root/spine/Torso/Torso 1/pTorus1
+        weight: 0
+      - path: Root/spine/Torso/Torso 1/pTorus2
+        weight: 0
+      - path: Root/spine/Torso/transform2
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []

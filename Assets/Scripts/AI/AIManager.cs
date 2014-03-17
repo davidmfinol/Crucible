@@ -32,27 +32,6 @@ public class AIManager : MonoBehaviour
 		_enemies = new List<EnemyAI> ();
 	}
 
-	public Vector3 GetRandomSearchPoint(Vector3 startPosition)
-	{
-		if(Graph.nodes.Length <= 0)
-			return Vector3.zero;
-
-        ZoneNode nearestNode = (ZoneNode) Graph.GetNearest(startPosition).node;
-        if(nearestNode == null)
-            return Vector3.zero;
-
-        int nodeNum = (int) Random.Range (0, Graph.nodes.Length);
-        ZoneNode randomNode = Graph.nodes[nodeNum];
-        bool isAcceptable = randomNode.Walkable && randomNode.isGround && PathUtilities.IsPathPossible(nearestNode, randomNode);
-        while (!isAcceptable) // TODO: STRESS TEST THIS TO ENSURE IT DOESN'T TAKE TOO MUCH TIME (AND IS NOT INFINITE)
-        {
-            nodeNum = (int) Random.Range (0, Graph.nodes.Length);
-            randomNode = Graph.nodes[nodeNum];
-            isAcceptable = randomNode.Walkable && randomNode.isGround && PathUtilities.IsPathPossible(nearestNode, randomNode);
-        }
-        return (Vector3) randomNode.position;
-	}
-
 	
 	public List<EnemyAI> Enemies
 	{

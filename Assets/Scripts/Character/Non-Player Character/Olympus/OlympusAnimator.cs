@@ -27,22 +27,34 @@ public class OlympusAnimator : CharacterAnimator
 	private int _dieHash;
 	private int _stealthDeathHash;
 	private int _acquiringTargetHash;
+    private int _turnAroundHash;
+    private int _xDirectionHash;
 	
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
+
+	//The Olympus's sound effects, yeah!
+	private OlympusAudioPlayer _sound;
+
+
+	protected override void OnStart()
+	{
+		_sound = gameObject.GetComponentInChildren<OlympusAudioPlayer>();
+	}
 	
 	protected override void CreateStateMachine()
 	{
 		// First map the states
 		StateMachine[Animator.StringToHash("Base Layer.Idle")] = Idle;
-		StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
+        StateMachine[Animator.StringToHash("Base Layer.Running")] = Running;
+        StateMachine[Animator.StringToHash("Base Layer.Turn Around")] = TurnAround;
 		StateMachine[Animator.StringToHash("Base Layer.Acquiring Target")] = AcquireTarget;
 		StateMachine[Animator.StringToHash("Base Layer.Stun")] = Stun;
 		StateMachine[Animator.StringToHash("Base Layer.Death")] = Death;
 		StateMachine[Animator.StringToHash("Base Layer.Stealth Death")] = StealthDeath;
 		StateMachine[Animator.StringToHash("Air.Jumping")] = Jumping;
 		StateMachine[Animator.StringToHash("Air.Falling")] = Falling;
-		StateMachine[Animator.StringToHash("Air.Landing")] = Running;
+		StateMachine[Animator.StringToHash("Air.Landing")] = Landing;
 		StateMachine[Animator.StringToHash("Climbing.Hanging")] = Hanging;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLedge")] = ClimbingLedge;
 		StateMachine[Animator.StringToHash("Climbing.ClimbingLadder")] = ClimbingVertical;
@@ -53,7 +65,6 @@ public class OlympusAnimator : CharacterAnimator
 		_verticalSpeedHash = Animator.StringToHash("VerticalSpeed");
 		_horizontalSpeedHash = Animator.StringToHash("HorizontalSpeed");
 		_jumpHash = Animator.StringToHash("Jump");
-		_acquiringTargetHash = Animator.StringToHash ("AcquireTarget");
 		_fallHash = Animator.StringToHash("Fall");
 		_hangHash = Animator.StringToHash("Hang");
 		_climbLadderHash = Animator.StringToHash("ClimbLadder");
@@ -63,7 +74,10 @@ public class OlympusAnimator : CharacterAnimator
 		_climbPipeHash = Animator.StringToHash("ClimbPipe");
 		_stunHash = Animator.StringToHash("Stun");
 		_dieHash = Animator.StringToHash("Die");
-		_stealthDeathHash = Animator.StringToHash("StealthDeath");
+        _stealthDeathHash = Animator.StringToHash("StealthDeath");
+        _acquiringTargetHash = Animator.StringToHash ("AcquireTarget");
+        _turnAroundHash = Animator.StringToHash("TurnAround");
+        _xDirectionHash = Animator.StringToHash("XDirection");
 	}
 	
 	protected override void UpdateMecanimVariables()
@@ -97,6 +111,12 @@ public class OlympusAnimator : CharacterAnimator
         if(!IsGrounded)
             MecanimAnimator.SetBool (_acquiringTargetHash, false);
 
+        // Give Olympus some perfectly hard stops on land
+        if(IsLanding)
+            HorizontalSpeed = 0;
+
+        // Knowing direction is useful for the turnaround animation
+        MecanimAnimator.SetFloat (_xDirectionHash, Direction.x);
 	}
 
 	public void OnAcquireTarget()
@@ -138,6 +158,9 @@ public class OlympusAnimator : CharacterAnimator
 		
 		if(!MecanimAnimator.GetBool(_fallHash) && !IsGrounded)
 			MecanimAnimator.SetBool(_fallHash, true);
+
+        if(CharInput.Pickup)
+            MecanimAnimator.SetBool(_turnAroundHash, true);
 	}
 	
 	protected void Running(float elapsedTime)
@@ -148,7 +171,13 @@ public class OlympusAnimator : CharacterAnimator
 		
 		if(!MecanimAnimator.GetBool(_fallHash) && !IsGrounded)
 			MecanimAnimator.SetBool(_fallHash, true);
-	}
+    }
+    
+    protected void Landing(float elapsedTime)
+    {
+        HorizontalSpeed = 0;
+        VerticalSpeed = GroundVerticalSpeed;
+    }
 
 	protected void Stun(float elapsedTime)
 	{
@@ -159,6 +188,35 @@ public class OlympusAnimator : CharacterAnimator
 			ApplyGravity (elapsedTime);
 		MecanimAnimator.SetBool (_stunHash, false);
 	}
+
+    protected void TurnAround(float elapsedTime)
+    {
+        if(MecanimAnimator.GetBool(_turnAroundHash))
+        {
+            MecanimAnimator.SetBool(_turnAroundHash, false);
+            StartCoroutine("WaitToChangeDirection");
+        }
+        HorizontalSpeed = 0;
+        VerticalSpeed = GroundVerticalSpeed;
+    }
+    IEnumerator WaitToChangeDirection()
+    {
+        IgnoreDirection = true;
+
+        while(CurrentState.IsName("Base Layer.Turn Around"))
+            yield return null;
+
+        Direction = -Direction;
+
+        IgnoreDirection = false;
+
+        StopCoroutine("WaitToChangeDirection");
+    }
+    void OnAnimatorMove()
+    {
+        if (CurrentState.IsName("Base Layer.Turn Around"))
+            transform.rotation *= MecanimAnimator.deltaRotation;
+    }
 	
 	protected void Jumping(float elapsedTime)
 	{
@@ -397,6 +455,11 @@ public class OlympusAnimator : CharacterAnimator
 		base.ApplyRunning(elapsedTime);
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
+	}
+
+	public void PlayJump()
+	{
+		_sound.Play(_sound.Jumping);
 	}
 
 

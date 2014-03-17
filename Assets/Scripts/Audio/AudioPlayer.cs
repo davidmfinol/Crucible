@@ -10,7 +10,7 @@ using System.Collections.Generic;
 [AddComponentMenu("Audio/Audio Player")]
 public class AudioPlayer : MonoBehaviour
 {
-	public AudioManager.AudioTypes Type;
+	// TODO: public AudioManager.AudioTypes Type;
 	//TODO: add subtitle requirement for each sound public Subtitle[] AssociatedSubtitles;
 
 	public void Play(AudioClip clip)

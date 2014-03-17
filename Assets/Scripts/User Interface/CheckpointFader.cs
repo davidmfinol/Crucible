@@ -12,13 +12,11 @@ public class CheckpointFader : MonoBehaviour
 
 	private float _fadeRemaining = 0.0f;
 	private string _fadeMessage = "";
-	private Color _fadeColor;
 	private float _alpha = 0.0f;
 	
 	void Start()
     {
 		_fadeMessage = "";
-		_fadeColor = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 		_fadeRemaining = 0.0f;
 		_alpha = 0.0f;
 
@@ -27,7 +25,6 @@ public class CheckpointFader : MonoBehaviour
 	public void StartFading(string s, Color c)
     {
 		_fadeMessage = s;
-		_fadeColor = c;
 		_fadeRemaining = _fadeDuration;
 
 	}

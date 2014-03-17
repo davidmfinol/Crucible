@@ -116,7 +116,7 @@ public class InventoryManager : MonoBehaviour
 
             // Set the new weapon
             _currentWeapon = value;
-            if(_currentWeapon == null)
+            if(_currentWeapon == null || _rightHand == null) // TODO: WARNING ABOUT NULL RIGHT HAND
                 return;
 
 			_currentWeapon.transform.parent = _rightHand;

@@ -9,6 +9,7 @@ MonoImporter:
   - FinishedSearching: {fileID: 8300000, guid: e6ff94b7e57b48e43a5efbff5c240cd8, type: 3}
   - Chasing: {instanceID: 0}
   - Landing: {fileID: 8300000, guid: c9be3aa3f3f84e04ea3a1cd75b60f68c, type: 3}
+  - Jumping: {fileID: 8300000, guid: c9be3aa3f3f84e04ea3a1cd75b60f68c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

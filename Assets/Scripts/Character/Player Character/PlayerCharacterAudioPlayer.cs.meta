@@ -3,8 +3,13 @@ guid: 51b8b3a63d7933e48b488744c20bbcba
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - Landing: {fileID: 8300000, guid: 1a19072755b314fec9d2d857ff20e15a, type: 3}
   - Hit: {fileID: 8300000, guid: 7231ce5a05f5062429b41bd5c9371f96, type: 3}
+  - Jump: {fileID: 8300000, guid: 15f43bc8c34c86b49a1c04b345a65fa7, type: 3}
+  - Craft: {fileID: 8300000, guid: a582b6fd20e9c7d4b9f6dea06bc544f6, type: 3}
+  - WallHit: {fileID: 8300000, guid: 06c4e6a7db615db4289a8d118f614dbb, type: 3}
+  - WallKick: {fileID: 8300000, guid: d45a1a0b3123288478c9bb8ac935b90e, type: 3}
+  - ItemPickup: {fileID: 8300000, guid: 8b45ec512c69c004a99863f035c37f1b, type: 3}
+  - Flip: {fileID: 8300000, guid: 545b6012a2df0d7458bfd857d54e0ed9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

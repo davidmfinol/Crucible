@@ -10,7 +10,7 @@ public sealed class CharacterInput : MonoBehaviour
 {
 	// We need a way to set a method that will update the input for the character
 	public delegate void UpdateInput();
-	public UpdateInput UpdateInputMethod;
+	private UpdateInput _updateInputMethod;
 
 	// Keep track of what the character has input into the game
 	private float _horizontal = 0;
@@ -50,10 +50,25 @@ public sealed class CharacterInput : MonoBehaviour
 		_attackRightLast = AttackRight;
 		_pickupLast = Pickup;
 
-		if (UpdateInputMethod != null)
-			UpdateInputMethod ();
+		if (_updateInputMethod != null)
+			_updateInputMethod ();
 	}
 
+    // Preoperty for the method that is used to update input
+    public UpdateInput UpdateInputMethod
+    {
+        get { return _updateInputMethod;  }
+        set
+        {
+            _horizontal = 0;
+            _vertical = 0;
+            _interaction = false;
+            _jump = Vector2.zero;
+            _attack = 0;
+            _pickup = false;
+            _updateInputMethod = value;
+        }
+    }
 
 	// Basic input values
 	public float Horizontal

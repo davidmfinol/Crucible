@@ -22,9 +22,11 @@ public class Tutorial : MonoBehaviour
 	public Transform SewerDoor;
 	public Transform NextLevel;
 
+	// Keep track of the tutorial events
 	private bool _reachedTrigger1;
 	private bool _reachedTrigger3;
     private bool _sewerDoorOpen;
+
 
 	void Start ()
 	{
@@ -39,13 +41,22 @@ public class Tutorial : MonoBehaviour
 	{
 		// FIXME: SLOW
 		if(GameManager.AI.Enemies.Count > 0)
-			NextLevel.gameObject.SetActive(GameManager.AI.Enemies[0].GetComponent<CharacterAnimator>().IsDead());
+		{
+			bool tutorialComplete = GameManager.AI.Enemies[0].GetComponent<CharacterAnimator>().IsDead(); // FIXME: VERY SLOW
+			if(tutorialComplete)
+			{
+				NextLevel.gameObject.SetActive(tutorialComplete);
+				if(!GameManager.SaveData.TutorialComplete)
+					GameManager.SaveData.TutorialComplete = true;
+			}
+		}
 	}
 
 	IEnumerator WaitToShowExample()
 	{
 		yield return new WaitForSeconds (5.0f);
-		MysteriousRunner1.gameObject.SetActive (true);
+		if(!GameManager.SaveData.SewerTopReached)
+			MysteriousRunner1.gameObject.SetActive (true);
 		StopCoroutine ("WaitToShowExample");
 	}
 
@@ -65,7 +76,12 @@ public class Tutorial : MonoBehaviour
 			return;
 
 		_reachedTrigger3 = true;
-		Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
+
+		if(!GameManager.SaveData.SewerTopReached)
+			Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
+
+        GameManager.SaveData.SewerTopReached = true;
+
         StartCoroutine("OperateDoor");
 	}
 
@@ -75,7 +91,7 @@ public class Tutorial : MonoBehaviour
 		while (elapsedTime < 10)
 		{
 			elapsedTime += Time.deltaTime;
-			if(_reachedTrigger1)
+			if(_reachedTrigger1 || GameManager.SaveData.SewerTopReached)
 				StopCoroutine("WaitToShowInstructions");
 			yield return null;
 		}
