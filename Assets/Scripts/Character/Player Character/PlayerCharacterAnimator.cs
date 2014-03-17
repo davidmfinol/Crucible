@@ -958,7 +958,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public void PlayWallHit()
 	{
 		_sound.Play(_sound.WallHit);
-		Debug.Log ("WallHit Sound");
+	}
+
+	public void PlayRun()
+	{
+		int runIndex = Random.Range (0, _sound.Running.Length);
+		_sound.Play(_sound.Running[runIndex]);
 	}
 
 	public bool CanStealthKill(out OlympusAnimator animRet)
