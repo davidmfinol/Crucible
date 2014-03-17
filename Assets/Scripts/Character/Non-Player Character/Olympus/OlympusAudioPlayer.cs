@@ -13,4 +13,5 @@ public class OlympusAudioPlayer : AudioPlayer
 	public AudioClip FinishedSearching;
 	public AudioClip Chasing;
 	public AudioClip Landing;
+	public AudioClip Jumping;
 }

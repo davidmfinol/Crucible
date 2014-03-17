@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 0d071290605224b6bbdfadec0c24f09b
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Ankle_Left_LOC
     100002: Ankle_Right_LOC
@@ -1015,7 +1015,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .180792496
+        functionName: PlayCrafting
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1889,7 +1896,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .973684192
+        functionName: PlayCrafting
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -5163,4 +5177,5 @@ ModelImporter:
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 2eb2ac6a649c5c247b04db504efe5861,
     type: 3}
   animationType: 3
+  additionalBone: 0
   userData: 

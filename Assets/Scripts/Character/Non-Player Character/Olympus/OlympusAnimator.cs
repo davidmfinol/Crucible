@@ -31,6 +31,14 @@ public class OlympusAnimator : CharacterAnimator
 	
 	// Used to keep track of a ledge we are climbing
 	private Ledge _ledge;
+
+	//The Olympus's sound effects, yeah!
+	private OlympusAudioPlayer _sound;
+
+	protected override void OnStart()
+	{
+		_sound = gameObject.GetComponentInChildren<OlympusAudioPlayer>();
+	}
 	
 	protected override void CreateStateMachine()
 	{
@@ -414,6 +422,12 @@ public class OlympusAnimator : CharacterAnimator
 		base.ApplyRunning(elapsedTime);
 		
 		MecanimAnimator.SetFloat(_horizontalSpeedHash, Direction.x * HorizontalSpeed/Settings.MaxHorizontalSpeed);
+	}
+
+	public void PlayJump()
+	{
+		_sound.Play(_sound.Jumping);
+		Debug.Log("Jump Sound");
 	}
 
 

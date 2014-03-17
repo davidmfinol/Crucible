@@ -912,6 +912,35 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_sound.Play(_sound.Hit);
 	}
 
+	public void PlayPickup()
+	{
+		_sound.Play(_sound.ItemPickup);
+	}
+
+	public void PlayCrafting()
+	{
+		_sound.Play(_sound.Craft);
+	}
+
+	public void PlayBackflip()
+	{
+		_sound.Play(_sound.Flip);
+	}
+
+	public void PlayJump()
+	{
+		//TODO: Move this wallkick sound to new wall kick animation and event
+		if(CurrentState.IsName("Wall.Walljumping"))
+			_sound.Play(_sound.WallKick);
+		else _sound.Play(_sound.Jump);
+	}
+
+	public void PlayWallHit()
+	{
+		_sound.Play(_sound.WallHit);
+		Debug.Log ("WallHit Sound");
+	}
+
 	public bool CanStealthKill(out OlympusAnimator animRet)
 	{
 		animRet = null;
