@@ -75,22 +75,46 @@ public class InventoryManager : MonoBehaviour
     {
         PlayerSaveState save = new PlayerSaveState ();
         
-        // items
-        save.ItemsHeld = Items.ToArray ();
-        
-        // weapons
-        List<WeaponType> weapons = new List<WeaponType> ();
-        foreach(Weapon weapon in Weapons)
-            weapons.Add(weapon.WeaponType);
-        
-        save.WeaponsHeld = weapons.ToArray ();
-        
+        // persist weapons as savestates since weapons themselves are monobehaviors
+		List<WeaponSaveState> weaponSaves = new List<WeaponSaveState> ();
+
+		foreach (Weapon w in Weapons) {
+			weaponSaves.Add (w.SaveState());
+
+		}
+
+		save.WeaponsHeld = weaponSaves.ToArray ();
+		save.ItemsHeld = Items.ToArray ();        
         save.CurrentWeapon = GameManager.UI.CurrentWeapon;
         
         return save;
+
     }
 
+	public bool TryAddAmmo(Weapon w, int ammoCount) {
+		foreach (Weapon weapon in Weapons) {
+			if(weapon.WeaponType == w.WeaponType) {
+				weapon.Quantity += Mathf.Max (ammoCount, weapon.MaxQuantity);
+				return true;
 
+			}
+
+		}
+
+		return false;
+	
+	}
+
+	public void RemoveWeapon(WeaponType t) {
+		// remove in descending order in case more than one occurrence.
+		for(int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
+			if(Weapons[weaponIndex].WeaponType == t)
+				Weapons.RemoveAt(weaponIndex);
+
+		}
+
+	}
+	
 	public Weapon CurrentWeapon
 	{
 		get { return _currentWeapon; }
