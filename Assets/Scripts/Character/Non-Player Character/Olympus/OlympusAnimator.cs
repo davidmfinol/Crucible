@@ -214,7 +214,7 @@ public class OlympusAnimator : CharacterAnimator
     }
     void OnAnimatorMove()
     {
-        if (CurrentState.IsName("Base Layer.Turn Around"))
+        if (MecanimAnimator != null && CurrentState.IsName("Base Layer.Turn Around"))
             transform.rotation *= MecanimAnimator.deltaRotation;
     }
 	

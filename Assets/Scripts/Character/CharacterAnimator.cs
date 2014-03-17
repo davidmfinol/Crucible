@@ -726,22 +726,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         get { return ActiveHangTarget != null && ActiveHangTarget is Pipe; } //&& ActiveHangTarget.transform.position.z == DesiredZ; }
     }
-    public bool CanHangOffObjectHorizontally
-    {
-        get
-        {
-            if(ActiveHangTarget == null)
-                return false;
-
-            bool facingObject = false;
-            if(ActiveHangTarget is Ledge)
-                facingObject = ( (Direction.x > 0 && ((Ledge)ActiveHangTarget).Left) || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left) );
-            else
-                facingObject = ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight));
-
-            return ActiveHangTarget.DoesFaceXAxis() && facingObject;
-        }
-    }
+	public bool CanHangOffObjectHorizontally
+	{
+		get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceXAxis() && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)); }
+	}
     public bool CanHangOffObjectVertically
     {
         get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceZAxis() && !IsGrounded; }

@@ -354,7 +354,7 @@ public class EnemyAI : MonoBehaviour
 		bool isMidAir = !_animator.IsGrounded;
         bool atTarget =  _animator.Controller.bounds.Contains (targetPos);
         bool shouldStayStillMidair = atTarget && isMidAir;
-        float timeToJump = TimeToJump(FootPosition, targetPos);
+        float timeToJump = TimeToJump(transform.position + Vector3.down * (_animator.Height * 0.5f), targetPos); // TODO: CONFIRM THIS
         float desiredHorizontalJumpSpeed = horizontalDifference / timeToJump;
 
         // Try to stay still while midair and at our target location
@@ -486,7 +486,8 @@ public class EnemyAI : MonoBehaviour
         float root1 = (-b + Mathf.Sqrt(discriminant)) / divisor;
         float root2 = (-b - Mathf.Sqrt(discriminant)) / divisor;
 
-        return Mathf.Max(root1, root2);
+		// FIXME: SLOW && MAKE MORE OBJECT ORIENTED
+		return _animator.CurrentState.IsName("Base Layer.Jumping") ? Mathf.Max(root1, root2) : Mathf.Min(root1, root2);
     }
 
 	public EnemySaveState SaveState()

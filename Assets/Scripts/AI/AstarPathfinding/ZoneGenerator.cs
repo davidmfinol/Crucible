@@ -576,9 +576,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="end">The end point.</param>
     public bool JumpClear(Vector3 start, Vector3 end)
     {
-        // TODO: WE'RE REALLY ONLY ESTIMATING WITH THESE METHODS. IS THERE A WAY TO DETERMINE OUR EXACT SPACE FOR THE JUMP?
-        // Use the overlapsphere test in the default case
-        return OverlapSphereTest(start, end);
+		return CapsuleCastTest(start, end) && OverlapSphereTest(start, end);
     }
 
     /// <summary>

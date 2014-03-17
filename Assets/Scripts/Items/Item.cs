@@ -30,6 +30,7 @@ public class Item : MonoBehaviour
             itemSave.WeaponType = WeaponPrefab.GetComponent<Weapon>().WeaponType;
         else
             itemSave.ItemType = Type;
+
         itemSave.Quantity = Quantity;
         itemSave.Position = transform.position;
 		itemSave.Rotation = transform.rotation;

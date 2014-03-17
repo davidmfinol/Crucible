@@ -13,7 +13,7 @@ public class AudioPlayer : MonoBehaviour
 	// TODO: public AudioManager.AudioTypes Type;
 	//TODO: add subtitle requirement for each sound public Subtitle[] AssociatedSubtitles;
 
-	public void Play(AudioClip clip)
+	public virtual void Play(AudioClip clip)
 	{
 		audio.clip = clip;
 		audio.loop = false;

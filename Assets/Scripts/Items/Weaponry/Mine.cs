@@ -25,7 +25,8 @@ public class Mine : Weapon
 		if(attackID == 0)
 			PlaceMine();
 		else 
-			DetonateMines();
+			PlaceMine ();
+
 	}
 	
 	public void PlaceMine()
@@ -42,15 +43,16 @@ public class Mine : Weapon
 		_mineLastPlacedTime = Time.time;
 	}
 	
-	public void DetonateMines()
+	public static void DetonateMines()
 	{
-		if(allPlacedMines.Count <= 0 || _minesCurrentlyExploding)
-			return;
+	//	if(allPlacedMines.Count <= 0 || _minesCurrentlyExploding)
+	//		return;
 				
-		for(int i = 0; i < allPlacedMines.Count; i++)
-			((GameObject) allPlacedMines[i]).animation.CrossFade("MineAboutToExplode");
+	//	for(int i = 0; i < allPlacedMines.Count; i++)
+	//		((GameObject) allPlacedMines[i]).animation.CrossFade("MineAboutToExplode");
 
-		StartCoroutine(AnimateExplosions(0.44f));  // Time it takes to animate mine before exploding
+	//	StartCoroutine(AnimateExplosions(0.44f));  // Time it takes to animate mine before exploding
+	
 	}
 	
 	// Waits until animation is over to explode mines.

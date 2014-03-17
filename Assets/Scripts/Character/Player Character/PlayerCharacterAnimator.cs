@@ -251,26 +251,34 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		
         Weapon weapon = GameManager.Inventory.CurrentWeapon;
-		if(weapon != null && weapon is Mine)
+		// run out of mines? remove.
+		if (weapon != null && weapon is Mine) {
 			weapon.ActivateAttack(0);
-		else
+
+			// one mine left?
+			if(weapon.Quantity == 1) {
+				// remove it.
+				GameManager.Inventory.RemoveWeapon(weapon.WeaponType);
+				GameManager.Inventory.CurrentWeapon = null;
+				GameManager.UI.CycleToNextWeapon();
+
+
+			}
+		
+		} else {
 			Debug.LogWarning("PlaceMine() called with: " + weapon);
+
+		}
+
+
 	}
 	void DetonateMine()
 	{
 		MecanimAnimator.SetBool (_detonateMineHash, false);
 
-        if(GameManager.Inventory.CurrentWeapon == null)
-		{
-			Debug.LogWarning("DetonateMine() called with no weapon found");
-			return;
-		}
-		
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-		if(weapon != null && weapon is Mine)
-			weapon.ActivateAttack(1);
-		else
-			Debug.LogWarning("DetonateMine() called with: " + weapon);
+		// detonate all mines in the scene.
+		Mine.DetonateMines ();
+
 	}
 	void ShootGun()
 	{
@@ -845,25 +853,35 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		if(MecanimAnimator.GetBool(_pickupHash))
 		{
+			MecanimAnimator.SetBool(_pickupHash, false);
+
+			// *** picking up weapon? ***
 			if(_itemPickedup.WeaponPrefab != null)
 			{
-				// Create a new weapon from the item and destroy the item
-				Transform instantiatedWeapon = (Transform) Instantiate(_itemPickedup.WeaponPrefab);
-				Destroy(_itemPickedup.gameObject, 0.5f);
+				int pickupCount = _itemPickedup.Quantity;
+				Weapon pickedUpWeapon = _itemPickedup.WeaponPrefab.GetComponent<Weapon>();
 
-				// Move the weapon offscreen
-				instantiatedWeapon.position = GameManager.Level.OffscreenPosition;
+				// try add to an existing weapon
+				if(! GameManager.Inventory.TryAddAmmo(pickedUpWeapon, pickupCount)) {
+					// Create a new weapon from the item and destroy the item
+					Transform instantiatedWeapon = (Transform) Instantiate(_itemPickedup.WeaponPrefab);
+					Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
+					newWeapon.Quantity = pickupCount;
+					GameManager.Inventory.Weapons.Add(newWeapon);
 
-				// Add it to our list of weapons
-				Weapon pickedUpWeapon = instantiatedWeapon.GetComponent<Weapon>();
+					// Move the weapon offscreen
+					instantiatedWeapon.position = GameManager.Level.OffscreenPosition;
 
-                if(! GameManager.Inventory.HasWeapon(pickedUpWeapon))
-                    GameManager.Inventory.Weapons.Add(pickedUpWeapon);
+				}
 
-				// Auto-equip our items
-				StartCoroutine("AutoEquip");
+				GameManager.UI.RefreshWeaponWheel();
+
+				// *** auto-equip if we have nothing ***
+				if(GameManager.Inventory.CurrentWeapon == null)
+					StartCoroutine("AutoEquip");
 
 			}
+			// *** must be picking up item... ***
 			else
 			{
 				// Move the item off screen
@@ -871,17 +889,21 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 				// generate a new inventory item and add it.
 				InventoryItem newInvItem = InventoryItemFactory.CreateFromType(_itemPickedup.Type, _itemPickedup.Quantity);
-
                 GameManager.Inventory.AddItem( newInvItem );
 
+				GameManager.UI.CraftingMenu.RefreshItemWheel();
+
 			}
-			MecanimAnimator.SetBool(_pickupHash, false);
+
+			Destroy(_itemPickedup.gameObject, 0.5f);
+
 		}
 
 		HorizontalSpeed = 0;
 		VerticalSpeed = GroundVerticalSpeed;
-	}
 	
+	}
+
 	IEnumerator AutoEquip()
 	{
 		yield return new WaitForSeconds (0.5f);
@@ -936,7 +958,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	public void PlayWallHit()
 	{
 		_sound.Play(_sound.WallHit);
-		Debug.Log ("WallHit Sound");
+	}
+
+	public void PlayRun()
+	{
+		int runIndex = Random.Range (0, _sound.Running.Length);
+		_sound.Play(_sound.Running[runIndex]);
 	}
 
 	public bool CanStealthKill(out OlympusAnimator animRet)

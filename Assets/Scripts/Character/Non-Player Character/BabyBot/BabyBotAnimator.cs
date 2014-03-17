@@ -105,7 +105,6 @@ public class BabyBotAnimator : CharacterAnimator
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
-			_sound.Play(_sound.Jump);
 			if(CharInput.JumpLeft || CharInput.JumpLeftReleased)
 				HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
 			else if(CharInput.JumpRight || CharInput.JumpRightReleased)
@@ -138,6 +137,11 @@ public class BabyBotAnimator : CharacterAnimator
 	public void Giggle()
 	{
 		_sound.Play(_sound.Giggle);
+	}
+
+	public void PlayJump()
+	{
+		_sound.Play(_sound.Jump);
 	}
 
     public void SelfDestruct()
