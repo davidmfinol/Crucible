@@ -67,7 +67,8 @@ public class Tutorial : MonoBehaviour
 	
 	public void ReachTrigger2()
 	{
-		MysteriousRunner2.gameObject.SetActive(true);
+		if(!GameManager.SaveData.SewerTopReached)
+			MysteriousRunner2.gameObject.SetActive(true);
 	}
 	
 	public void ReachTrigger3()
