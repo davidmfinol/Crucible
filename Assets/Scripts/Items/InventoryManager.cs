@@ -104,6 +104,16 @@ public class InventoryManager : MonoBehaviour
 		return false;
 	
 	}
+
+	public void RemoveWeapon(WeaponType t) {
+		// remove in descending order in case more than one occurrence.
+		for(int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
+			if(Weapons[weaponIndex].WeaponType == t)
+				Weapons.RemoveAt(weaponIndex);
+
+		}
+
+	}
 	
 	public Weapon CurrentWeapon
 	{

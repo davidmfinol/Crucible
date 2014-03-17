@@ -251,26 +251,34 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		
         Weapon weapon = GameManager.Inventory.CurrentWeapon;
-		if(weapon != null && weapon is Mine)
+		// run out of mines? remove.
+		if (weapon != null && weapon is Mine) {
 			weapon.ActivateAttack(0);
-		else
+
+			// one mine left?
+			if(weapon.Quantity == 1) {
+				// remove it.
+				GameManager.Inventory.RemoveWeapon(weapon.WeaponType);
+				GameManager.Inventory.CurrentWeapon = null;
+				GameManager.UI.CycleToNextWeapon();
+
+
+			}
+		
+		} else {
 			Debug.LogWarning("PlaceMine() called with: " + weapon);
+
+		}
+
+
 	}
 	void DetonateMine()
 	{
 		MecanimAnimator.SetBool (_detonateMineHash, false);
 
-        if(GameManager.Inventory.CurrentWeapon == null)
-		{
-			Debug.LogWarning("DetonateMine() called with no weapon found");
-			return;
-		}
-		
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-		if(weapon != null && weapon is Mine)
-			weapon.ActivateAttack(1);
-		else
-			Debug.LogWarning("DetonateMine() called with: " + weapon);
+		// detonate all mines in the scene.
+		Mine.DetonateMines ();
+
 	}
 	void ShootGun()
 	{
