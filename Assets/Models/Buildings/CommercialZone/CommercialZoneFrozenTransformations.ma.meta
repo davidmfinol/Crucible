@@ -541,6 +541,8 @@ ModelImporter:
     101070: WaypointlessMesh
     101072: Box8
     101074: Ledge212
+    101076: Ledge213
+    101078: Ledge214
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -1079,6 +1081,8 @@ ModelImporter:
     401070: WaypointlessMesh
     401072: Box8
     401074: Ledge212
+    401076: Ledge213
+    401078: Ledge214
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -1560,6 +1564,8 @@ ModelImporter:
     2300956: WaypointlessMesh
     2300958: Box8
     2300960: Ledge212
+    2300962: Ledge213
+    2300964: Ledge214
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -2041,6 +2047,8 @@ ModelImporter:
     3300956: WaypointlessMesh
     3300958: Box8
     3300960: Ledge212
+    3300962: Ledge213
+    3300964: Ledge214
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -2522,6 +2530,8 @@ ModelImporter:
     4300956: WaypointlessMesh
     4300958: Box8
     4300960: Ledge212
+    4300962: Ledge214
+    4300964: Ledge213
     7400000: Take 001
     9500000: //RootNode
   materials:

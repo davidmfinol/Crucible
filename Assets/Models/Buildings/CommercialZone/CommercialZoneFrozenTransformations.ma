@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: CommercialZoneFrozenTransformations.ma
-//Last modified: Mon, Mar 17, 2014 07:54:39 AM
+//Last modified: Mon, Mar 17, 2014 08:50:13 AM
 //Codeset: 1252
 requires maya "2014";
 requires -nodeType "mentalrayFramebuffer" -nodeType "mentalrayOutputPass" -nodeType "mentalrayRenderPass"
@@ -6964,13 +6964,13 @@ createNode mesh -n "polySurfaceShape60" -p "Nada7";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "MeshLedge";
+createNode transform -n "Ledge214";
 	setAttr ".t" -type "double3" -3.7427259843890841 30.418443553042817 -87.695953316717407 ;
 	setAttr ".s" -type "double3" 9.2855246170102497 0.25020103167842483 129.45678893207631 ;
 	setAttr ".rp" -type "double3" 3.2222042261947168 5.8163627115106875 11.665895755719424 ;
 	setAttr ".sp" -type "double3" 0.3470136970281601 23.246757507324219 0.090114206075668335 ;
 	setAttr ".spt" -type "double3" 2.8751905291665567 -17.43039479581353 11.575781549643755 ;
-createNode mesh -n "MeshLedgeShape" -p "MeshLedge";
+createNode mesh -n "Ledge214Shape" -p "Ledge214";
 	setAttr -k off ".v";
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:6]";
 	setAttr ".vir" yes;
@@ -7066,10 +7066,10 @@ createNode mesh -n "Ledge212Shape" -p "Ledge212";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "MeshLedge2";
+createNode transform -n "Ledge213";
 	setAttr ".t" -type "double3" -3.7427259843890841 30.418443553042817 -87.695953316717407 ;
 	setAttr ".s" -type "double3" 9.2855246170102497 0.25020103167842483 129.45678893207631 ;
-createNode mesh -n "MeshLedge2Shape" -p "MeshLedge2";
+createNode mesh -n "Ledge213Shape" -p "Ledge213";
 	setAttr -k off ".v";
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:7]";
 	setAttr ".vir" yes;
@@ -13464,12 +13464,12 @@ connectAttr ":initialShadingGroup.mwc" "LedgeShape178.iog.og[0].gco";
 connectAttr "groupId180.id" "WallLedgeShape132.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "WallLedgeShape132.iog.og[0].gco";
 connectAttr "Background2.di" "pPlane1.do";
-connectAttr "groupId181.id" "MeshLedgeShape.iog.og[0].gid";
-connectAttr ":initialShadingGroup.mwc" "MeshLedgeShape.iog.og[0].gco";
+connectAttr "groupId181.id" "Ledge214Shape.iog.og[0].gid";
+connectAttr ":initialShadingGroup.mwc" "Ledge214Shape.iog.og[0].gco";
 connectAttr "groupId182.id" "Ledge212Shape.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "Ledge212Shape.iog.og[0].gco";
-connectAttr "groupId183.id" "MeshLedge2Shape.iog.og[0].gid";
-connectAttr ":initialShadingGroup.mwc" "MeshLedge2Shape.iog.og[0].gco";
+connectAttr "groupId183.id" "Ledge213Shape.iog.og[0].gid";
+connectAttr ":initialShadingGroup.mwc" "Ledge213Shape.iog.og[0].gco";
 connectAttr "groupId184.id" "polySurfaceShape65.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "polySurfaceShape65.iog.og[0].gco";
 connectAttr "groupId185.id" "polySurfaceShape68.iog.og[0].gid";
@@ -13859,9 +13859,9 @@ connectAttr "WallLedgeShape131.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "LedgeWallShape1.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "LedgeShape178.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "WallLedgeShape132.iog.og[0]" ":initialShadingGroup.dsm" -na;
-connectAttr "MeshLedgeShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "Ledge214Shape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "Ledge212Shape.iog.og[0]" ":initialShadingGroup.dsm" -na;
-connectAttr "MeshLedge2Shape.iog.og[0]" ":initialShadingGroup.dsm" -na;
+connectAttr "Ledge213Shape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape65.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape68.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "WallLedgeRightOnlyShape1.iog.og[0]" ":initialShadingGroup.dsm" -na;
