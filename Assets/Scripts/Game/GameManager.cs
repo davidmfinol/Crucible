@@ -226,22 +226,25 @@ public class GameManager : MonoBehaviour
 
 		// TODO: MAKE THIS MORE GENERIC
         // Reload the player's weapons
-		foreach(WeaponType weaponType in _saveData.PlayerState.WeaponsHeld)
+		foreach(WeaponSaveState weaponSave in _saveData.PlayerState.WeaponsHeld)
         {
 			GameObject newWeapon;
 
-			if(weaponType == WeaponType.Weapon_Pipe) {
+			if(weaponSave.WeaponType == WeaponType.Weapon_Pipe) {
 				newWeapon = (GameObject) Instantiate ( Resources.Load ("Weapons/InHand/Pipe Weapon"), _currentLevel.OffscreenPosition, Quaternion.identity);
                 Inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
+				Inventory.Weapons[Inventory.Weapons.Count - 1].Quantity = weaponSave.Quantity;
 
-			} else if(weaponType == WeaponType.Weapon_GravityGun) {
+			} else if(weaponSave.WeaponType == WeaponType.Weapon_GravityGun) {
                 newWeapon = (GameObject) Instantiate ( Resources.Load ("Weapons/InHand/GravityGun"), _currentLevel.OffscreenPosition, Quaternion.identity);
                 Inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
-				
-			} else if(weaponType == WeaponType.Weapon_MINE) {
+				Inventory.Weapons[Inventory.Weapons.Count - 1].Quantity = weaponSave.Quantity;
+
+			} else if(weaponSave.WeaponType == WeaponType.Weapon_MINE) {
                 newWeapon = (GameObject) Instantiate ( Resources.Load ("Weapons/InHand/Mine"), _currentLevel.OffscreenPosition, Quaternion.identity);
                 Inventory.Weapons.Add (newWeapon.GetComponent<Weapon>() );
-				
+				Inventory.Weapons[Inventory.Weapons.Count - 1].Quantity = weaponSave.Quantity;
+
 			}
 
 		}
