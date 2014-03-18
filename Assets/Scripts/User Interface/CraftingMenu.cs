@@ -418,4 +418,8 @@ public class CraftingMenu : MonoBehaviour {
 		RefreshItemWheel();
 	}
 
+	public bool IsOpen() {
+		return( _state == CraftingMenuState.CraftingMenu_Open);
+
+	}
 }
