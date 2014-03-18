@@ -380,6 +380,13 @@ public class UIManager : MonoBehaviour
 
 		}
 
+		// select the weapon
+		if(GameManager.Inventory.Weapons.Count > 0 &&
+		   	(GameManager.Inventory.CurrentWeapon != GameManager.Inventory.Weapons [_currentWeapon])) {
+			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
+
+		}
+
 	}
 
 
