@@ -302,9 +302,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		
         Weapon weapon = GameManager.Inventory.CurrentWeapon;
-		if(weapon != null && weapon is GravityGun)
+		if(weapon != null && weapon is GravityGun) {
 			weapon.ActivateAttack();
-		else
+			GameManager.Inventory.TryRemoveAmmo(WeaponType.Weapon_GravityGun, 1);
+			GameManager.UI.RefreshWeaponWheel();
+
+		} else
 			Debug.LogWarning("ShootGun() called with: " + weapon);
 	}
 

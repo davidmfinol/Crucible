@@ -94,7 +94,8 @@ public class InventoryManager : MonoBehaviour
 	public bool TryAddAmmo(Weapon w, int ammoCount) {
 		foreach (Weapon weapon in Weapons) {
 			if(weapon.WeaponType == w.WeaponType) {
-				weapon.Quantity += Mathf.Min (ammoCount, weapon.MaxQuantity);
+				weapon.Quantity += ammoCount;
+				weapon.Quantity = Mathf.Min (weapon.Quantity, weapon.MaxQuantity);
 				return true;
 
 			}
@@ -103,6 +104,26 @@ public class InventoryManager : MonoBehaviour
 
 		return false;
 	
+	}
+
+	public bool TryRemoveAmmo(WeaponType t, int ammoCount) {
+		for(int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
+			if(Weapons[weaponIndex].WeaponType == t) {
+				Weapons[weaponIndex].Quantity -= ammoCount;
+				Weapons[weaponIndex].Quantity = Mathf.Max (Weapons[weaponIndex].Quantity, 0);
+
+				if(Weapons[weaponIndex].Quantity == 0) {
+					Weapons.RemoveAt(weaponIndex);
+					GameManager.UI.CycleToNextWeapon();
+				}
+
+				return true;
+			}
+			
+		}
+
+		return false;
+
 	}
 
 	public void RemoveWeapon(WeaponType t) {
