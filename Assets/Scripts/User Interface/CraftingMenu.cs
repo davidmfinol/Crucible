@@ -19,6 +19,14 @@ public class CraftingMenu : MonoBehaviour {
 	public GameObject ItemCountQuadPrefab;
 	public float ItemWheelRadius;
 	public float ItemCountRadius;
+	public GameObject CraftButtonPrefab;
+	public Vector3 CraftButtonPos;
+
+
+	// TODO: find a better place for these
+	public GameObject PipePrefab;
+	public GameObject MINEPrefab;
+	public GameObject GravityGunPrefab;
 
 	// how long for GUI to fade
 	public float FadeTime;
@@ -44,6 +52,7 @@ public class CraftingMenu : MonoBehaviour {
 	private GameObject _weaponWheel;
 	private GameObject _itemWheel;
 	private GameObject _craftingBackdrop;
+	private GameObject _craftingButton;
 
 	// state of opening, opened, closing
 	private CraftingMenuState _state;
@@ -63,7 +72,8 @@ public class CraftingMenu : MonoBehaviour {
 	private GameObject _draggingQuad;
 
 	// TODO: make into whatever prefab or inventory item, etc.
-	private string _resultingItem;
+	private CraftResult _craftResult;
+
 
 
 	// --------------------------------
@@ -81,6 +91,12 @@ public class CraftingMenu : MonoBehaviour {
 
 		_craftingBackdrop = (GameObject) Instantiate (CraftingBackdropPrefab, Vector3.zero, Quaternion.identity);
 		_craftingBackdrop.renderer.enabled = false;
+
+		// position crafting button in screen coords.
+		CraftButtonPos = _uiCamera.ViewportToWorldPoint (CraftButtonPos);
+		_craftingButton = (GameObject)Instantiate (CraftButtonPrefab, CraftButtonPos, Quaternion.identity);
+		_craftingButton.renderer.enabled = false;
+
 
 		_currentItem = 0;
 
@@ -218,7 +234,14 @@ public class CraftingMenu : MonoBehaviour {
 			GUI.skin.textArea.active.background = null;
 			
 			GUI.Label ( ItemDescriptionBounds, _lastClickedItem.Name + "\n\n" + _lastClickedItem.Caption );
-			GUI.Label ( new Rect(400, 200, 100, 100), _resultingItem );
+
+			if(_craftResult != null) {
+				if(_craftResult.IsWeapon) 
+					GUI.Label ( new Rect(400, 200, 100, 100), _craftResult.WeaponName);
+				else
+					GUI.Label ( new Rect(400, 200, 100, 100), _craftResult.InvItem.Name);
+
+			}
 
 		}
 
@@ -254,8 +277,18 @@ public class CraftingMenu : MonoBehaviour {
 								_craftingSlots[i] = null;
 
 					}
-				}
 				
+				}
+
+				CraftButton cb = hit.collider.GetComponent<CraftButton>();
+				// if craft button
+				if(cb != null) {
+					// we should be able to make something
+					if(_craftResult != null)
+						Craft();
+
+				}
+
 			}
 
 			UpdateCraftResult();
@@ -302,6 +335,50 @@ public class CraftingMenu : MonoBehaviour {
 
 	}
 
+	void Craft() {
+		if(_craftResult.IsWeapon) {
+			// crafting a MINE????
+			if(_craftResult.WeaponType == WeaponType.Weapon_MINE) {
+				Weapon w = MINEPrefab.GetComponent<Weapon>();
+				
+				// try add to an existing weapon
+				if(! GameManager.Inventory.TryAddAmmo(w, 2)) {
+					// Create a new weapon from the item and destroy the item
+					Transform instantiatedWeapon = (Transform) Instantiate(MINEPrefab);
+					Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
+					newWeapon.Quantity = 2;
+					GameManager.Inventory.Weapons.Add(newWeapon);
+					instantiatedWeapon.position = GameManager.Level.OffscreenPosition;
+					
+				}
+
+				ConsumeItemsInSlots();
+				RefreshItemWheel();
+				GameManager.UI.RefreshWeaponWheel();
+
+			}
+
+		}
+
+	}
+
+	void ConsumeItemsInSlots() {
+		// for each slot,
+		for(int i=0;i<4;i++) {
+			if(_craftingSlots[i] != null) {
+				// get inventory item its for
+				ItemQuad iq = _craftingSlots[i].GetComponent<ItemQuad>();
+
+				// remove quantity of 1 for item.
+				GameManager.Inventory.TryRemoveItemQty(iq.invItem.Type, 1);
+				Destroy (iq.gameObject);
+				_craftingSlots[i] = null;
+
+			}
+		
+		}
+
+	}
 
 	void ShowWithAlpha(GameObject obj, float alpha) {
 		obj.renderer.enabled = (alpha == 1.0f);
@@ -338,6 +415,8 @@ public class CraftingMenu : MonoBehaviour {
 		
 		} else if (_state == CraftingMenuState.CraftingMenu_Closing)
 		{
+			_craftingButton.renderer.enabled = false;
+
 			float alpha = Mathf.Max ( 1.0f - (float)(_timeInState / FadeTime), 0.0f);
 
 			ShowWithAlpha(_itemWheel, alpha);
@@ -345,7 +424,7 @@ public class CraftingMenu : MonoBehaviour {
 
 			for(int i=0;i<5;i++) {
 				ShowWithAlpha (_itemQuads[i], alpha);
-				ShowWithAlpha (_itemCountQuads[i], alpha);
+				ShowWithAlpha (_itemCountQuads[i], alpha);;
 
 			}
 
@@ -395,8 +474,16 @@ public class CraftingMenu : MonoBehaviour {
 
 		}
 
-		_resultingItem = InventoryItemFactory.GetCraftResult ();
-		Debug.Log ("Resulting item is " + _resultingItem);
+		_craftResult = InventoryItemFactory.GetCraftResult ();
+
+		if(_craftResult != null) {
+			// show proper icon with create button.
+			_craftingButton.renderer.enabled = true;
+
+		} else {
+			_craftingButton.renderer.enabled = false;
+
+		}
 
 	}
 

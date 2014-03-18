@@ -127,6 +127,25 @@ public class InventoryManager : MonoBehaviour
 
 	}
 
+	public bool TryRemoveItemQty(Item.ItemType t, int qty) {
+		for(int itemIndex = Items.Count - 1; itemIndex >= 0; itemIndex--) {
+			if(Items[itemIndex].Type == t) {
+				Items[itemIndex].Quantity -= qty;
+				Items[itemIndex].Quantity = Mathf.Max (Items[itemIndex].Quantity, 0);
+				
+				if(Items[itemIndex].Quantity == 0) {
+					Items.RemoveAt(itemIndex);
+				}
+				
+				return true;
+			}
+			
+		}
+		
+		return false;
+		
+	}
+
 	public void RemoveWeapon(WeaponType t) {
 		// remove in descending order in case more than one occurrence.
 		for(int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
