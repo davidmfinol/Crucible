@@ -253,17 +253,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
         Weapon weapon = GameManager.Inventory.CurrentWeapon;
 		// run out of mines? remove.
 		if (weapon != null && weapon is Mine) {
-			weapon.ActivateAttack(0);
-
-			// one mine left?
-			if(weapon.Quantity == 1) {
-				// remove it.
-				GameManager.Inventory.RemoveWeapon(weapon.WeaponType);
-				GameManager.Inventory.CurrentWeapon = null;
-				GameManager.UI.CycleToNextWeapon();
-
+			if(weapon.Quantity > 0) {
+				weapon.ActivateAttack(0);
+				weapon.Quantity -= 1;
+				GameManager.UI.RefreshWeaponWheel();
 
 			}
+
+
+
+//			// don't remove the mine from your list.
+//			if(weapon.Quantity == 1) {
+//				// remove it.
+//				GameManager.Inventory.RemoveWeapon(weapon.WeaponType);
+//				GameManager.Inventory.CurrentWeapon = null;
+//				GameManager.UI.CycleToNextWeapon();
+//
+//
+//			}
 		
 		} else {
 			Debug.LogWarning("PlaceMine() called with: " + weapon);
@@ -276,8 +283,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		MecanimAnimator.SetBool (_detonateMineHash, false);
 
-		// detonate all mines in the scene.
-		Mine.DetonateMines ();
+		// detonate all mines in the scene
+		Weapon weapon = GameManager.Inventory.CurrentWeapon;
+		if (weapon != null && weapon is Mine) {
+			Mine m = weapon.GetComponent<Mine>();
+			m.DetonateMines ();
+		
+		}
+
 
 	}
 	void ShootGun()
@@ -289,9 +302,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		
         Weapon weapon = GameManager.Inventory.CurrentWeapon;
-		if(weapon != null && weapon is GravityGun)
+		if(weapon != null && weapon is GravityGun) {
 			weapon.ActivateAttack();
-		else
+			GameManager.Inventory.TryRemoveAmmo(WeaponType.Weapon_GravityGun, 1);
+			GameManager.UI.RefreshWeaponWheel();
+
+		} else
 			Debug.LogWarning("ShootGun() called with: " + weapon);
 	}
 
@@ -389,7 +405,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			GameObject itemObj = null;
 			bool canPickup = CanPickupItem (out itemObj);
 			if (canPickup && itemObj != null) {
-				Debug.Log ("Starting pickup for " + itemObj.name);
 				_itemPickedup = itemObj.GetComponent<Item>();
 
 			}
@@ -866,6 +881,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 					// Create a new weapon from the item and destroy the item
 					Transform instantiatedWeapon = (Transform) Instantiate(_itemPickedup.WeaponPrefab);
 					Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
+					Debug.Log ("Added new weapon qty " + pickupCount);
 					newWeapon.Quantity = pickupCount;
 					GameManager.Inventory.Weapons.Add(newWeapon);
 
@@ -884,9 +900,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			// *** must be picking up item... ***
 			else
 			{
-				// Move the item off screen
-				StartCoroutine("PickUpItem");
-
 				// generate a new inventory item and add it.
 				InventoryItem newInvItem = InventoryItemFactory.CreateFromType(_itemPickedup.Type, _itemPickedup.Quantity);
                 GameManager.Inventory.AddItem( newInvItem );
@@ -913,14 +926,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			GameManager.UI.RefreshWeaponWheel();
 		StopCoroutine ("AutoEquip");
 	}
-	
-	IEnumerator PickUpItem()
-	{
-		yield return new WaitForSeconds (0.5f);
-        _itemPickedup.transform.position = GameManager.Level.OffscreenPosition; //TODO: MAYBE DELETE THIS?
-        StopCoroutine ("PickUpItem");
-	}
-	
+		
 	protected override void ApplyRunning (float elapsedTime)
 	{
 		base.ApplyRunning(elapsedTime);

@@ -17,7 +17,8 @@ public enum TeamAllegiance
 public class HitBox : MonoBehaviour
 {
 	public TeamAllegiance Allegiance;
-	public GameObject FromObject = null; 
+	public GameObject FromObject = null;
+	public WeaponType FromWeapon;         // used to reduce our pipe durability.
 	public int DamageAmount = 0;
 	public float KnockBackAmount = 0;
 	public float KnockUpAmount = 0;

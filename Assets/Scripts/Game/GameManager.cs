@@ -276,9 +276,10 @@ public class GameManager : MonoBehaviour
 		}
 
         // Display the correct weapon
-		GameManager.UI.RefreshWeaponWheel ();
 		while (GameManager.UI.CurrentWeapon != _saveData.PlayerState.CurrentWeapon) // TODO: STRESS TEST TO AVOID INFINITE LOOP
 			GameManager.UI.CycleToNextWeapon ();
+
+		GameManager.UI.RefreshWeaponWheel ();
 
 		// TODO: THIS CURRENTLY DOESN'T WORK BECAUSE LOAD GAME IS CALLED WHEN YOU START UP A SCENE, AND YOU THEN MOVE TO THE PREVIOUS SCENE
 		// ONE SOLUTION IS TO SAVE THE SCENE BEFORE THEN, BUT THAT WOULD REQUIRE KEEPING TRACK OF THE CHECKPOINT
@@ -350,14 +351,15 @@ public class GameManager : MonoBehaviour
 			if(itemState.WeaponType == WeaponType.Weapon_Pipe) {
                 newItem = (GameObject) Instantiate ( Resources.Load ("Weapons/OnField/PipeWeapon"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
-	
+
 			} else if(itemState.WeaponType == WeaponType.Weapon_GravityGun) {
                 newItem = (GameObject) Instantiate ( Resources.Load ("Weapons/OnField/GravityGun"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
-				
+
 			} else if(itemState.WeaponType == WeaponType.Weapon_MINE) {
                 newItem = (GameObject) Instantiate ( Resources.Load ("Weapons/OnField/M.I.N.E."), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+				newItem.GetComponent<Item>().WasPlaced = itemState.WasPlaced;
 
 			} else if(itemState.ItemType == Item.ItemType.Item_ComputerParts) {
 				newItem = (GameObject) Instantiate ( Resources.Load ("ComputerParts"), itemState.Position, itemState.Rotation);

@@ -222,7 +222,11 @@ public class UIManager : MonoBehaviour
 
 			// *** just a "click" within interval? ***
 			if(_swipeTime < WeaponClickPeriod && Vector3.Distance (mouseWorldPos, _swipeStartPos) < MinSwipeDistance) {
-				CycleToPreviousWeapon();
+				// but ignore these clicks if the crafting wheel is open, since the player may be looking at weapon info.
+				if(! GameManager.UI.CraftingMenu.IsOpen() ) {
+					CycleToPreviousWeapon();
+					
+				}
 
 			}
 
@@ -240,7 +244,11 @@ public class UIManager : MonoBehaviour
 
 					// *** just a "click" within interval? ***
 					if(_swipeTime < WeaponClickPeriod && Vector3.Distance (touchWorldPos, _swipeStartPos) < MinSwipeDistance) {
-						CycleToNextWeapon();
+						// but ignore these clicks if the crafting wheel is open, since the player may be looking at weapon info.
+						if(! GameManager.UI.CraftingMenu.IsOpen() ) {
+							CycleToPreviousWeapon();
+
+						}
 						
 					}
 					
@@ -379,6 +387,14 @@ public class UIManager : MonoBehaviour
 			weaponsShown++;
 
 		}
+
+		// select the weapon
+		if(GameManager.Inventory.Weapons.Count > 0 &&
+		   (GameManager.Inventory.CurrentWeapon != GameManager.Inventory.Weapons [_currentWeapon])) {
+			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
+			
+		}
+
 
 	}
 
