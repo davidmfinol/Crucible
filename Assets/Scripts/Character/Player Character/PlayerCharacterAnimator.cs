@@ -405,7 +405,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			GameObject itemObj = null;
 			bool canPickup = CanPickupItem (out itemObj);
 			if (canPickup && itemObj != null) {
-				Debug.Log ("Starting pickup for " + itemObj.name);
 				_itemPickedup = itemObj.GetComponent<Item>();
 
 			}
@@ -901,9 +900,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			// *** must be picking up item... ***
 			else
 			{
-				// Move the item off screen
-				StartCoroutine("PickUpItem");
-
 				// generate a new inventory item and add it.
 				InventoryItem newInvItem = InventoryItemFactory.CreateFromType(_itemPickedup.Type, _itemPickedup.Quantity);
                 GameManager.Inventory.AddItem( newInvItem );
@@ -930,14 +926,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			GameManager.UI.RefreshWeaponWheel();
 		StopCoroutine ("AutoEquip");
 	}
-	
-	IEnumerator PickUpItem()
-	{
-		yield return new WaitForSeconds (0.5f);
-        _itemPickedup.transform.position = GameManager.Level.OffscreenPosition; //TODO: MAYBE DELETE THIS?
-        StopCoroutine ("PickUpItem");
-	}
-	
+		
 	protected override void ApplyRunning (float elapsedTime)
 	{
 		base.ApplyRunning(elapsedTime);
