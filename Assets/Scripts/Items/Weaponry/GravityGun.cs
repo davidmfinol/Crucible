@@ -43,8 +43,21 @@ public class GravityGun : Weapon
 		get { return WeaponType.Weapon_GravityGun; }
 	}
 
+	public override string Title {
+		get { return "Gravity Gun"; }
+		
+	}
+	
+	public override string Description {
+		get { return "Temporarily levitates an enemy, stunning it."; }
+		
+	}
+
 	public override Texture2D GetTexture() {
 		return Resources.Load <Texture2D> ("GravityGunIcon");
 		
 	}
+
+
+
 }
