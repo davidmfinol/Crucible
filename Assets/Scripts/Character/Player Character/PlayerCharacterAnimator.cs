@@ -966,6 +966,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_sound.Play(_sound.Running[runIndex]);
 	}
 
+	public void PlayLand() //where dreams come true
+	{
+		_sound.Play(_sound.Landing);
+	}
+
 	public bool CanStealthKill(out OlympusAnimator animRet)
 	{
 		animRet = null;

@@ -15,6 +15,7 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
 	public AudioClip ItemPickup;
 	public AudioClip[] Running;
 	public AudioClip Flip;
+	public AudioClip Landing;
 
 	private int _currentAudio;
 	private AudioSource[] _audios;

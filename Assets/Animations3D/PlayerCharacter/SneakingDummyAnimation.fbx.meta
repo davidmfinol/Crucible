@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 8a237e730df241047960b9ef35ab5d2e
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Ankle_Left_LOC
     100002: Ankle_Right_LOC
@@ -970,13 +970,16 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    optimizeGameObjects: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
+    extraExposedTransformPaths: []
     clipAnimations:
-    - name: Sneak
+    - serializedVersion: 16
+      name: Sneak
       takeName: Take 001
       firstFrame: 1
       lastFrame: 32
@@ -985,6 +988,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -996,7 +1000,24 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+      events:
+      - time: .276315778
+        functionName: PlayRun
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .765789449
+        functionName: PlayRun
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -1028,8 +1049,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .0285669733, y: 0, z: .0142834866}
-        preQ: {x: .5, y: .5, z: -.49999997, w: -.49999997}
-        postQ: {x: .49999997, y: .49999997, z: -.49999997, w: -.49999997}
         length: .0357087255
         modified: 1
     - boneName: UpperLeg_Left
@@ -1038,8 +1057,6 @@ ModelImporter:
         min: {x: -60.0000038, y: -60.0000038, z: -90}
         max: {x: 60.0000038, y: 60.0000038, z: 50}
         value: {x: .0610733889, y: 0, z: .0305366945}
-        preQ: {x: -.612387478, y: .353527278, z: -.612387478, w: .353527337}
-        postQ: {x: -5.96046519e-08, y: -2.98023259e-08, z: -.99999994, w: 0}
         length: .0763417557
         modified: 1
     - boneName: UpperLeg_Right
@@ -1048,8 +1065,6 @@ ModelImporter:
         min: {x: -60.0000038, y: -60.0000038, z: -90}
         max: {x: 60.0000038, y: 60.0000038, z: 50}
         value: {x: .0610733368, y: 0, z: .0305366684}
-        preQ: {x: -.61238879, y: .353524894, z: -.61238879, w: .353524983}
-        postQ: {x: -0, y: -4.47034907e-08, z: -.99999994, w: -2.98023259e-08}
         length: .0763416886
         modified: 1
     - boneName: LowerLeg_Left
@@ -1058,8 +1073,6 @@ ModelImporter:
         min: {x: -90, y: 0, z: -80}
         max: {x: 90, y: 0, z: 80}
         value: {x: .0611175336, y: 0, z: .0305587668}
-        preQ: {x: -2.28310224e-08, y: -4.42351045e-08, z: -.749442756, w: .662069023}
-        postQ: {x: .000664010586, y: -.999999642, z: 1.49011603e-08, w: -2.98023206e-08}
         length: .0763969347
         modified: 1
     - boneName: LowerLeg_Right
@@ -1068,8 +1081,6 @@ ModelImporter:
         min: {x: -90, y: 0, z: -80}
         max: {x: 90, y: 0, z: 80}
         value: {x: .0611176454, y: 0, z: .0305588227}
-        preQ: {x: -9.13240896e-08, y: -5.85044972e-08, z: -.749436796, w: .662075818}
-        postQ: {x: .000664129853, y: -.999999762, z: -0, w: -1.1920929e-07}
         length: .0763970762
         modified: 1
     - boneName: Foot_Left
@@ -1078,8 +1089,6 @@ ModelImporter:
         min: {x: 0, y: -30.0000019, z: -50}
         max: {x: 0, y: 30.0000019, z: 50}
         value: {x: .0164685287, y: 0, z: .00823426433}
-        preQ: {x: .0261688363, y: -.999657393, z: 2.98023206e-08, w: 0}
-        postQ: {x: .49999994, y: -.49999997, z: .49999997, w: -.5}
         length: .0205856692
         modified: 1
     - boneName: Foot_Right
@@ -1088,8 +1097,6 @@ ModelImporter:
         min: {x: 0, y: -30.0000019, z: -50}
         max: {x: 0, y: 30.0000019, z: 50}
         value: {x: .016468484, y: 0, z: .00823424198}
-        preQ: {x: .0261742044, y: -.999657333, z: 2.98023224e-08, w: 0}
-        postQ: {x: .49999997, y: -.49999997, z: .49999997, w: -.49999997}
         length: .0205856133
         modified: 1
     - boneName: Ribs
@@ -1098,8 +1105,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .0167244356, y: 0, z: .00836221781}
-        preQ: {x: -.510629654, y: -.489139348, z: .510629714, w: .489139289}
-        postQ: {x: -.510629654, y: -.489139348, z: .510629714, w: .489139289}
         length: .0209055524
         modified: 1
     - boneName: Chest
@@ -1108,8 +1113,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .0260617044, y: 0, z: .0130308522}
-        preQ: {x: .516694188, y: .482729584, z: -.516683042, w: -.482739896}
-        postQ: {x: .516694188, y: .482729584, z: -.516683042, w: -.482739896}
         length: .0325771384
         modified: 1
     - boneName: Neck
@@ -1118,8 +1121,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .0195916351, y: 0, z: .00979581755}
-        preQ: {x: -.49999997, y: -.49999994, z: .49999997, w: .49999997}
-        postQ: {x: 2.98023224e-08, y: -.000157058239, z: -.99999994, w: 0}
         length: .0244895518
         modified: 1
     - boneName: Head
@@ -1128,8 +1129,6 @@ ModelImporter:
         min: {x: -40, y: -40, z: -40}
         max: {x: 40, y: 40, z: 40}
         value: {x: .0195916351, y: 0, z: .00979581755}
-        preQ: {x: -0, y: -.000157058239, z: -.99999994, w: 0}
-        postQ: {x: -.000157058239, y: -0, z: -0, w: -.99999994}
         length: .0244895518
         modified: 1
     - boneName: Clavicle_Left
@@ -1138,8 +1137,6 @@ ModelImporter:
         min: {x: 0, y: -15.000001, z: -15.000001}
         max: {x: 0, y: 15.000001, z: 30.0000019}
         value: {x: .0154749807, y: 0, z: .00773749035}
-        preQ: {x: .073386848, y: .0108604226, z: .986500382, w: -.145990893}
-        postQ: {x: .073386848, y: .0108604226, z: .986500382, w: -.145990893}
         length: .0193437301
         modified: 1
     - boneName: Clavicle_Right
@@ -1148,8 +1145,6 @@ ModelImporter:
         min: {x: 0, y: -15.000001, z: -15.000001}
         max: {x: 0, y: 15.000001, z: 30.0000019}
         value: {x: .0154749667, y: 0, z: .00773748336}
-        preQ: {x: -.0108600082, y: -.0733868554, z: -.14598541, w: .986501157}
-        postQ: {x: -.0108600082, y: -.0733868554, z: -.14598541, w: .986501157}
         length: .0193437133
         modified: 1
     - boneName: UpperArm_Left
@@ -1158,8 +1153,6 @@ ModelImporter:
         min: {x: -90, y: -100, z: -60.0000038}
         max: {x: 90, y: 100, z: 100}
         value: {x: .0389440916, y: 0, z: .0194720458}
-        preQ: {x: .244210228, y: -.0035060721, z: .911232114, w: -.331669956}
-        postQ: {x: -4.65661287e-10, y: -0, z: .99999994, w: 0}
         length: .0486801304
         modified: 1
     - boneName: UpperArm_Right
@@ -1168,8 +1161,6 @@ ModelImporter:
         min: {x: -90, y: -100, z: -60.0000038}
         max: {x: 90, y: 100, z: 100}
         value: {x: .0389440767, y: 0, z: .0194720384}
-        preQ: {x: .00350709818, y: -.24421303, z: -.331669986, w: .911231458}
-        postQ: {x: 4.25557457e-13, y: -3.030058e-06, z: 4.64352144e-16, w: .99999994}
         length: .0486801155
         modified: 1
     - boneName: LowerArm_Left
@@ -1178,8 +1169,6 @@ ModelImporter:
         min: {x: -90, y: 0, z: -80}
         max: {x: 90, y: 0, z: 80}
         value: {x: .0364803411, y: 0, z: .0182401706}
-        preQ: {x: .46045953, y: .536618292, z: .536634922, w: -.460478753}
-        postQ: {x: -1.12080015e-05, y: .707106709, z: .707106829, w: -1.42096551e-05}
         length: .0456004441
         modified: 1
     - boneName: LowerArm_Right
@@ -1188,8 +1177,6 @@ ModelImporter:
         min: {x: -90, y: 0, z: -80}
         max: {x: 90, y: 0, z: 80}
         value: {x: .0364878736, y: 0, z: .0182439368}
-        preQ: {x: -.536621869, y: -.46046415, z: -.4604747, w: .536630869}
-        postQ: {x: -.707106709, y: 5.10271639e-06, z: -8.75862315e-06, w: .707106769}
         length: .0456098616
         modified: 1
     - boneName: Hand_Left
@@ -1198,8 +1185,6 @@ ModelImporter:
         min: {x: 0, y: -40, z: -80}
         max: {x: 0, y: 40, z: 80}
         value: {x: .0182401706, y: 0, z: .00912008528}
-        preQ: {x: 2.12341547e-06, y: 2.08756219e-07, z: .99999994, w: -1.79727176e-05}
-        postQ: {x: 1.72848388e-06, y: 2.25041717e-07, z: .999955416, w: -.0094275726}
         length: .022800222
         modified: 1
     - boneName: Hand_Right
@@ -1208,8 +1193,6 @@ ModelImporter:
         min: {x: 0, y: -40, z: -80}
         max: {x: 0, y: 40, z: 80}
         value: {x: .0182439368, y: 0, z: .00912196841}
-        preQ: {x: 4.92683585e-12, y: -.0116118062, z: -9.80193636e-06, w: .999932528}
-        postQ: {x: -.989685118, y: -.143259317, z: -2.34157778e-06, w: -3.67057481e-07}
         length: .0228049308
         modified: 1
     - boneName: Toe_Left
@@ -1218,8 +1201,6 @@ ModelImporter:
         min: {x: 0, y: 0, z: -50}
         max: {x: 0, y: 0, z: 50}
         value: {x: .0106128389, y: 0, z: .00530641945}
-        preQ: {x: -.707106769, y: 4.21468513e-08, z: -.707106769, w: 4.21468513e-08}
-        postQ: {x: -.707106769, y: 4.2192454e-08, z: -.707106769, w: 4.21012487e-08}
         length: .0132660531
         modified: 1
     - boneName: Toe_Right
@@ -1228,8 +1209,6 @@ ModelImporter:
         min: {x: 0, y: 0, z: -50}
         max: {x: 0, y: 0, z: 50}
         value: {x: .010648028, y: 0, z: .005324014}
-        preQ: {x: -.707106769, y: 1.05367119e-08, z: -.707106769, w: 3.16101385e-08}
-        postQ: {x: -.707106769, y: 1.05367119e-08, z: -.707106769, w: 3.16101385e-08}
         length: .0133100394
         modified: 1
     - boneName: Eye_Left
@@ -1238,8 +1217,6 @@ ModelImporter:
         min: {x: 0, y: -20, z: -10}
         max: {x: 0, y: 20, z: 15.000001}
         value: {x: .0799999759, y: 0, z: .0399999879}
-        preQ: {x: -.707106769, y: .707106769, z: .000111043468, w: .000111043468}
-        postQ: {x: -2.6822093e-07, y: -2.18860823e-08, z: -.999982834, w: -.00585210789}
         length: .100000001
         modified: 1
     - boneName: Eye_Right
@@ -1248,8 +1225,6 @@ ModelImporter:
         min: {x: 0, y: -20, z: -10}
         max: {x: 0, y: 20, z: 15.000001}
         value: {x: .0799999759, y: 0, z: .0399999879}
-        preQ: {x: -.707106769, y: .707106769, z: .000111043468, w: .000111043468}
-        postQ: {x: -2.98023252e-07, y: -2.21189147e-08, z: -.999982834, w: -.00585164502}
         length: .100000001
         modified: 1
     - boneName: Jaw
@@ -1258,8 +1233,6 @@ ModelImporter:
         min: {x: 0, y: -10, z: -10}
         max: {x: 0, y: 10, z: 10}
         value: {x: .0799999759, y: 0, z: .0399999879}
-        preQ: {x: -.64087677, y: .76764369, z: .000120540033, w: .000100652855}
-        postQ: {x: -.000152081266, y: 3.87951804e-05, z: -.968801916, w: -.247836098}
         length: .100000001
         modified: 1
     skeleton:
@@ -1708,7 +1681,6 @@ ModelImporter:
       rotation: {x: -0, y: -.707106709, z: 0, w: .707106709}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    handles: []
     armTwist: .5
     foreArmTwist: .5
     upperLegTwist: .5
@@ -1719,6 +1691,6 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 2eb2ac6a649c5c247b04db504efe5861,
     type: 3}
-  additionalBone: 1
   animationType: 3
+  additionalBone: 1
   userData: 
