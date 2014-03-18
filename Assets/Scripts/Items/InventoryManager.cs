@@ -114,6 +114,7 @@ public class InventoryManager : MonoBehaviour
 
 				if(Weapons[weaponIndex].Quantity == 0) {
 					Weapons.RemoveAt(weaponIndex);
+					GameManager.Inventory.CurrentWeapon = null;
 					GameManager.UI.CycleToNextWeapon();
 				}
 
