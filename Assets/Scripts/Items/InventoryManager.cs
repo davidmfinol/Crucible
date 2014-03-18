@@ -94,7 +94,7 @@ public class InventoryManager : MonoBehaviour
 	public bool TryAddAmmo(Weapon w, int ammoCount) {
 		foreach (Weapon weapon in Weapons) {
 			if(weapon.WeaponType == w.WeaponType) {
-				weapon.Quantity += Mathf.Max (ammoCount, weapon.MaxQuantity);
+				weapon.Quantity += Mathf.Min (ammoCount, weapon.MaxQuantity);
 				return true;
 
 			}

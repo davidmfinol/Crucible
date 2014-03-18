@@ -15,10 +15,10 @@ public class Mine : Weapon
     public string IdleAnimationName = "Idle";
     public string AttackAnimationName = "Attack";
 
-	private static List<GameObject> allPlacedMines = new List<GameObject>(); // FIXME: THIS SHOULDN'T BE STATIC
 	private bool _minesCurrentlyExploding = false;
 	private float _mineLastPlacedTime;
-	
+	// mines found in scene for detonation
+	private Object[] _foundMines;
 
     public override void ActivateAttack(float attackID)
     {
@@ -39,20 +39,32 @@ public class Mine : Weapon
 		Vector3 minePos = new Vector3(transform.position.x, transform.position.y, transform.position.z);// + 1.5f);
 		Transform mineCopy = (Transform) Instantiate(mineObject, minePos, Quaternion.identity);
 		mineCopy.animation["MineAboutToExplode"].speed = 2.0f;
-		allPlacedMines.Add(mineCopy.gameObject);
+
+		Item i = mineCopy.GetComponent<Item> ();
+		i.WasPlaced = true; // flag as placed so we can detonate it.
 		_mineLastPlacedTime = Time.time;
+
 	}
 	
-	public static void DetonateMines()
+	public void DetonateMines()
 	{
-	//	if(allPlacedMines.Count <= 0 || _minesCurrentlyExploding)
-	//		return;
-				
-	//	for(int i = 0; i < allPlacedMines.Count; i++)
-	//		((GameObject) allPlacedMines[i]).animation.CrossFade("MineAboutToExplode");
+		// store mines found in scene
+		_foundMines = GameObject.FindObjectsOfType(typeof(Item));
 
-	//	StartCoroutine(AnimateExplosions(0.44f));  // Time it takes to animate mine before exploding
-	
+		foreach(Object o in _foundMines) {
+			Item i = (Item) o;
+			GameObject obj = i.gameObject;
+
+			if(i.WeaponPrefab != null && (i.WeaponPrefab.GetComponent<Mine>() != null) && i.WasPlaced) {
+				obj.animation.CrossFade("MineAboutToExplode");
+
+			}
+
+		}
+
+		// Time it takes to animate mine before exploding
+		StartCoroutine (AnimateExplosions(0.44f));
+
 	}
 	
 	// Waits until animation is over to explode mines.
@@ -61,18 +73,23 @@ public class Mine : Weapon
 		_minesCurrentlyExploding = true;
 
 		yield return new WaitForSeconds(waitTime);
-		
-		for(int i = 0; i < allPlacedMines.Count; i++)
-		{
-			Instantiate(explosion1, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);
-            // TODO: SET UP HITBOX
-			Instantiate(explosion2, ((GameObject) allPlacedMines[i]).transform.position, Quaternion.identity);		
-			Destroy((GameObject) allPlacedMines[i]);
+
+		foreach(Object o in _foundMines) {
+			Item i = (Item) o;
+			GameObject obj = i.gameObject;
+
+			if(i.WeaponPrefab != null && (i.WeaponPrefab.GetComponent<Mine>() != null) && i.WasPlaced) {
+				Instantiate(explosion1, obj.transform.position, Quaternion.identity);
+				// TODO: SET UP HITBOX
+				Instantiate(explosion2, obj.transform.position, Quaternion.identity);		
+				Destroy((GameObject) obj);
+				
+			}
+			
 		}
-		
-		allPlacedMines = new List<GameObject>();
 
 		_minesCurrentlyExploding = false;
+
 	}
     
     public override Vector3 Rotation
