@@ -22,12 +22,7 @@ public class GameManager : MonoBehaviour
 
     // The GameManager keeps track of the last checkpoint, so that the player can go back there after death
     public Transform LastCheckPoint; // TODO: PUT THIS IN SAVEDATA ONLY?
-
-	// TODO: find a better place for these
-	public static GameObject PipePrefab;
-	public static GameObject MINEPrefab;
-	public static GameObject GravityGunPrefab;
-
+	
 	// Keep track of the current game manager instance
 	private static GameManager _instance;
 	

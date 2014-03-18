@@ -22,7 +22,7 @@ public class CraftingMenu : MonoBehaviour {
 	public GameObject CraftButtonPrefab;
 	public Vector3 CraftButtonPos;
 
-
+	
 	// TODO: find a better place for these
 	public GameObject PipePrefab;
 	public GameObject MINEPrefab;
@@ -63,7 +63,7 @@ public class CraftingMenu : MonoBehaviour {
 	private GameObject[] _itemCountQuads;
 
 	// last clicked item
-	private InventoryItem _lastClickedItem;
+	private GameObject _lastClickedQuad;
 
 	// crafting slots
 	private GameObject[] _craftingSlots;
@@ -73,7 +73,7 @@ public class CraftingMenu : MonoBehaviour {
 
 	// TODO: make into whatever prefab or inventory item, etc.
 	private CraftResult _craftResult;
-
+	private GameObject _craftResultQuad;
 
 
 	// --------------------------------
@@ -138,7 +138,7 @@ public class CraftingMenu : MonoBehaviour {
 		_itemCountQuads[4] = (GameObject) Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
 
 
-		_lastClickedItem = null;
+		_lastClickedQuad = null;
 		_draggingQuad = null;
 
 		// *** translate GUI positionings into screen coords ***
@@ -215,7 +215,7 @@ public class CraftingMenu : MonoBehaviour {
 		_timeInState = 0.0f;
 		
 		// destroy all cloned item quads placed into crafting slots
-		_lastClickedItem = null;
+		_lastClickedQuad = null;
 		
 		for(int i=0; i <= _craftingSlots.Length - 1; i++) {
 			if(_craftingSlots[i] != null) {
@@ -229,20 +229,27 @@ public class CraftingMenu : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		if (_lastClickedItem != null) {
+		// REFRESH LAST CLICKED ITEM
+		if (_lastClickedQuad != null) {
 			GUI.skin.textArea.normal.background = null;
 			GUI.skin.textArea.active.background = null;
-			
-			GUI.Label ( ItemDescriptionBounds, _lastClickedItem.Name + "\n\n" + _lastClickedItem.Caption );
 
-			if(_craftResult != null) {
-				if(_craftResult.IsWeapon) 
-					GUI.Label ( new Rect(400, 200, 100, 100), _craftResult.WeaponName);
-				else
-					GUI.Label ( new Rect(400, 200, 100, 100), _craftResult.InvItem.Name);
+			ItemQuad iq = _lastClickedQuad.GetComponent<ItemQuad>();
+
+			if(iq != null) {
+				GUI.Label ( ItemDescriptionBounds, iq.invItem.Name + "\n\n" + iq.invItem.Caption );
 
 			}
+	
+		}
 
+		// REFRESH CRAFT RESULT
+		if(_craftResult != null) {
+			if(_craftResult.IsWeapon) 
+				GUI.Label ( new Rect(400, 200, 100, 100), _craftResult.WeaponName);
+			else
+				GUI.Label ( new Rect(400, 200, 100, 100), _craftResult.InvItem.Name);
+			
 		}
 
 	}
@@ -261,7 +268,7 @@ public class CraftingMenu : MonoBehaviour {
 				ItemQuad itemQuad = hit.collider.GetComponent<ItemQuad>();
 
 				if(itemQuad != null) {
-					_lastClickedItem = itemQuad.invItem;
+					_lastClickedQuad = itemQuad.gameObject;
 
 					// an item from the wheel
 					if(!itemQuad.IsDraggedCopy) {
@@ -377,6 +384,8 @@ public class CraftingMenu : MonoBehaviour {
 			}
 		
 		}
+
+		_lastClickedQuad = null;
 
 	}
 
