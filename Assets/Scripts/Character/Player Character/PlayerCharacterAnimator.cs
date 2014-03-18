@@ -879,6 +879,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 					// Create a new weapon from the item and destroy the item
 					Transform instantiatedWeapon = (Transform) Instantiate(_itemPickedup.WeaponPrefab);
 					Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
+					Debug.Log ("Added new weapon qty " + pickupCount);
 					newWeapon.Quantity = pickupCount;
 					GameManager.Inventory.Weapons.Add(newWeapon);
 
