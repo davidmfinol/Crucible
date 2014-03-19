@@ -17,11 +17,15 @@ public class PickupAnimator : MonoBehaviour
 		_timeElapsed %= 2.0f;
 		_timeElapsed /= 2.0f;
 		_timeElapsed *= 2 * Mathf.PI;
-		float blue = Mathf.Cos(_timeElapsed);
-		Color itemPickupColor = new Color( 1.0f, 1.0f, 0.5f);
 	
-		foreach(Material mat in PickupMaterials)
+		float alpha = Mathf.Cos(_timeElapsed);
+		Color itemPickupColor = new Color( 1.0f, 1.0f, 1.0f, alpha);
+	
+		foreach(Material mat in PickupMaterials) {
 			mat.SetColor("_OutlineColor", itemPickupColor);
+			mat.SetFloat ("_Outline", 0.002f);
+
+		}
 	}
 
 }
