@@ -12,7 +12,7 @@ using Pathfinding;
 public class EnemyAI : MonoBehaviour
 {
 	// used to override
-	public bool ShouldWander;
+	public bool ShouldWander = true;
 
     // Generic enemy AI components
     private CharacterAnimator _animator;
@@ -236,11 +236,13 @@ public class EnemyAI : MonoBehaviour
 
         // Determine attack
         //bool randomChance = (Random.Range(0.0f, 1.0f) > 0.95f);
-        bool isStunned = _animator.CurrentState.IsName ("Base Layer.Stun");
+        bool isStunned = _animator.CurrentState.IsName ("Base Layer.Stun"); // FIXME: SLOW
         bool shouldAttack = IsPlayerInAttackRange && !isStunned && !_animator.IsDead (); //&& randomChance;
-        _animator.CharInput.Attack = shouldAttack ? 1 : 0;
+		if(shouldAttack) {
+			bool isPlayerAbove = _playerAnimator.transform.position > transform.position + _animator.Height / 2.0f;
+			_animator.CharInput.Attack = isPlayerAbove ? -1 : 1;
 
-        // TODO: VERTICAL ATTACK
+		}
 
 		// Stop moving while the player is knocked back
 		if(_playerAnimator.CurrentState.IsName("Base Layer.Damaged")) // FIXME: SLOW
