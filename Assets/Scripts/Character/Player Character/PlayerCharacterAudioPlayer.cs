@@ -25,7 +25,6 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
         _audios = GetComponents<AudioSource> ();
 
     }
-
     public override void Play (AudioClip audio)
     {
         // Play a random running sound
@@ -36,5 +35,6 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
         _currentAudio = _currentAudio % 2;
 
     }
+
 }
 
