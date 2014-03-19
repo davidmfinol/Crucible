@@ -870,26 +870,34 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     public void PlayHit ()
     {
-        _sound.Play (_sound.Hit);
+		if(_sound != null)
+			_sound.Play (_sound.Hit);
+
     }
 
     public void PlayPickup ()
     {
-        _sound.Play (_sound.ItemPickup);
+		if(_sound != null)
+			_sound.Play (_sound.ItemPickup);
     }
 
     public void PlayCrafting ()
     {
-        _sound.Play (_sound.Craft);
+		if(_sound != null)
+    	    _sound.Play (_sound.Craft);
     }
 
     public void PlayBackflip ()
     {
-        _sound.Play (_sound.Flip);
+		if(_sound != null)
+       		_sound.Play (_sound.Flip);
     }
 
     public void PlayJump ()
     {
+		if(_sound == null)
+			return;
+
         //TODO: Move this wallkick sound to new wall kick animation and event
         if (CurrentState.IsName ("Wall.Walljumping"))
             _sound.Play (_sound.WallKick);
@@ -899,18 +907,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     public void PlayWallHit ()
     {
-        _sound.Play (_sound.WallHit);
+		if(_sound != null)
+       		 _sound.Play (_sound.WallHit);
     }
 
     public void PlayRun ()
     {
+		if(_sound == null)
+			return;
+
         int runIndex = Random.Range (0, _sound.Running.Length);
         _sound.Play (_sound.Running [runIndex]);
     }
 
     public override void PlayLand () //where dreams come true
     {
-        _sound.Play (_sound.Landing);
+		if(_sound != null)
+       		 _sound.Play (_sound.Landing);
+
     }
 
     public bool CanStealthKill (out OlympusAnimator animRet)
