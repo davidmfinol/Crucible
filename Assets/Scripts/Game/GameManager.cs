@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         // Update the animation system if necessary
         Animator animator = Player.GetComponent<Animator> ();
         if(animator != null)
-			animator.SetBool ("Respawn", true);
+			animator.SetBool ("Respawn", true); // TODO: HASH?
 
 		// Make sure the camera is looking at the player
 		CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
 		}
 		if(!checkpointFound)
 		{
-			Debug.LogWarning("Saved checkpoint not found!");
+			//Debug.LogWarning("Saved checkpoint not found!");
 			LastCheckPoint = _currentLevel.StartPoint;
 		}
 

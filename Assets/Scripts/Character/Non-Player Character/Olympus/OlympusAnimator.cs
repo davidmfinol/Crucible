@@ -29,6 +29,7 @@ public class OlympusAnimator : CharacterAnimator
     private int _acquiringTargetHash;
     private int _turnAroundHash;
     private int _xDirectionHash;
+	private int _grabWallHash;
     
     // Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -55,12 +56,13 @@ public class OlympusAnimator : CharacterAnimator
         StateMachine [Animator.StringToHash ("Base Layer.Stealth Death")] = StealthDeath;
         StateMachine [Animator.StringToHash ("Air.Jumping")] = Jumping;
         StateMachine [Animator.StringToHash ("Air.Falling")] = Falling;
-        StateMachine [Animator.StringToHash ("Air.Landing")] = Landing;
+		StateMachine [Animator.StringToHash ("Air.Landing")] = Landing;
+		StateMachine [Animator.StringToHash ("Wall.Grab Wall")] = GrabWall;
+		StateMachine [Animator.StringToHash ("Wall.Climbing")] = ClimbingVertical;
         StateMachine [Animator.StringToHash ("Climbing.Hanging")] = Hanging;
         StateMachine [Animator.StringToHash ("Climbing.ClimbingLedge")] = ClimbingLedge;
         StateMachine [Animator.StringToHash ("Climbing.ClimbingLadder")] = ClimbingVertical;
         StateMachine [Animator.StringToHash ("Climbing.ClimbingPipe")] = ClimbingVertical;
-        StateMachine [Animator.StringToHash ("Melee Layer.AttackingFirst")] = StartMelee;
 
         // Then hash the variables
         _verticalSpeedHash = Animator.StringToHash ("VerticalSpeed");
@@ -78,7 +80,8 @@ public class OlympusAnimator : CharacterAnimator
         _stealthDeathHash = Animator.StringToHash ("StealthDeath");
         _acquiringTargetHash = Animator.StringToHash ("AcquireTarget");
         _turnAroundHash = Animator.StringToHash ("TurnAround");
-        _xDirectionHash = Animator.StringToHash ("XDirection");
+		_xDirectionHash = Animator.StringToHash ("XDirection");
+		_grabWallHash = Animator.StringToHash ("GrabWall");
 
     }
     
@@ -137,13 +140,8 @@ public class OlympusAnimator : CharacterAnimator
         VerticalSpeed = GroundVerticalSpeed;
 
     }
-    
-    protected void StartMelee (float elapsedTime)
-    {
-        // Empty; we wait until the end of the attack to create the hitbox
-    }
 
-    protected void EndMelee (float elapsedTime)
+    protected void Punch (float elapsedTime)
     {
         // find where to place the attack event
         Vector3 meleePos = transform.position;
@@ -268,6 +266,8 @@ public class OlympusAnimator : CharacterAnimator
                                 (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up));
 
+		if(CanGrabWall)
+			MecanimAnimator.SetBool(_grabWallHash, true);
     }
     
     protected void Falling (float elapsedTime)
@@ -287,6 +287,8 @@ public class OlympusAnimator : CharacterAnimator
         } else 
             MecanimAnimator.SetBool (_hangHash, false);
 
+		if(CanGrabWall)
+			MecanimAnimator.SetBool(_grabWallHash, true);
     }
     
     protected void Hanging (float elapsedTime)
@@ -362,6 +364,16 @@ public class OlympusAnimator : CharacterAnimator
         }
 
     }
+
+	protected void GrabWall(float elapsedTime)
+	{
+		if (MecanimAnimator.GetBool(_grabWallHash)) {
+			HorizontalSpeed = 0;
+			VerticalSpeed = 0;
+			MecanimAnimator.SetBool(_grabWallHash, false);
+		}
+
+	}
 
     protected void ClimbingVertical (float elapsedTime)
     {
