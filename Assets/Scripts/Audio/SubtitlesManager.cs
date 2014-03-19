@@ -7,26 +7,26 @@ using System.Collections.Generic;
 [AddComponentMenu("Audio/Subtitles Manager")]
 public class SubtitlesManager : MonoBehaviour
 {
-	public Queue<Subtitle> subtitleQueue;
+    public Queue<Subtitle> subtitleQueue;
 
-	void Awake()
-	{
-		subtitleQueue = new Queue<Subtitle>();
-	}
+    void Awake ()
+    {
+        subtitleQueue = new Queue<Subtitle> ();
 
-	void Update()
-	{
-		// Display subtitles in queue
-	}
+    }
 
-	public void QueueSubtitle(Subtitle subtitle)
-	{
-		subtitleQueue.Enqueue(subtitle);
-	}
+    void Update ()
+    {
+        // Display subtitles in queue
+    }
 
+    public void QueueSubtitle (Subtitle subtitle)
+    {
+        subtitleQueue.Enqueue (subtitle);
 
-	public bool Ready
-	{
-		get { return true; }
-	}
+    }
+
+    public bool Ready {
+        get { return true; }
+    }
 }

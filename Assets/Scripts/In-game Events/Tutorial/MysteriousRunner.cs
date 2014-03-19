@@ -9,88 +9,91 @@ public class MysteriousRunner : MonoBehaviour
 {
     public bool IsFirst;
     public Transform SewerDoor;
+    private CharacterInput _input;
 
-	private CharacterInput _input;
+    void Start ()
+    {
+        _input = GetComponent<CharacterInput> ();
 
+        if (IsFirst)
+            StartCoroutine ("ShowWallJump1");
+        else
+            StartCoroutine ("ShowWallJump2");
+    }
 
-	void Start ()
-	{
-		_input = GetComponent<CharacterInput> ();
+    public IEnumerator ShowWallJump1 ()
+    {
+        Camera.main.GetComponent<CameraScrolling> ().Target = transform;
+        GameManager.UI.DisableInput ();
+        Destroy (GameManager.Player.GetComponent<AudioListener> ());
+        this.gameObject.AddComponent<AudioListener> ();
 
-		if(IsFirst)
-			StartCoroutine("ShowWallJump1");
-		else
-			StartCoroutine("ShowWallJump2");
-	}
+		// hack to fix coroutine
+		_input.ForceJump = true;
 
-	public IEnumerator ShowWallJump1 ()
-	{
-        Camera.main.GetComponent<CameraScrolling>().Target = transform;
-        GameManager.UI.DisableInput();
-		Destroy (GameManager.Player.GetComponent<AudioListener> ());
-		this.gameObject.AddComponent<AudioListener> ();
-		_input.Horizontal = -1;
-		yield return new WaitForSeconds (1.3f);
-		_input.Horizontal = 0;
-		_input.Jump = new Vector2(-1, 1);
-		yield return new WaitForSeconds (0.5f);
-		_input.Jump = new Vector2 (1, 1);
-		yield return new WaitForSeconds (0.2f);
-		_input.Horizontal = 1;
-		_input.Jump = Vector2.zero;
-		yield return new WaitForSeconds (0.9f);
-		_input.Jump = new Vector2 (1, 1);
+        _input.Horizontal = -1;
+        yield return new WaitForSeconds (1.3f);
+        _input.Horizontal = 0;
+        _input.Jump = new Vector2 (-1, 1);
+        yield return new WaitForSeconds (0.8f);
+        _input.Jump = new Vector2 (1, 1);
+        yield return new WaitForSeconds (0.2f);
+        _input.Horizontal = 1;
+        _input.Jump = Vector2.zero;
+        yield return new WaitForSeconds (0.9f);
+        _input.Jump = new Vector2 (1, 1);
         Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
-        GameManager.UI.EnableInput();
-		Destroy (gameObject.GetComponent<AudioListener> ());
-		GameManager.Player.gameObject.AddComponent<AudioListener> ();
-		yield return new WaitForSeconds (0.1f);
-		_input.Jump = Vector2.zero;
-		yield return new WaitForSeconds (2.5f);
-		_input.Jump = new Vector2 (1, 1);
-		yield return new WaitForSeconds (0.5f);
-		gameObject.SetActive (false);
-		StopCoroutine ("ShowWallJump1");
-	}
-	
-	public IEnumerator ShowWallJump2 ()
-	{
-		Camera.main.GetComponent<CameraScrolling>().Target = transform;
-        GameManager.UI.DisableInput();
-		Destroy (GameManager.Player.GetComponent<AudioListener> ());
-		this.gameObject.AddComponent<AudioListener> ();
-		yield return new WaitForSeconds (1.0f);
-		_input.Jump = new Vector2(-1, 1);
-		yield return new WaitForSeconds (0.75f);
-		_input.Jump = new Vector2 (1, 1);
-		yield return new WaitForSeconds (0.5f);
-		_input.Jump = new Vector2(-1, 1);
-		yield return new WaitForSeconds (0.5f);
-		_input.Jump = new Vector2 (1, 1);
-		yield return new WaitForSeconds (0.5f);
-		_input.Jump = new Vector2(-1, 1);
-		yield return new WaitForSeconds (0.5f);
-		_input.Jump = new Vector2 (1, 1);
-		yield return new WaitForSeconds (0.5f);
-		_input.Jump = new Vector2(-1, 1);
+        GameManager.UI.EnableInput ();
+        Destroy (gameObject.GetComponent<AudioListener> ());
+        GameManager.Player.gameObject.AddComponent<AudioListener> ();
+        yield return new WaitForSeconds (0.1f);
+        _input.Jump = Vector2.zero;
+        yield return new WaitForSeconds (2.5f);
+        _input.Jump = new Vector2 (1, 1);
+        yield return new WaitForSeconds (0.5f);
+        gameObject.SetActive (false);
+        StopCoroutine ("ShowWallJump1");
+    }
+    
+    public IEnumerator ShowWallJump2 ()
+    {
+        Camera.main.GetComponent<CameraScrolling> ().Target = transform;
+        GameManager.UI.DisableInput ();
+        Destroy (GameManager.Player.GetComponent<AudioListener> ());
+        this.gameObject.AddComponent<AudioListener> ();
+        yield return new WaitForSeconds (1.0f);
+		_input.ForceJump = true;
+        _input.Jump = new Vector2 (-1, 1);
+        yield return new WaitForSeconds (0.75f);
+        _input.Jump = new Vector2 (1, 1);
+        yield return new WaitForSeconds (0.5f);
+        _input.Jump = new Vector2 (-1, 1);
+        yield return new WaitForSeconds (0.5f);
+        _input.Jump = new Vector2 (1, 1);
+        yield return new WaitForSeconds (0.5f);
+        _input.Jump = new Vector2 (-1, 1);
+        yield return new WaitForSeconds (0.5f);
+        _input.Jump = new Vector2 (1, 1);
+        yield return new WaitForSeconds (0.5f);
+        _input.Jump = new Vector2 (-1, 1);
         yield return new WaitForSeconds (0.5f);
         _input.Jump = Vector2.zero;
         _input.Horizontal = -1.0f;
         yield return new WaitForSeconds (1.0f);
-		_input.Horizontal = -0.3f;
+        _input.Horizontal = -0.3f;
         yield return new WaitForSeconds (0.5f);
-        SewerDoor.animation.Play("Open");
-		yield return new WaitForSeconds (5.0f);
-		_input.Horizontal = -1;
-		SewerDoor.animation.Play("Close");
-		yield return new WaitForSeconds (1.0f);
+        SewerDoor.animation.Play ("Open");
+        yield return new WaitForSeconds (5.0f);
+        _input.Horizontal = -1;
+        SewerDoor.animation.Play ("Close");
+        yield return new WaitForSeconds (1.0f);
         Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
-        GameManager.UI.EnableInput();
-		Destroy (gameObject.GetComponent<AudioListener> ());
-		GameManager.Player.gameObject.AddComponent<AudioListener> ();
+        GameManager.UI.EnableInput ();
+        Destroy (gameObject.GetComponent<AudioListener> ());
+        GameManager.Player.gameObject.AddComponent<AudioListener> ();
         yield return new WaitForSeconds (0.5f);
-        SewerDoor.animation.Play("Close");
-		gameObject.SetActive (false);
-		StopCoroutine ("ShowWallJump2");
-	}
+        SewerDoor.animation.Play ("Close");
+        gameObject.SetActive (false);
+        StopCoroutine ("ShowWallJump2");
+    }
 }

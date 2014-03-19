@@ -8,7 +8,7 @@ using System.Collections;
 using Pathfinding;
 
 /// <summary>
-/// Unity Editor for a ZoneGraph
+/// Unity Editor for a ZoneGraph.
 /// </summary>
 [CustomGraphEditor (typeof(ZoneGraph), "Zone Graph")]
 public class ZoneGraphEditor : GraphEditor
@@ -43,10 +43,14 @@ public class ZoneGraphEditor : GraphEditor
             foreach(ZoneNode node in graph.Nodes)
 			{
 				Gizmos.color = AstarColor.NodeConnection;
-				if(node.isGround)
+                if((node.Tag & (1 << 0)) != 0)
                     Gizmos.color = AstarColor.ConnectionLowLerp;
-                if(node.isLeftLedge || node.isRightLedge)
-                    Gizmos.color = AstarColor.ConnectionHighLerp;
+                if( ((node.Tag & (1 << 1)) != 0) || ((node.Tag & (1 << 2)) != 0) )
+					Gizmos.color = AstarColor.ConnectionHighLerp;
+                if((node.Tag & (1 << 3)) != 0)
+                    Gizmos.color = AstarColor.MeshEdgeColor;
+                if((node.Tag & (1 << 4)) != 0)
+                    Gizmos.color = AstarColor.BoundsHandles;
 				if(!node.Walkable)
 					Gizmos.color = AstarColor.UnwalkableNode;
                 Gizmos.DrawCube((Vector3)node.position, Vector3.one * HandleUtility.GetHandleSize((Vector3)node.position) * 0.1F);

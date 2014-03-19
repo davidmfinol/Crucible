@@ -22,6 +22,19 @@ public class InventoryItem {
 	
 };
 
+// craft result could be an inventory item or a weapon.
+public class CraftResult {
+	public bool IsWeapon;
+	public InventoryItem InvItem;
+
+	public WeaponType WeaponType;
+	public int WeaponQty;
+	public string WeaponName;
+	public string WeaponDescr;
+	public string WeaponTexture;
+	
+};
+
 // item factory can not only instantiate items by type, but also
 // build items through an ingredients data structure + methods
 public static class InventoryItemFactory {
@@ -67,6 +80,55 @@ public static class InventoryItemFactory {
 			newItem.TexturePath = "PropellantIcon";
 			newItem.CraftingCode = "PR";
 
+		} else if(t == Item.ItemType.Item_Binding) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Binding";
+			newItem.Caption = "Binds two craftable items together.";
+			newItem.TexturePath = "BindingIcon";
+			newItem.CraftingCode = "BN";
+
+		} else if(t == Item.ItemType.Item_GunParts) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Guns Parts";
+			newItem.Caption = "Used to build projectile weapons.";
+			newItem.TexturePath = "GunPartsIcon";
+			newItem.CraftingCode = "GP";
+
+		} else if(t == Item.ItemType.Item_HiggsDrive) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Higgs Drive";
+			newItem.Caption = "Powers anti-gravity devices.";
+			newItem.TexturePath = "HiggsDriveIcon";
+			newItem.CraftingCode = "HD";
+
+		} else if(t == Item.ItemType.Item_Isolator) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Isolator";
+			newItem.Caption = "Stores energy for energy-based devices.";
+			newItem.TexturePath = "IsolatorIcon";
+			newItem.CraftingCode = "IS";
+
+		} else if(t == Item.ItemType.Item_Magnet) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Magnet";
+			newItem.Caption = "Required to construct magnetic devices.";
+			newItem.TexturePath = "MagnetIcon";
+			newItem.CraftingCode = "MG";
+
+		} else if(t == Item.ItemType.Item_Transmitter) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Transmitter";
+			newItem.Caption = "Used to construct devices that operate remotely.";
+			newItem.TexturePath = "TransmitterIcon";
+			newItem.CraftingCode = "TR";
+
+		} else if(t == Item.ItemType.Item_Visualizer) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Visualizer";
+			newItem.Caption = "An imaging unit to build holographic devices.";
+			newItem.TexturePath = "VisualizerIcon";
+			newItem.CraftingCode = "VS";
+
 		} else {
 			Debug.Log ("ItemFactory: invalid item type " + t);
 
@@ -93,7 +155,7 @@ public static class InventoryItemFactory {
 
 	}
 
-	public static string GetCraftResult() {
+	public static CraftResult GetCraftResult() {
 		string sResult = "";
 
 		foreach (string s in _ingredients.Values) {
@@ -101,17 +163,30 @@ public static class InventoryItemFactory {
 
 		}
 
-		if(sResult == "CPPR") {
-			return "Moving Computer";
+		// gun parts + higgs drive + isolator = gravity gun
+		if(sResult == "GPHDIS") {
+			CraftResult res = new CraftResult();
+			res.IsWeapon = true;
+			res.WeaponType = WeaponType.Weapon_GravityGun;
+			res.WeaponQty = 5;
+			res.WeaponName = "Gravity Gun";
+			res.WeaponDescr = "Stun enemies with antigravity blasts.";
+			res.WeaponTexture = "GravityGunIcon";
+			return res;
 
-		} else if(sResult == "CPEN") {
-			return "Computer Car";
-
-		} else if(sResult == "ENENEN") {
-			return "Triple engine";
+		// anything else builds a mine, except for the parts for the gravity gun.
+		} else if((sResult != "") && (!sResult.Contains("GP")) && (!sResult.Contains("HD")) && (!sResult.Contains("IS"))) {
+			CraftResult res = new CraftResult();
+			res.IsWeapon = true;
+			res.WeaponType = WeaponType.Weapon_MINE;
+			res.WeaponQty = 3;
+			res.WeaponName = "M.I.N.E.";
+			res.WeaponDescr = "Massive Interconnected Network of Explosives.";
+			res.WeaponTexture = "MINEIcon";
+			return res;
 
 		} else {
-			return "Unknown Item:\n" + sResult;
+			return null;
 
 		}
 	

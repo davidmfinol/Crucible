@@ -78,12 +78,17 @@ public class Tutorial : MonoBehaviour
 
 		_reachedTrigger3 = true;
 
-		if(!GameManager.SaveData.SewerTopReached)
-			Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
+		if(!GameManager.SaveData.SewerTopReached) {
+			Transform newOlympus = (Transform) Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
+			newOlympus.GetComponent<EnemyAI>().ShouldWander = false;
+			newOlympus.GetComponent<CharacterAnimator>().Direction = new Vector3(-1.0f, 0.0f, 0.0f);
+
+		}
 
         GameManager.SaveData.SewerTopReached = true;
 
         StartCoroutine("OperateDoor");
+
 	}
 
 	public IEnumerator WaitToShowInstructions()

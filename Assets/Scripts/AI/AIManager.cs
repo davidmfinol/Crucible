@@ -9,66 +9,57 @@ using System.Collections.Generic;
 public class AIManager : MonoBehaviour
 {
     private List<EnemyAI> _enemies;
-
     private ZoneGraph _graph;
+    private bool _ready;
 
-	private bool _ready;
-	
-
-	void Awake()
-	{
-		_enemies = new List<EnemyAI>();
-	}
-
-	void Start()
+    void Awake ()
     {
-        _graph = (ZoneGraph)AstarPath.active.graphs[0];
+        _enemies = new List<EnemyAI> ();
 
-		_ready = true;
-	}
+    }
 
-	public void Reset()
-	{
-		_enemies = new List<EnemyAI> ();
-	}
-
-	
-	public List<EnemyAI> Enemies
-	{
-		get { return _enemies; }
-	}
-	
-	public int EnemiesSearching
-	{
-		get
-		{
-			int enemiesSearching = 0;
-			foreach(EnemyAI enemy in _enemies)
-                if(enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
-					enemiesSearching++;
-			return enemiesSearching;
-		}
-	}
-
-	public int EnemiesChasing
-	{
-		get
-		{
-			int enemiesChasing = 0;
-            foreach(EnemyAI enemy in _enemies)
-                if(enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
-					enemiesChasing++;
-			return enemiesChasing;
-		}
-	}
-
-    public ZoneGraph Graph
+    void Start ()
     {
+        _graph = (ZoneGraph)AstarPath.active.graphs [0];
+        _ready = true;
+
+    }
+
+    public void Reset ()
+    {
+        _enemies = new List<EnemyAI> ();
+
+    }
+    
+    public List<EnemyAI> Enemies {
+        get { return _enemies; }
+    }
+    
+    public int EnemiesSearching {
+        get {
+            int enemiesSearching = 0;
+            foreach (EnemyAI enemy in _enemies)
+                if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
+                    enemiesSearching++;
+            return enemiesSearching;
+        }
+    }
+
+    public int EnemiesChasing {
+        get {
+            int enemiesChasing = 0;
+            foreach (EnemyAI enemy in _enemies)
+                if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
+                    enemiesChasing++;
+            return enemiesChasing;
+        }
+    }
+
+    public ZoneGraph Graph {
         get { return _graph; }
     }
-	
-	public bool Ready
-	{
-		get { return _ready; }
-	}
+    
+    public bool Ready {
+        get { return _ready; }
+    }
 }

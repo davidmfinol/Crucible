@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TutorialAudioPlayer : MonoBehaviour {
+public class TutorialAudioPlayer : AudioPlayer {
 
-	// Use this for initialization
-	void Start () {
+	public AudioClip CameraFocus;
+	public AudioClip CameraBeep;
+	public AudioClip DoorSlam;
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

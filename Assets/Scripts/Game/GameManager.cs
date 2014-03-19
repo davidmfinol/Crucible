@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     // The GameManager keeps track of the last checkpoint, so that the player can go back there after death
     public Transform LastCheckPoint; // TODO: PUT THIS IN SAVEDATA ONLY?
-
+	
 	// Keep track of the current game manager instance
 	private static GameManager _instance;
 	
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         // Update the animation system if necessary
         Animator animator = Player.GetComponent<Animator> ();
         if(animator != null)
-			animator.SetBool ("Respawn", true);
+			animator.SetBool ("Respawn", true); // TODO: HASH?
 
 		// Make sure the camera is looking at the player
 		CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling>();
@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
 		}
 		if(!checkpointFound)
 		{
-			Debug.LogWarning("Saved checkpoint not found!");
+			//Debug.LogWarning("Saved checkpoint not found!");
 			LastCheckPoint = _currentLevel.StartPoint;
 		}
 
@@ -362,15 +362,43 @@ public class GameManager : MonoBehaviour
 				newItem.GetComponent<Item>().WasPlaced = itemState.WasPlaced;
 
 			} else if(itemState.ItemType == Item.ItemType.Item_ComputerParts) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("ComputerParts"), itemState.Position, itemState.Rotation);
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/ComputerParts"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 
 			} else if(itemState.ItemType == Item.ItemType.Item_Engine) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("Engine"), itemState.Position, itemState.Rotation);
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Engine"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 
 			} else if(itemState.ItemType == Item.ItemType.Item_Propellant) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("Propellant"), itemState.Position, itemState.Rotation);
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Propellant"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+			
+			} else if(itemState.ItemType == Item.ItemType.Item_Binding) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Binding"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_GunParts) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/GunParts"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_HiggsDrive) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/HiggsDrive"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Isolator) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Isolator"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Magnet) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Magnet"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Transmitter) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Transmitter"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Visualizer) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Visualizer"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 
 			}
@@ -407,7 +435,6 @@ public class GameManager : MonoBehaviour
 
         level.Save(path);
 	}
-
 
 	public static GameManager Instance
 	{

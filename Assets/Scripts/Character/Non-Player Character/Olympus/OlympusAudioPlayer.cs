@@ -7,11 +7,11 @@ using System.Collections;
 [AddComponentMenu("Audio/Olympus Audio Player")]
 public class OlympusAudioPlayer : AudioPlayer
 {
-	public AudioClip Noticing;
-	public AudioClip Searching;
-	public AudioClip Attacking;
-	public AudioClip FinishedSearching;
-	public AudioClip Chasing;
-	public AudioClip Landing;
-	public AudioClip Jumping;
+    public AudioClip Noticing;
+    public AudioClip Searching;
+    public AudioClip Attacking;
+    public AudioClip FinishedSearching;
+    public AudioClip Chasing;
+    public AudioClip Landing;
+    public AudioClip Jumping;
 }

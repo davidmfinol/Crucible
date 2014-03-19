@@ -14,7 +14,15 @@ public class Item : MonoBehaviour
 		Item_ComputerParts,
 		Item_Engine,
 		Item_Fuel,
-		Item_Propellant
+		Item_Propellant,
+		Item_Binding,
+		Item_GunParts,
+		Item_HiggsDrive,
+		Item_Isolator,
+		Item_Magnet,
+		Item_Transmitter,
+		Item_Visualizer
+
 	};
 
 
