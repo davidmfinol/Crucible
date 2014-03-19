@@ -972,7 +972,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_sound.Play(_sound.Running[runIndex]);
 	}
 
-	public void PlayLand() //where dreams come true
+	public override void PlayLand() //where dreams come true
 	{
 		_sound.Play(_sound.Landing);
 	}

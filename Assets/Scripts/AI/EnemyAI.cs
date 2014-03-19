@@ -239,7 +239,7 @@ public class EnemyAI : MonoBehaviour
         bool isStunned = _animator.CurrentState.IsName ("Base Layer.Stun"); // FIXME: SLOW
         bool shouldAttack = IsPlayerInAttackRange && !isStunned && !_animator.IsDead (); //&& randomChance;
 		if(shouldAttack) {
-			bool isPlayerAbove = _playerAnimator.transform.position > transform.position + _animator.Height / 2.0f;
+			bool isPlayerAbove = _playerAnimator.transform.position.y > transform.position.y + _animator.Height / 2.0f;
 			_animator.CharInput.Attack = isPlayerAbove ? -1 : 1;
 
 		}

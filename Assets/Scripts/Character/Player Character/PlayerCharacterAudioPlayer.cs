@@ -7,6 +7,7 @@ using System.Collections;
 [AddComponentMenu ("Audio/PlayerCharacter Audio")]
 public class PlayerCharacterAudioPlayer : AudioPlayer
 {
+	public AudioClip Attack;
     public AudioClip Hit;
     public AudioClip Jump;
     public AudioClip Craft;

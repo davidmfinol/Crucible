@@ -165,7 +165,7 @@ public class OlympusAnimator : CharacterAnimator
 
 	}
 	
-	protected void Punch (float elapsedTime)
+	protected void PunchUp (float elapsedTime)
 	{
 		// find where to place the attack event
 		Vector3 meleePos = transform.position;
