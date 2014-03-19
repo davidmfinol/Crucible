@@ -26,7 +26,8 @@ public class EnemyAI : MonoBehaviour
     private Path _path = null; // how it plans to get there
     private int _currentPathWaypoint = 0; // where it is on that path
     private bool _isSearchingForPath = false; // Is the enemy currently looking for a path?
-    private float _timeSinceRepath = 0; // how long has it been since it found a path
+	private float _timeSinceRepath = 0; // how long has it been since it found a path
+	private bool _hasTouchedNextNode = false; // keep track of whether we've already reached the node we're going to 
 
 	
 	public enum AwarenessLevel : int
@@ -286,6 +287,7 @@ public class EnemyAI : MonoBehaviour
 		{
 			_path = p;
 			_currentPathWaypoint = _path.vectorPath.Count - _path.path.Count; // If the first point on the vectorpath is not a node, we account for that
+			_hasTouchedNextNode = false;
 		}
         else
             Debug.LogWarning("Pathfinding errored!: " + p.errorLog);
@@ -322,11 +324,15 @@ public class EnemyAI : MonoBehaviour
 
 		// Move on if we reached our waypoint
 		bool isTouchingNextNode = _animator.Controller.bounds.Contains (_path.vectorPath[_currentPathWaypoint]);
+		_hasTouchedNextNode = _hasTouchedNextNode || isTouchingNextNode;
 		bool isWaypointLongerThanPath = (_currentPathWaypoint >= _path.path.Count);
 		bool isNodeTouchingGround = isWaypointLongerThanPath ? true : ((ZoneNode)_path.path [_currentPathWaypoint]).isGround;
 		bool isCharacterTouchingGround = _animator.IsGrounded;
-		if ( isTouchingNextNode && !isFinalNode && (!isNodeTouchingGround || isCharacterTouchingGround) )
+		if ( !isFinalNode && (isTouchingNextNode || _hasTouchedNextNode) && (!isNodeTouchingGround || isCharacterTouchingGround) )
+		{
     		_currentPathWaypoint++;
+			_hasTouchedNextNode = false;
+		}
 
 		// Return whether we're still on the current path
 		return _currentPathWaypoint < _path.vectorPath.Count;
@@ -413,7 +419,7 @@ public class EnemyAI : MonoBehaviour
         bool isClimbing = _animator.CurrentState.IsName("Climbing.ClimbingLadder") || _animator.CurrentState.IsName("Climbing.ClimbingPipe");// FIXME: SLOW
         bool isTurningAround = _animator.CurrentState.IsName("Base Layer.Turn Around"); //FIXME: SLOW
 		bool isNodeAbove = targetPos.y - _animator.transform.position.y > 0;
-        bool isNodeOnOtherPlatform = false;
+        bool isNodeOnOtherPlatform = false; //TODO: BETTER DETERMINATION
         if(prevNode != null && nextNode != null)
             isNodeOnOtherPlatform = prevNode.GO != nextNode.GO;
         bool canFall = GameManager.AI.Graph.CanFall(transform.position, targetPos);

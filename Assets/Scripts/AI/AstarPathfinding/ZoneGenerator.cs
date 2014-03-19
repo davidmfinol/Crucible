@@ -10,6 +10,19 @@ using Pathfinding.Serialization.JsonFx;
 [JsonOptIn]
 public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 {
+	public enum ZoneGraphConnectionType : uint
+	{
+		Invalid = 0, // DON'T CONNECT THE TWO NODES TOGETHER
+		SameGround = 1, // These two nodes are along the same piece of ground, so no vertical motion required
+		MustJumpGround = 2, // The character HAS to jump to reach the second ground point
+		FallToGround = 3, // The character can fall to reach the second ground point
+		SameWall = 4, // These two nodes are from the same wall 
+		WallToWall = 5, // The character should be able to jump from wall A to wall B
+		GroundToWall = 6, // The character should to get onto the wall
+		WallToGround = 7, // The character should be able to reach the ground node at B from the wall node at A
+		Climbable = 8 // Refers to the fact that at least one of the nodes is a climbable object
+	}
+
 
     [JsonMember]
     // Game Objects tagged with this tag will be considered nodes on the ZoneGraph
@@ -103,7 +116,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             // If the waypoint is on the ground, use the points above it
             if ((CollisionMask.value & 1 << waypointGO.layer) != 0)
             {
-                List<Vector3> waypoints = GetWaypointsAbove(waypointGO);
+                List<Vector3> waypoints = GetGameObjectWaypoints(waypointGO, 2);
 
                 for(int i = 0; i < waypoints.Count; i++)
                 {
@@ -125,29 +138,46 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
                     waypointNodes.Add(newNode);
                 }
-
-                // Walls have a special case in that they also have extra waypoints to the sides
-                if(waypointGO.name.ToLower().Contains("wall"))
-                {
-                    // TODO
-                }
             }
 
-            // If it's not on the ground, just subdivide it and use those points 
             else
             {
-                List<Vector3> waypoints = SubdivideWaypoint(waypointGO);
-                
-                for(int i = 0; i < waypoints.Count; i++)
-                {
-                    Vector3 waypoint = waypoints[i];
-                    ZoneNode newNode = new ZoneNode(AstarPath.active);
-                    newNode.position = (Int3)waypoint;
-                    newNode.Walkable = !Physics.CheckSphere(waypoint, 0.0001f, CollisionMask.value) && CanFit(waypoint);
-                    newNode.GO = waypointGO;
-                    newNode.isGround = false;
-                    waypointNodes.Add(newNode);
-                }
+				
+				// Walls have extra waypoints to the sides
+				if(waypointGO.GetComponent<GrabbableObject>() != null)
+				{
+					List<Vector3> waypoints = GetGameObjectWaypoints(waypointGO, 1);
+					waypoints.AddRange(GetGameObjectWaypoints(waypointGO, 3));
+					for(int i = 0; i < waypoints.Count; i++)
+					{
+						Vector3 waypoint = waypoints[i];
+						ZoneNode newNode = new ZoneNode(AstarPath.active);
+						newNode.position = (Int3)waypoint;
+						newNode.Walkable = !Physics.CheckSphere(waypoint, 0.0001f, CollisionMask.value) && CanFit(waypoint);
+						newNode.GO = waypointGO;
+						newNode.isWall = true;
+						waypointNodes.Add(newNode);
+					}
+				}
+
+				// If it's a climbable object, just subdivide it and use those points 
+				else if(waypointGO.GetComponent<ClimbableObject>() != null)
+				{
+					List<Vector3> waypoints = GetGameObjectWaypoints(waypointGO, 4);
+	                for(int i = 0; i < waypoints.Count; i++)
+					{
+	                    Vector3 waypoint = waypoints[i];
+	                    ZoneNode newNode = new ZoneNode(AstarPath.active);
+	                    newNode.position = (Int3)waypoint;
+	                    newNode.Walkable = !Physics.CheckSphere(waypoint, 0.0001f, CollisionMask.value) && CanFit(waypoint);
+	                    newNode.GO = waypointGO;
+						newNode.isClimbable = true;
+	                    waypointNodes.Add(newNode);
+	                }
+				}
+
+				else
+					Debug.Log("Astar node generation found a gameobject that it doesn't know how to use!");
             }
         }
 
@@ -187,14 +217,15 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         }
     }
 
-    /// <summary>
-    /// Gets the waypoints above the game object.
-    /// </summary>
-    /// <returns>The waypoints above the gameobject.</returns>
-    /// <param name="waypointGO">The waypoint gameobject.</param>
-    public List<Vector3> GetWaypointsAbove(GameObject waypointGO)
+	/// <summary>
+	/// Creates a list of way points a long a side of the object that we define
+	/// </summary>
+	/// <returns>The list of waypoints.</returns>
+	/// <param name="waypointGO">GameObject to get waypoints from.</param>
+	/// <param name="direction">Direction: 1 = left, 2 = above, 3 = right, 4 = subdivide.</param>
+    public List<Vector3> GetGameObjectWaypoints(GameObject waypointGO, int direction)
     {
-        List<Vector3> aboveWaypoints = new List<Vector3>();
+        List<Vector3> waypoints = new List<Vector3>();
 
         // Deal with rotation
         Quaternion storedRotation = waypointGO.transform.localRotation;
@@ -216,7 +247,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         float z = waypointBounds.center.z;
         float left = waypointBounds.center.x - waypointBounds.extents.x;
         float right = waypointBounds.center.x + waypointBounds.extents.x;
-        float top = waypointBounds.center.y + waypointBounds.extents.y;
+		float top = waypointBounds.center.y + waypointBounds.extents.y;
+		float bottom = waypointBounds.center.y - waypointBounds.extents.y;
 
         // Helpers for rotation
         Vector3 rotationPoint = waypointBounds.center;
@@ -225,80 +257,58 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             rotationAngle = RotatePointAroundPivot(storedRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
 
         // Actually get the list of all the waypoints
-		for(float x = left; x < right; x += WaypointSubdivisionSize)
-        {
-            Vector3 abovePoint = new Vector3(x, top + 1, z);
-            abovePoint = RotatePointAroundPivot(abovePoint, rotationPoint, rotationAngle);
-            aboveWaypoints.Add(abovePoint + boxOffset);
-        }
-        Vector3 topRight = new Vector3(right, top + 1, z);
-        topRight = RotatePointAroundPivot(topRight, rotationPoint, rotationAngle);
-        aboveWaypoints.Add(topRight + boxOffset);
+		switch (direction)
+		{
+		case 1:
+			for(float y = bottom; y < top; y += WaypointSubdivisionSize)
+			{
+				Vector3 leftPoint = new Vector3(left, y, z);
+				leftPoint = RotatePointAroundPivot(leftPoint, rotationPoint, rotationAngle);
+				waypoints.Add(leftPoint + boxOffset);
+			}
+			Vector3 topLeft = new Vector3(left, top, z);
+			topLeft = RotatePointAroundPivot(topLeft, rotationPoint, rotationAngle);
+			waypoints.Add(topLeft + boxOffset);
+			break;
+		case 2 :
+			for(float x = left; x < right; x += WaypointSubdivisionSize)
+	        {
+	            Vector3 abovePoint = new Vector3(x, top + 1, z);
+	            abovePoint = RotatePointAroundPivot(abovePoint, rotationPoint, rotationAngle);
+	            waypoints.Add(abovePoint + boxOffset);
+	        }
+	        Vector3 topRightOff = new Vector3(right, top + 1, z);
+			topRightOff = RotatePointAroundPivot(topRightOff, rotationPoint, rotationAngle);
+			waypoints.Add(topRightOff + boxOffset);
+			break;
+		case 3 :
+			for(float y = bottom; y < top; y += WaypointSubdivisionSize)
+			{
+				Vector3 rightPoint = new Vector3(right, y, z);
+				rightPoint = RotatePointAroundPivot(rightPoint, rotationPoint, rotationAngle);
+				waypoints.Add(rightPoint + boxOffset);
+			}
+			Vector3 topRight = new Vector3(right, top, z);
+			topRight = RotatePointAroundPivot(topRight, rotationPoint, rotationAngle);
+			waypoints.Add(topRight + boxOffset);
+			break;
+		case 4:
+			for (float x = left; x < right; x += WaypointSubdivisionSize)
+			{
+				for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
+					waypoints.Add(RotatePointAroundPivot(new Vector3(x, y, z), rotationPoint, rotationAngle) + boxOffset);
+				waypoints.Add(RotatePointAroundPivot(new Vector3(x, bottom, z), rotationPoint, rotationAngle) + boxOffset);
+			}
+			for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
+				waypoints.Add(RotatePointAroundPivot(new Vector3(right, y, z), rotationPoint, rotationAngle) + boxOffset);
+			waypoints.Add(RotatePointAroundPivot(new Vector3(right, bottom, z), rotationPoint, rotationAngle) + boxOffset);
+			break;
+		}
 
         //Restore rotation
         waypointGO.transform.localRotation = storedRotation;
 		
-		return aboveWaypoints;
-    }
-
-    /// <summary>
-    /// Subdivides the waypoint gameobject into a bunch of smaller waypoints.
-    /// </summary>
-    /// <returns>A list of all the waypoints in that gameobject.</returns>
-    /// <param name="waypointGO">Waypoint Gameobject to be subdivided.</param>
-    public List<Vector3> SubdivideWaypoint(GameObject waypointGO)
-    {
-        List<Vector3> subdividedWaypoints = new List<Vector3>();
-        
-        // Deal with rotation
-        Quaternion storedRotation = waypointGO.transform.localRotation;
-        waypointGO.transform.localRotation = Quaternion.identity;
-
-        // Get the way point and its bounds
-        Vector3 waypoint = waypointGO.transform.position;
-        Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
-        if (waypointGO.collider != null)
-            waypointBounds = waypointGO.collider.bounds;
-
-        // At the very least, use the center point, and stop if we can't get others
-        subdividedWaypoints.Add(waypointBounds.center);
-        if (waypointBounds.size == Vector3.zero)
-            return subdividedWaypoints;
-        
-        // We also find a Boxcollider if we can to subtract out it's world space
-        BoxCollider waypointBox = waypointGO.GetComponent<BoxCollider>();
-        Vector3 boxOffset = Vector3.zero;
-        if(waypointBox != null && storedRotation != Quaternion.identity && !waypointGO.name.ToLower().Contains("diagonal"))
-            boxOffset = waypointBox.center;
-
-        // Find the extents of the bounds
-        float z = waypointBounds.center.z;
-        float left = waypointBounds.center.x - waypointBounds.extents.x;
-        float right = waypointBounds.center.x + waypointBounds.extents.x;
-        float top = waypointBounds.center.y + waypointBounds.extents.y;
-        float bottom = waypointBounds.center.y - waypointBounds.extents.y;
-        
-        // Helpers for rotation
-        Vector3 rotationPoint = waypointBounds.center;
-        Vector3 rotationAngle = Vector3.zero;
-        if(waypointGO.transform.parent != null)
-            rotationAngle = RotatePointAroundPivot(storedRotation.eulerAngles, waypointGO.transform.parent.position, waypointGO.transform.parent.rotation.eulerAngles);
-        
-        // Actually get the list of all the waypoints
-        for (float x = left; x < right; x += WaypointSubdivisionSize)
-        {
-            for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
-                subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(x, y, z), rotationPoint, rotationAngle) + boxOffset);
-            subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(x, bottom, z), rotationPoint, rotationAngle) + boxOffset);
-        }
-        for (float y = top; y > bottom; y -= WaypointSubdivisionSize)
-            subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(right, y, z), rotationPoint, rotationAngle) + boxOffset);
-        subdividedWaypoints.Add(RotatePointAroundPivot(new Vector3(right, bottom, z), rotationPoint, rotationAngle) + boxOffset);
-        
-        //Restore rotation
-        waypointGO.transform.localRotation = storedRotation;
-        
-        return subdividedWaypoints;
+		return waypoints;
     }
 
     /// <summary>
@@ -325,47 +335,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // To avoid too many allocations, these lists are reused for each node
         List<ZoneNode> connections = new List<ZoneNode>(3);
         List<uint> costs = new List<uint>(3);
-
-        // Get the transition zones ready
-        foreach (KeyValuePair< Bounds, List<ZoneNode> > transitionZoneWaypointsPair in _transitionZonesWithWaypoints)
-        {
-            foreach (ZoneNode node in transitionZoneWaypointsPair.Value)
-            {
-                connections.Clear();
-                costs.Clear();
-
-                foreach (KeyValuePair< Bounds, List<ZoneNode> > zoneWaypointsPair in _zonesWithWaypoints)
-                {
-                    if (!zoneWaypointsPair.Key.Intersects(transitionZoneWaypointsPair.Key)) continue;
-
-                    foreach (ZoneNode other in zoneWaypointsPair.Value)
-                    {
-                        if (!transitionZoneWaypointsPair.Key.Contains((Vector3)other.position)) continue;
-
-                        float dist = 0;
-                        if (IsValidConnection(node, other, out dist))
-                        {
-                            connections.Add(other);
-                            costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
-                        }
-                    }
-                }
-                foreach (ZoneNode other in transitionZoneWaypointsPair.Value)
-                {
-                    if (node == other) continue;
-
-                    float dist = 0;
-                    if (IsValidConnection(node, other, out dist))
-                    {
-                        connections.Add(other);
-                        costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
-                    }
-                }
-
-                node.connections = connections.ToArray();
-                node.connectionCosts = costs.ToArray();
-            }
-        }
+		List<uint> tags = new List<uint> (3);
 
         // Build the graph based for each zone, using the transitionZoneWaypoints to link them together
         foreach (KeyValuePair< Bounds, List<ZoneNode> > zoneWaypointsPair in _zonesWithWaypoints)
@@ -374,37 +344,22 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             {
                 connections.Clear();
                 costs.Clear();
-
-                if(node.connections != null)
-                {
-                    connections = new List<ZoneNode>(node.connections.Length);
-                    foreach(ZoneNode connectedNode in node.connections)
-                        connections.Add(connectedNode);
-                }
-                else
-                    connections = new List<ZoneNode>(3);
-
-
-                if(node.connectionCosts != null)
-                {
-                    costs = new List<uint>(node.connectionCosts.Length);
-                    foreach(uint val in node.connectionCosts)
-                        costs.Add(val);
-                }
-                else
-                    costs = new List<uint>(3);
+				tags.Clear();
 
                 foreach (ZoneNode other in zoneWaypointsPair.Value)
                 {
                     if (node == other) continue;
 
-                    float dist = 0;
-                    if (IsValidConnection(node, other, out dist))
+					float dist = 0;
+					ZoneGraphConnectionType connectionType = GetConnectionType(node, other, out dist);
+					if (connectionType != ZoneGraphConnectionType.Invalid)
                     {
                         connections.Add(other);
                         costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
+						tags.Add((uint)connectionType);
                     }
                 }
+				// Stitch the zones together if there is a transitionZone that indicates we should do so
                 foreach (KeyValuePair< Bounds, List<ZoneNode> > transitionZoneWaypointsPair in _transitionZonesWithWaypoints)
                 {
                     if (!zoneWaypointsPair.Key.Intersects(transitionZoneWaypointsPair.Key)) continue;
@@ -413,17 +368,20 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                     {
                         if (!zoneWaypointsPair.Key.Contains((Vector3)other.position)) continue;
 
-                        float dist = 0;
-                        if (IsValidConnection(node, other, out dist))
+						float dist = 0;
+						ZoneGraphConnectionType connectionType = GetConnectionType(node, other, out dist);
+						if (connectionType != ZoneGraphConnectionType.Invalid)
                         {
                             connections.Add(other);
-                            costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
+							costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
+							tags.Add((uint)connectionType);
                         }
                     }
                 }
 
                 node.connections = connections.ToArray();
                 node.connectionCosts = costs.ToArray();
+				node.connectionTags = tags.ToArray();
             }
         }
     }
@@ -435,13 +393,13 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 	/// <param name="B">The second node.</param>
 	/// <param name="dist">The distance between the two nodes.</param>
 	/// <returns>Whether or not the connection between the nodes is valid.</returns>
-    public bool IsValidConnection(ZoneNode A, ZoneNode B, out float dist)
+    public ZoneGraphConnectionType GetConnectionType(ZoneNode A, ZoneNode B, out float dist)
     {
         dist = 0;
 
         // First check that both nodes are walkable
         if (!A.Walkable || !B.Walkable)
-            return false;
+			return ZoneGraphConnectionType.Invalid;
 
         // We'll be using these positions a lot, so cache them
         Vector3 posA = (Vector3)A.position;
@@ -449,7 +407,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 		
         // Then check that the character is capable of jumping from the first node to the second
         if(!CanJump(posA, posB))
-			return false;
+			return ZoneGraphConnectionType.Invalid;
 
         // Then do a basic check to see if there's any ground objects in the way
         Vector3 dir = posB - posA;
@@ -460,30 +418,43 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         
         bool obstructedByGround = Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
         if(obstructedByGround)
-            return false;
+			return ZoneGraphConnectionType.Invalid;
 
         // Let's avoid ridiculous situations where we have to jump in a circle to make the jump.
         if((B.isLeftLedge || B.isRightLedge) && Mathf.Abs(posB.x - posA.x) < _olympusAnimator.Radius)
-            return false;
+			return ZoneGraphConnectionType.Invalid;
 
-        // If the waypoint are on two different platforms, make sure we are either capable of jumping over or falling over
-        if(A.GO != B.GO && (!CanFall(posA, posB) || !FallClear(posA, posB)) && !JumpClear(posA, posB))
-            return false;
+		// Find out some values we'll be using
+		bool canFall = CanFall(posA, posB) && FallClear(posA, posB);
+		bool canJump = JumpClear (posA, posB);
+		bool samePlatForm = (A.GO == B.GO) || A.GO.collider.bounds.Intersects(B.GO.collider.bounds);
+		
+		// If the waypoint are on two different platforms, make sure we are either capable of jumping over or falling over
+		if(!samePlatForm && !canFall && !canJump)
+			return ZoneGraphConnectionType.Invalid;
 
-        // Finally, check to see if there already is a path
-        if (A.GO != null && B.GO != null)
-        {
-            RaycastHit[] hits = Physics.RaycastAll(ray, dist);
-            foreach (RaycastHit hit in hits)
-            {
-                // If there's already a path, return false
-                if(hit.collider.CompareTag(WaypointTag) && hit.collider.gameObject != A.GO && hit.collider.gameObject != B.GO)
-                    return false;
-            }
-        }
+		if((A.isGround && B.isGround) && samePlatForm)
+			return ZoneGraphConnectionType.SameGround;
+		
+		if((A.isGround && B.isGround) && canJump && !canFall)
+			return ZoneGraphConnectionType.MustJumpGround;
 
-        // If we pass all the checks, return true
-        return true;
+		if((A.isGround && B.isGround) && canFall)
+			return ZoneGraphConnectionType.FallToGround;
+
+		if((A.isWall && B.isWall) && samePlatForm)
+			return ZoneGraphConnectionType.SameWall;
+		
+		if((A.isGround && B.isWall))
+			return ZoneGraphConnectionType.GroundToWall;
+		
+		if((A.isWall && B.isGround))
+			return ZoneGraphConnectionType.WallToGround;
+
+		if((A.isClimbable || B.isClimbable))
+			return ZoneGraphConnectionType.Climbable;
+
+		return ZoneGraphConnectionType.Invalid;
     }
 
     /// <summary>
@@ -673,7 +644,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     }
 	
     /// <summary>
-    /// Used to draw the graph for debugging purposes.
+    /// Used to draw the graph connections for debugging purposes.
     /// </summary>
 	public override void OnDrawGizmos (bool drawNodes)
 	{

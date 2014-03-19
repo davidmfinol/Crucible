@@ -248,7 +248,7 @@ yield return StartCoroutine (p.WaitForPath ());
 			unchecked { return node.Walkable && (enabledTags >> (int)node.Tag & 0x1) != 0; }
 		}
 		
-		public uint GetTraversalCost (GraphNode node) {
+		public virtual uint GetTraversalCost (GraphNode node) {
 			unchecked { return GetTagPenalty ((int)node.Tag ) + node.Penalty; }
 		}
 		

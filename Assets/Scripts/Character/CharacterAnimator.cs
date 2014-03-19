@@ -543,7 +543,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 		Transform footstep = (Transform)Instantiate(Settings.FootStepNoise, footStepPosition, Quaternion.identity);
 		footstep.GetComponent<FootstepAudioPlayer>().PlayRandomFootstep();
 	}
-	public void PlayLand()
+	public virtual void PlayLand()
 	{
 		Vector3 landingPosition = transform.position;
 		landingPosition.y -= Height / 2.0f;
