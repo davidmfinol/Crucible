@@ -799,6 +799,21 @@ ModelImporter:
     101586: pCube9
     101588: Ledge215
     101590: pCube11
+    101592: pCube12
+    101594: pCube13
+    101596: pCube14
+    101598: pCube15
+    101600: pCube16
+    101602: pCube17
+    101604: pCube18
+    101606: pCube19
+    101608: polySurface201
+    101610: polySurface202
+    101612: polySurface203
+    101614: polySurface204
+    101616: polySurface205
+    101618: polySurface206
+    101620: transform94
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -1595,6 +1610,21 @@ ModelImporter:
     401586: pCube9
     401588: Ledge215
     401590: pCube11
+    401592: pCube12
+    401594: pCube13
+    401596: pCube14
+    401598: pCube15
+    401600: pCube16
+    401602: pCube17
+    401604: pCube18
+    401606: pCube19
+    401608: polySurface201
+    401610: polySurface202
+    401612: polySurface203
+    401614: polySurface204
+    401616: polySurface205
+    401618: polySurface206
+    401620: transform94
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -2267,6 +2297,19 @@ ModelImporter:
     2301338: pCube9
     2301340: Ledge215
     2301342: pCube11
+    2301344: pCube12
+    2301346: pCube13
+    2301348: pCube14
+    2301350: pCube15
+    2301352: pCube17
+    2301354: pCube18
+    2301356: pCube19
+    2301358: polySurface201
+    2301360: polySurface202
+    2301362: polySurface203
+    2301364: polySurface204
+    2301366: polySurface205
+    2301368: polySurface206
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -2939,6 +2982,19 @@ ModelImporter:
     3301338: pCube9
     3301340: Ledge215
     3301342: pCube11
+    3301344: pCube12
+    3301346: pCube13
+    3301348: pCube14
+    3301350: pCube15
+    3301352: pCube17
+    3301354: pCube18
+    3301356: pCube19
+    3301358: polySurface201
+    3301360: polySurface202
+    3301362: polySurface203
+    3301364: polySurface204
+    3301366: polySurface205
+    3301368: polySurface206
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -3610,6 +3666,19 @@ ModelImporter:
     4301336: pCube10
     4301338: pCube11
     4301340: Ledge215
+    4301342: pCube12
+    4301344: pCube13
+    4301346: pCube14
+    4301348: pCube15
+    4301350: polySurface201
+    4301352: polySurface202
+    4301354: polySurface203
+    4301356: polySurface204
+    4301358: polySurface205
+    4301360: polySurface206
+    4301362: pCube17
+    4301364: pCube18
+    4301366: pCube19
     7400000: Take 001
     9500000: //RootNode
   materials:

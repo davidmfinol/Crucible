@@ -11,6 +11,9 @@ using Pathfinding;
 [AddComponentMenu("AI/Enemy AI")]
 public class EnemyAI : MonoBehaviour
 {
+	// used to override
+	public bool ShouldWander;
+
     // Generic enemy AI components
     private CharacterAnimator _animator;
     private EnemyAISettings _settings;
@@ -125,6 +128,11 @@ public class EnemyAI : MonoBehaviour
     // Have the enemy wander around the map
     private void Wander ()
     {
+		// wander overridden for scripting purposes?
+		if (!ShouldWander)
+			return;
+
+
         if (_animator is BabyBotAnimator) // TODO: MOVE THIS TO A SUBCLASS?
             return;
 

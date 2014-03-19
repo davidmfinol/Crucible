@@ -34,7 +34,7 @@ public sealed class CharacterInput : MonoBehaviour
     private bool _attackLeftLast = false;
     private bool _attackRightLast = false;
     private bool _pickupLast = false;
-
+	private bool _forceJump = false;
 
     // Keep track of XPressed and XReleased properties
     void FixedUpdate ()
@@ -161,11 +161,17 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool JumpActive {
-        get { return Jump.y >= 0.1; }
+		get { return Jump.y >= 0.1; }
     }
 
+	public bool ForceJump {
+		get { return _forceJump; }
+		set { _forceJump = value; }
+	
+	}
+
     public bool JumpPressed {
-        get { return !_jumpLast && JumpActive; }
+		get { return (_forceJump || !_jumpLast) && JumpActive; }
     }
 
     public bool JumpReleased {
@@ -239,4 +245,5 @@ public sealed class CharacterInput : MonoBehaviour
     public bool PickupReleased {
         get { return _pickupLast && !Pickup; }
     }
+
 }

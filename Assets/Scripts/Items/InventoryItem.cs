@@ -163,8 +163,19 @@ public static class InventoryItemFactory {
 
 		}
 
-//		if(sResult == "CPENPR") {
-		if(sResult == "CP") {
+		// gun parts + higgs drive + isolator = gravity gun
+		if(sResult == "GPHDIS") {
+			CraftResult res = new CraftResult();
+			res.IsWeapon = true;
+			res.WeaponType = WeaponType.Weapon_GravityGun;
+			res.WeaponQty = 5;
+			res.WeaponName = "Gravity Gun";
+			res.WeaponDescr = "Stun enemies with antigravity blasts.";
+			res.WeaponTexture = "GravityGunIcon";
+			return res;
+
+		// anything else builds a mine, except for the parts for the gravity gun.
+		} else if((sResult != "") && (!sResult.Contains("GP")) && (!sResult.Contains("HD")) && (!sResult.Contains("IS"))) {
 			CraftResult res = new CraftResult();
 			res.IsWeapon = true;
 			res.WeaponType = WeaponType.Weapon_MINE;
@@ -172,7 +183,6 @@ public static class InventoryItemFactory {
 			res.WeaponName = "M.I.N.E.";
 			res.WeaponDescr = "Massive Interconnected Network of Explosives.";
 			res.WeaponTexture = "MINEIcon";
-
 			return res;
 
 		} else {
