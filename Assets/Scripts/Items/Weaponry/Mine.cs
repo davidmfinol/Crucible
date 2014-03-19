@@ -82,6 +82,10 @@ public class Mine : Weapon
 				Instantiate(explosion1, obj.transform.position, Quaternion.identity);
 				// TODO: SET UP HITBOX
 				Instantiate(explosion2, obj.transform.position, Quaternion.identity);		
+
+				// spawn the sound event.
+				Instantiate (GameManager.Player.Settings.MineSoundEventPrefab, obj.transform.position, Quaternion.identity);
+
 				Destroy((GameObject) obj);
 				
 			}

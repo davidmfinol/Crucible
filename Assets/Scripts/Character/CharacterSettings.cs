@@ -58,6 +58,8 @@ public sealed class CharacterSettings : MonoBehaviour
 
     // how much friction is applied to the character as it slides across the ground on death
     public float DeathFriction;  // = 12.0f;
+
+	public GameObject MineSoundEventPrefab;  // get the mine sound event.
     
 
     // Helper Method to find a bone attached to a character
