@@ -977,6 +977,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		_sound.Play(_sound.Landing);
 	}
 
+	public void PlayAttack()
+	{
+		_sound.Play(_sound.Attack);
+	}
+
 	public bool CanStealthKill(out OlympusAnimator animRet)
 	{
 		animRet = null;

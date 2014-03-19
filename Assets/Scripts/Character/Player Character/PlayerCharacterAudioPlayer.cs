@@ -16,6 +16,7 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
 	public AudioClip[] Running;
 	public AudioClip Flip;
 	public AudioClip Landing;
+	public AudioClip Attack;
 
 	private int _currentAudio;
 	private AudioSource[] _audios;
@@ -31,7 +32,7 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
 		// Play a random running sound
 		_audios[_currentAudio].clip = audio;
 		_audios[_currentAudio].Play();
-		
+
 		_currentAudio++;
 		_currentAudio = _currentAudio % 2;
 	}
