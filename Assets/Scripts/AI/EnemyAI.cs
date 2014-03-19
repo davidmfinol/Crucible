@@ -221,6 +221,10 @@ public class EnemyAI : MonoBehaviour
         _animator.CharInput.Attack = shouldAttack ? 1 : 0;
 
         // TODO: VERTICAL ATTACK
+
+		// Stop moving while the player is knocked back
+		if(_playerAnimator.CurrentState.IsName("Base Layer.Damaged")) // FIXME: SLOW
+			_animator.CharInput.Horizontal = 0;
     }
 
     private void UpdateAStarTarget (Vector3 target)
@@ -279,8 +283,8 @@ public class EnemyAI : MonoBehaviour
             _path = p;
             _currentPathWaypoint = _path.vectorPath.Count - _path.path.Count; // If the first point on the vectorpath is not a node, we account for that
             _hasTouchedNextNode = false;
-        } else
-            Debug.LogWarning ("Pathfinding errored!: " + p.errorLog);
+        }// else
+           // Debug.LogWarning ("Pathfinding errored!: " + p.errorLog);
     }
 
     // Make sure that AI's interpretation of the AStar path is up to date and accurate

@@ -416,10 +416,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // We penalize required jumps
         if(!samePlatForm && !canFall && canJump)
             dist *= 2;
+        */
 
         if( ((B.Tag & (1 << 4)) != 0) || ((A.Tag & (1 << 4)) != 0) )
             return false;
-        */
 
         // If we pass all the tests, return true
         return true;
