@@ -84,15 +84,50 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Binding";
 			newItem.Caption = "Binds two craftable items together.";
-			newItem.TexturePath = "PropellantIcon";
+			newItem.TexturePath = "BindingIcon";
 			newItem.CraftingCode = "BN";
 
-		} else if(t == Item.ItemType.Item_Binding) {
+		} else if(t == Item.ItemType.Item_GunParts) {
 			newItem.MaxQuantity = 5;
-			newItem.Name = "Binding";
-			newItem.Caption = "Binds two craftable items together.";
-			newItem.TexturePath = "PropellantIcon";
-			newItem.CraftingCode = "BN";
+			newItem.Name = "Guns Parts";
+			newItem.Caption = "Used to build projectile weapons.";
+			newItem.TexturePath = "GunPartsIcon";
+			newItem.CraftingCode = "GP";
+
+		} else if(t == Item.ItemType.Item_HiggsDrive) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Higgs Drive";
+			newItem.Caption = "Powers anti-gravity devices.";
+			newItem.TexturePath = "HiggsDriveIcon";
+			newItem.CraftingCode = "HD";
+
+		} else if(t == Item.ItemType.Item_Isolator) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Isolator";
+			newItem.Caption = "Stores energy for energy-based devices.";
+			newItem.TexturePath = "IsolatorIcon";
+			newItem.CraftingCode = "IS";
+
+		} else if(t == Item.ItemType.Item_Magnet) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Magnet";
+			newItem.Caption = "Required to construct magnetic devices.";
+			newItem.TexturePath = "MagnetIcon";
+			newItem.CraftingCode = "MG";
+
+		} else if(t == Item.ItemType.Item_Transmitter) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Transmitter";
+			newItem.Caption = "Used to construct devices that operate remotely.";
+			newItem.TexturePath = "TransmitterIcon";
+			newItem.CraftingCode = "TR";
+
+		} else if(t == Item.ItemType.Item_Visualizer) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Visualizer";
+			newItem.Caption = "An imaging unit to build holographic devices.";
+			newItem.TexturePath = "VisualizerIcon";
+			newItem.CraftingCode = "VS";
 
 		} else {
 			Debug.Log ("ItemFactory: invalid item type " + t);

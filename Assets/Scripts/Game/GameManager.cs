@@ -362,15 +362,43 @@ public class GameManager : MonoBehaviour
 				newItem.GetComponent<Item>().WasPlaced = itemState.WasPlaced;
 
 			} else if(itemState.ItemType == Item.ItemType.Item_ComputerParts) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("ComputerParts"), itemState.Position, itemState.Rotation);
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/ComputerParts"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 
 			} else if(itemState.ItemType == Item.ItemType.Item_Engine) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("Engine"), itemState.Position, itemState.Rotation);
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Engine"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 
 			} else if(itemState.ItemType == Item.ItemType.Item_Propellant) {
-				newItem = (GameObject) Instantiate ( Resources.Load ("Propellant"), itemState.Position, itemState.Rotation);
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Propellant"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+			
+			} else if(itemState.ItemType == Item.ItemType.Item_Binding) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Binding"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_GunParts) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/GunParts"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_HiggsDrive) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/HiggsDrive"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Isolator) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Isolator"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Magnet) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Magnet"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Transmitter) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Transmitter"), itemState.Position, itemState.Rotation);
+				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
+
+			} else if(itemState.ItemType == Item.ItemType.Item_Visualizer) {
+				newItem = (GameObject) Instantiate ( Resources.Load ("Items/Visualizer"), itemState.Position, itemState.Rotation);
 				newItem.GetComponent<Item>().Quantity = itemState.Quantity;
 
 			}
