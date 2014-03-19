@@ -113,7 +113,7 @@ public class Mine : Weapon
 	}
 	
 	public override string Description {
-		get { return "An explosive weapon that can be placed with swiping and detonated by tapping."; }
+		get { return "An explosive weapon that can be placed by swiping and detonated by tapping."; }
 		
 	}
 

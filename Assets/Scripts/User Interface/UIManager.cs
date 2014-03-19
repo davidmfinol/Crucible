@@ -70,27 +70,27 @@ public class UIManager : MonoBehaviour
 		_weaponCountQuads = new GameObject[3];
 
 		Vector3 quadPos = _weaponWheelPos + Vector3.left * WeaponRadius;
-		quadPos.z = 9.0f;
+		quadPos.z = -4.0f;
 		_weaponQuads[0] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
 
 		quadPos = _weaponWheelPos + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponRadius;
-		quadPos.z = 9.0f;
+		quadPos.z = -4.0f;
 		_weaponQuads[1] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
 
 		quadPos = _weaponWheelPos + Vector3.down * WeaponRadius;
-		quadPos.z = 9.0f;
+		quadPos.z = -4.0f;
 		_weaponQuads[2] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
 
 		quadPos = _weaponWheelPos + Vector3.left * WeaponCountRadius;
-		quadPos.z = 9.0f;
+		quadPos.z = -4.0f;
 		_weaponCountQuads[0] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
 
 		quadPos = _weaponWheelPos + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponCountRadius;
-		quadPos.z = 9.0f;
+		quadPos.z = -4.0f;
 		_weaponCountQuads[1] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
 
 		quadPos = _weaponWheelPos + Vector3.down * WeaponCountRadius;
-		quadPos.z = 9.0f;
+		quadPos.z = -4.0f;
 		_weaponCountQuads[2] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
 
 
