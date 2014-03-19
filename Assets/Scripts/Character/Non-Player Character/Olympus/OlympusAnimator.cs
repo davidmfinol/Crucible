@@ -265,8 +265,8 @@ public class OlympusAnimator : CharacterAnimator
         MecanimAnimator.SetBool (_hangHash, 
                                 (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up));
-
-		if(CanGrabWall)
+		
+		if( CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)) )
 			MecanimAnimator.SetBool(_grabWallHash, true);
     }
     
@@ -287,7 +287,7 @@ public class OlympusAnimator : CharacterAnimator
         } else 
             MecanimAnimator.SetBool (_hangHash, false);
 
-		if(CanGrabWall)
+		if( CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)) )
 			MecanimAnimator.SetBool(_grabWallHash, true);
     }
     

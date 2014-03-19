@@ -132,7 +132,7 @@ public class EnemyAI : MonoBehaviour
             return;
 
         // Do nothing if the enemy is too far away from the player
-        if (Vector3.Distance (transform.position, GameManager.Player.transform.position) > Settings.MaxActiveDistance)
+		if (GameManager.Player != null && Vector3.Distance (transform.position, GameManager.Player.transform.position) > Settings.MaxActiveDistance)
             return;
 
         // We need to retarget either if we lose or reach our target
