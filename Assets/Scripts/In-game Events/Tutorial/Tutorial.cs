@@ -43,12 +43,8 @@ public class Tutorial : MonoBehaviour
 		if(GameManager.AI.Enemies.Count > 0)
 		{
 			bool tutorialComplete = GameManager.AI.Enemies[0].GetComponent<CharacterAnimator>().IsDead(); // FIXME: VERY SLOW
-			if(tutorialComplete)
-			{
-				NextLevel.gameObject.SetActive(tutorialComplete);
-				if(!GameManager.SaveData.TutorialComplete)
-					GameManager.SaveData.TutorialComplete = true;
-			}
+			NextLevel.gameObject.SetActive(tutorialComplete);
+			GameManager.SaveData.TutorialComplete = tutorialComplete;
 		}
 	}
 

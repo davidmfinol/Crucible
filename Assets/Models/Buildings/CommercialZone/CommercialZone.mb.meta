@@ -622,6 +622,7 @@ ModelImporter:
     101232: WallLedgeRightOnly5
     101234: WallLedgeRightOnly6
     101236: WaypointlessMesh
+    101238: pCube89
     400000: Box
     400002: Box1
     400004: Box2
@@ -1241,6 +1242,7 @@ ModelImporter:
     401232: WallLedgeRightOnly5
     401234: WallLedgeRightOnly6
     401236: WaypointlessMesh
+    401238: pCube89
     2300000: Box3
     2300002: Box4
     2300004: Box5
@@ -1672,6 +1674,7 @@ ModelImporter:
     2300856: WallLedgeRightOnly5
     2300858: WallLedgeRightOnly6
     2300860: WaypointlessMesh
+    2300862: pCube89
     3300000: Box3
     3300002: Box4
     3300004: Box5
@@ -2103,6 +2106,7 @@ ModelImporter:
     3300856: WallLedgeRightOnly5
     3300858: WallLedgeRightOnly6
     3300860: WaypointlessMesh
+    3300862: pCube89
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -2534,6 +2538,7 @@ ModelImporter:
     4300856: pCube86
     4300858: pCube87
     4300860: pCube88
+    4300862: pCube89
     7400000: Take 001
     9500000: //RootNode
   materials:

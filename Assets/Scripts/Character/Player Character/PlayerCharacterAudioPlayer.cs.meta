@@ -11,6 +11,7 @@ MonoImporter:
   - ItemPickup: {fileID: 8300000, guid: 8b45ec512c69c004a99863f035c37f1b, type: 3}
   - Flip: {fileID: 8300000, guid: 545b6012a2df0d7458bfd857d54e0ed9, type: 3}
   - Landing: {fileID: 8300000, guid: c92830c5627e43844ad9034ab0911e68, type: 3}
+  - Attack: {fileID: 8300000, guid: 216fc5a69c55f4846a2374ded1d20166, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

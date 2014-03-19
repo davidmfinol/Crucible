@@ -30,6 +30,7 @@ public class OlympusAnimator : CharacterAnimator
     private int _turnAroundHash;
     private int _xDirectionHash;
 	private int _grabWallHash;
+	private int _attackVerticalHash;
     
     // Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -82,6 +83,7 @@ public class OlympusAnimator : CharacterAnimator
         _turnAroundHash = Animator.StringToHash ("TurnAround");
 		_xDirectionHash = Animator.StringToHash ("XDirection");
 		_grabWallHash = Animator.StringToHash ("GrabWall");
+		_attackVerticalHash = Animator.StringToHash ("AttackVertical");
 
     }
     
@@ -111,7 +113,8 @@ public class OlympusAnimator : CharacterAnimator
         
         MecanimAnimator.SetBool (_isGroundedHash, IsGrounded);
         
-        MecanimAnimator.SetBool (_attackHorizontalHash, CharInput.AttackActive);
+		MecanimAnimator.SetBool (_attackHorizontalHash, CharInput.Attack > 0);
+		MecanimAnimator.SetBool (_attackVerticalHash, CharInput.Attack < 0);
 
         if (!IsGrounded)
             MecanimAnimator.SetBool (_acquiringTargetHash, false);
@@ -160,7 +163,28 @@ public class OlympusAnimator : CharacterAnimator
 
         d.MakeOlympusMelee (this.gameObject, horizontalDir);
 
-    }
+	}
+	
+	protected void PunchUp (float elapsedTime)
+	{
+		// find where to place the attack event
+		Vector3 meleePos = transform.position;
+		meleePos.y += Height / 2.0f;
+		
+		// attack in front of us
+		GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
+		HitBox d = o.GetComponent<HitBox> ();
+		
+		// which direction to player?
+		float horizontalDir = 0.0f;
+		if(GameManager.Player.transform.position.x < transform.position.x)
+			horizontalDir = -1.0f;
+		else
+			horizontalDir = 1.0f;
+		
+		d.MakeOlympusMelee (this.gameObject, horizontalDir);
+		
+	}
     
     protected virtual void Idle (float elapsedTime)
     {

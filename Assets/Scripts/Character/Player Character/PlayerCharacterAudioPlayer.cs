@@ -7,6 +7,7 @@ using System.Collections;
 [AddComponentMenu ("Audio/PlayerCharacter Audio")]
 public class PlayerCharacterAudioPlayer : AudioPlayer
 {
+	public AudioClip Attack;
     public AudioClip Hit;
     public AudioClip Jump;
     public AudioClip Craft;
@@ -25,7 +26,6 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
         _audios = GetComponents<AudioSource> ();
 
     }
-
     public override void Play (AudioClip audio)
     {
         // Play a random running sound
@@ -36,5 +36,6 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
         _currentAudio = _currentAudio % 2;
 
     }
+
 }
 
