@@ -8,7 +8,7 @@ using System.Collections;
 using Pathfinding;
 
 /// <summary>
-/// Unity Editor for a ZoneGraph
+/// Unity Editor for a ZoneGraph.
 /// </summary>
 [CustomGraphEditor (typeof(ZoneGraph), "Zone Graph")]
 public class ZoneGraphEditor : GraphEditor

@@ -18,6 +18,7 @@ public class AudioPlayer : MonoBehaviour
 		audio.clip = clip;
 		audio.loop = false;
 		audio.Play();
+
 	}
 
 	public void PlayLoop(AudioClip clip)
@@ -25,15 +26,18 @@ public class AudioPlayer : MonoBehaviour
 		audio.clip = clip;
 		audio.loop = true;
 		audio.Play();
+
 	}
 
 	public void DelayedStop()
 	{
 		audio.loop = false;
+
 	}
 
 	public void Stop()
 	{
 		audio.Stop();
+
 	}
 }

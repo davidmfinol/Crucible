@@ -8,6 +8,7 @@ using System.Collections;
 [System.Serializable]
 public struct Subtitle
 {
-	public string Text;
-	public float DisplayTime;
+    public string Text;
+    public float DisplayTime;
+
 }

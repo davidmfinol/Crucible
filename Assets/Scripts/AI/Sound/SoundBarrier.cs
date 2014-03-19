@@ -8,23 +8,22 @@ using System.Collections.Generic;
 [RequireComponent(typeof(BoxCollider))]
 public class SoundBarrier : MonoBehaviour
 {
-	private List<HearingRadius> _heardBy;
-	
-	void Start()
-	{
-		_heardBy = new List<HearingRadius> ();
-	}
+    private List<HearingRadius> _heardBy;
 
-	void OnDestroy()
-	{
-		foreach(HearingRadius hearingRadius in _heardBy)
-			if(hearingRadius.SoundBarriers.Contains(this))
-				hearingRadius.SoundBarriers.Remove(this);
-	}
+    void Start ()
+    {
+        _heardBy = new List<HearingRadius> ();
+    }
 
-	public List<HearingRadius> HeardBy
-	{
-		get { return _heardBy; }
-		set { _heardBy = value; }
-	}
+    void OnDestroy ()
+    {
+        foreach (HearingRadius hearingRadius in _heardBy)
+            if (hearingRadius.SoundBarriers.Contains (this))
+                hearingRadius.SoundBarriers.Remove (this);
+    }
+
+    public List<HearingRadius> HeardBy {
+        get { return _heardBy; }
+        set { _heardBy = value; }
+    }
 }
