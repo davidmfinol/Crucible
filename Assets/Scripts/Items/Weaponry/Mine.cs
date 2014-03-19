@@ -107,8 +107,21 @@ public class Mine : Weapon
 		get { return WeaponType.Weapon_MINE; }
 	}
 
+	public override string Title {
+		get { return "M.I.N.E."; }
+		
+	}
+	
+	public override string Description {
+		get { return "An explosive weapon that can be placed by swiping and detonated by tapping."; }
+		
+	}
+
 	public override Texture2D GetTexture() {
 		return Resources.Load <Texture2D> ("MINEIcon");
 		
 	}
+
+
+
 }

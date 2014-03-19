@@ -50,8 +50,21 @@ public class PipeWeapon : Weapon
 		get { return WeaponType.Weapon_Pipe; }
 	}
 
+	public override string Title {
+		get { return "Pipe"; }
+		
+	}
+	
+	public override string Description {
+		get { return "A melee weapon that can stun enemies."; }
+		
+	}
+
 	public override Texture2D GetTexture() {
 		return Resources.Load <Texture2D> ("PipeIcon");
 
 	}
+
+
+
 }

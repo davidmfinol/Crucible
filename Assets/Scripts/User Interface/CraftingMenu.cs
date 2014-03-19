@@ -21,6 +21,7 @@ public class CraftingMenu : MonoBehaviour {
 	public float ItemCountRadius;
 	public GameObject CraftButtonPrefab;
 	public Vector3 CraftButtonPos;
+	public GUIStyle TextStyle;
 
 	
 	// TODO: find a better place for these
@@ -216,6 +217,7 @@ public class CraftingMenu : MonoBehaviour {
 		
 		// destroy all cloned item quads placed into crafting slots
 		_lastClickedQuad = null;
+		_craftResult = null;
 		
 		for(int i=0; i <= _craftingSlots.Length - 1; i++) {
 			if(_craftingSlots[i] != null) {
@@ -235,9 +237,16 @@ public class CraftingMenu : MonoBehaviour {
 			GUI.skin.textArea.active.background = null;
 
 			ItemQuad iq = _lastClickedQuad.GetComponent<ItemQuad>();
+			WeaponQuad wq = _lastClickedQuad.GetComponent<WeaponQuad>();
+
 
 			if(iq != null) {
-				GUI.Label ( ItemDescriptionBounds, iq.invItem.Name + "\n\n" + iq.invItem.Caption );
+				if(iq.invItem != null) {
+					GUI.Label ( ItemDescriptionBounds, iq.invItem.Name + "\n\n" + iq.invItem.Caption, TextStyle );
+				
+				}
+			} else if(wq != null) {
+				GUI.Label ( ItemDescriptionBounds, wq.Title + "\n\n" + wq.Description, TextStyle );
 
 			}
 	
@@ -246,9 +255,9 @@ public class CraftingMenu : MonoBehaviour {
 		// REFRESH CRAFT RESULT
 		if(_craftResult != null) {
 			if(_craftResult.IsWeapon) 
-				GUI.Label ( new Rect(400, 200, 100, 100), _craftResult.WeaponName);
+				GUI.Label ( new Rect(900, 450, 200, 200), _craftResult.WeaponName, TextStyle);
 			else
-				GUI.Label ( new Rect(400, 200, 100, 100), _craftResult.InvItem.Name);
+				GUI.Label ( new Rect(900, 450, 200, 200), _craftResult.InvItem.Name, TextStyle);
 			
 		}
 
@@ -265,10 +274,14 @@ public class CraftingMenu : MonoBehaviour {
 
 			RaycastHit hit;
 			if (Physics.Raycast (rayToGUI, out hit)) {
+				// we either clicked an item quad or a weapon quad.
+				// or maybe the craft button
 				ItemQuad itemQuad = hit.collider.GetComponent<ItemQuad>();
+				WeaponQuad weapQuad = hit.collider.GetComponent<WeaponQuad>();
+				CraftButton cb = hit.collider.GetComponent<CraftButton>();
 
 				if(itemQuad != null) {
-					_lastClickedQuad = itemQuad.gameObject;
+					_lastClickedQuad = hit.collider.gameObject;
 
 					// an item from the wheel
 					if(!itemQuad.IsDraggedCopy) {
@@ -285,11 +298,12 @@ public class CraftingMenu : MonoBehaviour {
 
 					}
 				
-				}
+				// clicked a weapon because we want to see its info?
+				} else if(weapQuad != null) {
+					Debug.Log ("Clicked a weapon quad.");
+					_lastClickedQuad = hit.collider.gameObject;
 
-				CraftButton cb = hit.collider.GetComponent<CraftButton>();
-				// if craft button
-				if(cb != null) {
+				} else if(cb != null) {
 					// we should be able to make something
 					if(_craftResult != null)
 						Craft();

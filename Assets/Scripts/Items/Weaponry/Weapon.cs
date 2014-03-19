@@ -45,6 +45,16 @@ public abstract class Weapon : MonoBehaviour
 		get;
 	}
 
+	public abstract string Title {
+		get;
+		
+	}
+	
+	public abstract string Description {
+		get;
+	}
+
+
 	public virtual Texture2D GetTexture() {
 		return null;
 	}
