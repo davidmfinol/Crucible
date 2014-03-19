@@ -10,22 +10,6 @@ using Pathfinding.Serialization.JsonFx;
 [JsonOptIn]
 public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 {
-    // For zone graphs, not only do we tag the nodes, 
-    // but we also tag the connections between nodes to allow different types of motion between the nodes
-    public enum ZoneGraphConnectionType : uint
-    {
-        Invalid = 0, // DON'T CONNECT THE TWO NODES TOGETHER
-        SameGround = 1, // These two nodes are along the same piece of ground, so no vertical motion required
-        MustJumpGround = 2, // The character HAS to jump to reach the second ground point
-        FallToGround = 3, // The character can fall to reach the second ground point
-        SameWall = 4, // These two nodes are from the same wall 
-        WallToWall = 5, // The character should be able to jump from wall A to wall B
-        GroundToWall = 6, // The character should to get onto the wall
-        WallToGround = 7, // The character should be able to reach the ground node at B from the wall node at A
-        Climbable = 8 // Refers to the fact that at least one of the nodes is a climbable object
-    }
-
-
     [JsonMember]
     // Game Objects tagged with this tag will be considered nodes on the ZoneGraph
     public string WaypointTag = "Waypoint";
@@ -124,14 +108,15 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                     newNode.position = (Int3)waypoint;
                     newNode.Walkable = !Physics.CheckSphere (waypoint, 0.0001f, CollisionMask.value) && CanFit (waypoint);
                     newNode.GO = waypointGO;
-                    newNode.isGround = true;
+                    newNode.Tag = 0;
+                    newNode.Tag |= (1 << 0); // Set ground
 
                     // Note that we track of left and right ledges by ASSUMING that GetWaypoints returns the waypoint in order from left to right
                     if (waypointGO.name.ToLower ().Contains ("ledge")) {
                         if (i == 0)
-                            newNode.isLeftLedge = true;
+                            newNode.Tag |= (1 << 1); // Set Left Ledge
                         if (i == waypoints.Count - 1)
-                            newNode.isRightLedge = true;
+                            newNode.Tag |= (1 << 2); // Set Right Ledge
                     }
 
                     waypointNodes.Add (newNode);
@@ -148,7 +133,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                     newNode.position = (Int3)waypoint;
                     newNode.Walkable = !Physics.CheckSphere (waypoint, 0.0001f, CollisionMask.value) && CanFit (waypoint);
                     newNode.GO = waypointGO;
-                    newNode.isWall = true;
+                    newNode.Tag = 0;
+                    newNode.Tag |= (1 << 4); // Set Wall
                     waypointNodes.Add (newNode);
                 }
             }
@@ -162,7 +148,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                     newNode.position = (Int3)waypoint;
                     newNode.Walkable = !Physics.CheckSphere (waypoint, 0.0001f, CollisionMask.value) && CanFit (waypoint);
                     newNode.GO = waypointGO;
-                    newNode.isClimbable = true;
+                    newNode.Tag = 0;
+                    newNode.Tag |= (1 << 3); // Set Climbable
                     waypointNodes.Add (newNode);
                 }
             } 
@@ -323,14 +310,13 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     }
 
     /// <summary>
-    /// Connects all the nodes in the graph
+    /// Connects all the nodes in the graph.
     /// </summary>
     public void ConnectNodes ()
     {
         // To avoid too many allocations, these lists are reused for each node
         List<ZoneNode> connections = new List<ZoneNode> (3);
         List<uint> costs = new List<uint> (3);
-        List<uint> tags = new List<uint> (3);
 
         // Build the graph based for each zone, using the transitionZoneWaypoints to link them together
         foreach (KeyValuePair< Bounds, List<ZoneNode> > zoneWaypointsPair in _zonesWithWaypoints) {
@@ -339,7 +325,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             foreach (ZoneNode node in zoneWaypointsPair.Value) {
                 connections.Clear ();
                 costs.Clear ();
-                tags.Clear ();
                 
                 // Each zone starts by only connecting the nodes in that zone together
                 foreach (ZoneNode other in zoneWaypointsPair.Value) {
@@ -347,11 +332,9 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                         continue;
 
                     float dist = 0;
-                    ZoneGraphConnectionType connectionType = GetConnectionType (node, other, out dist);
-                    if (connectionType != ZoneGraphConnectionType.Invalid && connectionType != ZoneGraphConnectionType.GroundToWall) {
+                    if (IsValidConnection (node, other, out dist)) {
                         connections.Add (other);
                         costs.Add ((uint)Mathf.RoundToInt (dist * Int3.FloatPrecision));
-                        tags.Add ((uint)connectionType);
                     }
                 }
 
@@ -365,11 +348,9 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                             continue;
 
                         float dist = 0;
-                        ZoneGraphConnectionType connectionType = GetConnectionType (node, other, out dist);
-                        if (connectionType != ZoneGraphConnectionType.Invalid && connectionType != ZoneGraphConnectionType.GroundToWall) {
+                        if (IsValidConnection (node, other, out dist)) {
                             connections.Add (other);
                             costs.Add ((uint)Mathf.RoundToInt (dist * Int3.FloatPrecision));
-                            tags.Add ((uint)connectionType);
                         }
                     }
                 }
@@ -377,7 +358,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                 // Set the connections that we found for the node
                 node.connections = connections.ToArray ();
                 node.connectionCosts = costs.ToArray ();
-                node.connectionTags = tags.ToArray ();
             }
         }
 
@@ -390,13 +370,13 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="B">The second node.</param>
     /// <param name="dist">The distance between the two nodes.</param>
     /// <returns>Whether or not the connection between the nodes is valid.</returns>
-    public ZoneGraphConnectionType GetConnectionType (ZoneNode A, ZoneNode B, out float dist)
+    public bool IsValidConnection (ZoneNode A, ZoneNode B, out float dist)
     {
         dist = 0;
 
         // First check that both nodes are walkable
         if (!A.Walkable || !B.Walkable)
-            return ZoneGraphConnectionType.Invalid;
+            return false;
 
         // We'll be using these positions a lot, so cache them
         Vector3 posA = (Vector3)A.position;
@@ -404,7 +384,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         
         // Then check that the character is capable of jumping from the first node to the second
         if (!CanJump (posA, posB))
-            return ZoneGraphConnectionType.Invalid;
+            return false;
 
         // Then do a basic check to see if there's any ground objects in the way
         Vector3 dir = posB - posA;
@@ -415,11 +395,13 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         
         bool obstructedByGround = Physics.Raycast (ray, dist, CollisionMask) || Physics.Raycast (invertRay, dist, CollisionMask);
         if (obstructedByGround)
-            return ZoneGraphConnectionType.Invalid;
+            return false;
 
         // Let's avoid ridiculous situations where we have to jump in a circle to make the jump.
-        if ((B.isLeftLedge || B.isRightLedge) && Mathf.Abs (posB.x - posA.x) < _olympusAnimator.Radius)
-            return ZoneGraphConnectionType.Invalid;
+        bool bIsLeftLedge = (B.Tag & (1 << 1)) != 0;
+        bool bIsRightLedge = (B.Tag & (1 << 2)) != 0;
+        if ((bIsLeftLedge || bIsRightLedge) && Mathf.Abs (posB.x - posA.x) < _olympusAnimator.Radius)
+            return false;
 
         // Find out some values we'll be using
         bool canFall = CanFall (posA, posB) && FallClear (posA, posB);
@@ -428,31 +410,19 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         
         // If the waypoint are on two different platforms, make sure we are either capable of jumping over or falling over
         if (!samePlatForm && !canFall && !canJump)
-            return ZoneGraphConnectionType.Invalid;
+            return false;
 
-        // Label the connection as appropriate
-        if ((A.isGround && B.isGround) && samePlatForm)
-            return ZoneGraphConnectionType.SameGround;
-        
-        if ((A.isGround && B.isGround) && canJump && !canFall)
-            return ZoneGraphConnectionType.MustJumpGround;
+        /*
+        // We penalize required jumps
+        if(!samePlatForm && !canFall && canJump)
+            dist *= 2;
 
-        if ((A.isGround && B.isGround) && canFall)
-            return ZoneGraphConnectionType.FallToGround;
+        if( ((B.Tag & (1 << 4)) != 0) || ((A.Tag & (1 << 4)) != 0) )
+            return false;
+        */
 
-        if ((A.isWall && B.isWall) && samePlatForm)
-            return ZoneGraphConnectionType.SameWall;
-        
-        if ((A.isGround && B.isWall))
-            return ZoneGraphConnectionType.GroundToWall;
-        
-        if ((A.isWall && B.isGround))
-            return ZoneGraphConnectionType.WallToGround;
-
-        if ((A.isClimbable || B.isClimbable))
-            return ZoneGraphConnectionType.Climbable;
-
-        return ZoneGraphConnectionType.Invalid;
+        // If we pass all the tests, return true
+        return true;
 
     }
 
@@ -521,10 +491,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         float yDist = b.y - a.y;
         float yVel = Mathf.Sqrt (2.0f * (_olympusSettings.JumpHeight) * _olympusSettings.Gravity);
         float t = yVel / _olympusSettings.Gravity;
-        float yMax = _olympusSettings.JumpHeight + (_olympusAnimator.Height / 2.0f);
+        float yMax = _olympusSettings.JumpHeight + (_olympusAnimator.Height * 0.5f);
         if (xDist > _olympusSettings.MaxHorizontalSpeed * t) {
             t = xDist / _olympusSettings.MaxHorizontalSpeed;
-            yMax = (yVel * t) + ((-_olympusSettings.Gravity * t * t) / 2.0f);
+            yMax = (yVel * t) + ((-_olympusSettings.Gravity * t * t) * 0.5f);
         }
         return yDist < yMax;
 
@@ -565,7 +535,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     {
         Vector3 footPos = start;
         Vector3 headPos = footPos + Vector3.up * _olympusAnimator.Height + Vector3.down; // Subtract 1 because node is 1 above ground
-        float halfHeight = _olympusAnimator.Height / 2.0f;
+        float halfHeight = _olympusAnimator.Height * 0.5f;
 
         Vector3 dir = (end + Vector3.up * halfHeight + Vector3.down) - (headPos + Vector3.down * halfHeight);
         float dist = dir.magnitude;
@@ -583,7 +553,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="end">The end point.</param>
     public bool OverlapSphereTest (Vector3 start, Vector3 end)
     {
-        Vector3 midPoint = (start + end) / 2.0f;
+        Vector3 midPoint = (start + end) * 0.5f;
         float radius = Vector3.Distance (start, midPoint);
         Collider[] colliders = Physics.OverlapSphere (midPoint, radius, CollisionMask);
         
@@ -645,7 +615,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         return nearestNode != null ? new NNInfo (nearestNode) : new NNInfo ();
 
     }
-    
+
     /// <summary>
     /// Used to draw the graph connections for debugging purposes.
     /// </summary>
@@ -672,7 +642,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             }
             
         }
-
+        
     }
 
 

@@ -158,11 +158,13 @@ public class EnemyAI : MonoBehaviour
         // Find a random walkable ground node on the graph
         int nodeNum = (int)Random.Range (0, graph.Nodes.Length);
         ZoneNode randomNode = graph.Nodes [nodeNum];
-        bool isAcceptable = randomNode.Walkable && randomNode.isGround;
+        bool isNodeGround = (randomNode.Tag & (1 << 0)) != 0;
+        bool isAcceptable = randomNode.Walkable && isNodeGround;
         while (!isAcceptable) {
             nodeNum = (int)Random.Range (0, graph.Nodes.Length);
             randomNode = graph.Nodes [nodeNum];
-            isAcceptable = randomNode.Walkable && randomNode.isGround;
+            isNodeGround = (randomNode.Tag & (1 << 0)) != 0;
+            isAcceptable = randomNode.Walkable && isNodeGround;
         }
 
         // And update our target position to the position of that random node
@@ -311,9 +313,14 @@ public class EnemyAI : MonoBehaviour
         // Move on if we reached our waypoint
         bool isTouchingNextNode = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
         _hasTouchedNextNode = _hasTouchedNextNode || isTouchingNextNode;
+
         bool isWaypointLongerThanPath = (_currentPathWaypoint >= _path.path.Count);
-        bool isNodeTouchingGround = isWaypointLongerThanPath ? true : ((ZoneNode)_path.path [_currentPathWaypoint]).isGround;
+        bool isNodeTouchingGround = true;
+        if(!isWaypointLongerThanPath)
+            isNodeTouchingGround = ( ((ZoneNode)_path.path [_currentPathWaypoint]).Tag & (1 << 0) ) != 0;
+
         bool isCharacterTouchingGround = _animator.IsGrounded;
+
         if (!isFinalNode && (isTouchingNextNode || _hasTouchedNextNode) && (!isNodeTouchingGround || isCharacterTouchingGround)) {
             _currentPathWaypoint++;
             _hasTouchedNextNode = false;
@@ -339,6 +346,11 @@ public class EnemyAI : MonoBehaviour
         if (_currentPathWaypoint - nodeOffset < _path.path.Count)
             nextNode = (ZoneNode)_path.path [_currentPathWaypoint - nodeOffset];
 
+        // We need to know some tag information about the nodes
+        bool isNextNodeLeftLedge = nextNode != null && (nextNode.Tag & (1 << 1)) != 0;
+        bool isNextNodeRightLedge = nextNode != null && (nextNode.Tag & (1 << 2)) != 0;
+        bool isNextNodeLedge = isNextNodeLeftLedge || isNextNodeRightLedge;
+
         // Determine horizontal
         float horizontalDifference = targetPos.x - transform.position.x;
         bool isNodeToRight = horizontalDifference > 0;
@@ -352,9 +364,9 @@ public class EnemyAI : MonoBehaviour
         if (shouldStayStillMidair) {
             // Make sure we grab onto things when we can 
             if (_animator.CanHangOffObject) {
-                if (nextNode.isRightLedge)
+                if (isNextNodeRightLedge)
                     _animator.CharInput.Horizontal = -speedRatio;
-                else if (nextNode.isLeftLedge)
+                else if (isNextNodeLeftLedge)
                     _animator.CharInput.Horizontal = speedRatio;
                 else
                     _animator.CharInput.Horizontal = 0;
@@ -388,7 +400,7 @@ public class EnemyAI : MonoBehaviour
         
         // Determine vertical
         _animator.CharInput.Vertical = targetPos.y - transform.position.y;
-        if (atTarget && nextNode != null && (nextNode.isLeftLedge || nextNode.isRightLedge))
+        if (atTarget && nextNode != null && isNextNodeLedge)
             _animator.CharInput.Vertical = 1; // Press up whenever we're on a ledge
 
         // Determine jump
@@ -396,9 +408,9 @@ public class EnemyAI : MonoBehaviour
         bool isClimbing = _animator.CurrentState.IsName ("Climbing.ClimbingLadder") || _animator.CurrentState.IsName ("Climbing.ClimbingPipe");// FIXME: SLOW
         bool isTurningAround = _animator.CurrentState.IsName ("Base Layer.Turn Around"); //FIXME: SLOW
         bool isNodeAbove = targetPos.y - _animator.transform.position.y > 0;
-        bool isNodeOnOtherPlatform = false; //TODO: BETTER DETERMINATION
+        bool isNodeOnOtherPlatform = false;
         if (prevNode != null && nextNode != null)
-            isNodeOnOtherPlatform = prevNode.GO != nextNode.GO;
+            isNodeOnOtherPlatform = (prevNode.GO != nextNode.GO) && !prevNode.GO.collider.bounds.Intersects (nextNode.GO.collider.bounds);
         bool canFall = GameManager.AI.Graph.CanFall (transform.position, targetPos);
         bool jump = !isTurningAround && (!isMidAir || isClimbing) && isNodeOnOtherPlatform && (isNodeAbove || !canFall) && !_animator.IsLanding;
 
@@ -410,7 +422,7 @@ public class EnemyAI : MonoBehaviour
             // NOTE: WE HAVE THIS CHECK BECAUSE WE CAN GET A NEGATIVE TIME TO JUMP IF WE'RE GOING TO A LEDGE REALLY HIGH UP.
             // THIS THROWS OFF OUR HORIZONTAL SPEED CALCULATION.
             // WE ASSUME THAT THE LEDGE IS REALLY CLOSE. THIS MIGHT BE BAD.
-            bool highJumpHasBadHorizontal = (timeToJump < 0) && (nextNode.isLeftLedge || nextNode.isRightLedge);
+            bool highJumpHasBadHorizontal = (timeToJump < 0) && isNextNodeLedge;
 
             // Do a normal jump if we can make the jump using our normal speedRatio
             if (highJumpHasBadHorizontal || Mathf.Abs (desiredHorizontalJumpSpeed) < Mathf.Abs (speedRatio * _animator.Settings.MaxHorizontalSpeed))
@@ -424,7 +436,7 @@ public class EnemyAI : MonoBehaviour
 
 
             // Always make sure we face the direction of the ledge before we jump (since we can't change direction midair)
-            if ((nextNode.isLeftLedge && _animator.Direction.x < 0) || (nextNode.isRightLedge && _animator.Direction.x > 0)) {
+            if ((isNextNodeLeftLedge && _animator.Direction.x < 0) || (isNextNodeRightLedge && _animator.Direction.x > 0)) {
                 _animator.CharInput.Pickup = true;
                 _animator.CharInput.Jump = Vector2.zero;
             }
