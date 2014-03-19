@@ -134,7 +134,7 @@ public class EnemyAI : MonoBehaviour
         // We also retarget if our current path fails us
         if(!UpdateAStarPath(Settings.WanderSpeedRatio, false))
         {
-            Debug.LogWarning("Astar Pathfinding failed while wandering! Choosing new target.");
+            //Debug.LogWarning("Astar Pathfinding failed while wandering! Choosing new target.");
             GetRandomSearchPoint();
             return;
         }
@@ -153,7 +153,7 @@ public class EnemyAI : MonoBehaviour
         ZoneGraph graph = GameManager.AI.Graph;
         if(graph.Nodes.Length <= 0)
         {
-            Debug.LogWarning("ZoneGraph not initialized while searching for a random search point!");
+            //Debug.LogWarning("ZoneGraph not initialized while searching for a random search point!");
             return;
         }
 

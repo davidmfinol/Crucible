@@ -7,12 +7,12 @@ using Pathfinding;
 public class ZoneNode : PointNode
 {
 	// We tag connections between nodes (in addition to costs) to allow different units to make different transitions
-    public uint[] connectionTags; //TODO
+    public uint[] connectionTags;
 
 	// We keep track of the GameObject that created this waypoint (may not be strictly necessary, but is perphaps useful)
     public GameObject GO;
 
-	// Since the tag system is being applied to the connections, we store information about the node here
+	// TODO: CAN WE USE THE BUILT-IN ASTAR TAG SYSTEM FOR THIS?
     public bool isGround;
     public bool isLeftLedge;
     public bool isRightLedge;
