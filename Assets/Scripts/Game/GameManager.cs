@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     // The GameManager keeps track of the last checkpoint, so that the player can go back there after death
     public Transform LastCheckPoint; // TODO: PUT THIS IN SAVEDATA ONLY?
-
+	
 	// Keep track of the current game manager instance
 	private static GameManager _instance;
 	
@@ -276,9 +276,10 @@ public class GameManager : MonoBehaviour
 		}
 
         // Display the correct weapon
-		GameManager.UI.RefreshWeaponWheel ();
 		while (GameManager.UI.CurrentWeapon != _saveData.PlayerState.CurrentWeapon) // TODO: STRESS TEST TO AVOID INFINITE LOOP
 			GameManager.UI.CycleToNextWeapon ();
+
+		GameManager.UI.RefreshWeaponWheel ();
 
 		// TODO: THIS CURRENTLY DOESN'T WORK BECAUSE LOAD GAME IS CALLED WHEN YOU START UP A SCENE, AND YOU THEN MOVE TO THE PREVIOUS SCENE
 		// ONE SOLUTION IS TO SAVE THE SCENE BEFORE THEN, BUT THAT WOULD REQUIRE KEEPING TRACK OF THE CHECKPOINT
@@ -406,7 +407,6 @@ public class GameManager : MonoBehaviour
 
         level.Save(path);
 	}
-
 
 	public static GameManager Instance
 	{

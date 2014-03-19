@@ -22,6 +22,19 @@ public class InventoryItem {
 	
 };
 
+// craft result could be an inventory item or a weapon.
+public class CraftResult {
+	public bool IsWeapon;
+	public InventoryItem InvItem;
+
+	public WeaponType WeaponType;
+	public int WeaponQty;
+	public string WeaponName;
+	public string WeaponDescr;
+	public string WeaponTexture;
+	
+};
+
 // item factory can not only instantiate items by type, but also
 // build items through an ingredients data structure + methods
 public static class InventoryItemFactory {
@@ -93,7 +106,7 @@ public static class InventoryItemFactory {
 
 	}
 
-	public static string GetCraftResult() {
+	public static CraftResult GetCraftResult() {
 		string sResult = "";
 
 		foreach (string s in _ingredients.Values) {
@@ -101,17 +114,20 @@ public static class InventoryItemFactory {
 
 		}
 
-		if(sResult == "CPPR") {
-			return "Moving Computer";
+//		if(sResult == "CPENPR") {
+		if(sResult == "CP") {
+			CraftResult res = new CraftResult();
+			res.IsWeapon = true;
+			res.WeaponType = WeaponType.Weapon_MINE;
+			res.WeaponQty = 3;
+			res.WeaponName = "M.I.N.E.";
+			res.WeaponDescr = "Massive Interconnected Network of Explosives.";
+			res.WeaponTexture = "MINEIcon";
 
-		} else if(sResult == "CPEN") {
-			return "Computer Car";
-
-		} else if(sResult == "ENENEN") {
-			return "Triple engine";
+			return res;
 
 		} else {
-			return "Unknown Item:\n" + sResult;
+			return null;
 
 		}
 	

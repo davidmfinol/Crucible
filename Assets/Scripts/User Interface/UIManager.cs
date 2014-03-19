@@ -70,17 +70,27 @@ public class UIManager : MonoBehaviour
 		_weaponCountQuads = new GameObject[3];
 
 		Vector3 quadPos = _weaponWheelPos + Vector3.left * WeaponRadius;
+		quadPos.z = -4.0f;
 		_weaponQuads[0] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+
 		quadPos = _weaponWheelPos + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponRadius;
+		quadPos.z = -4.0f;
 		_weaponQuads[1] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+
 		quadPos = _weaponWheelPos + Vector3.down * WeaponRadius;
+		quadPos.z = -4.0f;
 		_weaponQuads[2] = (GameObject) Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
 
 		quadPos = _weaponWheelPos + Vector3.left * WeaponCountRadius;
+		quadPos.z = -4.0f;
 		_weaponCountQuads[0] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
+
 		quadPos = _weaponWheelPos + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponCountRadius;
+		quadPos.z = -4.0f;
 		_weaponCountQuads[1] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
+
 		quadPos = _weaponWheelPos + Vector3.down * WeaponCountRadius;
+		quadPos.z = -4.0f;
 		_weaponCountQuads[2] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
 
 
@@ -222,7 +232,11 @@ public class UIManager : MonoBehaviour
 
 			// *** just a "click" within interval? ***
 			if(_swipeTime < WeaponClickPeriod && Vector3.Distance (mouseWorldPos, _swipeStartPos) < MinSwipeDistance) {
-				CycleToPreviousWeapon();
+				// but ignore these clicks if the crafting wheel is open, since the player may be looking at weapon info.
+				if(! GameManager.UI.CraftingMenu.IsOpen() ) {
+					CycleToPreviousWeapon();
+					
+				}
 
 			}
 
@@ -240,7 +254,11 @@ public class UIManager : MonoBehaviour
 
 					// *** just a "click" within interval? ***
 					if(_swipeTime < WeaponClickPeriod && Vector3.Distance (touchWorldPos, _swipeStartPos) < MinSwipeDistance) {
-						CycleToNextWeapon();
+						// but ignore these clicks if the crafting wheel is open, since the player may be looking at weapon info.
+						if(! GameManager.UI.CraftingMenu.IsOpen() ) {
+							CycleToPreviousWeapon();
+
+						}
 						
 					}
 					
@@ -356,6 +374,11 @@ public class UIManager : MonoBehaviour
 			// show proper texture
 			_weaponQuads[weaponPos].gameObject.renderer.enabled = true;
 			_weaponQuads[weaponPos].gameObject.renderer.material.mainTexture = GameManager.Inventory.Weapons[weaponToShow].GetTexture();
+
+			WeaponQuad wq = _weaponQuads[weaponPos].gameObject.GetComponent<WeaponQuad>();
+			wq.Title = GameManager.Inventory.Weapons[weaponToShow].Title;
+			wq.Description = GameManager.Inventory.Weapons[weaponToShow].Description;
+
 			_weaponCountQuads[weaponPos].gameObject.renderer.enabled = true;
 			_weaponCountQuads[weaponPos].gameObject.renderer.material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Weapons[weaponToShow].Quantity);
 
@@ -379,6 +402,14 @@ public class UIManager : MonoBehaviour
 			weaponsShown++;
 
 		}
+
+		// select the weapon
+		if(GameManager.Inventory.Weapons.Count > 0 &&
+		   (GameManager.Inventory.CurrentWeapon != GameManager.Inventory.Weapons [_currentWeapon])) {
+			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
+			
+		}
+
 
 	}
 

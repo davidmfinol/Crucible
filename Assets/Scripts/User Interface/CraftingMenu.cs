@@ -16,7 +16,18 @@ public class CraftingMenu : MonoBehaviour {
 	public GameObject ItemWheelPrefab;
 	public GameObject CraftingBackdropPrefab;
 	public GameObject ItemQuadPrefab;
+	public GameObject ItemCountQuadPrefab;
 	public float ItemWheelRadius;
+	public float ItemCountRadius;
+	public GameObject CraftButtonPrefab;
+	public Vector3 CraftButtonPos;
+	public GUIStyle TextStyle;
+
+	
+	// TODO: find a better place for these
+	public GameObject PipePrefab;
+	public GameObject MINEPrefab;
+	public GameObject GravityGunPrefab;
 
 	// how long for GUI to fade
 	public float FadeTime;
@@ -42,6 +53,7 @@ public class CraftingMenu : MonoBehaviour {
 	private GameObject _weaponWheel;
 	private GameObject _itemWheel;
 	private GameObject _craftingBackdrop;
+	private GameObject _craftingButton;
 
 	// state of opening, opened, closing
 	private CraftingMenuState _state;
@@ -49,9 +61,10 @@ public class CraftingMenu : MonoBehaviour {
 
 	// five quads for the inventory items (0 to 4 counter-clockwise)
 	private GameObject[] _itemQuads;
+	private GameObject[] _itemCountQuads;
 
 	// last clicked item
-	private InventoryItem _lastClickedItem;
+	private GameObject _lastClickedQuad;
 
 	// crafting slots
 	private GameObject[] _craftingSlots;
@@ -60,7 +73,8 @@ public class CraftingMenu : MonoBehaviour {
 	private GameObject _draggingQuad;
 
 	// TODO: make into whatever prefab or inventory item, etc.
-	private string _resultingItem;
+	private CraftResult _craftResult;
+	private GameObject _craftResultQuad;
 
 
 	// --------------------------------
@@ -79,35 +93,53 @@ public class CraftingMenu : MonoBehaviour {
 		_craftingBackdrop = (GameObject) Instantiate (CraftingBackdropPrefab, Vector3.zero, Quaternion.identity);
 		_craftingBackdrop.renderer.enabled = false;
 
+		// position crafting button in screen coords.
+		CraftButtonPos = _uiCamera.ViewportToWorldPoint (CraftButtonPos);
+		_craftingButton = (GameObject)Instantiate (CraftButtonPrefab, CraftButtonPos, Quaternion.identity);
+		_craftingButton.renderer.enabled = false;
+
+
 		_currentItem = 0;
 
 		_state = CraftingMenuState.CraftingMenu_Closed;
 		_timeInState = 0.0f;
 
 
-		// *** position all item quads at proper rotations for texture replacement ***
+		// *** position all item quads and their counts at proper rotations for texture replacement ***
 		_itemQuads = new GameObject[5];
+		_itemCountQuads = new GameObject[5];
 
 		Vector3 quadPos = wheelCenter + Vector3.left * ItemWheelRadius;
 		_itemQuads[0] = (GameObject) Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
+		quadPos = wheelCenter + Vector3.left * ItemCountRadius;
+		_itemCountQuads[0] = (GameObject) Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
 
 		// pi/8
 		quadPos = wheelCenter + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 8.0f, 0.0f) * ItemWheelRadius;
 		_itemQuads[1] = (GameObject) Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
+		quadPos = wheelCenter + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 8.0f, 0.0f) * ItemCountRadius;
+		_itemCountQuads[1] = (GameObject) Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
 
 		// pi/4
 		quadPos = wheelCenter + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f ) * ItemWheelRadius;
 		_itemQuads[2] = (GameObject) Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
+		quadPos = wheelCenter + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f ) * ItemCountRadius;
+		_itemCountQuads[2] = (GameObject) Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
 
 		// 3 pi / 8
 		quadPos = wheelCenter + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI * 3.0f / 8.0f, 0.0f) * ItemWheelRadius;
 		_itemQuads[3] = (GameObject) Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
+		quadPos = wheelCenter + Vector3.RotateTowards(Vector3.left, Vector3.down, Mathf.PI * 3.0f / 8.0f, 0.0f) * ItemCountRadius;
+		_itemCountQuads[3] = (GameObject) Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
 
 		// pi / 2
 		quadPos = wheelCenter + Vector3.down * ItemWheelRadius;
 		_itemQuads[4] = (GameObject) Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
-	
-		_lastClickedItem = null;
+		quadPos = wheelCenter + Vector3.down * ItemCountRadius;
+		_itemCountQuads[4] = (GameObject) Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
+
+
+		_lastClickedQuad = null;
 		_draggingQuad = null;
 
 		// *** translate GUI positionings into screen coords ***
@@ -184,7 +216,8 @@ public class CraftingMenu : MonoBehaviour {
 		_timeInState = 0.0f;
 		
 		// destroy all cloned item quads placed into crafting slots
-		_lastClickedItem = null;
+		_lastClickedQuad = null;
+		_craftResult = null;
 		
 		for(int i=0; i <= _craftingSlots.Length - 1; i++) {
 			if(_craftingSlots[i] != null) {
@@ -198,13 +231,34 @@ public class CraftingMenu : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		if (_lastClickedItem != null) {
+		// REFRESH LAST CLICKED ITEM
+		if (_lastClickedQuad != null) {
 			GUI.skin.textArea.normal.background = null;
 			GUI.skin.textArea.active.background = null;
-			
-			GUI.Label ( ItemDescriptionBounds, _lastClickedItem.Name + "\n\n" + _lastClickedItem.Caption );
-			GUI.Label ( new Rect(400, 200, 100, 100), _resultingItem );
 
+			ItemQuad iq = _lastClickedQuad.GetComponent<ItemQuad>();
+			WeaponQuad wq = _lastClickedQuad.GetComponent<WeaponQuad>();
+
+
+			if(iq != null) {
+				if(iq.invItem != null) {
+					GUI.Label ( ItemDescriptionBounds, iq.invItem.Name + "\n\n" + iq.invItem.Caption, TextStyle );
+				
+				}
+			} else if(wq != null) {
+				GUI.Label ( ItemDescriptionBounds, wq.Title + "\n\n" + wq.Description, TextStyle );
+
+			}
+	
+		}
+
+		// REFRESH CRAFT RESULT
+		if(_craftResult != null) {
+			if(_craftResult.IsWeapon) 
+				GUI.Label ( new Rect(900, 450, 200, 200), _craftResult.WeaponName, TextStyle);
+			else
+				GUI.Label ( new Rect(900, 450, 200, 200), _craftResult.InvItem.Name, TextStyle);
+			
 		}
 
 	}
@@ -220,10 +274,14 @@ public class CraftingMenu : MonoBehaviour {
 
 			RaycastHit hit;
 			if (Physics.Raycast (rayToGUI, out hit)) {
+				// we either clicked an item quad or a weapon quad.
+				// or maybe the craft button
 				ItemQuad itemQuad = hit.collider.GetComponent<ItemQuad>();
+				WeaponQuad weapQuad = hit.collider.GetComponent<WeaponQuad>();
+				CraftButton cb = hit.collider.GetComponent<CraftButton>();
 
 				if(itemQuad != null) {
-					_lastClickedItem = itemQuad.invItem;
+					_lastClickedQuad = hit.collider.gameObject;
 
 					// an item from the wheel
 					if(!itemQuad.IsDraggedCopy) {
@@ -239,8 +297,19 @@ public class CraftingMenu : MonoBehaviour {
 								_craftingSlots[i] = null;
 
 					}
-				}
 				
+				// clicked a weapon because we want to see its info?
+				} else if(weapQuad != null) {
+					Debug.Log ("Clicked a weapon quad.");
+					_lastClickedQuad = hit.collider.gameObject;
+
+				} else if(cb != null) {
+					// we should be able to make something
+					if(_craftResult != null)
+						Craft();
+
+				}
+
 			}
 
 			UpdateCraftResult();
@@ -287,6 +356,52 @@ public class CraftingMenu : MonoBehaviour {
 
 	}
 
+	void Craft() {
+		if(_craftResult.IsWeapon) {
+			// crafting a MINE????
+			if(_craftResult.WeaponType == WeaponType.Weapon_MINE) {
+				Weapon w = MINEPrefab.GetComponent<Weapon>();
+				
+				// try add to an existing weapon
+				if(! GameManager.Inventory.TryAddAmmo(w, 2)) {
+					// Create a new weapon from the item and destroy the item
+					Transform instantiatedWeapon = (Transform) Instantiate(MINEPrefab);
+					Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
+					newWeapon.Quantity = 2;
+					GameManager.Inventory.Weapons.Add(newWeapon);
+					instantiatedWeapon.position = GameManager.Level.OffscreenPosition;
+					
+				}
+
+				ConsumeItemsInSlots();
+				RefreshItemWheel();
+				GameManager.UI.RefreshWeaponWheel();
+
+			}
+
+		}
+
+	}
+
+	void ConsumeItemsInSlots() {
+		// for each slot,
+		for(int i=0;i<4;i++) {
+			if(_craftingSlots[i] != null) {
+				// get inventory item its for
+				ItemQuad iq = _craftingSlots[i].GetComponent<ItemQuad>();
+
+				// remove quantity of 1 for item.
+				GameManager.Inventory.TryRemoveItemQty(iq.invItem.Type, 1);
+				Destroy (iq.gameObject);
+				_craftingSlots[i] = null;
+
+			}
+		
+		}
+
+		_lastClickedQuad = null;
+
+	}
 
 	void ShowWithAlpha(GameObject obj, float alpha) {
 		obj.renderer.enabled = (alpha == 1.0f);
@@ -308,8 +423,11 @@ public class CraftingMenu : MonoBehaviour {
 			ShowWithAlpha(_itemWheel, alpha);
 			ShowWithAlpha(_craftingBackdrop, alpha);
 
-			for(int i=0;i<5;i++)
+			for(int i=0;i<5;i++) {
 				ShowWithAlpha (_itemQuads[i], alpha);
+				ShowWithAlpha (_itemCountQuads[i], alpha);
+
+			}
 
 			if(alpha == 1.0f)
 				_state = CraftingMenuState.CraftingMenu_Open;
@@ -320,21 +438,29 @@ public class CraftingMenu : MonoBehaviour {
 		
 		} else if (_state == CraftingMenuState.CraftingMenu_Closing)
 		{
+			_craftingButton.renderer.enabled = false;
+
 			float alpha = Mathf.Max ( 1.0f - (float)(_timeInState / FadeTime), 0.0f);
 
 			ShowWithAlpha(_itemWheel, alpha);
 			ShowWithAlpha(_craftingBackdrop, alpha);
 
-			for(int i=0;i<5;i++)
+			for(int i=0;i<5;i++) {
 				ShowWithAlpha (_itemQuads[i], alpha);
+				ShowWithAlpha (_itemCountQuads[i], alpha);;
+
+			}
 
 			if(alpha == 0.0f)
 				_state = CraftingMenuState.CraftingMenu_Closed;
 
 		} else if (_state == CraftingMenuState.CraftingMenu_Closed)
 		{
-			for(int i=0;i<5;i++)
+			for(int i=0;i<5;i++) {
 				ShowWithAlpha (_itemQuads[i], 0.0f);
+				ShowWithAlpha (_itemCountQuads[i], 0.0f);
+
+			}
 				
 		} 
 
@@ -347,8 +473,12 @@ public class CraftingMenu : MonoBehaviour {
 				_itemQuads[i].renderer.material.mainTexture = GameManager.Inventory.Items[i].GetTexture();
 				_itemQuads[i].GetComponent<ItemQuad>().invItem = GameManager.Inventory.Items[i];
 
+				_itemCountQuads[i].renderer.enabled = true;
+				_itemCountQuads[i].renderer.material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Items[i].Quantity);
+
 			} else {
 				_itemQuads[i].renderer.enabled = false;
+				_itemCountQuads[i].renderer.enabled = false;
 
 			}
 	
@@ -367,8 +497,16 @@ public class CraftingMenu : MonoBehaviour {
 
 		}
 
-		_resultingItem = InventoryItemFactory.GetCraftResult ();
-		Debug.Log ("Resulting item is " + _resultingItem);
+		_craftResult = InventoryItemFactory.GetCraftResult ();
+
+		if(_craftResult != null) {
+			// show proper icon with create button.
+			_craftingButton.renderer.enabled = true;
+
+		} else {
+			_craftingButton.renderer.enabled = false;
+
+		}
 
 	}
 
@@ -390,4 +528,8 @@ public class CraftingMenu : MonoBehaviour {
 		RefreshItemWheel();
 	}
 
+	public bool IsOpen() {
+		return( _state == CraftingMenuState.CraftingMenu_Open);
+
+	}
 }

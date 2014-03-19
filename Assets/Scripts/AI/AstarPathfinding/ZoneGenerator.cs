@@ -576,7 +576,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="end">The end point.</param>
     public bool JumpClear(Vector3 start, Vector3 end)
     {
-		return CapsuleCastTest(start, end) && OverlapSphereTest(start, end);
+		// TODO: CAN WE MAKE THIS MORE PRECISE?
+		return OverlapSphereTest(start, end);
     }
 
     /// <summary>
