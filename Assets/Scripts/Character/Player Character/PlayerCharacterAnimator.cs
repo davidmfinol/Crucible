@@ -36,7 +36,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     private int _respawnHash;
     private int _damagedHash;
     private int _pickupHash;
-    private int _doublejumpHash;
+//    private int _doublejumpHash;
     private int _steppingDownHash;
     private int _standingUpHash;
 
@@ -57,7 +57,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     private Item _itemPickedup;
 
     // Can only double-jump once
-    private bool _hasDoubleJumped;
+   // private bool _hasDoubleJumped;
 
     protected override void OnStart ()
     {
@@ -77,7 +77,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         StateMachine [Animator.StringToHash ("Ground.Pickup")] = Pickup;
         StateMachine [Animator.StringToHash ("Ground.Stealth Kill")] = StealthKill;
         StateMachine [Animator.StringToHash ("Air.Jumping")] = Jumping;
-        StateMachine [Animator.StringToHash ("Air.Doublejumping")] = Doublejumping;
+       // StateMachine [Animator.StringToHash ("Air.Doublejumping")] = Doublejumping;
         StateMachine [Animator.StringToHash ("Air.Falling")] = Falling;
         StateMachine [Animator.StringToHash ("Air.Landing")] = Running;
         StateMachine [Animator.StringToHash ("Air.Backflip")] = Backflip;
@@ -118,7 +118,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         _respawnHash = Animator.StringToHash ("Respawn");
         _damagedHash = Animator.StringToHash ("Damaged");
         _pickupHash = Animator.StringToHash ("Pickup");
-        _doublejumpHash = Animator.StringToHash ("Doublejump");
+      //  _doublejumpHash = Animator.StringToHash ("Doublejump");
         _steppingDownHash = Animator.StringToHash ("SteppingDown");
         _standingUpHash = Animator.StringToHash ("StandingUp");
 
@@ -136,7 +136,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
         if (IsGrounded) {
             _wallJumpCount = 0;
-            _hasDoubleJumped = false;
+      //      _hasDoubleJumped = false;
         }
 
         UpdateMovementAnimations ();
@@ -518,46 +518,46 @@ public class PlayerCharacterAnimator : CharacterAnimator
             (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up));
 
-        if (CharInput.JumpPressed)
-            MecanimAnimator.SetBool (_doublejumpHash, true);
+   //     if (CharInput.JumpPressed)
+    //        MecanimAnimator.SetBool (_doublejumpHash, true);
 
         if (CharInput.InteractionPressed)
             MecanimAnimator.SetBool (_detonateMineHash, true);
 
     }
 
-    protected void Doublejumping (float elapsedTime)
-    {
-        if (Mathf.Abs (CharInput.Horizontal) > 0.1)
-            ApplyRunning (elapsedTime / 2.0f);
-        
-        if (MecanimAnimator.GetBool (_doublejumpHash)) {
-            _hasDoubleJumped = true;
-
-            if (CharInput.JumpLeft || CharInput.JumpLeftReleased) {
-                Direction = Vector3.left;
-                HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
-            } else if (CharInput.JumpRight || CharInput.JumpRightReleased) {
-                Direction = Vector3.right;
-                HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
-            }
-            
-            VerticalSpeed = Mathf.Sqrt (2 * Settings.JumpHeight * Settings.Gravity);
-            MecanimAnimator.SetBool (_doublejumpHash, false);
-        } else
-            ApplyGravity (elapsedTime);
-        
-        //ApplyBiDirection();
-        
-        if (transform.position.y >= LastGroundHeight - 1)
-            MecanimAnimator.SetBool (_fallHash, false);
-        
-        MecanimAnimator.SetBool (_grabWallHash, CanGrabWall);
-        
-        MecanimAnimator.SetBool (_hangHash, 
-                                (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
-            || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up));
-    }
+//    protected void Doublejumping (float elapsedTime)
+//    {
+//        if (Mathf.Abs (CharInput.Horizontal) > 0.1)
+//            ApplyRunning (elapsedTime / 2.0f);
+//        
+//        if (MecanimAnimator.GetBool (_doublejumpHash)) {
+//            _hasDoubleJumped = true;
+//
+//            if (CharInput.JumpLeft || CharInput.JumpLeftReleased) {
+//                Direction = Vector3.left;
+//                HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
+//            } else if (CharInput.JumpRight || CharInput.JumpRightReleased) {
+//                Direction = Vector3.right;
+//                HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
+//            }
+//            
+//            VerticalSpeed = Mathf.Sqrt (2 * Settings.JumpHeight * Settings.Gravity);
+//            MecanimAnimator.SetBool (_doublejumpHash, false);
+//        } else
+//            ApplyGravity (elapsedTime);
+//        
+//        //ApplyBiDirection();
+//        
+//        if (transform.position.y >= LastGroundHeight - 1)
+//            MecanimAnimator.SetBool (_fallHash, false);
+//        
+//        MecanimAnimator.SetBool (_grabWallHash, CanGrabWall);
+//        
+//        MecanimAnimator.SetBool (_hangHash, 
+//                                (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
+//            || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up));
+//    }
     
     protected void Backflip (float elapsedTime)
     {
@@ -608,8 +608,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
         } else 
             MecanimAnimator.SetBool (_hangHash, false);
 
-        if (CharInput.JumpPressed && !_hasDoubleJumped)
-            MecanimAnimator.SetBool (_doublejumpHash, true);
+  //      if (CharInput.JumpPressed && !_hasDoubleJumped)
+   //         MecanimAnimator.SetBool (_doublejumpHash, true);
     }
 
     protected void Wallgrabbing (float elapsedTime)

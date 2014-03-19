@@ -413,15 +413,16 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             return false;
 
         /*
-        // We penalize required jumps
+        // TODO: We penalize required jumps
         if(!samePlatForm && !canFall && canJump)
             dist *= 2;
         */
-
-        if( ((B.Tag & (1 << 4)) != 0) || ((A.Tag & (1 << 4)) != 0) )
-            return false;
-
-        // If we pass all the tests, return true
+		bool isAWall = ((A.Tag & (1 << 4)) != 0);
+		bool isBWall = ((B.Tag & (1 << 4)) != 0);
+		if( (isAWall && isBWall) && posA.x != posB.x)
+			return false;
+		
+		// If we pass all the tests, return true
         return true;
 
     }
