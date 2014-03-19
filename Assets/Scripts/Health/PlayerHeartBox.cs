@@ -36,20 +36,25 @@ public class PlayerHeartBox : HeartBox
 		// process attacks
 		if (LastHit != null)
         {
-			Vector2 dirToPlayer = new Vector2( transform.position.x - LastHit.transform.position.x, transform.position.y - LastHit.transform.position.y);
+			Vector2 knockForce;
 
-			if(dirToPlayer.x < 0)
-				dirToPlayer.x = -1;
-			else if(dirToPlayer.x > 0)
-				dirToPlayer.x = 1;
+			if(LastHit.MustCalculateKnockback) {
+				if(transform.position.x < LastHit.transform.position.x)
+					knockForce.x = -1 * LastHit.KnockBackAmount;
+				else
+					knockForce.x = 1 * LastHit.KnockBackAmount;
 
-			Vector2 knockForce = new Vector2(LastHit.KnockBackAmount * dirToPlayer.x, LastHit.KnockUpAmount);
-            // TODO: ALLOW KNOCKFOURCE TO BE PASSED IN, INSTEAD OF CALCLULATED. I.E.: OLYMPUS HITS YOU WITH KNOCKFORCE BASED OFF HIS DIRECTION
+				knockForce.y = LastHit.KnockUpAmount;
 
-			// fly in direction of hit
-			//Controller.VerticalSpeed = Mathf.Sqrt(2 * Controller.Settings.JumpHeight * Controller.Settings.Gravity);
-			//Controller.HorizontalSpeed = Controller.Settings.MaxHorizontalSpeed * (Hitbox.HorizontalDir > 0 ? 1.0f : -1.0f);
+			// just use provided.
+			} else {
+				knockForce.x = LastHit.KnockBackAmount;
+				knockForce.y = LastHit.KnockUpAmount;
+
+			}
+
 			// adjust health, do particles, etc.
+			// fly in direction of hit
 			AdjustHealth (-1 * LastHit.DamageAmount, knockForce );
 			Destroy (LastHit.gameObject);
 			LastHit = null;

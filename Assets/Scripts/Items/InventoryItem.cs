@@ -80,6 +80,20 @@ public static class InventoryItemFactory {
 			newItem.TexturePath = "PropellantIcon";
 			newItem.CraftingCode = "PR";
 
+		} else if(t == Item.ItemType.Item_Binding) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Binding";
+			newItem.Caption = "Binds two craftable items together.";
+			newItem.TexturePath = "PropellantIcon";
+			newItem.CraftingCode = "BN";
+
+		} else if(t == Item.ItemType.Item_Binding) {
+			newItem.MaxQuantity = 5;
+			newItem.Name = "Binding";
+			newItem.Caption = "Binds two craftable items together.";
+			newItem.TexturePath = "PropellantIcon";
+			newItem.CraftingCode = "BN";
+
 		} else {
 			Debug.Log ("ItemFactory: invalid item type " + t);
 

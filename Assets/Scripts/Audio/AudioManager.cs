@@ -20,8 +20,7 @@ public class AudioManager : MonoBehaviour
 
     // TODO
 
-	public bool Ready
-	{
-		get { return true; }
-	}
+    public bool Ready {
+        get { return true; }
+    }
 }
