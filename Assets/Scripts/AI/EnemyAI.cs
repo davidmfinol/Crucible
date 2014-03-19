@@ -32,6 +32,10 @@ public class EnemyAI : MonoBehaviour
     private float _timeSinceRepath = 0; // how long has it been since it found a path
     private bool _hasTouchedNextNode = false; // keep track of whether we've already reached the node we're going to 
 
+	// Help prevent getting stuck in certain places
+	//private Vector3 _lastFrameLocation = Vector3.zero;
+	private float _timeSpentWandering = 0; // TODO: REMOVE THIS
+
     
     public enum AwarenessLevel : int
     {
@@ -52,6 +56,7 @@ public class EnemyAI : MonoBehaviour
         _olympusAwareness = GetComponent<OlympusAwareness> ();
         _personalHearingRadius = GetComponentInChildren<HearingRadius> ();
         _timeSincePlayerSeen = 0;
+		//_lastFrameLocation = transform.position;
         GameManager.AI.Enemies.Add (this);
 
         // Set up Astar
@@ -135,7 +140,14 @@ public class EnemyAI : MonoBehaviour
 		if (GameManager.Player != null && Vector3.Distance (transform.position, GameManager.Player.transform.position) > Settings.MaxActiveDistance)
             return;
 
-        // We need to retarget either if we lose or reach our target
+		// TODO: REMOVE THIS
+		_timeSpentWandering += Time.fixedDeltaTime;
+		if (_timeSpentWandering >= 15) {
+			GetRandomSearchPoint ();
+			_timeSpentWandering = 0;
+		}
+		
+		// We need to retarget either if we lose or reach our target
         if (_target == Vector3.zero || _animator.Controller.bounds.Contains (_target))
             GetRandomSearchPoint ();
 
@@ -349,6 +361,10 @@ public class EnemyAI : MonoBehaviour
         Vector3 targetPos = _path.vectorPath [_currentPathWaypoint];
         Vector3 xExtension = Vector3.right * _animator.Controller.bounds.extents.x;
 
+		// A check to make sure we don't get stuck someplace
+		//bool wasAtSameLocationLastFrame = _lastFrameLocation == transform.position;
+		//_lastFrameLocation = transform.position;
+
         // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
         int nodeOffset = _path.vectorPath.Count - _path.path.Count;
         ZoneNode prevNode = null;
@@ -361,9 +377,10 @@ public class EnemyAI : MonoBehaviour
         // We need to know some tag information about the nodes
         bool isNextNodeLeftLedge = nextNode != null && (nextNode.Tag & (1 << 1)) != 0;
         bool isNextNodeRightLedge = nextNode != null && (nextNode.Tag & (1 << 2)) != 0;
-        bool isNextNodeLedge = isNextNodeLeftLedge || isNextNodeRightLedge;
-
-        // Determine horizontal
+		bool isNextNodeLedge = isNextNodeLeftLedge || isNextNodeRightLedge;
+		bool isNextNodeWall = nextNode != null && (nextNode.Tag & (1 << 4)) != 0;
+		
+		// Determine horizontal
         float horizontalDifference = targetPos.x - transform.position.x;
         bool isNodeToRight = horizontalDifference > 0;
         bool isMidAir = !_animator.IsGrounded;
@@ -412,7 +429,7 @@ public class EnemyAI : MonoBehaviour
         
         // Determine vertical
         _animator.CharInput.Vertical = targetPos.y - transform.position.y;
-        if (atTarget && nextNode != null && isNextNodeLedge)
+        if (nextNode != null && isNextNodeLedge)
             _animator.CharInput.Vertical = 1; // Press up whenever we're on a ledge
 
         // Determine jump
@@ -424,7 +441,9 @@ public class EnemyAI : MonoBehaviour
         if (prevNode != null && nextNode != null)
             isNodeOnOtherPlatform = (prevNode.GO != nextNode.GO) && !prevNode.GO.collider.bounds.Intersects (nextNode.GO.collider.bounds);
         bool canFall = GameManager.AI.Graph.CanFall (transform.position, targetPos);
-        bool jump = !isTurningAround && (!isMidAir || isClimbing) && isNodeOnOtherPlatform && (isNodeAbove || !canFall) && !_animator.IsLanding;
+		bool shouldJump = isNodeAbove || (isNodeOnOtherPlatform && !canFall); // || wasAtSameLocationLastFrame;
+		bool canJump = !isTurningAround && !_animator.IsLanding && (!isMidAir || isClimbing);
+		bool jump = canJump && shouldJump;
 
         // We need to determine how we jump on the one frame that we do decide to jump
         if (jump) {
@@ -437,7 +456,7 @@ public class EnemyAI : MonoBehaviour
             bool highJumpHasBadHorizontal = (timeToJump < 0) && isNextNodeLedge;
 
             // Do a normal jump if we can make the jump using our normal speedRatio
-            if (highJumpHasBadHorizontal || Mathf.Abs (desiredHorizontalJumpSpeed) < Mathf.Abs (speedRatio * _animator.Settings.MaxHorizontalSpeed))
+			if (!isNextNodeWall && (highJumpHasBadHorizontal || Mathf.Abs (desiredHorizontalJumpSpeed) < Mathf.Abs (speedRatio * _animator.Settings.MaxHorizontalSpeed)) )
                 _animator.CharInput.Jump = Vector2.up;
 
             // But sometimes we need to take big jumps

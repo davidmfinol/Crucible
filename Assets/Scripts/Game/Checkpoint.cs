@@ -52,9 +52,9 @@ public class Checkpoint : MonoBehaviour
             GameManager.Instance.LastCheckPoint = transform;
 			
 			// Save the game at checkpoints
-			Debug.Log ("Saved game state");
+//			Debug.Log ("Saved game state");
 			GameManager.SaveGameState (Location);
-			Debug.Log ("Saved level state " + Application.loadedLevelName);
+//			Debug.Log ("Saved level state " + Application.loadedLevelName);
 			GameManager.SaveLevelState(Application.loadedLevelName);
 
 			_checkpointFader.StartFading(Caption, Color);

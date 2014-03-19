@@ -365,14 +365,32 @@ public class CraftingMenu : MonoBehaviour {
 				// try add to an existing weapon
 				if(! GameManager.Inventory.TryAddAmmo(w, 2)) {
 					// Create a new weapon from the item and destroy the item
-					Transform instantiatedWeapon = (Transform) Instantiate(MINEPrefab);
+					GameObject instantiatedWeapon = (GameObject) Instantiate(MINEPrefab);
 					Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
 					newWeapon.Quantity = 2;
 					GameManager.Inventory.Weapons.Add(newWeapon);
-					instantiatedWeapon.position = GameManager.Level.OffscreenPosition;
+					instantiatedWeapon.transform.position = GameManager.Level.OffscreenPosition;
 					
 				}
 
+				ConsumeItemsInSlots();
+				RefreshItemWheel();
+				GameManager.UI.RefreshWeaponWheel();
+
+			} else if(_craftResult.WeaponType == WeaponType.Weapon_GravityGun) {
+				Weapon w = GravityGunPrefab.GetComponent<Weapon>();
+				
+				// try add to an existing weapon
+				if(! GameManager.Inventory.TryAddAmmo(w, 2)) {
+					// Create a new weapon from the item and destroy the item
+					GameObject instantiatedWeapon = (GameObject) Instantiate(GravityGunPrefab);
+					Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
+					newWeapon.Quantity = 5;
+					GameManager.Inventory.Weapons.Add(newWeapon);
+					instantiatedWeapon.transform.position = GameManager.Level.OffscreenPosition;
+					
+				}
+				
 				ConsumeItemsInSlots();
 				RefreshItemWheel();
 				GameManager.UI.RefreshWeaponWheel();
@@ -467,21 +485,34 @@ public class CraftingMenu : MonoBehaviour {
 	}
 
 	public void RefreshItemWheel() {
-		for(int i=0;i < 5; i++) {
-			if( i <= GameManager.Inventory.Items.Count - 1) {
-				_itemQuads[i].renderer.enabled = true;
-				_itemQuads[i].renderer.material.mainTexture = GameManager.Inventory.Items[i].GetTexture();
-				_itemQuads[i].GetComponent<ItemQuad>().invItem = GameManager.Inventory.Items[i];
+		int slot = 0;
+		int itemIndex = 0;
 
-				_itemCountQuads[i].renderer.enabled = true;
-				_itemCountQuads[i].renderer.material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Items[i].Quantity);
+		// dont use first slot for now
+		_itemQuads[slot].renderer.enabled = false;
+		_itemCountQuads[slot].renderer.enabled = false;
+		slot++;
 
-			} else {
-				_itemQuads[i].renderer.enabled = false;
-				_itemCountQuads[i].renderer.enabled = false;
+		// show what we can
+		while( (slot < 5 ) && (itemIndex <= GameManager.Inventory.Items.Count - 1)) {
+			_itemQuads[slot].renderer.enabled = true;
+			_itemQuads[slot].renderer.material.mainTexture = GameManager.Inventory.Items[itemIndex].GetTexture();
+			_itemQuads[slot].GetComponent<ItemQuad>().invItem = GameManager.Inventory.Items[itemIndex];
+			
+			_itemCountQuads[slot].renderer.enabled = true;
+			_itemCountQuads[slot].renderer.material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Items[itemIndex].Quantity);
 
-			}
-	
+			slot++;
+			itemIndex++;
+
+		}
+
+		// hide any unfilled.
+		while( slot < 5) {
+			_itemQuads[slot].renderer.enabled = false;
+			_itemCountQuads[slot].renderer.enabled = false;
+			slot++;
+
 		}
 
 	}

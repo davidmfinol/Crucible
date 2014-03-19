@@ -83,7 +83,7 @@ public class DynamicMusicPlayer : AudioPlayer
         }
 
         if (searchingLevel <= 0 && chasingLevel <= 0) {
-            Debug.Log ("Fading");
+//            Debug.Log ("Fading");
             _audio1FadingOut = true;
             _audio2FadingOut = true;
             _audio3.Stop ();
