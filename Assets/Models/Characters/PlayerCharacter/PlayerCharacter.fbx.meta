@@ -247,7 +247,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .226315781
-        functionName: PlayAttack3
+        functionName: PlayAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
