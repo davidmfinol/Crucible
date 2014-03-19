@@ -797,6 +797,8 @@ ModelImporter:
     101582: pCube7
     101584: pCube8
     101586: pCube9
+    101588: Ledge215
+    101590: pCube11
     400000: Char_a_1
     400002: Char_a_2
     400004: Char_D_1
@@ -1591,6 +1593,8 @@ ModelImporter:
     401582: pCube7
     401584: pCube8
     401586: pCube9
+    401588: Ledge215
+    401590: pCube11
     2300000: Ground
     2300002: Ledge
     2300004: Ledge1
@@ -2261,6 +2265,8 @@ ModelImporter:
     2301334: pCube7
     2301336: pCube8
     2301338: pCube9
+    2301340: Ledge215
+    2301342: pCube11
     3300000: Ground
     3300002: Ledge
     3300004: Ledge1
@@ -2931,6 +2937,8 @@ ModelImporter:
     3301334: pCube7
     3301336: pCube8
     3301338: pCube9
+    3301340: Ledge215
+    3301342: pCube11
     4300000: MeterMan
     4300002: Ledge1
     4300004: Ledge2
@@ -3600,6 +3608,8 @@ ModelImporter:
     4301332: pCube8
     4301334: pCube9
     4301336: pCube10
+    4301338: pCube11
+    4301340: Ledge215
     7400000: Take 001
     9500000: //RootNode
   materials:
