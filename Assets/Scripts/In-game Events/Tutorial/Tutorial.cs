@@ -13,6 +13,7 @@ public class Tutorial : MonoBehaviour
 	public Transform BentArrowSign;
 	public Transform JumpSign;
 	public Transform WalkSwipeSign;
+	public Transform PipeSign;
 
 	// Scripted characters in the scene
 	public Transform MysteriousRunner1;
@@ -54,6 +55,11 @@ public class Tutorial : MonoBehaviour
 		if(!GameManager.SaveData.SewerTopReached)
 			MysteriousRunner1.gameObject.SetActive (true);
 		StopCoroutine ("WaitToShowExample");
+	}
+
+	public void ReachPipe()
+	{
+		Instantiate (PipeSign);
 	}
 
 	public void ReachTrigger1()
