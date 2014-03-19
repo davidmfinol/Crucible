@@ -338,6 +338,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         }
 
+		// TODO: rename to ground friction
+		if(IsGrounded)
+			ApplyDeathFriction (elapsedTime);
+
         ApplyGravity (elapsedTime);
 
     }

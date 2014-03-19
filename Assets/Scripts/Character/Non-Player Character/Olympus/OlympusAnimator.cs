@@ -152,7 +152,15 @@ public class OlympusAnimator : CharacterAnimator
         // attack in front of us
         GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
         HitBox d = o.GetComponent<HitBox> ();
-        d.MakeOlympusMelee (this.gameObject);
+
+		// which direction to player?
+		float horizontalDir = 0.0f;
+		if(GameManager.Player.transform.position.x < transform.position.x)
+			horizontalDir = -1.0f;
+		else
+			horizontalDir = 1.0f;
+
+        d.MakeOlympusMelee (this.gameObject, horizontalDir);
 
     }
     
