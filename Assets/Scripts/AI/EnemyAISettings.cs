@@ -35,4 +35,7 @@ public class EnemyAISettings : MonoBehaviour
     public float SearchSpeedRatio; // = 0.7f;
     public float ChaseSpeedRatio; // = 1.0f;
 
+	// Allows the enemy character to be a little farther away from the target and then repathing
+	public float TargetLeniency = 0.1f;
+
 }

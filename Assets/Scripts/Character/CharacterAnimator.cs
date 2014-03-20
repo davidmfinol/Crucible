@@ -509,8 +509,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         if (_hangQueue.Contains (hangTarget))
             return;
-
-        _hangQueue.Add (hangTarget);
+		if(hangTarget is Ledge)
+			_hangQueue.Insert(0, hangTarget);
+		else
+        	_hangQueue.Add (hangTarget);
     }
 
     public void RemoveHangTarget (HangableObject hangTarget)
@@ -743,8 +745,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public bool IsHangTargetAbove {
-        get { return (ActiveHangTarget != null) && transform.position.y < ActiveHangTarget.transform.position.y;
-            ; }
+        get { return (ActiveHangTarget != null) && transform.position.y < ActiveHangTarget.transform.position.y; }
     }
 
     public bool CanGrabWall {

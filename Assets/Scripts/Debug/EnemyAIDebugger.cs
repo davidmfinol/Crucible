@@ -31,6 +31,7 @@ public class EnemyAIDebugger : MonoBehaviour
 		_brain = GetComponent<EnemyAI>();
         _input = GetComponent<CharacterInput> ();
 		_node = ((Transform) Instantiate(HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
+		_node.transform.parent = transform;
 		_node.renderer.enabled = false;
 	}
 	
