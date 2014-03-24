@@ -491,7 +491,7 @@ public class OlympusAnimator : CharacterAnimator
 
     public void PlayJump ()
     {
-        _sound.Play (_sound.Jumping);
+        _sound.Play (_sound.Jumping, 1.0f);
 
     }
 
