@@ -68,7 +68,7 @@ public class BabyBotAnimator : CharacterAnimator
     protected void Run (float elapsedTime)
     {
         if (TimeInCurrentState == 0)
-            _sound.PlayLoop (_sound.Running);
+            _sound.PlayLoop (_sound.Running, 1.0f); //TODO: Make baby bot sounds separate footsteps as well and add animation event
         MecanimAnimator.SetBool (_awakeHash, false);
         MecanimAnimator.SetFloat (_horizontalSpeedHash, Mathf.Abs (CharInput.Horizontal));
         HorizontalSpeed = 0;
@@ -143,28 +143,27 @@ public class BabyBotAnimator : CharacterAnimator
     protected void Awaken ()
     {
         if (Mathf.Abs (CharInput.Horizontal) >= 0.8)
-            _sound.Play (_sound.FastAwake);
+            _sound.Play (_sound.FastAwake, 1.0f);
         else
-            _sound.Play (((int)(Time.timeSinceLevelLoad % 2)) == 0 ? _sound.SlowAwake : _sound.SlowAwake2);
+            _sound.Play (((int)(Time.timeSinceLevelLoad % 2)) == 0 ? _sound.SlowAwake : _sound.SlowAwake2, 1.0f);
 
     }
 
     public void Giggle ()
     {
-        _sound.Play (_sound.Giggle);
+        _sound.Play (_sound.Giggle, 1.0f);
 
     }
 
     public void PlayJump ()
     {
-        _sound.Play (_sound.Jump);
+        _sound.Play (_sound.Jump, 1.0f);
 
     }
 
     public void SelfDestruct ()
     {
         // TODO: OBJECT POOLING
-        // TODO: _sound.Play();
         GameObject o = (GameObject)Instantiate (MeleeEvent, transform.position, Quaternion.identity);
         o.transform.parent = GameManager.Player.transform;
         HitBox d = o.GetComponentInChildren<HitBox> ();

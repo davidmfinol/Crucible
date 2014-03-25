@@ -308,8 +308,16 @@ public class TouchInput : MonoBehaviour
 	{
 		get { return _lastMovePos; }
 	}
+	public float MoveID
+	{
+		get { return _moveID; }
+	}
 	public Vector2 LastActionPos
 	{
 		get { return _lastActionPos; }
+	}
+	public float ActionID
+	{
+		get { return _actionID; }
 	}
 }

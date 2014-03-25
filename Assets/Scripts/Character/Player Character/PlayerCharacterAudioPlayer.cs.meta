@@ -3,6 +3,7 @@ guid: 51b8b3a63d7933e48b488744c20bbcba
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
+  - Attack: {fileID: 8300000, guid: 216fc5a69c55f4846a2374ded1d20166, type: 3}
   - Hit: {fileID: 8300000, guid: 7231ce5a05f5062429b41bd5c9371f96, type: 3}
   - Jump: {fileID: 8300000, guid: 15f43bc8c34c86b49a1c04b345a65fa7, type: 3}
   - Craft: {fileID: 8300000, guid: a582b6fd20e9c7d4b9f6dea06bc544f6, type: 3}
@@ -10,8 +11,7 @@ MonoImporter:
   - WallKick: {fileID: 8300000, guid: d45a1a0b3123288478c9bb8ac935b90e, type: 3}
   - ItemPickup: {fileID: 8300000, guid: 8b45ec512c69c004a99863f035c37f1b, type: 3}
   - Flip: {fileID: 8300000, guid: 545b6012a2df0d7458bfd857d54e0ed9, type: 3}
-  - Landing: {fileID: 8300000, guid: c92830c5627e43844ad9034ab0911e68, type: 3}
-  - Attack: {fileID: 8300000, guid: 216fc5a69c55f4846a2374ded1d20166, type: 3}
+  - Landing: {fileID: 8300000, guid: 46fa8815dc0750048bb5b2165ca63407, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

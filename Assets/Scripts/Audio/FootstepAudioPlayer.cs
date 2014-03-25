@@ -26,7 +26,7 @@ public class FootstepAudioPlayer : AudioPlayer
             Debug.LogWarning ("Trying to play footsteps but none set for " + gameObject);
         int index = (int)Random.Range (0, Footsteps.Length);
 
-        Play (Footsteps [index]);
+        Play (Footsteps [index], 1.0f);
 
     }
 

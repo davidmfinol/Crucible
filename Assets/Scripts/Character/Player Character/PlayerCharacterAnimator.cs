@@ -935,51 +935,68 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	public void PlayHit()
 	{
-		_sound.Play(_sound.Hit);
+		_sound.Play(_sound.Hit, 1.0f);
 	}
 
 	public void PlayPickup()
 	{
-		_sound.Play(_sound.ItemPickup);
+		_sound.Play(_sound.ItemPickup, 1.0f);
 	}
 
 	public void PlayCrafting()
 	{
-		_sound.Play(_sound.Craft);
+		_sound.Play(_sound.Craft, 1.0f);
 	}
 
 	public void PlayBackflip()
 	{
-		_sound.Play(_sound.Flip);
+		_sound.Play(_sound.Flip, 1.0f);
 	}
 
 	public void PlayJump()
 	{
 		//TODO: Move this wallkick sound to new wall kick animation and event
 		if(CurrentState.IsName("Wall.Walljumping"))
-			_sound.Play(_sound.WallKick);
-		else _sound.Play(_sound.Jump);
+			_sound.Play(_sound.WallKick, 1.0f);
+		else _sound.Play(_sound.Jump, 1.0f);
 	}
 
 	public void PlayWallHit()
 	{
-		_sound.Play(_sound.WallHit);
+		_sound.Play(_sound.WallHit, 1.0f);
 	}
 
 	public void PlayRun()
 	{
 		int runIndex = Random.Range (0, _sound.Running.Length);
-		_sound.Play(_sound.Running[runIndex]);
+		_sound.Play(_sound.Running[runIndex], 1.0f);
 	}
 
 	public override void PlayLand() //where dreams come true
 	{
-		_sound.Play(_sound.Landing);
+		//FIXME: Volumes of jumping up to a higher area are weird, as well as jumping off walls
+		float fallDistance = LastGroundHeight - transform.position.y;
+		if(fallDistance < 0)
+			fallDistance = 5;
+		//TODO: Actually make different sounds for different heights
+//		AudioClip landing;
+//		if(fallDistance <= 2)
+//			landing = _sound.SoftLanding;
+//		if(fallDistance > 2 && fallDistance <= 15)
+//			landing = _sound.MediumLanding;
+//		if(fallDistance > 15)
+//			landing = _sound.LoudLanding;
+
+		float fallVolume = fallDistance/32f + 0.1f; //max volume if height is > 21
+		if(fallVolume > 1)
+			fallVolume = 1;
+		//Debug.Log ("Fall Volume" + fallVolume);
+		_sound.Play(_sound.Landing, fallVolume);
 	}
 
 	public void PlayAttack()
 	{
-		_sound.Play(_sound.Attack);
+		_sound.Play(_sound.Attack, 1.0f);
 	}
 
 	public bool CanStealthKill(out OlympusAnimator animRet)

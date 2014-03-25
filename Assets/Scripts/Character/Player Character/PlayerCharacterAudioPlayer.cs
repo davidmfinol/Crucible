@@ -26,10 +26,11 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
         _audios = GetComponents<AudioSource> ();
 
     }
-    public override void Play (AudioClip audio)
+    public override void Play (AudioClip audio, float volume)
     {
-        // Play a random running sound
+     	//Switches between audio sources to avoid clipping the sounds
         _audios [_currentAudio].clip = audio;
+		_audios[_currentAudio].volume = volume;
         _audios [_currentAudio].Play ();
         
         _currentAudio++;
