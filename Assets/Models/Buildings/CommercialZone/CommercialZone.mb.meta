@@ -851,6 +851,67 @@ ModelImporter:
     101690: pCube212
     101692: pCube213
     101694: pCube214
+    101696: pCube215
+    101698: pCube216
+    101700: pCube217
+    101702: pCube218
+    101704: pCube219
+    101706: pCube220
+    101708: pCube221
+    101710: pCube222
+    101712: pCube223
+    101714: pCylinder72
+    101716: pCylinder75
+    101718: pCylinder76
+    101720: pCylinder77
+    101722: polySurface216
+    101724: polySurface218
+    101726: polySurface219
+    101728: polySurface220
+    101730: polySurface221
+    101732: polySurface222
+    101734: polySurface223
+    101736: polySurface224
+    101738: transform113
+    101740: transform114
+    101742: transform115
+    101744: transform116
+    101746: transform117
+    101748: transform118
+    101750: transform119
+    101752: transform120
+    101754: transform121
+    101756: pCube224
+    101758: pCube225
+    101760: pCube226
+    101762: pCube227
+    101764: pCube228
+    101766: pCube229
+    101768: pPyramid1
+    101770: Ledge223
+    101772: transform122
+    101774: transform123
+    101776: transform124
+    101778: transform125
+    101780: transform126
+    101782: transform127
+    101784: transform128
+    101786: transform129
+    101788: transform130
+    101790: transform131
+    101792: Wall12
+    101794: WallLedge179
+    101796: WallLedge180
+    101798: WallLeftLedgeOnly1
+    101800: pCube230
+    101802: pCube231
+    101804: pCube232
+    101806: pCube233
+    101808: polySurface225
+    101810: pPyramid2
+    101812: pPyramid3
+    101814: transform132
+    101816: transform133
     400000: Box
     400002: Box1
     400004: Box2
@@ -1699,6 +1760,67 @@ ModelImporter:
     401690: pCube212
     401692: pCube213
     401694: pCube214
+    401696: pCube215
+    401698: pCube216
+    401700: pCube217
+    401702: pCube218
+    401704: pCube219
+    401706: pCube220
+    401708: pCube221
+    401710: pCube222
+    401712: pCube223
+    401714: pCylinder72
+    401716: pCylinder75
+    401718: pCylinder76
+    401720: pCylinder77
+    401722: polySurface216
+    401724: polySurface218
+    401726: polySurface219
+    401728: polySurface220
+    401730: polySurface221
+    401732: polySurface222
+    401734: polySurface223
+    401736: polySurface224
+    401738: transform113
+    401740: transform114
+    401742: transform115
+    401744: transform116
+    401746: transform117
+    401748: transform118
+    401750: transform119
+    401752: transform120
+    401754: transform121
+    401756: pCube224
+    401758: pCube225
+    401760: pCube226
+    401762: pCube227
+    401764: pCube228
+    401766: pCube229
+    401768: pPyramid1
+    401770: Ledge223
+    401772: transform122
+    401774: transform123
+    401776: transform124
+    401778: transform125
+    401780: transform126
+    401782: transform127
+    401784: transform128
+    401786: transform129
+    401788: transform130
+    401790: transform131
+    401792: Wall12
+    401794: WallLedge179
+    401796: WallLedge180
+    401798: WallLeftLedgeOnly1
+    401800: pCube230
+    401802: pCube231
+    401804: pCube232
+    401806: pCube233
+    401808: polySurface225
+    401810: pPyramid2
+    401812: pPyramid3
+    401814: transform132
+    401816: transform133
     2300000: Box3
     2300002: Box4
     2300004: Box5
@@ -2340,6 +2462,37 @@ ModelImporter:
     2301276: pCube212
     2301278: pCube213
     2301280: pCube214
+    2301282: pCube215
+    2301284: pCube216
+    2301286: pCube217
+    2301288: pCube218
+    2301290: pCube219
+    2301292: pCube220
+    2301294: pCube221
+    2301296: polySurface219
+    2301298: polySurface220
+    2301300: polySurface221
+    2301302: polySurface222
+    2301304: polySurface223
+    2301306: polySurface224
+    2301308: pCube224
+    2301310: pCube225
+    2301312: pCube226
+    2301314: pCube227
+    2301316: pCube228
+    2301318: pCube229
+    2301320: pPyramid1
+    2301322: Ledge223
+    2301324: Wall12
+    2301326: WallLedge179
+    2301328: WallLedge180
+    2301330: WallLeftLedgeOnly1
+    2301332: pCube230
+    2301334: pCube231
+    2301336: pCube233
+    2301338: polySurface225
+    2301340: pPyramid2
+    2301342: pPyramid3
     3300000: Box3
     3300002: Box4
     3300004: Box5
@@ -2981,6 +3134,37 @@ ModelImporter:
     3301276: pCube212
     3301278: pCube213
     3301280: pCube214
+    3301282: pCube215
+    3301284: pCube216
+    3301286: pCube217
+    3301288: pCube218
+    3301290: pCube219
+    3301292: pCube220
+    3301294: pCube221
+    3301296: polySurface219
+    3301298: polySurface220
+    3301300: polySurface221
+    3301302: polySurface222
+    3301304: polySurface223
+    3301306: polySurface224
+    3301308: pCube224
+    3301310: pCube225
+    3301312: pCube226
+    3301314: pCube227
+    3301316: pCube228
+    3301318: pCube229
+    3301320: pPyramid1
+    3301322: Ledge223
+    3301324: Wall12
+    3301326: WallLedge179
+    3301328: WallLedge180
+    3301330: WallLeftLedgeOnly1
+    3301332: pCube230
+    3301334: pCube231
+    3301336: pCube233
+    3301338: polySurface225
+    3301340: pPyramid2
+    3301342: pPyramid3
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -3622,6 +3806,37 @@ ModelImporter:
     4301276: pCube212
     4301278: pCube213
     4301280: pCube214
+    4301282: pCube215
+    4301284: pCube216
+    4301286: pCube217
+    4301288: pCube218
+    4301290: pCube219
+    4301292: pCube220
+    4301294: pCube221
+    4301296: polySurface219
+    4301298: polySurface220
+    4301300: polySurface221
+    4301302: polySurface222
+    4301304: polySurface223
+    4301306: polySurface224
+    4301308: pCube224
+    4301310: pPyramid1
+    4301312: pCube225
+    4301314: pCube226
+    4301316: pCube227
+    4301318: pCube228
+    4301320: pCube229
+    4301322: WallLedge179
+    4301324: WallLedge180
+    4301326: Ledge223
+    4301328: Wall12
+    4301330: WallLeftLedgeOnly1
+    4301332: pCube230
+    4301334: pCube231
+    4301336: polySurface225
+    4301338: pPyramid2
+    4301340: pPyramid3
+    4301342: pCube233
     7400000: Take 001
     9500000: //RootNode
   materials:
