@@ -22,6 +22,7 @@ public sealed class CharacterInput : MonoBehaviour
     private bool _pickup = false;
 
     // These variables are used to keep track of XPressed and XReleased properties
+    private bool _fixedUpdateHappened = false;
     private bool _leftLast = false;
     private bool _rightLast = false;
     private bool _upLast = false;
@@ -34,26 +35,36 @@ public sealed class CharacterInput : MonoBehaviour
     private bool _attackLeftLast = false;
     private bool _attackRightLast = false;
     private bool _pickupLast = false;
-	private bool _forceJump = false;
+    
 
-    // Keep track of XPressed and XReleased properties
-    void FixedUpdate ()
+    // Update the character's input, along with the XPressed and XReleased properties
+    void Update ()
     {
-        _leftLast = Left;
-        _rightLast = Right;
-        _upLast = Up;
-        _downLast = Down;
-        _interactionLast = Interaction;
-        _jumpLast = JumpActive;
-        _jumpLeftLast = JumpLeft;
-        _jumpRightLast = JumpRight;
-        _attackLast = AttackActive;
-        _attackLeftLast = AttackLeft;
-        _attackRightLast = AttackRight;
-        _pickupLast = Pickup;
+        // Only update the _Xlast variables once we're certain that they've been recognized
+        if (_fixedUpdateHappened) {
+            _leftLast = Left;
+            _rightLast = Right;
+            _upLast = Up;
+            _downLast = Down;
+            _interactionLast = Interaction;
+            _jumpLast = JumpActive;
+            _jumpLeftLast = JumpLeft;
+            _jumpRightLast = JumpRight;
+            _attackLast = AttackActive;
+            _attackLeftLast = AttackLeft;
+            _attackRightLast = AttackRight;
+            _pickupLast = Pickup;
+            _fixedUpdateHappened = false;
+        }
 
         if (_updateInputMethod != null)
             _updateInputMethod ();
+
+    }
+
+    void FixedUpdate()
+    {
+        _fixedUpdateHappened = true;
 
     }
 
@@ -164,14 +175,8 @@ public sealed class CharacterInput : MonoBehaviour
 		get { return Jump.y >= 0.1; }
     }
 
-	public bool ForceJump {
-		get { return _forceJump; }
-		set { _forceJump = value; }
-	
-	}
-
     public bool JumpPressed {
-		get { return (_forceJump || !_jumpLast) && JumpActive; }
+		get { return !_jumpLast && JumpActive; }
     }
 
     public bool JumpReleased {

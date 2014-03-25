@@ -28,9 +28,6 @@ public class MysteriousRunner : MonoBehaviour
         Destroy (GameManager.Player.GetComponent<AudioListener> ());
         this.gameObject.AddComponent<AudioListener> ();
 
-		// hack to fix coroutine
-		_input.ForceJump = true;
-
         _input.Horizontal = -1;
         yield return new WaitForSeconds (1.3f);
         _input.Horizontal = 0;
@@ -62,7 +59,7 @@ public class MysteriousRunner : MonoBehaviour
         Destroy (GameManager.Player.GetComponent<AudioListener> ());
         this.gameObject.AddComponent<AudioListener> ();
         yield return new WaitForSeconds (1.0f);
-		_input.ForceJump = true;
+
         _input.Jump = new Vector2 (-1, 1);
         yield return new WaitForSeconds (0.75f);
         _input.Jump = new Vector2 (1, 1);
