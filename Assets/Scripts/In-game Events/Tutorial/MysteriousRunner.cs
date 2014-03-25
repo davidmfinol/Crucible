@@ -45,25 +45,48 @@ public class MysteriousRunner : MonoBehaviour
     
     public IEnumerator ShowWallJump2 ()
     {
+        // Set up
 		_input = GetComponent<CharacterInput> ();
-
         Camera.main.GetComponent<CameraScrolling> ().Target = transform;
         GameManager.UI.DisableInput ();
         Destroy (GameManager.Player.GetComponent<AudioListener> ());
         this.gameObject.AddComponent<AudioListener> ();
-		_input.Horizontal = -1;
-        yield return new WaitForSeconds (0.001f);
+        gameObject.transform.position = new Vector3(65f, 56.920f, 0.0f);
+
+        // Move left
+        _input.Horizontal = -1;
+        _input.Jump = Vector2.zero;
+
+        // First jump to wall
+        yield return new WaitForSeconds (0.1f);
 		_input.Horizontal = 0;
         _input.Jump = new Vector2 (-1, 1);
+
+        // Wall jump 1
         yield return new WaitForSeconds (0.75f);
+        //_input.Jump = Vector2.zero;
+       // yield return new WaitForSeconds (0.01f);
         _input.Jump = new Vector2 (1, 1);
+        
+        // Wall jump 2
         yield return new WaitForSeconds (0.5f);
+     //   _input.Jump = Vector2.zero;
+     //   yield return new WaitForSeconds (0.01f);
+        _input.Jump = new Vector2 (-1, 1);
+        
+        // Wall jump 3
+        yield return new WaitForSeconds (0.5f);
+     //   _input.Jump = Vector2.zero;
+     //   yield return new WaitForSeconds (0.01f);
+        _input.Jump = new Vector2 (1, 1);
+        
+        // Wall jump 4
+        yield return new WaitForSeconds (0.5f);
+    //    _input.Jump = Vector2.zero;
+  //      yield return new WaitForSeconds (0.01f);
         _input.Jump = new Vector2 (-1, 1);
         yield return new WaitForSeconds (0.5f);
-        _input.Jump = new Vector2 (1, 1);
-        yield return new WaitForSeconds (0.5f);
-        _input.Jump = new Vector2 (-1, 1);
-        yield return new WaitForSeconds (0.5f);
+
 //        _input.Jump = new Vector2 (1, 1);
 //        yield return new WaitForSeconds (0.5f);
 //        _input.Jump = new Vector2 (-1, 1);
@@ -74,7 +97,7 @@ public class MysteriousRunner : MonoBehaviour
 		_input.Horizontal = 0.0f;
 		yield return new WaitForSeconds (2.0f);
 
-
+        // Clean up
         Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
         GameManager.UI.EnableInput ();
         Destroy (gameObject.GetComponent<AudioListener> ());

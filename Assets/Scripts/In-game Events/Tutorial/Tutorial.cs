@@ -45,11 +45,6 @@ public class Tutorial : MonoBehaviour
 			GameManager.SaveData.TutorialComplete = tutorialComplete;
 		}
 	}
-	
-	public void ReachPipe()
-	{
-		Instantiate (PipeSign);
-	}
 
 	public void ShowWallJump1()
 	{
@@ -69,7 +64,6 @@ public class Tutorial : MonoBehaviour
 			GameManager.SaveData.ShownWallJump2 = true;
 
 			MysteriousRunner.gameObject.SetActive(true);
-			MysteriousRunner.gameObject.transform.position = new Vector3(62f, 56.920f, 0.0f);
 			_runner.StartCoroutine ("ShowWallJump2");
 				
 		}

@@ -643,10 +643,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected void Wallgrabbing(float elapsedTime)
 	{
 		HorizontalSpeed = 0;
+        VerticalSpeed = 0;
+        /*
         if (_wallJumpCount > 0)
 			VerticalSpeed = 0; // Settings.WallSlideSpeed * elapsedTime; // TODO: MAKE THIS LINEAR BASED OFF WALLJUMPCOUNT?
         else
             VerticalSpeed = 0;
+            */
 
 		bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
 		MecanimAnimator.SetBool(_jumpWallHash, jump);
