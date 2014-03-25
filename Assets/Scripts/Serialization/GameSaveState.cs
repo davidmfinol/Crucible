@@ -9,17 +9,23 @@ public class GameSaveState
 	public string LevelName;
 	public Checkpoint.CheckpointLocation Checkpoint;
 	public PlayerSaveState PlayerState;
+
+	public bool ShownWallJump1;
+	public bool ShownWallJump2;
+	public bool ShownDoorSneak;
+
 	public bool SewerTopReached;
 	public bool TutorialComplete;
-
+	
     public void Save(string path)
     {
         XmlSerializer serializer = new XmlSerializer( typeof(GameSaveState) );
         FileStream stream = new FileStream(path, FileMode.Create);
         serializer.Serialize(stream, this);
         stream.Close();
-    }
 
+    }
+	
     public static GameSaveState Load(string path)
     {
         GameSaveState gameSave = null;

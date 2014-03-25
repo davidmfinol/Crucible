@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 9af355a9877734f998903bda11edab8b
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: Attached_on_the_side
     100002: curve1
@@ -403,6 +403,7 @@ ModelImporter:
     100794: pPlane6
     100796: pPlane7
     100798: transform59
+    100800: squash1Handle
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -803,6 +804,7 @@ ModelImporter:
     400794: pPlane6
     400796: pPlane7
     400798: transform59
+    400800: squash1Handle
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1600,5 +1602,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  additionalBone: 0
   userData: 

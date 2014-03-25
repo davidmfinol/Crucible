@@ -21,8 +21,7 @@ public class InventoryManager : MonoBehaviour
     private Weapon _currentWeapon;
 
 	private bool _ready;
-
-
+	
 	void Start()
 	{
         Weapons = new List<Weapon>();

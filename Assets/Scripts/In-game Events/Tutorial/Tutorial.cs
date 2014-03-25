@@ -16,26 +16,23 @@ public class Tutorial : MonoBehaviour
 	public Transform PipeSign;
 
 	// Scripted characters in the scene
-	public Transform MysteriousRunner1;
-	public Transform MysteriousRunner2;
+	public GameObject MysteriousRunner;
 	public Transform OlympusPosition;
 	public Transform OlympusPrefab;
 	public Transform SewerDoor;
 	public Transform NextLevel;
 
-	// Keep track of the tutorial events
-	private bool _reachedTrigger1;
-	private bool _reachedTrigger3;
-    private bool _sewerDoorOpen;
+	// save runner component to call script coroutines directly
+	private MysteriousRunner _runner;
+	
+	private bool _sewerDoorOpen;
 
 
 	void Start ()
 	{
-		_reachedTrigger1 = false;
-		_reachedTrigger3 = false;
 		_sewerDoorOpen = false;
-		StartCoroutine("WaitToShowExample");
-		StartCoroutine("WaitToShowInstructions");
+		_runner = MysteriousRunner.GetComponent<MysteriousRunner> ();
+
 	}
 
 	void Update()
@@ -48,66 +45,92 @@ public class Tutorial : MonoBehaviour
 			GameManager.SaveData.TutorialComplete = tutorialComplete;
 		}
 	}
-
-	IEnumerator WaitToShowExample()
-	{
-		yield return new WaitForSeconds (5.0f);
-		if(!GameManager.SaveData.SewerTopReached)
-			MysteriousRunner1.gameObject.SetActive (true);
-		StopCoroutine ("WaitToShowExample");
-	}
-
+	
 	public void ReachPipe()
 	{
 		Instantiate (PipeSign);
 	}
 
-	public void ReachTrigger1()
+	public void ShowWallJump1()
 	{
-		_reachedTrigger1 = true;
+		if(!GameManager.SaveData.ShownWallJump1) {
+			GameManager.SaveData.ShownWallJump1 = true;
+
+			MysteriousRunner.gameObject.SetActive(true);
+			_runner.StartCoroutine ("ShowWallJump1");
+
+		}
+
 	}
 	
-	public void ReachTrigger2()
+	public void ShowWallJump2()
 	{
-		if(!GameManager.SaveData.SewerTopReached)
-			MysteriousRunner2.gameObject.SetActive(true);
+		if(!GameManager.SaveData.ShownWallJump2) {
+			GameManager.SaveData.ShownWallJump2 = true;
+
+			MysteriousRunner.gameObject.SetActive(true);
+			MysteriousRunner.gameObject.transform.position = new Vector3(62f, 56.920f, 0.0f);
+			_runner.StartCoroutine ("ShowWallJump2");
+				
+		}
+
+	}
+
+	
+	public void ShowDoorSneak()
+	{
+		if(!GameManager.SaveData.ShownDoorSneak) {
+			GameManager.SaveData.ShownDoorSneak = true;
+
+			MysteriousRunner.gameObject.SetActive(true);
+			_runner.StartCoroutine ("ShowDoorSneak");
+			
+		}
+		
+	}
+
+	public void StartOperatingDoor() {
+		StartCoroutine("OperateDoor");
+
 	}
 	
-	public void ReachTrigger3()
+	public void ReachTop()
 	{
-		if(_reachedTrigger3)
-			return;
-
-		_reachedTrigger3 = true;
-
 		if(!GameManager.SaveData.SewerTopReached) {
-			Transform newOlympus = (Transform) Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
-			newOlympus.GetComponent<EnemyAI>().ShouldWander = false;
-			newOlympus.GetComponent<CharacterAnimator>().Direction = new Vector3(-1.0f, 0.0f, 0.0f);
+			GameManager.SaveData.SewerTopReached = true;
+
+			// close the door behind us
+			StopCoroutine ("OperateDoor");
+			SewerDoor.animation.Play ("Close");
+
+			StartCoroutine ("SpawnOlympus");
 
 		}
 
-        GameManager.SaveData.SewerTopReached = true;
-
-        StartCoroutine("OperateDoor");
-
 	}
 
-	public IEnumerator WaitToShowInstructions()
+	public IEnumerator SpawnOlympus()
 	{
-		float elapsedTime = 0;
-		while (elapsedTime < 10)
-		{
-			elapsedTime += Time.deltaTime;
-			if(_reachedTrigger1 || GameManager.SaveData.SewerTopReached)
-				StopCoroutine("WaitToShowInstructions");
-			yield return null;
-		}
-		Instantiate (WalkSwipeSign);
-		Instantiate (JumpSign);
-		StopCoroutine("WaitToShowInstructions");
+		GameManager.UI.DisableInput ();
+
+		Camera.main.GetComponent<CameraScrolling> ().Target = OlympusPosition.transform;
+		yield return new WaitForSeconds (2.0f);
+
+		// spawn olympus up high and have him fall.
+		Transform newOlympus = (Transform) Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
+		newOlympus.GetComponent<EnemyAI>().ShouldWander = false;
+		newOlympus.GetComponent<CharacterAnimator>().Direction = new Vector3(-1.0f, 0.0f, 0.0f);
+		Camera.main.GetComponent<CameraScrolling> ().Target = null;
+		yield return new WaitForSeconds (2.0f);
+
+		Camera.main.GetComponent<CameraScrolling> ().Target = GameManager.Player.transform;
+		GameManager.UI.EnableInput ();
+
+		StopCoroutine ("SpawnOlympus");
+
 	}
 
+	
     public IEnumerator OperateDoor()
     {
         while (true)
@@ -126,5 +149,6 @@ public class Tutorial : MonoBehaviour
             }
             yield return null; // FIXME: SLOW
         }
+
     }
 }
