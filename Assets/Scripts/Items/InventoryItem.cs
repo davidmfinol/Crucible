@@ -11,6 +11,7 @@ public class InventoryItem {
 	public string Caption;
 	public string TexturePath;
 	public string CraftingCode;
+	public string PrefabName;
 
 	public Texture2D GetTexture() {
 		// TODO: make actual inheritance hierarchy.
@@ -51,6 +52,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Used to power various devices.";
 			newItem.TexturePath = "BatteryPackIcon";
 			newItem.CraftingCode = "BP";
+			newItem.PrefabName = "Items/BatteryPack";
 
 		} else if(t == Item.ItemType.Item_ComputerParts) {
 			newItem.MaxQuantity = 5;
@@ -58,6 +60,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Components to build electronic devices.";
 			newItem.TexturePath = "ComputerPartsIcon";
 			newItem.CraftingCode = "CP";
+			newItem.PrefabName = "Items/ComputerParts";
 
 		} else if(t == Item.ItemType.Item_Engine) {
 			newItem.MaxQuantity = 5;
@@ -65,6 +68,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Powers various moving devices.";
 			newItem.TexturePath = "EngineIcon";
 			newItem.CraftingCode = "EN";
+			newItem.PrefabName = "Items/Engine";
 		
 		} else if(t == Item.ItemType.Item_Fuel) {
 			newItem.MaxQuantity = 5;
@@ -72,6 +76,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Fuel for various devices";
 			newItem.TexturePath = "FuelIcon";
 			newItem.CraftingCode = "FU";
+			newItem.PrefabName = "Items/Fuel";
 
 		} else if(t == Item.ItemType.Item_Propellant) {
 			newItem.MaxQuantity = 5;
@@ -79,6 +84,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Used to propel devices";
 			newItem.TexturePath = "PropellantIcon";
 			newItem.CraftingCode = "PR";
+			newItem.PrefabName = "Items/Propellant";
 
 		} else if(t == Item.ItemType.Item_Binding) {
 			newItem.MaxQuantity = 5;
@@ -86,6 +92,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Binds two craftable items together.";
 			newItem.TexturePath = "BindingIcon";
 			newItem.CraftingCode = "BN";
+			newItem.PrefabName = "Items/Binding";
 
 		} else if(t == Item.ItemType.Item_GunParts) {
 			newItem.MaxQuantity = 5;
@@ -93,6 +100,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Used to build projectile weapons.";
 			newItem.TexturePath = "GunPartsIcon";
 			newItem.CraftingCode = "GP";
+			newItem.PrefabName = "Items/GunParts";
 
 		} else if(t == Item.ItemType.Item_HiggsDrive) {
 			newItem.MaxQuantity = 5;
@@ -100,6 +108,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Powers anti-gravity devices.";
 			newItem.TexturePath = "HiggsDriveIcon";
 			newItem.CraftingCode = "HD";
+			newItem.PrefabName = "Items/HiggsDrive";
 
 		} else if(t == Item.ItemType.Item_Isolator) {
 			newItem.MaxQuantity = 5;
@@ -107,6 +116,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Stores energy for energy-based devices.";
 			newItem.TexturePath = "IsolatorIcon";
 			newItem.CraftingCode = "IS";
+			newItem.PrefabName = "Items/Isolator";
 
 		} else if(t == Item.ItemType.Item_Magnet) {
 			newItem.MaxQuantity = 5;
@@ -114,6 +124,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Required to construct magnetic devices.";
 			newItem.TexturePath = "MagnetIcon";
 			newItem.CraftingCode = "MG";
+			newItem.PrefabName = "Items/Magnet";
 
 		} else if(t == Item.ItemType.Item_Transmitter) {
 			newItem.MaxQuantity = 5;
@@ -121,6 +132,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "Used to construct devices that operate remotely.";
 			newItem.TexturePath = "TransmitterIcon";
 			newItem.CraftingCode = "TR";
+			newItem.PrefabName = "Items/Transmitter";
 
 		} else if(t == Item.ItemType.Item_Visualizer) {
 			newItem.MaxQuantity = 5;
@@ -128,6 +140,7 @@ public static class InventoryItemFactory {
 			newItem.Caption = "An imaging unit to build holographic devices.";
 			newItem.TexturePath = "VisualizerIcon";
 			newItem.CraftingCode = "VS";
+			newItem.PrefabName = "Items/Visualizer";
 
 		} else {
 			Debug.Log ("ItemFactory: invalid item type " + t);
@@ -137,8 +150,18 @@ public static class InventoryItemFactory {
 		return newItem;
 	}
 
+	public static GameObject InstantiateFromType(Item.ItemType t, Vector3 pos) {
+		InventoryItem i = CreateFromType (t, 1);
+	
+		GameObject obj = (GameObject) GameObject.Instantiate( Resources.Load (i.PrefabName), pos, Quaternion.identity );
+
+		return obj;
+
+	}
+	
 	public static void ResetIngredients() {
 		_ingredients.Clear ();
+
 	}
 
 	public static void AddIngredient(Item.ItemType t) {

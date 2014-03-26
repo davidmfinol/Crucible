@@ -38,10 +38,14 @@ public class OlympusAnimator : CharacterAnimator
     //The Olympus's sound effects, yeah!
     private OlympusAudioPlayer _sound;
 
+	private ItemDropper _itemDropper;
+
 
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<OlympusAudioPlayer> ();
+
+		_itemDropper = (ItemDropper) gameObject.GetComponentInChildren<ItemDropper> ();
 
     }
     
@@ -442,11 +446,23 @@ public class OlympusAnimator : CharacterAnimator
 
     protected void StealthDeath (float elapsedTime)
     {
+		if(MecanimAnimator.GetBool (_stealthDeathHash)) {
+			Invoke("DropItems", 5.0f);
+			MecanimAnimator.SetBool (_stealthDeathHash, false);
+
+		}
+
         HorizontalSpeed = 0;
         VerticalSpeed = 0;
-        MecanimAnimator.SetBool (_stealthDeathHash, false);
 
     }
+
+
+	public void DropItems() {
+		_itemDropper.DropItems (transform.position);
+		
+	}
+
 
     public override void OnStealthDeath (Vector2 knockForce)
     {
@@ -480,7 +496,7 @@ public class OlympusAnimator : CharacterAnimator
         VerticalSpeed = knockForce.y;
 
     }
-    
+
     protected override void ApplyRunning (float elapsedTime)
     {
         base.ApplyRunning (elapsedTime);
