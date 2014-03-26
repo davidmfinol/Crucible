@@ -51,7 +51,7 @@ public class MysteriousRunner : MonoBehaviour
         GameManager.UI.DisableInput ();
         Destroy (GameManager.Player.GetComponent<AudioListener> ());
         this.gameObject.AddComponent<AudioListener> ();
-        gameObject.transform.position = new Vector3(65f, 56.920f, 0.0f);
+        gameObject.transform.position = new Vector3(68f, 56.920f, 0.0f);
 
         // Move left
         _input.Horizontal = -1;
