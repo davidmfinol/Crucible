@@ -40,6 +40,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	private int _steppingDownHash;
 	private int _standingUpHash;
 
+	//player's objectives
+	private ObjectiveTracker _objectives;
+
 	//The player's sound effects, yeah!
 	private PlayerCharacterAudioPlayer _sound;
 
@@ -62,6 +65,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     protected override void OnStart()
     {
+		_objectives = gameObject.GetComponent<ObjectiveTracker> ();
+
+		if (_objectives == null)
+						Debug.Log ("Unable to find objective tracker!!!!");
+
 		_sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer>();
 		_itemPickedup = null;
     }
@@ -1051,6 +1059,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		}
 		obj = null;
 		return false;
+	}
+
+	
+	public override ObjectiveTracker Objectives {
+		get { return _objectives; }
 	}
 
 }

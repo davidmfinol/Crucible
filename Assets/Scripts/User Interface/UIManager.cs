@@ -17,6 +17,12 @@ public class UIManager : MonoBehaviour
 	public GameObject WeaponCountQuadPrefab;
 	public float WeaponCountRadius;
 	public float MinSwipeDistance;
+	
+	// quad containing objective arrow texture.
+	public GameObject ObjectiveQuadPrefab;
+	public Vector3 ObjectiveQuadPos;
+	// how delayed are our objective removal updates
+	public float ObjectiveReachedInterval;
 
 	// how long can you go between mousedown then mouseup and have it still change weapons?
 	public const float WeaponClickPeriod = 1.0f;
@@ -48,6 +54,11 @@ public class UIManager : MonoBehaviour
 	// also weapon counts, if limited ammo
 	private GameObject[] _weaponQuads;
 	private GameObject[] _weaponCountQuads;
+
+	// the objective quad, will need to constantly rotate towards the player's next objective
+	private ObjectiveTracker _playerObjectives;
+	private GameObject _objectiveQuad;
+	private float _objectiveReachedTime;
 
 	// tracking a gui swipe from where, with finger ID if on mobile.
 	private bool _isTrackingSwipe;
@@ -117,6 +128,13 @@ public class UIManager : MonoBehaviour
 		_weaponCountQuads[2] = (GameObject) Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
 
 
+		// *** track player objectives ***
+		_playerObjectives = GameManager.Player.gameObject.GetComponent<ObjectiveTracker> ();
+
+		ObjectiveQuadPos = _uiCamera.ViewportToWorldPoint (ObjectiveQuadPos);
+		ObjectiveQuadPos.z = 8.0f;
+		_objectiveQuad = (GameObject) Instantiate (ObjectiveQuadPrefab, ObjectiveQuadPos, Quaternion.identity);
+
 		_isTrackingSwipe = false;
 		_swipeID = -1;
 		_swipeStartPos = Vector3.zero;
@@ -156,6 +174,17 @@ public class UIManager : MonoBehaviour
         UpdateVignette();
 
 		ProcessSwipes();
+
+		_objectiveReachedTime += Time.deltaTime;
+		if(_objectiveReachedTime >= ObjectiveReachedInterval) {
+			_objectiveReachedTime = 0.0f;
+
+			// see if player is on an objective and remove it, so not every frame.
+			TryReachObjectives();
+
+		}
+
+		UpdateObjectiveArrow();
 
 	}
 
@@ -326,6 +355,44 @@ public class UIManager : MonoBehaviour
 				TryCancelSwipe();
 
 			}
+
+		}
+
+	}
+
+	private void TryReachObjectives() {
+		_playerObjectives.RemoveCloseTo (GameManager.Player.transform.position);
+	
+	}
+
+	private void UpdateObjectiveArrow() {
+		// find nearest objective from player
+		Vector3 pNearest;
+
+		bool bFound = _playerObjectives.GetNearest (out pNearest);
+
+		if (bFound) {
+			_objectiveQuad.renderer.enabled = true;
+
+			// get direction and distance to objective
+			Vector3 vDir = pNearest - GameManager.Player.transform.position;		
+			float fDist = vDir.magnitude;
+			vDir.Normalize();
+
+			// alpha is zero after some cutoff distance.
+			float alpha = (Mathf.Max (0.0f, 75.0f - fDist) / 75.0f);
+
+			float deg = Vector3.Angle(Vector3.right, vDir);
+
+			// rotate the quad by the degrees.
+			_objectiveQuad.transform.rotation = Quaternion.Euler (0.0f, 0.0f, deg);
+			_objectiveQuad.renderer.material.color = new Color(_objectiveQuad.renderer.material.color.r, 
+			                                                   _objectiveQuad.renderer.material.color.g, 
+			                                                   _objectiveQuad.renderer.material.color.b, 
+			                                                   alpha); 
+
+		} else {
+			_objectiveQuad.renderer.enabled = false;
 
 		}
 

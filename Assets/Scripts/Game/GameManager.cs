@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
 			yield return null;
 
 		SpawnPlayer ();
+
 		StopCoroutine ("DelayedSpawnPlayer");
 	}
 
@@ -190,7 +191,36 @@ public class GameManager : MonoBehaviour
 		else
 			Debug.LogWarning("Failed to point camera at player!");
 
-        // Enable the input
+		// *** load checkpoints he hasn't reached ***
+		if (Application.loadedLevelName == "OCourse") {
+			GameManager.Player.Objectives.AddObjective(GameObject.Find("Checkpoint1"));
+			GameManager.Player.Objectives.AddObjective(GameObject.Find("Checkpoint2"));
+			GameManager.Player.Objectives.AddObjective(GameObject.Find("Checkpoint3"));
+			
+		} else if(Application.loadedLevelName == "Sewer") {
+			if(!_saveData.ShownWallJump1)
+				GameManager.Player.Objectives.AddObjective( GameObject.Find ("TutorialTrigger1") );
+
+			if(!_saveData.ShownWallJump2)
+				GameManager.Player.Objectives.AddObjective( GameObject.Find ("TutorialTrigger2") );
+
+			if(!_saveData.ShownDoorSneak)
+				GameManager.Player.Objectives.AddObjective( GameObject.Find ("TutorialTrigger3") );
+
+			if(!_saveData.SewerTopReached) {
+				GameManager.Player.Objectives.AddObjective( GameObject.Find ("TutorialTrigger4") );
+				GameManager.Player.Objectives.AddObjective( GameObject.Find ("TutorialTrigger5") );
+
+			}
+
+		} else if(Application.loadedLevelName == "Commercial Zone") {
+			GameManager.Player.Objectives.AddObjective( GameObject.Find ("GunParts") );
+			GameManager.Player.Objectives.AddObjective( GameObject.Find ("Isolator") );
+			GameManager.Player.Objectives.AddObjective( GameObject.Find ("HiggsDrive") );
+
+		}
+
+		// Enable the input
         GameManager.UI.EnableInput();
 	}
 

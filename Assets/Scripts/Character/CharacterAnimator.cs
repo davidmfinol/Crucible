@@ -784,10 +784,14 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return _zones; }
         set { _zones = value; }
     }
-
+	
     public virtual bool CanTransitionZ {
         get { return _canTransitionZ; }
         set { _canTransitionZ = value; }
     }
-    
+
+	public virtual ObjectiveTracker Objectives {
+		get { return null; }
+	}
+
 }
