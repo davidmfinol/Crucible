@@ -57,10 +57,7 @@ public class TouchInput : MonoBehaviour
         _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, SliderPrefab.rotation);
         _moveButton = (Transform)Instantiate (MoveButtonPrefab, MoveButtonPrefab.position, MoveButtonPrefab.rotation);
 
-        _horizontalSlider.renderer.enabled = false;
-        _verticalSlider.renderer.enabled = false;
-        _moveButton.renderer.enabled = false;
-
+        // Organize it away
         _horizontalSlider.parent = transform;
         _verticalSlider.parent = transform;
         _moveButton.parent = transform;
@@ -143,10 +140,12 @@ public class TouchInput : MonoBehaviour
             else if (delta.magnitude > _moveMin) {
                 if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) {
                     float ratio = delta.x / _distanceForMaxSpeed;
-                    _input.Horizontal = ratio * ratio;
+                    int sign = ratio < 0 ? -1 : 1;
+                    _input.Horizontal = sign * ratio * ratio;
                 } else {
                     float ratio = delta.y / _distanceForMaxSpeed;
-                    _input.Vertical = ratio * ratio;
+                    int sign = ratio < 0 ? -1 : 1;
+                    _input.Vertical = sign * ratio * ratio;
                 }
             }
         }
