@@ -346,6 +346,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 		ApplyGravity (elapsedTime);
 
+		if (IsGrounded) {
+			ApplyDeathFriction(elapsedTime);
+		}
+
 	}
 	
 	protected void StealthKill(float elapsedTime)
