@@ -693,4 +693,11 @@ public class EnemyAI : MonoBehaviour
     public Vector3 FootPosition {
         get { return transform.position + (Vector3.down * _animator.Height * 0.5f) + Vector3.up; }
     }
+
+	public CharacterAnimator Animator {
+		get {
+			return _animator;
+		}
+	}
+
 }

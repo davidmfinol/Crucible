@@ -18,6 +18,12 @@ public class CameraScrolling : MonoBehaviour
     // How strict should the camera follow the target?  Lower values make the camera more lazy.
     public float Springiness = 4.0f;
 
+	//The range for moving the camera between you and the enemies.
+	public float EnemyFocus = 50.0f;
+	public float EnemyIgnoreRange = 15.0f;
+
+	private bool _enemyFocused;
+
     // We track this for a shake effect that we add on to the camera
     private ShakeEffect _shakeEffect;
 
@@ -84,6 +90,12 @@ public class CameraScrolling : MonoBehaviour
         }
 
         Vector3 goalPosition = Target.position + new Vector3 (0, heightOffset, -Distance * distanceModifier);
+
+		Vector3 nearestEnemy = Vector3.zero;
+		_enemyFocused = GetNearestEnemy(out nearestEnemy) && GameManager.AI.EnemiesChasing == 0;
+		if(_enemyFocused)
+			goalPosition += (nearestEnemy - GameManager.Player.transform.position)*0.5f 
+				+ new Vector3(0,0, -Vector3.Distance(nearestEnemy,GameManager.Player.transform.position) * 0.25f);
 
         // Next, we refine our goalPosition by taking into account our target's current velocity.
         // This will make the camera slightly look ahead to wherever the character is going.
@@ -178,4 +190,55 @@ public class CameraScrolling : MonoBehaviour
 
         return goalPosition;
     }
+
+	public bool GetNearestEnemy(out Vector3 vNearestEnemy) {
+		Vector3 vPlayerPos = GameManager.Player.gameObject.transform.position;
+		
+		bool bFoundAny = false;
+		Vector3 vNearest = new Vector3(0.0f, 0.0f, 0.0f);
+
+		foreach(EnemyAI enemy in GameManager.AI.Enemies)
+		{
+			if(enemy != null && !enemy.Animator.IsDead())
+			{
+				
+				if(enemy.Awareness != EnemyAI.AwarenessLevel.Chasing && 
+				   Vector3.Distance(enemy.transform.position, GameManager.Player.transform.position) < EnemyFocus &&
+				   Vector3.Distance(enemy.transform.position, GameManager.Player.transform.position) >= EnemyIgnoreRange)
+				{
+
+					if(!bFoundAny) {
+						bFoundAny = true;
+						vNearest = enemy.transform.position;
+						
+					} else {
+						// found a closer one? use it.
+						if( Vector3.Distance(vPlayerPos, enemy.transform.position) < 
+						   Vector3.Distance(vPlayerPos, vNearest)) {
+							vNearest = enemy.transform.position;
+							
+						}
+						
+					}
+				}
+			}
+		}
+		
+		if(bFoundAny) {
+			vNearestEnemy = vNearest;
+			return true;
+			
+		} else {
+			vNearestEnemy = new Vector3(0.0f, 0.0f, 0.0f);
+			return false;
+			
+		}
+		
+	}
+
+	public bool EnemyFocused {
+		get {
+			return _enemyFocused;
+		}
+	}
 }
