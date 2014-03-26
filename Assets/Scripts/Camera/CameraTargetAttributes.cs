@@ -35,6 +35,7 @@ public class CameraTargetAttributes : MonoBehaviour
     // How long the character has been staying still?
     private float _timeStationary;
 
+
     // Keep track of the character we are following
     private CharacterAnimator _character;
     private CharacterSettings _settings;
@@ -65,7 +66,7 @@ public class CameraTargetAttributes : MonoBehaviour
         } else {
             // Pause for zoom out delay, then zoom out at zoomoutacceleration
             _timeStationary += Time.deltaTime;
-            if (_timeStationary > ZoomOutDelay && !CameraScrolling.EnemyFocused)
+            if (_timeStationary > ZoomOutDelay) //TODO: add a check based on the enemy being focused && !CameraScrolling.EnemyFocused)
                 _distanceModifier = Mathf.Lerp (_distanceModifier, MaxZoomOut, ZoomOutAcceleration * Time.deltaTime);
         }
 
