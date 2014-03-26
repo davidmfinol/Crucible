@@ -64,6 +64,7 @@ public class PlayerHeartBox : HeartBox
 		{
 			TryRegenHealth ();
 		}
+
 	}
 
 	private void AdjustHealth(int deltaHealth, Vector2 knockForce)
@@ -107,5 +108,6 @@ public class PlayerHeartBox : HeartBox
 		_timeUntilRegen += Time.deltaTime;
 		if( (_timeUntilRegen >= _regenTimer) && (HitPoints < MaxHitPoints)  && (HitPoints > 0) )
 			AdjustHealth(1, new Vector2(0.0f, 0.0f) );
+
 	}
 }
