@@ -29,9 +29,12 @@ public class MeetJasper : MonoBehaviour {
 
 	public IEnumerator DoDialogue ()
 	{
-		TVScreen1.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
-		TVScreen2.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
-		TVScreen3.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
+		if(TVScreen1!= null)
+			TVScreen1.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
+		if(TVScreen2!= null)
+			TVScreen2.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
+		if(TVScreen3!= null)
+			TVScreen3.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
 		Debug.Log ("JasperText1");
 		_quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D>("JasperText1");
 		yield return new WaitForSeconds (3.0f);
@@ -43,9 +46,12 @@ public class MeetJasper : MonoBehaviour {
 		yield return new WaitForSeconds (3.0f);
 		_quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D>("JasperText4");
 		yield return new WaitForSeconds (3.0f);
-		TVScreen1.renderer.material.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-		TVScreen2.renderer.material.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-		TVScreen3.renderer.material.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		if(TVScreen3!= null)
+			TVScreen1.renderer.material.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		if(TVScreen3!= null)
+			TVScreen2.renderer.material.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
+		if(TVScreen3!= null)
+			TVScreen3.renderer.material.color = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 		_quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D>("JasperText5");
 		yield return new WaitForSeconds (3.0f);
 		_quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D>("JasperText6");
