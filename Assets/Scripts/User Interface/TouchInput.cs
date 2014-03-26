@@ -72,8 +72,8 @@ public class TouchInput : MonoBehaviour
         }
 
         // Set up new update methods to show the GUI elements
-        StartCoroutine ("DisplayLeftHandSide");
-        StartCoroutine ("DisplayRightHandSide");
+        StartCoroutine (DisplayLeftHandSide);
+        StartCoroutine (DisplayRightHandSide);
 
     }
 
@@ -197,7 +197,7 @@ public class TouchInput : MonoBehaviour
             yield return null;
 
             // Determine information about the movement input
-            bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
+            bool moveTouched = _moveID != -1;// && _input.UpdateInputMethod != null;
             Vector3 startPos = ConvertTouchPosToWorldPoint (_moveStartPos);
             Vector3 currentPos = ConvertTouchPosToWorldPoint (_lastMovePos);
 
