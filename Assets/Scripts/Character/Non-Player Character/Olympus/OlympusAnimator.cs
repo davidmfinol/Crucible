@@ -475,7 +475,12 @@ public class OlympusAnimator : CharacterAnimator
 
     protected void Death (float elapsedTime)
     {
-        MecanimAnimator.SetBool (_dieHash, false);
+		if(MecanimAnimator.GetBool (_dieHash)) { 
+			Invoke("DropItems", 5.0f);
+       	    MecanimAnimator.SetBool (_dieHash, false);
+
+		}
+
 
         if (IsGrounded) {   
             ApplyDeathFriction (elapsedTime);
