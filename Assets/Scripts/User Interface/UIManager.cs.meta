@@ -4,7 +4,9 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - ChaseVignette: {fileID: 400000, guid: 6bde6f180fa5e49fabec9e89d5cba209, type: 2}
-  - WeaponsGUI: {instanceID: 0}
+  - LensFlareFlash: {fileID: 400000, guid: cb3bc35996217e849b9f43110c17eedd, type: 2}
+  - WeaponQuadPrefab: {instanceID: 0}
+  - WeaponCountQuadPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

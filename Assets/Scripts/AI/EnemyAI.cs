@@ -369,7 +369,8 @@ public class EnemyAI : MonoBehaviour
 		Vector3 xExtension = Vector3.right * _animator.Radius;
 
 		// A check to make sure we don't get stuck someplace
-		bool wasAtSameLocationLastFrame = Vector3.Distance(_lastFrameLocation, transform.position) < 0.01;
+		//TODO: see if we can use this with a larger threshold for doing the jump (a higher amount of frames in the same spot than just one)?
+		//bool wasAtSameLocationLastFrame = Vector3.Distance(_lastFrameLocation, transform.position) < 0.01;
 		_lastFrameLocation = transform.position;
 
         // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
@@ -449,8 +450,8 @@ public class EnemyAI : MonoBehaviour
         if (prevNode != null && nextNode != null)
             isNodeOnOtherPlatform = (prevNode.GO != nextNode.GO) && !prevNode.GO.collider.bounds.Intersects (nextNode.GO.collider.bounds);
         bool canFall = GameManager.AI.Graph.CanFall (transform.position, targetPos);
-		bool isStuck = Mathf.Abs (_animator.CharInput.Horizontal) > 0 && wasAtSameLocationLastFrame && isWalking;
-		bool shouldJump = isNodeAbove || (isNodeOnOtherPlatform && !canFall) || isStuck;
+		//bool isStuck = Mathf.Abs (_animator.CharInput.Horizontal) > 0 && wasAtSameLocationLastFrame && isWalking;
+		bool shouldJump = isNodeAbove || (isNodeOnOtherPlatform && !canFall);// || isStuck;
 		bool canJump = !isTurningAround && !_animator.IsLanding && (!isMidAir || isClimbing);
 		bool jump = canJump && shouldJump;
 
