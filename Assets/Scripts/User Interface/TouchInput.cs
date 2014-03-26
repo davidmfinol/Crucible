@@ -72,8 +72,8 @@ public class TouchInput : MonoBehaviour
         }
 
         // Set up new update methods to show the GUI elements
-        StartCoroutine (DisplayLeftHandSide);
-        StartCoroutine (DisplayRightHandSide);
+        StartCoroutine (DisplayLeftHandSide());
+        StartCoroutine (DisplayRightHandSide());
 
     }
 
