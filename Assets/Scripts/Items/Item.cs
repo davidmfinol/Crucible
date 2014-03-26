@@ -30,7 +30,7 @@ public class Item : MonoBehaviour
 	public int Quantity;
 	public Transform WeaponPrefab;
 	public bool WasPlaced;
-
+	
     public ItemSaveState SaveState()
     {
         ItemSaveState itemSave = new ItemSaveState();
@@ -46,6 +46,13 @@ public class Item : MonoBehaviour
 		itemSave.WasPlaced = WasPlaced;
 
         return itemSave;
+
     }
 
+	public void MakeFalling() {
+		// enable rigid body so it'll fall.
+		rigidbody.useGravity = true;
+
+	}
+	
 }

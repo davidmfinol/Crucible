@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -10,6 +10,8 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
 	public Transform ChaseVignette;
+	public Transform HurtVignette;
+	public Transform LensFlareFlash;
 	public GameObject WeaponQuadPrefab;
 	public float WeaponRadius;
 	public GameObject WeaponCountQuadPrefab;
@@ -24,9 +26,20 @@ public class UIManager : MonoBehaviour
     private NontouchInput _nontouchInput;
 	private CraftingMenu _craftingMenu;
 
-	private Transform _vignetteInstance;
-	private float _vignetteAlpha;
-	private int _vignetteAlphaDir;
+	// track player's HP to do hurt vignette.
+	private PlayerHeartBox _playerHeartBox;
+	private Transform _hurtVignetteInstance;
+	private float _hurtVignetteAlpha;
+	private int _hurtVignetteAlphaDir;
+	
+	private Transform _chaseVignetteInstance;
+	private float _chaseVignetteAlpha;
+	private int _chaseVignetteAlphaDir;
+
+	private Transform _flashInstance;
+	private float _flashAlpha;
+	private int _flashAlphaDir;
+	private bool _hasFlashed;
 	
 	private Vector3 _weaponWheelPos;
 	private int _currentWeapon;
@@ -57,9 +70,19 @@ public class UIManager : MonoBehaviour
         _nontouchInput.enabled = false;
 #endif
 
-		_vignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
-		_vignetteInstance.parent = transform;
-		_vignetteAlpha = 0.0f;
+		_playerHeartBox = GameManager.Player.gameObject.GetComponentInChildren<PlayerHeartBox> ();
+		_hurtVignetteInstance = (Transform)Instantiate (HurtVignette, HurtVignette.position, HurtVignette.rotation);
+		_hurtVignetteInstance.parent = transform;
+		_hurtVignetteAlpha = 0.0f;
+
+		_chaseVignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
+		_chaseVignetteInstance.parent = transform;
+		_chaseVignetteAlpha = 0.0f;
+
+		_flashInstance = (Transform)Instantiate (LensFlareFlash, LensFlareFlash.position, LensFlareFlash.rotation);
+		_flashInstance.parent = transform;
+		_flashAlpha = 0.0f;
+		_hasFlashed = false;
 
 		_weaponWheelPos = new Vector3 (1, 1, 8);
 		_weaponWheelPos = _uiCamera.ViewportToWorldPoint (_weaponWheelPos);
@@ -310,28 +333,81 @@ public class UIManager : MonoBehaviour
 
     private void UpdateVignette()
     {
-        if ( (GameManager.AI.EnemiesChasing > 0) )
+		// player hurt or chased? pule vignettes.
+		if (_playerHeartBox.HitPoints != _playerHeartBox.MaxHitPoints)
+		{
+			if(_hurtVignetteAlpha >= 0.9f)
+				_hurtVignetteAlphaDir = -1;
+			else if(_hurtVignetteAlpha <= 0.3) 
+				_hurtVignetteAlphaDir = 1;
+			
+			if(_hurtVignetteAlphaDir == 1)
+				_hurtVignetteAlpha = Mathf.Lerp (_hurtVignetteAlpha, 1.0f, Time.deltaTime * 2.0f);
+			else if(_hurtVignetteAlphaDir == -1)
+				_hurtVignetteAlpha = Mathf.Lerp (_hurtVignetteAlpha, 0.2f, Time.deltaTime * 2.0f);
+		
+		} 
+		else if (GameManager.AI.EnemiesChasing > 0)
         {
-            if(_vignetteAlpha >= 0.9f)
-                _vignetteAlphaDir = -1;
-            else if(_vignetteAlpha <= 0.3) 
-                _vignetteAlphaDir = 1;
+            if(_chaseVignetteAlpha >= 0.9f)
+				_chaseVignetteAlphaDir = -1;
+			else if(_chaseVignetteAlpha <= 0.3) 
+				_chaseVignetteAlphaDir = 1;
             
-            if(_vignetteAlphaDir == 1)
-                _vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 1.0f, Time.deltaTime * 2.0f);
-            else if(_vignetteAlphaDir == -1)
-                _vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 0.2f, Time.deltaTime * 2.0f);
+			if(_chaseVignetteAlphaDir == 1)
+				_chaseVignetteAlpha = Mathf.Lerp (_chaseVignetteAlpha, 1.0f, Time.deltaTime * 2.0f);
+			else if(_chaseVignetteAlphaDir == -1)
+				_chaseVignetteAlpha = Mathf.Lerp (_chaseVignetteAlpha, 0.2f, Time.deltaTime * 2.0f);
+
         } 
-        else
+
+		// try to flash if needed
+		if( (GameManager.AI.EnemiesChasing > 0 || GameManager.AI.EnemiesSearching > 0))
+		{
+			if(_flashAlpha >= 0.95f)
+				_flashAlphaDir = -1;
+			else if(_flashAlpha <= 0.2) 
+				_flashAlphaDir = 1;
+			
+			if(_flashAlphaDir == 1 && !_hasFlashed)
+				_flashAlpha = Mathf.Lerp (_flashAlpha, 1.0f, Time.deltaTime * 6.0f);
+			else if(_flashAlphaDir == -1)
+			{
+				_flashAlpha = Mathf.Lerp (_flashAlpha, 0.0f, Time.deltaTime * 1.0f);
+				_hasFlashed = true;
+			}
+		}
+
+		if (_playerHeartBox.HitPoints == _playerHeartBox.MaxHitPoints) {
+			_hurtVignetteAlpha = Mathf.Lerp (_hurtVignetteAlpha, 0, Time.deltaTime * 2.0f);
+
+		}
+
+        if (GameManager.AI.EnemiesChasing == 0 && GameManager.AI.EnemiesSearching == 0)
         {
-            _vignetteAlpha = Mathf.Lerp (_vignetteAlpha, 0, Time.deltaTime * 4.0f);
-            
+			_chaseVignetteAlpha = Mathf.Lerp (_chaseVignetteAlpha, 0, Time.deltaTime * 2.0f);
+			_flashAlpha = Mathf.Lerp (_flashAlpha, 0, Time.deltaTime * 1.0f);
+			if(_flashAlpha < 0.1f)
+				_hasFlashed = false;
         }
-        
-        _vignetteInstance.renderer.material.color = new Vector4 (_vignetteInstance.renderer.material.color.r, 
-                                                                 _vignetteInstance.renderer.material.color.g, 
-                                                                 _vignetteInstance.renderer.material.color.b,
-                                                                 _vignetteAlpha);
+		else if( _hasFlashed)
+		{
+			_flashAlpha = Mathf.Lerp (_flashAlpha, 0, Time.deltaTime * 1.0f);
+		}
+
+		_hurtVignetteInstance.renderer.material.color = new Vector4 (_hurtVignetteInstance.renderer.material.color.r, 
+		                                                             _hurtVignetteInstance.renderer.material.color.g, 
+		                                                             _hurtVignetteInstance.renderer.material.color.b,
+		                                                             _hurtVignetteAlpha);
+
+		_chaseVignetteInstance.renderer.material.color = new Vector4 (_chaseVignetteInstance.renderer.material.color.r, 
+		                                                              _chaseVignetteInstance.renderer.material.color.g, 
+		                                                              _chaseVignetteInstance.renderer.material.color.b,
+		                                                              _chaseVignetteAlpha);
+		_flashInstance.renderer.material.color = new Vector4 (_flashInstance.renderer.material.color.r,
+		                                                      _flashInstance.renderer.material.color.g,
+		                                                      _flashInstance.renderer.material.color.b,
+		                                                      _flashAlpha);
 	}
 
 	public void CycleToNextWeapon()
