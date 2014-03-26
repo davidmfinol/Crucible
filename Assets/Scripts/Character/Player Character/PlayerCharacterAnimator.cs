@@ -507,7 +507,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	protected void Jumping(float elapsedTime)
 	{
-        if(Mathf.Abs(CharInput.Horizontal) > 0.1)
+        if(CharInput.Right || CharInput.Left)
 		    ApplyRunning(elapsedTime/2.0f);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
@@ -550,7 +550,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 //    protected void Doublejumping(float elapsedTime)
 //    {
-//        if(Mathf.Abs(CharInput.Horizontal) > 0.1)
+//        if(CharInput.Left || CharInput.Right)
 //            ApplyRunning(elapsedTime/2.0f);
 //        
 //        if(MecanimAnimator.GetBool(_doublejumpHash))

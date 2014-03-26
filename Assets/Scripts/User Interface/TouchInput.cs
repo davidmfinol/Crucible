@@ -9,8 +9,7 @@ using System.Collections.Generic;
 public class TouchInput : MonoBehaviour
 {
     // Setup for the UI elements that appear on the screen
-    public Transform HorizontalSliderPrefab;
-    public Transform VerticalSliderPrefab;
+    public Transform SliderPrefab;
     public Transform MoveButtonPrefab;
     public Transform DotPrefab;
 
@@ -38,12 +37,14 @@ public class TouchInput : MonoBehaviour
 
     void Start ()
     {
+        // Set up motion variables
         _moveID = -1;
         _moveStartPos = Vector2.zero;
         _moveMin = Screen.width / 32.0f;
         _lastMovePos = Vector2.zero;
         _distanceForMaxSpeed = Screen.width / 8.0f;
 
+        // Set up action variables
         _actionID = -1;
         _actionStartPos = Vector2.zero;
         _actionMin = Screen.width / 32.0f;
@@ -51,8 +52,9 @@ public class TouchInput : MonoBehaviour
 
         _input = GameManager.Player.GetComponent<CharacterInput> ();
 
-        _horizontalSlider = (Transform)Instantiate (HorizontalSliderPrefab, HorizontalSliderPrefab.position, HorizontalSliderPrefab.rotation);
-        _verticalSlider = (Transform)Instantiate (VerticalSliderPrefab, VerticalSliderPrefab.position, VerticalSliderPrefab.rotation);
+        // Left-hand side GUI
+        _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, SliderPrefab.rotation);
+        _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, SliderPrefab.rotation);
         _moveButton = (Transform)Instantiate (MoveButtonPrefab, MoveButtonPrefab.position, MoveButtonPrefab.rotation);
 
         _horizontalSlider.renderer.enabled = false;
@@ -63,6 +65,7 @@ public class TouchInput : MonoBehaviour
         _verticalSlider.parent = transform;
         _moveButton.parent = transform;
 
+        // Right-hand side GUI
         _userInterfaceDots = new List<Transform> ();
         for (int i = 0; i < 9; i++) {
             Transform dot = (Transform)Instantiate (DotPrefab, DotPrefab.position, DotPrefab.rotation);
@@ -71,11 +74,14 @@ public class TouchInput : MonoBehaviour
             _userInterfaceDots.Add (dot);
         }
 
+        // Set up new update methods to show the GUI elements
+        StartCoroutine ("DisplayLeftHandSide");
+        StartCoroutine ("DisplayRightHandSide");
+
     }
 
     public void Enable ()
     {
-        this.enabled = true;
         _input.UpdateInputMethod = this.UpdateInput;
 
     }
@@ -83,7 +89,18 @@ public class TouchInput : MonoBehaviour
     public void Disable ()
     {
         _input.UpdateInputMethod = null;
-        this.enabled = false;
+
+    }
+
+    // Make sure we don't miss updates to the input
+    void Update ()
+    {
+        foreach (Touch touch in Input.touches) {
+            if (touch.fingerId == _moveID && (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended))
+                _moveID = -1;
+            else if (touch.fingerId == _actionID && (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended))
+                InterpretInteraction ();
+        }
 
     }
     
@@ -110,23 +127,30 @@ public class TouchInput : MonoBehaviour
 
     private void InterpretMovementSwipe (Touch touch)
     {
+        // Keep track of when we start touching the screen
         if (touch.phase == TouchPhase.Began && _moveID == -1) {
             _moveID = touch.fingerId;
             _moveStartPos = touch.position;
             _lastMovePos = touch.position;
+
+        // Update the touch as appropriate
         } else if (touch.fingerId == _moveID) {
             _lastMovePos = touch.position;
+
             Vector2 delta = _lastMovePos - _moveStartPos;
             if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
                 _moveID = -1;
             else if (delta.magnitude > _moveMin) {
-                // TODO: MAKE THIS EXPONENTIAL INSTEAD OF LINEAR TO ENCOURAGE SNEAKING
-                if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
-                    _input.Horizontal = delta.x / _distanceForMaxSpeed;
-                else
-                    _input.Vertical = delta.y / _distanceForMaxSpeed;
+                if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) {
+                    float ratio = delta.x / _distanceForMaxSpeed;
+                    _input.Horizontal = ratio * ratio;
+                } else {
+                    float ratio = delta.y / _distanceForMaxSpeed;
+                    _input.Vertical = ratio * ratio;
+                }
             }
         }
+
     }
     
     private void InterpretInteractSwipe (Touch touch)
@@ -140,6 +164,7 @@ public class TouchInput : MonoBehaviour
             if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
                 InterpretInteraction ();// Interpret action on release
         }
+
     }
 
     private void InterpretInteraction ()
@@ -162,60 +187,103 @@ public class TouchInput : MonoBehaviour
             _input.Attack = 1;
         else if (IsInteraction (deg))
             _input.Interaction = true;
+
     }
     
     IEnumerator DisplayLeftHandSide ()
     {
-        yield return null;
-        bool moveTouched = _moveID != -1;
+        bool wasSneaking = false;
+        // We're essentially replicating another update loop for rendering the left hand side
+        while (true) {
+            yield return null;
+
+            // Determine information about the movement input
+            bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
+            Vector3 startPos = ConvertTouchPosToWorldPoint (_moveStartPos);
+            Vector3 currentPos = ConvertTouchPosToWorldPoint (_lastMovePos);
+
+            // Put the sliders at the correct spot
+            _horizontalSlider.transform.position = startPos;
+            _verticalSlider.transform.position = startPos;
+
+            // Scale the sliders towards the size they need to be
+            Vector3 horizontalScale = _horizontalSlider.transform.localScale;
+            Vector3 verticalScale = _verticalSlider.transform.localScale;
+            float targetScale = moveTouched ? 12 : 0; // Note that the 12 is dependent on orthographic camera size of 16 and maxmovement of 1/8
+            horizontalScale.x = Mathf.Lerp(horizontalScale.x, targetScale, Time.deltaTime);
+            verticalScale.y = Mathf.Lerp(verticalScale.y, targetScale, Time.deltaTime);
+            _horizontalSlider.transform.localScale = horizontalScale;
+            _verticalSlider.transform.localScale = verticalScale;
+
+            // Make the sliders disappear once they shrink too much
+            _horizontalSlider.renderer.enabled = horizontalScale.x > 1;
+            _verticalSlider.renderer.enabled = verticalScale.y > 1;
+
+            // Make the button appear only when touching the screen
+            _moveButton.renderer.enabled = moveTouched;
         
-        _horizontalSlider.renderer.enabled = moveTouched;
-        _verticalSlider.renderer.enabled = moveTouched;
-        _moveButton.renderer.enabled = moveTouched;
-        
-        Vector3 pos = ConvertTouchPosToWorldPoint (_moveStartPos);
-        _horizontalSlider.transform.position = pos;
-        _verticalSlider.transform.position = pos;
-        _moveButton.transform.position = ConvertTouchPosToWorldPoint (_lastMovePos); // TODO: MAKE THE BUTTON BE FIXED TO EITHER THE HORIZONTAL OR VERTICAL AXIS?
+            // Move the button to the correct spot
+            _moveButton.position = currentPos;
+            Vector2 delta = _lastMovePos - _moveStartPos;
+            if (delta.magnitude > _moveMin) {
+                if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
+                    _moveButton.position = new Vector3(currentPos.x, startPos.y, currentPos.z);
+                else
+                    _moveButton.position = new Vector3(startPos.x, currentPos.y, currentPos.z);
+            }
+
+            // Have certain effects to really show off player sneaking
+            if(GameManager.Player.IsSneaking) {
+                if(!wasSneaking)
+                    Handheld.Vibrate();
+                _horizontalSlider.renderer.material.color = Color.red;
+                _verticalSlider.renderer.material.color = Color.red;
+            }
+            wasSneaking = GameManager.Player.IsSneaking;
+        }
+
     }
 
     IEnumerator DisplayRightHandSide ()
     {
-        yield return null;
-        bool actTouched = _actionID != -1;
+        // We're essentially replicating another update loop for rendering the right hand side
+        while (true) {
+            yield return null;
 
-        if (!actTouched) {
-            for (int dot=0; dot<_userInterfaceDots.Count; dot++)
-                _userInterfaceDots [dot].renderer.enabled = false;
-        }
+            bool actTouched = _actionID != -1;
+            if (!actTouched) {
+                for (int dot=0; dot<_userInterfaceDots.Count; dot++)
+                    _userInterfaceDots [dot].renderer.enabled = false;
+            }
         
-        float[] dotPositions = {-7.0f,-7.0f,0.0f,-7.0f,7.0f,-7.0f,
+            float[] dotPositions = {-7.0f,-7.0f,0.0f,-7.0f,7.0f,-7.0f,
             -7.0f,0.0f,0.0f,0.0f,7.0f,0.0f,
             -7.0f,7.0f,0.0f,7.0f,7.0f,7.0f};
-        Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
-        for (int dot=0; dot<_userInterfaceDots.Count; dot++) {
-            _userInterfaceDots [dot].transform.position = new Vector3 (pos.x + dotPositions [dot * 2], pos.y + dotPositions [dot * 2 + 1], 0);
-            _userInterfaceDots [dot].renderer.enabled = true;
-            _userInterfaceDots [dot].renderer.material.color = Color.white;
+            Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
+            for (int dot=0; dot<_userInterfaceDots.Count; dot++) {
+                _userInterfaceDots [dot].transform.position = new Vector3 (pos.x + dotPositions [dot * 2], pos.y + dotPositions [dot * 2 + 1], 0);
+                _userInterfaceDots [dot].renderer.enabled = true;
+                _userInterfaceDots [dot].renderer.material.color = Color.white;
             
-            float deg = CalculateActionDegree ();
+                float deg = CalculateActionDegree ();
 
-            if (IsJumpRight (deg) && dot == 8)
-                _userInterfaceDots [dot].renderer.material.color = Color.blue;
-            else if (IsJumpUp (deg) && dot == 7)
-                _userInterfaceDots [dot].renderer.material.color = Color.blue;
-            else if (IsJumpLeft (deg) && dot == 6)
-                _userInterfaceDots [dot].renderer.material.color = Color.blue;
-            else if (IsAttackLeft (deg) && dot == 3)
-                _userInterfaceDots [dot].renderer.material.color = Color.red;
-            else if (IsPickup (deg) && (dot == 0 || dot == 1 || dot == 2))
-                _userInterfaceDots [dot].renderer.material.color = Color.green;
-            else if (IsAttackRight (deg) && dot == 5) 
-                _userInterfaceDots [dot].renderer.material.color = Color.red;
-            else if (IsInteraction (deg) && dot == 4)
-                _userInterfaceDots [dot].renderer.material.color = Color.black;
+                if (IsJumpRight (deg) && dot == 8)
+                    _userInterfaceDots [dot].renderer.material.color = Color.blue;
+                else if (IsJumpUp (deg) && dot == 7)
+                    _userInterfaceDots [dot].renderer.material.color = Color.blue;
+                else if (IsJumpLeft (deg) && dot == 6)
+                    _userInterfaceDots [dot].renderer.material.color = Color.blue;
+                else if (IsAttackLeft (deg) && dot == 3)
+                    _userInterfaceDots [dot].renderer.material.color = Color.red;
+                else if (IsPickup (deg) && (dot == 0 || dot == 1 || dot == 2))
+                    _userInterfaceDots [dot].renderer.material.color = Color.green;
+                else if (IsAttackRight (deg) && dot == 5) 
+                    _userInterfaceDots [dot].renderer.material.color = Color.red;
+                else if (IsInteraction (deg) && dot == 4)
+                    _userInterfaceDots [dot].renderer.material.color = Color.black;
+            }
+            // TODO: LINE FROM START TO END/ PARTICLE EFFECT SURROUNDING FINGER
         }
-        // TODO: LINE FROM START TO END/ PARTICLE EFFECT SURROUNDING FINGER
     }
 
     public float CalculateActionDegree ()

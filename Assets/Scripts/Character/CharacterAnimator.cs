@@ -544,7 +544,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     public void CreateFootstep ()
     {
         // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
-        if (Mathf.Abs (HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed)
+        if (IsSneaking)
             return;
 
         Vector3 footStepPosition = transform.position;
@@ -690,6 +690,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     public virtual bool IsLanding {
         // FIXME: SLOW
         get { return CurrentState.IsName ("Air.Landing") || (IsGrounded && (CurrentState.IsName ("Air.Jumping") || CurrentState.IsName ("Air.Falling"))); } 
+    }
+    
+    public virtual bool IsSneaking {
+        get { return Mathf.Abs (HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed; }
     }
 
     // Moving Platform Properties
