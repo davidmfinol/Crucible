@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: 1d4fe0e6cf9ed834ab53fda5104db921
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - CameraBeep: {fileID: 8300000, guid: 053ec804dcf5ce84390fb07e2ce9659f, type: 3}
+  - DoorSlam: {fileID: 8300000, guid: 7b08ff0ff5e1fba40af015e51b467533, type: 3}
+  - DoorOpen: {fileID: 8300000, guid: 42b0a2a5e197845469cc93d8be0d71f6, type: 3}
+  - OlympusFalling: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
