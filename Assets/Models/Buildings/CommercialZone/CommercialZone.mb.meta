@@ -1154,6 +1154,12 @@ ModelImporter:
     102296: pCube437
     102298: pCube438
     102300: WallLedgeLeftOnly8
+    102302: polySurface247
+    102304: transform148
+    102306: transform149
+    102308: transform150
+    102310: transform151
+    102312: WallRightLedgeOnly
     400000: Box
     400002: Box1
     400004: Box2
@@ -2305,6 +2311,12 @@ ModelImporter:
     402296: pCube437
     402298: pCube438
     402300: WallLedgeLeftOnly8
+    402302: polySurface247
+    402304: transform148
+    402306: transform149
+    402308: transform150
+    402310: transform151
+    402312: WallRightLedgeOnly
     2300000: Box3
     2300002: Box4
     2300004: Box5
@@ -3191,6 +3203,8 @@ ModelImporter:
     2301766: pCube437
     2301768: pCube438
     2301770: WallLedgeLeftOnly8
+    2301772: polySurface247
+    2301774: WallRightLedgeOnly
     3300000: Box3
     3300002: Box4
     3300004: Box5
@@ -4077,6 +4091,8 @@ ModelImporter:
     3301766: pCube437
     3301768: pCube438
     3301770: WallLedgeLeftOnly8
+    3301772: polySurface247
+    3301774: WallRightLedgeOnly
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -4963,6 +4979,8 @@ ModelImporter:
     4301766: pCube437
     4301768: pCube438
     4301770: WallLedgeLeftOnly8
+    4301772: WallRightLedgeOnly
+    4301774: polySurface247
     7400000: Take 001
     9500000: //RootNode
   materials:
