@@ -20,10 +20,16 @@ public class Tutorial : MonoBehaviour
 	public Transform OlympusPosition;
 	public Transform OlympusPrefab;
 	public Transform SewerDoor;
+	public Transform SewerCamera;
 	public Transform NextLevel;
 
 	// save runner component to call script coroutines directly
 	private MysteriousRunner _runner;
+
+	private TutorialAudioPlayer _sewerSounds;
+	private AudioPlayer _doorSounds;
+	private AudioPlayer _cameraSounds;
+
 	
 	private bool _sewerDoorOpen;
 
@@ -31,8 +37,10 @@ public class Tutorial : MonoBehaviour
 	void Start ()
 	{
 		_sewerDoorOpen = false;
+		_sewerSounds = GetComponent<TutorialAudioPlayer>();
 		_runner = MysteriousRunner.GetComponent<MysteriousRunner> ();
-
+		_doorSounds = SewerDoor.GetComponent<AudioPlayer>();
+		_cameraSounds = SewerCamera.GetComponent<AudioPlayer>();
 	}
 
 	void Update()
@@ -138,12 +146,15 @@ public class Tutorial : MonoBehaviour
                 SewerDoor.animation.Play("Close");
                 _sewerDoorOpen = false;
                 yield return new WaitForSeconds(0.5f);
+				_doorSounds.Play(_sewerSounds.DoorSlam, 1.0f);
+				_cameraSounds.Play(_sewerSounds.CameraBeep, 0.6f);
             }
             else if (!_sewerDoorOpen && Mathf.Abs(GameManager.Player.CharInput.Horizontal) < 0.5)
             {
                 SewerDoor.animation.Play("Open");
                 _sewerDoorOpen = true;
                 yield return new WaitForSeconds(0.5f);
+				_doorSounds.Play(_sewerSounds.DoorOpen, 1.0f);
             }
             yield return null; // FIXME: SLOW
         }
