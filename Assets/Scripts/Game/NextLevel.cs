@@ -8,21 +8,18 @@ using System.Collections;
 [AddComponentMenu("Game/Next Level")]
 public class NextLevel : MonoBehaviour
 {
-	public string NextLevelName;
-
+    public string NextLevelName;
     public bool RequiresUp = false;
-
     public Transform LoadingScreen;
-	
-    void OnTriggerEnter(Collider other)
+    
+    void OnTriggerEnter (Collider other)
     {
-		PlayerCharacterAnimator player = other.GetComponent<PlayerCharacterAnimator>();
-        if (other.CompareTag("Player") && player != null && !GameManager.Player.IsDead () && (!RequiresUp || player.CharInput.Up))
-        {
+        PlayerCharacterAnimator player = other.GetComponent<PlayerCharacterAnimator> ();
+        if (other.CompareTag ("Player") && player != null && !GameManager.Player.IsDead () && (!RequiresUp || player.CharInput.Up)) {
             // TODO: OBJECT POOLING
-            Instantiate(LoadingScreen);
-            Application.LoadLevel(NextLevelName);
-
+            Instantiate (LoadingScreen);
+            Application.LoadLevel (NextLevelName);
         }
-    }	
+
+    }   
 }

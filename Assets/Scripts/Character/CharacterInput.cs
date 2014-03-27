@@ -116,7 +116,7 @@ public sealed class CharacterInput : MonoBehaviour
     
     // Helper Input Properties
     public bool Left {
-        get { return Horizontal < -0.1; }
+        get { return Horizontal <= -0.1f; }
     }
 
     public bool LeftPressed {
@@ -128,7 +128,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool Right {
-        get { return Horizontal > 0.1; }
+        get { return Horizontal >= 0.1f; }
     }
 
     public bool RightPressed {
@@ -140,7 +140,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool Up {
-        get { return Vertical > 0.1; }
+        get { return Vertical >= 0.1f; }
     }
 
     public bool UpPressed {
@@ -152,7 +152,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool Down {
-        get { return Vertical < -0.1; }
+        get { return Vertical <= -0.1f; }
     }
 
     public bool DownPressed {
@@ -172,7 +172,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool JumpActive {
-		get { return Jump.y >= 0.1; }
+		get { return Jump.y >= 0.1f; }
     }
 
     public bool JumpPressed {
@@ -184,7 +184,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool JumpLeft {
-        get { return Jump.x < -0.1 && JumpActive; }
+        get { return Jump.x <= -0.1f && JumpActive; }
     }
 
     public bool JumpLeftPressed {
@@ -196,7 +196,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool JumpRight {
-        get { return Jump.x > 0.1 && JumpActive; }
+        get { return Jump.x >= 0.1f && JumpActive; }
     }
 
     public bool JumpRightPressed {
@@ -220,7 +220,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool AttackLeft {
-        get { return Attack < -0.1; }
+        get { return Attack <= -0.1f; }
     }
 
     public bool AttackLeftPressed {
@@ -232,7 +232,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool AttackRight {
-        get { return Attack > 0.1; }
+        get { return Attack >= 0.1f; }
     }
 
     public bool AttackRightPressed {

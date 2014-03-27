@@ -7,48 +7,48 @@ using System.Collections;
 [AddComponentMenu("Health/Enemy Heart Box")]
 public class EnemyHeartBox : HeartBox
 {
-	// We disable attacks hitting too frequently
+    // We disable attacks hitting too frequently
     public float TimeSinceHit = 0;
-	public float TimeBetweenHits = 1;
+    public float TimeBetweenHits = 1;
 
-	// We need to track the awareness of the enemy
-	private EnemyAI _ai;
+    // We need to track the awareness of the enemy
+    private EnemyAI _ai;
 
-	protected override void OnStart()
-	{
-		_ai = transform.parent.GetComponent<EnemyAI> ();
-
-	}
-
-	public override void UpdateHealth(float elapsedTime)
+    protected override void OnStart ()
     {
-		TimeSinceHit += elapsedTime;
-		if (TimeSinceHit < TimeBetweenHits || LastHit == null)
-			return;
+        _ai = transform.parent.GetComponent<EnemyAI> ();
 
-		if(LastHit.CanStealthKill && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware)
-			Controller.OnStealthDeath( Vector2.zero );
-		else if(LastHit.CanStun)
-			Controller.MecanimAnimator.SetBool("Stun", true);
-		else if(LastHit.DoesFloat)
-            Controller.ActivateFloat();
-        else
-        {
-			Vector2 dirToPlayer = new Vector2( transform.position.x - LastHit.transform.position.x, transform.position.y - LastHit.transform.position.y);
+    }
 
-			if(dirToPlayer.x < 0)
-				dirToPlayer.x = -1;
-			else if(dirToPlayer.x > 0)
-				dirToPlayer.x = 1;
+    public override void UpdateHealth (float elapsedTime)
+    {
+        TimeSinceHit += elapsedTime;
+        if (TimeSinceHit < TimeBetweenHits || LastHit == null)
+            return;
 
-			HitPoints -= LastHit.DamageAmount;
+        if (LastHit.CanStealthKill && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware)
+            Controller.OnStealthDeath (Vector2.zero);
+        else if (LastHit.CanStun)
+            Controller.MecanimAnimator.SetBool ("Stun", true);
+        else if (LastHit.DoesFloat)
+            Controller.ActivateFloat ();
+        else {
+            Vector2 dirToPlayer = new Vector2 (transform.position.x - LastHit.transform.position.x, transform.position.y - LastHit.transform.position.y);
 
-            if(HitPoints <= 0)
-				Controller.OnDeath( new Vector2(LastHit.KnockBackAmount * dirToPlayer.x, LastHit.KnockUpAmount) );
+            if (dirToPlayer.x < 0)
+                dirToPlayer.x = -1;
+            else if (dirToPlayer.x > 0)
+                dirToPlayer.x = 1;
+
+            HitPoints -= LastHit.DamageAmount;
+
+            if (HitPoints <= 0)
+                Controller.OnDeath (new Vector2 (LastHit.KnockBackAmount * dirToPlayer.x, LastHit.KnockUpAmount));
 
         }
 
-		LastHit = null;
-		TimeSinceHit = 0;
+        LastHit = null;
+        TimeSinceHit = 0;
+
     }
 }
