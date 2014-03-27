@@ -53,8 +53,8 @@ public class TouchInput : MonoBehaviour
         _input = GameManager.Player.GetComponent<CharacterInput> ();
 
         // Left-hand side GUI
-        _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, SliderPrefab.rotation);
-        _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, SliderPrefab.rotation);
+        _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.identity);
+        _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler(new Vector3(0, 0, 90)));
         _moveButton = (Transform)Instantiate (MoveButtonPrefab, MoveButtonPrefab.position, MoveButtonPrefab.rotation);
 
         // Organize it away
@@ -191,13 +191,12 @@ public class TouchInput : MonoBehaviour
     
     IEnumerator DisplayLeftHandSide ()
     {
-        bool wasSneaking = false;
         // We're essentially replicating another update loop for rendering the left hand side
         while (true) {
             yield return null;
 
             // Determine information about the movement input
-            bool moveTouched = _moveID != -1;// && _input.UpdateInputMethod != null;
+            bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
             Vector3 startPos = ConvertTouchPosToWorldPoint (_moveStartPos);
             Vector3 currentPos = ConvertTouchPosToWorldPoint (_lastMovePos);
 
@@ -207,16 +206,14 @@ public class TouchInput : MonoBehaviour
 
             // Scale the sliders towards the size they need to be
             Vector3 horizontalScale = _horizontalSlider.transform.localScale;
-            Vector3 verticalScale = _verticalSlider.transform.localScale;
             float targetScale = moveTouched ? 12 : 0; // Note that the 12 is dependent on orthographic camera size of 16 and maxmovement of 1/8
             horizontalScale.x = Mathf.Lerp(horizontalScale.x, targetScale, Time.deltaTime);
-            verticalScale.y = Mathf.Lerp(verticalScale.y, targetScale, Time.deltaTime);
             _horizontalSlider.transform.localScale = horizontalScale;
-            _verticalSlider.transform.localScale = verticalScale;
+            _verticalSlider.transform.localScale = horizontalScale;
 
             // Make the sliders disappear once they shrink too much
             _horizontalSlider.renderer.enabled = horizontalScale.x > 1;
-            _verticalSlider.renderer.enabled = verticalScale.y > 1;
+            _verticalSlider.renderer.enabled = horizontalScale.x > 1;
 
             // Make the button appear only when touching the screen
             _moveButton.renderer.enabled = moveTouched;
@@ -233,12 +230,12 @@ public class TouchInput : MonoBehaviour
 
             // Have certain effects to really show off player sneaking
             if(GameManager.Player.IsSneaking) {
-                if(!wasSneaking)
-                    Handheld.Vibrate();
+                _horizontalSlider.renderer.material.color = Color.white;
+                _verticalSlider.renderer.material.color = Color.white;
+            } else {
                 _horizontalSlider.renderer.material.color = Color.red;
                 _verticalSlider.renderer.material.color = Color.red;
             }
-            wasSneaking = GameManager.Player.IsSneaking;
         }
 
     }
@@ -249,10 +246,12 @@ public class TouchInput : MonoBehaviour
         while (true) {
             yield return null;
 
+            // Make everything invisible if we're not touching the right-hand side
             bool actTouched = _actionID != -1;
             if (!actTouched) {
                 for (int dot=0; dot<_userInterfaceDots.Count; dot++)
                     _userInterfaceDots [dot].renderer.enabled = false;
+                continue;
             }
         
             float[] dotPositions = {-7.0f,-7.0f,0.0f,-7.0f,7.0f,-7.0f,
@@ -283,6 +282,7 @@ public class TouchInput : MonoBehaviour
             }
             // TODO: LINE FROM START TO END/ PARTICLE EFFECT SURROUNDING FINGER
         }
+
     }
 
     public float CalculateActionDegree ()
