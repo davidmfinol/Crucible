@@ -146,15 +146,15 @@ public class Tutorial : MonoBehaviour
                 SewerDoor.animation.Play("Close");
                 _sewerDoorOpen = false;
                 yield return new WaitForSeconds(0.5f);
-				_doorSounds.Play(_sewerSounds.DoorSlam, 1.0f);
-				_cameraSounds.Play(_sewerSounds.CameraBeep, 0.6f);
+				_doorSounds.Play(_sewerSounds.DoorSlam, 0.5f);
+				_cameraSounds.Play(_sewerSounds.CameraBeep, 0.3f);
             }
             else if (!_sewerDoorOpen && Mathf.Abs(GameManager.Player.CharInput.Horizontal) < 0.5)
             {
                 SewerDoor.animation.Play("Open");
                 _sewerDoorOpen = true;
                 yield return new WaitForSeconds(0.5f);
-				_doorSounds.Play(_sewerSounds.DoorOpen, 1.0f);
+				_doorSounds.Play(_sewerSounds.DoorOpen, 0.7f);
             }
             yield return null; // FIXME: SLOW
         }
