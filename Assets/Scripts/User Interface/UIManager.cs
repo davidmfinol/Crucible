@@ -10,6 +10,7 @@ using System.Collections;
 public class UIManager : MonoBehaviour
 {
 	public Transform ChaseVignette;
+	public Transform SearchVignette;
 	public Transform HurtVignette;
 	public Transform LensFlareFlash;
 	public GameObject WeaponQuadPrefab;
@@ -41,6 +42,10 @@ public class UIManager : MonoBehaviour
 	private Transform _chaseVignetteInstance;
 	private float _chaseVignetteAlpha;
 	private int _chaseVignetteAlphaDir;
+
+	private Transform _searchVignetteInstance;
+	private float _searchVignetteAlpha;
+	private int _searchVignetteAlphaDir;
 
 	private Transform _flashInstance;
 	private float _flashAlpha;
@@ -89,6 +94,10 @@ public class UIManager : MonoBehaviour
 		_chaseVignetteInstance = (Transform)Instantiate (ChaseVignette, ChaseVignette.position, ChaseVignette.rotation);
 		_chaseVignetteInstance.parent = transform;
 		_chaseVignetteAlpha = 0.0f;
+
+		_searchVignetteInstance = (Transform)Instantiate (SearchVignette, SearchVignette.position, SearchVignette.rotation);
+		_searchVignetteInstance.parent = transform;
+		_searchVignetteAlpha = 0.0f;
 
 		_flashInstance = (Transform)Instantiate (LensFlareFlash, LensFlareFlash.position, LensFlareFlash.rotation);
 		_flashInstance.parent = transform;
@@ -414,6 +423,19 @@ public class UIManager : MonoBehaviour
 				_hurtVignetteAlpha = Mathf.Lerp (_hurtVignetteAlpha, 0.2f, Time.deltaTime * 2.0f);
 		
 		} 
+		else if (GameManager.AI.EnemiesSearching > 0 && GameManager.AI.EnemiesChasing == 0)
+		{
+			Debug.Log("WhiteVignette should be happening");
+			if(_searchVignetteAlpha >= 0.9f)
+				_searchVignetteAlphaDir = -1;
+			else if(_searchVignetteAlpha <= 0.3) 
+				_searchVignetteAlphaDir = 1;
+			
+			if(_searchVignetteAlphaDir == 1)
+				_searchVignetteAlpha = Mathf.Lerp (_searchVignetteAlpha, 1.0f, Time.deltaTime * 2.0f);
+			else if(_searchVignetteAlphaDir == -1)
+				_searchVignetteAlpha = Mathf.Lerp (_searchVignetteAlpha, 0.2f, Time.deltaTime * 2.0f);
+		}
 		else if (GameManager.AI.EnemiesChasing > 0)
         {
             if(_chaseVignetteAlpha >= 0.9f)
@@ -453,13 +475,14 @@ public class UIManager : MonoBehaviour
         if (GameManager.AI.EnemiesChasing == 0 && GameManager.AI.EnemiesSearching == 0)
         {
 			_chaseVignetteAlpha = Mathf.Lerp (_chaseVignetteAlpha, 0, Time.deltaTime * 2.0f);
+			_searchVignetteAlpha = Mathf.Lerp (_searchVignetteAlpha, 0, Time.deltaTime * 2.0f);
 			_flashAlpha = Mathf.Lerp (_flashAlpha, 0, Time.deltaTime * 1.0f);
 			if(_flashAlpha < 0.1f)
 				_hasFlashed = false;
         }
 		else if( _hasFlashed)
 		{
-			_flashAlpha = Mathf.Lerp (_flashAlpha, 0, Time.deltaTime * 1.0f);
+			_flashAlpha = Mathf.Lerp (_flashAlpha, 0, Time.deltaTime * 4.0f);
 		}
 
 		_hurtVignetteInstance.renderer.material.color = new Vector4 (_hurtVignetteInstance.renderer.material.color.r, 
@@ -471,6 +494,12 @@ public class UIManager : MonoBehaviour
 		                                                              _chaseVignetteInstance.renderer.material.color.g, 
 		                                                              _chaseVignetteInstance.renderer.material.color.b,
 		                                                              _chaseVignetteAlpha);
+
+		_searchVignetteInstance.renderer.material.color = new Vector4 (_searchVignetteInstance.renderer.material.color.r, 
+		                                                              _searchVignetteInstance.renderer.material.color.g, 
+		                                                              _searchVignetteInstance.renderer.material.color.b,
+		                                                              _searchVignetteAlpha);
+
 		_flashInstance.renderer.material.color = new Vector4 (_flashInstance.renderer.material.color.r,
 		                                                      _flashInstance.renderer.material.color.g,
 		                                                      _flashInstance.renderer.material.color.b,
