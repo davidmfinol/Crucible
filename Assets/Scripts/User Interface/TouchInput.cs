@@ -11,12 +11,29 @@ public class TouchInput : MonoBehaviour
     // Setup for the UI elements that appear on the screen
     public Transform SliderPrefab;
     public Transform MoveButtonPrefab;
+    public Transform ActionDescriptionPrefab;
+    public Transform FadeLeftPrefab;
+    public Transform FadeTopPrefab;
+    public Transform FadeRightPrefab;
+    public Transform FadeBottomPrefab;
+    public Transform SelectionsPrefab;
     public Transform DotPrefab;
+
+    // The location of each of the dots (index = 2*x + y) for each of the dots
+    public static readonly float[] DotPositions = {-4.35f,-5.6f, 0.0f,-7.2f, 4.35f,-5.6f, // Bottom row
+        -7.1f,-0.2f, 0.0f,0.0f, 7.1f,-0.1f, // Middle row
+        -6.2f,3.9f, 0.0f,7.4f, 6.1f,3.9f}; // Top row
 
     // Keep track of the objects we're using to display the UI
     private Transform _horizontalSlider;
     private Transform _verticalSlider;
     private Transform _moveButton;
+    private Transform _actionDescription;
+    private Transform _fadeLeft;
+    private Transform _fadeTop;
+    private Transform _fadeRight;
+    private Transform _fadeBottom;
+    private Transform _selections;
     private List<Transform> _userInterfaceDots;
 
     // Swipe information related to movement
@@ -50,6 +67,7 @@ public class TouchInput : MonoBehaviour
         _actionMin = Screen.width / 32.0f;
         _lastActionPos = Vector2.zero;
 
+        // Gonna store the input here
         _input = GameManager.Player.GetComponent<CharacterInput> ();
 
         // Left-hand side GUI
@@ -63,6 +81,22 @@ public class TouchInput : MonoBehaviour
         _moveButton.parent = transform;
 
         // Right-hand side GUI
+        _actionDescription = (Transform)Instantiate (ActionDescriptionPrefab, Vector3.zero, Quaternion.identity);
+        _fadeLeft = (Transform)Instantiate (FadeLeftPrefab, Vector3.zero, Quaternion.identity);
+        _fadeTop = (Transform)Instantiate (FadeTopPrefab, Vector3.zero, Quaternion.identity);
+        _fadeRight = (Transform)Instantiate (FadeRightPrefab, Vector3.zero, Quaternion.identity);
+        _fadeBottom = (Transform)Instantiate (FadeBottomPrefab, Vector3.zero, Quaternion.identity);
+        _selections = (Transform)Instantiate (SelectionsPrefab, Vector3.zero, Quaternion.identity);
+
+        // Organize them away
+        _actionDescription.parent = transform;
+        _fadeLeft.parent = transform;
+        _fadeTop.parent = transform;
+        _fadeRight.parent = transform;
+        _fadeBottom.parent = transform;
+        _selections.parent = transform;
+
+        // The dots
         _userInterfaceDots = new List<Transform> ();
         for (int i = 0; i < 9; i++) {
             Transform dot = (Transform)Instantiate (DotPrefab, DotPrefab.position, DotPrefab.rotation);
@@ -100,7 +134,8 @@ public class TouchInput : MonoBehaviour
         }
 
     }
-    
+
+    // The input class will call this method while touch input is enabled
     public void UpdateInput ()
     {   
         // Reset inputs
@@ -122,6 +157,7 @@ public class TouchInput : MonoBehaviour
 
     }
 
+    // The left-hand side of the screen
     private void InterpretMovementSwipe (Touch touch)
     {
         // Keep track of when we start touching the screen
@@ -151,7 +187,8 @@ public class TouchInput : MonoBehaviour
         }
 
     }
-    
+
+    // The right-hand side of the screen
     private void InterpretInteractSwipe (Touch touch)
     {
         if (touch.phase == TouchPhase.Began && _actionID == -1) {
@@ -166,6 +203,7 @@ public class TouchInput : MonoBehaviour
 
     }
 
+    // Another helper for the right-hand side
     private void InterpretInteraction ()
     {
         _actionID = -1;
@@ -188,15 +226,23 @@ public class TouchInput : MonoBehaviour
             _input.Interaction = true;
 
     }
-    
+
+    // Draw code
     IEnumerator DisplayLeftHandSide ()
     {
         // We're essentially replicating another update loop for rendering the left hand side
         while (true) {
             yield return null;
+            
+            // Make the left-hand side appear only when touching the screen
+            bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
+            _horizontalSlider.renderer.enabled = moveTouched;
+            _verticalSlider.renderer.enabled = moveTouched;
+            _moveButton.renderer.enabled = moveTouched;
+            if(!moveTouched)
+                continue;
 
             // Determine information about the movement input
-            bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
             Vector3 startPos = ConvertTouchPosToWorldPoint (_moveStartPos);
             Vector3 currentPos = ConvertTouchPosToWorldPoint (_lastMovePos);
 
@@ -204,20 +250,14 @@ public class TouchInput : MonoBehaviour
             _horizontalSlider.transform.position = startPos;
             _verticalSlider.transform.position = startPos;
 
-            // Scale the sliders towards the size they need to be
+            // The size of the slider indicates the player speed
             Vector3 horizontalScale = _horizontalSlider.transform.localScale;
-            float targetScale = moveTouched ? 12 : 0; // Note that the 12 is dependent on orthographic camera size of 16 and maxmovement of 1/8
-            horizontalScale.x = Mathf.Lerp(horizontalScale.x, targetScale, Time.deltaTime);
+            // Note that we set a max scale of 12, dependent on orthographic camera size of 16 and maxmovement of 1/8
+            float targetScale = 1 + 11 * _input.Horizontal;
+            horizontalScale.x = targetScale;
             _horizontalSlider.transform.localScale = horizontalScale;
             _verticalSlider.transform.localScale = horizontalScale;
-
-            // Make the sliders disappear once they shrink too much
-            _horizontalSlider.renderer.enabled = horizontalScale.x > 1;
-            _verticalSlider.renderer.enabled = horizontalScale.x > 1;
-
-            // Make the button appear only when touching the screen
-            _moveButton.renderer.enabled = moveTouched;
-        
+            
             // Move the button to the correct spot
             _moveButton.position = currentPos;
             Vector2 delta = _lastMovePos - _moveStartPos;
@@ -232,6 +272,7 @@ public class TouchInput : MonoBehaviour
             if(GameManager.Player.IsSneaking) {
                 _horizontalSlider.renderer.material.color = Color.white;
                 _verticalSlider.renderer.material.color = Color.white;
+                // TODO: RADIO WAVES ANIMATION
             } else {
                 _horizontalSlider.renderer.material.color = Color.red;
                 _verticalSlider.renderer.material.color = Color.red;
@@ -240,6 +281,7 @@ public class TouchInput : MonoBehaviour
 
     }
 
+    // Draw code
     IEnumerator DisplayRightHandSide ()
     {
         // We're essentially replicating another update loop for rendering the right hand side
@@ -248,39 +290,70 @@ public class TouchInput : MonoBehaviour
 
             // Make everything invisible if we're not touching the right-hand side
             bool actTouched = _actionID != -1;
-            if (!actTouched) {
-                for (int dot=0; dot<_userInterfaceDots.Count; dot++)
-                    _userInterfaceDots [dot].renderer.enabled = false;
+            _actionDescription.renderer.enabled = actTouched; // TODO: MAKE THIS DISAPPEAR AFTER A WHILE
+            _fadeLeft.renderer.enabled = false;
+            _fadeTop.renderer.enabled = false;
+            _fadeRight.renderer.enabled = false;
+            _fadeBottom.renderer.enabled = false;
+            _selections.renderer.enabled = actTouched;
+            for (int dot=0; dot<_userInterfaceDots.Count; dot++)
+                _userInterfaceDots [dot].renderer.enabled = actTouched;
+            if (!actTouched)
                 continue;
-            }
-        
-            float[] dotPositions = {-7.0f,-7.0f,0.0f,-7.0f,7.0f,-7.0f,
-            -7.0f,0.0f,0.0f,0.0f,7.0f,0.0f,
-            -7.0f,7.0f,0.0f,7.0f,7.0f,7.0f};
+
+            // Put the images at the correct spot
             Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
+            _actionDescription.position = pos;
+            _fadeLeft.position = pos;
+            _fadeTop.position = pos;
+            _fadeRight.position = pos;
+            _fadeBottom.position = pos;
+            _selections.position = pos;
+        
+            // Put the dots at the correct positions , and color/enable things as appropriate
+            _selections.renderer.material.color = Color.white;
+            float deg = CalculateActionDegree ();
             for (int dot=0; dot<_userInterfaceDots.Count; dot++) {
-                _userInterfaceDots [dot].transform.position = new Vector3 (pos.x + dotPositions [dot * 2], pos.y + dotPositions [dot * 2 + 1], 0);
+                _userInterfaceDots [dot].transform.position = new Vector3 (pos.x + DotPositions [dot * 2], pos.y + DotPositions [dot * 2 + 1], 0);
                 _userInterfaceDots [dot].renderer.enabled = true;
                 _userInterfaceDots [dot].renderer.material.color = Color.white;
-            
-                float deg = CalculateActionDegree ();
 
-                if (IsJumpRight (deg) && dot == 8)
+                if (IsJumpRight (deg) && dot == 8) {
+                    _selections.renderer.material.color = Color.blue;
+                    _fadeTop.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.blue;
-                else if (IsJumpUp (deg) && dot == 7)
+                }
+                else if (IsJumpUp (deg) && dot == 7) {
+                    _selections.renderer.material.color = Color.blue;
+                    _fadeTop.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.blue;
-                else if (IsJumpLeft (deg) && dot == 6)
+                }
+                else if (IsJumpLeft (deg) && dot == 6) {
+                    _selections.renderer.material.color = Color.blue;
+                    _fadeTop.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.blue;
-                else if (IsAttackLeft (deg) && dot == 3)
+                }
+                else if (IsAttackLeft (deg) && (dot == 0 || dot == 3 || dot == 6)) {
+                    _selections.renderer.material.color = Color.red;
+                    _fadeLeft.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.red;
-                else if (IsPickup (deg) && (dot == 0 || dot == 1 || dot == 2))
+                }
+                else if (IsPickup (deg) && (dot == 0 || dot == 1 || dot == 2)) {
+                    _selections.renderer.material.color = Color.green;
+                    _fadeBottom.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.green;
-                else if (IsAttackRight (deg) && dot == 5) 
+                }
+                else if (IsAttackRight (deg) && (dot == 2 || dot == 5 || dot == 8)) {
+                    _selections.renderer.material.color = Color.red;
+                    _fadeRight.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.red;
-                else if (IsInteraction (deg) && dot == 4)
+                }
+                else if (IsInteraction (deg) && dot == 4) {
+                    _selections.renderer.material.color = Color.black;
                     _userInterfaceDots [dot].renderer.material.color = Color.black;
+                }
             }
-            // TODO: LINE FROM START TO END/ PARTICLE EFFECT SURROUNDING FINGER
+
         }
 
     }
