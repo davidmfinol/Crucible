@@ -5,6 +5,13 @@ MonoImporter:
   defaultReferences:
   - SliderPrefab: {fileID: 400000, guid: 258f802dd9f8552469cfac9142197078, type: 2}
   - MoveButtonPrefab: {fileID: 400000, guid: 3cdd4b0943ef5bc48964ba573cb6184d, type: 2}
+  - ActionDescriptionPrefab: {fileID: 400000, guid: 45a0426cfb61c214b910777daafd04c1,
+      type: 2}
+  - FadeLeftPrefab: {fileID: 400000, guid: 981f229bf705bcc47a9b9d91eee5a7be, type: 2}
+  - FadeTopPrefab: {fileID: 400000, guid: 42afdfc7c62b3bf40af9e40a73dbaea0, type: 2}
+  - FadeRightPrefab: {fileID: 400000, guid: e8cde26a8ab93d646a3da9ac8a037a0c, type: 2}
+  - FadeBottomPrefab: {fileID: 400000, guid: 5089ceda8a10be34498353def6ee3b5f, type: 2}
+  - SelectionsPrefab: {fileID: 400000, guid: 14a12f5311ef6ad43891497a2aeb02fb, type: 2}
   - DotPrefab: {fileID: 400000, guid: 73a8b035785b9c54090a3d103d0f5efb, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
