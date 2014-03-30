@@ -820,6 +820,23 @@ ModelImporter:
     101628: WallLeftLedgeOnly
     101630: WallRightLedgeOnly
     101632: WaypointlessMesh
+    101634: polySurface248
+    101636: transform132
+    101638: transform133
+    101640: transform134
+    101642: transform135
+    101644: transform136
+    101646: polySurface249
+    101648: polySurface250
+    101650: polySurface251
+    101652: polySurface254
+    101654: MeshLedgeLeftOnly
+    101656: group1
+    101658: pCylinder78
+    101660: pCylinder79
+    101662: pCylinder80
+    101664: pCylinder81
+    101666: pCylinder82
     400000: Box
     400002: Box1
     400004: Box10
@@ -1637,6 +1654,23 @@ ModelImporter:
     401628: WallLeftLedgeOnly
     401630: WallRightLedgeOnly
     401632: WaypointlessMesh
+    401634: polySurface248
+    401636: transform132
+    401638: transform133
+    401640: transform134
+    401642: transform135
+    401644: transform136
+    401646: polySurface249
+    401648: polySurface250
+    401650: polySurface251
+    401652: polySurface254
+    401654: MeshLedgeLeftOnly
+    401656: group1
+    401658: pCylinder78
+    401660: pCylinder79
+    401662: pCylinder80
+    401664: pCylinder81
+    401666: pCylinder82
     2300000: Box10
     2300002: Box12
     2300004: Box13
@@ -2232,6 +2266,17 @@ ModelImporter:
     2301184: WallLeftLedgeOnly
     2301186: WallRightLedgeOnly
     2301188: WaypointlessMesh
+    2301190: polySurface248
+    2301192: polySurface249
+    2301194: polySurface250
+    2301196: polySurface251
+    2301198: polySurface254
+    2301200: MeshLedgeLeftOnly
+    2301202: pCylinder78
+    2301204: pCylinder79
+    2301206: pCylinder80
+    2301208: pCylinder81
+    2301210: pCylinder82
     3300000: Box10
     3300002: Box12
     3300004: Box13
@@ -2827,6 +2872,17 @@ ModelImporter:
     3301184: WallLeftLedgeOnly
     3301186: WallRightLedgeOnly
     3301188: WaypointlessMesh
+    3301190: polySurface248
+    3301192: polySurface249
+    3301194: polySurface250
+    3301196: polySurface251
+    3301198: polySurface254
+    3301200: MeshLedgeLeftOnly
+    3301202: pCylinder78
+    3301204: pCylinder79
+    3301206: pCylinder80
+    3301208: pCylinder81
+    3301210: pCylinder82
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -3422,6 +3478,17 @@ ModelImporter:
     4301184: WallLedge180
     4301186: polySurface247
     4301188: pCube439
+    4301190: polySurface248
+    4301192: polySurface249
+    4301194: polySurface250
+    4301196: polySurface251
+    4301198: polySurface254
+    4301200: MeshLedgeLeftOnly
+    4301202: pCylinder78
+    4301204: pCylinder79
+    4301206: pCylinder80
+    4301208: pCylinder81
+    4301210: pCylinder82
     7400000: Take 001
     9500000: //RootNode
   materials:
