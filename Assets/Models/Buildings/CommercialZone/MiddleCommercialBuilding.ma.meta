@@ -361,6 +361,26 @@ ModelImporter:
     100710: pCube146
     100712: pCube147
     100714: pCube148
+    100716: pCube149
+    100718: polySurface57
+    100720: transform21
+    100722: transform22
+    100724: pCube150
+    100726: pCube151
+    100728: pCube152
+    100730: pCube153
+    100732: pCube154
+    100734: polySurface58
+    100736: polySurface59
+    100738: polySurface60
+    100740: polySurface61
+    100742: polySurface62
+    100744: polySurface63
+    100746: transform23
+    100748: transform24
+    100750: transform25
+    100752: transform26
+    100754: transform27
     400000: Box
     400002: Box1
     400004: Box2
@@ -719,6 +739,26 @@ ModelImporter:
     400710: pCube146
     400712: pCube147
     400714: pCube148
+    400716: pCube149
+    400718: polySurface57
+    400720: transform21
+    400722: transform22
+    400724: pCube150
+    400726: pCube151
+    400728: pCube152
+    400730: pCube153
+    400732: pCube154
+    400734: polySurface58
+    400736: polySurface59
+    400738: polySurface60
+    400740: polySurface61
+    400742: polySurface62
+    400744: polySurface63
+    400746: transform23
+    400748: transform24
+    400750: transform25
+    400752: transform26
+    400754: transform27
     2300000: Box
     2300002: Box1
     2300004: Box2
@@ -1046,6 +1086,15 @@ ModelImporter:
     2300648: pCube146
     2300650: pCube147
     2300652: pCube148
+    2300654: pCube149
+    2300656: polySurface57
+    2300658: pCube150
+    2300660: pCube151
+    2300662: pCube152
+    2300664: pCube153
+    2300666: pCube154
+    2300668: polySurface60
+    2300670: polySurface63
     3300000: Box
     3300002: Box1
     3300004: Box2
@@ -1373,6 +1422,15 @@ ModelImporter:
     3300648: pCube146
     3300650: pCube147
     3300652: pCube148
+    3300654: pCube149
+    3300656: polySurface57
+    3300658: pCube150
+    3300660: pCube151
+    3300662: pCube152
+    3300664: pCube153
+    3300666: pCube154
+    3300668: polySurface60
+    3300670: polySurface63
     4300000: MeterMan28
     4300002: MeterMan29
     4300004: MeterMan30
@@ -1700,6 +1758,15 @@ ModelImporter:
     4300648: pCube146
     4300650: pCube147
     4300652: pCube148
+    4300654: pCube149
+    4300656: polySurface57
+    4300658: pCube150
+    4300660: pCube151
+    4300662: pCube152
+    4300664: pCube153
+    4300666: pCube154
+    4300668: polySurface60
+    4300670: polySurface63
     7400000: Take 001
     9500000: //RootNode
   materials:
