@@ -13,6 +13,8 @@ MonoImporter:
   - FadeBottomPrefab: {fileID: 400000, guid: 5089ceda8a10be34498353def6ee3b5f, type: 2}
   - SelectionsPrefab: {fileID: 400000, guid: 14a12f5311ef6ad43891497a2aeb02fb, type: 2}
   - DotPrefab: {fileID: 400000, guid: 73a8b035785b9c54090a3d103d0f5efb, type: 2}
+  - LeftHandVignette: {fileID: 400000, guid: 6b7309b0fa5aafd47b65c4336b5535c9, type: 2}
+  - RightHandVignette: {fileID: 400000, guid: 0db6bddecb79d8d4bbb15c86549fc98f, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

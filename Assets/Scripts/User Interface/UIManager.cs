@@ -418,7 +418,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateVignette()
     {
-		// player hurt or chased? pule vignettes.
+		// player hurt or chased? pulse vignettes.
 		if (_playerHeartBox.HitPoints != _playerHeartBox.MaxHitPoints)
 		{
 			if(_hurtVignetteAlpha >= 0.9f)
