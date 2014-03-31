@@ -19,6 +19,10 @@ public class TouchInput : MonoBehaviour
     public Transform SelectionsPrefab;
     public Transform DotPrefab;
 
+    // For tutorial, we also add vignettes to the left and right hand sides of the screen
+    public Transform LeftHandVignette;
+    public Transform RightHandVignette;
+
     // The location of each of the dots (index = 2*x + y) for each of the dots
     public static readonly float[] DotPositions = {-4.35f,-5.6f, 0.0f,-7.2f, 4.35f,-5.6f, // Bottom row
         -7.1f,-0.2f, 0.0f,0.0f, 7.1f,-0.1f, // Middle row
@@ -35,6 +39,8 @@ public class TouchInput : MonoBehaviour
     private Transform _fadeBottom;
     private Transform _selections;
     private List<Transform> _userInterfaceDots;
+    private Transform _leftHandVignette;
+    private Transform _rightHandVignette;
 
     // Swipe information related to movement
     private int _moveID;
@@ -104,6 +110,12 @@ public class TouchInput : MonoBehaviour
             dot.parent = transform;
             _userInterfaceDots.Add (dot);
         }
+
+        // The vignettes
+        _leftHandVignette = (Transform)Instantiate (LeftHandVignette, LeftHandVignette.position, LeftHandVignette.rotation);
+        _rightHandVignette = (Transform)Instantiate (RightHandVignette, RightHandVignette.position, RightHandVignette.rotation);
+        _leftHandVignette.renderer.enabled = false;
+        _rightHandVignette.renderer.enabled = false;
 
         // Set up new update methods to show the GUI elements
         StartCoroutine (DisplayLeftHandSide());
@@ -242,6 +254,9 @@ public class TouchInput : MonoBehaviour
             if(!moveTouched)
                 continue;
 
+            // For the tutorial, we draw the vignette when touched
+            _leftHandVignette.renderer.enabled = true; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING, AND MAYBE A VIBRATE EFFECT
+
             // Determine information about the movement input
             Vector3 startPos = ConvertTouchPosToWorldPoint (_moveStartPos);
             Vector3 currentPos = ConvertTouchPosToWorldPoint (_lastMovePos);
@@ -300,6 +315,9 @@ public class TouchInput : MonoBehaviour
                 _userInterfaceDots [dot].renderer.enabled = actTouched;
             if (!actTouched)
                 continue;
+            
+            // For the tutorial, we draw the vignette when touched
+            _rightHandVignette.renderer.enabled = true; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING, AND MAYBE A VIBRATE EFFECT
 
             // Put the images at the correct spot
             Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
