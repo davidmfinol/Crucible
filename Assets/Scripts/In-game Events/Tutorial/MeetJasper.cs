@@ -2,26 +2,26 @@
 using System.Collections;
 
 public class MeetJasper : MonoBehaviour {
-
-	public bool WasPlayed = false;
 	public Transform TVScreen1;
 	public Transform TVScreen2;
 	public Transform TVScreen3;
 	private TutorialQuad _quad;
 
 	void Start() {
-		WasPlayed = false;
 		_quad = GetComponentInChildren<TutorialQuad>();
 
 	}
 
 	void OnTriggerEnter(Collider other) {
-		PlayerCharacterAnimator anim = other.gameObject.GetComponent<PlayerCharacterAnimator> ();
+		if (!GameManager.SaveData.ShownMeetJasper) {
+			GameManager.SaveData.ShownMeetJasper = true;
 
-		if (anim && !WasPlayed) {
-			WasPlayed = true;
+			PlayerCharacterAnimator anim = other.gameObject.GetComponent<PlayerCharacterAnimator> ();
 
-			StartCoroutine("DoDialogue");
+			if (anim != null) {
+				StartCoroutine("DoDialogue");
+				
+			}
 
 		}
 
@@ -36,6 +36,7 @@ public class MeetJasper : MonoBehaviour {
 		if(TVScreen3!= null)
 			TVScreen3.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
 		Debug.Log ("JasperText1");
+		_quad.gameObject.renderer.enabled = true;
 		_quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D>("JasperText1");
 		yield return new WaitForSeconds (3.0f);
 		Debug.Log ("JasperText2");
@@ -58,6 +59,7 @@ public class MeetJasper : MonoBehaviour {
 		yield return new WaitForSeconds (3.0f);
 		_quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D>("JasperText7");
 		yield return new WaitForSeconds (3.0f);
+
 		_quad.gameObject.renderer.enabled = false;
 		StopCoroutine ("DoDialogue");
 	}

@@ -18,8 +18,14 @@ public class Checkpoint : MonoBehaviour
         Checkpoint_UpperAnvilPark,
         Checkpoint_LowerAnvilPark,
         Checkpoint_SewerStart,
-        Checkpoint_SewerTop
-    
+        Checkpoint_SewerTop,
+		Commercial_BottomCenter,
+		Commercial_MidRight,
+		Commercial_TopCenter,
+		Commercial_TopRight,
+		Commercial_MidLeft,
+		Commercial_BottomLeft,
+
     }
     ;
 

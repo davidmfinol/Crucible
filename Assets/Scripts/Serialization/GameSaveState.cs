@@ -19,7 +19,10 @@ public class GameSaveState
 	public bool ShownStealthKillPrompt;
 
 	public bool TutorialComplete;
-	
+
+	// Jasper tells you what to do
+	public bool ShownMeetJasper;
+
     public void Save(string path)
     {
         XmlSerializer serializer = new XmlSerializer( typeof(GameSaveState) );

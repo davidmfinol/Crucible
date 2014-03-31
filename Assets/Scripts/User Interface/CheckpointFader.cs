@@ -24,7 +24,8 @@ public class CheckpointFader : MonoBehaviour
 
 	public void StartFading(string s, Color c)
     {
-		_fadeMessage = s;
+		//_fadeMessage = s;
+		_fadeMessage = "Checkpoint Reached.";
 		_fadeRemaining = _fadeDuration;
 
 	}
