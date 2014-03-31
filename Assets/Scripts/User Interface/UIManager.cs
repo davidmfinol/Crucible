@@ -418,6 +418,7 @@ public class UIManager : MonoBehaviour
 
 	}
 
+    // TODO: DELETE THIS
     private void UpdateVignette()
     {
 		// player hurt or chased? pulse vignettes.
