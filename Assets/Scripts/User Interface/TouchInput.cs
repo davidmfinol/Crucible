@@ -86,6 +86,11 @@ public class TouchInput : MonoBehaviour
         _verticalSlider.parent = transform;
         _moveButton.parent = transform;
 
+        // And hide them
+        _horizontalSlider.renderer.enabled = false;
+        _verticalSlider.renderer.enabled = false;
+        _moveButton.renderer.enabled = false;
+
         // Right-hand side GUI
         _actionDescription = (Transform)Instantiate (ActionDescriptionPrefab, Vector3.zero, Quaternion.identity);
         _fadeLeft = (Transform)Instantiate (FadeLeftPrefab, Vector3.zero, Quaternion.identity);
@@ -101,6 +106,14 @@ public class TouchInput : MonoBehaviour
         _fadeRight.parent = transform;
         _fadeBottom.parent = transform;
         _selections.parent = transform;
+
+        // And hide them
+        _actionDescription.renderer.enabled = false;
+        _fadeLeft.renderer.enabled = false;
+        _fadeTop.renderer.enabled = false;
+        _fadeRight.renderer.enabled = false;
+        _fadeBottom.renderer.enabled = false;
+        _selections.renderer.enabled = false;
 
         // The dots
         _userInterfaceDots = new List<Transform> ();
@@ -248,22 +261,22 @@ public class TouchInput : MonoBehaviour
             
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
+            _leftHandVignette.renderer.enabled = moveTouched; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING, AND MAYBE A VIBRATE EFFECT
             _horizontalSlider.renderer.enabled = moveTouched;
             _verticalSlider.renderer.enabled = moveTouched;
             _moveButton.renderer.enabled = moveTouched;
             if(!moveTouched)
                 continue;
 
-            // For the tutorial, we draw the vignette when touched
-            _leftHandVignette.renderer.enabled = true; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING, AND MAYBE A VIBRATE EFFECT
+            // TODO: PULSE EFFECT
 
             // Determine information about the movement input
             Vector3 startPos = ConvertTouchPosToWorldPoint (_moveStartPos);
             Vector3 currentPos = ConvertTouchPosToWorldPoint (_lastMovePos);
 
-            // Put the sliders at the correct spot
-            _horizontalSlider.transform.position = startPos;
-            _verticalSlider.transform.position = startPos;
+            // Put the sliders at the correct spot (we offset to keep them centered)
+            _horizontalSlider.transform.position = startPos + Vector3.up * 0.18f;
+            _verticalSlider.transform.position = startPos + Vector3.left * 0.18f;
 
             // The size of the slider indicates the player speed
             Vector3 horizontalScale = _horizontalSlider.transform.localScale;
@@ -305,6 +318,7 @@ public class TouchInput : MonoBehaviour
 
             // Make everything invisible if we're not touching the right-hand side
             bool actTouched = _actionID != -1;
+            _rightHandVignette.renderer.enabled = actTouched; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING, AND MAYBE A VIBRATE EFFECT
             _actionDescription.renderer.enabled = actTouched; // TODO: MAKE THIS DISAPPEAR AFTER A WHILE
             _fadeLeft.renderer.enabled = false;
             _fadeTop.renderer.enabled = false;
@@ -316,8 +330,7 @@ public class TouchInput : MonoBehaviour
             if (!actTouched)
                 continue;
             
-            // For the tutorial, we draw the vignette when touched
-            _rightHandVignette.renderer.enabled = true; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING, AND MAYBE A VIBRATE EFFECT
+            // TODO: PULSE EFFECT
 
             // Put the images at the correct spot
             Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
