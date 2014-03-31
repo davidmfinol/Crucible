@@ -32,29 +32,25 @@ public class AlphaPulse : MonoBehaviour {
 	}
 	
 	public void Update() {
+
+        // When on, pulse
 		if (_on) {
-			if(_dir == 1) { 
-				_alpha += (_dir * Period * Time.deltaTime);
-		
-				if(_alpha >= MaxAlpha)
+			if(_dir == 1 && _alpha >= MaxAlpha)
 					_dir = -1;
-
-			} else if(_dir == -1) {
-				_alpha += (_dir * Period * Time.deltaTime);
-
-				if(_alpha <= MinAlpha)
+            else if(_dir == -1 && _alpha <= MinAlpha)
 					_dir = 1;
 
-			}
 
 		// when turned off, fade to 0
-		} else if(!_on && (_dir == -1) && (_alpha > 0.0f)) {
-			_alpha -= (_dir * Period * Time.deltaTime);
-
-			// keep to the minimum
-			_alpha = Mathf.Max(_alpha, 0.0f);
+		} else {
+            _dir = -1;
 
 		}
+        
+        _alpha += (_dir * Period * Time.deltaTime);
+        
+        // keep to the minimum
+        _alpha = Mathf.Max(_alpha, 0.0f);
 
 		ApplyAlpha();
 
