@@ -425,7 +425,6 @@ public class UIManager : MonoBehaviour
 		} 
 		else if (GameManager.AI.EnemiesSearching > 0 && GameManager.AI.EnemiesChasing == 0)
 		{
-			Debug.Log("WhiteVignette should be happening");
 			if(_searchVignetteAlpha >= 0.9f)
 				_searchVignetteAlphaDir = -1;
 			else if(_searchVignetteAlpha <= 0.3) 
