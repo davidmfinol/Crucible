@@ -91,6 +91,34 @@ public class Tutorial : MonoBehaviour
 		
 	}
 
+	public void ShowStealthKillPrompt() {
+		if(!GameManager.SaveData.ShownStealthKillPrompt) {
+			if(GameManager.AI.EnemiesChasing == 0 && GameManager.AI.EnemiesSearching == 0 &&
+			   GameManager.Player.IsGrounded) {
+
+				GameManager.SaveData.ShownStealthKillPrompt = true;
+
+				// TODO: stealth kill prompt by spawning a new coroutine which
+				// waits for the swipe left input.
+				StartCoroutine("WaitForAttack");
+
+			}
+
+		}
+
+	}
+
+	public void WaitForAttack() {
+		while (true) {
+
+
+
+		}
+			
+			// do stuff
+
+	}
+
 	public void StartOperatingDoor() {
 		StartCoroutine("OperateDoor");
 

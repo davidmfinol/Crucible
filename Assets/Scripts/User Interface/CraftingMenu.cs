@@ -165,7 +165,7 @@ public class CraftingMenu : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown ("CraftingMenu")) {
+		if (Input.GetButtonDown ("CraftingMenu") && !GameManager.IsPlayingCutscene) {
 			if(_state == CraftingMenuState.CraftingMenu_Closed) {
 				TryOpen();
 

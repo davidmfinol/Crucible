@@ -203,7 +203,7 @@ public class UIManager : MonoBehaviour
 		Vector3 mouseWorldPos = _uiCamera.ScreenToWorldPoint (Input.mousePosition);
 		mouseWorldPos.z = _weaponWheelPos.z;
 
-		// *** began swipe with mouse? ***
+		// *** began swipe with mouse in the weapon wheel? ***
 		if (Input.GetMouseButtonDown (0) && Vector3.Distance (_weaponWheelPos, mouseWorldPos) <= (WeaponRadius * 2.0f)) {
 			_isTrackingSwipe = true;
 			_swipeStartPos = mouseWorldPos;
@@ -389,7 +389,8 @@ public class UIManager : MonoBehaviour
 			vDir.Normalize();
 
 			// alpha is zero after some cutoff distance.
-			float alpha = (Mathf.Max (0.0f, 75.0f - fDist) / 75.0f);
+			float alpha = Mathf.Max(0.3f, (120.0f - fDist) / 120.0f);
+			alpha = Mathf.Min(1.0f, alpha);
 
 			float deg = Vector3.Angle(Vector3.right, vDir);
 
@@ -398,7 +399,15 @@ public class UIManager : MonoBehaviour
 			_objectiveQuad.renderer.material.color = new Color(_objectiveQuad.renderer.material.color.r, 
 			                                                   _objectiveQuad.renderer.material.color.g, 
 			                                                   _objectiveQuad.renderer.material.color.b, 
-			                                                   alpha); 
+			                                                   alpha);
+
+
+			// make it bright & bigger the closer you get.
+			float fScale = alpha * 3.0f + 0.01f;
+
+			Vector3 vScale = new Vector3(fScale, fScale, fScale);
+
+			_objectiveQuad.transform.localScale = vScale;
 
 		} else {
 			_objectiveQuad.renderer.enabled = false;

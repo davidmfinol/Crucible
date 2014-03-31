@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour
     // We also keep track of the save data here
     private static GameSaveState _saveData;
 
+	// is a cutscene currently playing?  turn it on/off appropriately.
+	private static bool _isPlayingCutscene;
+
+
     // Set up level, player/camera, and find the Global Managers
     void Start ()
     {
@@ -514,4 +518,14 @@ public class GameManager : MonoBehaviour
             return _saveData; 
         }
     }
+
+	public static bool IsPlayingCutscene {
+		get { return _isPlayingCutscene; }
+		set{  _isPlayingCutscene = value;
+			  if(value == true)
+				GameManager.UI.CraftingMenu.Close();
+		}
+
+	}
+
 }

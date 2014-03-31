@@ -23,7 +23,7 @@ public class ObjectiveTracker : MonoBehaviour {
 			if(Objectives[i] != null) {
 				float dist = Vector3.Distance(pos, Objectives[i].transform.position);
 
-				if(dist <= 3.0f) {
+				if(dist <= 8.0f) {
 					Objectives.RemoveAt(i);
 
 				}

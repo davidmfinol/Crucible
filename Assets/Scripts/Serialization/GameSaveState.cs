@@ -10,11 +10,14 @@ public class GameSaveState
 	public Checkpoint.CheckpointLocation Checkpoint;
 	public PlayerSaveState PlayerState;
 
+	// *** tutorial zone ***
 	public bool ShownWallJump1;
 	public bool ShownWallJump2;
 	public bool ShownDoorSneak;
 
 	public bool SewerTopReached;
+	public bool ShownStealthKillPrompt;
+
 	public bool TutorialComplete;
 	
     public void Save(string path)

@@ -16,8 +16,11 @@ public class MysteriousRunner : MonoBehaviour
 
         Camera.main.GetComponent<CameraScrolling> ().Target = transform;
         GameManager.UI.DisableInput ();
-        Destroy (GameManager.Player.GetComponent<AudioListener> ());
+		GameManager.IsPlayingCutscene = true;
+
+		Destroy (GameManager.Player.GetComponent<AudioListener> ());
         this.gameObject.AddComponent<AudioListener> ();
+
 
         _input.Horizontal = -1;
         yield return new WaitForSeconds (1.3f);
@@ -40,6 +43,8 @@ public class MysteriousRunner : MonoBehaviour
 		SewerDoor.animation.Play ("Open");
 
         gameObject.SetActive (false);
+
+		GameManager.IsPlayingCutscene = false;
         StopCoroutine ("ShowWallJump1");
     }
     
@@ -49,6 +54,8 @@ public class MysteriousRunner : MonoBehaviour
 		_input = GetComponent<CharacterInput> ();
         Camera.main.GetComponent<CameraScrolling> ().Target = transform;
         GameManager.UI.DisableInput ();
+		GameManager.IsPlayingCutscene = true;
+
         Destroy (GameManager.Player.GetComponent<AudioListener> ());
         this.gameObject.AddComponent<AudioListener> ();
         gameObject.transform.position = new Vector3(68f, 56.920f, 0.0f);
@@ -105,6 +112,8 @@ public class MysteriousRunner : MonoBehaviour
 
 		// pre-open the door 
         gameObject.SetActive (false);
+
+		GameManager.IsPlayingCutscene = false;
         StopCoroutine ("ShowWallJump2");
     }
 
@@ -112,6 +121,7 @@ public class MysteriousRunner : MonoBehaviour
 	{
 		Camera.main.GetComponent<CameraScrolling> ().Target = transform;
 		GameManager.UI.DisableInput ();
+		GameManager.IsPlayingCutscene = true;
 		Destroy (GameManager.Player.GetComponent<AudioListener> ());
 		this.gameObject.AddComponent<AudioListener> ();
 
@@ -169,7 +179,9 @@ public class MysteriousRunner : MonoBehaviour
 		GameManager.Player.gameObject.AddComponent<AudioListener> ();
 		//        yield return new WaitForSeconds (0.5f);
 		        SewerDoor.animation.Play ("Open");
+
 		gameObject.SetActive (false);
+		GameManager.IsPlayingCutscene = true;
 		StopCoroutine ("ShowDoorSneak");
 	}
 
