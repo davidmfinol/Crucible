@@ -33,16 +33,21 @@ public class LevelManager : MonoBehaviour
     private GameObject _topBoundary;
     private GameObject _bottomBoundary;
     private bool _ready;
-
+	private AlphaPulse _alarms;
+	
     void Awake ()
     {
         SetupRenderSettings ();
         
         CreateBoundaries ();
 
-        _ready = true;
-
     }
+
+	void Start() {
+		_alarms = GameObject.Find ("Alarms").GetComponent<AlphaPulse> ();
+		_ready = true;
+
+	}
     
     // Each level has it's own render settings
     public void SetupRenderSettings ()
@@ -126,4 +131,9 @@ public class LevelManager : MonoBehaviour
     public bool Ready {
         get { return _ready; }
     }
+
+	public AlphaPulse Alarms {
+		get { return _alarms; }
+
+	}
 }

@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     
     // Global Managers
     private static LevelManager _currentLevel;
+	private static AlphaPulse _levelAlarms;
+
     private static AIManager _aiManager;
     private static InventoryManager _inventory;
     private static UIManager _uiManager;
@@ -81,6 +83,8 @@ public class GameManager : MonoBehaviour
         if (GameManager._currentLevel != null)
             Destroy (GameManager._currentLevel.gameObject);
         GameManager._currentLevel = GetComponent<LevelManager> ();
+
+		_levelAlarms = GameObject.Find ("Alarms").GetComponent<AlphaPulse> ();
 
     }
     

@@ -28,6 +28,8 @@ public class UIManager : MonoBehaviour
 	// how long can you go between mousedown then mouseup and have it still change weapons?
 	public const float WeaponClickPeriod = 1.0f;
 
+	public Material AlarmMaterial;
+
     private Camera _uiCamera;
     private TouchInput _touchInput;
     private NontouchInput _nontouchInput;

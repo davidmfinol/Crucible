@@ -12,6 +12,9 @@ public class AIManager : MonoBehaviour
     private ZoneGraph _graph;
     private bool _ready;
 
+	private int _enemiesSearching;
+	private int _enemiesChasing;
+
     void Awake ()
     {
         _enemies = new List<EnemyAI> ();
@@ -25,6 +28,24 @@ public class AIManager : MonoBehaviour
 
     }
 
+	public void Update() {
+		int enemiesSearching = 0;
+		foreach (EnemyAI enemy in _enemies)
+			if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
+				enemiesSearching++;
+		_enemiesSearching = enemiesSearching;
+		
+		
+		int enemiesChasing = 0;
+		foreach (EnemyAI enemy in _enemies)
+			if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
+				enemiesChasing++;
+		_enemiesChasing = enemiesChasing;
+		
+		GameManager.Level.Alarms.On = (_enemiesChasing > 0);
+		
+	}
+
     public void Reset ()
     {
         _enemies = new List<EnemyAI> ();
@@ -37,23 +58,16 @@ public class AIManager : MonoBehaviour
     
     public int EnemiesSearching {
         get {
-            int enemiesSearching = 0;
-            foreach (EnemyAI enemy in _enemies)
-                if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
-                    enemiesSearching++;
-            return enemiesSearching;
+			return _enemiesSearching;
         }
     }
 
     public int EnemiesChasing {
         get {
-            int enemiesChasing = 0;
-            foreach (EnemyAI enemy in _enemies)
-                if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
-                    enemiesChasing++;
-            return enemiesChasing;
+			return _enemiesChasing;
         }
     }
+
 
     public ZoneGraph Graph {
         get { return _graph; }
