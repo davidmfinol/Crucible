@@ -173,7 +173,7 @@ public class OlympusAnimator : CharacterAnimator
 	{
 		// find where to place the attack event
 		Vector3 meleePos = transform.position;
-		meleePos.y += Height / 2.0f;
+		meleePos.y += Height * 0.5f;
 		
 		// attack in front of us
 		GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
@@ -237,14 +237,14 @@ public class OlympusAnimator : CharacterAnimator
     {
         if (MecanimAnimator.GetBool (_turnAroundHash)) {
             MecanimAnimator.SetBool (_turnAroundHash, false);
-            StartCoroutine ("WaitToChangeDirection");
+            StartCoroutine (WaitToChangeDirection ());
         }
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
 
     }
 
-    IEnumerator WaitToChangeDirection ()
+    public IEnumerator WaitToChangeDirection ()
     {
         IgnoreDirection = true;
 
@@ -254,8 +254,6 @@ public class OlympusAnimator : CharacterAnimator
         Direction = -Direction;
 
         IgnoreDirection = false;
-
-        StopCoroutine ("WaitToChangeDirection");
 
     }
 

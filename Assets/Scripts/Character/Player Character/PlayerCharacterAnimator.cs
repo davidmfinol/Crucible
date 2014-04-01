@@ -516,7 +516,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected void Jumping(float elapsedTime)
 	{
         if(CharInput.Right || CharInput.Left)
-		    ApplyRunning(elapsedTime/2.0f);
+		    ApplyRunning(elapsedTime * 0.5f);
 		
 		if(MecanimAnimator.GetBool(_jumpHash))
 		{
@@ -630,7 +630,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	protected void Falling(float elapsedTime)
 	{
 		if(CharInput.Right || CharInput.Left) // maintain horizontal momentum, but slow down if does input
-			ApplyRunning(elapsedTime / 2.0f);
+			ApplyRunning(elapsedTime * 0.5f);
 		ApplyGravity(elapsedTime);
 		
 		MecanimAnimator.SetBool(_fallHash, false);
@@ -909,7 +909,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 				// *** auto-equip if we have nothing ***
 				if(GameManager.Inventory.CurrentWeapon == null)
-					StartCoroutine("AutoEquip");
+                    StartCoroutine(AutoEquip());
 
 			}
 			// *** must be picking up item... ***
@@ -932,14 +932,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	
 	}
 
-	IEnumerator AutoEquip()
+	public IEnumerator AutoEquip()
 	{
 		yield return new WaitForSeconds (0.5f);
         if(GameManager.Inventory.Weapons.Count == 1)
             GameManager.UI.CycleToNextWeapon();
         else if(GameManager.Inventory.Weapons.Count <= 3)
 			GameManager.UI.RefreshWeaponWheel();
-		StopCoroutine ("AutoEquip");
 	}
 		
 	protected override void ApplyRunning (float elapsedTime)
@@ -1052,7 +1051,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 	{
 		RaycastHit hitInfo = new RaycastHit (); 
 		// test from player's front downward to item.
-		if(Physics.Raycast(transform.position + new Vector3(Direction.x * Radius, Height / 2.0f, 0), Vector3.down, out hitInfo, Height, 1 << 13 ) )
+		if(Physics.Raycast(transform.position + new Vector3(Direction.x * Radius, Height * 0.5f, 0), Vector3.down, out hitInfo, Height, 1 << 13 ) )
    		{
 			obj = hitInfo.transform.gameObject;
 			return true;

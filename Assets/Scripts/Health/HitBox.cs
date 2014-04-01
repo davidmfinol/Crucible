@@ -92,7 +92,7 @@ public class HitBox : MonoBehaviour
             _radius = value; 
             SphereCollider coll = GetComponent<SphereCollider> ();
             if (coll != null)
-                coll.radius = value / 2.0f; 
+                coll.radius = value * 0.5f; 
             transform.localScale = new Vector3 (value, value, value);
         }
     }
