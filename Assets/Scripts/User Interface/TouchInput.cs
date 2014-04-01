@@ -305,12 +305,12 @@ public class TouchInput : MonoBehaviour
             if(GameManager.Player.IsSneaking) {
                 _horizontalSlider.renderer.material.color = Color.white;
                 _verticalSlider.renderer.material.color = Color.white;
-                _radioWaves.renderer.enabled = true;
-                _radioWaves.transform.position = currentPos;
+                _radioWaves.renderer.enabled = false;
             } else {
                 _horizontalSlider.renderer.material.color = Color.red;
                 _verticalSlider.renderer.material.color = Color.red;
-                _radioWaves.renderer.enabled = false;
+                _radioWaves.renderer.enabled = true;
+                _radioWaves.transform.position = startPos;
             }
         }
 
