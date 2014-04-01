@@ -5,6 +5,7 @@ MonoImporter:
   defaultReferences:
   - SliderPrefab: {fileID: 400000, guid: 258f802dd9f8552469cfac9142197078, type: 2}
   - MoveButtonPrefab: {fileID: 400000, guid: 3cdd4b0943ef5bc48964ba573cb6184d, type: 2}
+  - RadioPrefab: {fileID: 400000, guid: 9003395a098406d44906614e40d566b5, type: 2}
   - ActionDescriptionPrefab: {fileID: 400000, guid: 45a0426cfb61c214b910777daafd04c1,
       type: 2}
   - FadeLeftPrefab: {fileID: 400000, guid: 981f229bf705bcc47a9b9d91eee5a7be, type: 2}
