@@ -24,7 +24,6 @@ public class AlphaPulse : MonoBehaviour {
 	public void Start() {
 		_changeableMaterials = FindChangeableMaterials ();
 
-		_on = false;
 		_dir = 1;
 		_alpha = 0.0f;
 		ApplyAlpha ();

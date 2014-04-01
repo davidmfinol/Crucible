@@ -54,7 +54,7 @@ public class GravityGun : Weapon
 	}
 
 	public override Texture2D GetTexture() {
-		return Resources.Load <Texture2D> ("GravityGunIcon");
+		return Resources.Load <Texture2D> ("Item Icons/GravityGunIcon");
 		
 	}
 

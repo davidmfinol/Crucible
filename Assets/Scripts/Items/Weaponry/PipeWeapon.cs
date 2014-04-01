@@ -61,7 +61,7 @@ public class PipeWeapon : Weapon
 	}
 
 	public override Texture2D GetTexture() {
-		return Resources.Load <Texture2D> ("PipeIcon");
+		return Resources.Load <Texture2D> ("Item Icons/PipeIcon");
 
 	}
 

@@ -50,7 +50,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Battery Pack";
 			newItem.Caption = "Used to power various devices.";
-			newItem.TexturePath = "BatteryPackIcon";
+			newItem.TexturePath = "Item Icons/BatteryPackIcon";
 			newItem.CraftingCode = "BP";
 			newItem.PrefabName = "Items/BatteryPack";
 
@@ -58,7 +58,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Computer Parts";
 			newItem.Caption = "Components to build electronic devices.";
-			newItem.TexturePath = "ComputerPartsIcon";
+			newItem.TexturePath = "Item Icons/ComputerPartsIcon";
 			newItem.CraftingCode = "CP";
 			newItem.PrefabName = "Items/ComputerParts";
 
@@ -66,7 +66,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Engine";
 			newItem.Caption = "Powers various moving devices.";
-			newItem.TexturePath = "EngineIcon";
+			newItem.TexturePath = "Item Icons/EngineIcon";
 			newItem.CraftingCode = "EN";
 			newItem.PrefabName = "Items/Engine";
 		
@@ -74,7 +74,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Fuel";
 			newItem.Caption = "Fuel for various devices";
-			newItem.TexturePath = "FuelIcon";
+			newItem.TexturePath = "Item Icons/FuelIcon";
 			newItem.CraftingCode = "FU";
 			newItem.PrefabName = "Items/Fuel";
 
@@ -82,7 +82,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Propellant";
 			newItem.Caption = "Used to propel devices";
-			newItem.TexturePath = "PropellantIcon";
+			newItem.TexturePath = "Item Icons/PropellantIcon";
 			newItem.CraftingCode = "PR";
 			newItem.PrefabName = "Items/Propellant";
 
@@ -90,7 +90,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Binding";
 			newItem.Caption = "Binds two craftable items together.";
-			newItem.TexturePath = "BindingIcon";
+			newItem.TexturePath = "Item Icons/BindingIcon";
 			newItem.CraftingCode = "BN";
 			newItem.PrefabName = "Items/Binding";
 
@@ -98,7 +98,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Guns Parts";
 			newItem.Caption = "Used to build projectile weapons.";
-			newItem.TexturePath = "GunPartsIcon";
+			newItem.TexturePath = "Item Icons/GunPartsIcon";
 			newItem.CraftingCode = "GP";
 			newItem.PrefabName = "Items/GunParts";
 
@@ -106,7 +106,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Higgs Drive";
 			newItem.Caption = "Powers anti-gravity devices.";
-			newItem.TexturePath = "HiggsDriveIcon";
+			newItem.TexturePath = "Item Icons/HiggsDriveIcon";
 			newItem.CraftingCode = "HD";
 			newItem.PrefabName = "Items/HiggsDrive";
 
@@ -114,7 +114,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Isolator";
 			newItem.Caption = "Stores energy for energy-based devices.";
-			newItem.TexturePath = "IsolatorIcon";
+			newItem.TexturePath = "Item Icons/IsolatorIcon";
 			newItem.CraftingCode = "IS";
 			newItem.PrefabName = "Items/Isolator";
 
@@ -122,7 +122,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Magnet";
 			newItem.Caption = "Required to construct magnetic devices.";
-			newItem.TexturePath = "MagnetIcon";
+			newItem.TexturePath = "Item Icons/MagnetIcon";
 			newItem.CraftingCode = "MG";
 			newItem.PrefabName = "Items/Magnet";
 
@@ -130,7 +130,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Transmitter";
 			newItem.Caption = "Used to construct devices that operate remotely.";
-			newItem.TexturePath = "TransmitterIcon";
+			newItem.TexturePath = "Item Icons/TransmitterIcon";
 			newItem.CraftingCode = "TR";
 			newItem.PrefabName = "Items/Transmitter";
 
@@ -138,7 +138,7 @@ public static class InventoryItemFactory {
 			newItem.MaxQuantity = 5;
 			newItem.Name = "Visualizer";
 			newItem.Caption = "An imaging unit to build holographic devices.";
-			newItem.TexturePath = "VisualizerIcon";
+			newItem.TexturePath = "Item Icons/VisualizerIcon";
 			newItem.CraftingCode = "VS";
 			newItem.PrefabName = "Items/Visualizer";
 

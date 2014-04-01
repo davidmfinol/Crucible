@@ -369,6 +369,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
+		GameObject itemsParent = GameObject.Find ("Items");
+
         // Restore all the items in the scene
         foreach (ItemSaveState itemState in levelSave.ItemStates) {
             GameObject newItem;
@@ -425,9 +427,14 @@ public class GameManager : MonoBehaviour
             } else if (itemState.ItemType == Item.ItemType.Item_Visualizer) {
                 newItem = (GameObject)Instantiate (Resources.Load ("Items/Visualizer"), itemState.Position, itemState.Rotation);
                 newItem.GetComponent<Item> ().Quantity = itemState.Quantity;
+			
+            } else {
+				newItem = null;
+			}
 
-            }
-
+			if(itemsParent != null)
+				newItem.transform.parent = itemsParent.transform;
+	
         }
 
     }

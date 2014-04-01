@@ -122,7 +122,7 @@ public class Mine : Weapon
 	}
 
 	public override Texture2D GetTexture() {
-		return Resources.Load <Texture2D> ("MINEIcon");
+		return Resources.Load <Texture2D> ("Item Icons/MINEIcon");
 		
 	}
 

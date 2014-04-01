@@ -25,6 +25,9 @@ public class UIManager : MonoBehaviour
 	// how delayed are our objective removal updates
 	public float ObjectiveReachedInterval;
 
+	// map
+	public GameObject MapQuadPrefab;
+
 	// how long can you go between mousedown then mouseup and have it still change weapons?
 	public const float WeaponClickPeriod = 1.0f;
 
@@ -67,14 +70,17 @@ public class UIManager : MonoBehaviour
 	private GameObject _objectiveQuad;
 	private float _objectiveReachedTime;
 
+	// map
+	private MapQuad _mapQuad;
+
 	// tracking a gui swipe from where, with finger ID if on mobile.
 	private bool _isTrackingSwipe;
 	private int _swipeID;
 	private Vector3 _swipeStartPos;
 	private float _swipeTime;
-	
+
 	private bool _ready;
-	
+
 	void Start()
     {
         _uiCamera = GetComponentInChildren<Camera>();
@@ -146,6 +152,32 @@ public class UIManager : MonoBehaviour
 		ObjectiveQuadPos.z = 8.0f;
 		_objectiveQuad = (GameObject) Instantiate (ObjectiveQuadPrefab, ObjectiveQuadPos, Quaternion.identity);
 
+		// load map
+		GameObject mapQuad = (GameObject) Instantiate (MapQuadPrefab, _uiCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 8.0f)), Quaternion.identity);
+		_mapQuad = mapQuad.GetComponent<MapQuad> ();
+		_mapQuad.gameObject.SetActive (false);
+
+		// *** add all game objects to map ***
+		_mapQuad.renderer.material.mainTexture = Resources.Load<Texture2D>("Maps/Commercial Zone Map");
+		_mapQuad.renderer.material.color = new Color (_mapQuad.renderer.material.color.r, 
+		                                              _mapQuad.renderer.material.color.g, 
+		                                              _mapQuad.renderer.material.color.b, 
+		                                              0.80f); 
+		
+		// add player to map
+		_mapQuad.AddMapPoint (GameManager.Player.gameObject, "Player", "Item Icons/Count0");
+		
+		
+		GameObject objs = GameObject.Find ("Items");
+		
+		for(int i=0;i< objs.transform.childCount; i++) {
+			Transform obj = objs.transform.GetChild(i);
+			_mapQuad.AddMapPoint (obj.gameObject, obj.transform.position.x.ToString(), "Item Icons/IsolatorIcon");
+			
+		}
+
+
+
 		_isTrackingSwipe = false;
 		_swipeID = -1;
 		_swipeStartPos = Vector3.zero;
@@ -197,6 +229,8 @@ public class UIManager : MonoBehaviour
 
 		UpdateObjectiveArrow();
 
+		_mapQuad.GetComponent<MapQuad> ().UpdateMapPoint(GameManager.Player.gameObject, "Player");
+			
 	}
 
 	private void TryBeginSwipe() 
@@ -210,6 +244,13 @@ public class UIManager : MonoBehaviour
 			_isTrackingSwipe = true;
 			_swipeStartPos = mouseWorldPos;
 			_swipeTime = 0.0f;
+
+		// see if left-click on the objectives region
+		} else if(Input.GetMouseButtonDown(0)) {
+			if(Vector3.Distance( new Vector3(0.0f, 1.0f * Screen.height, 0.0f), Input.mousePosition) <= Screen.width / 6.0f ) {
+				ShowMap( !MapShown () );
+
+			}
 
 		// *** or began swipe with finger? ***
 		} else {
@@ -405,16 +446,24 @@ public class UIManager : MonoBehaviour
 
 
 			// make it bright & bigger the closer you get.
-			float fScale = alpha * 3.0f + 0.01f;
-
-			Vector3 vScale = new Vector3(fScale, fScale, fScale);
-
-			_objectiveQuad.transform.localScale = vScale;
+			//float fScale = alpha * 3.0f + 0.01f;
+			//Vector3 vScale = new Vector3(fScale, fScale, fScale);
+			//_objectiveQuad.transform.localScale = vScale;
 
 		} else {
 			_objectiveQuad.renderer.enabled = false;
 
 		}
+
+	}
+
+	public bool MapShown() {
+		return _mapQuad.gameObject.activeSelf;
+
+	}
+
+	public void ShowMap(bool show) {
+		_mapQuad.gameObject.SetActive (show);
 
 	}
 
