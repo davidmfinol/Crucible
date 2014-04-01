@@ -42,7 +42,8 @@ public class AIManager : MonoBehaviour
 				enemiesChasing++;
 		_enemiesChasing = enemiesChasing;
 		
-		GameManager.Level.Alarms.On = (_enemiesChasing > 0);
+        if (GameManager.Level.Alarms != null)
+	    	GameManager.Level.Alarms.On = (_enemiesChasing > 0);
 		
 	}
 

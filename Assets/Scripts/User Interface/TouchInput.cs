@@ -11,6 +11,7 @@ public class TouchInput : MonoBehaviour
     // Setup for the UI elements that appear on the screen
     public Transform SliderPrefab;
     public Transform MoveButtonPrefab;
+    public Transform RadioPrefab;
     public Transform ActionDescriptionPrefab;
     public Transform FadeLeftPrefab;
     public Transform FadeTopPrefab;
@@ -32,6 +33,7 @@ public class TouchInput : MonoBehaviour
     private Transform _horizontalSlider;
     private Transform _verticalSlider;
     private Transform _moveButton;
+    private Transform _radioWaves;
     private Transform _actionDescription;
     private Transform _fadeLeft;
     private Transform _fadeTop;
@@ -80,16 +82,19 @@ public class TouchInput : MonoBehaviour
         _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.identity);
         _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler(new Vector3(0, 0, 90)));
         _moveButton = (Transform)Instantiate (MoveButtonPrefab, MoveButtonPrefab.position, MoveButtonPrefab.rotation);
+        _radioWaves = (Transform)Instantiate (RadioPrefab, RadioPrefab.position, RadioPrefab.rotation);
 
         // Organize it away
         _horizontalSlider.parent = transform;
         _verticalSlider.parent = transform;
         _moveButton.parent = transform;
+        _radioWaves.parent = transform;
 
         // And hide them
         _horizontalSlider.renderer.enabled = false;
         _verticalSlider.renderer.enabled = false;
         _moveButton.renderer.enabled = false;
+        _radioWaves.renderer.enabled = false;
 
         // Right-hand side GUI
         _actionDescription = (Transform)Instantiate (ActionDescriptionPrefab, Vector3.zero, Quaternion.identity);
@@ -129,6 +134,8 @@ public class TouchInput : MonoBehaviour
         _rightHandVignette = (Transform)Instantiate (RightHandVignette, RightHandVignette.position, RightHandVignette.rotation);
         _leftHandVignette.renderer.enabled = false;
         _rightHandVignette.renderer.enabled = false;
+        _leftHandVignette.GetComponent<AlphaPulse>().On = true;
+        _rightHandVignette.GetComponent<AlphaPulse>().On = true;
 
         // Set up new update methods to show the GUI elements
         StartCoroutine (DisplayLeftHandSide());
@@ -261,14 +268,12 @@ public class TouchInput : MonoBehaviour
             
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
-            _leftHandVignette.renderer.enabled = moveTouched; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING, AND MAYBE A VIBRATE EFFECT
+            _leftHandVignette.renderer.enabled = moveTouched; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING
             _horizontalSlider.renderer.enabled = moveTouched;
             _verticalSlider.renderer.enabled = moveTouched;
             _moveButton.renderer.enabled = moveTouched;
             if(!moveTouched)
                 continue;
-
-            // TODO: PULSE EFFECT
 
             // Determine information about the movement input
             Vector3 startPos = ConvertTouchPosToWorldPoint (_moveStartPos);
@@ -300,10 +305,12 @@ public class TouchInput : MonoBehaviour
             if(GameManager.Player.IsSneaking) {
                 _horizontalSlider.renderer.material.color = Color.white;
                 _verticalSlider.renderer.material.color = Color.white;
-                // TODO: RADIO WAVES ANIMATION
+                _radioWaves.renderer.enabled = true;
+                _radioWaves.transform.position = currentPos;
             } else {
                 _horizontalSlider.renderer.material.color = Color.red;
                 _verticalSlider.renderer.material.color = Color.red;
+                _radioWaves.renderer.enabled = false;
             }
         }
 
@@ -318,7 +325,7 @@ public class TouchInput : MonoBehaviour
 
             // Make everything invisible if we're not touching the right-hand side
             bool actTouched = _actionID != -1;
-            _rightHandVignette.renderer.enabled = actTouched; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING, AND MAYBE A VIBRATE EFFECT
+            _rightHandVignette.renderer.enabled = actTouched; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING
             _actionDescription.renderer.enabled = actTouched; // TODO: MAKE THIS DISAPPEAR AFTER A WHILE
             _fadeLeft.renderer.enabled = false;
             _fadeTop.renderer.enabled = false;
@@ -329,8 +336,6 @@ public class TouchInput : MonoBehaviour
                 _userInterfaceDots [dot].renderer.enabled = actTouched;
             if (!actTouched)
                 continue;
-            
-            // TODO: PULSE EFFECT
 
             // Put the images at the correct spot
             Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
