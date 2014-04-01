@@ -272,7 +272,6 @@ public class TouchInput : MonoBehaviour
             _horizontalSlider.renderer.enabled = moveTouched;
             _verticalSlider.renderer.enabled = moveTouched;
             _moveButton.renderer.enabled = moveTouched;
-            _radioWaves.renderer.enabled = moveTouched;
             if(!moveTouched)
                 continue;
 
@@ -306,10 +305,12 @@ public class TouchInput : MonoBehaviour
             if(GameManager.Player.IsSneaking) {
                 _horizontalSlider.renderer.material.color = Color.white;
                 _verticalSlider.renderer.material.color = Color.white;
-                // TODO: RADIO WAVES ANIMATION
+                _radioWaves.renderer.enabled = true;
+                _radioWaves.transform.position = currentPos;
             } else {
                 _horizontalSlider.renderer.material.color = Color.red;
                 _verticalSlider.renderer.material.color = Color.red;
+                _radioWaves.renderer.enabled = false;
             }
         }
 
