@@ -34,11 +34,11 @@ public class AlphaPulse : MonoBehaviour {
 
         // When on, pulse
 		if (_on) {
-			if(_dir == 1 && _alpha >= MaxAlpha)
-					_dir = -1;
-            else if(_dir == -1 && _alpha <= MinAlpha)
-					_dir = 1;
 
+			if(_dir == 1 && _alpha >= MaxAlpha)
+				_dir = -1;
+            else if(_dir == -1 && _alpha <= MinAlpha)
+				_dir = 1;
 
 		// when turned off, fade to 0
 		} else {
@@ -76,7 +76,6 @@ public class AlphaPulse : MonoBehaviour {
 	public bool On {
 		get { return _on; }
 		set { _on = value; }
-
 
 	}
 

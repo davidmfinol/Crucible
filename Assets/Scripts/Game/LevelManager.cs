@@ -44,7 +44,10 @@ public class LevelManager : MonoBehaviour
     }
 
 	void Start() {
-		_alarms = GameObject.Find ("Alarms").GetComponent<AlphaPulse> ();
+        GameObject alarms = GameObject.Find ("Alarms");
+        if(alarms != null)
+		    _alarms = alarms.GetComponent<AlphaPulse> ();
+
 		_ready = true;
 
 	}
