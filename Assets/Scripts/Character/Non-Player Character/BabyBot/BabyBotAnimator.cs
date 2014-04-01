@@ -113,7 +113,7 @@ public class BabyBotAnimator : CharacterAnimator
     protected void Jump (float elapsedTime)
     {
         if (Mathf.Abs (CharInput.Horizontal) > 0.1)
-            ApplyRunning (elapsedTime / 2.0f);
+            ApplyRunning (elapsedTime * 0.5f);
         
         if (MecanimAnimator.GetBool (_jumpHash)) {
             if (CharInput.JumpLeft || CharInput.JumpLeftReleased)

@@ -67,7 +67,10 @@ public class MeshToGameObjectsMenu
         pipePrefab = (GameObject)Resources.Load ("Pipe");
         wallPrefab = (GameObject)Resources.Load ("Wall");
 
-        wallContainer = new GameObject ("Walls");
+        GameObject prevWalls = GameObject.Find("Walls for " + selected[selected.Count - 1].name);
+        if(prevWalls != null)
+            GameObject.DestroyImmediate(prevWalls);
+        wallContainer = new GameObject ("Walls for " + selected[selected.Count - 1].name);
         
         selected.ForEach (transform => {
             MeshFilter meshFilter = transform.GetComponent<MeshFilter> ();

@@ -102,13 +102,16 @@ public abstract class CharacterAnimator : MonoBehaviour
 
         // Let child classes initialize as necessary
         OnStart ();
+
     }
 
     protected abstract void CreateStateMachine ();// Must be overwritten by child classes to set up _stateMachine
+
     protected virtual List<int> DefineRootMotionCorrectionState ()
     {
         //TODO: ERADICATE THIS METHOD
         return new List<int> (); // Should be overwritten by child classes
+
     }
 
     protected virtual void OnStart ()
@@ -119,18 +122,22 @@ public abstract class CharacterAnimator : MonoBehaviour
     public virtual void OnDeath ()
     {
         OnDeath (Vector2.zero);
+
     }
 
     public virtual void OnDeath (Vector2 knockForce)
     {
         Destroy (gameObject);
+
     }
 
     public virtual void OnStealthDeath (Vector2 knockForce)
     {
         Destroy (gameObject);
+
     }
 
+    // TODO: MAKE THIS A PROPERTY
     public virtual bool IsDead ()
     {
         return false;
@@ -152,6 +159,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
         // Let child classes do any additional processing
         OnUpdate ();
+
     }
 
     private void UpdateZones ()
@@ -189,6 +197,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             else if (CharInput.DownPressed && !CharInput.Up)
                 _currentZone = _Zlower;
         }
+
     }
 
     protected virtual void OnUpdate ()
@@ -258,6 +267,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         
         // Let child classes do any additional processing
         OnFixedUpdate ();
+
     }
 
     protected virtual void OnFixedUpdate ()
@@ -282,6 +292,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             float drotY = Quaternion.LookRotation (_direction).eulerAngles.y;
             transform.rotation = Quaternion.Euler (0, Mathf.Lerp (crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
         }
+
     }
     
     // Determines the amount that the platform on which we are standing has moved, and moves us correspondingly
@@ -293,6 +304,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             transform.position = transform.position + moveDistance;
         }
         _activePlatform = null;
+
     }
     
     // Sets up the variables to allow the character to stay on a moving platform
@@ -303,6 +315,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         
         _activeGlobalPlatformPoint = transform.position;
         _activeLocalPlatformPoint = _activePlatform.InverseTransformPoint (transform.position);
+
     }
 
     // We need to be able to interact with other physical objects in the world
@@ -344,6 +357,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             body.velocity = pushDir * 2 * HorizontalSpeed;
             //body.AddForceAtPosition(force, hit.point);
         }
+
     }
 
     public virtual void MakeDamaged (Vector2 knockForce)
@@ -367,6 +381,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         Controller.enabled = false; // Destroy(Controller);
         MecanimAnimator.enabled = false; // Destroy(MecanimAnimator);
         this.enabled = false;
+
     }
 
     public void ActivateFloat ()
@@ -375,11 +390,12 @@ public abstract class CharacterAnimator : MonoBehaviour
         Controller.enabled = false;
         MecanimAnimator.enabled = false;
         CharacterSettings.ActivateRagDoll (transform, false, false);
-        StartCoroutine ("ReEnableCharacter");
+        StartCoroutine (ReEnableCharacter ());
         this.enabled = false;
+
     }
 
-    IEnumerator ReEnableCharacter ()
+    public IEnumerator ReEnableCharacter ()
     {
         yield return new WaitForSeconds (5);
         this.enabled = true;
@@ -390,7 +406,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         MecanimAnimator.enabled = true;
         Controller.enabled = true;
         CharInput.enabled = true;
-        StopCoroutine ("ReEnableCharacter");
+
     }
     
     // Helper methods for motion
@@ -398,12 +414,14 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
         HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
+
     }
 
     protected virtual void ApplyGravity (float elapsedTime)
     {
         VerticalSpeed -= Settings.Gravity * elapsedTime;
         VerticalSpeed = Mathf.Max (-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
+
     }
 
     public virtual void StepDown ()
@@ -429,6 +447,7 @@ public abstract class CharacterAnimator : MonoBehaviour
                 HorizontalSpeed = 0.0f;
             
         }
+
     }
     
     protected virtual void ApplyBiDirection ()
@@ -437,6 +456,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             Direction = Vector3.left;
         else if (CharInput.Right && !CharInput.Left)
             Direction = Vector3.right;
+
     }
 
     protected virtual void ApplyTriDirection ()
@@ -447,6 +467,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             Direction = Vector3.right;
         else if (CharInput.Up)
             Direction = Vector3.zero;
+
     }
 
     protected virtual void ApplyClimbingVertical (float vertical)
@@ -457,6 +478,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             VerticalSpeed = -Settings.LadderClimbingSpeed;
         else
             VerticalSpeed = 0.0f;
+
     }
 
     /*
@@ -502,6 +524,7 @@ public abstract class CharacterAnimator : MonoBehaviour
             HorizontalSpeed = Settings.LadderStrafingSpeed;
         else
             HorizontalSpeed = 0.0f;
+
     }
 
     // Methods for hanging
@@ -509,10 +532,11 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         if (_hangQueue.Contains (hangTarget))
             return;
-		if(hangTarget is Ledge)
-			_hangQueue.Insert(0, hangTarget);
-		else
-        	_hangQueue.Add (hangTarget);
+        if (hangTarget is Ledge)
+            _hangQueue.Insert (0, hangTarget);
+        else
+            _hangQueue.Add (hangTarget);
+
     }
 
     public void RemoveHangTarget (HangableObject hangTarget)
@@ -527,6 +551,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
         if (ActiveHangTarget == null)
             _activePlatform = null;
+
     }
 
     public void DropHangTarget ()
@@ -538,6 +563,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         _hangQueue.RemoveAt (0);
         if (ActiveHangTarget == null)
             _activePlatform = null;
+
     }
 
     // Useful animation events
@@ -548,25 +574,28 @@ public abstract class CharacterAnimator : MonoBehaviour
             return;
 
         Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height / 2.0f;
+        footStepPosition.y -= Height * 0.5f;
         Transform footstep = (Transform)Instantiate (Settings.FootStepNoise, footStepPosition, Quaternion.identity);
         footstep.GetComponent<FootstepAudioPlayer> ().PlayRandomFootstep ();
+
     }
 
     public virtual void PlayLand ()
     {
         Vector3 landingPosition = transform.position;
-        landingPosition.y -= Height / 2.0f;
+        landingPosition.y -= Height * 0.5f;
         Transform landing = (Transform)Instantiate (Settings.FootStepNoise, landingPosition, Quaternion.identity);
         landing.GetComponent<FootstepAudioPlayer> ().PlayLanding ();
+
     }
 
     public void PlayJumpLanding ()
     {
         Vector3 landingPosition = transform.position;
-        landingPosition.y -= Height / 2.0f;
+        landingPosition.y -= Height * 0.5f;
         Transform landing = (Transform)Instantiate (Settings.FootStepNoise, landingPosition, Quaternion.identity);
         landing.GetComponent<FootstepAudioPlayer> ().PlayLanding ();
+
     }
     
 
@@ -788,14 +817,14 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return _zones; }
         set { _zones = value; }
     }
-	
+    
     public virtual bool CanTransitionZ {
         get { return _canTransitionZ; }
         set { _canTransitionZ = value; }
     }
 
-	public virtual ObjectiveTracker Objectives {
-		get { return null; }
-	}
+    public virtual ObjectiveTracker Objectives {
+        get { return null; }
+    }
 
 }

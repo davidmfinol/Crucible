@@ -45,7 +45,7 @@ public class MysteriousRunner : MonoBehaviour
         gameObject.SetActive (false);
 
 		GameManager.IsPlayingCutscene = false;
-        StopCoroutine ("ShowWallJump1");
+
     }
     
     public IEnumerator ShowWallJump2 ()
@@ -114,7 +114,7 @@ public class MysteriousRunner : MonoBehaviour
         gameObject.SetActive (false);
 
 		GameManager.IsPlayingCutscene = false;
-        StopCoroutine ("ShowWallJump2");
+
     }
 
 	public IEnumerator ShowDoorSneak ()
@@ -182,7 +182,7 @@ public class MysteriousRunner : MonoBehaviour
 
 		gameObject.SetActive (false);
 		GameManager.IsPlayingCutscene = true;
-		StopCoroutine ("ShowDoorSneak");
+
 	}
 
 }

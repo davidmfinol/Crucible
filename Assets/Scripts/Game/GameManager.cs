@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
         }
         
         // Must delay player spawn to make sure all components are ready
-        StartCoroutine ("DelayedSpawnPlayer");
+        StartCoroutine (DelayedSpawnPlayer ());
 
     }
 
@@ -168,8 +168,6 @@ public class GameManager : MonoBehaviour
             yield return null;
 
         SpawnPlayer ();
-
-        StopCoroutine ("DelayedSpawnPlayer");
 
     }
 

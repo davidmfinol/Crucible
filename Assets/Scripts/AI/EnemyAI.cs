@@ -239,7 +239,7 @@ public class EnemyAI : MonoBehaviour
         bool isStunned = _animator.CurrentState.IsName ("Base Layer.Stun"); // FIXME: SLOW
         bool shouldAttack = IsPlayerInAttackRange && !isStunned && !_animator.IsDead (); //&& randomChance;
 		if(shouldAttack) {
-			bool isPlayerAbove = _playerAnimator.transform.position.y > transform.position.y + _animator.Height / 2.0f;
+			bool isPlayerAbove = _playerAnimator.transform.position.y > transform.position.y + _animator.Height * 0.5f;
 			_animator.CharInput.Attack = isPlayerAbove ? -1 : 1;
 
 		}
@@ -266,18 +266,17 @@ public class EnemyAI : MonoBehaviour
             return; // Don't do anything if we already have the target
 
         // We call yieldRepath because we want to ENSURE that we get a new path for this new target
-        StartCoroutine ("YieldRepath");
+        StartCoroutine (YieldRepath ());
     }
 
     // Waits until we are not searching for a path to then start searching for a new path
-    IEnumerator YieldRepath ()
+    public IEnumerator YieldRepath ()
     {
         while (_isSearchingForPath)
             yield return null;
 
         Repath ();
 
-        StopCoroutine ("YieldRepath");
     }
 
     // Starts searching for a new path, if we're not already searching for a path

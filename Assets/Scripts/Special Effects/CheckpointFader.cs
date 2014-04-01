@@ -8,7 +8,7 @@ using System.Collections;
 public class CheckpointFader : MonoBehaviour
 {
     private const float _fadeDuration = 3.0f;
-    private const float _halfFade = _fadeDuration / 2.0f;
+    private const float _halfFade = _fadeDuration * 0.5f;
     private float _fadeRemaining = 0.0f;
     private string _fadeMessage = "";
     private float _alpha = 0.0f;

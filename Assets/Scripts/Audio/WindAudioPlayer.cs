@@ -21,7 +21,7 @@ public class WindAudioPlayer : AudioPlayer
             audiosource.volume = 0.09f;
         }
         _currentAudio = 0;
-        StartCoroutine ("DelayedWindPlay");
+        StartCoroutine (DelayedWindPlay ());
 
     }
 
@@ -36,7 +36,7 @@ public class WindAudioPlayer : AudioPlayer
 
     }
 
-    IEnumerator DelayedWindPlay ()
+    public IEnumerator DelayedWindPlay ()
     {
         while (true) {
             // First, decide when to play the wind

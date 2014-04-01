@@ -27,18 +27,17 @@ public class InventoryManager : MonoBehaviour
 
         Items = new List<InventoryItem> ();
 
-        StartCoroutine ("FindRightHand");
+        StartCoroutine (FindRightHand ());
 
         _ready = true;
     }
 
-    IEnumerator FindRightHand ()
+    public IEnumerator FindRightHand ()
     {
         while (GameManager.Player == null)
             yield return null;
 
         _rightHand = CharacterSettings.SearchHierarchyForBone (GameManager.Player.transform, "hand_R");
-        StopCoroutine ("FindRightHand");
     }
     
     public bool HasWeapon (Weapon w)
