@@ -11,22 +11,22 @@ public static class CountQuadFactory {
 		string textureName = "";
 
 		if(count == 0)
-			textureName = "Count0";
+			textureName = "Item Icons/Count0";
 
 		else if (count == 1)
-			textureName = "Count1";
+			textureName = "Item Icons/Count1";
 
 		else if(count == 2)
-			textureName = "Count2";
+			textureName = "Item Icons/Count2";
 
 		else if(count == 3)
-			textureName = "Count3";
+			textureName = "Item Icons/Count3";
 
 		else if(count == 4)
-			textureName = "Count4";
+			textureName = "Item Icons/Count4";
 
 		else if(count == 5)
-			textureName = "Count5";
+			textureName = "Item Icons/Count5";
 		else
 			Debug.Log ("Failed to find count texture for count " + count);
 
