@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
     // We also keep track of the save data here
     private static GameSaveState _saveData;
 
-	// is a cutscene currently playing?  turn it on/off appropriately.
-	private static bool _isPlayingCutscene;
+    // is a cutscene currently playing?  turn it on/off appropriately.
+    private static bool _isPlayingCutscene;
 
 
     // Set up level, player/camera, and find the Global Managers
@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
         if (GameManager._aiManager != null)
             Destroy (GameManager._aiManager.gameObject);
         GameManager._aiManager = GetComponentInChildren<AIManager> ();
+
     }
     
     private void SetupInventory ()
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
         GameObject invObj = new GameObject ("Inventory");
         invObj.AddComponent<InventoryManager> ();
         _inventory = invObj.GetComponent<InventoryManager> (); //TODO: DON'T DESTROY ON LOAD
+
     }
     
     private void SetupUI ()
@@ -108,6 +110,7 @@ public class GameManager : MonoBehaviour
 
         Transform ui = (Transform)Instantiate (UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);
         _uiManager = ui.GetComponent<UIManager> (); //TODO: DON'T DESTROY ON LOAD
+
     }
     
     private void SetupAudio ()
@@ -116,6 +119,7 @@ public class GameManager : MonoBehaviour
         if (GameManager._audioManager != null)
             Destroy (GameManager._audioManager.gameObject); // TODO: TRANSFER AUDIO MANAGER BETTER
         GameManager._audioManager = GetComponentInChildren<AudioManager> ();
+
     }
     
     private void SetupSubtitles ()
@@ -124,6 +128,7 @@ public class GameManager : MonoBehaviour
         if (GameManager._subtitlesManager != null)
             Destroy (GameManager._subtitlesManager.gameObject); // TODO: TRANSFER SUBTITLES MANAGER BETTER
         GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager> ();
+
     }
     
     private void SetupCamera ()
@@ -139,6 +144,7 @@ public class GameManager : MonoBehaviour
         } else if (RenderSettings.fogMode == FogMode.ExponentialSquared) {
             Camera.main.farClipPlane = Mathf.Sqrt (Mathf.Log (1f / 0.0019f)) / RenderSettings.fogDensity;
         }
+
     }
     
     private void SetupPlayer ()
@@ -153,6 +159,7 @@ public class GameManager : MonoBehaviour
         
         // Must delay player spawn to make sure all components are ready
         StartCoroutine ("DelayedSpawnPlayer");
+
     }
 
     public IEnumerator DelayedSpawnPlayer ()
@@ -163,6 +170,7 @@ public class GameManager : MonoBehaviour
         SpawnPlayer ();
 
         StopCoroutine ("DelayedSpawnPlayer");
+
     }
 
     public static void SpawnPlayer ()
@@ -225,6 +233,7 @@ public class GameManager : MonoBehaviour
 
         // Enable the input
         GameManager.UI.EnableInput ();
+
     }
 
     public static void DeleteSaves ()
@@ -232,11 +241,13 @@ public class GameManager : MonoBehaviour
         string[] files = Directory.GetFiles (Application.persistentDataPath);
         foreach (string filePath in files)
             File.Delete (filePath);
+
     }
     
     public static void LoadGameState ()
     {
         _instance.LoadGameStateHelper ();
+
     }
 
     private void LoadGameStateHelper ()
@@ -314,6 +325,7 @@ public class GameManager : MonoBehaviour
         // ONE SOLUTION IS TO SAVE THE SCENE BEFORE THEN, BUT THAT WOULD REQUIRE KEEPING TRACK OF THE CHECKPOINT
         //  if (gameSave.LevelName != Application.loadedLevelName)
         //      Application.LoadLevel(gameSave.LevelName);
+
     }
 
     private void LoadLevelStateHelper (string levelName)
@@ -369,7 +381,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-		GameObject itemsParent = GameObject.Find ("Items");
+        GameObject itemsParent = GameObject.Find ("Items");
 
         // Restore all the items in the scene
         foreach (ItemSaveState itemState in levelSave.ItemStates) {
@@ -427,14 +439,14 @@ public class GameManager : MonoBehaviour
             } else if (itemState.ItemType == Item.ItemType.Item_Visualizer) {
                 newItem = (GameObject)Instantiate (Resources.Load ("Items/Visualizer"), itemState.Position, itemState.Rotation);
                 newItem.GetComponent<Item> ().Quantity = itemState.Quantity;
-			
+            
             } else {
-				newItem = null;
-			}
+                newItem = null;
+            }
 
-			if(itemsParent != null)
-				newItem.transform.parent = itemsParent.transform;
-	
+            if (itemsParent != null)
+                newItem.transform.parent = itemsParent.transform;
+    
         }
 
     }
@@ -448,6 +460,7 @@ public class GameManager : MonoBehaviour
         _saveData.Checkpoint = location;
         _saveData.PlayerState = Inventory.SaveState ();
         _saveData.Save (GameSaveStatePath);
+
     }
     
     public static void SaveLevelState (string levelName)
@@ -466,6 +479,7 @@ public class GameManager : MonoBehaviour
         level.ItemStates = itemSaves.ToArray ();
 
         level.Save (path);
+
     }
 
     public static GameManager Instance {
@@ -526,13 +540,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-	public static bool IsPlayingCutscene {
-		get { return _isPlayingCutscene; }
-		set{  _isPlayingCutscene = value;
-			  if(value == true)
-				GameManager.UI.CraftingMenu.Close();
-		}
+    public static bool IsPlayingCutscene {
+        get { return _isPlayingCutscene; }
+        set {
+            _isPlayingCutscene = value;
+            if (value == true)
+                GameManager.UI.CraftingMenu.Close ();
+        }
 
-	}
+    }
 
 }

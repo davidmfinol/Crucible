@@ -9,36 +9,37 @@ using System.Collections.Generic;
 public class HangableObject : MonoBehaviour
 {
     public bool FacesZAxis = true;
-	
-    void OnTriggerEnter(Collider other)
+    
+    void OnTriggerEnter (Collider other)
     {
-        CharacterAnimator character = other.GetComponent<CharacterAnimator>();
+        CharacterAnimator character = other.GetComponent<CharacterAnimator> ();
         if (character != null)
-            character.AddHangTarget(this);
+            character.AddHangTarget (this);
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit (Collider other)
     {
-        CharacterAnimator character = other.GetComponent<CharacterAnimator>();
+        CharacterAnimator character = other.GetComponent<CharacterAnimator> ();
         if (character != null)
-            character.RemoveHangTarget(this);
+            character.RemoveHangTarget (this);
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter (Collision collision)
     {
-        OnTriggerEnter(collision.collider);
+        OnTriggerEnter (collision.collider);
     }
 
-    void OnCollisionExit(Collision collision)
+    void OnCollisionExit (Collision collision)
     {
-        OnTriggerExit(collision.collider);
+        OnTriggerExit (collision.collider);
     }
 
-    public virtual bool DoesFaceZAxis()
+    public virtual bool DoesFaceZAxis ()
     {
         return FacesZAxis;
     }
-    public virtual bool DoesFaceXAxis()
+
+    public virtual bool DoesFaceXAxis ()
     {
         return !FacesZAxis;
     }

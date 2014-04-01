@@ -8,41 +8,40 @@ using System.Collections.Generic;
 [AddComponentMenu("Items/Inventory Manager")]
 public class InventoryManager : MonoBehaviour
 {
-	// Keep track of all the weapons in the player's inventory
-	public List<Weapon> Weapons;
-	
-	// Keep track of all the items in the player's inventory
-	public List<InventoryItem> Items;
-	
-	// We keep track of the player's hand to put weapons in it
-	private Transform _rightHand;
+    // Keep track of all the weapons in the player's inventory
+    public List<Weapon> Weapons;
+    
+    // Keep track of all the items in the player's inventory
+    public List<InventoryItem> Items;
+    
+    // We keep track of the player's hand to put weapons in it
+    private Transform _rightHand;
     
     // We keep track of which weapon is currently equipped here
     private Weapon _currentWeapon;
-
-	private bool _ready;
-	
-	void Start()
-	{
-        Weapons = new List<Weapon>();
-
-		Items = new List<InventoryItem> ();
-
-		StartCoroutine ("FindRightHand");
-
-		_ready = true;
-	}
-
-    IEnumerator FindRightHand()
+    private bool _ready;
+    
+    void Start ()
     {
-        while(GameManager.Player == null)
+        Weapons = new List<Weapon> ();
+
+        Items = new List<InventoryItem> ();
+
+        StartCoroutine ("FindRightHand");
+
+        _ready = true;
+    }
+
+    IEnumerator FindRightHand ()
+    {
+        while (GameManager.Player == null)
             yield return null;
 
-        _rightHand = CharacterSettings.SearchHierarchyForBone(GameManager.Player.transform, "hand_R");
-        StopCoroutine("FindRightHand");
+        _rightHand = CharacterSettings.SearchHierarchyForBone (GameManager.Player.transform, "hand_R");
+        StopCoroutine ("FindRightHand");
     }
     
-    public bool HasWeapon(Weapon w)
+    public bool HasWeapon (Weapon w)
     {
         foreach (Weapon weaponHeld in Weapons)
             if (weaponHeld.WeaponType == w.WeaponType)
@@ -51,139 +50,137 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-	public void AddItem(InventoryItem newItem)
+    public void AddItem (InventoryItem newItem)
     {
-		// if item already exists, add quantity
-		foreach (InventoryItem item in Items)
-        {
-			if (item.Type == newItem.Type)
-			{
-				item.Quantity += newItem.Quantity;
-				item.Quantity = Mathf.Min (item.MaxQuantity, item.Quantity);
-				Debug.Log ("Update item: " + item.Quantity + " " + item.Name);
-				return;
+        // if item already exists, add quantity
+        foreach (InventoryItem item in Items) {
+            if (item.Type == newItem.Type) {
+                item.Quantity += newItem.Quantity;
+                item.Quantity = Mathf.Min (item.MaxQuantity, item.Quantity);
+                Debug.Log ("Update item: " + item.Quantity + " " + item.Name);
+                return;
 
-			}
+            }
         }
 
-		Items.Add (newItem);
-		Debug.Log ("New item: " + newItem.Quantity + " " + newItem.Name);
-	}
+        Items.Add (newItem);
+        Debug.Log ("New item: " + newItem.Quantity + " " + newItem.Name);
+    }
     
-    public PlayerSaveState SaveState()
+    public PlayerSaveState SaveState ()
     {
         PlayerSaveState save = new PlayerSaveState ();
         
         // persist weapons as savestates since weapons themselves are monobehaviors
-		List<WeaponSaveState> weaponSaves = new List<WeaponSaveState> ();
+        List<WeaponSaveState> weaponSaves = new List<WeaponSaveState> ();
 
-		foreach (Weapon w in Weapons) {
-			weaponSaves.Add (w.SaveState());
+        foreach (Weapon w in Weapons) {
+            weaponSaves.Add (w.SaveState ());
 
-		}
+        }
 
-		save.WeaponsHeld = weaponSaves.ToArray ();
-		save.ItemsHeld = Items.ToArray ();        
+        save.WeaponsHeld = weaponSaves.ToArray ();
+        save.ItemsHeld = Items.ToArray ();        
         save.CurrentWeapon = GameManager.UI.CurrentWeapon;
         
         return save;
 
     }
 
-	public bool TryAddAmmo(Weapon w, int ammoCount) {
-		foreach (Weapon weapon in Weapons) {
-			if(weapon.WeaponType == w.WeaponType) {
-				weapon.Quantity += ammoCount;
-				weapon.Quantity = Mathf.Min (weapon.Quantity, weapon.MaxQuantity);
-				return true;
+    public bool TryAddAmmo (Weapon w, int ammoCount)
+    {
+        foreach (Weapon weapon in Weapons) {
+            if (weapon.WeaponType == w.WeaponType) {
+                weapon.Quantity += ammoCount;
+                weapon.Quantity = Mathf.Min (weapon.Quantity, weapon.MaxQuantity);
+                return true;
 
-			}
+            }
 
-		}
+        }
 
-		return false;
-	
-	}
+        return false;
+    
+    }
 
-	public bool TryRemoveAmmo(WeaponType t, int ammoCount) {
-		for(int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
-			if(Weapons[weaponIndex].WeaponType == t) {
-				Weapons[weaponIndex].Quantity -= ammoCount;
-				Weapons[weaponIndex].Quantity = Mathf.Max (Weapons[weaponIndex].Quantity, 0);
+    public bool TryRemoveAmmo (WeaponType t, int ammoCount)
+    {
+        for (int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
+            if (Weapons [weaponIndex].WeaponType == t) {
+                Weapons [weaponIndex].Quantity -= ammoCount;
+                Weapons [weaponIndex].Quantity = Mathf.Max (Weapons [weaponIndex].Quantity, 0);
 
-				if(Weapons[weaponIndex].Quantity == 0) {
-					Weapons.RemoveAt(weaponIndex);
-					GameManager.Inventory.CurrentWeapon = null;
-					GameManager.UI.CycleToNextWeapon();
-				}
+                if (Weapons [weaponIndex].Quantity == 0) {
+                    Weapons.RemoveAt (weaponIndex);
+                    GameManager.Inventory.CurrentWeapon = null;
+                    GameManager.UI.CycleToNextWeapon ();
+                }
 
-				return true;
-			}
-			
-		}
+                return true;
+            }
+            
+        }
 
-		return false;
+        return false;
 
-	}
+    }
 
-	public bool TryRemoveItemQty(Item.ItemType t, int qty) {
-		for(int itemIndex = Items.Count - 1; itemIndex >= 0; itemIndex--) {
-			if(Items[itemIndex].Type == t) {
-				Items[itemIndex].Quantity -= qty;
-				Items[itemIndex].Quantity = Mathf.Max (Items[itemIndex].Quantity, 0);
-				
-				if(Items[itemIndex].Quantity == 0) {
-					Items.RemoveAt(itemIndex);
-				}
-				
-				return true;
-			}
-			
-		}
-		
-		return false;
-		
-	}
+    public bool TryRemoveItemQty (Item.ItemType t, int qty)
+    {
+        for (int itemIndex = Items.Count - 1; itemIndex >= 0; itemIndex--) {
+            if (Items [itemIndex].Type == t) {
+                Items [itemIndex].Quantity -= qty;
+                Items [itemIndex].Quantity = Mathf.Max (Items [itemIndex].Quantity, 0);
+                
+                if (Items [itemIndex].Quantity == 0) {
+                    Items.RemoveAt (itemIndex);
+                }
+                
+                return true;
+            }
+            
+        }
+        
+        return false;
+        
+    }
 
-	public void RemoveWeapon(WeaponType t) {
-		// remove in descending order in case more than one occurrence.
-		for(int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
-			if(Weapons[weaponIndex].WeaponType == t)
-				Weapons.RemoveAt(weaponIndex);
+    public void RemoveWeapon (WeaponType t)
+    {
+        // remove in descending order in case more than one occurrence.
+        for (int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
+            if (Weapons [weaponIndex].WeaponType == t)
+                Weapons.RemoveAt (weaponIndex);
 
-		}
+        }
 
-	}
-	
-	public Weapon CurrentWeapon
-	{
-		get { return _currentWeapon; }
-		set
-		{
-			// Move the current weapon off screen
-			if(_currentWeapon != null)
-				_currentWeapon.transform.position = GameManager.Level.OffscreenPosition;
+    }
+    
+    public Weapon CurrentWeapon {
+        get { return _currentWeapon; }
+        set {
+            // Move the current weapon off screen
+            if (_currentWeapon != null)
+                _currentWeapon.transform.position = GameManager.Level.OffscreenPosition;
 
             // Set the new weapon
             _currentWeapon = value;
-            if(_currentWeapon == null || _rightHand == null) // TODO: WARNING ABOUT NULL RIGHT HAND
+            if (_currentWeapon == null || _rightHand == null) // TODO: WARNING ABOUT NULL RIGHT HAND
                 return;
 
-			_currentWeapon.transform.parent = _rightHand;
-			_currentWeapon.transform.localPosition = Vector3.zero;
-			_currentWeapon.transform.rotation = _rightHand.rotation;
-			_currentWeapon.transform.Rotate(_currentWeapon.Rotation);
-			_currentWeapon.transform.Translate(_currentWeapon.Translation);
-		}
-	}
+            _currentWeapon.transform.parent = _rightHand;
+            _currentWeapon.transform.localPosition = Vector3.zero;
+            _currentWeapon.transform.rotation = _rightHand.rotation;
+            _currentWeapon.transform.Rotate (_currentWeapon.Rotation);
+            _currentWeapon.transform.Translate (_currentWeapon.Translation);
+        }
+    }
 
-	public bool CanWeaponStealthKill
-    {
-		get { return _currentWeapon.CanStealthKill ; }
-	}
-	
-	public bool Ready
-	{
-		get { return _ready; }
-	}
+    public bool CanWeaponStealthKill {
+        get { return _currentWeapon.CanStealthKill; }
+    }
+    
+    public bool Ready {
+        get { return _ready; }
+    }
 }

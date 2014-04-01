@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
     private bool _hasTouchedNextNode = false; // keep track of whether we've already reached the node we're going to 
 
 	// Help prevent getting stuck in certain places
-	private Vector3 _lastFrameLocation = Vector3.zero;
+	//private Vector3 _lastFrameLocation = Vector3.zero;
 	private float _timeSpentWandering; // TODO: REMOVE THIS
 
     
@@ -56,7 +56,7 @@ public class EnemyAI : MonoBehaviour
         _olympusAwareness = GetComponent<OlympusAwareness> ();
         _personalHearingRadius = GetComponentInChildren<HearingRadius> ();
         _timeSincePlayerSeen = 0;
-		_lastFrameLocation = transform.position;
+		//_lastFrameLocation = transform.position;
         GameManager.AI.Enemies.Add (this);
 
         // Set up Astar
@@ -371,7 +371,7 @@ public class EnemyAI : MonoBehaviour
 		// A check to make sure we don't get stuck someplace
 		//TODO: see if we can use this with a larger threshold for doing the jump (a higher amount of frames in the same spot than just one)?
 		//bool wasAtSameLocationLastFrame = Vector3.Distance(_lastFrameLocation, transform.position) < 0.01;
-		_lastFrameLocation = transform.position;
+		//_lastFrameLocation = transform.position;
 
         // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
         int nodeOffset = _path.vectorPath.Count - _path.path.Count;
@@ -444,7 +444,7 @@ public class EnemyAI : MonoBehaviour
         // TODO: MAKE THE NEXT TWO CALLS MORE POLYMPORPHIC
 		bool isClimbing = _animator.CurrentState.IsName ("Climbing.ClimbingLadder") || _animator.CurrentState.IsName ("Climbing.ClimbingPipe") || _animator.CurrentState.IsName ("Wall.Climbing");// FIXME: SLOW
         bool isTurningAround = _animator.CurrentState.IsName ("Base Layer.Turn Around"); //FIXME: SLOW
-		bool isWalking = _animator.CurrentState.IsName ("Base Layer.Running"); // FIXME: SLOW
+		// bool isWalking = _animator.CurrentState.IsName ("Base Layer.Running"); // FIXME: SLOW
         bool isNodeAbove = targetPos.y - _animator.transform.position.y > 0;
         bool isNodeOnOtherPlatform = false;
         if (prevNode != null && nextNode != null)
