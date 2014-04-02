@@ -15,7 +15,7 @@ public class MysteriousRunner : MonoBehaviour
 		_input = GetComponent<CharacterInput> ();
 
         Camera.main.GetComponent<CameraScrolling> ().Target = transform;
-        GameManager.UI.DisableInput ();
+        GameManager.UI.DisableInput ("");
 		GameManager.IsPlayingCutscene = true;
 
 		Destroy (GameManager.Player.GetComponent<AudioListener> ());
@@ -53,7 +53,7 @@ public class MysteriousRunner : MonoBehaviour
         // Set up
 		_input = GetComponent<CharacterInput> ();
         Camera.main.GetComponent<CameraScrolling> ().Target = transform;
-        GameManager.UI.DisableInput ();
+        GameManager.UI.DisableInput ("");
 		GameManager.IsPlayingCutscene = true;
 
         Destroy (GameManager.Player.GetComponent<AudioListener> ());
@@ -120,7 +120,7 @@ public class MysteriousRunner : MonoBehaviour
 	public IEnumerator ShowDoorSneak ()
 	{
 		Camera.main.GetComponent<CameraScrolling> ().Target = transform;
-		GameManager.UI.DisableInput ();
+		GameManager.UI.DisableInput ("");
 		GameManager.IsPlayingCutscene = true;
 		Destroy (GameManager.Player.GetComponent<AudioListener> ());
 		this.gameObject.AddComponent<AudioListener> ();

@@ -14,6 +14,7 @@ public class Tutorial : MonoBehaviour
     public Transform SewerDoor;
     public Transform SewerCamera;
     public Transform NextLevel;
+	public Transform SneakAttackInstruction;
 
     // save runner component to call script coroutines directly
     private MysteriousRunner _runner;
@@ -29,7 +30,7 @@ public class Tutorial : MonoBehaviour
         _runner = MysteriousRunner.GetComponent<MysteriousRunner> ();
         _doorSounds = SewerDoor.GetComponent<AudioPlayer> ();
         _cameraSounds = SewerCamera.GetComponent<AudioPlayer> ();
-
+		SneakAttackInstruction.gameObject.SetActive(false);
     }
 
     void Update ()
@@ -98,13 +99,14 @@ public class Tutorial : MonoBehaviour
 
     public IEnumerator WaitForAttack ()
     {
-		GameManager.UI.DisableInput ();
+		GameManager.UI.DisableInput ("Attack");
+		SneakAttackInstruction.gameObject.SetActive(true);
 		Time.timeScale = 0.50f;
 		Camera.main.GetComponent<CameraScrolling> ().CinematicOverride = true;
 
         // TODO
         while (true) {
-			if(Input.GetAxis ("Attack") < 0) {
+			if(Input.GetAxis ("Attack") < 0 || GameManager.Player.CharInput.Attack < 0) {
 				GameManager.UI.EnableInput();
 				break;
 
@@ -112,8 +114,8 @@ public class Tutorial : MonoBehaviour
 
             yield return null;
         }
-	
-		yield return new WaitForSeconds (3.0f);
+		SneakAttackInstruction.gameObject.SetActive(false);
+		yield return new WaitForSeconds (2.0f);
 		Time.timeScale = 1.0f;
 		Camera.main.GetComponent<CameraScrolling> ().CinematicOverride = false;
 
@@ -143,7 +145,7 @@ public class Tutorial : MonoBehaviour
 
     public IEnumerator SpawnOlympus ()
     {
-        GameManager.UI.DisableInput ();
+        GameManager.UI.DisableInput ("");
 
         Camera.main.GetComponent<CameraScrolling> ().Target = OlympusPosition.transform;
         yield return new WaitForSeconds (2.0f);

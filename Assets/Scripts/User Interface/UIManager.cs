@@ -172,7 +172,7 @@ public class UIManager : MonoBehaviour
 #endif
     }
 
-    public void DisableInput ()
+    public void DisableInput (string exception)
     {
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
         if(_nontouchInput == null)
@@ -181,7 +181,7 @@ public class UIManager : MonoBehaviour
 #elif (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
         if(_touchInput == null)
             _touchInput = GetComponent<TouchInput>();
-        _touchInput.Disable();
+        _touchInput.Disable(exception);
 #endif
     }
 

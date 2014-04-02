@@ -149,9 +149,12 @@ public class TouchInput : MonoBehaviour
 
     }
     
-    public void Disable ()
+    public void Disable (string exception)
     {
-        _input.UpdateInputMethod = null;
+        if(exception.Equals("Attack"))
+		   _input.UpdateInputMethod = this.UpdateInputAttack;
+		else
+		   _input.UpdateInputMethod = null;
 
     }
 
@@ -188,6 +191,35 @@ public class TouchInput : MonoBehaviour
         }
 
     }
+
+	// The input class will call this method while touch input is enabled
+	public void UpdateInputAttack ()
+	{   
+		// Reset inputs
+		_input.Horizontal = 0;
+		_input.Vertical = 0;
+		_input.Interaction = false;
+		_input.Jump = new Vector2 (0, 0);
+		_input.Attack = 0;
+		_input.Pickup = false;
+		
+		// Go through all the touches
+		foreach (Touch touch in Input.touches) {
+			Vector2 touchPos = touch.position;
+			if (touchPos.x < Screen.width / 2)
+				InterpretMovementSwipe (touch);
+			else if (!(touchPos.x > 2 * Screen.width / 3 && touchPos.y > 3 * Screen.height / 4))
+				InterpretInteractSwipe (touch);
+		}
+
+		// Reset inputs
+		_input.Horizontal = 0;
+		_input.Vertical = 0;
+		_input.Interaction = false;
+		_input.Jump = new Vector2 (0, 0);
+		_input.Pickup = false;
+		
+	}
 
     // The left-hand side of the screen
     private void InterpretMovementSwipe (Touch touch)
