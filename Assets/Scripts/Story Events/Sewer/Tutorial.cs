@@ -35,7 +35,7 @@ public class Tutorial : MonoBehaviour
     void Update ()
     {
         if (GameManager.AI.Enemies.Count > 0) {
-            bool tutorialComplete = GameManager.AI.Enemies [0].GetComponent<CharacterAnimator> ().IsDead (); // FIXME: SLOW
+            bool tutorialComplete = GameManager.AI.Enemies [0].GetComponent<CharacterAnimator> ().IsDead ();
             NextLevel.gameObject.SetActive (tutorialComplete);
             GameManager.SaveData.TutorialComplete = tutorialComplete;
         }

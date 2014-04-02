@@ -141,7 +141,7 @@ public class EnemyAI : MonoBehaviour
             return;
 
 		// TODO: REMOVE THIS
-		_timeSpentWandering += Time.fixedDeltaTime;
+		_timeSpentWandering += Time.deltaTime;
 		if (_timeSpentWandering >= 15) {
 			GetRandomSearchPoint ();
 			_timeSpentWandering = 0;
@@ -236,7 +236,7 @@ public class EnemyAI : MonoBehaviour
 
         // Determine attack
         //bool randomChance = (Random.Range(0.0f, 1.0f) > 0.95f);
-        bool isStunned = _animator.CurrentState.IsName ("Base Layer.Stun"); // FIXME: SLOW
+        bool isStunned = _animator.CurrentState.nameHash== OlympusAnimator.StunState;  // TODO: MOVE TO CHILD?
         bool shouldAttack = IsPlayerInAttackRange && !isStunned && !_animator.IsDead (); //&& randomChance;
 		if(shouldAttack) {
 			bool isPlayerAbove = _playerAnimator.transform.position.y > transform.position.y + _animator.Height * 0.5f;
@@ -245,7 +245,7 @@ public class EnemyAI : MonoBehaviour
 		}
 
 		// Stop moving while the player is knocked back
-		if(_playerAnimator.CurrentState.IsName("Base Layer.Damaged")) // FIXME: SLOW
+		if(_playerAnimator.CurrentState.nameHash == PlayerCharacterAnimator.DamagedState)
 			_animator.CharInput.Horizontal = 0;
     }
 
@@ -312,7 +312,7 @@ public class EnemyAI : MonoBehaviour
     public bool UpdateAStarPath (float speedRatio = 1.0f, bool repathOnInvalid = true)
     {
         // Keep time of track between repaths
-        _timeSinceRepath += Time.fixedDeltaTime; // NOTE: WE USE FIXED DELTA TIME BECAUSE WE'RE ASSUMING WE'RE IN FIXEDUPDATE
+        _timeSinceRepath += Time.deltaTime;
 
         // First make sure we actually have a path
         if (_path == null || _path.error) {
@@ -441,9 +441,9 @@ public class EnemyAI : MonoBehaviour
 
         // Determine jump
         // TODO: MAKE THE NEXT TWO CALLS MORE POLYMPORPHIC
-		bool isClimbing = _animator.CurrentState.IsName ("Climbing.ClimbingLadder") || _animator.CurrentState.IsName ("Climbing.ClimbingPipe") || _animator.CurrentState.IsName ("Wall.Climbing");// FIXME: SLOW
-        bool isTurningAround = _animator.CurrentState.IsName ("Base Layer.Turn Around"); //FIXME: SLOW
-		// bool isWalking = _animator.CurrentState.IsName ("Base Layer.Running"); // FIXME: SLOW
+        bool isClimbing = _animator.CurrentState.nameHash == OlympusAnimator.ClimbingLedgeState || _animator.CurrentState.nameHash == OlympusAnimator.ClimbingLadderState || _animator.CurrentState.nameHash == OlympusAnimator.WallclimbingState;
+        bool isTurningAround = _animator.CurrentState.nameHash == OlympusAnimator.TurnAroundState;
+        // bool isWalking = _animator.CurrentState.nameHash == OlympusAnimator.RunningState; 
         bool isNodeAbove = targetPos.y - _animator.transform.position.y > 0;
         bool isNodeOnOtherPlatform = false;
         if (prevNode != null && nextNode != null)
@@ -522,9 +522,9 @@ public class EnemyAI : MonoBehaviour
         float root1 = (-b + Mathf.Sqrt (discriminant)) / divisor;
         float root2 = (-b - Mathf.Sqrt (discriminant)) / divisor;
 
-        // FIXME: SLOW && MAKE MORE OBJECT ORIENTED
+        // TODO: MAKE MORE OBJECT ORIENTED
         // If we're jumping, choose the farthest, otherwise choose the closer one
-        return _animator.CurrentState.IsName ("Base Layer.Jumping") ? Mathf.Max (root1, root2) : Mathf.Min (root1, root2);
+        return _animator.CurrentState.nameHash == OlympusAnimator.JumpingState ? Mathf.Max (root1, root2) : Mathf.Min (root1, root2);
 
     }
 

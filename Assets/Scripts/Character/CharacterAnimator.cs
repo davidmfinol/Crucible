@@ -25,14 +25,10 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     // This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
     public delegate void ProcessState (float elapsedTime);
-
     public ProcessState ModifyState;
     private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
     private AnimatorStateInfo _previousState;
     private float _timeInCurrentState;
-
-    // List of animation state hashes for which we nullify root based motion of animations
-    private List<int> _rootMotionCorrectionStates;
     
     // We use these to determine movement
     private float _horizontalSpeed = 0.0f; // How fast does the character want to move on the x-axis?
@@ -94,7 +90,6 @@ public abstract class CharacterAnimator : MonoBehaviour
         _stateMachine = new Dictionary<int, ProcessState> ();
         CreateStateMachine ();
         _previousState = CurrentState;
-        _rootMotionCorrectionStates = DefineRootMotionCorrectionState ();
         _timeInCurrentState = 0.0f;
 
         // Is useful to know when we were last on the ground
@@ -106,13 +101,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     protected abstract void CreateStateMachine ();// Must be overwritten by child classes to set up _stateMachine
-
-    protected virtual List<int> DefineRootMotionCorrectionState ()
-    {
-        //TODO: ERADICATE THIS METHOD
-        return new List<int> (); // Should be overwritten by child classes
-
-    }
 
     protected virtual void OnStart ()
     {
@@ -150,10 +138,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     
     void Update ()
     {
-        // Disable root-based motion
-        if (_root != null && _rootMotionCorrectionStates.Contains (CurrentState.nameHash))
-            _root.localPosition = Vector3.zero; // TODO: DELETE THIS
-
         // Handle all the z-zone stuff in one location
         UpdateZones ();
 
@@ -616,6 +600,10 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return _characterController; }
     }
 
+    public Transform Root {
+        get { return _root; }
+    }
+
     public float Height {
         get { return Controller != null ? transform.localScale.y * Controller.height : transform.localScale.y * GetComponent<CharacterController> ().height; }
     }
@@ -717,8 +705,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public virtual bool IsLanding {
-        // FIXME: SLOW
-        get { return CurrentState.IsName ("Air.Landing") || (IsGrounded && (CurrentState.IsName ("Air.Jumping") || CurrentState.IsName ("Air.Falling"))); } 
+        get { return CurrentState.nameHash == OlympusAnimator.LandingState || (IsGrounded && (CurrentState.nameHash == OlympusAnimator.JumpingState || CurrentState.nameHash == OlympusAnimator.FallingState)); } 
     }
     
     public virtual bool IsSneaking {

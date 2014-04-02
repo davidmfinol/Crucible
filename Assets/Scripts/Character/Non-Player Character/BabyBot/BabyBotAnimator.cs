@@ -10,13 +10,16 @@ public class BabyBotAnimator : CharacterAnimator
     // TODO: REPLACE THIS WITH SOME KIND OF POOL OF HITBOX OBJECTS
     public GameObject MeleeEvent;
 
-    // Mecanim hashes
-    private int _awakeHash;
-    private int _horizontalSpeedHash;
-    private int _attackHash;
-    private int _fallHash;
-    private int _jumpHash;
-    private int _isGroundedHash;
+    // Mecanim State Hashes
+    public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
+    public static readonly int AwakeState = Animator.StringToHash ("Base Layer.Awake");
+    public static readonly int RunState = Animator.StringToHash ("Base Layer.Run");
+    public static readonly int AttackState = Animator.StringToHash ("Base Layer.Attack");
+    public static readonly int LandingState = Animator.StringToHash ("Air.Landing");
+    public static readonly int JumpingState = Animator.StringToHash ("Air.Jumping");
+    public static readonly int FallingState = Animator.StringToHash ("Air.Falling");
+
+    // Making cute baby sounds =)
     private BabybotAudioPlayer _sound;
 
     protected override void OnStart ()
@@ -27,29 +30,27 @@ public class BabyBotAnimator : CharacterAnimator
 
     protected override void CreateStateMachine ()
     {
-        // First map the states
-        StateMachine [Animator.StringToHash ("Base Layer.Idle")] = Idle;
-        StateMachine [Animator.StringToHash ("Base Layer.Awake")] = Idle;
-        StateMachine [Animator.StringToHash ("Base Layer.Run")] = Run;
-        StateMachine [Animator.StringToHash ("Base Layer.Attack")] = Attack;
-        StateMachine [Animator.StringToHash ("Air.Landing")] = Run;
-        StateMachine [Animator.StringToHash ("Air.Jumping")] = Jump;
-        StateMachine [Animator.StringToHash ("Air.Falling")] = Fall;
+        StateMachine [IdleState] = Idle;
+        StateMachine [AwakeState] = Idle;
+        StateMachine [RunState] = Run;
+        StateMachine [AttackState] = Attack;
+        StateMachine [LandingState] = Run;
+        StateMachine [JumpingState] = Jump;
+        StateMachine [FallingState] = Fall;
 
-        // Then hash the variables
-        _awakeHash = Animator.StringToHash ("Awake");
-        _horizontalSpeedHash = Animator.StringToHash ("HorizontalSpeed");
-        _attackHash = Animator.StringToHash ("Attack");
-        _fallHash = Animator.StringToHash ("Fall");
-        _jumpHash = Animator.StringToHash ("Jump");
-        _isGroundedHash = Animator.StringToHash ("IsGrounded");
+    }
 
+    protected override void OnUpdate()
+    {
+        // HACK: WE'RE TRYING TO PREVENT MOVING THE MESH TOO FAR AWAY FROM THE COLLIDER
+        if (Root != null && CurrentState.nameHash == AttackState )
+            Root.localPosition = Vector3.zero;
     }
 
     protected override void UpdateMecanimVariables ()
     {
-        MecanimAnimator.SetBool (_fallHash, !IsGrounded);
-        MecanimAnimator.SetBool (_isGroundedHash, IsGrounded);
+        MecanimAnimator.SetBool (MecanimHashes.Fall, !IsGrounded);
+        MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
 
     }
 
@@ -57,11 +58,11 @@ public class BabyBotAnimator : CharacterAnimator
     {
         _sound.DelayedStop ();
         if (CharInput.Left || CharInput.Right)
-            MecanimAnimator.SetBool (_awakeHash, true);
+            MecanimAnimator.SetBool (MecanimHashes.Awake, true);
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
-        MecanimAnimator.SetBool (_jumpHash, CharInput.JumpActive);
+        MecanimAnimator.SetBool (MecanimHashes.Jump, CharInput.JumpActive);
 
     }
 
@@ -69,24 +70,25 @@ public class BabyBotAnimator : CharacterAnimator
     {
         if (TimeInCurrentState == 0)
             _sound.PlayLoop (_sound.Running, 1.0f); //TODO: Make baby bot sounds separate footsteps as well and add animation event
-        MecanimAnimator.SetBool (_awakeHash, false);
-        MecanimAnimator.SetFloat (_horizontalSpeedHash, Mathf.Abs (CharInput.Horizontal));
+
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
-        MecanimAnimator.SetBool (_jumpHash, CharInput.JumpActive);
-        MecanimAnimator.SetBool (_attackHash, CharInput.AttackActive);
+
+        MecanimAnimator.SetBool (MecanimHashes.Awake, false);
+        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Mathf.Abs (CharInput.Horizontal));
+        MecanimAnimator.SetBool (MecanimHashes.Jump, CharInput.JumpActive);
+        MecanimAnimator.SetBool (MecanimHashes.Attack, CharInput.AttackActive);
 
     }
 
     protected void Attack (float elapsedTime)
     {
-        if (!MecanimAnimator.GetBool (_attackHash))
+        if (!MecanimAnimator.GetBool (MecanimHashes.Attack))
             return;
 
         // Set up mecanim
-        MecanimAnimator.SetBool (_attackHash, false);
-        //MecanimAnimator.applyRootMotion = false;
+        MecanimAnimator.SetBool (MecanimHashes.Attack, false);
 
         // Disable movement
         Controller.enabled = false;
@@ -102,32 +104,24 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
-    protected override List<int> DefineRootMotionCorrectionState ()
-    {
-        List<int> states = new List<int> ();
-        states.Add (Animator.StringToHash ("Base Layer.Attack"));
-        return states;
-
-    }
-
     protected void Jump (float elapsedTime)
     {
         if (Mathf.Abs (CharInput.Horizontal) > 0.1)
             ApplyRunning (elapsedTime * 0.5f);
         
-        if (MecanimAnimator.GetBool (_jumpHash)) {
+        if (MecanimAnimator.GetBool (MecanimHashes.Jump)) {
             if (CharInput.JumpLeft || CharInput.JumpLeftReleased)
                 HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
             else if (CharInput.JumpRight || CharInput.JumpRightReleased)
                 HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
             
             VerticalSpeed = Mathf.Sqrt (2 * Settings.JumpHeight * Settings.Gravity);
-            MecanimAnimator.SetBool (_jumpHash, false);
+            MecanimAnimator.SetBool (MecanimHashes.Jump, false);
         } else
             ApplyGravity (elapsedTime);
         
         if (transform.position.y >= LastGroundHeight - 1)
-            MecanimAnimator.SetBool (_fallHash, false);
+            MecanimAnimator.SetBool (MecanimHashes.Fall, false);
 
     }
 
@@ -136,7 +130,7 @@ public class BabyBotAnimator : CharacterAnimator
         ApplyRunning (elapsedTime);
         ApplyGravity (elapsedTime);
         
-        MecanimAnimator.SetBool (_fallHash, false);
+        MecanimAnimator.SetBool (MecanimHashes.Fall, false);
 
     }
 

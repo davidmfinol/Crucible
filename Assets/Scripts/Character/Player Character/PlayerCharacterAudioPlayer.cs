@@ -7,7 +7,7 @@ using System.Collections;
 [AddComponentMenu ("Audio/PlayerCharacter Audio")]
 public class PlayerCharacterAudioPlayer : AudioPlayer
 {
-	public AudioClip Attack;
+    public AudioClip Attack;
     public AudioClip Hit;
     public AudioClip Jump;
     public AudioClip Craft;
@@ -26,11 +26,12 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
         _audios = GetComponents<AudioSource> ();
 
     }
+
     public override void Play (AudioClip audio, float volume)
     {
-     	//Switches between audio sources to avoid clipping the sounds
+        //Switches between audio sources to avoid clipping the sounds
         _audios [_currentAudio].clip = audio;
-		_audios[_currentAudio].volume = volume;
+        _audios [_currentAudio].volume = volume;
         _audios [_currentAudio].Play ();
         
         _currentAudio++;
