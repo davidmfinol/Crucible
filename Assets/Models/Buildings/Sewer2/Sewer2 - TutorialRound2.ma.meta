@@ -455,6 +455,13 @@ ModelImporter:
     100898: box 2
     100900: transform65
     100902: Mesh1
+    100904: Box 3
+    100906: Box 4
+    100908: Box 5
+    100910: Mesh2
+    100912: Mesh3
+    100914: polySurface227
+    100916: transform66
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -907,6 +914,13 @@ ModelImporter:
     400898: box 2
     400900: transform65
     400902: Mesh1
+    400904: Box 3
+    400906: Box 4
+    400908: Box 5
+    400910: Mesh2
+    400912: Mesh3
+    400914: polySurface227
+    400916: transform66
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1196,6 +1210,12 @@ ModelImporter:
     2300572: box 1
     2300574: box 2
     2300576: Mesh1
+    2300578: Box 3
+    2300580: Box 4
+    2300582: Box 5
+    2300584: Mesh2
+    2300586: Mesh3
+    2300588: polySurface227
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1485,6 +1505,12 @@ ModelImporter:
     3300572: box 1
     3300574: box 2
     3300576: Mesh1
+    3300578: Box 3
+    3300580: Box 4
+    3300582: Box 5
+    3300584: Mesh2
+    3300586: Mesh3
+    3300588: polySurface227
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1771,6 +1797,12 @@ ModelImporter:
     4300566: box
     4300568: box
     4300570: Mesh1
+    4300572: Mesh3
+    4300574: Mesh2
+    4300576: Box
+    4300578: polySurface227
+    4300580: Box
+    4300582: Box
     7400000: Take 001
     9500000: //RootNode
   materials:
