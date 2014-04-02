@@ -444,6 +444,10 @@ public class UIManager : MonoBehaviour
 
     public void ShowMap (bool show)
     {
+		if (Application.loadedLevelName != "Commercial Zone")
+			return;
+
+
 		if (show)
 			_mapQuad.Reload ();
 
