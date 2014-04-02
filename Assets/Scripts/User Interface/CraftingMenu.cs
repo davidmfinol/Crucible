@@ -212,6 +212,8 @@ public class CraftingMenu : MonoBehaviour
 
     public void Open ()
     {
+		GameManager.UI.ShowMap (false);
+
         _state = CraftingMenuState.CraftingMenu_Opening;
         _timeInState = 0.0f;
 

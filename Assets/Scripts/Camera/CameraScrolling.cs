@@ -195,8 +195,7 @@ public class CameraScrolling : MonoBehaviour
             if (enemy != null && !enemy.Animator.IsDead ()) {
                 
                 if (enemy.Awareness != EnemyAI.AwarenessLevel.Chasing && 
-                    Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) < EnemyFocus &&
-                    Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) >= EnemyIgnoreRange) {
+                    Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) < EnemyFocus) {// && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) >= EnemyIgnoreRange) {
 
                     if (!bFoundAny) {
                         bFoundAny = true;

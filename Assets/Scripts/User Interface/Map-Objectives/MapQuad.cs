@@ -38,7 +38,7 @@ public class MapQuad : MonoBehaviour
         return mapPoint;
     }
 
-    public void AddMapPoint (GameObject o, string objectName, string textureName)
+	public void AddMapPoint (GameObject o, string objectName, string textureName, float scale = 2.0f)
     {
         Vector3 mapPoint = WorldToMapPoint (o.transform.position);
 
@@ -46,9 +46,15 @@ public class MapQuad : MonoBehaviour
         GameObject newPoint = (GameObject)Instantiate (MapPointPrefab, new Vector3 (mapPoint.x, mapPoint.y, -3.0f), Quaternion.identity);
         newPoint.name = objectName;
         newPoint.renderer.material.mainTexture = Resources.Load<Texture2D> (textureName);
-        newPoint.AddComponent<AlphaPulse> ();
-        newPoint.GetComponent<AlphaPulse> ().On = true;
-        newPoint.transform.parent = transform;
+//		newPoint.transform.localScale = new Vector3 (scale, scale, scale);
+
+        AlphaPulse ap = newPoint.AddComponent<AlphaPulse> ();
+		ap.MinAlpha = 0.3f;
+		ap.MaxAlpha = 1.0f;
+		ap.Period = 1.5f;
+		ap.On = true;
+
+		newPoint.transform.parent = transform;
 
     }
 
@@ -63,5 +69,38 @@ public class MapQuad : MonoBehaviour
         }
 
     }
+
+	public void Clear ()
+	{
+		for (int i=transform.childCount - 1; i >= 0; i--)
+			Destroy (transform.GetChild (i).gameObject);
+				
+	}
+
+	public void Reload() {
+		Clear ();
+
+		// add player to map
+		AddMapPoint (GameManager.Player.gameObject, "Player", "Maps/PlayerBlip");
+		
+		GameObject items = GameObject.Find ("Items");
+
+		if(items != null) {
+			for (int i=0; i< items.transform.childCount; i++) {
+				Transform item = items.transform.GetChild (i);
+				
+				if(item.gameObject.name.Contains("GunParts"))
+					AddMapPoint (item.gameObject, item.transform.position.x.ToString (), "Item Icons/GunPartsIcon");
+				else if(item.gameObject.name.Contains("HiggsDrive"))
+					AddMapPoint (item.gameObject, item.transform.position.x.ToString (), "Item Icons/HiggsDriveIcon");
+				else if(item.gameObject.name.Contains("Isolator"))
+					AddMapPoint (item.gameObject, item.transform.position.x.ToString (), "Item Icons/IsolatorIcon");
+				else
+					AddMapPoint (item.gameObject, item.transform.position.x.ToString (), "Maps/ItemBlip");
+			}
+
+		}
+
+	}
 
 }
