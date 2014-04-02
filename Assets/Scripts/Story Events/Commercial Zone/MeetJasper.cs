@@ -36,6 +36,7 @@ public class MeetJasper : MonoBehaviour
 
     public IEnumerator DoDialogue ()
     {
+		GameManager.UI.DisableInput("");
         if (TVScreen1 != null)
             TVScreen1.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
         if (TVScreen2 != null)
@@ -64,9 +65,9 @@ public class MeetJasper : MonoBehaviour
         yield return new WaitForSeconds (3.0f);
         _quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D> ("JasperText6");
         yield return new WaitForSeconds (3.0f);
-        _quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D> ("JasperText7");
-        yield return new WaitForSeconds (3.0f);
-
+        //_quad.gameObject.renderer.material.mainTexture = Resources.Load<Texture2D> ("JasperText7");
+        //yield return new WaitForSeconds (3.0f);
+		GameManager.UI.EnableInput();
         _quad.gameObject.renderer.enabled = false;
 
     }
