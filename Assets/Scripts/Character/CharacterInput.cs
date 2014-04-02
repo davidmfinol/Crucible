@@ -10,7 +10,6 @@ public sealed class CharacterInput : MonoBehaviour
 {
     // We need a way to set a method that will update the input for the character
     public delegate void UpdateInput ();
-
     private UpdateInput _updateInputMethod;
 
     // Keep track of what the character has input into the game
