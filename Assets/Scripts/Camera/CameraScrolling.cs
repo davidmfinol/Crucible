@@ -12,7 +12,8 @@ public class CameraScrolling : MonoBehaviour
     public float Distance = 15.0f;
 
     // How strict should the camera follow the target?  Lower values make the camera more lazy.
-    public float Springiness = 4.0f;
+    public float MovementSpringiness = 4.0f;
+    public float EnemyFocusedSpringiness = 1.2f; // Same thing, but for when there is an we're also tracking
 
     //The range for moving the camera between you and the enemies.
     public float EnemyFocus = 50.0f;
@@ -40,7 +41,10 @@ public class CameraScrolling : MonoBehaviour
     {
         if (Target != null) {
             Vector3 goalPosition = GetGoalPosition ();
-            transform.position = Vector3.Lerp (transform.position, goalPosition, Time.deltaTime * Springiness);
+            float springiness = MovementSpringiness;
+            if(_enemyFocused)
+                springiness = EnemyFocusedSpringiness;
+            transform.position = Vector3.Lerp (transform.position, goalPosition, Time.deltaTime * springiness);
         }
     }
 

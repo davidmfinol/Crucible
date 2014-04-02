@@ -268,10 +268,11 @@ public class TouchInput : MonoBehaviour
             
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
-            _leftHandVignette.renderer.enabled = moveTouched; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING
+            _leftHandVignette.renderer.enabled = moveTouched && !GameManager.SaveData.ShownWallJump2;
             _horizontalSlider.renderer.enabled = moveTouched;
             _verticalSlider.renderer.enabled = moveTouched;
             _moveButton.renderer.enabled = moveTouched;
+            _radioWaves.renderer.enabled = false;
             if (!moveTouched)
                 continue;
 
@@ -305,7 +306,6 @@ public class TouchInput : MonoBehaviour
             if (GameManager.Player.IsSneaking) {
                 _horizontalSlider.renderer.material.color = Color.white;
                 _verticalSlider.renderer.material.color = Color.white;
-                _radioWaves.renderer.enabled = false;
             } else {
                 _horizontalSlider.renderer.material.color = Color.red;
                 _verticalSlider.renderer.material.color = Color.red;
@@ -325,8 +325,8 @@ public class TouchInput : MonoBehaviour
 
             // Make everything invisible if we're not touching the right-hand side
             bool actTouched = _actionID != -1;
-            _rightHandVignette.renderer.enabled = actTouched; // TODO: MAKE IT ONLY HAPPEN AT THE BEGINNING
-            _actionDescription.renderer.enabled = actTouched; // TODO: MAKE THIS DISAPPEAR AFTER A WHILE
+            _rightHandVignette.renderer.enabled = actTouched && !GameManager.SaveData.ShownWallJump2;
+            _actionDescription.renderer.enabled = actTouched && !GameManager.SaveData.SewerTopReached;
             _fadeLeft.renderer.enabled = false;
             _fadeTop.renderer.enabled = false;
             _fadeRight.renderer.enabled = false;
