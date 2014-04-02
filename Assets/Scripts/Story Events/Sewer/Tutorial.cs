@@ -154,22 +154,77 @@ public class Tutorial : MonoBehaviour
     
     public IEnumerator OperateDoor ()
     {
-        // TODO: UPDATE TO HAVE PLAYER GO AWAY BEFORE REACTIVATING
-        while (true) {
-            if (_sewerDoorOpen && Mathf.Abs (GameManager.Player.CharInput.Horizontal) > 0.5) {
-                SewerDoor.animation.Play ("Close");
-                _sewerDoorOpen = false;
-                yield return new WaitForSeconds (0.5f);
-                _doorSounds.Play (_sewerSounds.DoorSlam, 0.5f);
-                _cameraSounds.Play (_sewerSounds.CameraBeep, 0.3f);
-            } else if (!_sewerDoorOpen && Mathf.Abs (GameManager.Player.CharInput.Horizontal) < 0.5) {
-                SewerDoor.animation.Play ("Open");
-                _sewerDoorOpen = true;
-                yield return new WaitForSeconds (0.5f);
-                _doorSounds.Play (_sewerSounds.DoorOpen, 0.7f);
-            }
-            yield return null; // FIXME: SLOW
-        }
+		// distance at which door senses running and closes.
+		// also the distance a sensed player must reach before the door opens again.
+		float sensorDistance = 10.0f;
 
-    }
+		//SewerDoor.animation["Open"].speed = 1.0f;
+		//SewerDoor.animation["Close"].speed = 1.0f;
+
+		GameObject light1 = GameObject.Find ("polySurface177 6");
+		ColorPulse light1Pulse = light1.AddComponent<ColorPulse> ();
+		light1Pulse.MinColor = new Color (0.0f, 0.0f, 0.0f, 1.0f);
+		light1Pulse.MaxColor = new Color (1.0f, 0.0f, 0.0f, 1.0f);
+		light1Pulse.Speed = 5.0f;
+		light1Pulse.On = false;
+
+		GameObject light2 = GameObject.Find ("polySurface177 7");
+		ColorPulse light2Pulse = light2.AddComponent<ColorPulse> ();
+		light2Pulse.MinColor = new Color (0.0f, 0.0f, 0.0f, 1.0f);
+		light2Pulse.MaxColor = new Color (1.0f, 0.0f, 0.0f, 1.0f);
+		light2Pulse.Speed = 5.0f;
+		light2Pulse.On = false;
+
+		GameObject light3 = GameObject.Find ("polySurface177 8");
+		ColorPulse light3Pulse = light3.AddComponent<ColorPulse> ();
+		light3Pulse.MinColor = new Color (0.0f, 0.0f, 0.0f, 1.0f);
+		light3Pulse.MaxColor = new Color (1.0f, 0.0f, 0.0f, 1.0f);
+		light3Pulse.Speed = 5.0f;
+		light3Pulse.On = false;
+
+		while(true) {
+			float distanceToPlayer = Mathf.Abs (GameManager.Player.transform.position.x - SewerDoor.transform.position.x);
+			Debug.Log ("Distance to Player " + distanceToPlayer);
+
+			if(_sewerDoorOpen) {
+				// player in sensor range of an open door, and running?
+				if( (distanceToPlayer <= sensorDistance) &&
+				    !GameManager.Player.IsSneaking)  {
+					
+					SewerDoor.animation.Play ("Close");
+					_sewerDoorOpen = false;
+					_doorSounds.Play (_sewerSounds.DoorSlam, 0.5f);
+					_cameraSounds.Play (_sewerSounds.CameraBeep, 0.3f);
+
+					// start flashing the lights.
+					light1Pulse.On = true;
+					light2Pulse.On = true;
+					light3Pulse.On = true;
+					SewerCamera.animation.enabled = true;
+
+				}
+
+				// if sewer door closed,
+			} else {
+				// and player is outside of the sensor range, open it.
+				if(distanceToPlayer > sensorDistance) {
+					SewerDoor.animation.Play ("Open");
+					_sewerDoorOpen = true;
+					_doorSounds.Play (_sewerSounds.DoorOpen, 0.7f);
+				
+					light1Pulse.On = false;
+					light2Pulse.On = false;
+					light3Pulse.On = false;
+					SewerCamera.animation.enabled = false;
+
+				}
+				
+			}
+
+			yield return new WaitForSeconds (0.5f);
+			
+		}
+
+	}
+
 }
