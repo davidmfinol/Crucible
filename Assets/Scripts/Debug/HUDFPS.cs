@@ -16,11 +16,12 @@ using System.Collections;
 [AddComponentMenu("Debug/HUDFPS")]
 public class HUDFPS : MonoBehaviour
 {
-    public Rect startRect = new Rect (10, 10, 75, 50); // The rect the window is initially displayed at.
     public bool updateColor = true; // Do you want the color to change if the FPS gets low
     public bool allowDrag = true; // Do you want to allow the dragging of the FPS window
     public float frequency = 0.5F; // The update frequency of the fps
     public int nbDecimal = 1; // How many decimal do you want to display
+
+    private Rect startRect = new Rect (10, Screen.height - 75, 75, 50); // The rect the window is initially displayed at.
 
     private float accum = 0f; // FPS accumulated over the interval
     private int frames = 0; // Frames drawn over the interval

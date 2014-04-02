@@ -251,11 +251,13 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
             for (float x = left; x < right; x += WaypointSubdivisionSize) {
                 Vector3 abovePoint = new Vector3 (x, top + 1, z);
-                abovePoint = RotatePointAroundPivot (abovePoint, rotationPoint, rotationAngle);
+                if(storedRotation != Quaternion.identity)
+                    abovePoint = RotatePointAroundPivot (abovePoint, rotationPoint, rotationAngle);
                 waypoints.Add (abovePoint + boxOffset);
             }
             Vector3 topRightOff = new Vector3 (right, top + 1, z);
-            topRightOff = RotatePointAroundPivot (topRightOff, rotationPoint, rotationAngle);
+            if(storedRotation != Quaternion.identity)
+                topRightOff = RotatePointAroundPivot (topRightOff, rotationPoint, rotationAngle);
             waypoints.Add (topRightOff + boxOffset);
             break;
 
