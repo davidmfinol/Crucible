@@ -22,7 +22,7 @@ public class MeshToGameObjectsMenu
     static GameObject ladderZPrefab;
     static GameObject pipePrefab;
     static GameObject wallPrefab;
-    static GameObject ledgeContainer;
+    // TODO: static GameObject ledgeContainer;
     static GameObject wallContainer;
     static List<Transform> selected;
 
@@ -69,11 +69,11 @@ public class MeshToGameObjectsMenu
         pipePrefab = (GameObject)Resources.Load ("Pipe");
         wallPrefab = (GameObject)Resources.Load ("Wall");
 
-        // Store all the ledges in one location
-        GameObject prevLedges = GameObject.Find(selected[selected.Count - 1].name + " - Ledges");
-        if(prevLedges != null)
-            GameObject.DestroyImmediate(prevLedges);
-        ledgeContainer = new GameObject (selected[selected.Count - 1].name + " - Ledges");
+        // TODO: Store all the ledges in one location
+        //GameObject prevLedges = GameObject.Find(selected[selected.Count - 1].name + " - Ledges");
+        //if(prevLedges != null)
+        //    GameObject.DestroyImmediate(prevLedges);
+        //ledgeContainer = new GameObject (selected[selected.Count - 1].name + " - Ledges");
 
         // Store all the walls in one location
         GameObject prevWalls = GameObject.Find(selected[selected.Count - 1].name + " - Walls");
