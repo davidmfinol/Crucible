@@ -140,7 +140,7 @@ public class UIManager : MonoBehaviour
         _objectiveQuad = (GameObject)Instantiate (ObjectiveQuadPrefab, ObjectiveQuadPos, Quaternion.identity);
 
         // load map
-        GameObject mapQuad = (GameObject)Instantiate (MapQuadPrefab, _uiCamera.ViewportToWorldPoint (new Vector3 (0.5f, 0.5f, 8.0f)), Quaternion.identity);
+        GameObject mapQuad = (GameObject)Instantiate (MapQuadPrefab, _uiCamera.ViewportToWorldPoint (new Vector3 (0.5f, 0.5f, 7.0f)), Quaternion.identity);
         _mapQuad = mapQuad.GetComponent<MapQuad> ();
         _mapQuad.gameObject.SetActive (false);
 
