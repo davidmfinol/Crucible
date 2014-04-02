@@ -462,6 +462,7 @@ ModelImporter:
     100912: Mesh3
     100914: polySurface227
     100916: transform66
+    100918: pPlane8
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -921,6 +922,7 @@ ModelImporter:
     400912: Mesh3
     400914: polySurface227
     400916: transform66
+    400918: pPlane8
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1216,6 +1218,7 @@ ModelImporter:
     2300584: Mesh2
     2300586: Mesh3
     2300588: polySurface227
+    2300590: pPlane8
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1511,6 +1514,7 @@ ModelImporter:
     3300584: Mesh2
     3300586: Mesh3
     3300588: polySurface227
+    3300590: pPlane8
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1803,6 +1807,7 @@ ModelImporter:
     4300578: polySurface227
     4300580: Box
     4300582: Box
+    4300584: pPlane8
     7400000: Take 001
     9500000: //RootNode
   materials:
