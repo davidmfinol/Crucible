@@ -43,7 +43,7 @@ public class BabyBotAnimator : CharacterAnimator
     protected override void OnUpdate()
     {
         // HACK: WE'RE TRYING TO PREVENT MOVING THE MESH TOO FAR AWAY FROM THE COLLIDER
-        if (Root != null && CurrentState.nameHash.Equals(AttackState) )
+        if (Root != null && CurrentState.nameHash == AttackState )
             Root.localPosition = Vector3.zero;
     }
 

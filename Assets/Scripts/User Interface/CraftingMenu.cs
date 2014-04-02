@@ -189,9 +189,9 @@ public class CraftingMenu : MonoBehaviour
 
     public void TryOpen ()
     {
-        if (GameManager.Player.CurrentState.IsName ("Base Layer.Idle") ||
-            GameManager.Player.CurrentState.IsName ("Ground.Running") ||
-            GameManager.Player.CurrentState.IsName ("Ground.Standing Up")) {
+        if (GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.IdleState ||
+            GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.RunningState ||
+            GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.StandingUpState) {
             GameManager.UI.DisableInput ();
             GameManager.Player.StepDown ();
             Open ();
@@ -202,7 +202,7 @@ public class CraftingMenu : MonoBehaviour
 
     public void TryClose ()
     {
-        if (GameManager.Player.CurrentState.IsName ("Ground.Stepping Down")) {
+        if (GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.SteppingDownState) {
             GameManager.UI.EnableInput ();
             GameManager.Player.StandUp ();
             Close ();

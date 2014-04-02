@@ -14,8 +14,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
-    public static readonly int DieState = Animator.StringToHash ("Base Layer.Waiting For Respawn");
     public static readonly int DeathState = Animator.StringToHash ("Base Layer.Death");
+    public static readonly int DeadState = Animator.StringToHash ("Base Layer.Waiting For Respawn");
     public static readonly int DamagedState = Animator.StringToHash ("Base Layer.Damaged");
     public static readonly int RunningState = Animator.StringToHash ("Ground.Running");
     public static readonly int RollingState = Animator.StringToHash ("Ground.Rolling");
@@ -72,8 +72,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected override void CreateStateMachine ()
     {
         StateMachine [IdleState] = Idle;
-        StateMachine [DieState] = Die;
         StateMachine [DeathState] = Die;
+        StateMachine [DeadState] = Die;
         StateMachine [DamagedState] = Damaged;
         StateMachine [RunningState] = Running;
         StateMachine [RollingState] = Rolling;
@@ -126,7 +126,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if(startClimbLadder)
             _autoClimbDir = AutoClimbDirection.AutoClimb_Up;
         // if not in a climb, reset our auto-climb direction for use next climb.
-        if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
+        if(  (CurrentState.nameHash != ClimbingLadderState || CurrentState.nameHash != ClimbingPipeState) )
             _autoClimbDir = AutoClimbDirection.AutoClimb_None;
         */
 
@@ -151,7 +151,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
             Invoke ("GenerateStealthKillEvent", 1.0f);
 
-        } else if (! CurrentState.IsName ("Ground.Stealth Kill")) {
+        } else if (CurrentState.nameHash != StealthKillState) {
             MecanimAnimator.SetBool (MecanimHashes.AttackMelee, CharInput.AttackActive && currentWeapon is PipeWeapon); 
             MecanimAnimator.SetBool (MecanimHashes.ShootGun, CharInput.AttackActive && currentWeapon is GravityGun); 
             MecanimAnimator.SetBool (MecanimHashes.PlaceMine, (CharInput.AttackRightPressed || CharInput.AttackLeftPressed) && currentWeapon is Mine); 
@@ -272,8 +272,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     public override bool IsDead ()
     {
-        // TODO: fix. slow.
-        return (CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName ("Base Layer.Waiting For Respawn"));
+        return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState;
 
     }
     
@@ -878,7 +877,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public void PlayJump ()
     {
         //TODO: Move this wallkick sound to new wall kick animation and event
-        if (CurrentState.IsName ("Wall.Walljumping"))
+        if (CurrentState.nameHash == WalljumpingState)
             _sound.Play (_sound.WallKick, 1.0f);
         else
             _sound.Play (_sound.Jump, 1.0f);

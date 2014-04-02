@@ -86,7 +86,7 @@ public class OlympusAnimator : CharacterAnimator
         if(startClimbLadder)
             _autoClimbDir = AutoClimbDirection.AutoClimb_Up;
         // if not in a climb, reset our auto-climb direction for use next climb.
-        if( ! (CurrentState.IsName("Climbing.ClimbingLadder") || CurrentState.IsName("Climbing.ClimbingPipe")) )
+        if(  (CurrentState.nameHash != ClimbingLadderState || CurrentState.nameHash != ClimbingPipeState) )
             _autoClimbDir = AutoClimbDirection.AutoClimb_None;
         */
         
@@ -225,7 +225,7 @@ public class OlympusAnimator : CharacterAnimator
     {
         IgnoreDirection = true;
 
-        while (CurrentState.IsName("Base Layer.Turn Around"))
+        while (CurrentState.nameHash == TurnAroundState)
             yield return null;
 
         Direction = -Direction;
@@ -236,7 +236,7 @@ public class OlympusAnimator : CharacterAnimator
 
     void OnAnimatorMove ()
     {
-        if (MecanimAnimator != null && CurrentState.IsName ("Base Layer.Turn Around"))
+        if (MecanimAnimator != null && CurrentState.nameHash == TurnAroundState)
             transform.rotation *= MecanimAnimator.deltaRotation;
 
     }
@@ -414,8 +414,7 @@ public class OlympusAnimator : CharacterAnimator
 
     public override bool IsDead ()
     {
-        // TODO: fix. slow.
-        return (CurrentState.IsName ("Base Layer.Death") || CurrentState.IsName ("Base Layer.Stealth Death"));
+        return CurrentState.nameHash == DeathState || CurrentState.nameHash == StealthDeathState;
         
     }
 

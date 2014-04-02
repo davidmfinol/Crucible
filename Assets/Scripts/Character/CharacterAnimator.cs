@@ -705,8 +705,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public virtual bool IsLanding {
-        // FIXME: SLOW
-        get { return CurrentState.IsName ("Air.Landing") || (IsGrounded && (CurrentState.IsName ("Air.Jumping") || CurrentState.IsName ("Air.Falling"))); } 
+        get { return CurrentState.nameHash == OlympusAnimator.LandingState || (IsGrounded && (CurrentState.nameHash == OlympusAnimator.JumpingState || CurrentState.nameHash == OlympusAnimator.FallingState)); } 
     }
     
     public virtual bool IsSneaking {
