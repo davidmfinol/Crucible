@@ -146,24 +146,10 @@ public class UIManager : MonoBehaviour
 
         // *** add all game objects to map ***
         _mapQuad.renderer.material.mainTexture = Resources.Load<Texture2D> ("Maps/Commercial Zone Map");
-        _mapQuad.renderer.material.color = new Color (_mapQuad.renderer.material.color.r, 
-                                                      _mapQuad.renderer.material.color.g, 
-                                                      _mapQuad.renderer.material.color.b, 
-                                                      0.80f); 
-        
-        // add player to map
-        _mapQuad.AddMapPoint (GameManager.Player.gameObject, "Player", "Item Icons/Count0");
-        
-        
-        GameObject objs = GameObject.Find ("Items");
-        
-        for (int i=0; i< objs.transform.childCount; i++) {
-            Transform obj = objs.transform.GetChild (i);
-            _mapQuad.AddMapPoint (obj.gameObject, obj.transform.position.x.ToString (), "Item Icons/IsolatorIcon");
-            
-        }
-
-
+     //   _mapQuad.renderer.material.color = new Color (_mapQuad.renderer.material.color.r, 
+     //                                                 _mapQuad.renderer.material.color.g, 
+     //                                                 _mapQuad.renderer.material.color.b, 
+     //                                                 1.0f); 
 
         _isTrackingSwipe = false;
         _swipeID = -1;
@@ -201,7 +187,11 @@ public class UIManager : MonoBehaviour
 
     void Update ()
     {
-        UpdateVignette ();
+		if(Input.GetMouseButtonDown(0))
+			if(GameManager.UI.MapShown())
+				GameManager.UI.ShowMap(false);
+		
+		UpdateVignette ();
 
         ProcessSwipes ();
 
@@ -454,6 +444,9 @@ public class UIManager : MonoBehaviour
 
     public void ShowMap (bool show)
     {
+		if (show)
+			_mapQuad.Reload ();
+
         _mapQuad.gameObject.SetActive (show);
 
     }
@@ -568,6 +561,11 @@ public class UIManager : MonoBehaviour
 
 
     }
+
+	public MapQuad Map {
+		get { return _mapQuad; }
+
+	}
 
     public Camera UICamera {
         get { return _uiCamera; }

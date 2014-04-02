@@ -349,6 +349,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 			MecanimAnimator.SetBool (_damagedHash, false);
 			GameManager.UI.EnableInput();
 			GameManager.UI.CraftingMenu.Close();
+			GameManager.UI.ShowMap(false);
 
 		}
 
@@ -884,6 +885,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		if(MecanimAnimator.GetBool(_pickupHash))
 		{
 			MecanimAnimator.SetBool(_pickupHash, false);
+
+			// remove the weapon or item from our minimap
+			GameManager.UI.Map.RemoveMapPoint(_itemPickedup.transform.position.x.ToString());
+
 
 			// *** picking up weapon? ***
 			if(_itemPickedup.WeaponPrefab != null)
