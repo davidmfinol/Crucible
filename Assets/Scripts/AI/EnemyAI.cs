@@ -141,7 +141,7 @@ public class EnemyAI : MonoBehaviour
             return;
 
 		// TODO: REMOVE THIS
-		_timeSpentWandering += Time.fixedDeltaTime;
+		_timeSpentWandering += Time.deltaTime;
 		if (_timeSpentWandering >= 15) {
 			GetRandomSearchPoint ();
 			_timeSpentWandering = 0;
@@ -312,7 +312,7 @@ public class EnemyAI : MonoBehaviour
     public bool UpdateAStarPath (float speedRatio = 1.0f, bool repathOnInvalid = true)
     {
         // Keep time of track between repaths
-        _timeSinceRepath += Time.fixedDeltaTime; // NOTE: WE USE FIXED DELTA TIME BECAUSE WE'RE ASSUMING WE'RE IN FIXEDUPDATE
+        _timeSinceRepath += Time.deltaTime;
 
         // First make sure we actually have a path
         if (_path == null || _path.error) {
