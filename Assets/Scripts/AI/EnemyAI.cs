@@ -28,7 +28,7 @@ public class EnemyAI : MonoBehaviour
     private Vector3 _target = Vector3.zero; // where the enemy wants to go
     private Path _path = null; // how it plans to get there
     private int _currentPathWaypoint = 0; // where it is on that path
-    private bool _isSearchingForPath = false; // Is the enemy currently looking for a path?
+    private static bool _isSearchingForPath = false; // Is the enemy currently looking for a path?
     private float _timeSinceRepath = 0; // how long has it been since it found a path
     private bool _hasTouchedNextNode = false; // keep track of whether we've already reached the node we're going to 
 
@@ -74,6 +74,12 @@ public class EnemyAI : MonoBehaviour
         _animator.CharInput.Jump = Vector2.zero;
         _animator.CharInput.Attack = 0;
         _animator.CharInput.Pickup = false;
+
+        // Do nothing if the enemy is too far away from the player
+        if (GameManager.Player != null && Vector3.Distance (transform.position, GameManager.Player.transform.position) > Settings.MaxActiveDistance) {
+            Awareness = AwarenessLevel.Unaware;
+            return;
+        }
 
         UpdateAwareness ();
 
@@ -134,10 +140,6 @@ public class EnemyAI : MonoBehaviour
 
 
         if (_animator is BabyBotAnimator) // TODO: MOVE THIS TO A SUBCLASS?
-            return;
-
-        // Do nothing if the enemy is too far away from the player
-		if (GameManager.Player != null && Vector3.Distance (transform.position, GameManager.Player.transform.position) > Settings.MaxActiveDistance)
             return;
 
 		// TODO: REMOVE THIS
@@ -682,7 +684,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     public bool IsSearchingForPath {
-        get { return this._isSearchingForPath; }
+        get { return _isSearchingForPath; }
     }
 
     public float TimeSinceRepath {
