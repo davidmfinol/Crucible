@@ -22,7 +22,7 @@ public class MeshToGameObjectsMenu
     static GameObject ladderZPrefab;
     static GameObject pipePrefab;
     static GameObject wallPrefab;
-    static GameObject ledgeContainer;
+    // TODO: static GameObject ledgeContainer;
     static GameObject wallContainer;
     static List<Transform> selected;
 
@@ -69,11 +69,11 @@ public class MeshToGameObjectsMenu
         pipePrefab = (GameObject)Resources.Load ("Pipe");
         wallPrefab = (GameObject)Resources.Load ("Wall");
 
-        // Store all the ledges in one location
-        GameObject prevLedges = GameObject.Find(selected[selected.Count - 1].name + " - Ledges");
-        if(prevLedges != null)
-            GameObject.DestroyImmediate(prevLedges);
-        ledgeContainer = new GameObject (selected[selected.Count - 1].name + " - Ledges");
+        // TODO: Store all the ledges in one location
+        //GameObject prevLedges = GameObject.Find(selected[selected.Count - 1].name + " - Ledges");
+        //if(prevLedges != null)
+        //    GameObject.DestroyImmediate(prevLedges);
+        //ledgeContainer = new GameObject (selected[selected.Count - 1].name + " - Ledges");
 
         // Store all the walls in one location
         GameObject prevWalls = GameObject.Find(selected[selected.Count - 1].name + " - Walls");
@@ -173,7 +173,7 @@ public class MeshToGameObjectsMenu
             Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
             Vector3 topLeft = ledgeBounds.center + leftOffset;
             leftLedge.transform.position = topLeft;
-            leftLedge.transform.parent = ledgeContainer.transform;
+            leftLedge.transform.parent = ledge.transform; // TODO: ledgeContainer.transform;
         }
         // Set up the right ledge
         if (createRightLedge) {
@@ -189,7 +189,7 @@ public class MeshToGameObjectsMenu
             Vector3 rightOffset = new Vector3 (ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
             Vector3 topRight = ledgeBounds.center + rightOffset;
             rightLedge.transform.position = topRight;
-            rightLedge.transform.parent = ledgeContainer.transform;
+            rightLedge.transform.parent = ledge.transform; // TODO: ledgeContainer.transform;
         }
 
         // Restore the rotation
