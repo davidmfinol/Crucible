@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
+using Pathfinding.Serialization;
 using Pathfinding.Serialization.JsonFx;
 
 /// <summary>
@@ -646,6 +647,40 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             
         }
         
+    }
+    
+    // TODO: FINISH/IMPROVE SERIALIZATION OF NODES
+    public override void SerializeExtraInfo (GraphSerializationContext ctx)
+    {
+        if (_nodes == null) ctx.writer.Write (-1);
+        ctx.writer.Write (_nodes.Length);
+        for (int i=0;i<_nodes.Length;i++) {
+            if (_nodes[i] == null) ctx.writer.Write (-1);
+            else {
+                ctx.writer.Write (0);
+                _nodes[i].SerializeNode(ctx);
+            }
+        }
+
+    }
+
+    // TODO: FINISH/IMPROVE SERIALIZATION OF NODES
+    public override void DeserializeExtraInfo (GraphSerializationContext ctx)
+    {
+        int count = ctx.reader.ReadInt32();
+        if (count == -1) {
+            _nodes = null;
+            return;
+        }
+        
+        _nodes = new ZoneNode[count];
+        
+        for (int i=0;i<_nodes.Length;i++) {
+            if (ctx.reader.ReadInt32() == -1) continue;
+            _nodes[i] = new ZoneNode(active);
+            _nodes[i].DeserializeNode(ctx);
+        }
+
     }
 
 
