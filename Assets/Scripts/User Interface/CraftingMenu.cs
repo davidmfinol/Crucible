@@ -42,7 +42,10 @@ public class CraftingMenu : MonoBehaviour
     public Vector3[] CraftingPoints;
     public float CraftingDropDistance;
 
-    //--------------------------------
+	//The ui sound effects, yeah!
+	private UIAudioPlayer _sound;
+	
+	//--------------------------------
 
     // camera used to position wheels appropriately
     private Camera _uiCamera;
@@ -162,6 +165,9 @@ public class CraftingMenu : MonoBehaviour
 
         CraftingDropDistance *= Screen.width;
 
+		//instantiate sound
+		_sound = gameObject.GetComponentInChildren<UIAudioPlayer> ();
+
     }
 
 
@@ -206,14 +212,15 @@ public class CraftingMenu : MonoBehaviour
             GameManager.UI.EnableInput ();
             GameManager.Player.StandUp ();
             Close ();
-
         }
     }
 
     public void Open ()
     {
 		GameManager.UI.ShowMap (false);
-
+		//Play a sound effect
+		_sound.Play(_sound.MenuUp,1.0f);
+		
         _state = CraftingMenuState.CraftingMenu_Opening;
         _timeInState = 0.0f;
 
@@ -223,6 +230,8 @@ public class CraftingMenu : MonoBehaviour
     {
         _state = CraftingMenuState.CraftingMenu_Closing;
         _timeInState = 0.0f;
+		//Play a sound effect
+		_sound.Play(_sound.MenuDown,1.0f);
         
         // destroy all cloned item quads placed into crafting slots
         _lastClickedQuad = null;
@@ -269,8 +278,7 @@ public class CraftingMenu : MonoBehaviour
             else
                 GUI.Label (new Rect (900, 450, 200, 200), _craftResult.InvItem.Name, TextStyle);
             
-        }
-
+		}
     }
 
     void ProcessMouse ()
@@ -287,6 +295,8 @@ public class CraftingMenu : MonoBehaviour
             if (Physics.Raycast (rayToGUI, out hit)) {
                 // we either clicked an item quad or a weapon quad.
                 // or maybe the craft button
+				
+				_sound.Play(_sound.SelectItem,1.0f);
                 ItemQuad itemQuad = hit.collider.GetComponent<ItemQuad> ();
                 WeaponQuad weapQuad = hit.collider.GetComponent<WeaponQuad> ();
                 CraftButton cb = hit.collider.GetComponent<CraftButton> ();
@@ -343,6 +353,8 @@ public class CraftingMenu : MonoBehaviour
                         _draggingQuad.transform.position = _uiCamera.ScreenToWorldPoint (CraftingPoints [i]);
                         // stop dragging
                         _draggingQuad = null;
+						//play sound
+						_sound.Play(_sound.DropoffItem,0.5f);
 
                     }
 
@@ -351,6 +363,7 @@ public class CraftingMenu : MonoBehaviour
                 // got here, no crafting point for it, so destroy it
                 Destroy (_draggingQuad);
                 _draggingQuad = null;
+				//_sound.Play(_sound.NotACombination,1.0f);
 
             }
 
@@ -369,6 +382,7 @@ public class CraftingMenu : MonoBehaviour
 
     void Craft ()
     {
+		_sound.Play(_sound.Crafting,1.0f);
         if (_craftResult.IsWeapon) {
             // crafting a MINE????
             if (_craftResult.WeaponType == WeaponType.Weapon_MINE) {
@@ -550,6 +564,7 @@ public class CraftingMenu : MonoBehaviour
 
         } else {
             _craftingButton.renderer.enabled = false;
+			//_sound.Play(_sound.NotACombination,0.5f);
 
         }
 

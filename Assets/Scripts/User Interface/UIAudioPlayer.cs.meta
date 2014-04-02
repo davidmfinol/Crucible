@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 38f04c32d0bcc614a821ac86c46f3878
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - MenuUp: {fileID: 8300000, guid: 5999ca2da5ed3e746a04a662687e0768, type: 3}
+  - MenuDown: {fileID: 8300000, guid: 553ffaaa78e887340b155ae091df371f, type: 3}
+  - SelectItem: {fileID: 8300000, guid: 7d2e9e7f868a2b648b9b20b76bb507ee, type: 3}
+  - DropoffItem: {fileID: 8300000, guid: b6cd82993e64cd641829c7d24888985d, type: 3}
+  - Crafting: {fileID: 8300000, guid: b7702e042c76a674bbd934be6100f191, type: 3}
+  - NotACombination: {fileID: 8300000, guid: 44923d1451120004da60383f6b546f5f, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
