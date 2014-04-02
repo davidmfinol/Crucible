@@ -173,7 +173,7 @@ public class MeshToGameObjectsMenu
             Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
             Vector3 topLeft = ledgeBounds.center + leftOffset;
             leftLedge.transform.position = topLeft;
-            leftLedge.transform.parent = ledgeContainer.transform;
+            leftLedge.transform.parent = ledge.transform; // TODO: ledgeContainer.transform;
         }
         // Set up the right ledge
         if (createRightLedge) {
@@ -189,7 +189,7 @@ public class MeshToGameObjectsMenu
             Vector3 rightOffset = new Vector3 (ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
             Vector3 topRight = ledgeBounds.center + rightOffset;
             rightLedge.transform.position = topRight;
-            rightLedge.transform.parent = ledgeContainer.transform;
+            rightLedge.transform.parent = ledge.transform; // TODO: ledgeContainer.transform;
         }
 
         // Restore the rotation
