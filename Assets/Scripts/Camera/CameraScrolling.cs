@@ -29,6 +29,9 @@ public class CameraScrolling : MonoBehaviour
     // We track this for a shake effect that we add on to the camera
     private ShakeEffect _shakeEffect;
 
+	// cinematic override for zooming
+	private bool _cinematicOverride;
+	
     void Start ()
     {
         _shakeEffect = null;
@@ -78,8 +81,10 @@ public class CameraScrolling : MonoBehaviour
                 distanceModifier = TargetAttributes.DeathZoom;
             else if (_shakeEffect != null)
                 distanceModifier = _shakeEffect.OldDistanceModifier;
-            else 
-                distanceModifier = TargetAttributes.DistanceModifier;
+			else if (_cinematicOverride) 
+				distanceModifier = 0.5f;
+			else 
+				distanceModifier = TargetAttributes.DistanceModifier;
                                                                                         
             velocityLookAheadX = TargetAttributes.VelocityLookAheadX;
             velocityLookAheadY = TargetAttributes.VelocityLookAheadY;
@@ -261,4 +266,10 @@ public class CameraScrolling : MonoBehaviour
             return _enemyFocused;
         }
     }
+
+	public bool CinematicOverride {
+		get { return _cinematicOverride; }
+		set { _cinematicOverride = value; }
+
+	}
 }

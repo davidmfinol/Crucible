@@ -78,7 +78,7 @@ public class Tutorial : MonoBehaviour
         
     }
 
-    public void ShowStealthKillPrompt ()
+    public void ShowStealthKill ()
     {
         if (!GameManager.SaveData.ShownStealthKillPrompt) {
             if (GameManager.AI.EnemiesChasing == 0 && GameManager.AI.EnemiesSearching == 0 &&
@@ -98,13 +98,25 @@ public class Tutorial : MonoBehaviour
 
     public IEnumerator WaitForAttack ()
     {
+		GameManager.UI.DisableInput ();
+		Time.timeScale = 0.50f;
+		Camera.main.GetComponent<CameraScrolling> ().CinematicOverride = true;
+
         // TODO
         while (true) {
+			if(Input.GetAxis ("Attack") < 0) {
+				GameManager.UI.EnableInput();
+				break;
+
+			}
 
             yield return null;
         }
-            
-        // do stuff
+	
+		yield return new WaitForSeconds (3.0f);
+		Time.timeScale = 1.0f;
+		Camera.main.GetComponent<CameraScrolling> ().CinematicOverride = false;
+
 
     }
 
@@ -184,7 +196,6 @@ public class Tutorial : MonoBehaviour
 
 		while(true) {
 			float distanceToPlayer = Mathf.Abs (GameManager.Player.transform.position.x - SewerDoor.transform.position.x);
-			Debug.Log ("Distance to Player " + distanceToPlayer);
 
 			if(_sewerDoorOpen) {
 				// player in sensor range of an open door, and running?
