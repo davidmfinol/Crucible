@@ -473,8 +473,9 @@ public class GameManager : MonoBehaviour
         level.EnemyStates = enemySaves.ToArray ();
 
         List<ItemSaveState> itemSaves = new List<ItemSaveState> ();
-        foreach (GameObject item in GameObject.FindGameObjectsWithTag("Pickup"))
-            itemSaves.Add (item.GetComponent<Item> ().SaveState ());
+        foreach (GameObject itemContainer in GameObject.FindGameObjectsWithTag("Item Pickups"))
+            foreach (Item item in itemContainer.GetComponentsInChildren<Item>())
+                itemSaves.Add (item.SaveState ());
         level.ItemStates = itemSaves.ToArray ();
 
         level.Save (path);

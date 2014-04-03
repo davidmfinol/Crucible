@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Alpha pulse can be attached to an object to give it a pulsing effect by changing it's materials alpha values.
+/// Color pulse can be attached to an object to give it a pulsing effect by changing it's materials rgb values.
 /// </summary>
 [AddComponentMenu("Special Effects/Color Pulse")]
 public class ColorPulse : MonoBehaviour

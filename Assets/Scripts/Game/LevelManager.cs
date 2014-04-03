@@ -121,7 +121,7 @@ public class LevelManager : MonoBehaviour
         foreach (GameObject obj in objs)
             Destroy (obj);
 
-        objs = GameObject.FindGameObjectsWithTag ("Pickup");
+        objs = GameObject.FindGameObjectsWithTag ("Item Pickups");
         foreach (GameObject obj in objs)
             Destroy (obj);
 

@@ -5,6 +5,7 @@ using System.Collections;
 /// Item indicates an item that the player can pickup and add to its inventory.
 /// </summary>
 [RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(OutlinePulse))]
 [AddComponentMenu("Items/Item")]
 public class Item : MonoBehaviour
 {
