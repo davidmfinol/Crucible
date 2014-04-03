@@ -512,6 +512,9 @@ public class CraftingMenu : MonoBehaviour
 
     public void RefreshItemWheel ()
     {
+		if (GameManager.Inventory == null || GameManager.Inventory.Items == null)
+			return;
+
         int slot = 0;
         int itemIndex = 0;
 
