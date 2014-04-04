@@ -264,6 +264,11 @@ public class CraftingMenu : MonoBehaviour
     
     }
 
+	public void ShowWeaponWheel(bool enabled)
+	{
+		_weaponWheel.renderer.enabled = enabled;
+	}
+
     void OnGUI ()
     {
         // REFRESH LAST CLICKED ITEM

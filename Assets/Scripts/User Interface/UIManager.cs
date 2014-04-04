@@ -48,7 +48,6 @@ public class UIManager : MonoBehaviour
 	private bool _hasFlashed;
 	private Vector3 _weaponWheelPos;
 	private int _currentWeapon;
-	private bool _isCutscene;
 
 	private Transform _matteBars;
 
@@ -168,8 +167,6 @@ public class UIManager : MonoBehaviour
 		_isTrackingSwipe = false;
 		_swipeID = -1;
 		_swipeStartPos = Vector3.zero;
-
-		_isCutscene = false;
 
 		_ready = true;
 
@@ -508,13 +505,12 @@ public class UIManager : MonoBehaviour
 	{
 		float yScale = 0.0f;
 
-		if (_isCutscene)
-		{
-			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y * 10f, Time.deltaTime * 2.0f);
-		}
+		if (GameManager.IsPlayingCutscene)
+			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y * 8f, Time.deltaTime * 2.0f);
+
 	
 		else
-			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y * 8f, Time.deltaTime * 2.0f);
+			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y * 10f, Time.deltaTime * 2.0f);
 
 		_matteBars.localScale = new Vector3 (_matteBars.localScale.x, yScale, _matteBars.localScale.z);
 	}
@@ -618,10 +614,5 @@ public class UIManager : MonoBehaviour
 
 	public bool Ready {
 		get { return _ready; }
-	}
-
-	public bool IsCutscene {
-		get { return _isCutscene; }
-		set { _isCutscene = value; }
 	}
 }
