@@ -48,6 +48,8 @@ public class Tutorial : MonoBehaviour
         if (!GameManager.SaveData.ShownWallJump1) {
             GameManager.SaveData.ShownWallJump1 = true;
 
+			GameManager.UI.IsCutscene = true;
+
             MysteriousRunner.gameObject.SetActive (true);
             _runner.StartCoroutine (_runner.ShowWallJump1());
 
@@ -60,6 +62,8 @@ public class Tutorial : MonoBehaviour
         if (!GameManager.SaveData.ShownWallJump2) {
             GameManager.SaveData.ShownWallJump2 = true;
 
+			GameManager.UI.IsCutscene = true;
+
             MysteriousRunner.gameObject.SetActive (true);
             _runner.StartCoroutine (_runner.ShowWallJump2());
                 
@@ -71,6 +75,8 @@ public class Tutorial : MonoBehaviour
     {
         if (!GameManager.SaveData.ShownDoorSneak) {
             GameManager.SaveData.ShownDoorSneak = true;
+
+			GameManager.UI.IsCutscene = true;
 
             MysteriousRunner.gameObject.SetActive (true);
             _runner.StartCoroutine (_runner.ShowDoorSneak());
@@ -87,6 +93,7 @@ public class Tutorial : MonoBehaviour
 
                 GameManager.SaveData.ShownStealthKillPrompt = true;
 
+				GameManager.UI.IsCutscene = true;
                 // TODO: stealth kill prompt by spawning a new coroutine which
                 // waits for the swipe left input.
                 StartCoroutine (WaitForAttack());
@@ -99,6 +106,7 @@ public class Tutorial : MonoBehaviour
 
     public IEnumerator WaitForAttack ()
     {
+		GameManager.UI.IsCutscene = true;
 		GameManager.UI.DisableInput ("Attack");
 		SneakAttackInstruction.gameObject.SetActive(true);
 		Time.timeScale = 0.50f;

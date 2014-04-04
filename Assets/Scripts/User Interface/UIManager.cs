@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public Transform ChaseVignette;
     public Transform SearchVignette;
     public Transform HurtVignette;
+	public Transform MatteBars;
     public Transform LensFlareFlash;
     public GameObject WeaponQuadPrefab;
     public float WeaponRadius;
@@ -47,6 +48,8 @@ public class UIManager : MonoBehaviour
     private bool _hasFlashed;
     private Vector3 _weaponWheelPos;
     private int _currentWeapon;
+
+	private bool _isCutscene;
 
     // weapon quads (0 to 2 counter-clockwise)
     // also weapon counts, if limited ammo
@@ -155,6 +158,8 @@ public class UIManager : MonoBehaviour
         _swipeID = -1;
         _swipeStartPos = Vector3.zero;
 
+		_isCutscene = false;
+
         _ready = true;
 
     }
@@ -192,6 +197,8 @@ public class UIManager : MonoBehaviour
 				GameManager.UI.ShowMap(false);
 		
 		UpdateVignette ();
+
+		UpdateMatteBars ();
 
         ProcessSwipes ();
 
@@ -486,6 +493,14 @@ public class UIManager : MonoBehaviour
 
     }
 
+	public void UpdateMatteBars ()
+	{
+		if(_isCutscene)
+			MatteBars.localScale = new Vector3(MatteBars.localScale.x,1f,MatteBars.localScale.z);
+		else
+			MatteBars.localScale = new Vector3(MatteBars.localScale.x,1.5f,MatteBars.localScale.z);
+	}
+
     public void CycleToNextWeapon ()
     {
         _currentWeapon++;
@@ -588,4 +603,9 @@ public class UIManager : MonoBehaviour
     public bool Ready {
         get { return _ready; }
     }
+
+	public bool IsCutscene {
+		get { return _isCutscene; }
+		set { _isCutscene = value; }
+	}
 }
