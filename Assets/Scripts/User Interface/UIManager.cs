@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 /// <summary>
 /// User interface manager manages all the UI components.
@@ -55,8 +54,8 @@ public class UIManager : MonoBehaviour
 
     // weapon quads (0 to 2 counter-clockwise)
     // also weapon counts, if limited ammo
-    private List<GameObject> _weaponQuads;
-    private List<GameObject> _weaponCountQuads;
+    private GameObject[] _weaponQuads;
+    private GameObject[] _weaponCountQuads;
 
     // the objective quad, will need to constantly rotate towards the player's next objective
     private ObjectiveTracker _playerObjectives;
@@ -109,37 +108,37 @@ public class UIManager : MonoBehaviour
         _currentWeapon = 0;
 
         // weapon quads at proper positions
-        _weaponQuads = new List<GameObject>();
-        _weaponCountQuads = new List<GameObject>();
+        _weaponQuads = new GameObject[3];
+        _weaponCountQuads = new GameObject[3];
 
         Vector3 quadPos = _weaponWheelPos + Vector3.left * WeaponRadius;
         quadPos.z = -4.0f;
-        _weaponQuads.Add((GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity));
+        _weaponQuads [0] = (GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
         _weaponQuads [0].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponRadius;
         quadPos.z = -4.0f;
-        _weaponQuads.Add((GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity));
+        _weaponQuads [1] = (GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
         _weaponQuads [1].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.down * WeaponRadius;
         quadPos.z = -4.0f;
-        _weaponQuads.Add((GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity));
+        _weaponQuads [2] = (GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
         _weaponQuads [2].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.left * WeaponCountRadius;
         quadPos.z = -4.0f;
-        _weaponCountQuads.Add((GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity));
+        _weaponCountQuads [0] = (GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
         _weaponCountQuads [0].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponCountRadius;
         quadPos.z = -4.0f;
-        _weaponCountQuads.Add((GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity));
+        _weaponCountQuads [1] = (GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
         _weaponCountQuads [1].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.down * WeaponCountRadius;
         quadPos.z = -4.0f;
-        _weaponCountQuads.Add((GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity));
+        _weaponCountQuads [2] = (GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
         _weaponCountQuads [2].transform.parent = transform;
 
 
