@@ -58,5 +58,11 @@ public class Item : MonoBehaviour
         rigidbody.useGravity = true;
 
     }
+
+    void OnDestroy()
+    {
+        GameManager.Level.Items.Remove(this);
+
+    }
     
 }
