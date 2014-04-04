@@ -585,7 +585,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     // Movement/Animation Properties
     public AnimatorStateInfo CurrentState {
-        get { return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0); }
+        get { 
+            if(MecanimAnimator == null)
+                return new AnimatorStateInfo();
+            return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0);
+        }
     }
 
     public AnimatorStateInfo PreviousState {
