@@ -61,8 +61,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
         _objectives = gameObject.GetComponent<ObjectiveTracker> ();
 
-        if (_objectives == null)
-            Debug.LogWarning ("Unable to find objective tracker!!!!");
+        //if (_objectives == null)
+        //    Debug.LogWarning ("Unable to find objective tracker!!!!");
 
         _sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer> ();
         _itemPickedup = null;
@@ -595,6 +595,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
         HorizontalSpeed = 0;
         VerticalSpeed = 0;
+
         /*
         if (_wallJumpCount > 0)
             VerticalSpeed = 0; // Settings.WallSlideSpeed * elapsedTime; // TODO: MAKE THIS LINEAR BASED OFF WALLJUMPCOUNT?
@@ -602,11 +603,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
             VerticalSpeed = 0;
             */
 
-        bool jump = (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight);
-        MecanimAnimator.SetBool (MecanimHashes.JumpWall, jump);
-
-        if (CharInput.InteractionPressed || CharInput.PickupPressed || jump || IsGrounded ||
-            (ActiveHangTarget == null)) {
+        if ( CharInput.InteractionPressed || CharInput.PickupPressed || CharInput.JumpPressed || IsGrounded
+            || (ActiveHangTarget == null) ) {
+            MecanimAnimator.SetBool (MecanimHashes.JumpWall, true);
             MecanimAnimator.SetBool (MecanimHashes.GrabWall, false);
             DropHangTarget ();
         }

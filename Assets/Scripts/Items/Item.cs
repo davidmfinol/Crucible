@@ -11,6 +11,7 @@ public class Item : MonoBehaviour
 {
     public enum ItemType
     {
+        Item__Weapon,
         Item_BatteryPack,
         Item_ComputerParts,
         Item_Engine,

@@ -47,7 +47,7 @@ public class Mine : Weapon
     public void DetonateMines ()
     {
         // store mines found in scene
-        _foundMines = GameObject.FindObjectsOfType (typeof(Item));
+        _foundMines = GameObject.FindObjectsOfType (typeof(Item)); // FIXME: SLOW
 
         foreach (Object o in _foundMines) {
             Item i = (Item)o;
@@ -103,7 +103,7 @@ public class Mine : Weapon
     }
     
     public override WeaponType WeaponType {
-        get { return WeaponType.Weapon_MINE; }
+        get { return WeaponType.Weapon_HandMINE; }
     }
 
     public override string Title {

@@ -8,14 +8,18 @@ using System.Collections.Generic;
 [AddComponentMenu("AI/AI Manager")]
 public class AIManager : MonoBehaviour
 {
+    // These components are accesible by other classes
     private List<EnemyAI> _enemies;
     private ZoneGraph _graph;
+
+    // We keep track of the enemy statuses in Update
+    private int _enemiesSearching;
+    private int _enemiesChasing;
+
+    // All managers keep track of their ready status for the game manager
     private bool _ready;
 
-	private int _enemiesSearching;
-	private int _enemiesChasing;
-
-    void Awake ()
+    void Awake()
     {
         _enemies = new List<EnemyAI> ();
 
@@ -23,32 +27,54 @@ public class AIManager : MonoBehaviour
 
     void Start ()
     {
-        _graph = (ZoneGraph)AstarPath.active.graphs [0];
+        // Make sure we have the correct tag
+        gameObject.tag = "AI Manager";
+
+        // Make sure astar is set up in the scene
+        AstarPath astar = AstarPath.active;
+        if (astar == null)
+            astar = gameObject.AddComponent<AstarPath> ();
+
+        // Look for a pre-existing graph
+        foreach (NavGraph graph in astar.astarData.graphs)
+            if (graph is ZoneGraph)
+                _graph = (ZoneGraph) graph;
+
+        // If we couldn't find a graph, create one
+        if (_graph == null) {
+            astar.astarData.AddGraph (typeof(ZoneGraph));
+            _graph = (ZoneGraph)astar.graphs [0];
+        }
+
         _ready = true;
 
     }
 
-	public void Update() {
-		int enemiesSearching = 0;
-		foreach (EnemyAI enemy in _enemies)
-			if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
-				enemiesSearching++;
-		_enemiesSearching = enemiesSearching;
-		
-		
-		int enemiesChasing = 0;
-		foreach (EnemyAI enemy in _enemies)
-			if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
-				enemiesChasing++;
-		_enemiesChasing = enemiesChasing;
-		
-        if (GameManager.Level.Alarms != null)
-	    	GameManager.Level.Alarms.On = (_enemiesChasing > 0);
-		
-	}
-
-    public void Reset ()
+    // FIXME: IT WOULD BE FASTER TO ONLY UPDATE THESE VALUES WHEN THEY CHANGE, INSTEAD OF RECALCULATING EVERY FRAME
+    public void Update ()
     {
+        int enemiesSearching = 0;
+        int enemiesChasing = 0;
+
+        foreach (EnemyAI enemy in _enemies) {
+            if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
+                enemiesSearching++;
+            else if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
+                enemiesChasing++;
+        }
+
+        _enemiesSearching = enemiesSearching;
+        _enemiesChasing = enemiesChasing;
+        
+        if (GameManager.Level.Alarms != null)
+            GameManager.Level.Alarms.On = (_enemiesChasing > 0);
+        
+    }
+
+    public void ResetEnemies ()
+    {
+        foreach (EnemyAI enemy in _enemies)
+            Destroy (enemy.gameObject);
         _enemies = new List<EnemyAI> ();
 
     }
@@ -58,17 +84,12 @@ public class AIManager : MonoBehaviour
     }
     
     public int EnemiesSearching {
-        get {
-			return _enemiesSearching;
-        }
+        get { return _enemiesSearching; }
     }
 
     public int EnemiesChasing {
-        get {
-			return _enemiesChasing;
-        }
+        get { return _enemiesChasing; }
     }
-
 
     public ZoneGraph Graph {
         get { return _graph; }

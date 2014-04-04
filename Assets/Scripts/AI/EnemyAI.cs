@@ -578,7 +578,7 @@ public class EnemyAI : MonoBehaviour
     public AwarenessLevel Awareness {
         get { return _awareness; }
         set {
-            if (_olympusAwareness != null && _awareness != value)
+            if (_olympusAwareness != null && _awareness != value) // TODO: MOVE THIS TO A CHILD CLASS?
                 _olympusAwareness.ChangeAwareness (value);
             _awareness = value;
         }
@@ -696,9 +696,7 @@ public class EnemyAI : MonoBehaviour
     }
 
 	public CharacterAnimator Animator {
-		get {
-			return _animator;
-		}
+		get { return _animator; }
 	}
 
 }
