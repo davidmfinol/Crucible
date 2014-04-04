@@ -10,6 +10,16 @@ public class Checkpoint : MonoBehaviour
 {
     public enum CheckpointLocation
     {
+        Sewer_Start,
+        Sewer_Top,
+
+		Commercial_BottomCenter,
+		Commercial_MidRight,
+		Commercial_TopCenter,
+		Commercial_TopRight,
+		Commercial_MidLeft,
+		Commercial_BottomLeft,
+        
         Checkpoint_LeftOCourse,
         Checkpoint_CentralOCourse,
         Checkpoint_RightOCourse,
@@ -17,15 +27,6 @@ public class Checkpoint : MonoBehaviour
         Checkpoint_OcourseStart,
         Checkpoint_UpperAnvilPark,
         Checkpoint_LowerAnvilPark,
-        Checkpoint_SewerStart,
-        Checkpoint_SewerTop,
-		Commercial_BottomCenter,
-		Commercial_MidRight,
-		Commercial_TopCenter,
-		Commercial_TopRight,
-		Commercial_MidLeft,
-		Commercial_BottomLeft,
-
     }
     ;
 
@@ -47,7 +48,7 @@ public class Checkpoint : MonoBehaviour
             return;
 
         // We have support for particles that may be attached to the checkpoints
-        ParticleSystem prevParticles = GameManager.Instance.LastCheckPoint.GetComponentInChildren<ParticleSystem> ();
+        ParticleSystem prevParticles = GameManager.LastCheckPoint.GetComponentInChildren<ParticleSystem> ();
         if (prevParticles != null)
             prevParticles.Stop ();
         ParticleSystem newParticles = GetComponentInChildren<ParticleSystem> ();
@@ -56,7 +57,7 @@ public class Checkpoint : MonoBehaviour
 
         
         // Set the new spawnpoint
-        GameManager.Instance.LastCheckPoint = transform;
+        GameManager.LastCheckPoint = transform;
         
         // Save the game at checkpoints
         GameManager.SaveGameState (Location);

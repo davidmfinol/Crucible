@@ -110,26 +110,32 @@ public class UIManager : MonoBehaviour
         Vector3 quadPos = _weaponWheelPos + Vector3.left * WeaponRadius;
         quadPos.z = -4.0f;
         _weaponQuads [0] = (GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+        _weaponQuads [0].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponRadius;
         quadPos.z = -4.0f;
         _weaponQuads [1] = (GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+        _weaponQuads [1].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.down * WeaponRadius;
         quadPos.z = -4.0f;
         _weaponQuads [2] = (GameObject)Instantiate (WeaponQuadPrefab, quadPos, Quaternion.identity);
+        _weaponQuads [2].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.left * WeaponCountRadius;
         quadPos.z = -4.0f;
         _weaponCountQuads [0] = (GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
+        _weaponCountQuads [0].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * WeaponCountRadius;
         quadPos.z = -4.0f;
         _weaponCountQuads [1] = (GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
+        _weaponCountQuads [1].transform.parent = transform;
 
         quadPos = _weaponWheelPos + Vector3.down * WeaponCountRadius;
         quadPos.z = -4.0f;
         _weaponCountQuads [2] = (GameObject)Instantiate (WeaponCountQuadPrefab, quadPos, Quaternion.identity);
+        _weaponCountQuads [2].transform.parent = transform;
 
 
         // *** track player objectives ***
@@ -568,7 +574,6 @@ public class UIManager : MonoBehaviour
 
 	public MapQuad Map {
 		get { return _mapQuad; }
-
 	}
 
     public Camera UICamera {
@@ -578,7 +583,6 @@ public class UIManager : MonoBehaviour
 
     public CraftingMenu CraftingMenu {
         get { return _craftingMenu; }
-
     }
 
     public int CurrentWeapon {
@@ -588,4 +592,5 @@ public class UIManager : MonoBehaviour
     public bool Ready {
         get { return _ready; }
     }
+
 }

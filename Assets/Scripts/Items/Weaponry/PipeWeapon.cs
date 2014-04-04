@@ -43,7 +43,7 @@ public class PipeWeapon : Weapon
     }
 
     public override WeaponType WeaponType {
-        get { return WeaponType.Weapon_Pipe; }
+        get { return WeaponType.Weapon_PipeWeapon; }
     }
 
     public override string Title {
@@ -52,7 +52,7 @@ public class PipeWeapon : Weapon
     }
     
     public override string Description {
-        get { return "A melee weapon that can stun enemies."; }
+        get { return "A melee weapon that can destroy unaware robots."; }
         
     }
 

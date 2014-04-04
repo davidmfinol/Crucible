@@ -4,25 +4,16 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Level manager keeps track of the attributes of the current level in the scene.
-/// Main things: Render settings and boundaries of scene.
+/// Main things: DefaultStartPoint, Boundaries, Alarms, and Items
 /// </summary>
 [AddComponentMenu("Game/Level Manager")]
 public class LevelManager : MonoBehaviour
 {
     // Where the player starts in the level
-    public Transform StartPoint; // TODO: DELETE THIS, AND JUST BASE START POINT OFF SAVE DATA AND CHECKPOINTS IN GAMEMANAGER
-    
-    // Render settings to be set when this scene loads
-    public bool fog;
-    public Color fogColor;
-    public float fogDensity;
-    public Color ambientLight;
-    public float haloStrength;
-    public float flareStrength;
-    public Material skybox;
+    public Transform DefaultStartPoint;
 
     // The boundaries of the level
-    public Rect Boundaries;
+    public Rect Boundaries = new Rect(0, 0, 100, 100);
     public float FallOutBuffer = 5.0f;
     public float ColliderThickness = 10.0f;
     public float ZLength = 100.0f;
@@ -32,70 +23,83 @@ public class LevelManager : MonoBehaviour
     private GameObject _rightBoundary;
     private GameObject _topBoundary;
     private GameObject _bottomBoundary;
+
+    // The dynamic objects in the scene
+    private AlphaPulse _alarms;
+    private List<Item> _items;
+
+    // All managers need to let the GameManager know when it is ready
     private bool _ready;
-	private AlphaPulse _alarms;
-	
-    void Awake ()
+
+    void Start ()
     {
-        SetupRenderSettings ();
-        
+        // Make sure the object is correctly tagged
+        gameObject.tag = "Level Manager";
+
+        // Make sure the characters have a defined space in which they can move
         CreateBoundaries ();
 
+        // Also make sure we have a start point
+        if (DefaultStartPoint == null) {
+            DefaultStartPoint = new GameObject("Default Start").transform;
+            DefaultStartPoint.position = new Vector3(10, 10, 0);
+            DefaultStartPoint.gameObject.isStatic = true;
+        }
+
+        // Find the alarms that will flash when the player is found
+        GameObject alarms = GameObject.FindGameObjectWithTag ("Alarms");
+        if (alarms != null)
+            _alarms = alarms.GetComponent<AlphaPulse> ();
+
+        // Find the items in the scene
+        _items = new List<Item> ();
+        foreach (GameObject itemContainer in GameObject.FindGameObjectsWithTag("Item Pickups"))
+            foreach (Item item in itemContainer.GetComponentsInChildren<Item>())
+                _items.Add (item);
+
+        // Make ourselves static
+        gameObject.isStatic = true;
+
+        _ready = true;
+
     }
-
-	void Start() {
-        GameObject alarms = GameObject.Find ("Alarms");
-        if(alarms != null)
-		    _alarms = alarms.GetComponent<AlphaPulse> ();
-
-		_ready = true;
-
-	}
     
-    // Each level has it's own render settings
-    public void SetupRenderSettings ()
-    {
-        RenderSettings.fog = fog;
-        RenderSettings.fogColor = fogColor;
-        RenderSettings.fogDensity = fogDensity;
-        RenderSettings.ambientLight = ambientLight;
-        RenderSettings.haloStrength = haloStrength;
-        RenderSettings.flareStrength = flareStrength;
-        RenderSettings.skybox = skybox;
-
-    }
-    
-    // Each level has its own set off physical boundaries
+    // Each level has its own set of physical boundaries
     public void CreateBoundaries ()
     {
         _createdBoundaries = new GameObject ("Created Boundaries");
+        _createdBoundaries.isStatic = true;
         _createdBoundaries.transform.parent = transform;
     
         _leftBoundary = new GameObject ("Left Boundary");
-        _leftBoundary.transform.parent = _createdBoundaries.transform;
         BoxCollider boxCollider = _leftBoundary.AddComponent (typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3 (ColliderThickness, Boundaries.height + ColliderThickness * 2.0f + FallOutBuffer, ZLength);
         boxCollider.center = new Vector3 (Boundaries.xMin - ColliderThickness * 0.5f, Boundaries.y + Boundaries.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
+        _leftBoundary.isStatic = true;
+        _leftBoundary.transform.parent = _createdBoundaries.transform;
     
         _rightBoundary = new GameObject ("Right Boundary");
-        _rightBoundary.transform.parent = _createdBoundaries.transform;
         boxCollider = _rightBoundary.AddComponent (typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3 (ColliderThickness, Boundaries.height + ColliderThickness * 2.0f + FallOutBuffer, ZLength);
         boxCollider.center = new Vector3 (Boundaries.xMax + ColliderThickness * 0.5f, Boundaries.y + Boundaries.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
+        _rightBoundary.isStatic = true;
+        _rightBoundary.transform.parent = _createdBoundaries.transform;
     
         _topBoundary = new GameObject ("Top Boundary");
-        _topBoundary.transform.parent = _createdBoundaries.transform;
         boxCollider = _topBoundary.AddComponent (typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3 (Boundaries.width + ColliderThickness * 2.0f, ColliderThickness, ZLength);
         boxCollider.center = new Vector3 (Boundaries.x + Boundaries.width * 0.5f, Boundaries.yMax + ColliderThickness * 0.5f, 0.0f);
+        _topBoundary.isStatic = true;
+        _topBoundary.transform.parent = _createdBoundaries.transform;
     
         _bottomBoundary = new GameObject ("Bottom Boundary (Including Fallout Buffer and Death Trigger)");
-        _bottomBoundary.transform.parent = _createdBoundaries.transform;
         boxCollider = _bottomBoundary.AddComponent (typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3 (Boundaries.width + ColliderThickness * 2.0f, ColliderThickness, ZLength);
         boxCollider.center = new Vector3 (Boundaries.x + Boundaries.width * 0.5f, Boundaries.yMin - ColliderThickness * 0.5f - FallOutBuffer, 0.0f);
         boxCollider.isTrigger = true;
-        _bottomBoundary.AddComponent (typeof(DeathTrigger));
+        _bottomBoundary.AddComponent (typeof(DeathTrigger)); // We die if we fall down too much
+        _bottomBoundary.isStatic = true;
+        _bottomBoundary.transform.parent = _createdBoundaries.transform;
 
     }
 
@@ -115,15 +119,11 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void RemoveDynamicObjects ()
+    public void ResetItems ()
     {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag ("Enemy");
-        foreach (GameObject obj in objs)
-            Destroy (obj);
-
-        objs = GameObject.FindGameObjectsWithTag ("Item Pickups");
-        foreach (GameObject obj in objs)
-            Destroy (obj);
+        foreach (Item item in _items)
+            Destroy (item.gameObject);
+        _items = new List<Item> ();
 
     }
 
@@ -131,12 +131,15 @@ public class LevelManager : MonoBehaviour
         get { return new Vector3 (Boundaries.xMax + 1.0f, Boundaries.yMax + 1.0f, 0.0f); }
     }
     
+    public AlphaPulse Alarms {
+        get { return _alarms; }
+    }
+
+    public List<Item> Items {
+        get { return _items; }
+    }
+    
     public bool Ready {
         get { return _ready; }
     }
-
-	public AlphaPulse Alarms {
-		get { return _alarms; }
-
-	}
 }

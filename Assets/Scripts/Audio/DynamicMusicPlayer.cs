@@ -128,7 +128,7 @@ public class DynamicMusicPlayer : AudioPlayer
             audio.Stop ();
             audio.volume = 0.1f;
         } else
-            audio.volume -= Fade * .00025f; // FIXME : MAKE THIS FRAMERATE DEPENDENT
+            audio.volume -= Fade * Time.deltaTime * .025f;
 
     }
 
@@ -140,7 +140,7 @@ public class DynamicMusicPlayer : AudioPlayer
             _audio1FadingIn = false;
             _audio2FadingIn = false;
         } else
-            audio.volume += Fade * .01f; // FIXME : MAKE THIS FRAMERATE DEPENDENT
+            audio.volume += Fade * Time.deltaTime;
 
     }
 
