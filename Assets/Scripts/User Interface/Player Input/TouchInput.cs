@@ -247,9 +247,13 @@ public class TouchInput : MonoBehaviour
                 _moveID = -1;
             else if (delta.magnitude > _moveMin) {
                 if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) {
-                    float ratio = delta.x / _distanceForMaxSpeed;
-                    int sign = ratio < 0 ? -1 : 1;
-                    _input.Horizontal = sign * ratio * ratio;
+					// *** handle horizontal input ***
+					_input.Horizontal = delta.x / _distanceForMaxSpeed;
+				
+					// if we are within the sneak range, then we sneak
+					if( Mathf.Abs (_input.Horizontal) > 0.5f )
+						_input.Horizontal += 0.3f;
+
                 } else {
                     float ratio = delta.y / _distanceForMaxSpeed;
                     int sign = ratio < 0 ? -1 : 1;

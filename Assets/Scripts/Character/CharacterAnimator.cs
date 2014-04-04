@@ -709,7 +709,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     public virtual bool IsSneaking {
-        get { return Mathf.Abs (HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed; }
+		// give us a little tolerance here, since values of 8.0000001 don't count as sneaking.
+		// (it takes a while to lerp down from running to 8.0)
+		get { return Mathf.Abs (HorizontalSpeed) < 0.51f * Settings.MaxHorizontalSpeed; }
+
     }
 
     // Moving Platform Properties

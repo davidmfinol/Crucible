@@ -615,7 +615,7 @@ public class EnemyAI : MonoBehaviour
             
             // player in shadow range? must be a lot closer to see him
             float visionRange = _settings.AwarenessRange;
-            if (_playerShader != null && _playerShader.CurrentlyHidden)
+            if (_playerShader != null && _playerShader.IsStealth)
                 visionRange *= 0.3f;
             
             if (dirToPlayer.magnitude > visionRange)
