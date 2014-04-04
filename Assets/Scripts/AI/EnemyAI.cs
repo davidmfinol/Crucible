@@ -7,7 +7,7 @@ using Pathfinding;
 /// Currently, this AI is just an interpretation A* Shortest-Pathfinding.
 /// </summary>
 [RequireComponent(typeof(EnemyAISettings))]
-[RequireComponent(typeof(Seeker))]
+//[RequireComponent(typeof(Seeker))]
 [AddComponentMenu("AI/Enemy AI")]
 public class EnemyAI : MonoBehaviour
 {
@@ -60,7 +60,7 @@ public class EnemyAI : MonoBehaviour
         GameManager.AI.Enemies.Add (this);
 
         // Set up Astar
-        _seeker = GetComponent<Seeker> ();
+        //_seeker = GetComponent<Seeker> ();
 
         // Finally, map the output of this class to the input of the animator
         // GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
