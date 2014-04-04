@@ -143,6 +143,14 @@ public class TouchInput : MonoBehaviour
 
     }
 
+    void OnLevelWasLoaded()
+    {
+        StopAllCoroutines();
+        StartCoroutine (DisplayLeftHandSide ());
+        StartCoroutine (DisplayRightHandSide ());
+
+    }
+
     public void Enable ()
     {
         _input.UpdateInputMethod = this.UpdateInput;

@@ -63,7 +63,7 @@ public class EnemyAI : MonoBehaviour
         _seeker = GetComponent<Seeker> ();
 
         // Finally, map the output of this class to the input of the animator
-        GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
+        // GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
     }
     
     public void UpdateInput ()

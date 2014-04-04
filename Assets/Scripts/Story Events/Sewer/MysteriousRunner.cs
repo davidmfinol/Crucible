@@ -27,6 +27,7 @@ public class MysteriousRunner : MonoBehaviour
         _input.Horizontal = 0;
         _input.Jump = new Vector2 (-1, 1);
         yield return new WaitForSeconds (0.2f);
+        _input.Jump = Vector2.zero;
 		Camera.main.GetComponent<CameraScrolling> ().Target = null;
 		yield return new WaitForSeconds (0.7f);
 		_input.Jump = new Vector2 (1, 1);
@@ -58,7 +59,7 @@ public class MysteriousRunner : MonoBehaviour
 
         Destroy (GameManager.Player.GetComponent<AudioListener> ());
         this.gameObject.AddComponent<AudioListener> ();
-        gameObject.transform.position = new Vector3(68f, 56.920f, 0.0f);
+        gameObject.transform.position = new Vector3(110, 60, 0.0f);
 
         // Move left
         _input.Horizontal = -1;
@@ -71,33 +72,30 @@ public class MysteriousRunner : MonoBehaviour
 
         // Wall jump 1
         yield return new WaitForSeconds (0.75f);
-        //_input.Jump = Vector2.zero;
-       // yield return new WaitForSeconds (0.01f);
+        _input.Jump = Vector2.zero;
+        yield return new WaitForSeconds (0.02f);
         _input.Jump = new Vector2 (1, 1);
         
         // Wall jump 2
         yield return new WaitForSeconds (0.5f);
-     //   _input.Jump = Vector2.zero;
-     //   yield return new WaitForSeconds (0.01f);
+        _input.Jump = Vector2.zero;
+        yield return new WaitForSeconds (0.02f);
         _input.Jump = new Vector2 (-1, 1);
         
         // Wall jump 3
         yield return new WaitForSeconds (0.5f);
-     //   _input.Jump = Vector2.zero;
-     //   yield return new WaitForSeconds (0.01f);
+        _input.Jump = Vector2.zero;
+        yield return new WaitForSeconds (0.02f);
         _input.Jump = new Vector2 (1, 1);
         
         // Wall jump 4
         yield return new WaitForSeconds (0.5f);
-    //    _input.Jump = Vector2.zero;
-  //      yield return new WaitForSeconds (0.01f);
+        _input.Jump = Vector2.zero;
+        yield return new WaitForSeconds (0.02f);
         _input.Jump = new Vector2 (-1, 1);
         yield return new WaitForSeconds (0.5f);
 
-//        _input.Jump = new Vector2 (1, 1);
-//        yield return new WaitForSeconds (0.5f);
-//        _input.Jump = new Vector2 (-1, 1);
-//        yield return new WaitForSeconds (0.5f);
+        // Exit the pipe
         _input.Jump = Vector2.zero;
         _input.Horizontal = -1.0f;
         yield return new WaitForSeconds (0.6f);

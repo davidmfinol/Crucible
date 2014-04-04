@@ -30,10 +30,10 @@ public class LevelManager : MonoBehaviour
 
     // All managers need to let the GameManager know when it is ready
     private bool _ready;
-
-    void Start ()
+    
+    void Awake()
     {
-        // Make sure the object is correctly tagged
+        // Make sure we have the correct tag
         gameObject.tag = "Level Manager";
 
         // Make sure the characters have a defined space in which they can move
@@ -45,7 +45,10 @@ public class LevelManager : MonoBehaviour
             DefaultStartPoint.position = new Vector3(10, 10, 0);
             DefaultStartPoint.gameObject.isStatic = true;
         }
+    }
 
+    void Start ()
+    {
         // Find the alarms that will flash when the player is found
         GameObject alarms = GameObject.FindGameObjectWithTag ("Alarms");
         if (alarms != null)

@@ -7,10 +7,11 @@ using System.Collections;
 [AddComponentMenu ("Audio/UI Audio")]
 public class UIAudioPlayer : AudioPlayer
 {
-	public AudioClip MenuUp;
-	public AudioClip MenuDown;
-	public AudioClip SelectItem;
-	public AudioClip DropoffItem;
-	public AudioClip Crafting;
-	public AudioClip NotACombination;
+    public AudioClip MenuUp;
+    public AudioClip MenuDown;
+    public AudioClip SelectItem;
+    public AudioClip DropoffItem;
+    public AudioClip Crafting;
+    public AudioClip NotACombination;
+
 }

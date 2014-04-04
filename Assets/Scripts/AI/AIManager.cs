@@ -21,21 +21,19 @@ public class AIManager : MonoBehaviour
 
     void Awake()
     {
+        // Get the list of enemies ready
         _enemies = new List<EnemyAI> ();
+
+        // Make sure we have the correct tag
+        gameObject.tag = "AI Manager";
 
     }
 
     void Start ()
     {
-        // Make sure we have the correct tag
-        gameObject.tag = "AI Manager";
 
         // Make sure astar is set up in the scene
         AstarPath astar = AstarPath.active;
-        if (astar == null)
-            astar = gameObject.AddComponent<AstarPath> ();
-
-        // Look for a pre-existing graph
         foreach (NavGraph graph in astar.astarData.graphs)
             if (graph is ZoneGraph)
                 _graph = (ZoneGraph) graph;
