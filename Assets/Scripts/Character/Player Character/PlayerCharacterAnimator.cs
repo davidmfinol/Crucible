@@ -986,4 +986,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
         get { return _objectives; }
     }
 
+	public override EnemySaveState.EnemyType EnemyType {
+		get { return EnemySaveState.EnemyType.Enemy_Olympus; }
+		
+	}
+
 }

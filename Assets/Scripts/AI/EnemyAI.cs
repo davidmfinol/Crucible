@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
 {
 	// used to override
 	public bool ShouldWander = true; // TODO: MOVE TO AISETTINGS
+	public float EyeOffset = 1.0f;          // offset used to cast rays to see player.
+	public float ViewConeCutoff = 0.65f;  // what is the cutoff for which dot product between player & facing is invalid?
 
     // Generic enemy AI components
     private CharacterAnimator _animator;
@@ -60,10 +62,10 @@ public class EnemyAI : MonoBehaviour
         GameManager.AI.Enemies.Add (this);
 
         // Set up Astar
-        //_seeker = GetComponent<Seeker> ();
+        _seeker = GetComponent<Seeker> ();
 
         // Finally, map the output of this class to the input of the animator
-        // GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
+        GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
     }
     
     public void UpdateInput ()
@@ -84,19 +86,20 @@ public class EnemyAI : MonoBehaviour
         UpdateAwareness ();
 
         switch (Awareness) {
-        case AwarenessLevel.Unaware:
-            Wander ();
-            break;
-        case AwarenessLevel.Searching:
-            Search ();
-            break;
-        case AwarenessLevel.Chasing:
-            Chase ();
-            break;
-        default :
-            Wander ();
-            break;
+	        case AwarenessLevel.Unaware:
+	            Wander ();
+	            break;
+	        case AwarenessLevel.Searching:
+	            Search ();
+	            break;
+	        case AwarenessLevel.Chasing:
+	            Chase ();
+	            break;
+	        default :
+	            Wander ();
+	            break;
         }
+
     }
     
     private void UpdateAwareness ()
@@ -550,12 +553,7 @@ public class EnemyAI : MonoBehaviour
     {
         EnemySaveState s = new EnemySaveState ();
 
-        // TODO: MAKE THE ANIMATOR COMPONENT RETURN ITS TYPE (_ANIMATOR.ENEMYTYPE)
-        if (_animator is OlympusAnimator)
-            s.Type = EnemyType.Enemy_Olympus;
-        else if (_animator is BabyBotAnimator)
-            s.Type = EnemyType.Enemy_BabyBot;
-
+		s.Type = _animator.EnemyType;
         s.Position = transform.position;
         s.Direction = _animator.Direction;
         s.Health = GetComponentInChildren<EnemyHeartBox> ().HitPoints;
@@ -606,7 +604,7 @@ public class EnemyAI : MonoBehaviour
             
             
             Vector3 eyePos = transform.position;
-            eyePos.y += 1.0f;
+            eyePos.y += EyeOffset;
             
             Vector3 playerPos = player.transform.position;
             float playerHalfHeight = player.Height / 2;
@@ -635,14 +633,13 @@ public class EnemyAI : MonoBehaviour
                 Vector3 raycastDirection = endPoint - eyePos;
                 
                 // if our facing vector DOT the ray to the player is within a certain dot product range, then it's in view
-                // (prevents seeing player almost directly above us.
+                // (prevents seeing player almost directly above us.)
                 Vector3 normFacing = _animator.Direction.normalized;
                 Vector3 normToPlayer = raycastDirection.normalized;
                 float fDot = Vector3.Dot (normFacing, normToPlayer);
                 
                 // only bother to cast rays that could be considered in our view cone.
-                float fViewConeCutoff = 0.65f;
-                if (fDot >= fViewConeCutoff) {
+                if (fDot >= ViewConeCutoff) {
                     if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
                         Debug.DrawLine (eyePos, endPoint, Color.red, 0.5f, false);
                         canSeePlayer = true;

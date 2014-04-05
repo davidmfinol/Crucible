@@ -495,4 +495,10 @@ public class OlympusAnimator : CharacterAnimator
         get { return false; }
         set { }
     }
+
+	public override EnemySaveState.EnemyType EnemyType {
+		get { return EnemySaveState.EnemyType.Enemy_Olympus; }
+		
+	}
+
 }

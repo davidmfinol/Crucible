@@ -172,4 +172,9 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
+	public override EnemySaveState.EnemyType EnemyType {
+		get { return EnemySaveState.EnemyType.Enemy_BabyBot; }
+		
+	}
+
 }

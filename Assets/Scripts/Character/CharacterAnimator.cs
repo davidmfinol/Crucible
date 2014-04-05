@@ -821,4 +821,9 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return null; }
     }
 
+	public abstract EnemySaveState.EnemyType EnemyType {
+		get;
+
+	}
+
 }
