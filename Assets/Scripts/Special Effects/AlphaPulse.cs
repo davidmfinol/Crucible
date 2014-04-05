@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Alpha pulse can be attached to an object to give it a pulsing effect by changing it's materials alpha values.
+/// NOTE: MUST HAVE CHANGEABLE MATERIALS TAGGED ON THE OBJECT.
 /// </summary>
 [AddComponentMenu("Special Effects/Alpha Pulse")]
 public class AlphaPulse : MonoBehaviour
@@ -13,6 +14,7 @@ public class AlphaPulse : MonoBehaviour
     public float MaxAlpha = 1.0f;
     // time for a full cycle
     public float Period = 2.0f;
+    public bool StartOn = false;
 
     // find a list of materials to change.
     private List<Material> _changeableMaterials;
@@ -24,6 +26,9 @@ public class AlphaPulse : MonoBehaviour
 
     public void Start ()
     {
+        if (StartOn)
+            _on = true;
+
         _changeableMaterials = FindChangeableMaterials ();
 
         _dir = 1;
