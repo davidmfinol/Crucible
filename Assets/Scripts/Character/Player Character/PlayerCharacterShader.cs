@@ -15,8 +15,14 @@ public class PlayerCharacterShader : MonoBehaviour
     ;
 
     private List<Material> _changeableMaterials;
-    private bool _currentlyHidden = false;
     private ShaderType _currentShader;
+
+	// used to see if moving slow enough to sneak
+	private CharacterAnimator _anim;
+
+	// currently hidden
+	private bool _inShadow = false;
+
 
     void Start ()
     {
@@ -25,6 +31,10 @@ public class PlayerCharacterShader : MonoBehaviour
             Debug.LogWarning ("Unable to find changeable material");
             return;
         }
+
+		_anim = GetComponent<PlayerCharacterAnimator> ();
+		_inShadow = false;
+
 
         SetShader (ShaderType.Shader_Default);
 
@@ -53,11 +63,11 @@ public class PlayerCharacterShader : MonoBehaviour
         Color outlineColor = Color.clear;
         
         if (type == ShaderType.Shader_Default) {
-            mainColor = new Color (0.7f, 0.7f, 0.7f, 1.0f);
+            mainColor = new Color (0.8f, 0.8f, 0.8f, 1.0f);
             outlineColor = Color.clear;
         } else if (type == ShaderType.Shader_Stealth) {
-            mainColor = new Color (0.0f, 0.0f, 0.0f, 1.0f);
-            outlineColor = Color.white;
+            mainColor = new Color (0.4f, 0.4f, 0.4f, 1.0f);
+			outlineColor = new Color(1.0f, 1.0f, 1.0f, 0.1f); //Color.white;
         }
 
         foreach (Material mat in _changeableMaterials) {
@@ -66,40 +76,38 @@ public class PlayerCharacterShader : MonoBehaviour
         }
         
     }
+
+	public void Update() {
+		//Debug.Log (_anim.IsGrounded + " " + _anim.IsSneaking);
+
+		if( (_anim.IsGrounded && _anim.IsSneaking) || _inShadow) {
+			SetShader (ShaderType.Shader_Stealth);
+
+		} else {
+			SetShader (ShaderType.Shader_Default);
+
+		}
+
+	}
     
-    public bool OnDefaultShader ()
+    public bool IsStealth
     {
-        if (_changeableMaterials.Count == 0) {
-            Debug.LogWarning ("Unable to find changeable material");
-            return false;
-        }
-        
-        return(_currentShader == ShaderType.Shader_Default);
+		get { return _currentShader == ShaderType.Shader_Stealth; }
 
     }
 
     void OnTriggerEnter (Collider other)
     {
         if (other.CompareTag ("Shadow"))
-            CurrentlyHidden = true;
+			_inShadow = true;
 
     }
 
     void OnTriggerExit (Collider other)
     {
         if (other.CompareTag ("Shadow"))
-            CurrentlyHidden = false;
+			_inShadow = false;
 
     }
-
-    public bool CurrentlyHidden {
-        get { return _currentlyHidden; }
-        set {
-            _currentlyHidden = value;
-            if (_currentlyHidden)
-                SetShader (ShaderType.Shader_Stealth);
-            else
-                SetShader (ShaderType.Shader_Default);
-        }
-    }
+	
 }

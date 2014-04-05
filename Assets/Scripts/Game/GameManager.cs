@@ -470,6 +470,8 @@ public class GameManager : MonoBehaviour
             _isPlayingCutscene = value;
             if (value == true)
                 GameManager.UI.CraftingMenu.Close ();
+
+			GameManager.UI.CraftingMenu.ShowWeaponWheel(!value);
         }
 
     }

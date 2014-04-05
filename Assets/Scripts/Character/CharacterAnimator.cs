@@ -585,7 +585,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     // Movement/Animation Properties
     public AnimatorStateInfo CurrentState {
-        get { return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0); }
+        get { 
+            if(MecanimAnimator == null)
+                return new AnimatorStateInfo();
+            return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0);
+        }
     }
 
     public AnimatorStateInfo PreviousState {
@@ -709,7 +713,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     public virtual bool IsSneaking {
-        get { return Mathf.Abs (HorizontalSpeed) < 0.5f * Settings.MaxHorizontalSpeed; }
+		// give us a little tolerance here, since values of 8.0000001 don't count as sneaking.
+		// (it takes a while to lerp down from running to 8.0)
+		get { return Mathf.Abs (HorizontalSpeed) < 0.51f * Settings.MaxHorizontalSpeed; }
+
     }
 
     // Moving Platform Properties

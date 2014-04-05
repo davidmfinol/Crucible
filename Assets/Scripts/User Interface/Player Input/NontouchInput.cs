@@ -67,7 +67,7 @@ public class NontouchInput : MonoBehaviour
         } else {
             _shift = Input.GetButton ("Shift");
             float horizontal = Input.GetAxis ("Horizontal");
-            _input.Horizontal = _shift ? horizontal * 0.3f : horizontal;
+            _input.Horizontal = _shift ? horizontal * 0.5f : horizontal;
             _input.Vertical = Input.GetAxis ("Vertical");
             _input.Interaction = Input.GetButton ("Interaction");
             _input.Jump = new Vector2 (Input.GetAxis ("JumpX"), Input.GetAxis ("JumpY"));

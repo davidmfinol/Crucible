@@ -31,7 +31,6 @@ public class AIManager : MonoBehaviour
 
     void Start ()
     {
-
         // Make sure astar is set up in the scene
         AstarPath astar = AstarPath.active;
         foreach (NavGraph graph in astar.astarData.graphs)
@@ -51,6 +50,7 @@ public class AIManager : MonoBehaviour
     // FIXME: IT WOULD BE FASTER TO ONLY UPDATE THESE VALUES WHEN THEY CHANGE, INSTEAD OF RECALCULATING EVERY FRAME
     public void Update ()
     {
+        /*
         int enemiesSearching = 0;
         int enemiesChasing = 0;
 
@@ -66,6 +66,7 @@ public class AIManager : MonoBehaviour
         
         if (GameManager.Level.Alarms != null)
             GameManager.Level.Alarms.On = (_enemiesChasing > 0);
+            */
         
     }
 

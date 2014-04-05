@@ -7,7 +7,7 @@ using Pathfinding;
 /// Currently, this AI is just an interpretation A* Shortest-Pathfinding.
 /// </summary>
 [RequireComponent(typeof(EnemyAISettings))]
-[RequireComponent(typeof(Seeker))]
+//[RequireComponent(typeof(Seeker))]
 [AddComponentMenu("AI/Enemy AI")]
 public class EnemyAI : MonoBehaviour
 {
@@ -60,10 +60,10 @@ public class EnemyAI : MonoBehaviour
         GameManager.AI.Enemies.Add (this);
 
         // Set up Astar
-        _seeker = GetComponent<Seeker> ();
+        //_seeker = GetComponent<Seeker> ();
 
         // Finally, map the output of this class to the input of the animator
-        GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
+        // GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
     }
     
     public void UpdateInput ()
@@ -615,7 +615,7 @@ public class EnemyAI : MonoBehaviour
             
             // player in shadow range? must be a lot closer to see him
             float visionRange = _settings.AwarenessRange;
-            if (_playerShader != null && _playerShader.CurrentlyHidden)
+            if (_playerShader != null && _playerShader.IsStealth)
                 visionRange *= 0.3f;
             
             if (dirToPlayer.magnitude > visionRange)
