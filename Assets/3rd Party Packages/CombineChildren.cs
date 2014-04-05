@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEditor;
 
 /*
 Attach this script as a parent to some game objects. The script will then combine the meshes at startup.
@@ -10,7 +11,7 @@ This is useful as a performance optimization since it is faster to render one bi
 
 Different materials will cause multiple meshes to be created, thus it is useful to share as many textures/material as you can.
 */
-//[ExecuteInEditMode()]
+[ExecuteInEditMode()]
 [AddComponentMenu("Mesh/Combine Children")]
 public class CombineChildren : MonoBehaviour
 {
@@ -108,7 +109,8 @@ public class CombineChildren : MonoBehaviour
         var filter = GetComponent<MeshFilter>();
         if (!GetComponent<MeshRenderer>()) gameObject.AddComponent<MeshRenderer>();
 
-        var mesh = MeshCombineUtility.Combine(materialToMesh.SelectMany(kvp => kvp.Value), generateTriangleStrips);
+		var mesh = MeshCombineUtility.Combine(materialToMesh.SelectMany(kvp => kvp.Value), generateTriangleStrips);
+		Unwrapping.GenerateSecondaryUVSet (mesh);
         mesh.name = combinedMeshName;
         if (Application.isPlaying) filter.mesh = mesh;
         else filter.sharedMesh = mesh;
@@ -117,5 +119,15 @@ public class CombineChildren : MonoBehaviour
         if (addMeshCollider) gameObject.AddComponent<MeshCollider>();
         renderer.castShadows = castShadow;
         renderer.receiveShadows = receiveShadow;
+
+//		Vector2[] uvs = new Vector2[mesh.vertices.Length];
+//		int i = 0;
+//		while(i < uvs.Length) {
+//			uvs[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].z);
+//			i++;
+//
+//		}
+
+//		mesh.uv = uvs;
     }
 }
