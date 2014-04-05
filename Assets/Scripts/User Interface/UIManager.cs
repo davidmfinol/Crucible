@@ -9,14 +9,17 @@ using System.Collections;
 [AddComponentMenu("User Interface/UIManager")]
 public class UIManager : MonoBehaviour
 {
+    // Prefabs used by the UI Manager
 	public Transform ChaseVignette;
 	public Transform SearchVignette;
 	public Transform HurtVignette;
 	public Transform MatteBars;
 	public Transform LensFlareFlash;
-	public GameObject WeaponQuadPrefab;
+    public GameObject WeaponQuadPrefab;
+    public GameObject WeaponCountQuadPrefab;
+
+    // Setting for the top-right weapon-wheel
 	public float WeaponRadius;
-	public GameObject WeaponCountQuadPrefab;
 	public float WeaponCountRadius;
 	public float MinSwipeDistance;
     
@@ -31,7 +34,6 @@ public class UIManager : MonoBehaviour
 
 	// how long can you go between mousedown then mouseup and have it still change weapons?
 	public const float WeaponClickPeriod = 1.0f;
-	public Material AlarmMaterial;
 	private Camera _uiCamera;
 	private TouchInput _touchInput;
 	private NontouchInput _nontouchInput;
@@ -40,16 +42,17 @@ public class UIManager : MonoBehaviour
 	// track player's HP to do hurt vignette.
 	private PlayerHeartBox _playerHeartBox;
 
-	// UI Manager handles the vignettes
+	// UI Manager handles the effects that affect the entire screen
 	private AlphaPulse _hurtVignetteAlpha;
 	private AlphaPulse _chaseVignetteAlpha;
 	private AlphaPulse _searchVignetteAlpha;
 	private AlphaPulse _flashAlpha;
-	private bool _hasFlashed;
+    private bool _hasFlashed;
+    private Transform _matteBars;
+
+    // Also has some information about the top-right weapon wheel
 	private Vector3 _weaponWheelPos;
 	private int _currentWeapon;
-
-	private Transform _matteBars;
 
 	// weapon quads (0 to 2 counter-clockwise)
 	// also weapon counts, if limited ammo
@@ -97,14 +100,13 @@ public class UIManager : MonoBehaviour
 		searchVignette.parent = transform;
 		_searchVignetteAlpha = searchVignette.GetComponent<AlphaPulse> ();
 
-		_matteBars = (Transform)Instantiate (MatteBars, MatteBars.position, MatteBars.rotation);
-		_matteBars.parent = transform;
-
-
 		Transform flash = (Transform)Instantiate (LensFlareFlash, LensFlareFlash.position, LensFlareFlash.rotation);
 		flash.parent = transform;
 		_flashAlpha = flash.GetComponent<AlphaPulse> ();
-		_hasFlashed = false;
+        _hasFlashed = false;
+        
+        _matteBars = (Transform)Instantiate (MatteBars, MatteBars.position, MatteBars.rotation);
+        _matteBars.parent = transform;
 
 		_weaponWheelPos = new Vector3 (1, 1, 8);
 		_weaponWheelPos = _uiCamera.ViewportToWorldPoint (_weaponWheelPos);
@@ -506,11 +508,11 @@ public class UIManager : MonoBehaviour
 		float yScale = 0.0f;
 
 		if (GameManager.IsPlayingCutscene)
-			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y * 8f, Time.deltaTime * 2.0f);
+			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y, Time.deltaTime * 2.0f);
 
 	
 		else
-			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y * 10f, Time.deltaTime * 2.0f);
+			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y * 1.5f, Time.deltaTime * 2.0f);
 
 		_matteBars.localScale = new Vector3 (_matteBars.localScale.x, yScale, _matteBars.localScale.z);
 	}
