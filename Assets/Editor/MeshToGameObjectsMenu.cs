@@ -14,7 +14,8 @@ public class MeshToGameObjectsMenu
         "ground",
         "mesh",
         "wall",
-        "ladder"
+        "ladder",
+		"pipe",
     });
     static GameObject playerPrefab;
     static GameObject ledgePrefab;

@@ -482,6 +482,26 @@ ModelImporter:
     100952: transform71
     100954: transform72
     100956: Mesh 4
+    100958: Rope
+    100960: Rope1
+    100962: pCube40
+    100964: pCube41
+    100966: pCube42
+    100968: pCube43
+    100970: pCube44
+    100972: pCube45
+    100974: pCube46
+    100976: pCube47
+    100978: pCube48
+    100980: pCube49
+    100982: pCube50
+    100984: pCube51
+    100986: pCube52
+    100988: polySurface232
+    100990: transform73
+    100992: transform74
+    100994: transform75
+    100996: transform76
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -961,6 +981,26 @@ ModelImporter:
     400952: transform71
     400954: transform72
     400956: Mesh 4
+    400958: Rope
+    400960: Rope1
+    400962: pCube40
+    400964: pCube41
+    400966: pCube42
+    400968: pCube43
+    400970: pCube44
+    400972: pCube45
+    400974: pCube46
+    400976: pCube47
+    400978: pCube48
+    400980: pCube49
+    400982: pCube50
+    400984: pCube51
+    400986: pCube52
+    400988: polySurface232
+    400990: transform73
+    400992: transform74
+    400994: transform75
+    400996: transform76
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1266,6 +1306,19 @@ ModelImporter:
     2300604: polySurface230
     2300606: polySurface231
     2300608: Mesh 4
+    2300610: Rope
+    2300612: Rope1
+    2300614: pCube40
+    2300616: pCube44
+    2300618: pCube45
+    2300620: pCube46
+    2300622: pCube47
+    2300624: pCube48
+    2300626: pCube49
+    2300628: pCube50
+    2300630: pCube51
+    2300632: pCube52
+    2300634: polySurface232
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1571,6 +1624,19 @@ ModelImporter:
     3300604: polySurface230
     3300606: polySurface231
     3300608: Mesh 4
+    3300610: Rope
+    3300612: Rope1
+    3300614: pCube40
+    3300616: pCube44
+    3300618: pCube45
+    3300620: pCube46
+    3300622: pCube47
+    3300624: pCube48
+    3300626: pCube49
+    3300628: pCube50
+    3300630: pCube51
+    3300632: pCube52
+    3300634: polySurface232
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1873,6 +1939,19 @@ ModelImporter:
     4300598: polySurface231
     4300600: ledge
     4300602: Mesh
+    4300604: Rope
+    4300606: Rope1
+    4300608: pCube40
+    4300610: polySurface232
+    4300612: pCube44
+    4300614: pCube45
+    4300616: pCube46
+    4300618: pCube47
+    4300620: pCube48
+    4300622: pCube49
+    4300624: pCube50
+    4300626: pCube51
+    4300628: pCube52
     7400000: Take 001
     9500000: //RootNode
   materials:
