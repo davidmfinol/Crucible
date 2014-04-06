@@ -47,13 +47,21 @@ public class AIManager : MonoBehaviour
 
     }
 
-    // FIXME: IT WOULD BE FASTER TO ONLY UPDATE THESE VALUES WHEN THEY CHANGE, INSTEAD OF RECALCULATING EVERY FRAME
     public void Update ()
     {
         int enemiesSearching = 0;
         int enemiesChasing = 0;
 
         foreach (EnemyAI enemy in _enemies) {
+
+            if(GameManager.Player != null && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
+                enemy.gameObject.SetActive(false);
+                continue;
+            }
+
+            if(!enemy.gameObject.activeSelf)
+                enemy.gameObject.SetActive(true);
+
             if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
                 enemiesSearching++;
             else if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)

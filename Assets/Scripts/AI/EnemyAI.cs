@@ -7,7 +7,7 @@ using Pathfinding;
 /// Currently, this AI is just an interpretation A* Shortest-Pathfinding.
 /// </summary>
 [RequireComponent(typeof(EnemyAISettings))]
-//[RequireComponent(typeof(Seeker))]
+[RequireComponent(typeof(Seeker))]
 [AddComponentMenu("AI/Enemy AI")]
 public class EnemyAI : MonoBehaviour
 {
@@ -76,12 +76,6 @@ public class EnemyAI : MonoBehaviour
         _animator.CharInput.Jump = Vector2.zero;
         _animator.CharInput.Attack = 0;
         _animator.CharInput.Pickup = false;
-
-        // Do nothing if the enemy is too far away from the player
-        if (GameManager.Player != null && Vector3.Distance (transform.position, GameManager.Player.transform.position) > Settings.MaxActiveDistance) {
-            Awareness = AwarenessLevel.Unaware;
-            return;
-        }
 
         UpdateAwareness ();
 
@@ -551,12 +545,17 @@ public class EnemyAI : MonoBehaviour
 
     public EnemySaveState SaveState ()
     {
-        EnemySaveState s = new EnemySaveState ();
+        bool wasActive = gameObject.activeSelf;
+        gameObject.SetActive (true);
 
+        EnemySaveState s = new EnemySaveState ();
 		s.Type = _animator.EnemyType;
         s.Position = transform.position;
         s.Direction = _animator.Direction;
         s.Health = GetComponentInChildren<EnemyHeartBox> ().HitPoints;
+
+        gameObject.SetActive (wasActive);
+
         return s;
 
     }
