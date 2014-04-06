@@ -41,7 +41,8 @@ public class EnemyAI : MonoBehaviour
     //private Vector3 _lastFrameLocation = Vector3.zero;
 
     // Settings for how the enemy wanders
-    private float _timeSpentWandering;
+    private float _timeLeftWandering;
+    private float _timeSpentIdling;
 
     // How aware is the enemy of the player?
     private AwarenessLevel _awareness = AwarenessLevel.Unaware;
@@ -56,13 +57,17 @@ public class EnemyAI : MonoBehaviour
         _personalHearingRadius = GetComponentInChildren<HearingRadius> ();
         _timeSincePlayerSeen = 0;
         //_lastFrameLocation = transform.position;
-        GameManager.AI.Enemies.Add (this);
+        _timeLeftWandering = Settings.WanderTime;
+        _timeSpentIdling = 0;
 
         // Set up Astar
         _seeker = GetComponent<Seeker> ();
 
-        // Finally, map the output of this class to the input of the animator
+        // Map the output of this class to the input of the animator
         GetComponent<CharacterInput> ().UpdateInputMethod = UpdateInput;
+
+        // Finally, register ourselves with the AI system
+        GameManager.AI.Enemies.Add (this);
     }
     
     public void UpdateInput ()
@@ -140,11 +145,19 @@ public class EnemyAI : MonoBehaviour
             return;
 
         // We make sure to limit the amount of time that we wander to allow the player to sneak up
-        _timeSpentWandering += Time.deltaTime;
-        if (_timeSpentWandering >= Settings.WanderTime) {
-            GetRandomSearchPoint ();
-            _timeSpentWandering = 0;
+        // It then idles for some time 
+        if (_timeLeftWandering < 0) {
+            if(_timeSpentIdling < Settings.IdleTime) {
+                _timeSpentIdling += Time.deltaTime;
+                return;
+            }
+            else {
+                GetRandomSearchPoint ();
+                _timeLeftWandering = Settings.WanderTime;
+                _timeSpentIdling = 0;
+            }
         }
+        _timeLeftWandering -= Time.deltaTime;
         
         // We need to retarget either if we lose or reach our target
         if (_target == Vector3.zero || _animator.Controller.bounds.Contains (_target))

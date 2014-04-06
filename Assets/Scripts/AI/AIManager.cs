@@ -49,7 +49,7 @@ public class AIManager : MonoBehaviour
 
     public void Update ()
     {
-        // We're going to re-count these values, so reset them
+        // We're going to re-count these values each frame, so reset them
         _enemiesSearching = 0;
         _enemiesChasing = 0;
 
@@ -57,7 +57,8 @@ public class AIManager : MonoBehaviour
 
             // De-activate enemies that are too far away from the player, to save on performance
             if(GameManager.Player != null && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
-                enemy.gameObject.SetActive(false);
+                if(enemy.gameObject.activeSelf)
+                    enemy.gameObject.SetActive(false);
                 continue;
             }
 
