@@ -23,8 +23,8 @@ public class EnemyAI : MonoBehaviour
     private PlayerCharacterShader _playerShader;
     private OlympusAwareness _olympusAwareness; //TODO: MOVE THIS OUT OF THIS CLASS
     private HearingRadius _personalHearingRadius;
-    private float _timeSincePlayerSeen;
-    
+	private float _timeSincePlayerSeen;
+	
     // A* PathFinding
     private Seeker _seeker;
     private Vector3 _target = Vector3.zero; // where the enemy wants to go
@@ -624,7 +624,7 @@ public class EnemyAI : MonoBehaviour
                 return false;
             
             bool canSeePlayer = false;
-            
+
             //for (float y = playerPos.y; y == playerPos.y; y-= playerHalfHeight) {
             for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight) {
                 Vector3 endPoint = playerPos;

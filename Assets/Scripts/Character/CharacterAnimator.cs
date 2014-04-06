@@ -267,15 +267,15 @@ public abstract class CharacterAnimator : MonoBehaviour
     /// </param>
     private void UpdateRotation (float elapsedTime)
     {
-        if (_direction.x == 0)
-            transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
-        else if (_prevDirection.x == 0)
-            transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (_direction), elapsedTime * _characterSettings.RotationSmoothing);
-        else {
+        //if (_direction.x == 0)
+        //    transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
+        //else if (_prevDirection.x == 0)
+        //    transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (_direction), elapsedTime * _characterSettings.RotationSmoothing);
+        //else {
             float crotY = transform.rotation.eulerAngles.y;
             float drotY = Quaternion.LookRotation (_direction).eulerAngles.y;
             transform.rotation = Quaternion.Euler (0, Mathf.Lerp (crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
-        }
+        //}
 
     }
     
