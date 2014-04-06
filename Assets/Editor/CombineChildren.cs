@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-//using UnityEditor;
+using UnityEditor;
 
 /*
 Attach this script as a parent to some game objects. The script will then combine the meshes at startup.
@@ -11,7 +11,7 @@ This is useful as a performance optimization since it is faster to render one bi
 
 Different materials will cause multiple meshes to be created, thus it is useful to share as many textures/material as you can.
 */
-//[ExecuteInEditMode()]
+[ExecuteInEditMode()]
 [AddComponentMenu("Mesh/Combine Children")]
 public class CombineChildren : MonoBehaviour
 {
@@ -28,7 +28,7 @@ public class CombineChildren : MonoBehaviour
     /// Best is to try out which value is faster in practice.
     public int frameToWait;
 
-    public bool generateTriangleStrips = true;
+    public bool generateTriangleStrips = false;
 
     public bool keepLayer = true;
 
@@ -110,7 +110,7 @@ public class CombineChildren : MonoBehaviour
         if (!GetComponent<MeshRenderer>()) gameObject.AddComponent<MeshRenderer>();
 
 		var mesh = MeshCombineUtility.Combine(materialToMesh.SelectMany(kvp => kvp.Value), generateTriangleStrips);
-		//Unwrapping.GenerateSecondaryUVSet (mesh);
+		Unwrapping.GenerateSecondaryUVSet (mesh);
         mesh.name = combinedMeshName;
         if (Application.isPlaying) filter.mesh = mesh;
         else filter.sharedMesh = mesh;

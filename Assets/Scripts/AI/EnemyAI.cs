@@ -77,8 +77,8 @@ public class EnemyAI : MonoBehaviour
         _animator.CharInput.Attack = 0;
         _animator.CharInput.Pickup = false;
 
+        // Based off the awareness level of the enemy, it'll do 1 of 3 things
         UpdateAwareness ();
-
         switch (Awareness) {
 	        case AwarenessLevel.Unaware:
 	            Wander ();

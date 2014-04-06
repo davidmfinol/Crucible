@@ -49,28 +49,30 @@ public class AIManager : MonoBehaviour
 
     public void Update ()
     {
-        int enemiesSearching = 0;
-        int enemiesChasing = 0;
+        // We're going to re-count these values, so reset them
+        _enemiesSearching = 0;
+        _enemiesChasing = 0;
 
         foreach (EnemyAI enemy in _enemies) {
 
+            // De-activate enemies that are too far away from the player, to save on performance
             if(GameManager.Player != null && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
                 enemy.gameObject.SetActive(false);
                 continue;
             }
 
+            // Re-activate the enemies as necessary
             if(!enemy.gameObject.activeSelf)
                 enemy.gameObject.SetActive(true);
 
+            // Count up the number of aware enemies
             if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
-                enemiesSearching++;
+                _enemiesSearching++;
             else if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
-                enemiesChasing++;
+               _enemiesChasing++;
         }
 
-        _enemiesSearching = enemiesSearching;
-        _enemiesChasing = enemiesChasing;
-        
+        // Turn on the alarms if any on the enemies are chasing the player
         if (GameManager.Level.Alarms != null)
             GameManager.Level.Alarms.On = (_enemiesChasing > 0);
         

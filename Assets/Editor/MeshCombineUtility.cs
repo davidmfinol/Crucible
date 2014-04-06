@@ -107,7 +107,7 @@ public class MeshCombineUtility
 
         if (_generateStrips)
         {
-            int[] inputstrip = instance.mesh.GetTriangleStrip(instance.subMeshIndex);
+            int[] inputstrip = instance.mesh.GetTriangles(instance.subMeshIndex);
             PrepareForAddingStrips(instance.targetSubMeshIndex, new[] {inputstrip.Length});
             List<int> outputstrip = _strip[instance.targetSubMeshIndex];
             if (outputstrip.Count != 0)
@@ -150,7 +150,7 @@ public class MeshCombineUtility
             if (_generateStrips)
             {
                 PrepareForAddingStrips(targetSubmesh.Key,
-                                       targetSubmesh.Select(instance => instance.mesh.GetTriangleStrip(instance.subMeshIndex).Length));
+                                       targetSubmesh.Select(instance => instance.mesh.GetTriangles(instance.subMeshIndex).Length));
             }
             else
             {
@@ -184,7 +184,7 @@ public class MeshCombineUtility
         if (_generateStrips)
         {
             foreach (var targetSubmesh in _strip)
-                mesh.SetTriangleStrip(targetSubmesh.Value.ToArray(), targetSubmesh.Key);
+                mesh.SetTriangles(targetSubmesh.Value.ToArray(), targetSubmesh.Key);
         }
         else
         {
