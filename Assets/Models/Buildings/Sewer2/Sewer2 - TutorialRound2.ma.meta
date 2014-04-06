@@ -463,6 +463,25 @@ ModelImporter:
     100914: polySurface227
     100916: transform66
     100918: pPlane8
+    100920: box1
+    100922: curve3
+    100924: ledge
+    100926: mesh
+    100928: Mesh4
+    100930: Mesh5
+    100932: Pipe
+    100934: Pipe1
+    100936: polySurface228
+    100938: polySurface229
+    100940: polySurface230
+    100942: polySurface231
+    100944: transform67
+    100946: transform68
+    100948: transform69
+    100950: transform70
+    100952: transform71
+    100954: transform72
+    100956: Mesh 4
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -923,6 +942,25 @@ ModelImporter:
     400914: polySurface227
     400916: transform66
     400918: pPlane8
+    400920: box1
+    400922: curve3
+    400924: ledge
+    400926: mesh
+    400928: Mesh4
+    400930: Mesh5
+    400932: Pipe
+    400934: Pipe1
+    400936: polySurface228
+    400938: polySurface229
+    400940: polySurface230
+    400942: polySurface231
+    400944: transform67
+    400946: transform68
+    400948: transform69
+    400950: transform70
+    400952: transform71
+    400954: transform72
+    400956: Mesh 4
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1219,6 +1257,15 @@ ModelImporter:
     2300586: Mesh3
     2300588: polySurface227
     2300590: pPlane8
+    2300592: box1
+    2300594: ledge
+    2300596: Pipe
+    2300598: Pipe1
+    2300600: polySurface228
+    2300602: polySurface229
+    2300604: polySurface230
+    2300606: polySurface231
+    2300608: Mesh 4
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1515,6 +1562,15 @@ ModelImporter:
     3300586: Mesh3
     3300588: polySurface227
     3300590: pPlane8
+    3300592: box1
+    3300594: ledge
+    3300596: Pipe
+    3300598: Pipe1
+    3300600: polySurface228
+    3300602: polySurface229
+    3300604: polySurface230
+    3300606: polySurface231
+    3300608: Mesh 4
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1808,6 +1864,15 @@ ModelImporter:
     4300580: Box
     4300582: Box
     4300584: pPlane8
+    4300586: polySurface229
+    4300588: polySurface230
+    4300590: box1
+    4300592: polySurface228
+    4300594: Pipe
+    4300596: Pipe1
+    4300598: polySurface231
+    4300600: ledge
+    4300602: Mesh
     7400000: Take 001
     9500000: //RootNode
   materials:
