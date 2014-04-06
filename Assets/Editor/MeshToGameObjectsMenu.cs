@@ -106,8 +106,8 @@ public class MeshToGameObjectsMenu
                 CreateWall (transform); 
             if (name.Contains ("ladder"))
                 CreateLadder (transform); 
-            //if (name.Contains("pipe"))
-            //  CreatePipe(transform); 
+            if (name.Contains("pipe"))
+              CreatePipe(transform); 
         });
 
     }
