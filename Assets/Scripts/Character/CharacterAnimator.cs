@@ -755,8 +755,8 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return ActiveHangTarget != null && ActiveHangTarget is Ladder; } //&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
     }
 
-    public bool CanClimbPipe {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Pipe; } //&& ActiveHangTarget.transform.position.z == DesiredZ; }
+    public bool CanClimbRope {
+        get { return ActiveHangTarget != null && ActiveHangTarget is Rope; } //&& ActiveHangTarget.transform.position.z == DesiredZ; }
     }
 
     public bool CanHangOffObjectHorizontally {

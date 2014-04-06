@@ -78,7 +78,7 @@ public class OlympusAnimator : CharacterAnimator
         
         bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
             (facingLeftLadder && CharInput.Left));
-        bool startClimbPipe = CanClimbPipe;
+        bool startClimbPipe = CanClimbRope;
         
         MecanimAnimator.SetBool (MecanimHashes.ClimbLadder, startClimbLadder);
         
