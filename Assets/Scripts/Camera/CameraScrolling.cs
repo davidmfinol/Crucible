@@ -77,7 +77,7 @@ public class CameraScrolling : MonoBehaviour
         if (TargetAttributes != null) {
             heightOffset = TargetAttributes.HeightOffset;
 
-            if (TargetAnimator != null && TargetAnimator.IsDead ())
+            if (TargetAnimator != null && TargetAnimator.IsDead)
                 distanceModifier = TargetAttributes.DeathZoom;
             else if (_shakeEffect != null)
                 distanceModifier = _shakeEffect.OldDistanceModifier;
@@ -201,7 +201,7 @@ public class CameraScrolling : MonoBehaviour
         Vector3 vNearest = new Vector3 (0.0f, 0.0f, 0.0f);
 
         foreach (EnemyAI enemy in GameManager.AI.Enemies) {
-            if (enemy != null && !enemy.Animator.IsDead ()) {
+            if (enemy != null && !enemy.Animator.IsDead) {
                 
                 if (enemy.Awareness != EnemyAI.AwarenessLevel.Chasing && 
                     Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) < EnemyFocus) {// && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) >= EnemyIgnoreRange) {

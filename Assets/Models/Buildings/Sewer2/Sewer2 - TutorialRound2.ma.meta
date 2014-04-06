@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 9af355a9877734f998903bda11edab8b
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Attached_on_the_side
     100002: curve1
@@ -502,6 +502,8 @@ ModelImporter:
     100992: transform74
     100994: transform75
     100996: transform76
+    100998: WallLedge
+    101000: WallLedge1
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1001,6 +1003,8 @@ ModelImporter:
     400992: transform74
     400994: transform75
     400996: transform76
+    400998: WallLedge
+    401000: WallLedge1
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1319,6 +1323,8 @@ ModelImporter:
     2300630: pCube51
     2300632: pCube52
     2300634: polySurface232
+    2300636: WallLedge
+    2300638: WallLedge1
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1637,6 +1643,8 @@ ModelImporter:
     3300630: pCube51
     3300632: pCube52
     3300634: polySurface232
+    3300636: WallLedge
+    3300638: WallLedge1
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1952,6 +1960,8 @@ ModelImporter:
     4300624: pCube50
     4300626: pCube51
     4300628: pCube52
+    4300630: WallLedge
+    4300632: WallLedge1
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -2005,4 +2015,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
+  additionalBone: 0
   userData: 

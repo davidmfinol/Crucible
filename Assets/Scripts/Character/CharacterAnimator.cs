@@ -125,12 +125,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    // TODO: MAKE THIS A PROPERTY
-    public virtual bool IsDead ()
-    {
-        return false;
-    }
-
     protected virtual void UpdateMecanimVariables ()
     {
         // Empty by default; child classes should override
@@ -258,13 +252,8 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         // Child classes may override this method if they want to do things during fixedupdate
     }
-    
-    /// <summary>
-    /// Updates the rotation of the character over time to smoothly match the character's direction
-    /// </summary>
-    /// <param name='elapsedTime'>
-    /// Elapsed time since this method was last called.
-    /// </param>
+
+    // Updates the rotation of the character over time to smoothly match the character's direction
     private void UpdateRotation (float elapsedTime)
     {
         //if (_direction.x == 0)
@@ -346,7 +335,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     public virtual void MakeDamaged (Vector2 knockForce)
     {
-        // TODO?
+        // Do nothing by default, by child classes should override if they want some effect when hurt
 
     }
     
@@ -410,6 +399,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     public virtual void StepDown ()
     {
+        // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
     }
 
     public virtual void StandUp ()
@@ -709,7 +699,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public virtual bool IsLanding {
-        get { return CurrentState.nameHash == OlympusAnimator.LandingState || (IsGrounded && (CurrentState.nameHash == OlympusAnimator.JumpingState || CurrentState.nameHash == OlympusAnimator.FallingState)); } 
+        get { return false; } 
     }
     
     public virtual bool IsSneaking {
@@ -717,6 +707,22 @@ public abstract class CharacterAnimator : MonoBehaviour
 		// (it takes a while to lerp down from running to 8.0)
 		get { return Mathf.Abs (HorizontalSpeed) < 0.51f * Settings.MaxHorizontalSpeed; }
 
+    }
+
+    public virtual bool IsTurningAround {
+        get { return false; } 
+    }
+
+    public virtual bool IsClimbing {
+        get { return false; } 
+    }
+
+    public virtual bool IsDead {
+        get { return false; }
+    }
+
+    public virtual bool IsJumping {
+        get { return false; } 
     }
 
     // Moving Platform Properties
@@ -817,6 +823,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         set { _canTransitionZ = value; }
     }
 
+    // Character specific meta-data
     public virtual ObjectiveTracker Objectives {
         get { return null; }
     }

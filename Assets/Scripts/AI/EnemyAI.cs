@@ -11,20 +11,23 @@ using Pathfinding;
 [AddComponentMenu("AI/Enemy AI")]
 public class EnemyAI : MonoBehaviour
 {
-	// used to override
-	public bool ShouldWander = true; // TODO: MOVE TO AISETTINGS
-	public float EyeOffset = 1.0f;          // offset used to cast rays to see player.
-	public float ViewConeCutoff = 0.65f;  // what is the cutoff for which dot product between player & facing is invalid?
+    public enum AwarenessLevel : int
+    {
+        Unaware = 0,
+        Searching = 1,
+        Chasing = 2
+    }
+
 
     // Generic enemy AI components
     private CharacterAnimator _animator;
     private EnemyAISettings _settings;
     private CharacterAnimator _playerAnimator;
     private PlayerCharacterShader _playerShader;
-    private OlympusAwareness _olympusAwareness; //TODO: MOVE THIS OUT OF THIS CLASS
+    private OlympusAwareness _olympusAwareness;
     private HearingRadius _personalHearingRadius;
-	private float _timeSincePlayerSeen;
-	
+    private float _timeSincePlayerSeen;
+    
     // A* PathFinding
     private Seeker _seeker;
     private Vector3 _target = Vector3.zero; // where the enemy wants to go
@@ -34,17 +37,11 @@ public class EnemyAI : MonoBehaviour
     private float _timeSinceRepath = 0; // how long has it been since it found a path
     private bool _hasTouchedNextNode = false; // keep track of whether we've already reached the node we're going to 
 
-	// Help prevent getting stuck in certain places
-	//private Vector3 _lastFrameLocation = Vector3.zero;
-	private float _timeSpentWandering; // TODO: REMOVE THIS
+    // Help prevent getting stuck in certain places
+    //private Vector3 _lastFrameLocation = Vector3.zero;
 
-    
-    public enum AwarenessLevel : int
-    {
-        Unaware = 0,
-        Searching = 1,
-        Chasing = 2
-    }
+    // Settings for how the enemy wanders
+    private float _timeSpentWandering;
 
     // How aware is the enemy of the player?
     private AwarenessLevel _awareness = AwarenessLevel.Unaware;
@@ -58,7 +55,7 @@ public class EnemyAI : MonoBehaviour
         _olympusAwareness = GetComponent<OlympusAwareness> ();
         _personalHearingRadius = GetComponentInChildren<HearingRadius> ();
         _timeSincePlayerSeen = 0;
-		//_lastFrameLocation = transform.position;
+        //_lastFrameLocation = transform.position;
         GameManager.AI.Enemies.Add (this);
 
         // Set up Astar
@@ -80,18 +77,18 @@ public class EnemyAI : MonoBehaviour
         // Based off the awareness level of the enemy, it'll do 1 of 3 things
         UpdateAwareness ();
         switch (Awareness) {
-	        case AwarenessLevel.Unaware:
-	            Wander ();
-	            break;
-	        case AwarenessLevel.Searching:
-	            Search ();
-	            break;
-	        case AwarenessLevel.Chasing:
-	            Chase ();
-	            break;
-	        default :
-	            Wander ();
-	            break;
+        case AwarenessLevel.Unaware:
+            Wander ();
+            break;
+        case AwarenessLevel.Searching:
+            Search ();
+            break;
+        case AwarenessLevel.Chasing:
+            Chase ();
+            break;
+        default :
+            Wander ();
+            break;
         }
 
     }
@@ -118,12 +115,15 @@ public class EnemyAI : MonoBehaviour
         else
             _timeSincePlayerSeen -= Time.deltaTime;
         
-        // If we transitioned to chasing, enter acquire state
-        if (oldAwareness != AwarenessLevel.Chasing && _awareness == AwarenessLevel.Chasing) { // TODO: MOVE THIS TO A SUBCLASS?
+        // Make sure we update our target when we start chasing
+        if (oldAwareness != AwarenessLevel.Chasing && _awareness == AwarenessLevel.Chasing) {
             UpdateAStarTarget (Vector3.zero);
-            if (_animator is OlympusAnimator) {
+
+            // Olympus should also do an animation at the beginning of it
+            if (_animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) {
                 OlympusAnimator oa = (OlympusAnimator)_animator;
-                oa.OnAcquireTarget ();
+                if (oa != null)
+                    oa.OnAcquireTarget ();
             }
         }
     }
@@ -131,22 +131,22 @@ public class EnemyAI : MonoBehaviour
     // Have the enemy wander around the map
     private void Wander ()
     {
-		// wander overridden for scripting purposes?
-		if (!ShouldWander)
-			return;
-
-
-        if (_animator is BabyBotAnimator) // TODO: MOVE THIS TO A SUBCLASS?
+        // wander overridden for scripting purposes?
+        if (!Settings.ShouldWander)
             return;
 
-		// TODO: REMOVE THIS
-		_timeSpentWandering += Time.deltaTime;
-		if (_timeSpentWandering >= 15) {
-			GetRandomSearchPoint ();
-			_timeSpentWandering = 0;
-		}
-		
-		// We need to retarget either if we lose or reach our target
+        // Currently, only Olympus wanders around
+        if (_animator.EnemyType != EnemySaveState.EnemyType.Enemy_Olympus)
+            return;
+
+        // We make sure to limit the amount of time that we wander to allow the player to sneak up
+        _timeSpentWandering += Time.deltaTime;
+        if (_timeSpentWandering >= Settings.WanderTime) {
+            GetRandomSearchPoint ();
+            _timeSpentWandering = 0;
+        }
+        
+        // We need to retarget either if we lose or reach our target
         if (_target == Vector3.zero || _animator.Controller.bounds.Contains (_target))
             GetRandomSearchPoint ();
 
@@ -160,6 +160,7 @@ public class EnemyAI : MonoBehaviour
         // Go to our location
         NavigateToAstarTarget (Settings.WanderSpeedRatio);
     }
+
     // Helper method to find a new location to go to while wandering
     private void GetRandomSearchPoint ()
     {
@@ -235,17 +236,17 @@ public class EnemyAI : MonoBehaviour
 
         // Determine attack
         //bool randomChance = (Random.Range(0.0f, 1.0f) > 0.95f);
-        bool isStunned = _animator.CurrentState.nameHash== OlympusAnimator.StunState;  // TODO: MOVE TO CHILD?
-        bool shouldAttack = IsPlayerInAttackRange && !isStunned && !_animator.IsDead (); //&& randomChance;
-		if(shouldAttack) {
-			bool isPlayerAbove = _playerAnimator.transform.position.y > transform.position.y + _animator.Height * 0.5f;
-			_animator.CharInput.Attack = isPlayerAbove ? -1 : 1;
+        bool isStunned = _animator.CurrentState.nameHash == OlympusAnimator.StunState;  // TODO: MOVE TO CHILD?
+        bool shouldAttack = IsPlayerInAttackRange && !isStunned && !_animator.IsDead; //&& randomChance;
+        if (shouldAttack) {
+            bool isPlayerAbove = _playerAnimator.transform.position.y > transform.position.y + _animator.Height * 0.5f;
+            _animator.CharInput.Attack = isPlayerAbove ? -1 : 1;
 
-		}
+        }
 
-		// Stop moving while the player is knocked back
-		if(_playerAnimator.CurrentState.nameHash == PlayerCharacterAnimator.DamagedState)
-			_animator.CharInput.Horizontal = 0;
+        // Stop moving while the player is knocked back
+        if (_playerAnimator.CurrentState.nameHash == PlayerCharacterAnimator.DamagedState)
+            _animator.CharInput.Horizontal = 0;
     }
 
     private void UpdateAStarTarget (Vector3 target)
@@ -304,7 +305,7 @@ public class EnemyAI : MonoBehaviour
             _currentPathWaypoint = _path.vectorPath.Count - _path.path.Count; // If the first point on the vectorpath is not a node, we account for that
             _hasTouchedNextNode = false;
         }// else
-           // Debug.LogWarning ("Pathfinding errored!: " + p.errorLog);
+        // Debug.LogWarning ("Pathfinding errored!: " + p.errorLog);
     }
 
     // Make sure that AI's interpretation of the AStar path is up to date and accurate
@@ -338,15 +339,14 @@ public class EnemyAI : MonoBehaviour
         bool isTouchingNextNode = _animator.Controller.bounds.Contains (_path.vectorPath [_currentPathWaypoint]);
         _hasTouchedNextNode = _hasTouchedNextNode || isTouchingNextNode;
 
-		// We only want to move on if the player is grounded when he's going to a ground node
-		// TODO: FIXME, AS THIS STILL ALLOWS THE CHARACTER TO MOVE ON EVEN WHILE CLIMBING UP AND NOT GROUNDED? (SEE JIRA ISSUE)
+        // We only want to move on if the player is grounded when he's going to a ground node
+        // TODO: FIXME, AS THIS STILL ALLOWS THE CHARACTER TO MOVE ON EVEN WHILE CLIMBING UP AND NOT GROUNDED? (SEE JIRA ISSUE)
         bool isWaypointLongerThanPath = (_currentPathWaypoint >= _path.path.Count);
         bool doesNodeRequireGround = false;
-        if(!isWaypointLongerThanPath)
-		{
-			bool isNodeGround = ( ((ZoneNode)_path.path [_currentPathWaypoint]).Tag & (1 << 0) ) != 0;
-			doesNodeRequireGround = isNodeGround;
-		}
+        if (!isWaypointLongerThanPath) {
+            bool isNodeGround = (((ZoneNode)_path.path [_currentPathWaypoint]).Tag & (1 << 0)) != 0;
+            doesNodeRequireGround = isNodeGround;
+        }
         bool isCharacterTouchingGround = _animator.IsGrounded;
 
         if (!isFinalNode && (isTouchingNextNode || _hasTouchedNextNode) && (!doesNodeRequireGround || isCharacterTouchingGround)) {
@@ -364,12 +364,12 @@ public class EnemyAI : MonoBehaviour
     {
         // Store the target position
         Vector3 targetPos = _path.vectorPath [_currentPathWaypoint];
-		Vector3 xExtension = Vector3.right * _animator.Radius;
+        Vector3 xExtension = Vector3.right * _animator.Radius;
 
-		// A check to make sure we don't get stuck someplace
-		//TODO: see if we can use this with a larger threshold for doing the jump (a higher amount of frames in the same spot than just one)?
-		//bool wasAtSameLocationLastFrame = Vector3.Distance(_lastFrameLocation, transform.position) < 0.01;
-		//_lastFrameLocation = transform.position;
+        // A check to make sure we don't get stuck someplace
+        //TODO: see if we can use this with a larger threshold for doing the jump (a higher amount of frames in the same spot than just one)?
+        //bool wasAtSameLocationLastFrame = Vector3.Distance(_lastFrameLocation, transform.position) < 0.01;
+        //_lastFrameLocation = transform.position;
 
         // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
         int nodeOffset = _path.vectorPath.Count - _path.path.Count;
@@ -383,14 +383,14 @@ public class EnemyAI : MonoBehaviour
         // We need to know some tag information about the nodes
         bool isNextNodeLeftLedge = nextNode != null && (nextNode.Tag & (1 << 1)) != 0;
         bool isNextNodeRightLedge = nextNode != null && (nextNode.Tag & (1 << 2)) != 0;
-		bool isNextNodeLedge = isNextNodeLeftLedge || isNextNodeRightLedge;
-		bool isNextNodeWall = nextNode != null && (nextNode.Tag & (1 << 4)) != 0;
-		
-		// Determine horizontal
+        bool isNextNodeLedge = isNextNodeLeftLedge || isNextNodeRightLedge;
+        bool isNextNodeWall = nextNode != null && (nextNode.Tag & (1 << 4)) != 0;
+        
+        // Determine horizontal
         float horizontalDifference = targetPos.x - transform.position.x;
         bool isNodeToRight = horizontalDifference > 0;
         bool isMidAir = !_animator.IsGrounded;
-		bool atTarget = AtTarget (targetPos);
+        bool atTarget = AtTarget (targetPos);
         bool shouldStayStillMidair = atTarget && isMidAir;
         float timeToJump = TimeToJump (transform.position + Vector3.down * (_animator.Height * 0.5f), targetPos); // TODO: CONFIRM THIS
         float desiredHorizontalJumpSpeed = horizontalDifference / timeToJump;
@@ -439,19 +439,18 @@ public class EnemyAI : MonoBehaviour
             _animator.CharInput.Vertical = 1; // Press up whenever we're on a ledge
 
         // Determine jump
-        // TODO: MAKE THE NEXT TWO CALLS MORE POLYMPORPHIC
-        bool isClimbing = _animator.CurrentState.nameHash == OlympusAnimator.ClimbingLedgeState || _animator.CurrentState.nameHash == OlympusAnimator.ClimbingLadderState || _animator.CurrentState.nameHash == OlympusAnimator.WallclimbingState;
-        bool isTurningAround = _animator.CurrentState.nameHash == OlympusAnimator.TurnAroundState;
-        // bool isWalking = _animator.CurrentState.nameHash == OlympusAnimator.RunningState; 
+        bool isClimbing = _animator.IsClimbing;
+        bool isTurningAround = _animator.IsTurningAround;
+        //bool isWalking = _animator.CurrentState.nameHash == OlympusAnimator.RunningState; 
         bool isNodeAbove = targetPos.y - _animator.transform.position.y > 0;
         bool isNodeOnOtherPlatform = false;
         if (prevNode != null && nextNode != null)
             isNodeOnOtherPlatform = (prevNode.GO != nextNode.GO) && !prevNode.GO.collider.bounds.Intersects (nextNode.GO.collider.bounds);
         bool canFall = GameManager.AI.Graph.CanFall (transform.position, targetPos);
-		//bool isStuck = Mathf.Abs (_animator.CharInput.Horizontal) > 0 && wasAtSameLocationLastFrame && isWalking;
-		bool shouldJump = isNodeAbove || (isNodeOnOtherPlatform && !canFall);// || isStuck;
-		bool canJump = !isTurningAround && !_animator.IsLanding && (!isMidAir || isClimbing);
-		bool jump = canJump && shouldJump;
+        //bool isStuck = Mathf.Abs (_animator.CharInput.Horizontal) > 0 && wasAtSameLocationLastFrame && isWalking;
+        bool shouldJump = isNodeAbove || (isNodeOnOtherPlatform && !canFall);// || isStuck;
+        bool canJump = !isTurningAround && !_animator.IsLanding && (!isMidAir || isClimbing);
+        bool jump = canJump && shouldJump;
 
         // We need to determine how we jump on the one frame that we do decide to jump
         if (jump) {
@@ -464,7 +463,7 @@ public class EnemyAI : MonoBehaviour
             bool highJumpHasBadHorizontal = (timeToJump < 0) && isNextNodeLedge;
 
             // Do a normal jump if we can make the jump using our normal speedRatio
-			if (!isNextNodeWall && (highJumpHasBadHorizontal || Mathf.Abs (desiredHorizontalJumpSpeed) < Mathf.Abs (speedRatio * _animator.Settings.MaxHorizontalSpeed)) )
+            if (!isNextNodeWall && (highJumpHasBadHorizontal || Mathf.Abs (desiredHorizontalJumpSpeed) < Mathf.Abs (speedRatio * _animator.Settings.MaxHorizontalSpeed)))
                 _animator.CharInput.Jump = Vector2.up;
 
             // But sometimes we need to take big jumps
@@ -486,8 +485,8 @@ public class EnemyAI : MonoBehaviour
         // Account for things that might be in the way of our movement
         // This might include obstacles above our head and nodes that are below the ground under our feet
         bool isLeftClear = CheckClear (FootPosition - xExtension, targetPos);
-		bool isMiddleClear = CheckClear (FootPosition, targetPos);
-		bool isRightClear = CheckClear (FootPosition + xExtension, targetPos);
+        bool isMiddleClear = CheckClear (FootPosition, targetPos);
+        bool isRightClear = CheckClear (FootPosition + xExtension, targetPos);
 
         if (isLeftClear && (!isMiddleClear || !isRightClear))
             _animator.CharInput.Horizontal = -speedRatio;
@@ -503,7 +502,7 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-	// Finds how much time it would take to make a jump from pointA to pointB
+    // Finds how much time it would take to make a jump from pointA to pointB
     public float TimeToJump (Vector3 pointA, Vector3 pointB)
     {
         // We'll solve the quadratic equation of y = Vt - (1/2)g(t^2) for t
@@ -521,27 +520,26 @@ public class EnemyAI : MonoBehaviour
         float root1 = (-b + Mathf.Sqrt (discriminant)) / divisor;
         float root2 = (-b - Mathf.Sqrt (discriminant)) / divisor;
 
-        // TODO: MAKE MORE OBJECT ORIENTED
         // If we're jumping, choose the farthest, otherwise choose the closer one
-        return _animator.CurrentState.nameHash == OlympusAnimator.JumpingState ? Mathf.Max (root1, root2) : Mathf.Min (root1, root2);
+        return _animator.IsJumping ? Mathf.Max (root1, root2) : Mathf.Min (root1, root2);
 
     }
 
-	// Determines whether this character has reached the target
-	// We need this because we want to allow a certain amount of leniency
-	public bool AtTarget(Vector3 target)
-	{
-		Bounds bounds = _animator.Controller.bounds;
-		Vector3 centerPoint = bounds.center;
-		Vector3 extents = bounds.extents;
-		extents.x += Settings.TargetLeniency;
+    // Determines whether this character has reached the target
+    // We need this because we want to allow a certain amount of leniency
+    public bool AtTarget (Vector3 target)
+    {
+        Bounds bounds = _animator.Controller.bounds;
+        Vector3 centerPoint = bounds.center;
+        Vector3 extents = bounds.extents;
+        extents.x += Settings.TargetLeniency;
 
-		bool isInY = (target.y > centerPoint.y - extents.y) && (target.y < centerPoint.y + extents.y); 
-		bool isInx = (target.x > centerPoint.x - extents.x) && (target.x < centerPoint.x + extents.x); 
+        bool isInY = (target.y > centerPoint.y - extents.y) && (target.y < centerPoint.y + extents.y); 
+        bool isInx = (target.x > centerPoint.x - extents.x) && (target.x < centerPoint.x + extents.x); 
 
-		return isInY && isInx;
+        return isInY && isInx;
 
-	}
+    }
 
     public EnemySaveState SaveState ()
     {
@@ -549,7 +547,7 @@ public class EnemyAI : MonoBehaviour
         gameObject.SetActive (true);
 
         EnemySaveState s = new EnemySaveState ();
-		s.Type = _animator.EnemyType;
+        s.Type = _animator.EnemyType;
         s.Position = transform.position;
         s.Direction = _animator.Direction;
         s.Health = GetComponentInChildren<EnemyHeartBox> ().HitPoints;
@@ -568,6 +566,10 @@ public class EnemyAI : MonoBehaviour
 
 
     // Generic Properties
+    public CharacterAnimator Animator {
+        get { return _animator; }
+    }
+
     public EnemyAISettings Settings {
         get { return _settings; }
     }
@@ -593,17 +595,17 @@ public class EnemyAI : MonoBehaviour
         get {
             CharacterAnimator player = GameManager.Player;
 
-            if (player == null || player.MecanimAnimator == null || player.IsDead ())
+            if (player == null || player.MecanimAnimator == null || player.IsDead)
                 return false;
            
             GameObject playerGO = player.gameObject;
             
             if (playerGO == null)
                 return false;
-            
+
             
             Vector3 eyePos = transform.position;
-            eyePos.y += EyeOffset;
+            eyePos.y += Settings.EyeOffset;
             
             Vector3 playerPos = player.transform.position;
             float playerHalfHeight = player.Height / 2;
@@ -638,7 +640,7 @@ public class EnemyAI : MonoBehaviour
                 float fDot = Vector3.Dot (normFacing, normToPlayer);
                 
                 // only bother to cast rays that could be considered in our view cone.
-                if (fDot >= ViewConeCutoff) {
+                if (fDot >= Settings.ViewConeCutoff) {
                     if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
                         Debug.DrawLine (eyePos, endPoint, Color.red, 0.5f, false);
                         canSeePlayer = true;
@@ -651,6 +653,7 @@ public class EnemyAI : MonoBehaviour
             return canSeePlayer;
         }
     }
+
     // Is the player in the range that the enemy could feasibly hit him?
     public bool IsPlayerInAttackRange {
         get {
@@ -690,9 +693,5 @@ public class EnemyAI : MonoBehaviour
     public Vector3 FootPosition {
         get { return transform.position + (Vector3.down * _animator.Height * 0.5f) + Vector3.up; }
     }
-
-	public CharacterAnimator Animator {
-		get { return _animator; }
-	}
 
 }

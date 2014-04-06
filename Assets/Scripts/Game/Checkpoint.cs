@@ -44,7 +44,7 @@ public class Checkpoint : MonoBehaviour
     // When the player reaches the checkpoint, do the appropriate logic
     void OnTriggerEnter (Collider other)
     {
-        if (!other.CompareTag ("Player") || GameManager.Player.IsDead () || (GameManager.AI.EnemiesChasing != 0))
+        if (!other.CompareTag ("Player") || GameManager.Player.IsDead || (GameManager.AI.EnemiesChasing != 0))
             return;
 
         // We have support for particles that may be attached to the checkpoints

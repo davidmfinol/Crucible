@@ -412,12 +412,6 @@ public class OlympusAnimator : CharacterAnimator
         
     }
 
-    public override bool IsDead ()
-    {
-        return CurrentState.nameHash == DeathState || CurrentState.nameHash == StealthDeathState;
-        
-    }
-
     protected void StealthDeath (float elapsedTime)
     {
 		if(MecanimAnimator.GetBool (MecanimHashes.StealthDeath)) {
@@ -490,6 +484,33 @@ public class OlympusAnimator : CharacterAnimator
 
     }
 
+    public override bool IsLanding {
+        get {
+            return CurrentState.nameHash == LandingState || (IsGrounded && (CurrentState.nameHash == JumpingState || CurrentState.nameHash == FallingState));
+        }
+    }
+
+    public override bool IsClimbing {
+        get {
+            return CurrentState.nameHash == ClimbingLedgeState || CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == WallclimbingState;
+        }
+    }
+
+    public override bool IsTurningAround {
+        get {
+            return CurrentState.nameHash == TurnAroundState;
+        }
+    }
+    
+    public override bool IsDead {
+        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == StealthDeathState; }
+    }
+
+    public override bool IsJumping {
+        get {
+            return CurrentState.nameHash == JumpingState;
+        }
+    }
 
     public override bool CanTransitionZ {
         get { return false; }

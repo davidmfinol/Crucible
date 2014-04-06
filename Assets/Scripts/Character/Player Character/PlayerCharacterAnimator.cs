@@ -80,7 +80,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         StateMachine [PickupState] = Pickup;
         StateMachine [StealthKillState] = StealthKill;
         StateMachine [JumpingState] = Jumping;
-        // StateMachine[Animator.StringToHash("Air.Doublejumping")] = Doublejumping;
+        //StateMachine[Animator.StringToHash("Air.Doublejumping")] = Doublejumping;
         StateMachine [FallingState] = Falling;
         StateMachine [LandingState] = Running;
         StateMachine [BackflipState] = Backflip;
@@ -89,7 +89,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         StateMachine [HangingState] = Hanging;
         StateMachine [ClimbingLedgeState] = ClimbingLedge;
         StateMachine [ClimbingLadderState] = ClimbingVertical;
-//      StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
+        //StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
         StateMachine [ClimbingPipeState] = ClimbingVertical;
         StateMachine [SteppingDownState] = SteppingDown;
         StateMachine [StandingUpState] = StandingUp;
@@ -145,7 +145,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     protected void UpdateAttackAnimations ()
     {
-        if (GameManager.Inventory.CurrentWeapon == null || IsDead ())
+        if (GameManager.Inventory.CurrentWeapon == null || IsDead)
             return;
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
@@ -275,12 +275,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         } else
             Debug.LogWarning ("ShootGun() called with: " + weapon);
-    }
-
-    public override bool IsDead ()
-    {
-        return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState;
-
     }
     
     public override void OnDeath (Vector2 knockForce)
@@ -586,8 +580,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
         } else 
             MecanimAnimator.SetBool (MecanimHashes.Hang, false);
 
-        //       if(CharInput.JumpPressed && !_hasDoubleJumped)
-        //           MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
+        //if(CharInput.JumpPressed && !_hasDoubleJumped)
+        //    MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
 
     }
 
@@ -724,9 +718,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
             return;
         }
         
-        //      if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
-        //          ApplyClimbingStrafing( CharInput.Horizontal );
-        //      else
+        //if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
+        //    ApplyClimbingStrafing( CharInput.Horizontal );
+        //else
         HorizontalSpeed = 0;
         
         float vertical = CharInput.Vertical;
@@ -980,6 +974,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
         obj = null;
         return false;
 
+    }
+    
+    public override bool IsDead {
+        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState; }
     }
     
     public override ObjectiveTracker Objectives {

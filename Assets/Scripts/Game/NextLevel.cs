@@ -15,7 +15,7 @@ public class NextLevel : MonoBehaviour
     void OnTriggerEnter (Collider other)
     {
         PlayerCharacterAnimator player = other.GetComponent<PlayerCharacterAnimator> ();
-        if (other.CompareTag ("Player") && player != null && !GameManager.Player.IsDead () && (!RequiresUp || player.CharInput.Up)) {
+        if (other.CompareTag ("Player") && player != null && !GameManager.Player.IsDead && (!RequiresUp || player.CharInput.Up)) {
             // TODO: OBJECT POOLING
             Instantiate (LoadingScreen);
             Application.LoadLevel (NextLevelName);

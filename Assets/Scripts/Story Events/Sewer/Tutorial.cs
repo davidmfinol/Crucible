@@ -36,7 +36,7 @@ public class Tutorial : MonoBehaviour
     void Update ()
     {
         if (GameManager.AI.Enemies.Count > 0) {
-            bool tutorialComplete = GameManager.AI.Enemies [0].GetComponent<CharacterAnimator> ().IsDead ();
+            bool tutorialComplete = GameManager.AI.Enemies [0].GetComponent<CharacterAnimator> ().IsDead;
             NextLevel.gameObject.SetActive (tutorialComplete);
             GameManager.SaveData.TutorialComplete = tutorialComplete;
         }
@@ -154,7 +154,7 @@ public class Tutorial : MonoBehaviour
 
         // spawn olympus up high and have him fall.
         Transform newOlympus = (Transform)Instantiate (OlympusPrefab, OlympusPosition.position, Quaternion.identity);
-        newOlympus.GetComponent<EnemyAI> ().ShouldWander = false;
+        newOlympus.GetComponent<EnemyAISettings> ().ShouldWander = false;
         newOlympus.GetComponent<CharacterAnimator> ().Direction = new Vector3 (-1.0f, 0.0f, 0.0f);
 
         // drops 2 items.
