@@ -26,7 +26,7 @@ public class Tutorial : MonoBehaviour
     void Start ()
     {
         _sewerDoorOpen = false;
-        _sewerSounds = GetComponent<TutorialAudioPlayer> ();
+        _sewerSounds = GetComponentInChildren<TutorialAudioPlayer> ();
         _runner = MysteriousRunner.GetComponent<MysteriousRunner> ();
         _doorSounds = SewerDoor.GetComponent<AudioPlayer> ();
         _cameraSounds = SewerCamera.GetComponent<AudioPlayer> ();
@@ -216,7 +216,7 @@ public class Tutorial : MonoBehaviour
 					light1Pulse.On = true;
 					light2Pulse.On = true;
 					light3Pulse.On = true;
-					SewerCamera.animation.enabled = true;
+			//		SewerCamera.animation.enabled = true;
 
 				}
 
@@ -231,7 +231,7 @@ public class Tutorial : MonoBehaviour
 					light1Pulse.On = false;
 					light2Pulse.On = false;
 					light3Pulse.On = false;
-					SewerCamera.animation.enabled = false;
+				//	SewerCamera.animation.enabled = false;
 
 				}
 				
