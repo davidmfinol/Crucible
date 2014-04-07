@@ -10,6 +10,18 @@ ModelImporter:
     100008: pasted__pasted__SignHolder
     100010: pasted__pasted__transform55
     100012: //RootNode
+    100014: CameraSideEye
+    100016: group
+    100018: pCube1
+    100020: pCube2
+    100022: pCube3
+    100024: pCube4
+    100026: pCube5
+    100028: pCylinder1
+    100030: pCylinder2
+    100032: pCylinder3
+    100034: polySurface1
+    100036: transform1
     400000: pasted__group
     400002: pasted__pasted__group8
     400004: pasted__pasted__polySurface196
@@ -17,13 +29,52 @@ ModelImporter:
     400008: pasted__pasted__SignHolder
     400010: pasted__pasted__transform55
     400012: //RootNode
+    400014: CameraSideEye
+    400016: group
+    400018: pCube1
+    400020: pCube2
+    400022: pCube3
+    400024: pCube4
+    400026: pCube5
+    400028: pCylinder1
+    400030: pCylinder2
+    400032: pCylinder3
+    400034: polySurface1
+    400036: transform1
     2300000: pasted__pasted__polySurface196
     2300002: pasted__pasted__polySurface197
+    2300004: CameraSideEye
+    2300006: pCube2
+    2300008: pCube3
+    2300010: pCube4
+    2300012: pCube5
+    2300014: pCylinder1
+    2300016: pCylinder2
+    2300018: pCylinder3
+    2300020: polySurface1
     3300000: pasted__pasted__polySurface196
     3300002: pasted__pasted__polySurface197
+    3300004: CameraSideEye
+    3300006: pCube2
+    3300008: pCube3
+    3300010: pCube4
+    3300012: pCube5
+    3300014: pCylinder1
+    3300016: pCylinder2
+    3300018: pCylinder3
+    3300020: polySurface1
     4300000: pasted__pasted__polySurface196
     4300002: pasted__pasted__polySurface197
-    7400000: Take 001
+    4300004: polySurface1
+    4300006: CameraSideEye
+    4300008: pCube2
+    4300010: pCylinder1
+    4300012: pCube5
+    4300014: pCube3
+    4300016: pCylinder2
+    4300018: pCylinder3
+    4300020: pCube4
+    7400000: CameraSwivel
     9500000: //RootNode
     11100000: //RootNode
   materials:
@@ -42,17 +93,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: CameraSwivel
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 150
-      wrapMode: 2
+      lastFrame: 240
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -67,17 +118,23 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: pasted__group
+      - path: CameraSideEye
         weight: 1
-      - path: pasted__group/pasted__pasted__polySurface197
+      - path: pCube2
         weight: 1
-      - path: pasted__group/pasted__pasted__SignHolder
+      - path: pCube2/pCylinder1
         weight: 1
-      - path: pasted__group/pasted__pasted__SignHolder/pasted__pasted__group8
+      - path: pCube2/pCylinder1/pCube3
         weight: 1
-      - path: pasted__group/pasted__pasted__SignHolder/pasted__pasted__group8/pasted__pasted__polySurface196
+      - path: pCube2/pCylinder1/pCube3/pCube4
         weight: 1
-      - path: pasted__group/pasted__pasted__SignHolder/pasted__pasted__transform55
+      - path: pCube2/pCylinder1/pCube3/pCylinder2
+        weight: 1
+      - path: pCube2/pCylinder1/pCube3/pCylinder3
+        weight: 1
+      - path: pCube2/pCylinder1/pCube5
+        weight: 1
+      - path: polySurface1
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}

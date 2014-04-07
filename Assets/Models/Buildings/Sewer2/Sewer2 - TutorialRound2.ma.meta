@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 9af355a9877734f998903bda11edab8b
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: Attached_on_the_side
     100002: curve1
@@ -504,6 +504,65 @@ ModelImporter:
     100996: transform76
     100998: WallLedge
     101000: WallLedge1
+    101002: box2
+    101004: box3
+    101006: box4
+    101008: box5
+    101010: box6
+    101012: mesh 1
+    101014: Rope2
+    101016: Box5
+    101018: Box6
+    101020: curve4
+    101022: curve5
+    101024: group10
+    101026: ledge1
+    101028: ledge2
+    101030: ledge3
+    101032: ledge4
+    101034: Mesh6
+    101036: pCube56
+    101038: polySurface233
+    101040: polySurface235
+    101042: polySurface236
+    101044: polySurface237
+    101046: polySurface238
+    101048: polySurface243
+    101050: pPipe74
+    101052: transform77
+    101054: transform78
+    101056: transform79
+    101058: transform80
+    101060: transform81
+    101062: transform82
+    101064: transform83
+    101066: transform84
+    101068: WallLedge2
+    101070: box 3
+    101072: box7
+    101074: box8
+    101076: pCylinder2
+    101078: polySurface239
+    101080: polySurface240
+    101082: polySurface241
+    101084: polySurface242
+    101086: polySurface244
+    101088: polySurface245
+    101090: polySurface246
+    101092: polySurface248
+    101094: polySurface249
+    101096: polySurface250
+    101098: polySurface251
+    101100: polySurface252
+    101102: polySurface253
+    101104: pPipe75
+    101106: pPipe76
+    101108: transform85
+    101110: transform86
+    101112: transform87
+    101114: transform88
+    101116: transform89
+    101118: transform90
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1005,6 +1064,65 @@ ModelImporter:
     400996: transform76
     400998: WallLedge
     401000: WallLedge1
+    401002: box2
+    401004: box3
+    401006: box4
+    401008: box5
+    401010: box6
+    401012: mesh 1
+    401014: Rope2
+    401016: Box5
+    401018: Box6
+    401020: curve4
+    401022: curve5
+    401024: group10
+    401026: ledge1
+    401028: ledge2
+    401030: ledge3
+    401032: ledge4
+    401034: Mesh6
+    401036: pCube56
+    401038: polySurface233
+    401040: polySurface235
+    401042: polySurface236
+    401044: polySurface237
+    401046: polySurface238
+    401048: polySurface243
+    401050: pPipe74
+    401052: transform77
+    401054: transform78
+    401056: transform79
+    401058: transform80
+    401060: transform81
+    401062: transform82
+    401064: transform83
+    401066: transform84
+    401068: WallLedge2
+    401070: box 3
+    401072: box7
+    401074: box8
+    401076: pCylinder2
+    401078: polySurface239
+    401080: polySurface240
+    401082: polySurface241
+    401084: polySurface242
+    401086: polySurface244
+    401088: polySurface245
+    401090: polySurface246
+    401092: polySurface248
+    401094: polySurface249
+    401096: polySurface250
+    401098: polySurface251
+    401100: polySurface252
+    401102: polySurface253
+    401104: pPipe75
+    401106: pPipe76
+    401108: transform85
+    401110: transform86
+    401112: transform87
+    401114: transform88
+    401116: transform89
+    401118: transform90
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1325,6 +1443,42 @@ ModelImporter:
     2300634: polySurface232
     2300636: WallLedge
     2300638: WallLedge1
+    2300640: box2
+    2300642: box3
+    2300644: box4
+    2300646: box5
+    2300648: box6
+    2300650: mesh 1
+    2300652: Rope2
+    2300654: Box5
+    2300656: Box6
+    2300658: ledge1
+    2300660: ledge3
+    2300662: ledge4
+    2300664: Mesh6
+    2300666: pCube56
+    2300668: polySurface235
+    2300670: polySurface236
+    2300672: polySurface237
+    2300674: polySurface238
+    2300676: polySurface243
+    2300678: pPipe74
+    2300680: WallLedge2
+    2300682: box 3
+    2300684: box7
+    2300686: box8
+    2300688: pCylinder2
+    2300690: polySurface240
+    2300692: polySurface241
+    2300694: polySurface242
+    2300696: polySurface244
+    2300698: polySurface245
+    2300700: polySurface246
+    2300702: polySurface248
+    2300704: polySurface252
+    2300706: polySurface253
+    2300708: pPipe75
+    2300710: pPipe76
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1645,6 +1799,42 @@ ModelImporter:
     3300634: polySurface232
     3300636: WallLedge
     3300638: WallLedge1
+    3300640: box2
+    3300642: box3
+    3300644: box4
+    3300646: box5
+    3300648: box6
+    3300650: mesh 1
+    3300652: Rope2
+    3300654: Box5
+    3300656: Box6
+    3300658: ledge1
+    3300660: ledge3
+    3300662: ledge4
+    3300664: Mesh6
+    3300666: pCube56
+    3300668: polySurface235
+    3300670: polySurface236
+    3300672: polySurface237
+    3300674: polySurface238
+    3300676: polySurface243
+    3300678: pPipe74
+    3300680: WallLedge2
+    3300682: box 3
+    3300684: box7
+    3300686: box8
+    3300688: pCylinder2
+    3300690: polySurface240
+    3300692: polySurface241
+    3300694: polySurface242
+    3300696: polySurface244
+    3300698: polySurface245
+    3300700: polySurface246
+    3300702: polySurface248
+    3300704: polySurface252
+    3300706: polySurface253
+    3300708: pPipe75
+    3300710: pPipe76
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -1962,6 +2152,42 @@ ModelImporter:
     4300628: pCube52
     4300630: WallLedge
     4300632: WallLedge1
+    4300634: box4
+    4300636: box5
+    4300638: box6
+    4300640: box2
+    4300642: box3
+    4300644: mesh
+    4300646: Rope2
+    4300648: polySurface237
+    4300650: pCube56
+    4300652: Box5
+    4300654: polySurface238
+    4300656: Mesh6
+    4300658: polySurface243
+    4300660: ledge1
+    4300662: ledge3
+    4300664: ledge4
+    4300666: polySurface235
+    4300668: polySurface236
+    4300670: pPipe74
+    4300672: Box6
+    4300674: WallLedge2
+    4300676: box8
+    4300678: box
+    4300680: box7
+    4300682: polySurface241
+    4300684: pPipe75
+    4300686: pPipe76
+    4300688: polySurface242
+    4300690: polySurface244
+    4300692: polySurface245
+    4300694: polySurface246
+    4300696: polySurface240
+    4300698: polySurface248
+    4300700: polySurface252
+    4300702: polySurface253
+    4300704: pCylinder2
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -2015,5 +2241,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  additionalBone: 0
   userData: 
