@@ -256,15 +256,15 @@ public abstract class CharacterAnimator : MonoBehaviour
     // Updates the rotation of the character over time to smoothly match the character's direction
     private void UpdateRotation (float elapsedTime)
     {
-        //if (_direction.x == 0)
-        //    transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
-        //else if (_prevDirection.x == 0)
-        //    transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (_direction), elapsedTime * _characterSettings.RotationSmoothing);
-        //else {
+        if (_direction == Vector3.zero)
+            transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
+        else if (_prevDirection == Vector3.zero)
+            transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (_direction), elapsedTime * _characterSettings.RotationSmoothing);
+        else {
             float crotY = transform.rotation.eulerAngles.y;
             float drotY = Quaternion.LookRotation (_direction).eulerAngles.y;
             transform.rotation = Quaternion.Euler (0, Mathf.Lerp (crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
-        //}
+        }
 
     }
     
