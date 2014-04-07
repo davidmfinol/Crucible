@@ -824,10 +824,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     // Character specific meta-data
-    public virtual ObjectiveTracker Objectives {
-        get { return null; }
-    }
-
 	public abstract EnemySaveState.EnemyType EnemyType {
 		get;
 

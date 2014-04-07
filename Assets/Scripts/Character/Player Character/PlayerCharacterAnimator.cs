@@ -34,9 +34,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public static readonly int SteppingDownState = Animator.StringToHash ("Ground.Stepping Down");
     public static readonly int StandingUpState = Animator.StringToHash ("Ground.Standing Up");
 
-    //player's objectives
-    private ObjectiveTracker _objectives;
-
     //The player's sound effects, yeah!
     private PlayerCharacterAudioPlayer _sound;
 
@@ -59,11 +56,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     protected override void OnStart ()
     {
-        _objectives = gameObject.GetComponent<ObjectiveTracker> ();
-
-        //if (_objectives == null)
-        //    Debug.LogWarning ("Unable to find objective tracker!!!!");
-
         _sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer> ();
         _itemPickedup = null;
 
@@ -978,10 +970,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
     
     public override bool IsDead {
         get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState; }
-    }
-    
-    public override ObjectiveTracker Objectives {
-        get { return _objectives; }
     }
 
 	public override EnemySaveState.EnemyType EnemyType {

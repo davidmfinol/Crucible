@@ -51,12 +51,13 @@ public class OlympusAnimator : CharacterAnimator
     protected override void CreateStateMachine ()
     {
         StateMachine [IdleState] = Idle;
-        StateMachine [RunningState] = Running;
         StateMachine [TurnAroundState] = TurnAround;
         StateMachine [AcquireTargetState] = AcquireTarget;
         StateMachine [StunState] = Stun;
         StateMachine [DeathState] = Death;
         StateMachine [StealthDeathState] = StealthDeath;
+        StateMachine [RunningState] = Running;
+        StateMachine [SearchingState] = Searching;
         StateMachine [JumpingState] = Jumping;
         StateMachine [FallingState] = Falling;
 		StateMachine [LandingState] = Landing;
@@ -126,13 +127,32 @@ public class OlympusAnimator : CharacterAnimator
 
     }
 
+    public void StartSearch ()
+    {
+        if (IsGrounded)
+            MecanimAnimator.SetBool (MecanimHashes.Search, true);
+    }
+
+    protected void Searching(float elapsedTime)
+    {
+        if(MecanimAnimator.GetBool(MecanimHashes.Search)) {
+            HorizontalSpeed = 0;
+            VerticalSpeed = 0;
+            MecanimAnimator.SetBool(MecanimHashes.Search, false);
+        }
+
+        if (!MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded)
+            MecanimAnimator.SetBool (MecanimHashes.Fall, true);
+
+    }
+
     protected void Punch (float elapsedTime)
     {
         // find where to place the attack event
         Vector3 meleePos = transform.position;
         meleePos.x += (1.0f * Direction.x);
         
-        // attack in front of us
+        // attack above us
         GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
         HitBox d = o.GetComponent<HitBox> ();
 

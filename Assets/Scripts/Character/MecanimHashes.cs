@@ -42,6 +42,7 @@ public class MecanimHashes
     public static readonly int AcquiringTarget = Animator.StringToHash ("AcquireTarget");
     public static readonly int TurnAround = Animator.StringToHash ("TurnAround");
     public static readonly int AttackVertical = Animator.StringToHash ("AttackVertical");
+    public static readonly int Search = Animator.StringToHash ("Search");
 
     // Used only by BabyBot
     public static readonly int Awake = Animator.StringToHash ("Awake");

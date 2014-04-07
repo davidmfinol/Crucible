@@ -131,6 +131,18 @@ public class EnemyAI : MonoBehaviour
                     oa.OnAcquireTarget ();
             }
         }
+
+        // Likewise, make sure we update our target when we start wandering
+        if (oldAwareness != AwarenessLevel.Unaware && _awareness == AwarenessLevel.Unaware) {
+            GetRandomSearchPoint();
+
+            // And olympus has another animation at the beginning of it
+            if (_animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) {
+                OlympusAnimator oa = (OlympusAnimator)_animator;
+                if (oa != null)
+                    oa.StartSearch ();
+            }
+        }
     }
 
     // Have the enemy wander around the map

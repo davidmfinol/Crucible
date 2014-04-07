@@ -40,7 +40,7 @@ public class UIManager : MonoBehaviour
 	private CraftingMenu _craftingMenu;
 
 	// track player's HP to do hurt vignette.
-	private PlayerHeartBox _playerHeartBox;
+	private HeartBox _playerHeartBox;
 
 	// UI Manager handles the effects that affect the entire screen
 	private AlphaPulse _hurtVignetteAlpha;
@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
         _nontouchInput.enabled = false;
 #endif
 
-		_playerHeartBox = GameManager.Player.gameObject.GetComponentInChildren<PlayerHeartBox> ();
+		_playerHeartBox = GameManager.Player.gameObject.GetComponentInChildren<HeartBox> ();
 		Transform hurtVignette = (Transform)Instantiate (HurtVignette, HurtVignette.position, HurtVignette.rotation);
 		hurtVignette.parent = transform;
 		_hurtVignetteAlpha = hurtVignette.GetComponent<AlphaPulse> ();
@@ -148,7 +148,7 @@ public class UIManager : MonoBehaviour
 
 
 		// *** track player objectives ***
-		_playerObjectives = GameManager.Player.gameObject.GetComponent<ObjectiveTracker> ();
+		_playerObjectives = GetComponent<ObjectiveTracker> ();
 
 		ObjectiveQuadPos = _uiCamera.ViewportToWorldPoint (ObjectiveQuadPos);
 		ObjectiveQuadPos.z = 8.0f;
@@ -596,6 +596,10 @@ public class UIManager : MonoBehaviour
 
 
 	}
+
+    public ObjectiveTracker Objectives {
+        get { return _playerObjectives; }
+    }
 
 	public MapQuad Map {
 		get { return _mapQuad; }

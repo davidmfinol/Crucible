@@ -208,30 +208,30 @@ public class GameManager : MonoBehaviour
         // TODO: MAKE THESE OBJECTIVES BE HANDLED IN ONE CENTRALIZED LOCATION/METHOD
         // *** load checkpoints he hasn't reached ***
         if (Application.loadedLevelName == "OCourse") {
-            GameManager.Player.Objectives.AddObjective (GameObject.Find ("Checkpoint1"));
-            GameManager.Player.Objectives.AddObjective (GameObject.Find ("Checkpoint2"));
-            GameManager.Player.Objectives.AddObjective (GameObject.Find ("Checkpoint3"));
+            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint1"));
+            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint2"));
+            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint3"));
             
         } else if (Application.loadedLevelName == "Sewer") {
             if (!_saveData.ShownWallJump1)
-                GameManager.Player.Objectives.AddObjective (GameObject.Find ("TutorialTrigger1"));
+                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger1"));
 
             if (!_saveData.ShownWallJump2)
-                GameManager.Player.Objectives.AddObjective (GameObject.Find ("TutorialTrigger2"));
+                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger2"));
 
             if (!_saveData.ShownDoorSneak)
-                GameManager.Player.Objectives.AddObjective (GameObject.Find ("TutorialTrigger3"));
+                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger3"));
 
             if (!_saveData.SewerTopReached) {
-                GameManager.Player.Objectives.AddObjective (GameObject.Find ("TutorialTrigger4"));
-                GameManager.Player.Objectives.AddObjective (GameObject.Find ("TutorialTrigger5"));
+                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger4"));
+                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger5"));
 
             }
 
         } else if (Application.loadedLevelName == "Commercial Zone") {
-            GameManager.Player.Objectives.AddObjective (GameObject.Find ("GunParts"));
-            GameManager.Player.Objectives.AddObjective (GameObject.Find ("Isolator"));
-            GameManager.Player.Objectives.AddObjective (GameObject.Find ("HiggsDrive"));
+            GameManager.UI.Objectives.AddObjective (GameObject.Find ("GunParts"));
+            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Isolator"));
+            GameManager.UI.Objectives.AddObjective (GameObject.Find ("HiggsDrive"));
 
         }
 
