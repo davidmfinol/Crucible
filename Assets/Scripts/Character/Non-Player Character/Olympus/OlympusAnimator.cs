@@ -14,12 +14,13 @@ public class OlympusAnimator : CharacterAnimator
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
-    public static readonly int RunningState = Animator.StringToHash ("Base Layer.Running");
     public static readonly int TurnAroundState = Animator.StringToHash ("Base Layer.Turn Around");
     public static readonly int AcquireTargetState = Animator.StringToHash ("Base Layer.Acquiring Target");
     public static readonly int StunState = Animator.StringToHash ("Base Layer.Stun");
     public static readonly int DeathState = Animator.StringToHash ("Base Layer.Death");
     public static readonly int StealthDeathState = Animator.StringToHash ("Base Layer.Stealth Death");
+    public static readonly int RunningState = Animator.StringToHash ("Ground.Running");
+    public static readonly int SearchingState = Animator.StringToHash ("Ground.Searching");
     public static readonly int JumpingState = Animator.StringToHash ("Air.Jumping");
     public static readonly int FallingState = Animator.StringToHash ("Air.Falling");
     public static readonly int LandingState = Animator.StringToHash ("Air.Landing");

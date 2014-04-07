@@ -77,9 +77,9 @@ public class MeshToGameObjectsMenu
         Transform root = selected [selected.Count - 1];
 
         // Store all the walls, ropes, and ladders in one location
-        GameObject prevWalls = GameObject.Find(root.name + " - Walls, Ropes, and Ladders");
-        if(prevWalls != null)
-            GameObject.DestroyImmediate(prevWalls);
+        GameObject prevWalls = GameObject.Find (root.name + " - Walls, Ropes, and Ladders");
+        if (prevWalls != null)
+            GameObject.DestroyImmediate (prevWalls);
         wallContainer = new GameObject (root.name + " - Walls, Ropes, and Ladders");
 
         // Go through each transform and set up the gameobjects
@@ -107,8 +107,8 @@ public class MeshToGameObjectsMenu
                 CreateLedge (transform);
             if (name.Contains ("wall"))
                 CreateWall (transform);
-            if (name.Contains("rope"))
-                CreateRope(transform);
+            if (name.Contains ("rope"))
+                CreateRope (transform);
             if (name.Contains ("ladder"))
                 CreateLadder (transform);
         });
@@ -124,6 +124,11 @@ public class MeshToGameObjectsMenu
 
     static void SetupObject (Transform transform)
     {
+        // Get rid of any collider it may already have
+        Collider collider = transform.GetComponent<Collider> ();
+        if (collider)
+            Object.DestroyImmediate (collider);
+
         // We use box colliders unless told to use mesh collider
         if (transform.name.ToLower ().Contains ("mesh"))
             transform.gameObject.AddComponent<MeshCollider> ();
