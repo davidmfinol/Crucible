@@ -563,6 +563,60 @@ ModelImporter:
     101114: transform88
     101116: transform89
     101118: transform90
+    101120: Box 6
+    101122: Ledge11
+    101124: Ledge12
+    101126: Ledge13
+    101128: Ledge14
+    101130: Ledge15
+    101132: Ledge6
+    101134: Ledge7
+    101136: Ledge8
+    101138: Ledge9
+    101140: Mesh7
+    101142: pCube53
+    101144: polySurface254
+    101146: polySurface255
+    101148: polySurface256
+    101150: polySurface257
+    101152: polySurface258
+    101154: polySurface260
+    101156: polySurface263
+    101158: polySurface265
+    101160: transform100
+    101162: transform101
+    101164: transform102
+    101166: transform91
+    101168: transform92
+    101170: transform93
+    101172: transform94
+    101174: transform95
+    101176: transform96
+    101178: transform97
+    101180: transform98
+    101182: transform99
+    101184: WallBox
+    101186: WallBox 1
+    101188: WallLedge5
+    101190: WallLedge6
+    101192: WallLedge7
+    101194: Box 7
+    101196: Mesh 5
+    101198: Mesh 6
+    101200: polySurface267
+    101202: polySurface268
+    101204: polySurface269
+    101206: polySurface270
+    101208: transform103
+    101210: transform104
+    101212: transform105
+    101214: transform106
+    101216: transform107
+    101218: transform108
+    101220: WallBox1
+    101222: Box 8
+    101224: transform109
+    101226: Wall 6
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1123,6 +1177,60 @@ ModelImporter:
     401114: transform88
     401116: transform89
     401118: transform90
+    401120: Box 6
+    401122: Ledge11
+    401124: Ledge12
+    401126: Ledge13
+    401128: Ledge14
+    401130: Ledge15
+    401132: Ledge6
+    401134: Ledge7
+    401136: Ledge8
+    401138: Ledge9
+    401140: Mesh7
+    401142: pCube53
+    401144: polySurface254
+    401146: polySurface255
+    401148: polySurface256
+    401150: polySurface257
+    401152: polySurface258
+    401154: polySurface260
+    401156: polySurface263
+    401158: polySurface265
+    401160: transform100
+    401162: transform101
+    401164: transform102
+    401166: transform91
+    401168: transform92
+    401170: transform93
+    401172: transform94
+    401174: transform95
+    401176: transform96
+    401178: transform97
+    401180: transform98
+    401182: transform99
+    401184: WallBox
+    401186: WallBox 1
+    401188: WallLedge5
+    401190: WallLedge6
+    401192: WallLedge7
+    401194: Box 7
+    401196: Mesh 5
+    401198: Mesh 6
+    401200: polySurface267
+    401202: polySurface268
+    401204: polySurface269
+    401206: polySurface270
+    401208: transform103
+    401210: transform104
+    401212: transform105
+    401214: transform106
+    401216: transform107
+    401218: transform108
+    401220: WallBox1
+    401222: Box 8
+    401224: transform109
+    401226: Wall 6
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1479,6 +1587,28 @@ ModelImporter:
     2300706: polySurface253
     2300708: pPipe75
     2300710: pPipe76
+    2300712: Box 6
+    2300714: Ledge11
+    2300716: Ledge12
+    2300718: Ledge13
+    2300720: Ledge14
+    2300722: Ledge15
+    2300724: Ledge6
+    2300726: Ledge7
+    2300728: Ledge8
+    2300730: Ledge9
+    2300732: polySurface257
+    2300734: polySurface265
+    2300736: WallBox
+    2300738: WallBox 1
+    2300740: WallLedge5
+    2300742: WallLedge6
+    2300744: WallLedge7
+    2300746: Box 7
+    2300748: polySurface267
+    2300750: WallBox1
+    2300752: Box 8
+    2300754: Wall 6
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1835,6 +1965,28 @@ ModelImporter:
     3300706: polySurface253
     3300708: pPipe75
     3300710: pPipe76
+    3300712: Box 6
+    3300714: Ledge11
+    3300716: Ledge12
+    3300718: Ledge13
+    3300720: Ledge14
+    3300722: Ledge15
+    3300724: Ledge6
+    3300726: Ledge7
+    3300728: Ledge8
+    3300730: Ledge9
+    3300732: polySurface257
+    3300734: polySurface265
+    3300736: WallBox
+    3300738: WallBox 1
+    3300740: WallLedge5
+    3300742: WallLedge6
+    3300744: WallLedge7
+    3300746: Box 7
+    3300748: polySurface267
+    3300750: WallBox1
+    3300752: Box 8
+    3300754: Wall 6
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -2188,6 +2340,25 @@ ModelImporter:
     4300700: polySurface252
     4300702: polySurface253
     4300704: pCylinder2
+    4300706: Ledge6
+    4300708: polySurface257
+    4300710: WallBox
+    4300712: Box
+    4300714: polySurface265
+    4300716: WallBox
+    4300718: Ledge7
+    4300720: Ledge8
+    4300722: Ledge9
+    4300724: Ledge11
+    4300726: Ledge15
+    4300728: Ledge14
+    4300730: Ledge13
+    4300732: WallLedge5
+    4300734: WallLedge6
+    4300736: Ledge12
+    4300738: WallLedge7
+    4300740: polySurface267
+    4300742: WallBox1
     7400000: Take 001
     9500000: //RootNode
   materials:
