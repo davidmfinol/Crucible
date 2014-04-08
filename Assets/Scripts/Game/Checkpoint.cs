@@ -8,19 +8,22 @@ using System.Collections;
 [AddComponentMenu("Game/Checkpoint")]
 public class Checkpoint : MonoBehaviour
 {
-    public enum CheckpointLocation
+    public enum CheckpointLocation : int
     {
-        Sewer_Start,
-        Sewer_Top,
+        Sewer_Start = 0,
+        Sewer_BeforeBabyBot,
+		Sewer_AfterBabyBot,
+		Sewer_AfterRopes,
+		Sewer_AfterDoor,
 
-		Commercial_BottomCenter,
+		Commercial_BottomCenter = 50,
 		Commercial_MidRight,
 		Commercial_TopCenter,
 		Commercial_TopRight,
 		Commercial_MidLeft,
 		Commercial_BottomLeft,
         
-        Checkpoint_LeftOCourse,
+        Checkpoint_LeftOCourse = 100,
         Checkpoint_CentralOCourse,
         Checkpoint_RightOCourse,
         Checkpoint_OCourseToAnvilPark,

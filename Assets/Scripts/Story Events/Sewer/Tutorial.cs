@@ -100,7 +100,7 @@ public class Tutorial : MonoBehaviour
     public IEnumerator WaitForAttack ()
     {
 		GameManager.IsPlayingCutscene = true;
-		GameManager.UI.DisableInput ("Attack");
+		GameManager.UI.DisableInput ();
 		SneakAttackInstruction.gameObject.SetActive(true);
 		Time.timeScale = 0.50f;
 		Camera.main.GetComponent<CameraScrolling> ().CinematicOverride = true;
@@ -147,7 +147,7 @@ public class Tutorial : MonoBehaviour
     public IEnumerator SpawnOlympus ()
     {
 		GameManager.IsPlayingCutscene = true;
-        GameManager.UI.DisableInput ("");
+        GameManager.UI.DisableInput ();
 
         Camera.main.GetComponent<CameraScrolling> ().Target = OlympusPosition.transform;
         yield return new WaitForSeconds (2.0f);

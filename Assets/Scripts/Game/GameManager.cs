@@ -335,7 +335,7 @@ public class GameManager : MonoBehaviour
         GameManager.AI.ResetEnemies ();
         foreach (EnemySaveState enemyState in levelSave.EnemyStates) {
             string enemyName = enemyState.Type.ToString().Substring(6);
-            GameObject newEnemy = (GameObject)Instantiate (Resources.Load (enemyName), enemyState.Position, Quaternion.identity);
+            GameObject newEnemy = (GameObject)Instantiate (Resources.Load (enemyName), enemyState.Position, enemyState.Rotation);
             if(newEnemy == null) {
                 Debug.LogWarning("Failed to load enemy: " + enemyName);
                 continue;

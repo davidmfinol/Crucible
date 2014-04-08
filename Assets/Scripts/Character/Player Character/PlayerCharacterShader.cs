@@ -10,9 +10,9 @@ public class PlayerCharacterShader : MonoBehaviour
     public enum ShaderType : int
     {
         Shader_Default = 0,
-        Shader_Stealth
-    }
-    ;
+        Shader_Sneak,
+		Shader_Shadow
+    };
 
     private List<Material> _changeableMaterials;
     private ShaderType _currentShader;
@@ -23,6 +23,9 @@ public class PlayerCharacterShader : MonoBehaviour
 	// currently hidden
 	private bool _inShadow = false;
 
+	private Shader _shaderDefault;
+	private Shader _shaderSneak;
+	private Shader _shaderShadow;
 
     void Start ()
     {
@@ -33,10 +36,12 @@ public class PlayerCharacterShader : MonoBehaviour
         }
 
 		_anim = GetComponent<PlayerCharacterAnimator> ();
+
+		_shaderDefault = _changeableMaterials [0].shader;
+		_shaderSneak = Shader.Find ("Sneak");
+		_shaderShadow = Shader.Find ("Shadow");
+
 		_inShadow = false;
-
-
-        SetShader (ShaderType.Shader_Default);
 
     }
     
@@ -65,12 +70,25 @@ public class PlayerCharacterShader : MonoBehaviour
         if (type == ShaderType.Shader_Default) {
             mainColor = new Color (0.8f, 0.8f, 0.8f, 1.0f);
             outlineColor = Color.clear;
-        } else if (type == ShaderType.Shader_Stealth) {
-            mainColor = new Color (0.4f, 0.4f, 0.4f, 1.0f);
+
+        } else if (type == ShaderType.Shader_Sneak) {
+			mainColor = new Color (0.4f, 0.4f, 0.4f, 1.0f);
 			outlineColor = new Color(1.0f, 1.0f, 1.0f, 0.1f); //Color.white;
-        }
+
+		} else if (type == ShaderType.Shader_Shadow) {
+			mainColor = new Color (0.4f, 0.4f, 0.4f, 1.0f);
+			outlineColor = new Color(1.0f, 1.0f, 1.0f, 0.1f); //Color.white;
+
+		}
 
         foreach (Material mat in _changeableMaterials) {
+			if(type == ShaderType.Shader_Default)
+				mat.shader = _shaderDefault;
+			else if(type == ShaderType.Shader_Sneak)
+				mat.shader = _shaderSneak;
+			else if(type == ShaderType.Shader_Shadow)
+				mat.shader = _shaderShadow;
+
             mat.SetColor ("_Color", mainColor);
             mat.SetColor ("_OutlineColor", outlineColor);
         }
@@ -78,10 +96,12 @@ public class PlayerCharacterShader : MonoBehaviour
     }
 
 	public void Update() {
-		//Debug.Log (_anim.IsGrounded + " " + _anim.IsSneaking);
+		// in shadow, always use the shadow shader
+		if (_inShadow) {
+			SetShader (ShaderType.Shader_Shadow);
 
-		if( (_anim.IsGrounded && _anim.IsSneaking) || _inShadow) {
-			SetShader (ShaderType.Shader_Stealth);
+		} else if(_anim.IsGrounded && _anim.IsSneaking) {
+			SetShader (ShaderType.Shader_Sneak);
 
 		} else {
 			SetShader (ShaderType.Shader_Default);
@@ -90,9 +110,9 @@ public class PlayerCharacterShader : MonoBehaviour
 
 	}
     
-    public bool IsStealth
+    public bool InShadow
     {
-		get { return _currentShader == ShaderType.Shader_Stealth; }
+		get { return _inShadow; }
 
     }
 
