@@ -51,12 +51,13 @@ public class CameraScrolling : MonoBehaviour
         }
     }
 
-    public void AddShake ()
+    public void AddShake (float lifetime, Vector3 spread, float minSpeed, float maxSpeed)
     {
-        _shakeEffect = new ShakeEffect (1.5f, TargetAttributes.DistanceModifier);
+		if(_shakeEffect == null)
+      	  _shakeEffect = new ShakeEffect (lifetime, TargetAttributes.DistanceModifier, spread, minSpeed, maxSpeed);
 
     }
-                   
+	
     // Based on the camera attributes and the target's special camera attributes, find out where the
     // camera should move to.
     public Vector3 GetGoalPosition ()

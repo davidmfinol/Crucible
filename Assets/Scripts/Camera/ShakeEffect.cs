@@ -20,20 +20,28 @@ public class ShakeEffect
     private const float _closeEnough = 3.0f;
 
     // always have a minspeed, up to a max speed
-    private const float _minSpeed = 175.0f;
-    private const float _maxSpeed = 250.0f;
+	// (175.0f, 250.0f) for a good hit effect
+    private float _minSpeed;
+    private float _maxSpeed;
 
-    // spread of target
-    private const float _maxXSpread = 10.0f;
-    private const float _maxYSpread = 10.0f;
-    private const float _maxZSpread = 5.0f;
-
-    public ShakeEffect (float lifetime, float oldDistanceModifier)
+    // spread of target (10.0f, 10.0f, 5.0f) for being hit.
+    private float _maxXSpread;
+    private float _maxYSpread;
+    private float _maxZSpread;
+	
+    public ShakeEffect (float lifetime, float oldDistanceModifier, Vector3 spread, float minSpeed, float maxSpeed)
     {
         _pos = new Vector3 (0.0f, 0.0f, 0.0f);
 
         _startLifetime = lifetime;
         _lifetime = lifetime;
+
+		_maxXSpread = spread.x;
+		_maxYSpread = spread.y;
+		_maxZSpread = spread.z;
+
+		_minSpeed = minSpeed;
+		_maxSpeed = maxSpeed;
 
         PickNewTarget ();
 

@@ -216,17 +216,6 @@ public class GameManager : MonoBehaviour
             if (!_saveData.ShownWallJump1)
                 GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger1"));
 
-            if (!_saveData.ShownWallJump2)
-                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger2"));
-
-            if (!_saveData.ShownDoorSneak)
-                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger3"));
-
-            if (!_saveData.SewerTopReached) {
-                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger4"));
-                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger5"));
-
-            }
 
         } else if (Application.loadedLevelName == "Commercial Zone") {
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("GunParts"));

@@ -312,7 +312,7 @@ public class TouchInput : MonoBehaviour
             
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
-            _leftHandVignette.renderer.enabled = moveTouched && !GameManager.SaveData.ShownWallJump2;
+			_leftHandVignette.renderer.enabled = moveTouched;
             _horizontalSlider.renderer.enabled = moveTouched;
             _verticalSlider.renderer.enabled = moveTouched;
             _moveButton.renderer.enabled = moveTouched;
@@ -369,8 +369,8 @@ public class TouchInput : MonoBehaviour
 
             // Make everything invisible if we're not touching the right-hand side
             bool actTouched = _actionID != -1;
-            _rightHandVignette.renderer.enabled = actTouched && !GameManager.SaveData.ShownWallJump2;
-            _actionDescription.renderer.enabled = actTouched && !GameManager.SaveData.SewerTopReached;
+			_rightHandVignette.renderer.enabled = actTouched;
+			_actionDescription.renderer.enabled = actTouched;
             _fadeLeft.renderer.enabled = false;
             _fadeTop.renderer.enabled = false;
             _fadeRight.renderer.enabled = false;

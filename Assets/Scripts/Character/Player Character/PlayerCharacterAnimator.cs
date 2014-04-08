@@ -53,11 +53,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
     // Can only double-jump once
     //private bool _hasDoubleJumped;
 
-
+	// camera scrolling for footstep shake
+	private CameraScrolling _camScroll;
+	
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer> ();
         _itemPickedup = null;
+
+		_camScroll = Camera.main.GetComponent<CameraScrolling> ();
 
     }
     
@@ -406,6 +410,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
         ApplyRunning (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
+
+		// add run shake
+		float percentRun = Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed);
+		_camScroll.AddShake (0.2f, new Vector3 (5.0f, 5.0f, 1.0f), 5.0f * percentRun, 10.0f * percentRun);
+//		_camScroll.AddShake (0.2f, new Vector3 (2.5f, 2.5f, 1.5f));
 
         MecanimAnimator.SetBool (MecanimHashes.Fall, !MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded);
 

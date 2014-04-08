@@ -82,12 +82,12 @@ public class PlayerHeartBox : HeartBox
 
             Controller.MakeDamaged (knockForce);
             // shake when hit
-            _camScroll.AddShake ();
+            _camScroll.AddShake (1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f );
 
             // killed
         } else if (HitPoints <= 0) {
             Controller.OnDeath (knockForce);
-            _camScroll.AddShake ();
+			_camScroll.AddShake (1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f );
 
             // healed
         } else if (deltaHealth > 0 && HitPoints == MaxHitPoints) {
