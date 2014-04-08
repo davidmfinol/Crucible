@@ -119,7 +119,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    public virtual void OnStealthDeath (Vector2 knockForce)
+    public virtual void OnStealthDeath ()
     {
         Destroy (gameObject);
 
@@ -830,7 +830,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     // Character specific meta-data
 	public abstract EnemySaveState.EnemyType EnemyType {
 		get;
-
 	}
 
 }

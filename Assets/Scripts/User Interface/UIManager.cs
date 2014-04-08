@@ -153,10 +153,12 @@ public class UIManager : MonoBehaviour
 		ObjectiveQuadPos = _uiCamera.ViewportToWorldPoint (ObjectiveQuadPos);
 		ObjectiveQuadPos.z = 8.0f;
 		_objectiveQuad = (GameObject)Instantiate (ObjectiveQuadPrefab, ObjectiveQuadPos, Quaternion.identity);
+        _objectiveQuad.transform.parent = transform;
 
 		// load map
 		GameObject mapQuad = (GameObject)Instantiate (MapQuadPrefab, _uiCamera.ViewportToWorldPoint (new Vector3 (0.5f, 0.5f, 7.0f)), Quaternion.identity);
 		_mapQuad = mapQuad.GetComponent<MapQuad> ();
+        _mapQuad.transform.parent = transform;
 		_mapQuad.gameObject.SetActive (false);
 
 		// *** add all game objects to map ***
@@ -187,7 +189,7 @@ public class UIManager : MonoBehaviour
 #endif
 	}
 
-	public void DisableInput (string exception)
+	public void DisableInput ()
 	{
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
         if(_nontouchInput == null)
@@ -196,7 +198,7 @@ public class UIManager : MonoBehaviour
 #elif (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
         if(_touchInput == null)
             _touchInput = GetComponent<TouchInput>();
-        _touchInput.Disable(exception);
+        _touchInput.Disable();
 #endif
 	}
 

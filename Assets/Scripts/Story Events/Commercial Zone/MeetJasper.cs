@@ -36,7 +36,7 @@ public class MeetJasper : MonoBehaviour
 
     public IEnumerator DoDialogue ()
     {
-		GameManager.UI.DisableInput("");
+		GameManager.UI.DisableInput();
         if (TVScreen1 != null)
             TVScreen1.renderer.material.color = new Color (0.0f, 0.0f, 0.0f, 1.0f);
         if (TVScreen2 != null)

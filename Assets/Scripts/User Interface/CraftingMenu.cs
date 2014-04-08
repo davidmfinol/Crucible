@@ -214,7 +214,7 @@ public class CraftingMenu : MonoBehaviour
         if (GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.IdleState ||
             GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.RunningState ||
             GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.StandingUpState) {
-            GameManager.UI.DisableInput ("");
+            GameManager.UI.DisableInput ();
             GameManager.Player.StepDown ();
             Open ();
 

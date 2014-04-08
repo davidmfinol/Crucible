@@ -53,15 +53,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
     // Can only double-jump once
     //private bool _hasDoubleJumped;
 
-	// camera scrolling for footstep shake
-	private CameraScrolling _camScroll;
-	
+    // Who are we close enough to stealth-kill right now?
+    private CharacterAnimator _stealthKillable;
+
+
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer> ();
         _itemPickedup = null;
-
-		_camScroll = Camera.main.GetComponent<CameraScrolling> ();
 
     }
     
@@ -146,21 +145,31 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
+        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null)
+            StartCoroutine (ShowStealthKill ());
 
-        OlympusAnimator enemyAnim = null;
-        if (CharInput.AttackActive && CanStealthKill (out enemyAnim) && enemyAnim != null) {
-            // player enter stealth kill anim and spawn a stealth kill attack in front of him
-            MecanimAnimator.SetBool (MecanimHashes.StealthKill, true);
-
-            Invoke ("GenerateStealthKillEvent", 1.0f);
-
-        } else if (CurrentState.nameHash != StealthKillState) {
-            MecanimAnimator.SetBool (MecanimHashes.AttackMelee, CharInput.AttackActive && currentWeapon is PipeWeapon); 
+        if (CurrentState.nameHash != StealthKillState) {
+            //MecanimAnimator.SetBool (MecanimHashes.AttackMelee, CharInput.AttackActive && currentWeapon is PipeWeapon); 
             MecanimAnimator.SetBool (MecanimHashes.ShootGun, CharInput.AttackActive && currentWeapon is GravityGun); 
             MecanimAnimator.SetBool (MecanimHashes.PlaceMine, (CharInput.AttackRightPressed || CharInput.AttackLeftPressed) && currentWeapon is Mine); 
 
         }
 
+    }
+
+    public IEnumerator ShowStealthKill()
+    {
+        MecanimAnimator.SetBool (MecanimHashes.StealthKill, true);
+        
+        GenerateStealthKillEvent();
+
+        GameManager.MainCamera.CinematicOverride = true;
+        Time.timeScale = 0.5f;
+
+        yield return new WaitForSeconds (5.0f);
+
+        Time.timeScale = 1.0f;
+        GameManager.MainCamera.CinematicOverride = false;
     }
 
     void GenerateStealthKillEvent ()
@@ -170,6 +179,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         killPos.x += (Direction.x * Settings.StealthKillRange);
         
         // place so enemy can die appropriately
+        // TODO: OBJECT POOLING
         GameObject o = (GameObject)Instantiate (StealthKillEvent, killPos, Quaternion.identity);
         HitBox d = o.GetComponent<HitBox> ();
         d.MakePlayerStealthKill (this.gameObject);
@@ -310,12 +320,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected void StealthKill (float elapsedTime)
     {
         if (MecanimAnimator.GetBool (MecanimHashes.StealthKill)) {
-            Transform rightHand = CharacterSettings.SearchHierarchyForBone (transform, "hand_R");
+            //Transform rightHand = CharacterSettings.SearchHierarchyForBone (transform, "hand_R");
 
-            GameManager.Inventory.CurrentWeapon.transform.RotateAround (rightHand.position, new Vector3 (0, 1, 1), -90.0f);
+            //GameManager.Inventory.CurrentWeapon.transform.RotateAround (rightHand.position, new Vector3 (0, 1, 1), -90.0f);
+            MecanimAnimator.SetBool (MecanimHashes.StealthKill, false);
         }
 
-        MecanimAnimator.SetBool (MecanimHashes.StealthKill, false);
 
         HorizontalSpeed = 0.0f;
         VerticalSpeed = 0.0f;
@@ -410,11 +420,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
         ApplyRunning (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
-
-		// add run shake
-		float percentRun = Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed);
-		_camScroll.AddShake (0.2f, new Vector3 (5.0f, 5.0f, 1.0f), 5.0f * percentRun, 10.0f * percentRun);
-//		_camScroll.AddShake (0.2f, new Vector3 (2.5f, 2.5f, 1.5f));
 
         MecanimAnimator.SetBool (MecanimHashes.Fall, !MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded);
 
@@ -931,44 +936,21 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     }
 
-    public bool CanStealthKill (out OlympusAnimator animRet)
-    {
-        animRet = null;
-
-        // no melee equipped, don't even bother to cast any rays
-        if (!IsGrounded || !GameManager.Inventory.CanWeaponStealthKill)
-            return false;
-        
-        // see if anything in range
-        Vector3 vPlayerPos = transform.position;
-        Vector3 vTargetPos = vPlayerPos + new Vector3 (Direction.x * Settings.StealthKillRange, 0.0f, 0.0f);
-        Vector3 vDir = new Vector3 (Direction.x, 0.0f, 0.0f);
-
-        Debug.DrawLine (vPlayerPos, vTargetPos, Color.blue, 0.5f, false);
-
-        RaycastHit hitInfo = new RaycastHit ();
-        // see if the first thing in our stealth kill distance is the enemy (no obstacles in between)
-        // NOTE: Distance can be buggy unless you include a layer mask.
-        if (Physics.Raycast (vPlayerPos, vDir, out hitInfo, Settings.StealthKillRange, 1 << 11)) {
-            EnemyAI ai = hitInfo.transform.root.GetComponent<EnemyAI> ();
-            OlympusAnimator anim = hitInfo.transform.root.GetComponent<OlympusAnimator> ();
-
-            if (ai && anim && (ai.Awareness == EnemyAI.AwarenessLevel.Unaware) && anim.IsGrounded) {
-                animRet = anim;
-                return true;
-            }
-
-        }
-
-        return false;
-
-    }
-
     public bool CanPickupItem (out GameObject obj)
     {
         RaycastHit hitInfo = new RaycastHit (); 
         // test from player's front downward to item.
         if (Physics.Raycast (transform.position + new Vector3 (Direction.x * Radius, Height * 0.5f, 0), Vector3.down, out hitInfo, Height, 1 << 13)) {
+            obj = hitInfo.transform.gameObject;
+            return true;
+        }
+        // And middle
+        if (Physics.Raycast (transform.position, Vector3.down, out hitInfo, Height, 1 << 13)) {
+            obj = hitInfo.transform.gameObject;
+            return true;
+        }
+        // And back
+        if (Physics.Raycast (transform.position - new Vector3 (Direction.x * Radius, Height * 0.5f, 0), Vector3.down, out hitInfo, Height, 1 << 13)) {
             obj = hitInfo.transform.gameObject;
             return true;
         }
@@ -983,7 +965,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	public override EnemySaveState.EnemyType EnemyType {
 		get { return EnemySaveState.EnemyType.Enemy_Olympus; }
-		
 	}
+
+    public CharacterAnimator StealthKillable {
+        get { return _stealthKillable; }
+        set { _stealthKillable = value; } 
+    }
 
 }
