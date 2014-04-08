@@ -160,16 +160,26 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public IEnumerator ShowStealthKill()
     {
         MecanimAnimator.SetBool (MecanimHashes.StealthKill, true);
-        
         GenerateStealthKillEvent();
-
         GameManager.MainCamera.CinematicOverride = true;
+        
+        Time.timeScale = 1.5f;
+
+        yield return new WaitForSeconds (1.5f);
+
         Time.timeScale = 0.5f;
 
-        yield return new WaitForSeconds (5.0f);
+        yield return new WaitForSeconds (1.0f);
 
+        Time.timeScale = 1.5f;
+
+        yield return new WaitForSeconds (2.0f);
+        
         Time.timeScale = 1.0f;
+
         GameManager.MainCamera.CinematicOverride = false;
+        StealthKillable = null;
+
     }
 
     void GenerateStealthKillEvent ()
@@ -319,23 +329,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
     
     protected void StealthKill (float elapsedTime)
     {
-        if (MecanimAnimator.GetBool (MecanimHashes.StealthKill)) {
-            //Transform rightHand = CharacterSettings.SearchHierarchyForBone (transform, "hand_R");
-
-            //GameManager.Inventory.CurrentWeapon.transform.RotateAround (rightHand.position, new Vector3 (0, 1, 1), -90.0f);
+        if (MecanimAnimator.GetBool (MecanimHashes.StealthKill))
             MecanimAnimator.SetBool (MecanimHashes.StealthKill, false);
-        }
 
 
         HorizontalSpeed = 0.0f;
         VerticalSpeed = 0.0f;
-    }
-
-    public void RestoreWeaponRotation ()
-    {
-        Transform rightHand = CharacterSettings.SearchHierarchyForBone (transform, "hand_R");
-        
-        GameManager.Inventory.CurrentWeapon.transform.RotateAround (rightHand.position, new Vector3 (0, 1, 1), 90.0f);
 
     }
                                              
@@ -351,6 +350,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         MecanimAnimator.SetBool (MecanimHashes.Jump, false);
         MecanimAnimator.SetBool (MecanimHashes.Fall, false);
         MecanimAnimator.SetBool (MecanimHashes.Die, false);
+
     }
     
     protected virtual void Idle (float elapsedTime)

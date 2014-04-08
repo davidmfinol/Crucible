@@ -2,8 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[AddComponentMenu("Character/Non-Player Character/Camera/Camera Animator")]
-public class CameraAnimator : CharacterAnimator
+/// <summary>
+/// Camera animator defines the in-game camara spotter enemy-type.
+/// All it does is have a view-cone which alerts others to the player's presence.
+/// </summary>
+[AddComponentMenu("Character/Non-Player Character/Camera Spotter/Camera Spotter Animator")]
+public class CameraSpotterAnimator : CharacterAnimator
 {
     // Mecanim State Hashes
     public static readonly int ScanState = Animator.StringToHash ("Base Layer.Scan");
@@ -13,7 +17,7 @@ public class CameraAnimator : CharacterAnimator
     
     protected override void OnStart ()
     {
-        _viewConeEnd = CameraAnimator.SearchHierarchyForTransform (transform, "ViewConeEnd");
+        _viewConeEnd = CameraSpotterAnimator.SearchHierarchyForTransform (transform, "ViewConeEnd");
 
         //MecanimAnimator.speed = 0.5f;
 

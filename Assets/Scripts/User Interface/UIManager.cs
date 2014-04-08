@@ -13,8 +13,9 @@ public class UIManager : MonoBehaviour
 	public Transform ChaseVignette;
 	public Transform SearchVignette;
 	public Transform HurtVignette;
-	public Transform MatteBars;
-	public Transform LensFlareFlash;
+    public Transform LensFlareFlash;
+    public Transform MatteBars;
+    public Transform StealthKillVignette;
     public GameObject WeaponQuadPrefab;
     public GameObject WeaponCountQuadPrefab;
 
@@ -49,6 +50,7 @@ public class UIManager : MonoBehaviour
 	private AlphaPulse _flashAlpha;
     private bool _hasFlashed;
     private Transform _matteBars;
+    private Transform _stealthKillVignette;
 
     // Also has some information about the top-right weapon wheel
 	private Vector3 _weaponWheelPos;
@@ -107,6 +109,9 @@ public class UIManager : MonoBehaviour
         
         _matteBars = (Transform)Instantiate (MatteBars, MatteBars.position, MatteBars.rotation);
         _matteBars.parent = transform;
+
+        _stealthKillVignette = (Transform)Instantiate (StealthKillVignette, StealthKillVignette.position, StealthKillVignette.rotation);
+        _stealthKillVignette.parent = transform;
 
 		_weaponWheelPos = new Vector3 (1, 1, 8);
 		_weaponWheelPos = _uiCamera.ViewportToWorldPoint (_weaponWheelPos);
@@ -502,6 +507,8 @@ public class UIManager : MonoBehaviour
 				_hasFlashed = false;
 		} else if (_hasFlashed)
 			_flashAlpha.On = false;
+
+        _stealthKillVignette.gameObject.SetActive(GameManager.Player is PlayerCharacterAnimator && ((PlayerCharacterAnimator)GameManager.Player).StealthKillable != null);
 
 	}
 

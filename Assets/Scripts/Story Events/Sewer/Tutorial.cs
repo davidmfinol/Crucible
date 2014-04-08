@@ -9,38 +9,21 @@ public class Tutorial : MonoBehaviour
 {
     // Scripted characters in the scene
     public GameObject MysteriousRunner;
-    public Transform OlympusPosition;
-    public Transform OlympusPrefab;
-    public Transform SewerDoor;
-    public Transform SewerCamera;
-    public Transform NextLevel;
-	public Transform SneakAttackInstruction;
+    //public Transform SewerDoor;
+    //public Transform OlympusPosition;
 
     // save runner component to call script coroutines directly
     private MysteriousRunner _runner;
-    private TutorialAudioPlayer _sewerSounds;
-    private AudioPlayer _doorSounds;
-    private AudioPlayer _cameraSounds;
-    private bool _sewerDoorOpen;
+    //private TutorialAudioPlayer _sewerSounds;
+    //private AudioPlayer _doorSounds;
+    //private bool _sewerDoorOpen;
 
     void Start ()
     {
-        _sewerDoorOpen = false;
-        _sewerSounds = GetComponentInChildren<TutorialAudioPlayer> ();
         _runner = MysteriousRunner.GetComponent<MysteriousRunner> ();
-        _doorSounds = SewerDoor.GetComponent<AudioPlayer> ();
-        _cameraSounds = SewerCamera.GetComponent<AudioPlayer> ();
-		SneakAttackInstruction.gameObject.SetActive(false);
-    }
-
-    void Update ()
-    {
-        if (GameManager.AI.Enemies.Count > 0) {
-            bool tutorialComplete = GameManager.AI.Enemies [0].GetComponent<CharacterAnimator> ().IsDead;
-            NextLevel.gameObject.SetActive (tutorialComplete);
-
-		}
-
+        //_sewerDoorOpen = false;
+        //_sewerSounds = GetComponentInChildren<TutorialAudioPlayer> ();
+        //_doorSounds = SewerDoor.GetComponent<AudioPlayer> ();
     }
 
     public void ShowWallJump1 ()

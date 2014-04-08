@@ -15,7 +15,6 @@ public class PlayerCharacterShader : MonoBehaviour
     };
 
     private List<Material> _changeableMaterials;
-    private ShaderType _currentShader;
 
 	// used to see if moving slow enough to sneak
 	private CharacterAnimator _anim;
@@ -61,8 +60,6 @@ public class PlayerCharacterShader : MonoBehaviour
             Debug.LogWarning ("Unable to find changeable material");
             return;
         }
-        
-        _currentShader = type;
 
         Color mainColor = Color.white;
         Color outlineColor = Color.clear;

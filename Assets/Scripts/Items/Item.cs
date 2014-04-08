@@ -9,21 +9,21 @@ using System.Collections;
 [AddComponentMenu("Items/Item")]
 public class Item : MonoBehaviour
 {
-    public enum ItemType
+    public enum ItemType : int
     {
-        Item__Weapon,
-        Item_BatteryPack,
-        Item_ComputerParts,
-        Item_Engine,
-        Item_Fuel,
-        Item_Propellant,
-        Item_Binding,
-        Item_GunParts,
-        Item_HiggsDrive,
-        Item_Isolator,
-        Item_Magnet,
-        Item_Transmitter,
-        Item_Visualizer
+        Item__Weapon = 0,
+        Item_BatteryPack = 1,
+        Item_ComputerParts = 2,
+        Item_Engine = 3,
+        Item_Fuel = 4,
+        Item_Propellant = 5,
+        Item_Binding = 6,
+        Item_GunParts = 7,
+        Item_HiggsDrive = 7,
+        Item_Isolator = 8,
+        Item_Magnet = 9,
+        Item_Transmitter = 10,
+        Item_Visualizer = 11
 
     }
     ;

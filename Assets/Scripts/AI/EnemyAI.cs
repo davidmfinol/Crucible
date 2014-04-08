@@ -4,8 +4,9 @@ using Pathfinding;
 
 /// <summary>
 /// Enemy AI does the AI for the enemies.
-/// Currently, this AI is just an interpretation A* Shortest-Pathfinding.
+/// Mainly, this AI is just an interpretation A* Shortest-Pathfinding.
 /// </summary>
+[RequireComponent(typeof(CharacterAnimator))]
 [RequireComponent(typeof(EnemyAISettings))]
 [RequireComponent(typeof(Seeker))]
 [AddComponentMenu("AI/Enemy AI")]
@@ -68,6 +69,8 @@ public class EnemyAI : MonoBehaviour
 
         // Finally, register ourselves with the AI system
         GameManager.AI.Enemies.Add (this);
+        transform.parent = GameManager.AI.transform;
+
     }
     
     public void UpdateInput ()
