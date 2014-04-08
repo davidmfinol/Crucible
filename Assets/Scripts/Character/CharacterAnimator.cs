@@ -629,6 +629,14 @@ public abstract class CharacterAnimator : MonoBehaviour
     public bool InputMoveBackward {
         get { return (Direction.x > 0 && CharInput.Left) || (Direction.x < 0 && CharInput.Right); }
     }
+    
+    public bool InputJumpForward {
+        get { return (Direction.x > 0 && CharInput.JumpRight) || (Direction.x < 0 && CharInput.JumpLeft); }
+    }
+    
+    public bool InputJumpBackward {
+        get { return (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight); }
+    }
 
     public bool InputAttackForward {
         get { return (Direction.x > 0 && CharInput.AttackRight) || (Direction.x < 0 && CharInput.AttackLeft); }

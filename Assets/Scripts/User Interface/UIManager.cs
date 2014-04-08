@@ -519,11 +519,11 @@ public class UIManager : MonoBehaviour
 		if (GameManager.IsPlayingCutscene)
 			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y, Time.deltaTime * 2.0f);
 
-	
 		else
 			yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y * 1.5f, Time.deltaTime * 2.0f);
 
 		_matteBars.localScale = new Vector3 (_matteBars.localScale.x, yScale, _matteBars.localScale.z);
+
 	}
 
 	public void CycleToNextWeapon ()

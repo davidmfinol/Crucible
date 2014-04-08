@@ -55,6 +55,7 @@ public class LevelManager : MonoBehaviour
         if (alarms != null)
             _alarms = alarms.GetComponent<AlphaPulse> ();
 
+        // TODO: A BETTER WAY TO FIND ITEMS BY HAVING THE ITEMS REGISTER THEMSELVES, AND THEN HAVE A DYNAMICALLY GENERATED CONTAINER
         // Find the items in the scene
         _items = new List<Item> ();
         foreach (GameObject itemContainer in GameObject.FindGameObjectsWithTag("Item Pickups"))

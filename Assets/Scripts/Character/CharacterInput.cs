@@ -182,6 +182,10 @@ public sealed class CharacterInput : MonoBehaviour
         get { return _jumpLast && JumpActive; }
     }
 
+    public bool JumpUp {
+        get { return Mathf.Abs(Jump.x) <= 0.1f && JumpActive; }
+    }
+
     public bool JumpLeft {
         get { return Jump.x <= -0.1f && JumpActive; }
     }

@@ -145,11 +145,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
-        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null)
+        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null && currentWeapon is PipeWeapon)
             StartCoroutine (ShowStealthKill ());
 
         if (CurrentState.nameHash != StealthKillState) {
-            //MecanimAnimator.SetBool (MecanimHashes.AttackMelee, CharInput.AttackActive && currentWeapon is PipeWeapon); 
             MecanimAnimator.SetBool (MecanimHashes.ShootGun, CharInput.AttackActive && currentWeapon is GravityGun); 
             MecanimAnimator.SetBool (MecanimHashes.PlaceMine, (CharInput.AttackRightPressed || CharInput.AttackLeftPressed) && currentWeapon is Mine); 
 
@@ -194,34 +193,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
         HitBox d = o.GetComponent<HitBox> ();
         d.MakePlayerStealthKill (this.gameObject);
 
-    }
-
-    void StartMelee ()
-    {
-        if (GameManager.Inventory.CurrentWeapon == null) {
-            Debug.LogWarning ("StartMelee() called with no weapon found");
-            return;
-        }
-
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-        if (weapon != null && weapon is PipeWeapon) {
-            weapon.ActivateAttack (0);
-        } else
-            Debug.LogWarning ("StartMelee() called with: " + weapon);
-    }
-
-    void EndMelee ()
-    {
-        if (GameManager.Inventory.CurrentWeapon == null) {
-            Debug.LogWarning ("EndMelee() called with no weapon found");
-            return;
-        }
-        
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-        if (weapon != null && weapon is PipeWeapon)
-            weapon.Deactivate ();
-        else
-            Debug.LogWarning ("EndMelee() called with: " + weapon);
     }
 
     void PlaceMine ()
@@ -291,6 +262,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         } else
             Debug.LogWarning ("ShootGun() called with: " + weapon);
+
     }
     
     public override void OnDeath (Vector2 knockForce)
@@ -602,14 +574,18 @@ public class PlayerCharacterAnimator : CharacterAnimator
         else
             VerticalSpeed = 0;
             */
-
-        if ( CharInput.InteractionPressed || CharInput.PickupPressed || CharInput.JumpPressed || IsGrounded
-            || (ActiveHangTarget == null) ) {
-            MecanimAnimator.SetBool (MecanimHashes.JumpWall, true);
+        
+        if ( CharInput.PickupPressed || IsGrounded || (ActiveHangTarget == null) ) {
+            MecanimAnimator.SetBool (MecanimHashes.Fall, true);
             MecanimAnimator.SetBool (MecanimHashes.GrabWall, false);
             DropHangTarget ();
         }
 
+        else if ( CharInput.InteractionPressed || (CharInput.JumpPressed && (InputJumpBackward || CharInput.JumpUp)) ) {
+            MecanimAnimator.SetBool (MecanimHashes.JumpWall, true);
+            MecanimAnimator.SetBool (MecanimHashes.GrabWall, false);
+            DropHangTarget ();
+        }
     }
 
     protected void Walljumping (float elapsedTime)

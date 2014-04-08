@@ -137,7 +137,7 @@ public class EnemyAI : MonoBehaviour
 
         // Likewise, make sure we update our target when we start wandering
         if (oldAwareness != AwarenessLevel.Unaware && _awareness == AwarenessLevel.Unaware) {
-            GetRandomSearchPoint();
+            GetRandomSearchPoint ();
 
             // And olympus has another animation at the beginning of it
             if (_animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) {
@@ -146,6 +146,7 @@ public class EnemyAI : MonoBehaviour
                     oa.StartSearch ();
             }
         }
+
     }
 
     // Have the enemy wander around the map
@@ -162,11 +163,10 @@ public class EnemyAI : MonoBehaviour
         // We make sure to limit the amount of time that we wander to allow the player to sneak up
         // It then idles for some time 
         if (_timeLeftWandering < 0) {
-            if(_timeSpentIdling < Settings.IdleTime) {
+            if (_timeSpentIdling < Settings.IdleTime) {
                 _timeSpentIdling += Time.deltaTime;
                 return;
-            }
-            else {
+            } else {
                 GetRandomSearchPoint ();
                 _timeLeftWandering = Settings.WanderTime;
                 _timeSpentIdling = 0;
@@ -187,6 +187,7 @@ public class EnemyAI : MonoBehaviour
 
         // Go to our location
         NavigateToAstarTarget (Settings.WanderSpeedRatio);
+
     }
 
     // Helper method to find a new location to go to while wandering
@@ -217,6 +218,7 @@ public class EnemyAI : MonoBehaviour
 
         // And update our target position to the position of that random node
         UpdateAStarTarget ((Vector3)randomNode.position);
+
     }
 
     // Enemy is kind of aware of player, but not really
@@ -243,6 +245,7 @@ public class EnemyAI : MonoBehaviour
 
         // Finally, go check out our random target point.
         NavigateToAstarTarget (Settings.SearchSpeedRatio);
+
     }
 
     // The enemy actively hunts the player down!
@@ -275,6 +278,7 @@ public class EnemyAI : MonoBehaviour
         // Stop moving while the player is knocked back
         if (_playerAnimator.CurrentState.nameHash == PlayerCharacterAnimator.DamagedState)
             _animator.CharInput.Horizontal = 0;
+
     }
 
     private void UpdateAStarTarget (Vector3 target)
@@ -295,6 +299,7 @@ public class EnemyAI : MonoBehaviour
 
         // We call yieldRepath because we want to ENSURE that we get a new path for this new target
         StartCoroutine (YieldRepath ());
+
     }
 
     // Waits until we are not searching for a path to then start searching for a new path
@@ -320,6 +325,7 @@ public class EnemyAI : MonoBehaviour
         // We get a path from a point near the feet, since that's where the nodes are
         _seeker.StartPath (FootPosition, _target, OnPathFound);
         _isSearchingForPath = true;
+
     }
     
     // This method is called by A* when it finds a path for us
@@ -334,6 +340,7 @@ public class EnemyAI : MonoBehaviour
             _hasTouchedNextNode = false;
         }// else
         // Debug.LogWarning ("Pathfinding errored!: " + p.errorLog);
+
     }
 
     // Make sure that AI's interpretation of the AStar path is up to date and accurate
@@ -577,7 +584,7 @@ public class EnemyAI : MonoBehaviour
         EnemySaveState s = new EnemySaveState ();
         s.Type = _animator.EnemyType;
         s.Position = transform.position;
-		s.Rotation = transform.rotation;
+        s.Rotation = transform.rotation;
         s.Direction = _animator.Direction;
         s.Health = GetComponentInChildren<EnemyHeartBox> ().HitPoints;
 
@@ -641,9 +648,9 @@ public class EnemyAI : MonoBehaviour
             
             Vector3 dirToPlayer = playerPos - eyePos;
             
-			// must be closer if player is stealth.
+            // must be closer if player is stealth.
             float visionRange = _settings.AwarenessRange;
-            if ( (_playerShader != null && _playerShader.InShadow))
+            if ((_playerShader != null && _playerShader.InShadow))
                 visionRange *= 0.3f;
             
             if (dirToPlayer.magnitude > visionRange)
@@ -668,18 +675,18 @@ public class EnemyAI : MonoBehaviour
                 Vector3 normToPlayer = raycastDirection.normalized;
                 float fDot = Vector3.Dot (normDir, normToPlayer);
                 
-				Debug.DrawLine (eyePos, eyePos + normDir * 20.0f, Color.green, 0.5f, false);
+                Debug.DrawLine (eyePos, eyePos + normDir * 20.0f, Color.green, 0.5f, false);
 
                 // only bother to cast rays that could be considered in our view cone.
-               if (fDot >= Settings.ViewConeCutoff) {
-					Debug.Log ("fDot passed: " + fDot);
-					Debug.DrawLine (eyePos, endPoint, Color.white, 0.5f, false);
+                if (fDot >= Settings.ViewConeCutoff) {
+                    Debug.Log ("fDot passed: " + fDot);
+                    Debug.DrawLine (eyePos, endPoint, Color.white, 0.5f, false);
 
                     if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
                         canSeePlayer = true;
                         break;
                     }
-               }
+                }
                 
             }
             
