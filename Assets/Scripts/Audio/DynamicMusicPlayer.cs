@@ -21,12 +21,8 @@ public class DynamicMusicPlayer : AudioPlayer
     private bool _audio1FadingIn;
     private bool _audio2FadingOut;
     private bool _audio2FadingIn;
-    
-    // TODO: The volume for each of the audio layers (so they fade in and out)
-    //private float audio1Volume;
-    //private float audio2Volume;
-    //private float audio3Volume;
-    
+
+    // To keep track of transitions
     private int _prevSearchingLevel;
     private int _prevChasingLevel;
 
