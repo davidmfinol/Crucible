@@ -11,12 +11,14 @@ using System.IO;
 [AddComponentMenu("Game/Game Manager")]
 public class GameManager : MonoBehaviour
 {
-    // The GameManager is in charge of creating the main camera and setting up the all the managers
-    public Camera CameraPrefab;
+    // The UIManager is rather complicated, so we're going to load it as a prefab instead of creating at runtime
     public Transform UIPrefab;
     
     // Keep track of the current game manager instance
     private static GameManager _instance;
+
+    // Camera is also important
+    private CameraScrolling _mainCamera;
     
     // Global Managers
     private static LevelManager _currentLevel;
@@ -50,6 +52,8 @@ public class GameManager : MonoBehaviour
             Destroy (_instance.gameObject);
 
         _instance = this;
+        _mainCamera = GetComponentInChildren<CameraScrolling> ();
+
         _gameSaveStatePath = Path.Combine (Application.persistentDataPath, "game_progress.xml");
         _levelSaveStatePrefix = Path.Combine (Application.persistentDataPath, "level_");
 
@@ -64,8 +68,6 @@ public class GameManager : MonoBehaviour
         SetupAudio ();
         
         SetupSubtitles ();
-        
-        SetupCamera ();
         
         SetupPlayer ();
 
@@ -138,16 +140,6 @@ public class GameManager : MonoBehaviour
         if (GameManager._subtitlesManager != null)
             Destroy (GameManager._subtitlesManager.gameObject);
         GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager> ();
-
-    }
-    
-    private void SetupCamera ()
-    {
-        if (Camera.main != null) // We don't need to recreate the camera from scene to scene
-            return;
-
-        Camera mainCamera = (Camera) Instantiate (CameraPrefab, CameraPrefab.transform.position, CameraPrefab.transform.rotation);
-        DontDestroyOnLoad (mainCamera.gameObject);
 
     }
     
@@ -403,6 +395,10 @@ public class GameManager : MonoBehaviour
 
         level.Save (path);
 
+    }
+
+    public static CameraScrolling MainCamera {
+        get { return _instance._mainCamera; }
     }
 
     public static LevelManager Level {

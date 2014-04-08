@@ -18,7 +18,7 @@ public class OlympusAnimator : CharacterAnimator
     public static readonly int AcquireTargetState = Animator.StringToHash ("Base Layer.Acquiring Target");
     public static readonly int StunState = Animator.StringToHash ("Base Layer.Stun");
     public static readonly int DeathState = Animator.StringToHash ("Base Layer.Death");
-    public static readonly int StealthDeathState = Animator.StringToHash ("Base Layer.Stealth Death");
+    //public static readonly int StealthDeathState = Animator.StringToHash ("Base Layer.Stealth Death");
     public static readonly int RunningState = Animator.StringToHash ("Ground.Running");
     public static readonly int SearchingState = Animator.StringToHash ("Ground.Searching");
     public static readonly int JumpingState = Animator.StringToHash ("Air.Jumping");
@@ -36,15 +36,13 @@ public class OlympusAnimator : CharacterAnimator
 
     //The Olympus's sound effects, yeah!
     private OlympusAudioPlayer _sound;
-
-	private ItemDropper _itemDropper;
-
+    private ItemDropper _itemDropper;
 
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<OlympusAudioPlayer> ();
 
-		_itemDropper = (ItemDropper) gameObject.GetComponentInChildren<ItemDropper> ();
+        _itemDropper = (ItemDropper)gameObject.GetComponentInChildren<ItemDropper> ();
 
     }
     
@@ -55,13 +53,13 @@ public class OlympusAnimator : CharacterAnimator
         StateMachine [AcquireTargetState] = AcquireTarget;
         StateMachine [StunState] = Stun;
         StateMachine [DeathState] = Death;
-        StateMachine [StealthDeathState] = StealthDeath;
+        //StateMachine [StealthDeathState] = StealthDeath;
         StateMachine [RunningState] = Running;
         StateMachine [SearchingState] = Searching;
         StateMachine [JumpingState] = Jumping;
         StateMachine [FallingState] = Falling;
-		StateMachine [LandingState] = Landing;
-		StateMachine [GrabWallState] = GrabWall;
+        StateMachine [LandingState] = Landing;
+        StateMachine [GrabWallState] = GrabWall;
         StateMachine [WallclimbingState] = ClimbingVertical;
         StateMachine [HangingState] = Hanging;
         StateMachine [ClimbingLedgeState] = ClimbingLedge;
@@ -96,8 +94,8 @@ public class OlympusAnimator : CharacterAnimator
         
         MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
         
-		MecanimAnimator.SetBool (MecanimHashes.AttackHorizontal, CharInput.Attack > 0);
-		MecanimAnimator.SetBool (MecanimHashes.AttackVertical, CharInput.Attack < 0);
+        MecanimAnimator.SetBool (MecanimHashes.AttackHorizontal, CharInput.Attack > 0);
+        MecanimAnimator.SetBool (MecanimHashes.AttackVertical, CharInput.Attack < 0);
 
         if (!IsGrounded)
             MecanimAnimator.SetBool (MecanimHashes.AcquiringTarget, false);
@@ -133,12 +131,12 @@ public class OlympusAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.Search, true);
     }
 
-    protected void Searching(float elapsedTime)
+    protected void Searching (float elapsedTime)
     {
-        if(MecanimAnimator.GetBool(MecanimHashes.Search)) {
+        if (MecanimAnimator.GetBool (MecanimHashes.Search)) {
             HorizontalSpeed = 0;
             VerticalSpeed = 0;
-            MecanimAnimator.SetBool(MecanimHashes.Search, false);
+            MecanimAnimator.SetBool (MecanimHashes.Search, false);
         }
 
         if (!MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded)
@@ -156,37 +154,37 @@ public class OlympusAnimator : CharacterAnimator
         GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
         HitBox d = o.GetComponent<HitBox> ();
 
-		// which direction to player?
-		float horizontalDir = 0.0f;
-		if(GameManager.Player.transform.position.x < transform.position.x)
-			horizontalDir = -1.0f;
-		else
-			horizontalDir = 1.0f;
+        // which direction to player?
+        float horizontalDir = 0.0f;
+        if (GameManager.Player.transform.position.x < transform.position.x)
+            horizontalDir = -1.0f;
+        else
+            horizontalDir = 1.0f;
 
         d.MakeOlympusMelee (this.gameObject, horizontalDir);
 
-	}
-	
-	protected void PunchUp (float elapsedTime)
-	{
-		// find where to place the attack event
-		Vector3 meleePos = transform.position;
-		meleePos.y += Height * 0.5f;
-		
-		// attack in front of us
-		GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
-		HitBox d = o.GetComponent<HitBox> ();
-		
-		// which direction to player?
-		float horizontalDir = 0.0f;
-		if(GameManager.Player.transform.position.x < transform.position.x)
-			horizontalDir = -1.0f;
-		else
-			horizontalDir = 1.0f;
-		
-		d.MakeOlympusMelee (this.gameObject, horizontalDir);
-		
-	}
+    }
+    
+    protected void PunchUp (float elapsedTime)
+    {
+        // find where to place the attack event
+        Vector3 meleePos = transform.position;
+        meleePos.y += Height * 0.5f;
+        
+        // attack in front of us
+        GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
+        HitBox d = o.GetComponent<HitBox> ();
+        
+        // which direction to player?
+        float horizontalDir = 0.0f;
+        if (GameManager.Player.transform.position.x < transform.position.x)
+            horizontalDir = -1.0f;
+        else
+            horizontalDir = 1.0f;
+        
+        d.MakeOlympusMelee (this.gameObject, horizontalDir);
+        
+    }
     
     protected virtual void Idle (float elapsedTime)
     {
@@ -289,9 +287,9 @@ public class OlympusAnimator : CharacterAnimator
         MecanimAnimator.SetBool (MecanimHashes.Hang, 
                                 (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up));
-		
-		if( CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)) )
-			MecanimAnimator.SetBool(MecanimHashes.GrabWall, true);
+        
+        if (CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)))
+            MecanimAnimator.SetBool (MecanimHashes.GrabWall, true);
     }
     
     protected void Falling (float elapsedTime)
@@ -311,8 +309,8 @@ public class OlympusAnimator : CharacterAnimator
         } else 
             MecanimAnimator.SetBool (MecanimHashes.Hang, false);
 
-		if( CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)) )
-			MecanimAnimator.SetBool(MecanimHashes.GrabWall, true);
+        if (CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)))
+            MecanimAnimator.SetBool (MecanimHashes.GrabWall, true);
     }
     
     protected void Hanging (float elapsedTime)
@@ -389,15 +387,15 @@ public class OlympusAnimator : CharacterAnimator
 
     }
 
-	protected void GrabWall(float elapsedTime)
-	{
-		if (MecanimAnimator.GetBool(MecanimHashes.GrabWall)) {
-			HorizontalSpeed = 0;
-			VerticalSpeed = 0;
-			MecanimAnimator.SetBool(MecanimHashes.GrabWall, false);
-		}
+    protected void GrabWall (float elapsedTime)
+    {
+        if (MecanimAnimator.GetBool (MecanimHashes.GrabWall)) {
+            HorizontalSpeed = 0;
+            VerticalSpeed = 0;
+            MecanimAnimator.SetBool (MecanimHashes.GrabWall, false);
+        }
 
-	}
+    }
 
     protected void ClimbingVertical (float elapsedTime)
     {
@@ -433,42 +431,26 @@ public class OlympusAnimator : CharacterAnimator
         
     }
 
-    protected void StealthDeath (float elapsedTime)
+    public void DropItems ()
     {
-		if(MecanimAnimator.GetBool (MecanimHashes.StealthDeath)) {
-			Invoke("DropItems", 5.0f);
-			MecanimAnimator.SetBool (MecanimHashes.StealthDeath, false);
-
-		}
-
-        HorizontalSpeed = 0;
-        VerticalSpeed = 0;
-
+        _itemDropper.DropItems (transform.position);
+        
     }
 
-
-	public void DropItems() {
-		_itemDropper.DropItems (transform.position);
-		
-	}
-
-
-    public override void OnStealthDeath (Vector2 knockForce)
+    public override void OnStealthDeath ()
     {
-        MecanimAnimator.SetBool (MecanimHashes.StealthDeath, true);
-        HorizontalSpeed = knockForce.x;
-        VerticalSpeed = knockForce.y;
         Invoke ("DoRagDoll", 3.0f);
+        Invoke ("DropItems", 6.0f);
 
     }
 
     protected void Death (float elapsedTime)
     {
-		if(MecanimAnimator.GetBool (MecanimHashes.Die)) { 
-			Invoke("DropItems", 5.0f);
-       	    MecanimAnimator.SetBool (MecanimHashes.Die, false);
+        if (MecanimAnimator.GetBool (MecanimHashes.Die)) { 
+            Invoke ("DropItems", 5.0f);
+            MecanimAnimator.SetBool (MecanimHashes.Die, false);
 
-		}
+        }
 
 
         if (IsGrounded) {   
@@ -524,7 +506,7 @@ public class OlympusAnimator : CharacterAnimator
     }
     
     public override bool IsDead {
-        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == StealthDeathState; }
+        get { return CurrentState.nameHash == DeathState; } // || CurrentState.nameHash == StealthDeathState; }
     }
 
     public override bool IsJumping {
@@ -538,9 +520,9 @@ public class OlympusAnimator : CharacterAnimator
         set { }
     }
 
-	public override EnemySaveState.EnemyType EnemyType {
-		get { return EnemySaveState.EnemyType.Enemy_Olympus; }
-		
-	}
+    public override EnemySaveState.EnemyType EnemyType {
+        get { return EnemySaveState.EnemyType.Enemy_Olympus; }
+        
+    }
 
 }

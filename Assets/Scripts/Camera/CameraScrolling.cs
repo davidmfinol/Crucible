@@ -68,7 +68,7 @@ public class CameraScrolling : MonoBehaviour
         float heightOffset = 0.0f;
         // How much should we zoom the camera based on this target?
         float distanceModifier = 1.0f;
-        // By default, we won't account for any target velocity  or chaos in our calculations;
+        // By default, we won't account for any target velocity or chaos in our calculations;
         float velocityLookAheadX = 0.0f;
         float velocityLookAheadY = 0.0f;
         Vector2 maxLookAhead = new Vector2 (0.0f, 0.0f);

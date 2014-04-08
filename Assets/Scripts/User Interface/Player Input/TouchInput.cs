@@ -67,7 +67,7 @@ public class TouchInput : MonoBehaviour
         _moveStartPos = Vector2.zero;
         _moveMin = Screen.width / 32.0f;
         _lastMovePos = Vector2.zero;
-        _distanceForMaxSpeed = Screen.width / 8.0f;
+        _distanceForMaxSpeed = Screen.width / 3.0f;
 
         // Set up action variables
         _actionID = -1;
@@ -143,9 +143,17 @@ public class TouchInput : MonoBehaviour
 
     }
 
+    // Co-routines get stopped when the level is loaded, so this re-starts them as required
     void OnLevelWasLoaded()
     {
+        // Make sure we're actually being used 
+        if (_input.UpdateInputMethod != UpdateInput)
+            return;
+
+        // And make sure the co-routines really did stop 
         StopAllCoroutines();
+
+        // Start the co-routines again
         StartCoroutine (DisplayLeftHandSide ());
         StartCoroutine (DisplayRightHandSide ());
 
@@ -157,24 +165,9 @@ public class TouchInput : MonoBehaviour
 
     }
     
-    public void Disable (string exception)
+    public void Disable ()
     {
-        if(exception.Equals("Attack"))
-		   _input.UpdateInputMethod = this.UpdateInputAttack;
-		else
-		   _input.UpdateInputMethod = null;
-
-    }
-
-    // Make sure we don't miss updates to the input
-    void Update ()
-    {
-        foreach (Touch touch in Input.touches) {
-            if (touch.fingerId == _moveID && (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended))
-                _moveID = -1;
-            else if (touch.fingerId == _actionID && (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended))
-                InterpretInteraction ();
-        }
+        _input.UpdateInputMethod = null;
 
     }
 
@@ -191,86 +184,65 @@ public class TouchInput : MonoBehaviour
 
         // Go through all the touches
         foreach (Touch touch in Input.touches) {
-            Vector2 touchPos = touch.position;
-            if (touchPos.x < Screen.width / 2)
-                InterpretMovementSwipe (touch);
-            else if (!(touchPos.x > 2 * Screen.width / 3 && touchPos.y > 3 * Screen.height / 4))
-                InterpretInteractSwipe (touch);
+            InterpretMovementSwipe (touch);
+            InterpretInteractSwipe (touch);
         }
 
     }
 
-	// The input class will call this method while touch input is enabled
-	public void UpdateInputAttack ()
-	{   
-		// Reset inputs
-		_input.Horizontal = 0;
-		_input.Vertical = 0;
-		_input.Interaction = false;
-		_input.Jump = new Vector2 (0, 0);
-		_input.Attack = 0;
-		_input.Pickup = false;
-		
-		// Go through all the touches
-		foreach (Touch touch in Input.touches) {
-			Vector2 touchPos = touch.position;
-			if (touchPos.x < Screen.width / 2)
-				InterpretMovementSwipe (touch);
-			else if (!(touchPos.x > 2 * Screen.width / 3 && touchPos.y > 3 * Screen.height / 4))
-				InterpretInteractSwipe (touch);
-		}
-
-		// Reset inputs
-		_input.Horizontal = 0;
-		_input.Vertical = 0;
-		_input.Interaction = false;
-		_input.Jump = new Vector2 (0, 0);
-		_input.Pickup = false;
-		
-	}
-
-    // The left-hand side of the screen
     private void InterpretMovementSwipe (Touch touch)
     {
-        // Keep track of when we start touching the screen
-        if (touch.phase == TouchPhase.Began && _moveID == -1) {
+        // Keep track of when we start touching the left-hand side of the screen 
+        if (touch.phase == TouchPhase.Began && _moveID == -1 && touch.position.x < Screen.width / 2) {
             _moveID = touch.fingerId;
             _moveStartPos = touch.position;
             _lastMovePos = touch.position;
+            return;
 
-            // Update the touch as appropriate
-        } else if (touch.fingerId == _moveID) {
-            _lastMovePos = touch.position;
+        }
 
-            Vector2 delta = _lastMovePos - _moveStartPos;
-            if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
-                _moveID = -1;
-            else if (delta.magnitude > _moveMin) {
-                if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) {
-					// *** handle horizontal input ***
-					_input.Horizontal = delta.x / _distanceForMaxSpeed;
-				
-					// if we are within the sneak range, then we sneak
-					if( Mathf.Abs (_input.Horizontal) > 0.5f )
-						_input.Horizontal += 0.3f;
+        // We're only concerned with the touch we've already started tracking for movement
+        if (touch.fingerId != _moveID)
+            return;
 
-                } else {
-                    float ratio = delta.y / _distanceForMaxSpeed;
-                    int sign = ratio < 0 ? -1 : 1;
-                    _input.Vertical = sign * ratio * ratio;
-                }
-            }
+        // Make sure we update it's location, when we have it
+        _lastMovePos = touch.position;
+
+        // Stop tracking the touch when they let go
+        if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended) {
+            _moveID = -1;
+            return;
+        }
+
+        // Actually update the movement input when appropriate
+        Vector2 delta = _lastMovePos - _moveStartPos;
+        if (delta.magnitude > _moveMin) {
+            // Handle horizontal input
+            if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { // TODO: ONLY ALLOW LEFT/RIGHT WHEN RUNNING AND ONLY ALLOW UP/DOWN WHEN CLIMBING
+				_input.Horizontal = delta.x / _distanceForMaxSpeed;
+
+				// We give a speed bump once you're no longer sneaking (to make it more apparent when you've hit that threshold)
+				if ( _input.Horizontal > 0.5f )
+					_input.Horizontal += 0.3f;
+                else if ( _input.Horizontal < -0.5f )
+                    _input.Horizontal -= 0.3f;
+
+            // Handle vertical input
+            } else 
+                _input.Vertical = delta.y / _distanceForMaxSpeed;
         }
 
     }
 
-    // The right-hand side of the screen
     private void InterpretInteractSwipe (Touch touch)
     {
-        if (touch.phase == TouchPhase.Began && _actionID == -1) {
+        // Keep track of when we start touching the right-hand side of the screen
+        if (touch.phase == TouchPhase.Began && _actionID == -1 && touch.position.x > Screen.width / 2) {
             _actionID = touch.fingerId;
             _actionStartPos = touch.position;
             _lastActionPos = touch.position;
+
+        // Update the touch as appropriate
         } else if (touch.fingerId == _actionID) {
             _lastActionPos = touch.position;
             if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
@@ -279,7 +251,7 @@ public class TouchInput : MonoBehaviour
 
     }
 
-    // Another helper for the right-hand side
+    // A helper for choosing an action from the right-hand side of the screen
     private void InterpretInteraction ()
     {
         _actionID = -1;

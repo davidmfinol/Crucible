@@ -44,6 +44,7 @@ public class LevelManager : MonoBehaviour
             DefaultStartPoint = new GameObject("Default Start").transform;
             DefaultStartPoint.position = new Vector3(10, 10, 0);
             DefaultStartPoint.gameObject.isStatic = true;
+            DefaultStartPoint.parent = transform;
         }
     }
 
