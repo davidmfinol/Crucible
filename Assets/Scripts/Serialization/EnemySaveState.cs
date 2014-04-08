@@ -13,6 +13,7 @@ public class EnemySaveState
 
     public EnemyType Type;
     public Vector3 Position;
+	public Quaternion Rotation;
     public Vector3 Direction;
     public int Health;
     

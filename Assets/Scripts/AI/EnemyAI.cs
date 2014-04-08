@@ -574,6 +574,7 @@ public class EnemyAI : MonoBehaviour
         EnemySaveState s = new EnemySaveState ();
         s.Type = _animator.EnemyType;
         s.Position = transform.position;
+		s.Rotation = transform.rotation;
         s.Direction = _animator.Direction;
         s.Health = GetComponentInChildren<EnemyHeartBox> ().HitPoints;
 
@@ -637,9 +638,9 @@ public class EnemyAI : MonoBehaviour
             
             Vector3 dirToPlayer = playerPos - eyePos;
             
-            // player in shadow range? must be a lot closer to see him
+			// must be closer if player is stealth.
             float visionRange = _settings.AwarenessRange;
-            if (_playerShader != null && _playerShader.IsStealth)
+            if ( (_playerShader != null && _playerShader.InShadow))
                 visionRange *= 0.3f;
             
             if (dirToPlayer.magnitude > visionRange)
@@ -660,18 +661,22 @@ public class EnemyAI : MonoBehaviour
                 
                 // if our facing vector DOT the ray to the player is within a certain dot product range, then it's in view
                 // (prevents seeing player almost directly above us.)
-                Vector3 normFacing = _animator.Direction.normalized;
+                Vector3 normDir = _animator.Direction.normalized;
                 Vector3 normToPlayer = raycastDirection.normalized;
-                float fDot = Vector3.Dot (normFacing, normToPlayer);
+                float fDot = Vector3.Dot (normDir, normToPlayer);
                 
+				Debug.DrawLine (eyePos, eyePos + normDir * 20.0f, Color.green, 0.5f, false);
+
                 // only bother to cast rays that could be considered in our view cone.
-                if (fDot >= Settings.ViewConeCutoff) {
+               if (fDot >= Settings.ViewConeCutoff) {
+					Debug.Log ("fDot passed: " + fDot);
+					Debug.DrawLine (eyePos, endPoint, Color.white, 0.5f, false);
+
                     if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
-                        Debug.DrawLine (eyePos, endPoint, Color.red, 0.5f, false);
                         canSeePlayer = true;
                         break;
                     }
-                }
+               }
                 
             }
             
