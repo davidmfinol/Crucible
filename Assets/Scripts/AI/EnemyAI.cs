@@ -105,7 +105,7 @@ public class EnemyAI : MonoBehaviour
     {
         // current awareness
         AwarenessLevel oldAwareness = _awareness;
-        
+
         // try to change it
         if (_settings.CanSee && IsSeeingPlayer) {
             Awareness = AwarenessLevel.Chasing;
@@ -114,7 +114,6 @@ public class EnemyAI : MonoBehaviour
             // sight is our main goal.  ignore any sounds during the chase.
             if (_personalHearingRadius)
                 _personalHearingRadius.ForgetAllSounds ();
-            
             
         } else if (_settings.CanHear && HasHeardSound)
             Awareness = AwarenessLevel.Searching;
@@ -679,10 +678,8 @@ public class EnemyAI : MonoBehaviour
 
                 // only bother to cast rays that could be considered in our view cone.
                 if (fDot >= Settings.ViewConeCutoff) {
-                    Debug.Log ("fDot passed: " + fDot);
-                    Debug.DrawLine (eyePos, endPoint, Color.white, 0.5f, false);
-
                     if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
+						Debug.DrawLine (eyePos, eyePos + normToPlayer * raycastDirection.magnitude, Color.red, 0.5f, false);
                         canSeePlayer = true;
                         break;
                     }
