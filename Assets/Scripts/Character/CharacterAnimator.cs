@@ -10,6 +10,7 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(CharacterSettings))]
 [RequireComponent(typeof(CharacterInput))]
+//[RequireComponent(typeof(Animator))]
 [AddComponentMenu("Character/Character Animator")]
 public abstract class CharacterAnimator : MonoBehaviour
 {
@@ -346,18 +347,32 @@ public abstract class CharacterAnimator : MonoBehaviour
     public void DoRagDoll ()
     {
         CharacterSettings.ActivateRagDoll (transform, false, true);
+
+        // Remove components we won't need anymore
+        CharacterAnimatorDebugger debug1 = GetComponent<CharacterAnimatorDebugger> ();
+        if (debug1 != null)
+            Destroy (debug1);
+        EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger> ();
+        if (debug2 != null)
+            Destroy (debug2);
         EnemyAI ai = GetComponent<EnemyAI> ();
-        if (ai != null) {
-            GameManager.AI.Enemies.Remove (ai);
-            ai.enabled = false;
-        }
+        if (ai != null)
+            Destroy (ai);
         Seeker seeker = GetComponent<Seeker> ();
         if (seeker != null)
-            seeker.enabled = false;
-        CharInput.enabled = false; // Destroy(CharInput);
-        Controller.enabled = false; // Destroy(Controller);
-        MecanimAnimator.enabled = false; // Destroy(MecanimAnimator);
-        this.enabled = false;
+            Destroy (seeker);
+        HeartBox heart = GetComponentInChildren<HeartBox> ();
+        if (heart != null)
+            Destroy (heart);
+        StealthKillTrigger stealthTrigger = GetComponentInChildren<StealthKillTrigger> ();
+        if (stealthTrigger != null)
+            Destroy (stealthTrigger);
+
+        // Remove ourselves
+        Destroy (this);
+        Destroy (CharInput);
+        Destroy (Controller);
+        Destroy (MecanimAnimator);
 
     }
 

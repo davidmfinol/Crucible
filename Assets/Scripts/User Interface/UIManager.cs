@@ -566,7 +566,7 @@ public class UIManager : MonoBehaviour
 		while (!bPlacedAll) {
 			// show proper texture
 			_weaponQuads [weaponPos].gameObject.renderer.enabled = true;
-			_weaponQuads [weaponPos].gameObject.renderer.material.mainTexture = GameManager.Inventory.Weapons [weaponToShow].GetTexture ();
+			_weaponQuads [weaponPos].gameObject.renderer.material.mainTexture = GameManager.Inventory.Weapons [weaponToShow].Texture;
 
 			WeaponQuad wq = _weaponQuads [weaponPos].gameObject.GetComponent<WeaponQuad> ();
 			wq.Title = GameManager.Inventory.Weapons [weaponToShow].Title;

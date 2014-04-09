@@ -17,6 +17,7 @@ public class Mine : Weapon
     private float _mineLastPlacedTime;
     // mines found in scene for detonation
     private Object[] _foundMines;
+    private static Texture2D _texture;
 
     public override void ActivateAttack (float attackID)
     {
@@ -66,7 +67,7 @@ public class Mine : Weapon
     }
     
     // Waits until animation is over to explode mines.
-    IEnumerator AnimateExplosions (float waitTime)
+    public IEnumerator AnimateExplosions (float waitTime)
     {
         _minesCurrentlyExploding = true;
 
@@ -102,26 +103,24 @@ public class Mine : Weapon
         get { return new Vector3 (-0.21f, 0, 0.7f); }
     }
     
-    public override WeaponType WeaponType {
+    public override WeaponType Type {
         get { return WeaponType.Weapon_HandMINE; }
     }
 
     public override string Title {
         get { return "M.I.N.E."; }
-        
     }
     
     public override string Description {
         get { return "An explosive weapon that can be placed by swiping and detonated by tapping."; }
-        
     }
-
-    public override Texture2D GetTexture ()
-    {
-        return Resources.Load <Texture2D> ("Item Icons/MINEIcon");
-        
+    
+    public override Texture2D Texture {
+        get {
+            if (_texture == null)
+                _texture = Resources.Load <Texture2D> ("Item Icons/MINEIcon");
+            return _texture;
+        }
     }
-
-
 
 }

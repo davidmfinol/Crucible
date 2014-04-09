@@ -30,7 +30,7 @@ public class CraftResult
 {
     public bool IsWeapon;
     public InventoryItem InvItem;
-    public WeaponType WeaponType;
+    public Weapon.WeaponType WeaponType;
     public int WeaponQty;
     public string WeaponName;
     public string WeaponDescr;
@@ -198,7 +198,7 @@ public static class InventoryItemFactory
         if (sResult == "GPHDIS") {
             CraftResult res = new CraftResult ();
             res.IsWeapon = true;
-            res.WeaponType = WeaponType.Weapon_GravityGun;
+            res.WeaponType = Weapon.WeaponType.Weapon_GravityGun;
             res.WeaponQty = 5;
             res.WeaponName = "Gravity Gun";
             res.WeaponDescr = "Stun enemies with antigravity blasts.";
@@ -209,7 +209,7 @@ public static class InventoryItemFactory
         } else if ((sResult != "") && (!sResult.Contains ("GP")) && (!sResult.Contains ("HD")) && (!sResult.Contains ("IS"))) {
             CraftResult res = new CraftResult ();
             res.IsWeapon = true;
-            res.WeaponType = WeaponType.Weapon_HandMINE;
+            res.WeaponType = Weapon.WeaponType.Weapon_HandMINE;
             res.WeaponQty = 3;
             res.WeaponName = "M.I.N.E.";
             res.WeaponDescr = "Massive Interconnected Network of Explosives.";

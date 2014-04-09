@@ -18,7 +18,7 @@ public class OlympusAnimator : CharacterAnimator
     public static readonly int AcquireTargetState = Animator.StringToHash ("Base Layer.Acquiring Target");
     public static readonly int StunState = Animator.StringToHash ("Base Layer.Stun");
     public static readonly int DeathState = Animator.StringToHash ("Base Layer.Death");
-    //public static readonly int StealthDeathState = Animator.StringToHash ("Base Layer.Stealth Death");
+    public static readonly int StealthDeathState = Animator.StringToHash ("Base Layer.Stealth Death");
     public static readonly int RunningState = Animator.StringToHash ("Ground.Running");
     public static readonly int SearchingState = Animator.StringToHash ("Ground.Searching");
     public static readonly int JumpingState = Animator.StringToHash ("Air.Jumping");
@@ -36,13 +36,20 @@ public class OlympusAnimator : CharacterAnimator
 
     //The Olympus's sound effects, yeah!
     private OlympusAudioPlayer _sound;
+
+    // Olympus drops items on death
     private ItemDropper _itemDropper;
+
+    // We don't enter the stealthdeath state immediately, so we need to prevent other animations before we start it
+    private bool _isStealthDying;
 
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<OlympusAudioPlayer> ();
 
         _itemDropper = (ItemDropper)gameObject.GetComponentInChildren<ItemDropper> ();
+
+        _isStealthDying = false;
 
     }
     
@@ -53,7 +60,7 @@ public class OlympusAnimator : CharacterAnimator
         StateMachine [AcquireTargetState] = AcquireTarget;
         StateMachine [StunState] = Stun;
         StateMachine [DeathState] = Death;
-        //StateMachine [StealthDeathState] = StealthDeath;
+        StateMachine [StealthDeathState] = StealthDeath;
         StateMachine [RunningState] = Running;
         StateMachine [SearchingState] = Searching;
         StateMachine [JumpingState] = Jumping;
@@ -70,6 +77,9 @@ public class OlympusAnimator : CharacterAnimator
     
     protected override void UpdateMecanimVariables ()
     {
+        if (_isStealthDying)
+            return;
+
         if (!MecanimAnimator.GetBool (MecanimHashes.Jump) && IsGrounded && CharInput.JumpPressed)
             MecanimAnimator.SetBool (MecanimHashes.Jump, true);
         
@@ -188,6 +198,9 @@ public class OlympusAnimator : CharacterAnimator
     
     protected virtual void Idle (float elapsedTime)
     {
+        if (_isStealthDying)
+            return;
+
         ApplyRunning (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
@@ -439,9 +452,32 @@ public class OlympusAnimator : CharacterAnimator
 
     public override void OnStealthDeath ()
     {
-        Invoke ("DoRagDoll", 3.0f);
-        Invoke ("DropItems", 6.0f);
+        StartCoroutine (ShowStealthDeath ());
 
+    }
+
+    public IEnumerator ShowStealthDeath()
+    {
+        _isStealthDying = true;
+
+        yield return new WaitForSeconds (3.0f);
+
+        MecanimAnimator.SetBool (MecanimHashes.StealthDeath, true);
+        
+        yield return new WaitForSeconds (1.5f);
+
+        DoRagDoll ();
+        
+        yield return new WaitForSeconds (2.0f);
+
+        DropItems();
+
+    }
+
+    protected void StealthDeath (float elapsedTime)
+    {
+        if(MecanimAnimator.GetBool(MecanimHashes.StealthDeath))
+           MecanimAnimator.SetBool(MecanimHashes.StealthDeath, false);
     }
 
     protected void Death (float elapsedTime)

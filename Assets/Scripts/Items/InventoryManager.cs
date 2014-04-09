@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -30,6 +30,7 @@ public class InventoryManager : MonoBehaviour
         StartCoroutine (FindRightHand ());
 
         _ready = true;
+
     }
 
     public IEnumerator FindRightHand ()
@@ -38,15 +39,17 @@ public class InventoryManager : MonoBehaviour
             yield return null;
 
         _rightHand = CharacterSettings.SearchHierarchyForBone (GameManager.Player.transform, "hand_R");
+
     }
     
     public bool HasWeapon (Weapon w)
     {
         foreach (Weapon weaponHeld in Weapons)
-            if (weaponHeld.WeaponType == w.WeaponType)
+            if (weaponHeld.Type == w.Type)
                 return true;
         
         return false;
+
     }
 
     public void AddItem (InventoryItem newItem)
@@ -64,6 +67,7 @@ public class InventoryManager : MonoBehaviour
 
         Items.Add (newItem);
         Debug.Log ("New item: " + newItem.Quantity + " " + newItem.Name);
+
     }
     
     public PlayerSaveState SaveState ()
@@ -89,7 +93,7 @@ public class InventoryManager : MonoBehaviour
     public bool TryAddAmmo (Weapon w, int ammoCount)
     {
         foreach (Weapon weapon in Weapons) {
-            if (weapon.WeaponType == w.WeaponType) {
+            if (weapon.Type == w.Type) {
                 weapon.Quantity += ammoCount;
                 weapon.Quantity = Mathf.Min (weapon.Quantity, weapon.MaxQuantity);
                 return true;
@@ -102,10 +106,10 @@ public class InventoryManager : MonoBehaviour
     
     }
 
-    public bool TryRemoveAmmo (WeaponType t, int ammoCount)
+    public bool TryRemoveAmmo (Weapon.WeaponType t, int ammoCount)
     {
         for (int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
-            if (Weapons [weaponIndex].WeaponType == t) {
+            if (Weapons [weaponIndex].Type == t) {
                 Weapons [weaponIndex].Quantity -= ammoCount;
                 Weapons [weaponIndex].Quantity = Mathf.Max (Weapons [weaponIndex].Quantity, 0);
 
@@ -144,11 +148,11 @@ public class InventoryManager : MonoBehaviour
         
     }
 
-    public void RemoveWeapon (WeaponType t)
+    public void RemoveWeapon (Weapon.WeaponType t)
     {
         // remove in descending order in case more than one occurrence.
         for (int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
-            if (Weapons [weaponIndex].WeaponType == t)
+            if (Weapons [weaponIndex].Type == t)
                 Weapons.RemoveAt (weaponIndex);
 
         }

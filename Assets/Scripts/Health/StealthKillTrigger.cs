@@ -2,7 +2,7 @@
 using System.Collections;
 
 /// <summary>
-/// Stealth kill trigger defines the area in which the player can get behind a robot and do a stealthkill on it.
+/// Stealth kill trigger defines the area in which the player can get behind an enemy and do a stealthkill on it.
 /// </summary>
 [RequireComponent(typeof(BoxCollider))]
 [AddComponentMenu("Health/Stealth Kill Trigger")]

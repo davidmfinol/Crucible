@@ -42,8 +42,8 @@ public abstract class HeartBox : MonoBehaviour
         if (attackData != null && attackData.enabled && attackData.Allegiance != this.Allegiance) {
             _lastHit = attackData;
 
-            if (attackData.FromWeapon == WeaponType.Weapon_PipeWeapon) {
-                GameManager.Inventory.TryRemoveAmmo (WeaponType.Weapon_PipeWeapon, 1);
+            if (attackData.FromWeapon == Weapon.WeaponType.Weapon_PipeWeapon) {
+                GameManager.Inventory.TryRemoveAmmo (Weapon.WeaponType.Weapon_PipeWeapon, 1);
                 GameManager.UI.RefreshWeaponWheel ();
             }
 

@@ -19,7 +19,7 @@ public class HitBox : MonoBehaviour
 {
     public TeamAllegiance Allegiance;
     public GameObject FromObject;
-    public WeaponType FromWeapon;         // used to reduce our pipe durability on a successful hit.
+    public Weapon.WeaponType FromWeapon;         // used to reduce our pipe durability on a successful hit.
     public int DamageAmount;
     public bool MustCalculateKnockback;   // some attacks have a builtin direction and some, like explosions, must create one.
     // for each thing that they hit.

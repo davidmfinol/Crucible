@@ -33,13 +33,24 @@ public class Item : MonoBehaviour
     public int Quantity;
     public Transform WeaponPrefab;
     public bool WasPlaced;
+
+    void Start()
+    {
+        // Make sure our collider is correct
+        collider.isTrigger = false;
+
+        // Register ourselves with the LevelManager
+        GameManager.Level.Items.Add (this);
+        transform.parent = GameManager.Level.ItemContainer;
+
+    }
     
     public ItemSaveState SaveState ()
     {
         ItemSaveState itemSave = new ItemSaveState ();
 
         if (WeaponPrefab != null)
-            itemSave.WeaponType = WeaponPrefab.GetComponent<Weapon> ().WeaponType;
+            itemSave.WeaponType = WeaponPrefab.GetComponent<Weapon> ().Type;
         else
             itemSave.ItemType = Type;
 

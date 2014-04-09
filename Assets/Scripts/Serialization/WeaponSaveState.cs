@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WeaponSaveState
 {
-    public WeaponType WeaponType;
+    public Weapon.WeaponType WeaponType;
     public int Quantity;
 
 }

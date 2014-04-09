@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour
 
     // The dynamic objects in the scene
     private AlphaPulse _alarms;
+    private Transform _itemContainer;
     private List<Item> _items;
 
     // All managers need to let the GameManager know when it is ready
@@ -46,25 +47,11 @@ public class LevelManager : MonoBehaviour
             DefaultStartPoint.gameObject.isStatic = true;
             DefaultStartPoint.parent = transform;
         }
-    }
-
-    void Start ()
-    {
-        // Find the alarms that will flash when the player is found
-        GameObject alarms = GameObject.FindGameObjectWithTag ("Alarms");
-        if (alarms != null)
-            _alarms = alarms.GetComponent<AlphaPulse> ();
-
-        // TODO: A BETTER WAY TO FIND ITEMS BY HAVING THE ITEMS REGISTER THEMSELVES, AND THEN HAVE A DYNAMICALLY GENERATED CONTAINER
-        // Find the items in the scene
-        _items = new List<Item> ();
-        foreach (GameObject itemContainer in GameObject.FindGameObjectsWithTag("Item Pickups"))
-            foreach (Item item in itemContainer.GetComponentsInChildren<Item>())
-                _items.Add (item);
-
+        
         // Make ourselves static
         gameObject.isStatic = true;
 
+        // All managers need to report to the main GameManager when they are ready
         _ready = true;
 
     }
@@ -137,11 +124,37 @@ public class LevelManager : MonoBehaviour
     }
     
     public AlphaPulse Alarms {
-        get { return _alarms; }
+        get { 
+            if (_alarms == null) {
+                GameObject alarms = GameObject.FindGameObjectWithTag ("Alarms");
+                if(alarms == null) {
+                    alarms = new GameObject("_Alarms");
+                    alarms.AddComponent<AlphaPulse>();
+                }
+                _alarms = alarms.GetComponent<AlphaPulse> ();
+            }
+            return _alarms;
+        }
+    }
+
+    public Transform ItemContainer {
+        get { 
+            if(_itemContainer == null) {
+                GameObject itemContainer = GameObject.FindGameObjectWithTag("Item Pickups");
+                if (itemContainer == null)
+                    itemContainer = new GameObject ("_Pickups");
+                _itemContainer = itemContainer.transform;
+            }
+            return _itemContainer;
+        }
     }
 
     public List<Item> Items {
-        get { return _items; }
+        get {
+            if(_items == null)
+                _items = new List<Item>();
+            return _items;
+        }
     }
     
     public bool Ready {

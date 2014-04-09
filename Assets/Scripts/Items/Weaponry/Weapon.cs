@@ -7,39 +7,37 @@ using System.Collections;
 [AddComponentMenu("Items/Weaponry/Weapon")]
 public abstract class Weapon : MonoBehaviour
 {
+    public enum WeaponType : int
+    {
+        Weapon_None = 0,
+        Weapon_PipeWeapon = 1,
+        Weapon_HandMINE = 2,
+        Weapon_GravityGun = 3
+        
+    }
+    ;
+
+
+    // Refers to the ammo for this weapon
     public int Quantity;
     public int MaxQuantity;
 
-    /// <summary>
-    /// Activate the weapon's attack based off its attack number
-    /// </summary>
-    /// <param name="attackID">a number reffering to which attack to activate</param>
+    // Child classes should override this to allow different actions when the weapon is used
     public virtual void ActivateAttack (float attackID = 0)
     {
-    }
-
-    /// <summary>
-    /// Deactivate the weapon
-    /// </summary>
-    public virtual void Deactivate ()
-    {
-    }
-    
-    public virtual Texture2D GetTexture ()
-    {
-        return null;
     }
     
     public WeaponSaveState SaveState ()
     {
         WeaponSaveState weaponSave = new WeaponSaveState ();
         
-        weaponSave.WeaponType = WeaponType;
+        weaponSave.WeaponType = Type;
         weaponSave.Quantity = Quantity;
         return weaponSave;
         
     }
-    
+
+
     // How the weapon should be rotated while in hand
     public virtual Vector3 Rotation {
         get { return Vector3.zero; }
@@ -50,22 +48,26 @@ public abstract class Weapon : MonoBehaviour
         get { return Vector3.zero; }
     }
 
-    // can the weapon stealth kill
+    // Can the weapon stealth kill?
     public virtual bool CanStealthKill {
         get { return false; }
     }
 
     // Each weapon keeps track of its type
-    public abstract WeaponType WeaponType {
+    public abstract WeaponType Type {
         get;
     }
 
+    // The rest of the properties are used to display information in the crafting menu
     public abstract string Title {
         get;
-        
     }
     
     public abstract string Description {
+        get;
+    }
+    
+    public abstract Texture2D Texture {
         get;
     }
     

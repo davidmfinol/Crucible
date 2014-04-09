@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Outline pulse makes an object's outline pulse synchronized to time.
-/// Note that the object must use the outline shader for this to work.
+/// NOTE: MUST USED OUTLINED SHADER, in addition to having changeable materials tagged.
 /// </summary>
 [AddComponentMenu("Special Effects/Outline Pulse")]
 public class OutlinePulse : MonoBehaviour

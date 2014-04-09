@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Color pulse can be attached to an object to give it a pulsing effect by changing it's materials rgb values.
+/// Note that the changeable materials must be tagged for this to work.
 /// </summary>
 [AddComponentMenu("Special Effects/Color Pulse")]
 public class ColorPulse : MonoBehaviour

@@ -56,7 +56,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
     // Who are we close enough to stealth-kill right now?
     private CharacterAnimator _stealthKillable;
 
-
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer> ();
@@ -91,10 +90,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     }
 
-    protected override void OnUpdate()
+    protected override void OnUpdate ()
     {
         // HACK: WE'RE TRYING TO PREVENT MOVING THE MESH TOO FAR AWAY FROM THE COLLIDER
-        if (Root != null && CurrentState.nameHash == WallgrabbingState )
+        if (Root != null && CurrentState.nameHash == WallgrabbingState)
             Root.localPosition = Vector3.zero;
     }
     
@@ -145,7 +144,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
-        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null && currentWeapon is PipeWeapon)
+        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null && currentWeapon.CanStealthKill)
             StartCoroutine (ShowStealthKill ());
 
         if (CurrentState.nameHash != StealthKillState) {
@@ -156,10 +155,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     }
 
-    public IEnumerator ShowStealthKill()
+    public IEnumerator ShowStealthKill ()
     {
         MecanimAnimator.SetBool (MecanimHashes.StealthKill, true);
-        GenerateStealthKillEvent();
+        GenerateStealthKillEvent ();
         GameManager.MainCamera.CinematicOverride = true;
         
         Time.timeScale = 1.5f;
@@ -172,7 +171,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Time.timeScale = 1.5f;
 
-        yield return new WaitForSeconds (2.0f);
+        yield return new WaitForSeconds (1.0f);
+        
+        Time.timeScale = 0.1f;
+        
+        yield return new WaitForSeconds (0.5f);
         
         Time.timeScale = 1.0f;
 
@@ -257,7 +260,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         Weapon weapon = GameManager.Inventory.CurrentWeapon;
         if (weapon != null && weapon is GravityGun) {
             weapon.ActivateAttack ();
-            GameManager.Inventory.TryRemoveAmmo (WeaponType.Weapon_GravityGun, 1);
+            GameManager.Inventory.TryRemoveAmmo (Weapon.WeaponType.Weapon_GravityGun, 1);
             GameManager.UI.RefreshWeaponWheel ();
 
         } else
@@ -287,7 +290,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.Damaged, false);
             GameManager.UI.EnableInput ();
             GameManager.UI.CraftingMenu.Close ();
-			GameManager.UI.ShowMap(false);
+            GameManager.UI.ShowMap (false);
 
         }
 
@@ -575,13 +578,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
             VerticalSpeed = 0;
             */
         
-        if ( CharInput.PickupPressed || IsGrounded || (ActiveHangTarget == null) ) {
+        if (CharInput.PickupPressed || IsGrounded || (ActiveHangTarget == null)) {
             MecanimAnimator.SetBool (MecanimHashes.Fall, true);
             MecanimAnimator.SetBool (MecanimHashes.GrabWall, false);
             DropHangTarget ();
-        }
-
-        else if ( CharInput.InteractionPressed || (CharInput.JumpPressed && (InputJumpBackward || CharInput.JumpUp)) ) {
+        } else if (CharInput.InteractionPressed || (CharInput.JumpPressed && (InputJumpBackward || CharInput.JumpUp))) {
             MecanimAnimator.SetBool (MecanimHashes.JumpWall, true);
             MecanimAnimator.SetBool (MecanimHashes.GrabWall, false);
             DropHangTarget ();
@@ -771,8 +772,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if (MecanimAnimator.GetBool (MecanimHashes.Pickup)) {
             MecanimAnimator.SetBool (MecanimHashes.Pickup, false);
 
-			// remove hte item from the minimap
-			GameManager.UI.Map.RemoveMapPoint(_itemPickedup.transform.position.x.ToString());
+            // remove hte item from the minimap
+            GameManager.UI.Map.RemoveMapPoint (_itemPickedup.transform.position.x.ToString ());
 
             // *** picking up weapon? ***
             if (_itemPickedup.WeaponPrefab != null) {
@@ -914,20 +915,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     public bool CanPickupItem (out GameObject obj)
     {
-        RaycastHit hitInfo = new RaycastHit (); 
-        // test from player's front downward to item.
-        if (Physics.Raycast (transform.position + new Vector3 (Direction.x * Radius, Height * 0.5f, 0), Vector3.down, out hitInfo, Height, 1 << 13)) {
-            obj = hitInfo.transform.gameObject;
-            return true;
-        }
-        // And middle
-        if (Physics.Raycast (transform.position, Vector3.down, out hitInfo, Height, 1 << 13)) {
-            obj = hitInfo.transform.gameObject;
-            return true;
-        }
-        // And back
-        if (Physics.Raycast (transform.position - new Vector3 (Direction.x * Radius, Height * 0.5f, 0), Vector3.down, out hitInfo, Height, 1 << 13)) {
-            obj = hitInfo.transform.gameObject;
+        RaycastHit hit;
+        float radius = Radius * 4.0f;
+        Vector3 topRight = transform.position + new Vector3 (Direction.x * Radius * 2.0f, Height * 0.5f + radius, 0);
+        if (Physics.SphereCast (topRight, radius, Vector3.down, out hit, Height + radius, 1 << 13)) {
+            obj = hit.collider.gameObject;
             return true;
         }
         obj = null;
@@ -939,9 +931,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
         get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState; }
     }
 
-	public override EnemySaveState.EnemyType EnemyType {
-		get { return EnemySaveState.EnemyType.Enemy_Olympus; }
-	}
+    public override EnemySaveState.EnemyType EnemyType {
+        get { return EnemySaveState.EnemyType.Enemy_Olympus; }
+    }
 
     public CharacterAnimator StealthKillable {
         get { return _stealthKillable; }
