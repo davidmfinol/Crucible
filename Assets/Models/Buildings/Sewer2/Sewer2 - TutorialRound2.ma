@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: Sewer2 - TutorialRound2.ma
-//Last modified: Mon, Apr 07, 2014 05:22:39 PM
+//Last modified: Wed, Apr 09, 2014 04:02:41 PM
 //Codeset: UTF-8
 requires maya "2014";
 currentUnit -l centimeter -a degree -t film;
@@ -11,22 +11,22 @@ fileInfo "cutIdentifier" "201303010035-864206";
 fileInfo "osv" "Mac OS X 10.9.2";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" -46.042171943627757 50.664065696497126 31.881109562932014 ;
-	setAttr ".r" -type "double3" 0 -2.5444437451708134e-14 0 ;
+	setAttr ".t" -type "double3" 61.021029970251703 52.573337619751825 29.629591726362712 ;
+	setAttr ".r" -type "double3" -13.200000000000221 40.000000000000114 0 ;
 	setAttr ".rp" -type "double3" 7.1054273576010019e-15 2.2204460492503131e-16 1.4210854715202004e-14 ;
 	setAttr ".rpt" -type "double3" -2.6996294692247851e-14 4.9280892086369796e-14 -1.0204165494436097e-14 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".fl" 30.44216994994995;
-	setAttr ".coi" 34.77654789316567;
+	setAttr ".coi" 47.416077104528284;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" -46.042171943627793 50.664065696497175 -2.8954383302336208 ;
+	setAttr ".tp" -type "double3" 31.347837640776753 41.745835155698742 -5.7335418360277819 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	setAttr ".t" -type "double3" -31.390134811401367 46.797042846679688 70.296093673080378 ;
-	setAttr ".rpt" -type "double3" 1.00879708957009e-15 -3.5927483794247005e-16 1.0775841057474066e-15 ;
+	setAttr ".rpt" -type "double3" 1.00879708957009e-15 -3.5927483794247005e-16 1.0775841057474068e-15 ;
 createNode camera -s -n "topShape" -p "top";
 	setAttr -k off ".v";
 	setAttr ".rnd" no;
@@ -28672,6 +28672,114 @@ createNode mesh -n "polySurfaceShape328" -p "transform107";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
+createNode transform -n "pPipe77";
+	setAttr ".t" -type "double3" 31.347837402358177 40.763604396728589 -7.272791418310085 ;
+	setAttr ".r" -type "double3" 89.999999999999929 0 90 ;
+	setAttr ".s" -type "double3" 1.2180893915715014 2.9337924247744662 1.2180893915715014 ;
+createNode mesh -n "pPipeShape77" -p "pPipe77";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode transform -n "pPipe78";
+	setAttr ".t" -type "double3" 50.718721948297357 41.628130525800671 -0.44370383332590535 ;
+	setAttr ".s" -type "double3" 0.72226897883327157 1.0683739252730704 0.72226897883327157 ;
+createNode mesh -n "pPipeShape78" -p "pPipe78";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 40 ".uvst[0].uvsp[0:39]" -type "float2" 0 1 0.14285715 1
+		 0.2857143 1 0.42857146 1 0.5714286 1 0.71428573 1 0.85714287 1 1 1 0 0.75 0.14285715
+		 0.75 0.2857143 0.75 0.42857146 0.75 0.5714286 0.75 0.71428573 0.75 0.85714287 0.75
+		 1 0.75 0 0.5 0.14285715 0.5 0.2857143 0.5 0.42857146 0.5 0.5714286 0.5 0.71428573
+		 0.5 0.85714287 0.5 1 0.5 0 0.25 0.14285715 0.25 0.2857143 0.25 0.42857146 0.25 0.5714286
+		 0.25 0.71428573 0.25 0.85714287 0.25 1 0.25 0 0 0.14285715 0 0.2857143 0 0.42857146
+		 0 0.5714286 0 0.71428573 0 0.85714287 0 1 0;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 28 ".vt[0:27]"  1.57712722 -2.064493656 -4.5840968e-16 0.98332274 -2.064493656 -1.23304772
+		 -0.35094386 -2.064493656 -1.53758538 -1.42094266 -2.064493656 -0.68428981 -1.42094254 -2.064493656 0.68428999
+		 -0.35094368 -2.064493656 1.5375855 0.98332298 -2.064493656 1.23304772 1.57712722 2.064493656 4.5840968e-16
+		 0.98332274 2.064493656 -1.23304772 -0.35094386 2.064493656 -1.53758538 -1.42094266 2.064493656 -0.68428981
+		 -1.42094254 2.064493656 0.68428999 -0.35094368 2.064493656 1.5375855 0.98332298 2.064493656 1.23304772
+		 2.37712717 2.064493656 4.5840968e-16 1.48211455 2.064493656 -1.85851288 -0.52896065 2.064493656 -2.31752777
+		 -2.14171791 2.064493656 -1.031396747 -2.14171791 2.064493656 1.031397223 -0.52896047 2.064493656 2.31752825
+		 1.48211515 2.064493656 1.85851312 2.37712717 -2.064493656 -4.5840968e-16 1.48211455 -2.064493656 -1.85851288
+		 -0.52896065 -2.064493656 -2.31752777 -2.14171791 -2.064493656 -1.031396747 -2.14171791 -2.064493656 1.031397223
+		 -0.52896047 -2.064493656 2.31752825 1.48211515 -2.064493656 1.85851312;
+	setAttr -s 56 ".ed[0:55]"  0 1 0 1 2 0 2 3 0 3 4 0 4 5 0 5 6 0 6 0 0
+		 7 8 0 8 9 0 9 10 0 10 11 0 11 12 0 12 13 0 13 7 0 14 15 0 15 16 0 16 17 0 17 18 0
+		 18 19 0 19 20 0 20 14 0 21 22 0 22 23 0 23 24 0 24 25 0 25 26 0 26 27 0 27 21 0 0 7 0
+		 1 8 0 2 9 0 3 10 0 4 11 0 5 12 0 6 13 0 7 14 1 8 15 1 9 16 1 10 17 1 11 18 1 12 19 1
+		 13 20 1 14 21 0 15 22 0 16 23 0 17 24 0 18 25 0 19 26 0 20 27 0 21 0 1 22 1 1 23 2 1
+		 24 3 1 25 4 1 26 5 1 27 6 1;
+	setAttr -s 28 -ch 112 ".fc[0:27]" -type "polyFaces" 
+		f 4 -1 28 7 -30
+		mu 0 4 1 0 8 9
+		f 4 -2 29 8 -31
+		mu 0 4 2 1 9 10
+		f 4 -3 30 9 -32
+		mu 0 4 3 2 10 11
+		f 4 -4 31 10 -33
+		mu 0 4 4 3 11 12
+		f 4 -5 32 11 -34
+		mu 0 4 5 4 12 13
+		f 4 -6 33 12 -35
+		mu 0 4 6 5 13 14
+		f 4 -7 34 13 -29
+		mu 0 4 7 6 14 15
+		f 4 -8 35 14 -37
+		mu 0 4 9 8 16 17
+		f 4 -9 36 15 -38
+		mu 0 4 10 9 17 18
+		f 4 -10 37 16 -39
+		mu 0 4 11 10 18 19
+		f 4 -11 38 17 -40
+		mu 0 4 12 11 19 20
+		f 4 -12 39 18 -41
+		mu 0 4 13 12 20 21
+		f 4 -13 40 19 -42
+		mu 0 4 14 13 21 22
+		f 4 -14 41 20 -36
+		mu 0 4 15 14 22 23
+		f 4 -15 42 21 -44
+		mu 0 4 17 16 24 25
+		f 4 -16 43 22 -45
+		mu 0 4 18 17 25 26
+		f 4 -17 44 23 -46
+		mu 0 4 19 18 26 27
+		f 4 -18 45 24 -47
+		mu 0 4 20 19 27 28
+		f 4 -19 46 25 -48
+		mu 0 4 21 20 28 29
+		f 4 -20 47 26 -49
+		mu 0 4 22 21 29 30
+		f 4 -21 48 27 -43
+		mu 0 4 23 22 30 31
+		f 4 -22 49 0 -51
+		mu 0 4 25 24 32 33
+		f 4 -23 50 1 -52
+		mu 0 4 26 25 33 34
+		f 4 -24 51 2 -53
+		mu 0 4 27 26 34 35
+		f 4 -25 52 3 -54
+		mu 0 4 28 27 35 36
+		f 4 -26 53 4 -55
+		mu 0 4 29 28 36 37
+		f 4 -27 54 5 -56
+		mu 0 4 30 29 37 38
+		f 4 -28 55 6 -50
+		mu 0 4 31 30 38 39;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
 	setAttr -s 33 ".lnk";
 	setAttr -s 33 ".slnk";
@@ -31229,7 +31337,7 @@ createNode blinn -n "PipeDesaturatedGray";
 	setAttr ".c" -type "float3" 0.32350001 0.49682888 0.5 ;
 createNode shadingEngine -n "blinn6SG";
 	setAttr ".ihi" 0;
-	setAttr -s 49 ".dsm";
+	setAttr -s 51 ".dsm";
 	setAttr ".ro" yes;
 	setAttr -s 21 ".gn";
 createNode materialInfo -n "materialInfo13";
@@ -37136,12 +37244,17 @@ createNode groupId -n "groupId469";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts515";
 	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 3 "f[0]" "f[1]" "f[2]";
+	setAttr ".ic" -type "componentList" 1 "f[0:2]";
 createNode groupId -n "groupId470";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts516";
 	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 3 "f[0]" "f[1]" "f[2]";
+	setAttr ".ic" -type "componentList" 1 "f[0:2]";
+createNode polyPipe -n "polyPipe2";
+	setAttr ".r" 2.3771270835970237;
+	setAttr ".h" 8.2579749840620451;
+	setAttr ".t" 0.8;
+	setAttr ".sa" 7;
 select -ne :time1;
 	setAttr ".o" 10;
 	setAttr ".unw" 10;
@@ -37179,8 +37292,6 @@ select -ne :hardwareRenderGlobals;
 select -ne :defaultHardwareRenderGlobals;
 	setAttr ".fn" -type "string" "im";
 	setAttr ".res" -type "string" "ntsc_4d 646 485 1.333";
-select -ne :ikSystem;
-	setAttr -s 4 ".sol";
 connectAttr "deleteComponent15.og" "polySurfaceShape145.i";
 connectAttr "groupId151.id" "polySurfaceShape145.iog.og[0].gid";
 connectAttr "lambert7SG.mwc" "polySurfaceShape145.iog.og[0].gco";
@@ -37760,6 +37871,7 @@ connectAttr ":initialShadingGroup.mwc" "|polySurface270|Box|transform108|BoxShap
 connectAttr "polyChipOff46.out" "polySurfaceShape328.i";
 connectAttr "groupId462.id" "polySurfaceShape328.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "polySurfaceShape328.iog.og[0].gco";
+connectAttr "polyPipe2.out" "pPipeShape77.i";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
@@ -38898,6 +39010,8 @@ connectAttr "WallLedge5Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "WallLedge6Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "Ledge12Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "WallLedge7Shape.iog" "blinn6SG.dsm" -na;
+connectAttr "pPipeShape78.iog" "blinn6SG.dsm" -na;
+connectAttr "pPipeShape77.iog" "blinn6SG.dsm" -na;
 connectAttr "groupId328.msg" "blinn6SG.gn" -na;
 connectAttr "groupId329.msg" "blinn6SG.gn" -na;
 connectAttr "groupId330.msg" "blinn6SG.gn" -na;
