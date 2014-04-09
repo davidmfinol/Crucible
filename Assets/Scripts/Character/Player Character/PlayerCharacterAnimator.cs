@@ -25,6 +25,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public static readonly int FallingState = Animator.StringToHash ("Air.Falling");
     public static readonly int LandingState = Animator.StringToHash ("Air.Landing");
     public static readonly int BackflipState = Animator.StringToHash ("Air.Backflip");
+    public static readonly int FallRollState = Animator.StringToHash ("Air.Rolling");
     public static readonly int WallgrabbingState = Animator.StringToHash ("Wall.Wallgrabbing");
     public static readonly int WalljumpingState = Animator.StringToHash ("Wall.Walljumping");
     public static readonly int HangingState = Animator.StringToHash ("Climbing.Hanging");
@@ -78,6 +79,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         StateMachine [FallingState] = Falling;
         StateMachine [LandingState] = Running;
         StateMachine [BackflipState] = Backflip;
+        StateMachine [FallRollState] = FallRolling;
         StateMachine [WallgrabbingState] = Wallgrabbing;
         StateMachine [WalljumpingState] = Walljumping;
         StateMachine [HangingState] = Hanging;
@@ -434,6 +436,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
         }
 
     }
+
+    protected void FallRolling (float elapsedTime)
+    {
+        if (MecanimAnimator.GetBool (MecanimHashes.FallRoll))
+            MecanimAnimator.SetBool (MecanimHashes.FallRoll, false);
+
+        Running (elapsedTime);
+    }
     
     protected void Jumping (float elapsedTime)
     {
@@ -563,6 +573,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         //if(CharInput.JumpPressed && !_hasDoubleJumped)
         //    MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
+        if (IsGrounded && Vector3.Distance(Vector3.up * LastGroundHeight, transform.position) > 10.0f)
+            MecanimAnimator.SetBool (MecanimHashes.FallRoll, true);
 
     }
 
@@ -880,7 +892,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public void PlayRun ()
     {
         int runIndex = Random.Range (0, _sound.Running.Length);
-        _sound.Play (_sound.Running [runIndex], Mathf.Abs(CharInput.Horizontal));
+        _sound.Play (_sound.Running [runIndex], Mathf.Abs (CharInput.Horizontal));
 
     }
 
@@ -926,7 +938,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         return false;
 
     }
-    
+
     public override bool IsDead {
         get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState; }
     }
