@@ -403,7 +403,8 @@ public class CraftingMenu : MonoBehaviour
 
     void Craft ()
     {
-		_sound.Play(_sound.Crafting,1.0f);
+		//_sound.Play(_sound.Crafting,1.0f);
+		_sound.Play(_sound.CraftingZipper,1.0f);
         if (_craftResult.IsWeapon) {
             // crafting a MINE????
             if (_craftResult.WeaponType == Weapon.WeaponType.Weapon_HandMINE) {

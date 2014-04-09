@@ -12,6 +12,7 @@ public class UIAudioPlayer : AudioPlayer
     public AudioClip SelectItem;
     public AudioClip DropoffItem;
     public AudioClip Crafting;
+	public AudioClip CraftingZipper;
     public AudioClip NotACombination;
 
 }

@@ -865,9 +865,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
         //TODO: Move this wallkick sound to new wall kick animation and event
         if (CurrentState.nameHash == WalljumpingState)
-            _sound.Play (_sound.WallKick, 1.0f);
+            _sound.Play (_sound.WallKick, 0.6f);
         else
-            _sound.Play (_sound.Jump, 1.0f);
+            _sound.Play (_sound.Jump, 0.6f);
 
     }
 
@@ -880,7 +880,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public void PlayRun ()
     {
         int runIndex = Random.Range (0, _sound.Running.Length);
-        _sound.Play (_sound.Running [runIndex], 1.0f);
+        _sound.Play (_sound.Running [runIndex], Mathf.Abs(CharInput.Horizontal));
 
     }
 
