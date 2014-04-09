@@ -388,6 +388,21 @@ ModelImporter:
     100764: WallLedgeLeftOnly6
     100766: WallLedgeLeftOnly7
     100768: WallLedgeRightOnly4
+    100770: DiagonalBox3
+    100772: LedgeLeftOnly
+    100774: LedgeRightOnly
+    100776: pCube204
+    100778: pCube205
+    100780: pCube206
+    100782: pCube207
+    100784: pCube208
+    100786: pCube209
+    100788: pCube210
+    100790: pCube211
+    100792: pCube212
+    100794: pCube213
+    100796: pCube214
+    100798: pCube215
     400000: Box
     400002: Box1
     400004: Box2
@@ -773,6 +788,21 @@ ModelImporter:
     400764: WallLedgeLeftOnly6
     400766: WallLedgeLeftOnly7
     400768: WallLedgeRightOnly4
+    400770: DiagonalBox3
+    400772: LedgeLeftOnly
+    400774: LedgeRightOnly
+    400776: pCube204
+    400778: pCube205
+    400780: pCube206
+    400782: pCube207
+    400784: pCube208
+    400786: pCube209
+    400788: pCube210
+    400790: pCube211
+    400792: pCube212
+    400794: pCube213
+    400796: pCube214
+    400798: pCube215
     2300000: Box
     2300002: Box1
     2300004: Box2
@@ -1108,6 +1138,21 @@ ModelImporter:
     2300664: WallLedgeLeftOnly6
     2300666: WallLedgeLeftOnly7
     2300668: WallLedgeRightOnly4
+    2300670: DiagonalBox3
+    2300672: LedgeLeftOnly
+    2300674: LedgeRightOnly
+    2300676: pCube204
+    2300678: pCube205
+    2300680: pCube206
+    2300682: pCube207
+    2300684: pCube208
+    2300686: pCube209
+    2300688: pCube210
+    2300690: pCube211
+    2300692: pCube212
+    2300694: pCube213
+    2300696: pCube214
+    2300698: pCube215
     3300000: Box
     3300002: Box1
     3300004: Box2
@@ -1443,6 +1488,21 @@ ModelImporter:
     3300664: WallLedgeLeftOnly6
     3300666: WallLedgeLeftOnly7
     3300668: WallLedgeRightOnly4
+    3300670: DiagonalBox3
+    3300672: LedgeLeftOnly
+    3300674: LedgeRightOnly
+    3300676: pCube204
+    3300678: pCube205
+    3300680: pCube206
+    3300682: pCube207
+    3300684: pCube208
+    3300686: pCube209
+    3300688: pCube210
+    3300690: pCube211
+    3300692: pCube212
+    3300694: pCube213
+    3300696: pCube214
+    3300698: pCube215
     4300000: LedgeLeftOnly3
     4300002: Ledge88
     4300004: WallLedgeRightOnly4
@@ -1778,6 +1838,21 @@ ModelImporter:
     4300664: pCube201
     4300666: pCube202
     4300668: pCube203
+    4300670: LedgeLeftOnly
+    4300672: DiagonalBox3
+    4300674: LedgeRightOnly
+    4300676: pCube204
+    4300678: pCube205
+    4300680: pCube206
+    4300682: pCube207
+    4300684: pCube208
+    4300686: pCube209
+    4300688: pCube210
+    4300690: pCube211
+    4300692: pCube212
+    4300694: pCube213
+    4300696: pCube214
+    4300698: pCube215
     7400000: Take 001
     9500000: //RootNode
   materials:
