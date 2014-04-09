@@ -617,6 +617,8 @@ ModelImporter:
     101222: Box 8
     101224: transform109
     101226: Wall 6
+    101228: HidingSpotMesh
+    101230: Mesh8
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1231,6 +1233,8 @@ ModelImporter:
     401222: Box 8
     401224: transform109
     401226: Wall 6
+    401228: HidingSpotMesh
+    401230: Mesh8
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1609,6 +1613,8 @@ ModelImporter:
     2300750: WallBox1
     2300752: Box 8
     2300754: Wall 6
+    2300756: HidingSpotMesh
+    2300758: Mesh8
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -1987,6 +1993,8 @@ ModelImporter:
     3300750: WallBox1
     3300752: Box 8
     3300754: Wall 6
+    3300756: HidingSpotMesh
+    3300758: Mesh8
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -2359,6 +2367,8 @@ ModelImporter:
     4300738: WallLedge7
     4300740: polySurface267
     4300742: WallBox1
+    4300744: HidingSpotMesh
+    4300746: Mesh8
     7400000: Take 001
     9500000: //RootNode
   materials:
