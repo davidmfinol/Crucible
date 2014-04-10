@@ -120,8 +120,8 @@ public class BabyBotAnimator : CharacterAnimator
         } else
             ApplyGravity (elapsedTime);
         
-        if (transform.position.y >= LastGroundHeight - 1)
-            MecanimAnimator.SetBool (MecanimHashes.Fall, false);
+        if (transform.position.y >= LastGroundHeight + Settings.JumpHeight)
+            MecanimAnimator.SetBool (MecanimHashes.Fall, true);
 
     }
 

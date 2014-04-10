@@ -13,13 +13,14 @@ public class CameraSpotterAnimator : CharacterAnimator
     public static readonly int ScanState = Animator.StringToHash ("Base Layer.Scan");
 
     // find view cone so we can calculate a direction vector along it for LOS
-    Transform _viewConeEnd;
-    
+    private Transform _viewConeEnd;
+	private EnemyAI _ai;
+	
     protected override void OnStart ()
     {
         _viewConeEnd = CameraSpotterAnimator.SearchHierarchyForTransform (transform, "ViewConeEnd");
 
-        //MecanimAnimator.speed = 0.5f;
+		_ai = GetComponent<EnemyAI> ();
 
     }
     
@@ -33,16 +34,31 @@ public class CameraSpotterAnimator : CharacterAnimator
         // calculate min and max vectors.
         // Debug.DrawLine (transform.position, transform.position + (Direction * 30.0f), Color.green, 0.1f, false);
 
+		if(_ai.IsSeeingPlayer) {
+			// stop animating, and instead just follow him.
+			MecanimAnimator.enabled = false;
+
+		
+		} else {
+			MecanimAnimator.enabled = true;
+
+		}
+
     }
-    
+
+	public void UpdateDirection() {
+		if (_viewConeEnd == null)
+			return;
+		
+		Vector3 newDir = _viewConeEnd.transform.position - transform.position;
+		newDir.Normalize ();
+		Direction = newDir;
+
+	}
+
     public void OnAnimatorMove ()
     {
-        if (_viewConeEnd == null)
-            return;
-
-        Vector3 newDir = _viewConeEnd.transform.position - transform.position;
-        newDir.Normalize ();
-        Direction = newDir;
+		UpdateDirection ();
 
     }
 

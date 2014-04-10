@@ -19,14 +19,13 @@ public class Item : MonoBehaviour
         Item_Propellant = 5,
         Item_Binding = 6,
         Item_GunParts = 7,
-        Item_HiggsDrive = 7,
-        Item_Isolator = 8,
-        Item_Magnet = 9,
-        Item_Transmitter = 10,
-        Item_Visualizer = 11
+        Item_HiggsDrive = 8,
+        Item_Isolator = 9,
+        Item_Magnet = 10,
+        Item_Transmitter = 11,
+        Item_Visualizer = 12
 
-    }
-    ;
+    };
 
 
     public Item.ItemType Type;

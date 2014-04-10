@@ -25,6 +25,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public static readonly int FallingState = Animator.StringToHash ("Air.Falling");
     public static readonly int LandingState = Animator.StringToHash ("Air.Landing");
     public static readonly int BackflipState = Animator.StringToHash ("Air.Backflip");
+    public static readonly int FallRollState = Animator.StringToHash ("Air.Rolling");
     public static readonly int WallgrabbingState = Animator.StringToHash ("Wall.Wallgrabbing");
     public static readonly int WalljumpingState = Animator.StringToHash ("Wall.Walljumping");
     public static readonly int HangingState = Animator.StringToHash ("Climbing.Hanging");
@@ -78,6 +79,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         StateMachine [FallingState] = Falling;
         StateMachine [LandingState] = Running;
         StateMachine [BackflipState] = Backflip;
+        StateMachine [FallRollState] = FallRolling;
         StateMachine [WallgrabbingState] = Wallgrabbing;
         StateMachine [WalljumpingState] = Walljumping;
         StateMachine [HangingState] = Hanging;
@@ -93,8 +95,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected override void OnUpdate ()
     {
         // HACK: WE'RE TRYING TO PREVENT MOVING THE MESH TOO FAR AWAY FROM THE COLLIDER
-        if (Root != null && CurrentState.nameHash == WallgrabbingState)
-            Root.localPosition = Vector3.zero;
+       // if (Root != null && CurrentState.nameHash == WallgrabbingState)
+      //      Root.localPosition = Vector3.zero;
     }
     
     protected override void UpdateMecanimVariables ()
@@ -134,6 +136,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
         MecanimAnimator.SetBool (MecanimHashes.ClimbPipe, startClimbPipe);
 
         MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
+
+		MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+
+		MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
 
     }
 
@@ -427,12 +433,24 @@ public class PlayerCharacterAnimator : CharacterAnimator
             float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
 
             // TODO: Confirm this value
-            VerticalSpeed = distanceToClimb / animationTime * 3.0f;
+            VerticalSpeed = distanceToClimb / animationTime;
 
-            // account for left/right
-            HorizontalSpeed = Direction.x * (distanceToMove / animationTime);
+			// TODO: Confirm this value. Lolwat
+            HorizontalSpeed = distanceToMove / animationTime;
         }
 
+    }
+
+    protected void FallRolling (float elapsedTime)
+    {
+		if (MecanimAnimator.GetBool (MecanimHashes.FallRoll))
+		{
+            MecanimAnimator.SetBool (MecanimHashes.FallRoll, false);
+		}
+		float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
+		HorizontalSpeed = Direction.x * (18.0f / animationTime);
+
+        Running (elapsedTime);
     }
     
     protected void Jumping (float elapsedTime)
@@ -563,6 +581,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         //if(CharInput.JumpPressed && !_hasDoubleJumped)
         //    MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
+        if (IsGrounded && (LastGroundHeight - transform.position.y) > 10.0f)
+            MecanimAnimator.SetBool (MecanimHashes.FallRoll, true);
 
     }
 
@@ -570,7 +590,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
         HorizontalSpeed = 0;
         VerticalSpeed = 0;
-
         /*
         if (_wallJumpCount > 0)
             VerticalSpeed = 0; // Settings.WallSlideSpeed * elapsedTime; // TODO: MAKE THIS LINEAR BASED OFF WALLJUMPCOUNT?
@@ -719,9 +738,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
             else
                 Direction = Vector3.left;
         }
-        
-        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, HorizontalSpeed);
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
 
         if (CharInput.InteractionPressed) {
             MecanimAnimator.SetBool (MecanimHashes.Fall, true);
@@ -761,8 +777,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //      if(ActiveHangTarget.DoesFaceZAxis())
 //          Direction = Vector3.zero;
 //      
-//      MecanimAnimator.SetFloat(MecanimHashes.HorizontalSpeed, HorizontalSpeed);
-//      MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
 //      MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpPressed);
 //      //MecanimAnimator.SetBool(MecanimHashes.ClimbLadder, CanClimbP);
 //  }
@@ -829,13 +843,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
             GameManager.UI.RefreshWeaponWheel ();
 
     }
-        
-    protected override void ApplyRunning (float elapsedTime)
-    {
-        base.ApplyRunning (elapsedTime);
-        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
-
-    }
 
     public void PlayHit ()
     {
@@ -880,7 +887,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public void PlayRun ()
     {
         int runIndex = Random.Range (0, _sound.Running.Length);
-        _sound.Play (_sound.Running [runIndex], Mathf.Abs(CharInput.Horizontal));
+        _sound.Play (_sound.Running [runIndex], Mathf.Abs (CharInput.Horizontal));
 
     }
 
@@ -926,7 +933,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         return false;
 
     }
-    
+
     public override bool IsDead {
         get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState; }
     }
