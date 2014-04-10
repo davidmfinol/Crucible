@@ -15,7 +15,7 @@ public class CameraSpotterAnimator : CharacterAnimator
     // find view cone so we can calculate a direction vector along it for LOS
     private Transform _viewConeEnd;
 	private EnemyAI _ai;
-    
+	
     protected override void OnStart ()
     {
         _viewConeEnd = CameraSpotterAnimator.SearchHierarchyForTransform (transform, "ViewConeEnd");
