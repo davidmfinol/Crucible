@@ -113,7 +113,7 @@ public class LevelManager : MonoBehaviour
 
     public void ResetItems ()
     {
-        foreach (Item item in _items)
+        foreach (Item item in Items)
             Destroy (item.gameObject);
         _items = new List<Item> ();
 
