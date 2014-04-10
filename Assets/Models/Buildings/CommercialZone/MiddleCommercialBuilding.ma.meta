@@ -403,6 +403,25 @@ ModelImporter:
     100794: pCube213
     100796: pCube214
     100798: pCube215
+    100800: pCube216
+    100802: pCube224
+    100804: pCube225
+    100806: pCube226
+    100808: pCube227
+    100810: pCube228
+    100812: pCube229
+    100814: pCube230
+    100816: pCube231
+    100818: pCube235
+    100820: polySurface66
+    100822: polySurface67
+    100824: transform29
+    100826: transform30
+    100828: transform31
+    100830: transform32
+    100832: transform33
+    100834: transform34
+    100836: transform35
     400000: Box
     400002: Box1
     400004: Box2
@@ -803,6 +822,25 @@ ModelImporter:
     400794: pCube213
     400796: pCube214
     400798: pCube215
+    400800: pCube216
+    400802: pCube224
+    400804: pCube225
+    400806: pCube226
+    400808: pCube227
+    400810: pCube228
+    400812: pCube229
+    400814: pCube230
+    400816: pCube231
+    400818: pCube235
+    400820: polySurface66
+    400822: polySurface67
+    400824: transform29
+    400826: transform30
+    400828: transform31
+    400830: transform32
+    400832: transform33
+    400834: transform34
+    400836: transform35
     2300000: Box
     2300002: Box1
     2300004: Box2
@@ -1153,6 +1191,18 @@ ModelImporter:
     2300694: pCube213
     2300696: pCube214
     2300698: pCube215
+    2300700: pCube216
+    2300702: pCube224
+    2300704: pCube225
+    2300706: pCube226
+    2300708: pCube227
+    2300710: pCube228
+    2300712: pCube229
+    2300714: pCube230
+    2300716: pCube231
+    2300718: pCube235
+    2300720: polySurface66
+    2300722: polySurface67
     3300000: Box
     3300002: Box1
     3300004: Box2
@@ -1503,6 +1553,18 @@ ModelImporter:
     3300694: pCube213
     3300696: pCube214
     3300698: pCube215
+    3300700: pCube216
+    3300702: pCube224
+    3300704: pCube225
+    3300706: pCube226
+    3300708: pCube227
+    3300710: pCube228
+    3300712: pCube229
+    3300714: pCube230
+    3300716: pCube231
+    3300718: pCube235
+    3300720: polySurface66
+    3300722: polySurface67
     4300000: LedgeLeftOnly3
     4300002: Ledge88
     4300004: WallLedgeRightOnly4
@@ -1853,6 +1915,18 @@ ModelImporter:
     4300694: pCube213
     4300696: pCube214
     4300698: pCube215
+    4300700: polySurface66
+    4300702: polySurface67
+    4300704: pCube216
+    4300706: pCube224
+    4300708: pCube225
+    4300710: pCube226
+    4300712: pCube227
+    4300714: pCube228
+    4300716: pCube229
+    4300718: pCube230
+    4300720: pCube231
+    4300722: pCube235
     7400000: Take 001
     9500000: //RootNode
   materials:
