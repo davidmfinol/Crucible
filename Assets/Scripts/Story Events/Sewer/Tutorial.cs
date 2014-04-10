@@ -13,25 +13,30 @@ public class Tutorial : MonoBehaviour
 
     // Scripted characters in the scene
     public GameObject MysteriousRunner;
+    public Transform SewerDoor;
+    //public Transform OlympusPosition;
 
     // save runner component to call script coroutines directly
     private MysteriousRunner _runner;
+    private bool _sewerDoorOpen;
 
     void Start ()
     {
         _runner = MysteriousRunner.GetComponent<MysteriousRunner> ();
+        
+        StartCoroutine (OperateDoor ());
 
     }
 
     public void ForceTwoHands ()
     {
         if (!GameManager.SaveData.HasUsed2Hands) {
-            StartCoroutine(ShowTwoHands());
+            StartCoroutine (ShowTwoHands ());
         }
 
     }
 
-    public IEnumerator ShowTwoHands()
+    public IEnumerator ShowTwoHands ()
     {
         // Make the player fall down
         GameManager.MainCamera.CinematicOverride = true;
@@ -40,7 +45,7 @@ public class Tutorial : MonoBehaviour
         // Create the pieces we're showing
         Transform leftHandVignette = (Transform)Instantiate (LeftHandVignette, LeftHandVignette.position, LeftHandVignette.rotation);
         Transform rightHandVignette = (Transform)Instantiate (RightHandVignette, RightHandVignette.position, RightHandVignette.rotation);
-         // TODO
+        // TODO
 
         // We only need to force 2 hands on the mobile devices
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB
@@ -60,6 +65,7 @@ public class Tutorial : MonoBehaviour
 
         // And show the wall jump
         ShowWallJump ();
+
     }
 
     public void ShowWallJump ()
@@ -84,6 +90,38 @@ public class Tutorial : MonoBehaviour
             
         }
 
+    }
+
+    public void BeforeCamera ()
+    {
+        SewerDoor.animation.Play ("Open");
+        _sewerDoorOpen = true;
+    
+    }
+
+    public IEnumerator OperateDoor ()
+    {
+        while (true) {
+            // see player & open? close.
+            if ((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
+                Debug.Log ("Closing door.");
+
+                SewerDoor.animation.Play ("Close");
+                _sewerDoorOpen = false;
+
+                // no longer see player & closed? open.
+            } else if ((GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
+                Debug.Log ("Opening door.");
+
+                SewerDoor.animation.Play ("Open");
+                _sewerDoorOpen = true;
+
+            }
+                
+            yield return new WaitForSeconds (0.25f);
+            
+        }
+        
     }
 
 }

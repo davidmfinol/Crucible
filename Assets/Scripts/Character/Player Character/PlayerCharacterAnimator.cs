@@ -95,8 +95,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected override void OnUpdate ()
     {
         // HACK: WE'RE TRYING TO PREVENT MOVING THE MESH TOO FAR AWAY FROM THE COLLIDER
-        if (Root != null && CurrentState.nameHash == WallgrabbingState)
-            Root.localPosition = Vector3.zero;
+       // if (Root != null && CurrentState.nameHash == WallgrabbingState)
+      //      Root.localPosition = Vector3.zero;
     }
     
     protected override void UpdateMecanimVariables ()
@@ -136,6 +136,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
         MecanimAnimator.SetBool (MecanimHashes.ClimbPipe, startClimbPipe);
 
         MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
+
+		MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+
+		MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
 
     }
 
@@ -429,18 +433,22 @@ public class PlayerCharacterAnimator : CharacterAnimator
             float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
 
             // TODO: Confirm this value
-            VerticalSpeed = distanceToClimb / animationTime * 3.0f;
+            VerticalSpeed = distanceToClimb / animationTime;
 
-            // account for left/right
-            HorizontalSpeed = Direction.x * (distanceToMove / animationTime);
+			// TODO: Confirm this value. Lolwat
+            HorizontalSpeed = distanceToMove / animationTime;
         }
 
     }
 
     protected void FallRolling (float elapsedTime)
     {
-        if (MecanimAnimator.GetBool (MecanimHashes.FallRoll))
+		if (MecanimAnimator.GetBool (MecanimHashes.FallRoll))
+		{
             MecanimAnimator.SetBool (MecanimHashes.FallRoll, false);
+		}
+		float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
+		HorizontalSpeed = Direction.x * (18.0f / animationTime);
 
         Running (elapsedTime);
     }
@@ -573,7 +581,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         //if(CharInput.JumpPressed && !_hasDoubleJumped)
         //    MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
-        if (IsGrounded && Vector3.Distance(Vector3.up * LastGroundHeight, transform.position) > 10.0f)
+        if (IsGrounded && (LastGroundHeight - transform.position.y) > 10.0f)
             MecanimAnimator.SetBool (MecanimHashes.FallRoll, true);
 
     }
@@ -582,7 +590,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
         HorizontalSpeed = 0;
         VerticalSpeed = 0;
-
         /*
         if (_wallJumpCount > 0)
             VerticalSpeed = 0; // Settings.WallSlideSpeed * elapsedTime; // TODO: MAKE THIS LINEAR BASED OFF WALLJUMPCOUNT?
@@ -731,9 +738,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
             else
                 Direction = Vector3.left;
         }
-        
-        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, HorizontalSpeed);
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
 
         if (CharInput.InteractionPressed) {
             MecanimAnimator.SetBool (MecanimHashes.Fall, true);
@@ -773,8 +777,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 //      if(ActiveHangTarget.DoesFaceZAxis())
 //          Direction = Vector3.zero;
 //      
-//      MecanimAnimator.SetFloat(MecanimHashes.HorizontalSpeed, HorizontalSpeed);
-//      MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
 //      MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpPressed);
 //      //MecanimAnimator.SetBool(MecanimHashes.ClimbLadder, CanClimbP);
 //  }
@@ -839,13 +841,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
             GameManager.UI.CycleToNextWeapon ();
         else if (GameManager.Inventory.Weapons.Count <= 3)
             GameManager.UI.RefreshWeaponWheel ();
-
-    }
-        
-    protected override void ApplyRunning (float elapsedTime)
-    {
-        base.ApplyRunning (elapsedTime);
-        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
 
     }
 

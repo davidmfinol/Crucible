@@ -67,12 +67,12 @@ public class PlayerCharacterShader : MonoBehaviour
 		float rate = 5.0f * Time.deltaTime;
 
         if (_currShader == ShaderType.Shader_Sneak) {
-			newColor = Color.Lerp(srcColor, new Color(0.2f, 0.2f, 0.2f, 1.0f), rate);
-			newOutlineColor = Color.Lerp (srcOutlineColor, new Color(1.0f, 1.0f, 1.0f, 0.7f), rate);
+			newColor = Color.Lerp(srcColor, new Color(0.5f, 0.5f, 0.5f, 1.0f), rate);
+			newOutlineColor = Color.Lerp (srcOutlineColor, new Color(0.7f, 0.7f, 0.7f, 0.2f), rate);
 
 		} else if (_currShader == ShaderType.Shader_Shadow) {
-			newColor = Color.Lerp(srcColor, new Color(0.2f, 0.2f, 0.2f, 1.0f), rate);
-			newOutlineColor = Color.Lerp(srcOutlineColor, new Color(1.0f, 1.0f, 1.0f, 0.7f), rate);
+			newColor = Color.Lerp(srcColor, new Color(1.0f, 1.0f, 1.0f, 0.0f), rate);
+			newOutlineColor = Color.Lerp(srcOutlineColor, new Color(1.0f, 1.0f, 1.0f, 0.3f), rate);
 
 		// default shader if none else.
 		} else {
@@ -91,13 +91,15 @@ public class PlayerCharacterShader : MonoBehaviour
 
 	public void Update() {
 		// shader transitions
-		if (_inShadow && (_currShader != ShaderType.Shader_Shadow) ) 
-			_currShader = ShaderType.Shader_Shadow;
+		if (_inShadow) { 
+			if (_currShader != ShaderType.Shader_Shadow)
+				_currShader = ShaderType.Shader_Shadow;
 
-		else if(_anim.IsGrounded && _anim.IsSneaking && (_currShader != ShaderType.Shader_Sneak))
-			_currShader = ShaderType.Shader_Sneak;
+		} else if(_anim.IsGrounded && _anim.IsSneaking) {
+			if (_currShader != ShaderType.Shader_Sneak)
+				_currShader = ShaderType.Shader_Sneak;
 
-		else if ( _currShader != ShaderType.Shader_Default )
+		} else if ( _currShader != ShaderType.Shader_Default )
 			_currShader = ShaderType.Shader_Default;
 
 		ModulateColors();
