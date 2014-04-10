@@ -444,11 +444,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected void FallRolling (float elapsedTime)
     {
 		if (MecanimAnimator.GetBool (MecanimHashes.FallRoll))
-		{
             MecanimAnimator.SetBool (MecanimHashes.FallRoll, false);
-		}
-		float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
-		HorizontalSpeed = Direction.x * (18.0f / animationTime);
+
+        // TODO: ONANIMATORMOVE
+		//float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
+		//HorizontalSpeed = Direction.x * (18.0f / animationTime);
 
         Running (elapsedTime);
     }
