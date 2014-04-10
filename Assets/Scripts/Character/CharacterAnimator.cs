@@ -266,9 +266,6 @@ public abstract class CharacterAnimator : MonoBehaviour
             float drotY = Quaternion.LookRotation (_direction).eulerAngles.y;
             transform.rotation = Quaternion.Euler (0, Mathf.Lerp (crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
 		
-			if(gameObject.name.Contains("CameraSpotter"))
-				Debug.Log ("Updating Direction " + Direction);
-
 		}
 
     }
