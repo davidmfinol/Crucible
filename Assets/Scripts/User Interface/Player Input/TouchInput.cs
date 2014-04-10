@@ -217,15 +217,11 @@ public class TouchInput : MonoBehaviour
         // Actually update the movement input when appropriate
         Vector2 delta = _lastMovePos - _moveStartPos;
         if (delta.magnitude > _moveMin) {
-            // Handle horizontal input
-            if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { // TODO: ONLY ALLOW LEFT/RIGHT WHEN RUNNING AND ONLY ALLOW UP/DOWN WHEN CLIMBING
-				_input.Horizontal = delta.x / _distanceForMaxSpeed;
 
-				// We give a speed bump once you're no longer sneaking (to make it more apparent when you've hit that threshold)
-				if ( _input.Horizontal > 0.5f )
-					_input.Horizontal += 0.3f;
-                else if ( _input.Horizontal < -0.5f )
-                    _input.Horizontal -= 0.3f;
+            // TODO: ONLY ALLOW LEFT/RIGHT WHEN RUNNING AND ONLY ALLOW UP/DOWN WHEN CLIMBING
+            // Handle horizontal input
+            if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { 
+				_input.Horizontal = delta.x / _distanceForMaxSpeed;
 
             // Handle vertical input
             } else 
