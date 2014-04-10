@@ -205,7 +205,7 @@ public class GameManager : MonoBehaviour
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint3"));
             
         } else if (Application.loadedLevelName == "Sewer") {
-            if (!_saveData.ShownWallJump1)
+            if (!_saveData.HasShownWallJump)
                 GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger1"));
 
 
@@ -453,10 +453,15 @@ public class GameManager : MonoBehaviour
         get { return _isPlayingCutscene; }
         set {
             _isPlayingCutscene = value;
-            if (value == true)
-                GameManager.UI.CraftingMenu.Close ();
 
-			GameManager.UI.CraftingMenu.ShowWeaponWheel(!value);
+            if (_isPlayingCutscene) {
+                GameManager.UI.CraftingMenu.Close ();
+                UI.DisableInput ();
+            }
+            else
+                UI.EnableInput();
+
+            GameManager.UI.CraftingMenu.ShowWeaponWheel(!_isPlayingCutscene);
         }
 
     }

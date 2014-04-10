@@ -536,9 +536,7 @@ public class OlympusAnimator : CharacterAnimator
     }
 
     public override bool IsTurningAround {
-        get {
-            return CurrentState.nameHash == TurnAroundState;
-        }
+        get { return CurrentState.nameHash == TurnAroundState; }
     }
     
     public override bool IsDead {
@@ -546,9 +544,7 @@ public class OlympusAnimator : CharacterAnimator
     }
 
     public override bool IsJumping {
-        get {
-            return CurrentState.nameHash == JumpingState;
-        }
+        get { return CurrentState.nameHash == JumpingState; }
     }
 
     public override bool CanTransitionZ {

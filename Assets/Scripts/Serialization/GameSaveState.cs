@@ -11,8 +11,9 @@ public class GameSaveState
     public PlayerSaveState PlayerState;
 
     // *** tutorial zone ***
-    public bool ShownWallJump1;
-	public bool ShownSneak;
+    public bool HasUsed2Hands;
+    public bool HasShownWallJump;
+	public bool HasShownSneak;
 
     // Jasper tells you what to do
     public bool ShownMeetJasper;

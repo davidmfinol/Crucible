@@ -129,9 +129,10 @@ public class LevelManager : MonoBehaviour
                 GameObject alarms = GameObject.FindGameObjectWithTag ("Alarms");
                 if(alarms == null) {
                     alarms = new GameObject("_Alarms");
-                    alarms.AddComponent<AlphaPulse>();
                 }
                 _alarms = alarms.GetComponent<AlphaPulse> ();
+                if(_alarms == null)
+                    _alarms = alarms.AddComponent<AlphaPulse>();
             }
             return _alarms;
         }
