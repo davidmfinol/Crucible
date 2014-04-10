@@ -9,21 +9,25 @@ public class Tutorial : MonoBehaviour
 {
     // Scripted characters in the scene
     public GameObject MysteriousRunner;
-    //public Transform SewerDoor;
+    public Transform SewerDoor;
     //public Transform OlympusPosition;
 
     // save runner component to call script coroutines directly
     private MysteriousRunner _runner;
+	private bool _sewerDoorOpen;
+
     //private TutorialAudioPlayer _sewerSounds;
     //private AudioPlayer _doorSounds;
-    //private bool _sewerDoorOpen;
-
+   
     void Start ()
     {
         _runner = MysteriousRunner.GetComponent<MysteriousRunner> ();
-        //_sewerDoorOpen = false;
+
         //_sewerSounds = GetComponentInChildren<TutorialAudioPlayer> ();
         //_doorSounds = SewerDoor.GetComponent<AudioPlayer> ();
+
+		StartCoroutine ("OperateDoor");
+
     }
 
     public void ShowWallJump1 ()
@@ -47,6 +51,12 @@ public class Tutorial : MonoBehaviour
 			
 		}
 
+	}
+
+	public void BeforeCamera() {
+		SewerDoor.animation.Play ("Open");
+		_sewerDoorOpen = true;
+	
 	}
     
 //    public void ShowWallJump2 ()
@@ -163,78 +173,29 @@ public class Tutorial : MonoBehaviour
 //
 //    }
 //    
-//    public IEnumerator OperateDoor ()
-//    {
-//		// distance at which door senses running and closes.
-//		// also the distance a sensed player must reach before the door opens again.
-//		float sensorDistance = 10.0f;
-//
-//		//SewerDoor.animation["Open"].speed = 1.0f;
-//		//SewerDoor.animation["Close"].speed = 1.0f;
-//
-//		GameObject light1 = GameObject.Find ("polySurface177 6");
-//		ColorPulse light1Pulse = light1.AddComponent<ColorPulse> ();
-//		light1Pulse.MinColor = new Color (0.0f, 0.0f, 0.0f, 1.0f);
-//		light1Pulse.MaxColor = new Color (1.0f, 0.0f, 0.0f, 1.0f);
-//		light1Pulse.Speed = 5.0f;
-//		light1Pulse.On = false;
-//
-//		GameObject light2 = GameObject.Find ("polySurface177 7");
-//		ColorPulse light2Pulse = light2.AddComponent<ColorPulse> ();
-//		light2Pulse.MinColor = new Color (0.0f, 0.0f, 0.0f, 1.0f);
-//		light2Pulse.MaxColor = new Color (1.0f, 0.0f, 0.0f, 1.0f);
-//		light2Pulse.Speed = 5.0f;
-//		light2Pulse.On = false;
-//
-//		GameObject light3 = GameObject.Find ("polySurface177 8");
-//		ColorPulse light3Pulse = light3.AddComponent<ColorPulse> ();
-//		light3Pulse.MinColor = new Color (0.0f, 0.0f, 0.0f, 1.0f);
-//		light3Pulse.MaxColor = new Color (1.0f, 0.0f, 0.0f, 1.0f);
-//		light3Pulse.Speed = 5.0f;
-//		light3Pulse.On = false;
-//
-//		while(true) {
-//			float distanceToPlayer = Mathf.Abs (GameManager.Player.transform.position.x - SewerDoor.transform.position.x);
-//
-//			if(_sewerDoorOpen) {
-//				// player in sensor range of an open door, and running?
-//				if( (distanceToPlayer <= sensorDistance) &&
-//				    !GameManager.Player.IsSneaking)  {
-//					
-//					SewerDoor.animation.Play ("Close");
-//					_sewerDoorOpen = false;
-//					_doorSounds.Play (_sewerSounds.DoorSlam, 0.5f);
-//					_cameraSounds.Play (_sewerSounds.CameraBeep, 0.3f);
-//
-//					// start flashing the lights.
-//					light1Pulse.On = true;
-//					light2Pulse.On = true;
-//					light3Pulse.On = true;
-//			//		SewerCamera.animation.enabled = true;
-//
-//				}
-//
-//				// if sewer door closed,
-//			} else {
-//				// and player is outside of the sensor range, open it.
-//				if(distanceToPlayer > sensorDistance) {
-//					SewerDoor.animation.Play ("Open");
-//					_sewerDoorOpen = true;
-//					_doorSounds.Play (_sewerSounds.DoorOpen, 0.7f);
-//				
-//					light1Pulse.On = false;
-//					light2Pulse.On = false;
-//					light3Pulse.On = false;
-//				//	SewerCamera.animation.enabled = false;
-//
-//				}
-//				
-//			}
-//
-//			yield return new WaitForSeconds (0.5f);
-//			
-//		}
-//
-//	}
+    public IEnumerator OperateDoor ()
+    {
+		while(true) {
+			// see player & open? close.
+			if((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
+				Debug.Log ("Closing door.");
+
+				SewerDoor.animation.Play("Close");
+				_sewerDoorOpen = false;
+
+			// no longer see player & closed? open.
+			} else if( (GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
+				Debug.Log ("Opening door.");
+
+				SewerDoor.animation.Play("Open");
+				_sewerDoorOpen = true;
+
+			}
+				
+			yield return new WaitForSeconds (0.25f);
+		
+		}
+				
+	}
 
 }
