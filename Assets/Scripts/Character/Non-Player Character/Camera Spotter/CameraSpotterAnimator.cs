@@ -141,10 +141,10 @@ public class CameraSpotterAnimator : CharacterAnimator
 
 	}
 
-	public void Update() {
-		Debug.DrawLine (transform.position, transform.position + Direction * 20.0f, Color.green, 0.5f);
-
-	}
+//	public void Update() {
+//		Debug.DrawLine (transform.position, transform.position + Direction * 20.0f, Color.green, 0.5f);
+//
+//	}
 
 	public void UpdateDirection(float angle) {
 		// rotate.
