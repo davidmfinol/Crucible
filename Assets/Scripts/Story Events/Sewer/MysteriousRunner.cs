@@ -107,7 +107,7 @@ public class MysteriousRunner : MonoBehaviour
 		
 		transform.position = startPosition;
 		input.Horizontal = -0.5f;
-		yield return new WaitForSeconds (1.5f);
+		yield return new WaitForSeconds (1.7f);
 		_walkedUnderneath = true;
 		input.Horizontal = 0f;
 		yield return new WaitForSeconds (0.75f);
@@ -124,6 +124,7 @@ public class MysteriousRunner : MonoBehaviour
 		input.Horizontal = -1f;
 		yield return new WaitForSeconds (1.3f);
 		input.Jump = new Vector2(-1,1);
+		input.Horizontal = 0f;
 		yield return new WaitForSeconds (3.5f);
 
 

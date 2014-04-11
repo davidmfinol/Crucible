@@ -162,12 +162,32 @@ public class Tutorial : MonoBehaviour
 		GameManager.MainCamera.Target = newOlympus;
 		newOlympus.GetComponent<EnemyAISettings> ().ShouldWander = false;
 		newOlympus.GetComponent<CharacterAnimator> ().Direction = new Vector3 (-1.0f, 0.0f, 0.0f);
-		
+		EnemyAI enemyAI = newOlympus.GetComponent<EnemyAI>();
+		enemyAI.enabled = false;
 		// drops 2 items.
 		newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts);
 
 		StartCoroutine(ShowBarrier());
+		yield return new WaitForSeconds(2.0f);
+		CharacterInput input = newOlympus.GetComponent<CharacterInput> ();
+		input.Horizontal = -0.4f;
+		yield return new WaitForSeconds(0.5f);
+		input.Horizontal = 0.0f;
+		input.Attack = 1.0f;
+		yield return new WaitForSeconds(2.0f);
+
+		StartCoroutine(ForcePunch(input));
+		enemyAI.enabled = true;
 	
+	}
+
+	public IEnumerator ForcePunch (CharacterInput input)
+	{
+		while(true)
+		{
+			yield return new WaitForSeconds(0.5f);
+			input.Attack = 1.0f;
+		}
 	}
 
 	public IEnumerator ShowBarrier ()
@@ -175,6 +195,7 @@ public class Tutorial : MonoBehaviour
 		while(Runner.ThrownBarrier == false)
 			yield return null;
 		AIBarrier.gameObject.SetActive(true);
+
 	}
 
 }
