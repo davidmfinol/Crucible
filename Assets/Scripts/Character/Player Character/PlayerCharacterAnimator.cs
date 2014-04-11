@@ -59,6 +59,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
     // Who are we close enough to stealth-kill right now?
     private CharacterAnimator _stealthKillable;
 
+	protected override void OnUpdate ()
+	{
+		// HACK: WE'RE TRYING TO PREVENT MOVING THE MESH TOO FAR AWAY FROM THE COLLIDER
+		 if (Root != null && CurrentState.nameHash == WallgrabbingState)
+		 	Root.localPosition = Vector3.zero;
+	}
+
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer> ();
