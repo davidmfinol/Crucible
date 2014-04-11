@@ -145,7 +145,7 @@ public class OlympusAnimator : CharacterAnimator
     {
         if (MecanimAnimator.GetBool (MecanimHashes.Search)) {
             HorizontalSpeed = 0;
-            VerticalSpeed = 0;
+            VerticalSpeed = GroundVerticalSpeed;
             MecanimAnimator.SetBool (MecanimHashes.Search, false);
         }
 
