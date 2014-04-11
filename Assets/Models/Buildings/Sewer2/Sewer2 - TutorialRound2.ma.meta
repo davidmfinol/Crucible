@@ -646,6 +646,26 @@ ModelImporter:
     101280: polySurface276
     101282: polySurface277
     101284: transform113
+    101286: BoxLedge
+    101288: curve6
+    101290: curve6 1
+    101292: polySurface278
+    101294: polySurface279
+    101296: polySurface280
+    101298: polySurface281
+    101300: polySurface282
+    101302: polySurface283
+    101304: polySurface284
+    101306: polySurface285
+    101308: polySurface286
+    101310: polySurface287
+    101312: polySurface288
+    101314: polySurface289
+    101316: polySurface290
+    101318: polySurface291
+    101320: transform114
+    101322: transform115
+    101324: transform116
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1289,6 +1309,26 @@ ModelImporter:
     401280: polySurface276
     401282: polySurface277
     401284: transform113
+    401286: BoxLedge
+    401288: curve6
+    401290: curve6 1
+    401292: polySurface278
+    401294: polySurface279
+    401296: polySurface280
+    401298: polySurface281
+    401300: polySurface282
+    401302: polySurface283
+    401304: polySurface284
+    401306: polySurface285
+    401308: polySurface286
+    401310: polySurface287
+    401312: polySurface288
+    401314: polySurface289
+    401316: polySurface290
+    401318: polySurface291
+    401320: transform114
+    401322: transform115
+    401324: transform116
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1686,6 +1726,21 @@ ModelImporter:
     2300788: pCube59
     2300790: polySurface276
     2300792: polySurface277
+    2300794: BoxLedge
+    2300796: polySurface278
+    2300798: polySurface279
+    2300800: polySurface280
+    2300802: polySurface281
+    2300804: polySurface282
+    2300806: polySurface283
+    2300808: polySurface284
+    2300810: polySurface285
+    2300812: polySurface286
+    2300814: polySurface287
+    2300816: polySurface288
+    2300818: polySurface289
+    2300820: polySurface290
+    2300822: polySurface291
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2083,6 +2138,21 @@ ModelImporter:
     3300788: pCube59
     3300790: polySurface276
     3300792: polySurface277
+    3300794: BoxLedge
+    3300796: polySurface278
+    3300798: polySurface279
+    3300800: polySurface280
+    3300802: polySurface281
+    3300804: polySurface282
+    3300806: polySurface283
+    3300808: polySurface284
+    3300810: polySurface285
+    3300812: polySurface286
+    3300814: polySurface287
+    3300816: polySurface288
+    3300818: polySurface289
+    3300820: polySurface290
+    3300822: polySurface291
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -2474,6 +2544,21 @@ ModelImporter:
     4300776: pCube59
     4300778: polySurface276
     4300780: polySurface277
+    4300782: BoxLedge
+    4300784: polySurface278
+    4300786: polySurface279
+    4300788: polySurface282
+    4300790: polySurface283
+    4300792: polySurface284
+    4300794: polySurface285
+    4300796: polySurface286
+    4300798: polySurface287
+    4300800: polySurface288
+    4300802: polySurface289
+    4300804: polySurface280
+    4300806: polySurface281
+    4300808: polySurface290
+    4300810: polySurface291
     7400000: Take 001
     9500000: //RootNode
   materials:
