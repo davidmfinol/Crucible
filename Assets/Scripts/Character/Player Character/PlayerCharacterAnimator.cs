@@ -19,21 +19,23 @@ public class PlayerCharacterAnimator : CharacterAnimator
     public static readonly int DamagedState = Animator.StringToHash ("Base Layer.Damaged");
     public static readonly int RunningState = Animator.StringToHash ("Ground.Running");
     public static readonly int RollingState = Animator.StringToHash ("Ground.Rolling");
-    public static readonly int PickupState = Animator.StringToHash ("Ground.Pickup");
+    public static readonly int PickupState = Animator.StringToHash ("Kneeling.Pickup");
+    public static readonly int SteppingDownState = Animator.StringToHash ("Kneeling.Stepping Down");
+    public static readonly int StandingUpState = Animator.StringToHash ("Kneeling.Standing Up");
     public static readonly int StealthKillState = Animator.StringToHash ("Ground.Stealth Kill");
     public static readonly int JumpingState = Animator.StringToHash ("Air.Jumping");
+    //public static readonly int DoublejumpingState = Animator.StringToHash ("Air.Doublejumping");
     public static readonly int FallingState = Animator.StringToHash ("Air.Falling");
-    public static readonly int LandingState = Animator.StringToHash ("Air.Landing");
     public static readonly int BackflipState = Animator.StringToHash ("Air.Backflip");
-    public static readonly int FallRollState = Animator.StringToHash ("Air.Rolling");
+    public static readonly int LandingState = Animator.StringToHash ("Landing.Landing");
+    public static readonly int FallRollState = Animator.StringToHash ("Landing.Rolling");
     public static readonly int WallgrabbingState = Animator.StringToHash ("Wall.Wallgrabbing");
     public static readonly int WalljumpingState = Animator.StringToHash ("Wall.Walljumping");
     public static readonly int HangingState = Animator.StringToHash ("Climbing.Hanging");
     public static readonly int ClimbingLedgeState = Animator.StringToHash ("Climbing.ClimbingLedge");
     public static readonly int ClimbingLadderState = Animator.StringToHash ("Climbing.ClimbingLadder");
     public static readonly int ClimbingPipeState = Animator.StringToHash ("Climbing.ClimbingPipe");
-    public static readonly int SteppingDownState = Animator.StringToHash ("Ground.Stepping Down");
-    public static readonly int StandingUpState = Animator.StringToHash ("Ground.Standing Up");
+    //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
 
     //The player's sound effects, yeah!
     private PlayerCharacterAudioPlayer _sound;
@@ -75,7 +77,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         StateMachine [PickupState] = Pickup;
         StateMachine [StealthKillState] = StealthKill;
         StateMachine [JumpingState] = Jumping;
-        //StateMachine[Animator.StringToHash("Air.Doublejumping")] = Doublejumping;
+        //StateMachine[DoublejumpingState] = Doublejumping;
         StateMachine [FallingState] = Falling;
         StateMachine [LandingState] = Running;
         StateMachine [BackflipState] = Backflip;
@@ -85,18 +87,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
         StateMachine [HangingState] = Hanging;
         StateMachine [ClimbingLedgeState] = ClimbingLedge;
         StateMachine [ClimbingLadderState] = ClimbingVertical;
-        //StateMachine[Animator.StringToHash("Climbing.ClimbingStrafe")] = ClimbingStrafe;
+        //StateMachine[ClimbingStrafeState] = ClimbingStrafe;
         StateMachine [ClimbingPipeState] = ClimbingVertical;
         StateMachine [SteppingDownState] = SteppingDown;
         StateMachine [StandingUpState] = StandingUp;
 
-    }
-
-    protected override void OnUpdate ()
-    {
-        // HACK: WE'RE TRYING TO PREVENT MOVING THE MESH TOO FAR AWAY FROM THE COLLIDER
-       // if (Root != null && CurrentState.nameHash == WallgrabbingState)
-      //      Root.localPosition = Vector3.zero;
     }
     
     protected override void UpdateMecanimVariables ()
@@ -153,10 +148,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
         if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null && currentWeapon.CanStealthKill)
             StartCoroutine (ShowStealthKill ());
 
+        // TODO: DON'T USE CURRRENTWEAPON IS TYPE, INSTEAD USE THINGS LIKE CURRENTWEAPON.ISGUN OR CURRENTWEAPON.ISMINE
         if (CurrentState.nameHash != StealthKillState) {
             MecanimAnimator.SetBool (MecanimHashes.ShootGun, CharInput.AttackActive && currentWeapon is GravityGun); 
-            MecanimAnimator.SetBool (MecanimHashes.PlaceMine, (CharInput.AttackRightPressed || CharInput.AttackLeftPressed) && currentWeapon is Mine); 
+            MecanimAnimator.SetBool (MecanimHashes.PlaceMine, (CharInput.AttackRightPressed || CharInput.AttackLeftPressed) && currentWeapon is Mine);
 
+            if (CurrentState.nameHash == IdleState  && currentWeapon is Mine) {
+                MecanimAnimator.SetBool (MecanimHashes.DetonateMine, CharInput.InteractionPressed);
+                
+            }
         }
 
     }
@@ -357,9 +357,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
             MecanimAnimator.SetBool (MecanimHashes.Pickup, canPickup && _itemPickedup != null);
         
-        } else if (CharInput.InteractionPressed) {
-            MecanimAnimator.SetBool (MecanimHashes.DetonateMine, true);
-
         }
 
     }

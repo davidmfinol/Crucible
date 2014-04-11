@@ -33,7 +33,7 @@ public class MysteriousRunner : MonoBehaviour
 
     }
 
-    public IEnumerator ShowSneak ()
+    public IEnumerator ShowSneak (Vector3 startPosition)
     {
         CharacterInput input = GetComponent<CharacterInput> ();
         Destroy (GameManager.Player.GetComponent<AudioListener> ());
@@ -41,9 +41,9 @@ public class MysteriousRunner : MonoBehaviour
         GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = true;
 
-        transform.position = GameObject.Find ("SneakStart").transform.position;
+        transform.position = startPosition;
         input.Horizontal = 0.5f;
-        yield return new WaitForSeconds (8.00f);
+        yield return new WaitForSeconds (8.0f);
 
         GameManager.IsPlayingCutscene = false;
         GameManager.MainCamera.Target = GameManager.Player.transform;

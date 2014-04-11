@@ -22,10 +22,6 @@ public class PlayerCharacterShader : MonoBehaviour
 	// currently hidden
 	private bool _inShadow = false;
 
-	private Shader _shaderDefault;
-	private Shader _shaderSneak;
-	private Shader _shaderShadow;
-
 	// current shader that we need to LERP our color info to.
 	private ShaderType _currShader;
 	
@@ -34,10 +30,6 @@ public class PlayerCharacterShader : MonoBehaviour
         _changeableMaterials = FindChangeableMaterials ();
 
 		_anim = GetComponent<PlayerCharacterAnimator> ();
-
-		_shaderDefault = _changeableMaterials [0].shader;
-		_shaderSneak = Shader.Find ("Sneak");
-		_shaderShadow = Shader.Find ("Shadow");
 
 		_inShadow = false;
 

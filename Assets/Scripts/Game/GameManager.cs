@@ -336,7 +336,6 @@ public class GameManager : MonoBehaviour
 
         // Restore all the items in the scene
         GameManager.Level.ResetItems ();
-        GameObject itemsParent = GameObject.FindGameObjectWithTag("Item Pickups");
         foreach (ItemSaveState itemState in levelSave.ItemStates) {
             string itemName = "Items/" + itemState.ItemType.ToString().Substring(5);
             if (itemState.ItemType == Item.ItemType.Item__Weapon)
@@ -346,7 +345,7 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning("Failed to load item: " + itemName);
                 continue;
             }
-            createdItem.transform.parent = itemsParent.transform;
+            createdItem.transform.parent = GameManager.Level.ItemContainer;
             Item newItem = createdItem.GetComponent<Item> ();
             newItem.Quantity = itemState.Quantity;
             newItem.WasPlaced = itemState.WasPlaced;
@@ -463,7 +462,6 @@ public class GameManager : MonoBehaviour
 
             GameManager.UI.CraftingMenu.ShowWeaponWheel(!_isPlayingCutscene);
         }
-
     }
 
 }
