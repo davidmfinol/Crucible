@@ -95,7 +95,7 @@ public class CameraScrolling : MonoBehaviour
         Vector3 goalPosition = Target.position + new Vector3 (0, heightOffset, -Distance * distanceModifier);
 
         Vector3 nearestEnemy = Vector3.zero;
-        _enemyFocused = GetNearestEnemy (out nearestEnemy) && GameManager.AI.EnemiesChasing == 0;
+        _enemyFocused = GetNearestEnemy (out nearestEnemy);
         if (_enemyFocused)
             goalPosition += (nearestEnemy - GameManager.Player.transform.position) * 0.5f 
                 + new Vector3 (0, 0, -Vector3.Distance (nearestEnemy, GameManager.Player.transform.position) * 0.25f);
@@ -202,9 +202,12 @@ public class CameraScrolling : MonoBehaviour
         Vector3 vNearest = new Vector3 (0.0f, 0.0f, 0.0f);
 
         foreach (EnemyAI enemy in GameManager.AI.Enemies) {
-            if (enemy != null && !enemy.Animator.IsDead) {
-                
-                if (enemy.Awareness != EnemyAI.AwarenessLevel.Chasing && 
+            if (enemy != null && !enemy.Animator.IsDead) {                
+				bool isCamera = (enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_CameraSpotter);
+				bool isChasing = (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing);
+
+				// track non-cameras who are not chasing, OR cameras who ARE "chasing".
+                if (  ((isCamera) || (!isCamera && !isChasing)) && 
                     Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) < EnemyFocus) {// && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) >= EnemyIgnoreRange) {
 
                     if (!bFoundAny) {

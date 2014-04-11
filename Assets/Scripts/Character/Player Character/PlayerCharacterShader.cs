@@ -83,7 +83,11 @@ public class PlayerCharacterShader : MonoBehaviour
 
 	public void Update() {
 		// shader transitions
-		if (_inShadow) { 
+		if (GameManager.AI.EnemiesChasing > 0) {
+			if(_currShader != ShaderType.Shader_Default)
+				_currShader = ShaderType.Shader_Default;
+
+		} else if (_inShadow) { 
 			if (_currShader != ShaderType.Shader_Shadow)
 				_currShader = ShaderType.Shader_Shadow;
 
