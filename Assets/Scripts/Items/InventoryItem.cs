@@ -54,97 +54,97 @@ public static class InventoryItemFactory
             newItem.MaxQuantity = 5;
             newItem.Name = "Battery Pack";
             newItem.Caption = "Used to power various devices.";
-            newItem.TexturePath = "Item Icons/BatteryPackIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/BatteryPackIcon";
             newItem.CraftingCode = "BP";
-            newItem.PrefabName = "Items/BatteryPack";
+            newItem.PrefabName = "Prefabs/Items/BatteryPack";
 
         } else if (t == Item.ItemType.Item_ComputerParts) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Computer Parts";
             newItem.Caption = "Components to build electronic devices.";
-            newItem.TexturePath = "Item Icons/ComputerPartsIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/ComputerPartsIcon";
             newItem.CraftingCode = "CP";
-            newItem.PrefabName = "Items/ComputerParts";
+            newItem.PrefabName = "Prefabs/Items/ComputerParts";
 
         } else if (t == Item.ItemType.Item_Engine) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Engine";
             newItem.Caption = "Powers various moving devices.";
-            newItem.TexturePath = "Item Icons/EngineIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/EngineIcon";
             newItem.CraftingCode = "EN";
-            newItem.PrefabName = "Items/Engine";
+            newItem.PrefabName = "Prefabs/Items/Engine";
         
         } else if (t == Item.ItemType.Item_Fuel) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Fuel";
             newItem.Caption = "Fuel for various devices";
-            newItem.TexturePath = "Item Icons/FuelIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/FuelIcon";
             newItem.CraftingCode = "FU";
-            newItem.PrefabName = "Items/Fuel";
+            newItem.PrefabName = "Prefabs/Items/Fuel";
 
         } else if (t == Item.ItemType.Item_Propellant) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Propellant";
             newItem.Caption = "Used to propel devices";
-            newItem.TexturePath = "Item Icons/PropellantIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/PropellantIcon";
             newItem.CraftingCode = "PR";
-            newItem.PrefabName = "Items/Propellant";
+            newItem.PrefabName = "Prefabs/Items/Propellant";
 
         } else if (t == Item.ItemType.Item_Binding) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Binding";
             newItem.Caption = "Binds two craftable items together.";
-            newItem.TexturePath = "Item Icons/BindingIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/BindingIcon";
             newItem.CraftingCode = "BN";
-            newItem.PrefabName = "Items/Binding";
+            newItem.PrefabName = "Prefabs/Items/Binding";
 
         } else if (t == Item.ItemType.Item_GunParts) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Guns Parts";
             newItem.Caption = "Used to build projectile weapons.";
-            newItem.TexturePath = "Item Icons/GunPartsIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/GunPartsIcon";
             newItem.CraftingCode = "GP";
-            newItem.PrefabName = "Items/GunParts";
+            newItem.PrefabName = "Prefabs/Items/GunParts";
 
         } else if (t == Item.ItemType.Item_HiggsDrive) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Higgs Drive";
             newItem.Caption = "Powers anti-gravity devices.";
-            newItem.TexturePath = "Item Icons/HiggsDriveIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/HiggsDriveIcon";
             newItem.CraftingCode = "HD";
-            newItem.PrefabName = "Items/HiggsDrive";
+            newItem.PrefabName = "Prefabs/Items/HiggsDrive";
 
         } else if (t == Item.ItemType.Item_Isolator) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Isolator";
             newItem.Caption = "Stores energy for energy-based devices.";
-            newItem.TexturePath = "Item Icons/IsolatorIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/IsolatorIcon";
             newItem.CraftingCode = "IS";
-            newItem.PrefabName = "Items/Isolator";
+            newItem.PrefabName = "Prefabs/Items/Isolator";
 
         } else if (t == Item.ItemType.Item_Magnet) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Magnet";
             newItem.Caption = "Required to construct magnetic devices.";
-            newItem.TexturePath = "Item Icons/MagnetIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/MagnetIcon";
             newItem.CraftingCode = "MG";
-            newItem.PrefabName = "Items/Magnet";
+            newItem.PrefabName = "Prefabs/Items/Magnet";
 
         } else if (t == Item.ItemType.Item_Transmitter) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Transmitter";
             newItem.Caption = "Used to construct devices that operate remotely.";
-            newItem.TexturePath = "Item Icons/TransmitterIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/TransmitterIcon";
             newItem.CraftingCode = "TR";
-            newItem.PrefabName = "Items/Transmitter";
+            newItem.PrefabName = "Prefabs/Items/Transmitter";
 
         } else if (t == Item.ItemType.Item_Visualizer) {
             newItem.MaxQuantity = 5;
             newItem.Name = "Visualizer";
             newItem.Caption = "An imaging unit to build holographic devices.";
-            newItem.TexturePath = "Item Icons/VisualizerIcon";
+            newItem.TexturePath = "Textures/User Interface/Item Icons/VisualizerIcon";
             newItem.CraftingCode = "VS";
-            newItem.PrefabName = "Items/Visualizer";
+            newItem.PrefabName = "Prefabs/Items/Visualizer";
 
         } else {
             Debug.Log ("ItemFactory: invalid item type " + t);

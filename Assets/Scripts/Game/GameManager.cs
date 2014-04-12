@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
     {
         // We don't need to recreate the Player from scene to scene
         if (_player == null) {
-            GameObject player = (GameObject)Instantiate (Resources.Load ("PlayerCharacter"), _currentLevel.OffscreenPosition, Quaternion.identity);
+            GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/PlayerCharacter"), _currentLevel.OffscreenPosition, Quaternion.identity);
             DontDestroyOnLoad(player);
             _player = player.GetComponent<CharacterAnimator> ();
             _player.gameObject.AddComponent<AudioListener> ();
@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
 
         // Reload the player's weapons
         foreach (WeaponSaveState weaponSave in _saveData.PlayerState.WeaponsHeld) {
-            string weaponName = "Weapons/InHand/" + weaponSave.WeaponType.ToString().Substring(7);
+            string weaponName = "Prefabs/Weapons/InHand/" + weaponSave.WeaponType.ToString().Substring(7);
             GameObject createdWeapon = (GameObject)Instantiate (Resources.Load (weaponName), _currentLevel.OffscreenPosition, Quaternion.identity);
             if(createdWeapon == null) {
                 Debug.Log("Failed to load weapon: " + weaponName);
@@ -324,7 +324,7 @@ public class GameManager : MonoBehaviour
         GameManager.AI.ResetEnemies ();
         foreach (EnemySaveState enemyState in levelSave.EnemyStates) {
             string enemyName = enemyState.Type.ToString().Substring(6);
-            GameObject newEnemy = (GameObject)Instantiate (Resources.Load (enemyName), enemyState.Position, enemyState.Rotation);
+            GameObject newEnemy = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/"+enemyName), enemyState.Position, enemyState.Rotation);
             if(newEnemy == null) {
                 Debug.LogWarning("Failed to load enemy: " + enemyName);
                 continue;
@@ -337,9 +337,9 @@ public class GameManager : MonoBehaviour
         // Restore all the items in the scene
         GameManager.Level.ResetItems ();
         foreach (ItemSaveState itemState in levelSave.ItemStates) {
-            string itemName = "Items/" + itemState.ItemType.ToString().Substring(5);
+            string itemName = "Prefabs/Items/" + itemState.ItemType.ToString().Substring(5);
             if (itemState.ItemType == Item.ItemType.Item__Weapon)
-                itemName = "Weapons/OnField/" + itemState.WeaponType.ToString().Substring(7);
+                itemName = "Prefabs/Weapons/OnField/" + itemState.WeaponType.ToString().Substring(7);
             GameObject createdItem = (GameObject)Instantiate (Resources.Load (itemName), itemState.Position, itemState.Rotation);
             if(createdItem == null) {
                 Debug.LogWarning("Failed to load item: " + itemName);

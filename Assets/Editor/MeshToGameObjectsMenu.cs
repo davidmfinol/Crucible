@@ -66,12 +66,12 @@ public class MeshToGameObjectsMenu
     static void MeshToGameObjects ()
     {
         // Load up the assets we need
-        playerPrefab = (GameObject)Resources.Load ("PlayerCharacter");
-        ledgePrefab = (GameObject)Resources.Load ("Ledge");
-        wallPrefab = (GameObject)Resources.Load ("Wall");
-        ladderXPrefab = (GameObject)Resources.Load ("LadderX");
-        ladderZPrefab = (GameObject)Resources.Load ("LadderZWithoutTop");
-        ropePrefab = (GameObject)Resources.Load ("Rope");
+        playerPrefab = (GameObject)Resources.Load ("Prefabs/Characters/PlayerCharacter");
+        ledgePrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Ledge");
+        wallPrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Wall");
+        ladderXPrefab = (GameObject)Resources.Load ("Prefabs/Platforming/LadderX");
+        ladderZPrefab = (GameObject)Resources.Load ("Prefabs/Platforming/LadderZWithoutTop");
+        ropePrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Rope");
 
         // We're primarily focused on the root gameobject, and we know that it comes after all its children
         Transform root = selected [selected.Count - 1];

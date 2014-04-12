@@ -67,7 +67,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     public override void ScanInternal (OnScanStatus statusCallback)
     {
         // First, get the components we need
-        GameObject OlympusPrefab = (GameObject)Resources.Load ("Olympus");
+        GameObject OlympusPrefab = (GameObject)Resources.Load ("Prefabs/Characters/Olympus");
         _olympusAnimator = OlympusPrefab.GetComponent<CharacterAnimator> ();
         _olympusSettings = OlympusPrefab.GetComponent<CharacterSettings> ();
 

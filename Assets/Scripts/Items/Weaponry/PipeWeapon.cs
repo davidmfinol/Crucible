@@ -36,7 +36,7 @@ public class PipeWeapon : Weapon
     public override Texture2D Texture {
         get { 
             if (_texture == null)
-                _texture = Resources.Load <Texture2D> ("Item Icons/PipeIcon");
+                _texture = Resources.Load <Texture2D> ("Textures/User Interface/Item Icons/PipeIcon");
             return _texture;
         }
     }
