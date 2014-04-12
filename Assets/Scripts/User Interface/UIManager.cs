@@ -30,6 +30,9 @@ public class UIManager : MonoBehaviour
 	// how delayed are our objective removal updates
 	public float ObjectiveReachedInterval;
 
+	// hint quad
+	public GameObject HintQuadPrefab;
+
 	// map
 	public GameObject MapQuadPrefab;
 
@@ -68,6 +71,12 @@ public class UIManager : MonoBehaviour
 
 	// map
 	private MapQuad _mapQuad;
+
+	// the hint quad, used to show messages to the player
+	private GameObject _hintQuad;
+	private float _hintDuration;
+	private float _hintElapsed;
+
 
 	// tracking a gui swipe from where, with finger ID if on mobile.
 	private bool _isTrackingSwipe;
@@ -173,6 +182,14 @@ public class UIManager : MonoBehaviour
 		//                                                 _mapQuad.renderer.material.color.b, 
 		//                                                 1.0f); 
 
+		// *** set up hints ***
+		_hintQuad = (GameObject)Instantiate (HintQuadPrefab, _uiCamera.ViewportToWorldPoint (new Vector3 (0.20f, 0.80f, 7.0f)), Quaternion.identity);
+		_hintQuad.transform.parent = transform;
+		_hintQuad.renderer.enabled = false;
+		_hintDuration = 0.0f;
+		_hintElapsed = 0.0f;
+
+
 		_isTrackingSwipe = false;
 		_swipeID = -1;
 		_swipeStartPos = Vector3.zero;
@@ -231,7 +248,9 @@ public class UIManager : MonoBehaviour
 		UpdateObjectiveArrow ();
 
 		_mapQuad.GetComponent<MapQuad> ().UpdateMapPoint (GameManager.Player.gameObject, "Player");
-            
+        
+		UpdateHint ();
+
 	}
 
 	private void TryBeginSwipe ()
@@ -460,6 +479,45 @@ public class UIManager : MonoBehaviour
 
 	}
 
+	public void UpdateHint() {
+		if (_hintQuad.renderer.enabled) {
+			_hintElapsed += Time.deltaTime;
+
+			float fadeInBoundary = (_hintDuration * 1.0f / 10.0f);
+			float fadeOutBoundary = (_hintDuration * 9.0f / 10.0f);
+
+
+			float alpha = 0.0f;
+
+			// fade in
+			if(_hintElapsed < fadeInBoundary)
+				alpha = _hintElapsed / fadeInBoundary;
+			// display
+			else if(_hintElapsed >= fadeInBoundary && _hintElapsed <= fadeOutBoundary)
+				alpha = 1.0f;
+
+			// done
+			else if(_hintElapsed >= _hintDuration)
+				_hintQuad.renderer.enabled = false;
+
+			// fade out
+			else if(_hintElapsed >= fadeOutBoundary)
+				alpha = (_hintDuration - _hintElapsed) / fadeInBoundary;
+
+			// not done?  set color
+			if(_hintQuad.renderer.enabled) {
+				_hintQuad.renderer.material.color = new Color(_hintQuad.renderer.material.color.r,
+				                                              _hintQuad.renderer.material.color.g,
+				                                              _hintQuad.renderer.material.color.b,
+				                                              alpha);
+				                                            
+			}
+
+		
+		}		
+
+	}
+
 	public bool MapShown ()
 	{
 		return _mapQuad.gameObject.activeSelf;
@@ -603,6 +661,16 @@ public class UIManager : MonoBehaviour
             
 		}
 
+
+	}
+	
+	public void ShowHint(Texture2D tex, float duration) {
+		_hintQuad.renderer.enabled = true;
+		_hintQuad.renderer.material.mainTexture = tex;
+		_hintQuad.renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+
+		_hintDuration = duration;
+		_hintElapsed = 0.0f;
 
 	}
 

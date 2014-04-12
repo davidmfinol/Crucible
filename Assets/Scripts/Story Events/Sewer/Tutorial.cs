@@ -17,7 +17,11 @@ public class Tutorial : MonoBehaviour
 
     // The locations where certain effects will happen
     public Transform SneakStartPosition;
-    //public Transform Olympus1Position;
+	public Transform SightPuzzlePosition;
+	public Transform RunnerPositionOlympusSpawn;
+    public Transform Olympus1Position;
+	public Transform OlympusPrefab;
+	public Transform AIBarrier;
     //public Transform Olympus2Position;
 
     private bool _sewerDoorOpen;
@@ -94,6 +98,30 @@ public class Tutorial : MonoBehaviour
 
     }
 
+	public void ShowSightPuzzle ()
+	{
+		if (!GameManager.SaveData.HasShownSightPuzzle){
+			GameManager.SaveData.HasShownSightPuzzle = true;
+
+			Runner.gameObject.SetActive (true);
+			Runner.StartCoroutine (Runner.ShowSightPuzzle (SightPuzzlePosition.position));
+		}
+	}
+
+	public void ShowSpawnOlympus ()
+	{
+		if (!GameManager.SaveData.HasShownOlympusSpawn){
+			GameManager.SaveData.HasShownOlympusSpawn = true;
+			
+			Runner.gameObject.SetActive (true);
+			Runner.StartCoroutine (Runner.ShowOlympusSpawn (RunnerPositionOlympusSpawn.position));
+
+			StartCoroutine(SpawnOlympus());
+			GameManager.IsPlayingCutscene = true;
+			GameManager.UI.DisableInput ();
+		}
+	}
+
     public void BeforeCamera ()
     {
         SewerDoor.animation.Play ("Open");
@@ -121,5 +149,53 @@ public class Tutorial : MonoBehaviour
         }
         
     }
+
+	public IEnumerator SpawnOlympus ()
+	{
+		while(Runner.WalkedUnderneath == false)
+			yield return null;
+		GameManager.MainCamera.Target = Olympus1Position.transform;
+		yield return new WaitForSeconds (0.5f);
+		
+		// spawn olympus up high and have him fall.
+		Transform newOlympus = (Transform)Instantiate (OlympusPrefab, Olympus1Position.position, Quaternion.identity);
+		GameManager.MainCamera.Target = newOlympus;
+		newOlympus.GetComponent<EnemyAISettings> ().ShouldWander = false;
+		newOlympus.GetComponent<CharacterAnimator> ().Direction = new Vector3 (-1.0f, 0.0f, 0.0f);
+		EnemyAI enemyAI = newOlympus.GetComponent<EnemyAI>();
+		enemyAI.enabled = false;
+		// drops 2 items.
+		newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts);
+
+		StartCoroutine(ShowBarrier());
+		yield return new WaitForSeconds(2.0f);
+		CharacterInput input = newOlympus.GetComponent<CharacterInput> ();
+		input.Horizontal = -0.4f;
+		yield return new WaitForSeconds(0.5f);
+		input.Horizontal = 0.0f;
+		input.Attack = 1.0f;
+		yield return new WaitForSeconds(2.0f);
+
+		StartCoroutine(ForcePunch(input));
+		enemyAI.enabled = true;
+	
+	}
+
+	public IEnumerator ForcePunch (CharacterInput input)
+	{
+		while(true)
+		{
+			yield return new WaitForSeconds(0.5f);
+			input.Attack = 1.0f;
+		}
+	}
+
+	public IEnumerator ShowBarrier ()
+	{
+		while(Runner.ThrownBarrier == false)
+			yield return null;
+		AIBarrier.gameObject.SetActive(true);
+
+	}
 
 }
