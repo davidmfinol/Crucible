@@ -10,7 +10,7 @@ public class MysteriousRunner : MonoBehaviour
 	private bool _thrownBarrier = false;
 	private bool _walkedUnderneath = false;
 
-    public IEnumerator ShowWallJump1 ()
+    public IEnumerator ShowWallJump ()
     {
         CharacterInput input = GetComponent<CharacterInput> ();
         Destroy (GameManager.Player.GetComponent<AudioListener> ());

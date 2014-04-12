@@ -14,9 +14,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
-    public static readonly int DeathState = Animator.StringToHash ("Base Layer.Death");
-    public static readonly int DeadState = Animator.StringToHash ("Base Layer.Waiting For Respawn");
-    public static readonly int DamagedState = Animator.StringToHash ("Base Layer.Damaged");
+    public static readonly int DamagedState = Animator.StringToHash ("Combat.Damaged");
+    public static readonly int DeathState = Animator.StringToHash ("Combat.Death");
+    public static readonly int DeadState = Animator.StringToHash ("Combat.Waiting For Respawn");
+    public static readonly int ReviveState = Animator.StringToHash ("Combat.Revive");
     public static readonly int RunningState = Animator.StringToHash ("Ground.Running");
     public static readonly int RollingState = Animator.StringToHash ("Ground.Rolling");
     public static readonly int PickupState = Animator.StringToHash ("Kneeling.Pickup");
@@ -69,9 +70,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
     protected override void CreateStateMachine ()
     {
         StateMachine [IdleState] = Idle;
+        StateMachine [DamagedState] = Damaged;
         StateMachine [DeathState] = Die;
         StateMachine [DeadState] = Die;
-        StateMachine [DamagedState] = Damaged;
+        StateMachine [ReviveState] = Revive;
         StateMachine [RunningState] = Running;
         StateMachine [RollingState] = Rolling;
         StateMachine [PickupState] = Pickup;
@@ -98,7 +100,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
         if (IsGrounded) {
             _wallJumpCount = 0;
-            //  _hasDoubleJumped = false;
+            //_hasDoubleJumped = false;
         }
 
         UpdateMovementAnimations ();
@@ -333,6 +335,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
         MecanimAnimator.SetBool (MecanimHashes.Die, false);
 
     }
+
+    protected void Revive(float elapsedTime)
+    {
+        MecanimAnimator.SetBool(MecanimHashes.StandingUp, false);
+    }
     
     protected virtual void Idle (float elapsedTime)
     {
@@ -342,10 +349,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
         ApplyRunning (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
-        
-        MecanimAnimator.SetBool (MecanimHashes.Fall, !MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded);
 
         MecanimAnimator.SetBool (MecanimHashes.Respawn, false);
+        
+        MecanimAnimator.SetBool (MecanimHashes.Fall, !MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded);
 
         if (CharInput.Pickup) {
             GameObject itemObj = null;
@@ -594,7 +601,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
             VerticalSpeed = 0;
             */
         
-        if (CharInput.PickupPressed || IsGrounded || (ActiveHangTarget == null)) {
+        if (CharInput.PickupPressed) {
             MecanimAnimator.SetBool (MecanimHashes.Fall, true);
             MecanimAnimator.SetBool (MecanimHashes.GrabWall, false);
             DropHangTarget ();
@@ -673,7 +680,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         } else if (CharInput.JumpPressed) {
             DropHangTarget ();
             MecanimAnimator.SetBool (MecanimHashes.Jump, true);
-        } else if (CharInput.Down) {
+        } else if (CharInput.Down || CharInput.Pickup) {
             DropHangTarget ();
             MecanimAnimator.SetBool (MecanimHashes.Fall, true);
         }
@@ -796,7 +803,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
                     // Create a new weapon from the item and destroy the item
                     Transform instantiatedWeapon = (Transform)Instantiate (_itemPickedup.WeaponPrefab);
                     Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon> ();
-                    Debug.Log ("Added new weapon qty " + pickupCount);
                     newWeapon.Quantity = pickupCount;
                     GameManager.Inventory.Weapons.Add (newWeapon);
 

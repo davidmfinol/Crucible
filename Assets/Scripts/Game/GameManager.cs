@@ -187,7 +187,7 @@ public class GameManager : MonoBehaviour
         
         // Update the animation system if necessary
         Animator animator = Player.GetComponent<Animator> ();
-        if (animator != null)
+        if (animator != null && Player.IsDead)
             animator.SetBool (MecanimHashes.Respawn, true);
 
         // Make sure the camera is looking at the player

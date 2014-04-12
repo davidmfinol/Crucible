@@ -45,6 +45,8 @@ public class Tutorial : MonoBehaviour
         // Make the player fall down
         GameManager.MainCamera.CinematicOverride = true;
         GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.Die, true);
+        
+        yield return new WaitForSeconds(2.0f);
 
         // Create the pieces we're showing
         //Transform leftHandVignette = (Transform)Instantiate (LeftHandVignette, LeftHandVignette.position, LeftHandVignette.rotation);
@@ -66,10 +68,12 @@ public class Tutorial : MonoBehaviour
         //TODO
         
         // Make the player get up
-        GameManager.MainCamera.CinematicOverride = false;
-        GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.Respawn, true);
+        GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.StandingUp, true);
+
+        yield return new WaitForSeconds(2.0f);
 
         // And show the wall jump
+        GameManager.MainCamera.CinematicOverride = false;
         ShowWallJump ();
 
     }
@@ -80,7 +84,7 @@ public class Tutorial : MonoBehaviour
             GameManager.SaveData.HasShownWallJump = true;
 
             Runner.gameObject.SetActive (true);
-            Runner.StartCoroutine (Runner.ShowWallJump1 ());
+            Runner.StartCoroutine (Runner.ShowWallJump ());
 
         }
 
