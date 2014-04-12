@@ -12,12 +12,9 @@ public class BabyBotAnimator : CharacterAnimator
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
-    public static readonly int AwakeState = Animator.StringToHash ("Base Layer.Awake");
-    public static readonly int RunState = Animator.StringToHash ("Base Layer.Run");
+    public static readonly int JumpingState = Animator.StringToHash ("Base Layer.Jumping");
+    public static readonly int LandingState = Animator.StringToHash ("Base Layer.Landing");
     public static readonly int AttackState = Animator.StringToHash ("Base Layer.Attack");
-    public static readonly int LandingState = Animator.StringToHash ("Air.Landing");
-    public static readonly int JumpingState = Animator.StringToHash ("Air.Jumping");
-    public static readonly int FallingState = Animator.StringToHash ("Air.Falling");
 
     // Making cute baby sounds =)
     private BabybotAudioPlayer _sound;
@@ -31,12 +28,9 @@ public class BabyBotAnimator : CharacterAnimator
     protected override void CreateStateMachine ()
     {
         StateMachine [IdleState] = Idle;
-        StateMachine [AwakeState] = Idle;
-        StateMachine [RunState] = Run;
-        StateMachine [AttackState] = Attack;
-        StateMachine [LandingState] = Run;
         StateMachine [JumpingState] = Jump;
-        StateMachine [FallingState] = Fall;
+        StateMachine [LandingState] = Land;
+        StateMachine [AttackState] = Attack;
 
     }
 
@@ -49,67 +43,29 @@ public class BabyBotAnimator : CharacterAnimator
 
     protected override void UpdateMecanimVariables ()
     {
-        MecanimAnimator.SetBool (MecanimHashes.Fall, !IsGrounded);
+        MecanimAnimator.SetBool (MecanimHashes.Jump, CharInput.JumpActive);
         MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
+        MecanimAnimator.SetBool (MecanimHashes.Attack, CharInput.AttackActive);
 
     }
 
     protected void Idle (float elapsedTime)
     {
         _sound.DelayedStop ();
-        if (CharInput.Left || CharInput.Right)
-            MecanimAnimator.SetBool (MecanimHashes.Awake, true);
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
-        ApplyBiDirection ();
-        MecanimAnimator.SetBool (MecanimHashes.Jump, CharInput.JumpActive);
-
-    }
-
-    protected void Run (float elapsedTime)
-    {
-        if (TimeInCurrentState == 0)
-            _sound.PlayLoop (_sound.Running, 1.0f); //TODO: Make baby bot sounds separate footsteps as well and add animation event
-
-        HorizontalSpeed = 0;
-        VerticalSpeed = GroundVerticalSpeed;
-        ApplyBiDirection ();
-
-        MecanimAnimator.SetBool (MecanimHashes.Awake, false);
-        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Mathf.Abs (CharInput.Horizontal));
-        MecanimAnimator.SetBool (MecanimHashes.Jump, CharInput.JumpActive);
-        MecanimAnimator.SetBool (MecanimHashes.Attack, CharInput.AttackActive);
-
-    }
-
-    protected void Attack (float elapsedTime)
-    {
-        if (!MecanimAnimator.GetBool (MecanimHashes.Attack))
-            return;
-
-        // Set up mecanim
-        MecanimAnimator.SetBool (MecanimHashes.Attack, false);
-
-        // Disable movement
-        Controller.enabled = false;
-        IgnoreMovement = true;
-        IgnoreDirection = true;
-
-        // Parent ourselves to the player
-        Transform selfRoot = CharacterSettings.SearchHierarchyForBone (transform, Settings.RootBoneName);
-        transform.parent = GameManager.Player.transform;
-        Vector3 move = transform.localPosition;
-        transform.localPosition = Vector3.zero;
-        selfRoot.position = selfRoot.position + move;
+        Direction = Vector3.back;
 
     }
 
     protected void Jump (float elapsedTime)
     {
-        if (Mathf.Abs (CharInput.Horizontal) > 0.1)
-            ApplyRunning (elapsedTime * 0.5f);
-        
-        if (MecanimAnimator.GetBool (MecanimHashes.Jump)) {
+        // Babybot does all its movement midair
+        if (CharInput.Left || CharInput.Right)
+            ApplyRunning (elapsedTime);
+
+        // Start moving up at the beginning 
+        if (TimeInCurrentState == 0) {
             if (CharInput.JumpLeft || CharInput.JumpLeftReleased)
                 HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
             else if (CharInput.JumpRight || CharInput.JumpRightReleased)
@@ -117,30 +73,61 @@ public class BabyBotAnimator : CharacterAnimator
             
             VerticalSpeed = Mathf.Sqrt (2 * Settings.JumpHeight * Settings.Gravity);
             MecanimAnimator.SetBool (MecanimHashes.Jump, false);
-        } else
-            ApplyGravity (elapsedTime);
-        
-        if (transform.position.y >= LastGroundHeight + Settings.JumpHeight)
-            MecanimAnimator.SetBool (MecanimHashes.Fall, true);
+        }
 
-    }
-
-    protected void Fall (float elapsedTime)
-    {
-        ApplyRunning (elapsedTime);
-        ApplyGravity (elapsedTime);
-        
-        MecanimAnimator.SetBool (MecanimHashes.Fall, false);
-
-    }
-
-    protected void Awaken ()
-    {
-        if (Mathf.Abs (CharInput.Horizontal) >= 0.8)
-            _sound.Play (_sound.FastAwake, 1.0f);
+        // Fall down at all other times
         else
-            _sound.Play (((int)(Time.timeSinceLevelLoad % 2)) == 0 ? _sound.SlowAwake : _sound.SlowAwake2, 1.0f);
+            ApplyGravity (elapsedTime);
 
+        // Babybot is capable of turning around mid-air
+        ApplyBiDirection ();
+
+    }
+
+    protected void Land(float elapsedTime)
+    {
+        HorizontalSpeed = 0;
+        VerticalSpeed = GroundVerticalSpeed;
+
+    }
+    
+    protected void Attack (float elapsedTime)
+    {
+        if (!MecanimAnimator.GetBool (MecanimHashes.Attack))
+            return;
+        
+        // Set up mecanim
+        MecanimAnimator.SetBool (MecanimHashes.Attack, false);
+        
+        // Disable movement
+        Controller.enabled = false;
+        IgnoreMovement = true;
+        IgnoreDirection = true;
+        
+        // Parent ourselves to the player
+        Transform selfRoot = CharacterSettings.SearchHierarchyForBone (transform, Settings.RootBoneName);
+        transform.parent = GameManager.Player.transform;
+        Vector3 move = transform.localPosition;
+        transform.localPosition = Vector3.zero;
+        selfRoot.position = selfRoot.position + move;
+        
+    }
+    
+    public void SelfDestruct ()
+    {
+        // TODO: OBJECT POOLING
+        GameObject o = (GameObject)Instantiate (MeleeEvent, transform.position, Quaternion.identity);
+        o.transform.parent = GameManager.Player.transform;
+        HitBox d = o.GetComponentInChildren<HitBox> ();
+        
+        float horizontalDir = 0.0f;
+        if(GameManager.Player.transform.position.x < transform.position.x)
+            horizontalDir = -1.0f;
+        else
+            horizontalDir = 1.0f;
+        
+        d.MakeBabyBotExplosion (this.gameObject, horizontalDir);
+        
     }
 
     public void Giggle ()
@@ -152,23 +139,6 @@ public class BabyBotAnimator : CharacterAnimator
     public void PlayJump ()
     {
         _sound.Play (_sound.Jump, 1.0f);
-
-    }
-
-    public void SelfDestruct ()
-    {
-        // TODO: OBJECT POOLING
-        GameObject o = (GameObject)Instantiate (MeleeEvent, transform.position, Quaternion.identity);
-        o.transform.parent = GameManager.Player.transform;
-        HitBox d = o.GetComponentInChildren<HitBox> ();
-
-		float horizontalDir = 0.0f;
-		if(GameManager.Player.transform.position.x < transform.position.x)
-			horizontalDir = -1.0f;
-		else
-			horizontalDir = 1.0f;
-
-        d.MakeBabyBotExplosion (this.gameObject, horizontalDir);
 
     }
 

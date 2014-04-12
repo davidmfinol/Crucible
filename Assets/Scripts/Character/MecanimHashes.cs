@@ -20,7 +20,6 @@ public class MecanimHashes
     public static readonly int Die = Animator.StringToHash("Die");
 
     // Used only by player-character
-    public static readonly int AttackMelee = Animator.StringToHash("AttackMelee");
     public static readonly int StealthKill = Animator.StringToHash ("StealthKill");
     public static readonly int PlaceMine = Animator.StringToHash("PlaceMine");
     public static readonly int ClimbPipe = Animator.StringToHash("ClimbPipe");
@@ -46,7 +45,6 @@ public class MecanimHashes
     public static readonly int Search = Animator.StringToHash ("Search");
 
     // Used only by BabyBot
-    public static readonly int Awake = Animator.StringToHash ("Awake");
     public static readonly int Attack = Animator.StringToHash ("Attack");
 
 }

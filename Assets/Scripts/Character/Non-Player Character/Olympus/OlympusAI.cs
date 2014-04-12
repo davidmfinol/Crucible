@@ -1,0 +1,123 @@
+﻿using UnityEngine;
+using System.Collections;
+
+/// <summary>
+/// Olympus AI specifies AI behaviour specific to the Olympus enemy type.
+/// </summary>
+[AddComponentMenu("AI/Olympus AI")]
+public class OlympusAI : EnemyAI
+{
+    // Olympus lights up different colors based off awarenesslevel
+    private OlympusAwareness _olympusAwareness;
+    
+    // Settings for how the Olympus wanders
+    private float _timeLeftWandering;
+    private float _timeSpentIdling;
+    
+    // Help prevent getting stuck in certain places
+    //private Vector3 _lastFrameLocation = Vector3.zero;
+
+    protected override void OnStart ()
+    {
+        _olympusAwareness = GetComponent<OlympusAwareness> ();
+        _timeLeftWandering = Settings.WanderTime;
+        _timeSpentIdling = 0;
+        //_lastFrameLocation = transform.position;
+
+    }
+
+    protected override void UpdateAwareness ()
+    {
+        AwarenessLevel oldAwareness = Awareness;
+
+        base.UpdateAwareness ();
+        
+        // Make sure we update our target when we start chasing
+        if (oldAwareness != AwarenessLevel.Chasing && Awareness == AwarenessLevel.Chasing) {
+            UpdateAStarTarget (Vector3.zero);
+
+            OlympusAnimator oa = (OlympusAnimator)Animator;
+            if (oa != null)
+                oa.OnAcquireTarget ();
+        }
+        
+        // Likewise, make sure we update our target when we start wandering
+        if (oldAwareness != AwarenessLevel.Unaware && Awareness == AwarenessLevel.Unaware) {
+            GetRandomSearchPoint ();
+
+            OlympusAnimator oa = (OlympusAnimator)Animator;
+            if (oa != null)
+                oa.StartSearch ();
+        }
+
+    }
+
+    protected override void Wander ()
+    {
+        // We make sure to limit the amount of time that we wander to allow the player to sneak up
+        // It then idles for some time 
+        if (_timeLeftWandering < 0) {
+            if (_timeSpentIdling < Settings.IdleTime) {
+                _timeSpentIdling += Time.deltaTime;
+                return;
+            } else {
+                GetRandomSearchPoint ();
+                _timeLeftWandering = Settings.WanderTime;
+                _timeSpentIdling = 0;
+            }
+        }
+        _timeLeftWandering -= Time.deltaTime;
+        
+        // We need to retarget either if we lose or reach our target
+        if (Target == Vector3.zero || Animator.Controller.bounds.Contains (Target))
+            GetRandomSearchPoint ();
+        
+        // We also retarget if our current path fails us
+        if (!UpdateAStarPath (Settings.WanderSpeedRatio, false)) {
+            //Debug.LogWarning("Astar Pathfinding failed while wandering! Choosing new target.");
+            GetRandomSearchPoint ();
+            return;
+        }
+        
+        // Go to our location
+        NavigateToAstarTarget (Settings.WanderSpeedRatio);
+
+    }
+
+    protected override void Chase ()
+    {
+        // We honor the parent implementation, but will also add onto it
+        base.Chase ();
+
+        // Don't jump at the player
+        bool isLastNode = Path != null && (CurrentPathWaypoint >= Path.vectorPath.Count - 1);
+        if (isLastNode)
+            Animator.CharInput.Jump = Vector2.zero;
+        
+        // Determine attack
+        bool isStunned = Animator.CurrentState.nameHash == OlympusAnimator.StunState;
+        bool shouldAttack = IsPlayerInAttackRange && !isStunned && !Animator.IsDead;
+        if (shouldAttack) {
+            bool isPlayerAbove = GameManager.Player.transform.position.y > transform.position.y + Animator.Height * 0.5f;
+            Animator.CharInput.Attack = isPlayerAbove ? -1 : 1;
+            
+        }
+        
+        // Stop moving while the player is knocked back
+        if (GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.DamagedState)
+            Animator.CharInput.Horizontal = 0;
+
+    }
+
+    public override AwarenessLevel Awareness {
+        get {
+            return base.Awareness;
+        }
+        set {
+            base.Awareness = value;
+            if (_olympusAwareness != null && Awareness != value)
+                _olympusAwareness.ChangeAwareness (value);
+        }
+    }
+
+}
