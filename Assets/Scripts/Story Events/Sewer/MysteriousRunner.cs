@@ -47,11 +47,11 @@ public class MysteriousRunner : MonoBehaviour
         GameManager.IsPlayingCutscene = true;
 
         transform.position = startPosition;
-        input.Horizontal = 1.0f;
-        yield return new WaitForSeconds (0.3f);
+//        input.Horizontal = 1.0f;
+//        yield return new WaitForSeconds (0.3f);
 
 		input.Horizontal = 0.5f;
-		yield return new WaitForSeconds (2.5f);
+		yield return new WaitForSeconds (3.0f);
 		GameManager.MainCamera.Target = null; 
 		yield return new WaitForSeconds (3.5f);
 

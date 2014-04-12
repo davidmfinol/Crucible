@@ -50,7 +50,7 @@ public class Checkpoint : MonoBehaviour
         if (!other.CompareTag ("Player") || GameManager.Player.IsDead || (GameManager.AI.EnemiesChasing != 0))
             return;
 
-        // We have support for particles that may be attached to the checkpoints
+       // We have support for particles that may be attached to the checkpoints
         ParticleSystem prevParticles = GameManager.LastCheckPoint.GetComponentInChildren<ParticleSystem> ();
         if (prevParticles != null)
             prevParticles.Stop ();
@@ -58,7 +58,7 @@ public class Checkpoint : MonoBehaviour
         if (newParticles != null)
             newParticles.Play ();
 
-        
+
         // Set the new spawnpoint
         GameManager.LastCheckPoint = transform;
         

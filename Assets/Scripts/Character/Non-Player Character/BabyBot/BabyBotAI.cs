@@ -11,6 +11,11 @@ public class BabyBotAI : EnemyAI
     {
         base.UpdateAwareness ();
         Settings.CanSee = Awareness != AwarenessLevel.Unaware;
+
+		// if baby bot attacking, remain in chasing mode.
+		if(Animator.CurrentState.nameHash == BabyBotAnimator.AttackState)
+			Awareness = AwarenessLevel.Chasing;
+
     }
 
     // It may be un-realistic, but babybot will just go after you even just off hearing

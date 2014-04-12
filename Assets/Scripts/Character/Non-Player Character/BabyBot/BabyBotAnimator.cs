@@ -19,9 +19,12 @@ public class BabyBotAnimator : CharacterAnimator
     // Making cute baby sounds =)
     private BabybotAudioPlayer _sound;
 
+	private EnemyAI _ai;
+
     protected override void OnStart ()
     {
         _sound = GetComponentInChildren<BabybotAudioPlayer> ();
+		_ai = GetComponent<EnemyAI> ();
 
     }
 
@@ -110,6 +113,8 @@ public class BabyBotAnimator : CharacterAnimator
         Vector3 move = transform.localPosition;
         transform.localPosition = Vector3.zero;
         selfRoot.position = selfRoot.position + move;
+
+
         
     }
     

@@ -116,7 +116,10 @@ public class Tutorial : MonoBehaviour
 	{
 		if (!GameManager.SaveData.HasShownOlympusSpawn){
 			GameManager.SaveData.HasShownOlympusSpawn = true;
-			
+
+			StopCoroutine("OperateDoor");
+			SewerDoor.animation.Play("Closed");
+
 			Runner.gameObject.SetActive (true);
 			Runner.StartCoroutine (Runner.ShowOlympusSpawn (RunnerPositionOlympusSpawn.position));
 
