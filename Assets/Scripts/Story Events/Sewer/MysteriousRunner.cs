@@ -7,7 +7,6 @@ using System.Collections;
 [AddComponentMenu("Story Events/Sewer/Mysterious Runner")]
 public class MysteriousRunner : MonoBehaviour
 {
-	private bool _thrownBarrier = false;
 	private bool _walkedUnderneath = false;
 
     public IEnumerator ShowWallJump ()
@@ -100,24 +99,31 @@ public class MysteriousRunner : MonoBehaviour
 	public IEnumerator ShowOlympusSpawn (Vector3 startPosition)
 	{
 		CharacterInput input = GetComponent<CharacterInput> ();
+		input.UpdateInputMethod = null;
 		Destroy (GameManager.Player.GetComponent<AudioListener> ());
 		this.gameObject.AddComponent<AudioListener> ();
 		GameManager.MainCamera.Target = transform;
 		GameManager.IsPlayingCutscene = true;
-		
+
 		transform.position = startPosition;
 		input.Horizontal = -0.5f;
-		yield return new WaitForSeconds (1.7f);
+		yield return new WaitForSeconds (2.0f);
 		_walkedUnderneath = true;
+		yield return new WaitForSeconds (1.0f);
 		input.Horizontal = 0f;
 		yield return new WaitForSeconds (0.75f);
 		GameManager.MainCamera.Target = transform;
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds (1.0f);
 		input.Horizontal = 1f;
 		yield return new WaitForSeconds (0.1f);
 		input.Horizontal = 0f;
+		yield return new WaitForSeconds (0.25f);
 		input.Attack = 1f;
-		_thrownBarrier = true;
+
+		Vector3 shieldPos = transform.position;
+		shieldPos += Vector3.right * 3.0f;
+		shieldPos += Vector3.down * 2.0f;
+		Instantiate(Resources.Load("Prefabs/Weapons/OnField/HoloShield"), shieldPos, Quaternion.Euler(0.0f, 270.0f, 0.0f) );
 		yield return new WaitForSeconds (0.5f);
 		input.Attack = 0f;
 		GameManager.MainCamera.Target = null;
@@ -139,12 +145,6 @@ public class MysteriousRunner : MonoBehaviour
 	public bool WalkedUnderneath {
 		get {
 			return _walkedUnderneath;
-		}
-	}
-
-	public bool ThrownBarrier {
-		get {
-			return _thrownBarrier;
 		}
 	}
 }

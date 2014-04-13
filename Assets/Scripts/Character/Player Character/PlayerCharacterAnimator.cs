@@ -952,7 +952,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
 	public override bool CanTransitionZ {
 		get {
-			return (GameManager.AI.EnemiesChasing == 0);
+			return (base.CanTransitionZ && (GameManager.AI.EnemiesChasing == 0) );
 		}
 	}
 

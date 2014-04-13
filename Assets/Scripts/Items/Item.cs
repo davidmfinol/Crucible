@@ -23,7 +23,8 @@ public class Item : MonoBehaviour
         Item_Isolator = 9,
         Item_Magnet = 10,
         Item_Transmitter = 11,
-        Item_Visualizer = 12
+        Item_Visualizer = 12,
+		Item_HoloShield = 13
 
     };
 

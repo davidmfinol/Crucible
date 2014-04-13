@@ -37,7 +37,8 @@ public abstract class CharacterAnimator : MonoBehaviour
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
     private Vector3 _prevDirection = Vector3.right; // The last direction that the player was facing before the current direction
     private bool _ignoreDirection = false; // Some cases want us to ignore our set direction; set this to allow that
-    private bool _ignoreMovement = false;  // Some cases want us to ignore our movement; set this to allow that
+    private bool _ignoreAllMovement = false;  // Some cases want us to ignore our movement; set this to allow that
+	private bool _ignoreXYMovement = false;   // Used to prevent xy movement in hide zones.
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
     private float _lastGroundHeight = 0.0f; // Keep track of the last y position at which the character was touching the ground
@@ -171,10 +172,18 @@ public abstract class CharacterAnimator : MonoBehaviour
                 _Zhigher = Zones [position + 1];
 
             // Move to the z zone requested
-            if (CharInput.UpPressed && !CharInput.Down)
+            if (CharInput.UpPressed && !CharInput.Down) {
                 _currentZone = _Zhigher;
-            else if (CharInput.DownPressed && !CharInput.Up)
+
+				// don't allow movement in a hide zone
+				IgnoreXYMovement = true;
+
+			} else if (CharInput.DownPressed && !CharInput.Up) {
                 _currentZone = _Zlower;
+
+				// re-allow movement upon exit hide zone
+				IgnoreXYMovement = false;
+			}
         }
 
     }
@@ -227,8 +236,13 @@ public abstract class CharacterAnimator : MonoBehaviour
         float zOffset = newZ - currentZ;
         currentMovementOffset = new Vector3 (currentMovementOffset.x, currentMovementOffset.y, zOffset);
 
-        // Move our character!
-        if (!IgnoreMovement)
+		// if need to ignore XY move, remove them from our offset.
+		// keep a ground vertical speed so we're grounded.
+		if(IgnoreXYMovement)
+			currentMovementOffset = new Vector3(0.0f, GroundVerticalSpeed, currentMovementOffset.z);
+
+		// Move our character!
+        if (!IgnoreAllMovement)
             _collisionFlags = _characterController.Move (currentMovementOffset);
 
         // Calculate the velocity based on the current and previous position.
@@ -679,10 +693,16 @@ public abstract class CharacterAnimator : MonoBehaviour
         set { _ignoreDirection = value; }
     }
 
-    public bool IgnoreMovement {
-        get { return _ignoreMovement; }
-        set { _ignoreMovement = value; }
+    public bool IgnoreAllMovement {
+        get { return _ignoreAllMovement; }
+        set { _ignoreAllMovement = value; }
     }
+
+	public bool IgnoreXYMovement {
+		get { return _ignoreXYMovement; }
+		set { _ignoreXYMovement = value; }
+	}
+
 
     public float HorizontalSpeed {
         get { return _horizontalSpeed; }

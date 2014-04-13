@@ -104,7 +104,7 @@ public class BabyBotAnimator : CharacterAnimator
         
         // Disable movement
         Controller.enabled = false;
-        IgnoreMovement = true;
+        IgnoreAllMovement = true;
         IgnoreDirection = true;
         
         // Parent ourselves to the player
