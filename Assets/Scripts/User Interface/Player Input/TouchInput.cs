@@ -12,26 +12,30 @@ public class TouchInput : MonoBehaviour
     public Transform SliderPrefab;
     public Transform MoveButtonPrefab;
     public Transform RadioPrefab;
-    public Transform ActionDescriptionPrefab;
-    public Transform FadeLeftPrefab;
-    public Transform FadeTopPrefab;
-    public Transform FadeRightPrefab;
-    public Transform FadeBottomPrefab;
     public Transform SelectionsPrefab;
+    public Transform GlowOffPrefab;
+    public Transform BlueCirclePrefab;
+    public Transform JumpSignPrefab;
+    public Transform AttackSignPrefab;
+    public Transform ItemPickupSignPrefab;
     public Transform DotPrefab;
 
-    // The location of each of the dots (index = 2*x + y) for each of the dots
-    public static readonly float[] DotPositions = {-4.35f,-5.6f, 0.0f,-7.2f, 4.35f,-5.6f, // Bottom row
-        -7.1f,-0.2f, 0.0f,0.0f, 7.1f,-0.1f, // Middle row
-        -6.2f,3.9f, 0.0f,7.4f, 6.1f,3.9f}; // Top row
+    // The location of each of the dots [in polar coordinates: 0 = (0,0), 1 = (r, attackright), 2 = (r, jumpright), 3 = (r, jumpup) ...]
+    public float[] DotPositions;
 
     // Keep track of the objects we're using to display the UI
     private Transform _horizontalSlider;
     private Transform _verticalSlider;
     private Transform _moveButton;
     private Transform _radioWaves;
+    private Transform _blueCircle;
     private Transform _selections;
-    private List<Transform> _userInterfaceDots;
+    private Transform _jumpSign;
+    private Transform _attack1Sign;
+    private Transform _attack2Sign;
+    private Transform _pickupSign;
+    private AlphaPulse _glowOff;
+    private List<Transform> _uiDots;
 
     // Swipe information related to movement
     private int _moveID;
@@ -85,16 +89,18 @@ public class TouchInput : MonoBehaviour
         _moveButton.renderer.enabled = false;
         _radioWaves.renderer.enabled = false;
 
-        // TODO:
+        //TODO: DOTPOSITIONS
+
+        // Right-hand side GUI
         _selections = (Transform)Instantiate(SelectionsPrefab, SelectionsPrefab.position, SelectionsPrefab.rotation);
 
         // The dots
-        _userInterfaceDots = new List<Transform> ();
+        _uiDots = new List<Transform> ();
         for (int i = 0; i < 9; i++) {
             Transform dot = (Transform)Instantiate (DotPrefab, DotPrefab.position, DotPrefab.rotation);
             dot.renderer.enabled = false;
             dot.parent = transform;
-            _userInterfaceDots.Add (dot);
+            _uiDots.Add (dot);
         }
 
         // Set up new update methods to show the GUI elements
@@ -297,8 +303,8 @@ public class TouchInput : MonoBehaviour
             // Make everything invisible if we're not touching the right-hand side
             bool actTouched = _actionID != -1;
             _selections.renderer.enabled = actTouched;
-            for (int dot=0; dot<_userInterfaceDots.Count; dot++)
-                _userInterfaceDots [dot].renderer.enabled = actTouched;
+            for (int dot=0; dot<_uiDots.Count; dot++)
+                _uiDots [dot].renderer.enabled = actTouched;
             if (!actTouched)
                 continue;
 
@@ -309,32 +315,32 @@ public class TouchInput : MonoBehaviour
             // Put the dots at the correct positions , and color/enable things as appropriate
             _selections.renderer.material.color = Color.white;
             float deg = CalculateActionDegree ();
-            for (int dot=0; dot<_userInterfaceDots.Count; dot++) {
-                _userInterfaceDots [dot].transform.position = new Vector3 (pos.x + DotPositions [dot * 2], pos.y + DotPositions [dot * 2 + 1], 0);
-                _userInterfaceDots [dot].renderer.enabled = true;
-                _userInterfaceDots [dot].renderer.material.color = Color.white;
+            for (int dot=0; dot<_uiDots.Count; dot++) {
+                _uiDots [dot].transform.position = new Vector3 (pos.x + DotPositions [dot * 2], pos.y + DotPositions [dot * 2 + 1], 0);
+                _uiDots [dot].renderer.enabled = true;
+                _uiDots [dot].renderer.material.color = Color.white;
 
                 if (IsJumpRight (deg) && dot == 8) {
                     _selections.renderer.material.color = Color.blue;
-                    _userInterfaceDots [dot].renderer.material.color = Color.blue;
+                    _uiDots [dot].renderer.material.color = Color.blue;
                 } else if (IsJumpUp (deg) && dot == 7) {
                     _selections.renderer.material.color = Color.blue;
-                    _userInterfaceDots [dot].renderer.material.color = Color.blue;
+                    _uiDots [dot].renderer.material.color = Color.blue;
                 } else if (IsJumpLeft (deg) && dot == 6) {
                     _selections.renderer.material.color = Color.blue;
-                    _userInterfaceDots [dot].renderer.material.color = Color.blue;
+                    _uiDots [dot].renderer.material.color = Color.blue;
                 } else if (IsAttackLeft (deg) && (dot == 0 || dot == 3 || dot == 6)) {
                     _selections.renderer.material.color = Color.red;
-                    _userInterfaceDots [dot].renderer.material.color = Color.red;
+                    _uiDots [dot].renderer.material.color = Color.red;
                 } else if (IsPickup (deg) && (dot == 0 || dot == 1 || dot == 2)) {
                     _selections.renderer.material.color = Color.green;
-                    _userInterfaceDots [dot].renderer.material.color = Color.green;
+                    _uiDots [dot].renderer.material.color = Color.green;
                 } else if (IsAttackRight (deg) && (dot == 2 || dot == 5 || dot == 8)) {
                     _selections.renderer.material.color = Color.red;
-                    _userInterfaceDots [dot].renderer.material.color = Color.red;
+                    _uiDots [dot].renderer.material.color = Color.red;
                 } else if (IsInteraction (deg) && dot == 4) {
                     _selections.renderer.material.color = Color.black;
-                    _userInterfaceDots [dot].renderer.material.color = Color.black;
+                    _uiDots [dot].renderer.material.color = Color.black;
                 }
             }
 
