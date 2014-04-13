@@ -64,7 +64,7 @@ public class Tutorial : MonoBehaviour
             //TODO
         }
 
-        // Hide the shown pieces
+        // Remove the shown pieces
         //TODO
         
         // Make the player get up

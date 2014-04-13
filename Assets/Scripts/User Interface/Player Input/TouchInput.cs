@@ -30,11 +30,6 @@ public class TouchInput : MonoBehaviour
     private Transform _verticalSlider;
     private Transform _moveButton;
     private Transform _radioWaves;
-    private Transform _actionDescription;
-    private Transform _fadeLeft;
-    private Transform _fadeTop;
-    private Transform _fadeRight;
-    private Transform _fadeBottom;
     private Transform _selections;
     private List<Transform> _userInterfaceDots;
 
@@ -90,29 +85,8 @@ public class TouchInput : MonoBehaviour
         _moveButton.renderer.enabled = false;
         _radioWaves.renderer.enabled = false;
 
-        // Right-hand side GUI
-        _actionDescription = (Transform)Instantiate (ActionDescriptionPrefab, Vector3.zero, Quaternion.identity);
-        _fadeLeft = (Transform)Instantiate (FadeLeftPrefab, Vector3.zero, Quaternion.identity);
-        _fadeTop = (Transform)Instantiate (FadeTopPrefab, Vector3.zero, Quaternion.identity);
-        _fadeRight = (Transform)Instantiate (FadeRightPrefab, Vector3.zero, Quaternion.identity);
-        _fadeBottom = (Transform)Instantiate (FadeBottomPrefab, Vector3.zero, Quaternion.identity);
-        _selections = (Transform)Instantiate (SelectionsPrefab, Vector3.zero, Quaternion.identity);
-
-        // Organize them away
-        _actionDescription.parent = transform;
-        _fadeLeft.parent = transform;
-        _fadeTop.parent = transform;
-        _fadeRight.parent = transform;
-        _fadeBottom.parent = transform;
-        _selections.parent = transform;
-
-        // And hide them
-        _actionDescription.renderer.enabled = false;
-        _fadeLeft.renderer.enabled = false;
-        _fadeTop.renderer.enabled = false;
-        _fadeRight.renderer.enabled = false;
-        _fadeBottom.renderer.enabled = false;
-        _selections.renderer.enabled = false;
+        // TODO:
+        _selections = (Transform)Instantiate(SelectionsPrefab, SelectionsPrefab.position, SelectionsPrefab.rotation);
 
         // The dots
         _userInterfaceDots = new List<Transform> ();
@@ -322,11 +296,6 @@ public class TouchInput : MonoBehaviour
 
             // Make everything invisible if we're not touching the right-hand side
             bool actTouched = _actionID != -1;
-			_actionDescription.renderer.enabled = actTouched;
-            _fadeLeft.renderer.enabled = false;
-            _fadeTop.renderer.enabled = false;
-            _fadeRight.renderer.enabled = false;
-            _fadeBottom.renderer.enabled = false;
             _selections.renderer.enabled = actTouched;
             for (int dot=0; dot<_userInterfaceDots.Count; dot++)
                 _userInterfaceDots [dot].renderer.enabled = actTouched;
@@ -335,11 +304,6 @@ public class TouchInput : MonoBehaviour
 
             // Put the images at the correct spot
             Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
-            _actionDescription.position = pos;
-            _fadeLeft.position = pos;
-            _fadeTop.position = pos;
-            _fadeRight.position = pos;
-            _fadeBottom.position = pos;
             _selections.position = pos;
         
             // Put the dots at the correct positions , and color/enable things as appropriate
@@ -352,27 +316,21 @@ public class TouchInput : MonoBehaviour
 
                 if (IsJumpRight (deg) && dot == 8) {
                     _selections.renderer.material.color = Color.blue;
-                    _fadeTop.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.blue;
                 } else if (IsJumpUp (deg) && dot == 7) {
                     _selections.renderer.material.color = Color.blue;
-                    _fadeTop.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.blue;
                 } else if (IsJumpLeft (deg) && dot == 6) {
                     _selections.renderer.material.color = Color.blue;
-                    _fadeTop.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.blue;
                 } else if (IsAttackLeft (deg) && (dot == 0 || dot == 3 || dot == 6)) {
                     _selections.renderer.material.color = Color.red;
-                    _fadeLeft.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.red;
                 } else if (IsPickup (deg) && (dot == 0 || dot == 1 || dot == 2)) {
                     _selections.renderer.material.color = Color.green;
-                    _fadeBottom.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.green;
                 } else if (IsAttackRight (deg) && (dot == 2 || dot == 5 || dot == 8)) {
                     _selections.renderer.material.color = Color.red;
-                    _fadeRight.renderer.enabled = true;
                     _userInterfaceDots [dot].renderer.material.color = Color.red;
                 } else if (IsInteraction (deg) && dot == 4) {
                     _selections.renderer.material.color = Color.black;
