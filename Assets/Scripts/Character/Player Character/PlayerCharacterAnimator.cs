@@ -950,4 +950,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
         set { _stealthKillable = value; } 
     }
 
+	public override bool CanTransitionZ {
+		get {
+			return (base.CanTransitionZ && (GameManager.AI.EnemiesChasing == 0) );
+		}
+	}
+
 }

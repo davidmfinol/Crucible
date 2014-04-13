@@ -79,6 +79,20 @@ public class AIManager : MonoBehaviour
         
     }
 
+	// are there enemies within a radius?
+	public bool EnemiesWithin(float radius) {
+		Vector3 pos = GameManager.Player.transform.position;
+
+		foreach (EnemyAI enemy in _enemies) {
+			if( Vector3.Distance(pos, enemy.transform.position) <= radius )
+				return true;
+
+		}
+
+		return false;
+
+	}
+
     public void ResetEnemies ()
     {
         foreach (EnemyAI enemy in _enemies)

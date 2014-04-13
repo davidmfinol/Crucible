@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(player);
             _player = player.GetComponent<CharacterAnimator> ();
             _player.gameObject.AddComponent<AudioListener> ();
-            _player.IgnoreMovement = true;
+            _player.IgnoreAllMovement = true;
         }
         
         // Must delay player spawn to make sure all components are ready
@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour
         Player.transform.position = LastCheckPoint.position;
 
         // Allow the player to start moving
-        _player.IgnoreMovement = false;
+        _player.IgnoreAllMovement = false;
 
         // Reset it's health to max
         HeartBox heart = Player.GetComponentInChildren<HeartBox> ();

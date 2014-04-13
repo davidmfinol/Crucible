@@ -28,7 +28,7 @@ public class Tutorial : MonoBehaviour
 
     void Start ()
     {
-        StartCoroutine (OperateDoor ());
+		SewerDoor.animation.Play ("Close");
 
     }
 
@@ -107,8 +107,9 @@ public class Tutorial : MonoBehaviour
 		if (!GameManager.SaveData.HasShownSightPuzzle){
 			GameManager.SaveData.HasShownSightPuzzle = true;
 
-			Runner.gameObject.SetActive (true);
-			Runner.StartCoroutine (Runner.ShowSightPuzzle (SightPuzzlePosition.position));
+			SewerDoor.animation.Play("Open");
+			StartCoroutine("OperateDoor");
+
 		}
 	}
 
@@ -116,7 +117,7 @@ public class Tutorial : MonoBehaviour
 	{
 		if (!GameManager.SaveData.HasShownOlympusSpawn){
 			GameManager.SaveData.HasShownOlympusSpawn = true;
-			
+
 			Runner.gameObject.SetActive (true);
 			Runner.StartCoroutine (Runner.ShowOlympusSpawn (RunnerPositionOlympusSpawn.position));
 
@@ -171,11 +172,15 @@ public class Tutorial : MonoBehaviour
 		// drops 2 items.
 		newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts);
 
-		StartCoroutine(ShowBarrier());
-		yield return new WaitForSeconds(2.0f);
+		// close the door behind you
+		StopCoroutine("OperateDoor");
+		SewerDoor.animation.Play("Close");
+
+
+		yield return new WaitForSeconds(2.3f);
 		CharacterInput input = newOlympus.GetComponent<CharacterInput> ();
 		input.Horizontal = -0.4f;
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.55f);
 		input.Horizontal = 0.0f;
 		input.Attack = 1.0f;
 		yield return new WaitForSeconds(2.0f);
@@ -192,14 +197,6 @@ public class Tutorial : MonoBehaviour
 			yield return new WaitForSeconds(0.5f);
 			input.Attack = 1.0f;
 		}
-	}
-
-	public IEnumerator ShowBarrier ()
-	{
-		while(Runner.ThrownBarrier == false)
-			yield return null;
-		AIBarrier.gameObject.SetActive(true);
-
 	}
 
 }
