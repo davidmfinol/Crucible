@@ -19,12 +19,9 @@ public class BabyBotAnimator : CharacterAnimator
     // Making cute baby sounds =)
     private BabybotAudioPlayer _sound;
 
-	private EnemyAI _ai;
-
     protected override void OnStart ()
     {
         _sound = GetComponentInChildren<BabybotAudioPlayer> ();
-		_ai = GetComponent<EnemyAI> ();
 
     }
 
@@ -37,7 +34,7 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
-    protected override void OnUpdate()
+    protected override void OnUpdate ()
     {
         // HACK: WE'RE FORCING THE ATTACK ANIMATION TO GET RIGHT ON THE PLAYER
         if (Root != null && CurrentState.nameHash == AttackState)
@@ -87,7 +84,7 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
-    protected void Land(float elapsedTime)
+    protected void Land (float elapsedTime)
     {
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
@@ -113,8 +110,6 @@ public class BabyBotAnimator : CharacterAnimator
         Vector3 move = transform.localPosition;
         transform.localPosition = Vector3.zero;
         selfRoot.position = selfRoot.position + move;
-
-
         
     }
     
@@ -126,7 +121,7 @@ public class BabyBotAnimator : CharacterAnimator
         HitBox d = o.GetComponentInChildren<HitBox> ();
         
         float horizontalDir = 0.0f;
-        if(GameManager.Player.transform.position.x < transform.position.x)
+        if (GameManager.Player.transform.position.x < transform.position.x)
             horizontalDir = -1.0f;
         else
             horizontalDir = 1.0f;
@@ -147,9 +142,9 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
-	public override EnemySaveState.EnemyType EnemyType {
-		get { return EnemySaveState.EnemyType.Enemy_BabyBot; }
-		
-	}
+    public override EnemySaveState.EnemyType EnemyType {
+        get { return EnemySaveState.EnemyType.Enemy_BabyBot; }
+        
+    }
 
 }
