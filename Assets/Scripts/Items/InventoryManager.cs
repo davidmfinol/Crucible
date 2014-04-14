@@ -180,7 +180,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     public bool CanWeaponStealthKill {
-        get { return _currentWeapon.CanStealthKill; }
+        get { return _currentWeapon != null && _currentWeapon.CanStealthKill; }
     }
     
     public bool Ready {

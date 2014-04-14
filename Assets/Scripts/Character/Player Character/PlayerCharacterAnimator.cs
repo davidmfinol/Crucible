@@ -946,7 +946,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     }
     
     public override bool CanInputAttack {
-        get { return GameManager.Inventory.CurrentWeapon.CanStealthKill && StealthKillable != null; }
+        get { return GameManager.Inventory.CanWeaponStealthKill && StealthKillable != null; }
     }
     
     public override bool CanInputPickup {

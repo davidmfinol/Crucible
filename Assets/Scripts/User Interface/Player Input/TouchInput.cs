@@ -119,7 +119,7 @@ public class TouchInput : MonoBehaviour
         _attack1Sign.renderer.enabled = false;
         _attack2Sign.renderer.enabled = false;
         _pickupSign.renderer.enabled = false;
-        glowOff.renderer.enabled = false;
+        _glowOff.On = false;
 
         // The dots indicating the action to the player
         _uiDots = new List<Transform> (9);
@@ -175,6 +175,8 @@ public class TouchInput : MonoBehaviour
     public void Disable ()
     {
         _input.UpdateInputMethod = null;
+        _actionID = -1;
+        _moveID = -1;
 
     }
 
@@ -261,17 +263,17 @@ public class TouchInput : MonoBehaviour
 
         float deg = CalculateActionDegree ();
 
-        if (IsJumpRight (deg))
+        if (GameManager.Player.CanInputJump && IsJumpRight (deg))
             _input.Jump = new Vector2 (1, 1);
-        else if (IsJumpUp (deg))
+        else if (GameManager.Player.CanInputJump && IsJumpUp (deg))
             _input.Jump = new Vector2 (0, 1);
-        else if (IsJumpLeft (deg))
+        else if (GameManager.Player.CanInputJump && IsJumpLeft (deg))
             _input.Jump = new Vector2 (-1, 1);
-        else if (IsAttackLeft (deg))
+        else if (GameManager.Player.CanInputAttack && IsAttackLeft (deg))
             _input.Attack = -1;
-        else if (IsPickup (deg))
+        else if (GameManager.Player.CanInputPickup && IsPickup (deg))
             _input.Pickup = true;
-        else if (IsAttackRight (deg)) 
+        else if (GameManager.Player.CanInputAttack && IsAttackRight (deg)) 
             _input.Attack = 1;
         else if (IsInteraction (deg))
             _input.Interaction = true;
@@ -351,16 +353,29 @@ public class TouchInput : MonoBehaviour
         while (true) {
             yield return null;
 
-            // Make everything invisible if we're not touching the right-hand side
+            // Make the images visible as appropriate
             bool actTouched = _actionID != -1;
             _blueCircle.renderer.enabled = actTouched;
             _selections.renderer.enabled = actTouched;
-            _jumpSign.renderer.enabled = actTouched;
-            _attack1Sign.renderer.enabled = actTouched;
-            _attack2Sign.renderer.enabled = actTouched;
-            _pickupSign.renderer.enabled = actTouched;
-            for (int dot=0; dot<_uiDots.Count; dot++)
-                _uiDots [dot].renderer.enabled = actTouched;
+            _jumpSign.renderer.enabled = actTouched && GameManager.Player.CanInputJump;
+            _attack1Sign.renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
+            _attack2Sign.renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
+            _pickupSign.renderer.enabled = actTouched && GameManager.Player.CanInputPickup;
+            _glowOff.renderer.enabled = true;
+            _glowOff.On = actTouched;
+
+            // Make the dots visible as appropriate
+            _uiDots[0].renderer.enabled = actTouched;
+            _uiDots[1].renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
+            _uiDots[2].renderer.enabled = actTouched && (GameManager.Player.CanInputAttack || GameManager.Player.CanInputJump);
+            _uiDots[3].renderer.enabled = actTouched && GameManager.Player.CanInputJump;
+            _uiDots[4].renderer.enabled = actTouched && (GameManager.Player.CanInputJump || GameManager.Player.CanInputAttack);
+            _uiDots[5].renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
+            _uiDots[6].renderer.enabled = actTouched && (GameManager.Player.CanInputAttack || GameManager.Player.CanInputPickup);
+            _uiDots[7].renderer.enabled = actTouched && GameManager.Player.CanInputPickup;
+            _uiDots[8].renderer.enabled = actTouched && (GameManager.Player.CanInputPickup || GameManager.Player.CanInputAttack);
+
+            // We don't need to move + color things if they're not visible
             if (!actTouched)
                 continue;
 
@@ -368,42 +383,73 @@ public class TouchInput : MonoBehaviour
             Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
             _blueCircle.position = pos;
             _selections.position = pos + SelectionsPrefab.position;
-            _jumpSign.position = pos + JumpSignPrefab.position;
-            _attack1Sign.position = pos + AttackSignPrefab.position;
-            _attack2Sign.position = pos + AttackSignPrefab.position + Vector3.left * 2 * AttackSignPrefab.position.x;
-            _pickupSign.position = pos + ItemPickupSignPrefab.position;
-        
-            // Put the dots at the correct positions, and color/enable things as appropriate
             _selections.renderer.material.color = Color.white;
-            float deg = CalculateActionDegree ();
-            for (int dot=0; dot<_uiDots.Count; dot++) {
-                _uiDots [dot].transform.position = pos + _dotPositions[dot];
-                _uiDots [dot].renderer.enabled = true;
-                _uiDots [dot].renderer.material.color = Color.white;
+            _jumpSign.position = pos + JumpSignPrefab.position;
+            _jumpSign.renderer.material.color = Color.white;
+            _attack1Sign.position = pos + AttackSignPrefab.position;
+            _attack1Sign.renderer.material.color = Color.white;
+            _attack2Sign.position = pos + AttackSignPrefab.position + Vector3.left * 2 * AttackSignPrefab.position.x;
+            _attack2Sign.renderer.material.color = Color.white;
+            _pickupSign.position = pos + ItemPickupSignPrefab.position;
+            _pickupSign.renderer.material.color = Color.white;
 
-                if (IsInteraction (deg) && dot == 0) {
-                    _selections.renderer.material.color = Color.black;
-                    _uiDots [dot].renderer.material.color = Color.black;
-                } else if (IsJumpRight (deg) && dot == 2) {
-                    _selections.renderer.material.color = Color.blue;
-                    _uiDots [dot].renderer.material.color = Color.blue;
-                } else if (IsJumpUp (deg) && dot == 3) {
-                    _selections.renderer.material.color = Color.blue;
-                    _uiDots [dot].renderer.material.color = Color.blue;
-                } else if (IsJumpLeft (deg) && dot == 4) {
-                    _selections.renderer.material.color = Color.blue;
-                    _uiDots [dot].renderer.material.color = Color.blue;
-                } else if (IsAttackLeft (deg) && (dot == 4 || dot == 5 || dot == 6)) {
-                    _selections.renderer.material.color = Color.red;
-                    _uiDots [dot].renderer.material.color = Color.red;
-                } else if (IsPickup (deg) && (dot == 6 || dot == 7 || dot == 8)) {
-                    _selections.renderer.material.color = Color.green;
-                    _uiDots [dot].renderer.material.color = Color.green;
-                } else if (IsAttackRight (deg) && (dot == 8 || dot == 1 || dot == 2)) {
-                    _selections.renderer.material.color = Color.red;
-                    _uiDots [dot].renderer.material.color = Color.red;
-                }
+            // Put the dots at the correct position
+            for (int dot = 0; dot < _uiDots.Count; dot++) {
+                _uiDots [dot].transform.position = pos + _dotPositions[dot];
+                _uiDots [dot].renderer.material.color = Color.white;
             }
+            
+            // Put the glow-off at the correct location
+            float deg = CalculateActionDegree ();
+            Vector3 originPoint = pos + GlowOffPrefab.position;
+            Vector3 zeroRotation = originPoint + Vector3.right * 10.75f;
+            _glowOff.transform.position = ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * deg);
+            _glowOff.transform.rotation = Quaternion.Euler(Vector3.forward * deg);
+            _glowOff.renderer.material.color = Color.white;
+
+            // Color as appropriate
+            if ( IsInteraction (deg) ) {
+                _selections.renderer.material.color = Color.black;
+                _glowOff.renderer.enabled = false;
+                _uiDots [0].renderer.material.color = Color.black;
+
+            } else if ( GameManager.Player.CanInputJump && (IsJumpLeft (deg) || IsJumpUp (deg) || IsJumpRight (deg)) ) {
+                _selections.renderer.material.color = Color.blue;
+                _jumpSign.renderer.material.color = Color.blue;
+                _glowOff.renderer.material.color = Color.blue;
+                if(IsJumpRight (deg))
+                    _uiDots [2].renderer.material.color = Color.blue;
+                else if(IsJumpUp (deg))
+                    _uiDots [3].renderer.material.color = Color.blue;
+                if(IsJumpLeft (deg))
+                    _uiDots [4].renderer.material.color = Color.blue;
+
+            } else if ( GameManager.Player.CanInputAttack && (IsAttackLeft (deg) || IsAttackRight (deg)) ) {
+                _selections.renderer.material.color = Color.red;
+                _glowOff.renderer.material.color = Color.red;
+                if( IsAttackRight (deg) ) {
+                    _attack1Sign.renderer.material.color = Color.red; 
+                    _uiDots [1].renderer.material.color = Color.red; 
+                    _uiDots [2].renderer.material.color = Color.red; 
+                    _uiDots [7].renderer.material.color = Color.red; 
+                }
+                else if( IsAttackLeft(deg) ) {
+                    _attack2Sign.renderer.material.color = Color.red;
+                    _uiDots [4].renderer.material.color = Color.red; 
+                    _uiDots [5].renderer.material.color = Color.red; 
+                    _uiDots [6].renderer.material.color = Color.red; 
+                }
+
+            } else if (GameManager.Player.CanInputPickup && IsPickup (deg)) {
+                _selections.renderer.material.color = Color.green;
+                _pickupSign.renderer.material.color = Color.green;
+                _glowOff.renderer.material.color = Color.green;
+                _uiDots [6].renderer.material.color = Color.green;
+                _uiDots [7].renderer.material.color = Color.green;
+                _uiDots [8].renderer.material.color = Color.green;
+
+            }
+
         }
 
     }
