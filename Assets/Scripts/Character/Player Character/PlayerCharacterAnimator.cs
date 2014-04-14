@@ -147,7 +147,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
-        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null && currentWeapon.CanStealthKill)
+        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null)
             StartCoroutine (ShowStealthKill ());
 
         // TODO: DON'T USE CURRRENTWEAPON IS TYPE, INSTEAD USE THINGS LIKE CURRENTWEAPON.ISGUN OR CURRENTWEAPON.ISMINE
@@ -935,6 +935,25 @@ public class PlayerCharacterAnimator : CharacterAnimator
         obj = null;
         return false;
 
+    }
+    
+    public override bool CanInputHorizontal {
+        get { return true; }  // TODO
+    }
+    
+    public override bool CanInputVertical {
+        get { return true; } // TODO
+    }
+    
+    public override bool CanInputAttack {
+        get { return GameManager.Inventory.CurrentWeapon.CanStealthKill && StealthKillable != null; }
+    }
+    
+    public override bool CanInputPickup {
+        get {
+            GameObject itemObj;
+            return CanPickupItem (out itemObj);
+        }
     }
 
     public override bool IsDead {

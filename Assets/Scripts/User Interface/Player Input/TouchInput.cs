@@ -278,6 +278,17 @@ public class TouchInput : MonoBehaviour
 
     }
 
+    // Helper method to put the GUI images in the correct location
+    public Vector3 ConvertTouchPosToWorldPoint (Vector2 touchPos)
+    {
+        Vector3 cameraPos = touchPos;
+        cameraPos.x /= Screen.width;
+        cameraPos.y /= Screen.height;
+        cameraPos.z = -GameManager.UI.UICamera.transform.position.z;
+        return GameManager.UI.UICamera.ViewportToWorldPoint (cameraPos);
+        
+    }
+
     // Draw code
     IEnumerator DisplayLeftHandSide ()
     {
@@ -442,15 +453,6 @@ public class TouchInput : MonoBehaviour
     public bool IsInteraction (float deg)
     {
         return deg == -1000;
-    }
-    
-    public Vector3 ConvertTouchPosToWorldPoint (Vector2 touchPos)
-    {
-        Vector3 cameraPos = touchPos;
-        cameraPos.x /= Screen.width;
-        cameraPos.y /= Screen.height;
-        cameraPos.z = -GameManager.UI.UICamera.transform.position.z;
-        return GameManager.UI.UICamera.ViewportToWorldPoint (cameraPos);
     }
 
     public float DistanceForMaxSpeed {

@@ -703,7 +703,25 @@ public abstract class CharacterAnimator : MonoBehaviour
 		set { _ignoreXYMovement = value; }
 	}
 
-    // TODO: CAN INPUT HORIZONTAL
+    public virtual bool CanInputHorizontal {
+        get { return true; }
+    }
+    
+    public virtual bool CanInputVertical {
+        get { return true; }
+    }
+    
+    public virtual bool CanInputJump {
+        get { return true; }
+    }
+    
+    public virtual bool CanInputAttack {
+        get { return true; }
+    }
+    
+    public virtual bool CanInputPickup {
+        get { return true; }
+    }
 
     public float HorizontalSpeed {
         get { return _horizontalSpeed; }
