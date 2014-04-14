@@ -4,6 +4,7 @@ using System.Collections;
 /// <summary>
 /// Item indicates an item that the player can pickup and add to its inventory.
 /// </summary>
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(OutlinePulse))]
 [AddComponentMenu("Items/Item")]
@@ -24,7 +25,7 @@ public class Item : MonoBehaviour
         Item_Magnet = 10,
         Item_Transmitter = 11,
         Item_Visualizer = 12,
-		Item_HoloShield = 13
+		Item_HoloShield = 13,
 
     };
 
