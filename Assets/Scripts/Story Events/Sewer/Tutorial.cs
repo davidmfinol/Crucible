@@ -9,7 +9,9 @@ public class Tutorial : MonoBehaviour
 {
     // The prompts that the player sees on-screen
     public Transform LeftHandVignette;
+    public Transform LeftThumbPrint;
     public Transform RightHandVignette;
+    public Transform RightThumbPrint;
 
     // Scripted characters in the scene
     public MysteriousRunner Runner;
@@ -44,13 +46,21 @@ public class Tutorial : MonoBehaviour
     {
         // Make the player fall down
         GameManager.MainCamera.CinematicOverride = true;
+        GameManager.UI.DisableInput ();
         GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.Die, true);
         yield return new WaitForSeconds(2.0f);
 
         // Create the pieces we're showing
-        //Transform leftHandVignette = (Transform)Instantiate (LeftHandVignette, LeftHandVignette.position, LeftHandVignette.rotation);
-        //Transform rightHandVignette = (Transform)Instantiate (RightHandVignette, RightHandVignette.position, RightHandVignette.rotation);
-        // TODO
+        Transform leftHandVignette = (Transform)Instantiate (LeftHandVignette, LeftHandVignette.position, LeftHandVignette.rotation);
+        AlphaPulse leftPulse = leftHandVignette.GetComponent<AlphaPulse> ();
+        if (leftPulse == null)
+            leftPulse = leftHandVignette.gameObject.AddComponent<AlphaPulse> ();
+        Transform rightHandVignette = (Transform)Instantiate (RightHandVignette, RightHandVignette.position, RightHandVignette.rotation);
+        AlphaPulse rightPulse = rightHandVignette.GetComponent<AlphaPulse> ();
+        if (rightPulse == null)
+            rightPulse = rightHandVignette.gameObject.AddComponent<AlphaPulse> ();
+        Transform leftThumb = (Transform)Instantiate (LeftThumbPrint, LeftThumbPrint.position, LeftThumbPrint.rotation);
+        Transform rightThumb = (Transform)Instantiate (RightThumbPrint, RightThumbPrint.position, RightThumbPrint.rotation);
 
         // We only need to force 2 hands on the mobile devices
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB
@@ -60,11 +70,30 @@ public class Tutorial : MonoBehaviour
         // Wait until they finally have used both hands to move on
         while (!GameManager.SaveData.HasUsed2Hands) {
             yield return null;
-            //TODO
+            bool leftSideTouched = false;
+            bool rightSideTouched = false;
+
+            foreach(Touch touch in Input.touches) {
+                if(touch.position.x < Screen.width / 2)
+                    leftSideTouched = true;
+                if(touch.position.x > Screen.width / 2)
+                    rightSideTouched = true;
+            }
+
+            leftPulse.On = !leftSideTouched;
+            leftThumb.renderer.enabled = !leftSideTouched;
+            rightPulse.On = !rightSideTouched;
+            rightThumb.renderer.enabled = !rightSideTouched;
+
+            if(leftSideTouched && rightSideTouched)
+                GameManager.SaveData.HasUsed2Hands = true;
         }
 
         // Remove the shown pieces
-        //TODO
+        Destroy (leftHandVignette.gameObject);
+        Destroy (leftThumb.gameObject);
+        Destroy (rightHandVignette.gameObject);
+        Destroy (rightThumb.gameObject);
         
         // Make the player get up
         GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.StandingUp, true);
@@ -72,7 +101,8 @@ public class Tutorial : MonoBehaviour
 
         // Let them move around a bit
         GameManager.MainCamera.CinematicOverride = false;
-        yield return new WaitForSeconds(3.0f);
+        GameManager.UI.EnableInput ();
+        yield return new WaitForSeconds(5.0f);
 
         // And then show the wall jump
         ShowWallJump ();

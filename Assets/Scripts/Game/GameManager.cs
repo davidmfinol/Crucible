@@ -150,7 +150,8 @@ public class GameManager : MonoBehaviour
             GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/PlayerCharacter"), _currentLevel.OffscreenPosition, Quaternion.identity);
             DontDestroyOnLoad(player);
             _player = player.GetComponent<CharacterAnimator> ();
-            _player.IgnoreAllMovement = true;
+            _player.gameObject.AddComponent<AudioListener>();
+            _player.IgnoreMovement = true;
         }
         
         // Must delay player spawn to make sure all components are ready
@@ -177,7 +178,7 @@ public class GameManager : MonoBehaviour
         Player.transform.position = LastCheckPoint.position;
 
         // Allow the player to start moving
-        _player.IgnoreAllMovement = false;
+        _player.IgnoreMovement = false;
 
         // Reset it's health to max
         HeartBox heart = Player.GetComponentInChildren<HeartBox> ();

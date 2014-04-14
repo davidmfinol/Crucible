@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
@@ -101,7 +101,7 @@ public class BabyBotAnimator : CharacterAnimator
         
         // Disable movement
         Controller.enabled = false;
-        IgnoreAllMovement = true;
+        IgnoreMovement = true;
         IgnoreDirection = true;
         
         // Parent ourselves to the player

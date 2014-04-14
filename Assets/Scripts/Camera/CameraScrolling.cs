@@ -243,7 +243,7 @@ public class CameraScrolling : MonoBehaviour
         get { return _target; }
         set {
             // Remove audiolistener from old target
-            if (_target != null) {
+            if (_target != null && value != null) {
                 AudioListener listener = _target.GetComponent<AudioListener> ();
                 if (listener != null)
                     Destroy (listener);

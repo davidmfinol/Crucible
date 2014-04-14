@@ -37,7 +37,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
     private Vector3 _prevDirection = Vector3.right; // The last direction that the player was facing before the current direction
     private bool _ignoreDirection = false; // Some cases want us to ignore our set direction; set this to allow that
-    private bool _ignoreAllMovement = false;  // Some cases want us to ignore our movement; set this to allow that
+    private bool _ignoreMovement = false;  // Some cases want us to ignore our movement; set this to allow that
 	private bool _ignoreXYMovement = false;   // Used to prevent xy movement in hide zones.
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
@@ -242,7 +242,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 			currentMovementOffset = new Vector3(0.0f, GroundVerticalSpeed, currentMovementOffset.z);
 
 		// Move our character!
-        if (!IgnoreAllMovement)
+        if (!IgnoreMovement)
             _collisionFlags = _characterController.Move (currentMovementOffset);
 
         // Calculate the velocity based on the current and previous position.
@@ -693,9 +693,9 @@ public abstract class CharacterAnimator : MonoBehaviour
         set { _ignoreDirection = value; }
     }
 
-    public bool IgnoreAllMovement {
-        get { return _ignoreAllMovement; }
-        set { _ignoreAllMovement = value; }
+    public bool IgnoreMovement {
+        get { return _ignoreMovement; }
+        set { _ignoreMovement = value; }
     }
 
 	public bool IgnoreXYMovement {
@@ -703,6 +703,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 		set { _ignoreXYMovement = value; }
 	}
 
+    // TODO: CAN INPUT HORIZONTAL
 
     public float HorizontalSpeed {
         get { return _horizontalSpeed; }

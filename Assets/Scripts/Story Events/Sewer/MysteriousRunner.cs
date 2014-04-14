@@ -12,6 +12,7 @@ public class MysteriousRunner : MonoBehaviour
     public IEnumerator ShowWallJump ()
     {
         CharacterInput input = GetComponent<CharacterInput> ();
+        input.UpdateInputMethod = null;
         GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = true;
 
@@ -36,6 +37,7 @@ public class MysteriousRunner : MonoBehaviour
     public IEnumerator ShowSneak (Vector3 startPosition)
     {
         CharacterInput input = GetComponent<CharacterInput> ();
+        input.UpdateInputMethod = null;
         GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = true;
 
@@ -48,18 +50,16 @@ public class MysteriousRunner : MonoBehaviour
 		GameManager.MainCamera.Target = null; 
 		yield return new WaitForSeconds (3.5f);
 
-		GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = false;
         GameManager.MainCamera.Target = GameManager.Player.transform;
-        Destroy (gameObject.GetComponent<AudioListener> ());
-        GameManager.Player.gameObject.AddComponent<AudioListener> ();
         gameObject.SetActive (false);
 
     }
 
 	public IEnumerator ShowSightPuzzle (Vector3 startPosition)
 	{
-		CharacterInput input = GetComponent<CharacterInput> ();
+        CharacterInput input = GetComponent<CharacterInput> ();
+        input.UpdateInputMethod = null;
         GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = true;
 
@@ -80,7 +80,6 @@ public class MysteriousRunner : MonoBehaviour
 		input.Jump = new Vector2(-1, 1);
 		yield return new WaitForSeconds (3.5f);
 
-		GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = false;
         GameManager.MainCamera.Target = GameManager.Player.transform;
         gameObject.SetActive (false);
@@ -123,7 +122,6 @@ public class MysteriousRunner : MonoBehaviour
 
 
 		GameManager.IsPlayingCutscene = false;
-		GameManager.UI.EnableInput ();
 		GameManager.MainCamera.Target = GameManager.Player.transform;
 		gameObject.SetActive (false);
 	}
