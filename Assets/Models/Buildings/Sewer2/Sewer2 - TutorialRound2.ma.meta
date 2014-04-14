@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 9af355a9877734f998903bda11edab8b
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: Attached_on_the_side
     100002: curve1
@@ -712,6 +712,21 @@ ModelImporter:
     101412: transform132
     101414: transform133
     101416: transform134
+    101418: polySurface309
+    101420: polySurface310
+    101422: polySurface311
+    101424: polySurface312
+    101426: polySurface313
+    101428: polySurface314
+    101430: polySurface315
+    101432: polySurface316
+    101434: polySurface317
+    101436: polySurface318
+    101438: polySurface319
+    101440: polySurface320
+    101442: polySurface321
+    101444: polySurface322
+    101446: transform135
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1421,6 +1436,21 @@ ModelImporter:
     401412: transform132
     401414: transform133
     401416: transform134
+    401418: polySurface309
+    401420: polySurface310
+    401422: polySurface311
+    401424: polySurface312
+    401426: polySurface313
+    401428: polySurface314
+    401430: polySurface315
+    401432: polySurface316
+    401434: polySurface317
+    401436: polySurface318
+    401438: polySurface319
+    401440: polySurface320
+    401442: polySurface321
+    401444: polySurface322
+    401446: transform135
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1857,6 +1887,20 @@ ModelImporter:
     2300866: polySurface305
     2300868: polySurface306
     2300870: polySurface308
+    2300872: polySurface309
+    2300874: polySurface310
+    2300876: polySurface311
+    2300878: polySurface312
+    2300880: polySurface313
+    2300882: polySurface314
+    2300884: polySurface315
+    2300886: polySurface316
+    2300888: polySurface317
+    2300890: polySurface318
+    2300892: polySurface319
+    2300894: polySurface320
+    2300896: polySurface321
+    2300898: polySurface322
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2293,6 +2337,20 @@ ModelImporter:
     3300866: polySurface305
     3300868: polySurface306
     3300870: polySurface308
+    3300872: polySurface309
+    3300874: polySurface310
+    3300876: polySurface311
+    3300878: polySurface312
+    3300880: polySurface313
+    3300882: polySurface314
+    3300884: polySurface315
+    3300886: polySurface316
+    3300888: polySurface317
+    3300890: polySurface318
+    3300892: polySurface319
+    3300894: polySurface320
+    3300896: polySurface321
+    3300898: polySurface322
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -2722,6 +2780,20 @@ ModelImporter:
     4300852: Box
     4300854: polySurface308
     4300856: polySurface305
+    4300858: polySurface309
+    4300860: polySurface310
+    4300862: polySurface311
+    4300864: polySurface312
+    4300866: polySurface313
+    4300868: polySurface314
+    4300870: polySurface315
+    4300872: polySurface316
+    4300874: polySurface317
+    4300876: polySurface318
+    4300878: polySurface319
+    4300880: polySurface320
+    4300882: polySurface321
+    4300884: polySurface322
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -2775,5 +2847,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  additionalBone: 0
   userData: 
