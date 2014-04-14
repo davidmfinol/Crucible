@@ -191,11 +191,7 @@ public class GameManager : MonoBehaviour
             animator.SetBool (MecanimHashes.Respawn, true);
 
         // Make sure the camera is looking at the player
-        CameraScrolling cameraScript = Camera.main.GetComponent<CameraScrolling> ();
-        if (cameraScript != null && Player != null)
-            cameraScript.Target = Player.transform;
-        else
-            Debug.LogWarning ("Failed to point camera at player!");
+        MainCamera.Target = Player.transform;
 
         // TODO: MAKE THESE OBJECTIVES BE HANDLED IN ONE CENTRALIZED LOCATION/METHOD
         // *** load checkpoints he hasn't reached ***

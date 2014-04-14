@@ -35,6 +35,7 @@ public class CameraScrolling : MonoBehaviour
     void Start ()
     {
         _shakeEffect = null;
+
     }
 
     // You almost always want camera motion to go inside of LateUpdate (), so that the camera follows
@@ -42,13 +43,15 @@ public class CameraScrolling : MonoBehaviour
     // NOTE: There's a reason we're using FixedUpdate, but I don't remember the specifics
     void FixedUpdate ()
     {
-        if (Target != null) {
-            Vector3 goalPosition = GetGoalPosition ();
-            float springiness = MovementSpringiness;
-            if (_enemyFocused)
-                springiness = EnemyFocusedSpringiness;
-            transform.position = Vector3.Lerp (transform.position, goalPosition, Time.deltaTime * springiness);
-        }
+        if (Target == null)
+            return;
+
+        Vector3 goalPosition = GetGoalPosition ();
+        float springiness = MovementSpringiness;
+        if (_enemyFocused)
+            springiness = EnemyFocusedSpringiness;
+        transform.position = Vector3.Lerp (transform.position, goalPosition, Time.deltaTime * springiness);
+
     }
 
     public void AddShake (float lifetime, Vector3 spread, float minSpeed, float maxSpeed)
@@ -243,7 +246,7 @@ public class CameraScrolling : MonoBehaviour
         get { return _target; }
         set {
             // Remove audiolistener from old target
-            if (_target != null && value != null) {
+            if (_target != null && value != null && _target != value) {
                 AudioListener listener = _target.GetComponent<AudioListener> ();
                 if (listener != null)
                     Destroy (listener);
@@ -277,14 +280,12 @@ public class CameraScrolling : MonoBehaviour
     }
 
     public bool EnemyFocused {
-        get {
-            return _enemyFocused;
-        }
+        get { return _enemyFocused; }
     }
 
     public bool CinematicOverride {
         get { return _cinematicOverride; }
         set { _cinematicOverride = value; }
-
     }
+
 }
