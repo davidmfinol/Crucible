@@ -196,6 +196,8 @@ public class Tutorial : MonoBehaviour
 		while(true)
 		{
 			yield return new WaitForSeconds(0.5f);
+            if(input == null)
+                break;
 			input.Attack = 1.0f;
 		}
 	}

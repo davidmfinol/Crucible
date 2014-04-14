@@ -29,9 +29,9 @@ public class CameraScrolling : MonoBehaviour
     // We track this for a shake effect that we add on to the camera
     private ShakeEffect _shakeEffect;
 
-	// cinematic override for zooming
-	private bool _cinematicOverride;
-	
+    // cinematic override for zooming
+    private bool _cinematicOverride;
+    
     void Start ()
     {
         _shakeEffect = null;
@@ -45,7 +45,7 @@ public class CameraScrolling : MonoBehaviour
         if (Target != null) {
             Vector3 goalPosition = GetGoalPosition ();
             float springiness = MovementSpringiness;
-            if(_enemyFocused)
+            if (_enemyFocused)
                 springiness = EnemyFocusedSpringiness;
             transform.position = Vector3.Lerp (transform.position, goalPosition, Time.deltaTime * springiness);
         }
@@ -53,11 +53,11 @@ public class CameraScrolling : MonoBehaviour
 
     public void AddShake (float lifetime, Vector3 spread, float minSpeed, float maxSpeed)
     {
-		if(_shakeEffect == null)
-      	  _shakeEffect = new ShakeEffect (lifetime, TargetAttributes.DistanceModifier, spread, minSpeed, maxSpeed);
+        if (_shakeEffect == null)
+            _shakeEffect = new ShakeEffect (lifetime, TargetAttributes.DistanceModifier, spread, minSpeed, maxSpeed);
 
     }
-	
+    
     // Based on the camera attributes and the target's special camera attributes, find out where the
     // camera should move to.
     public Vector3 GetGoalPosition ()
@@ -82,10 +82,10 @@ public class CameraScrolling : MonoBehaviour
                 distanceModifier = TargetAttributes.DeathZoom;
             else if (_shakeEffect != null)
                 distanceModifier = _shakeEffect.OldDistanceModifier;
-			else if (_cinematicOverride) 
-				distanceModifier = 0.5f;
-			else 
-				distanceModifier = TargetAttributes.DistanceModifier;
+            else if (_cinematicOverride) 
+                distanceModifier = 0.5f;
+            else 
+                distanceModifier = TargetAttributes.DistanceModifier;
                                                                                         
             velocityLookAheadX = TargetAttributes.VelocityLookAheadX;
             velocityLookAheadY = TargetAttributes.VelocityLookAheadY;
@@ -203,11 +203,11 @@ public class CameraScrolling : MonoBehaviour
 
         foreach (EnemyAI enemy in GameManager.AI.Enemies) {
             if (enemy != null && !enemy.Animator.IsDead) {                
-				bool isCamera = (enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_CameraSpotter);
-				bool isChasing = (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing);
+                bool isCamera = (enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_CameraSpotter);
+                bool isChasing = (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing);
 
-				// track non-cameras who are not chasing, OR cameras who ARE "chasing".
-                if (  ((isCamera) || (!isCamera && !isChasing)) && 
+                // track non-cameras who are not chasing, OR cameras who ARE "chasing".
+                if (((isCamera) || (!isCamera && !isChasing)) && 
                     Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) < EnemyFocus) {// && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) >= EnemyIgnoreRange) {
 
                     if (!bFoundAny) {
@@ -238,17 +238,28 @@ public class CameraScrolling : MonoBehaviour
         }
         
     }
-
     
     public Transform Target {
         get { return _target; }
-        set
-        {
+        set {
+            // Remove audiolistener from old target
+            if (_target != null) {
+                AudioListener listener = _target.GetComponent<AudioListener> ();
+                if (listener != null)
+                    Destroy (listener);
+            }
+
+            // Update to the new target
             _target = value;
-            if(_target != null) {
-                _cameraTargetAttributes = _target.GetComponent<CameraTargetAttributes>();
-                _targetAnimator = _target.GetComponent<CharacterAnimator>();
-                _targetRigidbody = _target.GetComponent<Rigidbody>();
+
+            // And set it up
+            if (_target != null) {
+                _cameraTargetAttributes = _target.GetComponent<CameraTargetAttributes> ();
+                _targetAnimator = _target.GetComponent<CharacterAnimator> ();
+                _targetRigidbody = _target.GetComponent<Rigidbody> ();
+
+                if(_target.GetComponent<AudioListener>() == null)
+                    _target.gameObject.AddComponent<AudioListener> ();
             }
         }
     }
@@ -271,9 +282,9 @@ public class CameraScrolling : MonoBehaviour
         }
     }
 
-	public bool CinematicOverride {
-		get { return _cinematicOverride; }
-		set { _cinematicOverride = value; }
+    public bool CinematicOverride {
+        get { return _cinematicOverride; }
+        set { _cinematicOverride = value; }
 
-	}
+    }
 }

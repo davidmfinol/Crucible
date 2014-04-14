@@ -150,7 +150,6 @@ public class GameManager : MonoBehaviour
             GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/PlayerCharacter"), _currentLevel.OffscreenPosition, Quaternion.identity);
             DontDestroyOnLoad(player);
             _player = player.GetComponent<CharacterAnimator> ();
-            _player.gameObject.AddComponent<AudioListener> ();
             _player.IgnoreAllMovement = true;
         }
         

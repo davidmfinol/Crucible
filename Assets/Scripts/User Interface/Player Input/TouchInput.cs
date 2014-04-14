@@ -8,10 +8,12 @@ using System.Collections.Generic;
 [AddComponentMenu("User Interface/Player Input/Touch Input")]
 public class TouchInput : MonoBehaviour
 {
-    // Setup for the UI elements that appear on the screen
+    // Prefabs for the left-hand side of the touch input
     public Transform SliderPrefab;
     public Transform MoveButtonPrefab;
     public Transform RadioPrefab;
+
+    // Prefabs for the right-hand side of the touch input
     public Transform SelectionsPrefab;
     public Transform GlowOffPrefab;
     public Transform BlueCirclePrefab;
@@ -20,14 +22,13 @@ public class TouchInput : MonoBehaviour
     public Transform ItemPickupSignPrefab;
     public Transform DotPrefab;
 
-    // The location of each of the dots [in polar coordinates: 0 = (0,0), 1 = (r, attackright), 2 = (r, jumpright), 3 = (r, jumpup) ...]
-    public float[] DotPositions;
-
-    // Keep track of the objects we're using to display the UI
+    // GUI elements for the left-hand side
     private Transform _horizontalSlider;
     private Transform _verticalSlider;
     private Transform _moveButton;
     private Transform _radioWaves;
+
+    // GUI elements for the right-hand side
     private Transform _blueCircle;
     private Transform _selections;
     private Transform _jumpSign;
@@ -36,6 +37,7 @@ public class TouchInput : MonoBehaviour
     private Transform _pickupSign;
     private AlphaPulse _glowOff;
     private List<Transform> _uiDots;
+    private List<Vector3> _dotPositions;
 
     // Swipe information related to movement
     private int _moveID;
@@ -89,19 +91,56 @@ public class TouchInput : MonoBehaviour
         _moveButton.renderer.enabled = false;
         _radioWaves.renderer.enabled = false;
 
-        //TODO: DOTPOSITIONS
-
         // Right-hand side GUI
-        _selections = (Transform)Instantiate(SelectionsPrefab, SelectionsPrefab.position, SelectionsPrefab.rotation);
+        _blueCircle = (Transform)Instantiate (BlueCirclePrefab, BlueCirclePrefab.position, BlueCirclePrefab.rotation);
+        _selections = (Transform)Instantiate (SelectionsPrefab, SelectionsPrefab.position, SelectionsPrefab.rotation);
+        _jumpSign = (Transform)Instantiate (JumpSignPrefab, JumpSignPrefab.position, JumpSignPrefab.rotation);
+        _attack1Sign = (Transform)Instantiate (AttackSignPrefab, AttackSignPrefab.position, AttackSignPrefab.rotation);
+        _attack2Sign = (Transform)Instantiate (AttackSignPrefab, -AttackSignPrefab.position, AttackSignPrefab.rotation);
+        _pickupSign = (Transform)Instantiate (ItemPickupSignPrefab, ItemPickupSignPrefab.position, ItemPickupSignPrefab.rotation);
+        Transform glowOff = (Transform)Instantiate (GlowOffPrefab, GlowOffPrefab.position, GlowOffPrefab.rotation);
+        _glowOff = glowOff.GetComponent<AlphaPulse> ();
+        if (_glowOff == null)
+            _glowOff = glowOff.gameObject.AddComponent<AlphaPulse> ();
 
-        // The dots
-        _uiDots = new List<Transform> ();
+        // Organize them away
+        _blueCircle.parent = transform;
+        _selections.parent = transform;
+        _jumpSign.parent = transform;
+        _attack1Sign.parent = transform;
+        _attack2Sign.parent = transform;
+        _pickupSign.parent = transform;
+        glowOff.parent = transform;
+
+        // And hide them
+        _blueCircle.renderer.enabled = false;
+        _selections.renderer.enabled = false;
+        _jumpSign.renderer.enabled = false;
+        _attack1Sign.renderer.enabled = false;
+        _attack2Sign.renderer.enabled = false;
+        _pickupSign.renderer.enabled = false;
+        glowOff.renderer.enabled = false;
+
+        // The dots indicating the action to the player
+        _uiDots = new List<Transform> (9);
         for (int i = 0; i < 9; i++) {
             Transform dot = (Transform)Instantiate (DotPrefab, DotPrefab.position, DotPrefab.rotation);
             dot.renderer.enabled = false;
             dot.parent = transform;
-            _uiDots.Add (dot);
+            _uiDots[i] = dot;
         }
+
+        // The relative positions at which those dots are located
+        _dotPositions = new List<Vector3> (9);
+        _dotPositions [0] = new Vector3 (0f, 0f, -0.3f);
+        _dotPositions [1] = new Vector3 (0f, 0f, -0.3f);
+        _dotPositions [2] = new Vector3 (0f, 0f, -0.3f);
+        _dotPositions [3] = new Vector3 (0f, 0f, -0.3f);
+        _dotPositions [4] = new Vector3 (0f, 0f, -0.3f);
+        _dotPositions [5] = new Vector3 (0f, 0f, -0.3f);
+        _dotPositions [6] = new Vector3 (0f, 0f, -0.3f);
+        _dotPositions [7] = new Vector3 (0f, 0f, -0.3f);
+        _dotPositions [8] = new Vector3 (0f, 0f, -0.3f);
 
         // Set up new update methods to show the GUI elements
         StartCoroutine (DisplayLeftHandSide ());
@@ -316,7 +355,7 @@ public class TouchInput : MonoBehaviour
             _selections.renderer.material.color = Color.white;
             float deg = CalculateActionDegree ();
             for (int dot=0; dot<_uiDots.Count; dot++) {
-                _uiDots [dot].transform.position = new Vector3 (pos.x + DotPositions [dot * 2], pos.y + DotPositions [dot * 2 + 1], 0);
+                _uiDots [dot].transform.position = pos + _dotPositions[dot];
                 _uiDots [dot].renderer.enabled = true;
                 _uiDots [dot].renderer.material.color = Color.white;
 
