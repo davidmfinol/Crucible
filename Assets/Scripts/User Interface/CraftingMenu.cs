@@ -79,19 +79,19 @@ public class CraftingMenu : MonoBehaviour
     // TODO: make into whatever prefab or inventory item, etc.
     private CraftResult _craftResult;
     private GameObject _craftResultQuad;
-
-
+	
     // --------------------------------
     void Start ()
     {
-        _uiCamera = transform.root.GetComponentInChildren<Camera> ();
+		_uiCamera = transform.root.GetComponentInChildren<Camera> ();
         _inventory = GameManager.Player.GetComponent<InventoryManager> ();
 
-        // wheelcenter
-        Vector3 wheelCenter = _uiCamera.ViewportToWorldPoint (new Vector3 (1.0f, 1.0f, 7.0f));
-        _weaponWheel = (GameObject)Instantiate (WeaponWheelPrefab, wheelCenter, Quaternion.identity);
-        _weaponWheel.transform.parent = transform;
-        _weaponWheel.renderer.enabled = true;
+		// wheelcenter
+		Vector3 wheelCenter = _uiCamera.ViewportToWorldPoint (new Vector3 (1.0f, 1.0f, 7.0f));
+		_weaponWheel = (GameObject)Instantiate (WeaponWheelPrefab, wheelCenter, Quaternion.identity);
+		_weaponWheel.transform.parent = transform;
+		_weaponWheel.renderer.enabled = true;
+
 
         _itemWheel = (GameObject)Instantiate (ItemWheelPrefab, wheelCenter, Quaternion.identity);
         _itemWheel.transform.parent = transform;
@@ -120,43 +120,43 @@ public class CraftingMenu : MonoBehaviour
 
         Vector3 quadPos = wheelCenter + Vector3.left * ItemWheelRadius;
         _itemQuads [0] = (GameObject)Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
-        _itemQuads [0].transform.parent = transform;
+        _itemQuads [0].transform.parent = _weaponWheel.transform;
         quadPos = wheelCenter + Vector3.left * ItemCountRadius;
         _itemCountQuads [0] = (GameObject)Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
-        _itemCountQuads [0].transform.parent = transform;
+        _itemCountQuads [0].transform.parent = _weaponWheel.transform;
 
         // pi/8
         quadPos = wheelCenter + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI / 8.0f, 0.0f) * ItemWheelRadius;
         _itemQuads [1] = (GameObject)Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
-        _itemQuads [1].transform.parent = transform;
+		_itemQuads [1].transform.parent = _weaponWheel.transform;
         quadPos = wheelCenter + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI / 8.0f, 0.0f) * ItemCountRadius;
         _itemCountQuads [1] = (GameObject)Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
-        _itemCountQuads [1].transform.parent = transform;
+		_itemCountQuads [1].transform.parent = _weaponWheel.transform;
 
         // pi/4
         quadPos = wheelCenter + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * ItemWheelRadius;
         _itemQuads [2] = (GameObject)Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
-        _itemQuads [2].transform.parent = transform;
+		_itemQuads [2].transform.parent = _weaponWheel.transform;
         quadPos = wheelCenter + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI / 4.0f, 0.0f) * ItemCountRadius;
         _itemCountQuads [2] = (GameObject)Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
-        _itemCountQuads [2].transform.parent = transform;
+		_itemCountQuads [2].transform.parent = _weaponWheel.transform;
 
         // 3 pi / 8
         quadPos = wheelCenter + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI * 3.0f / 8.0f, 0.0f) * ItemWheelRadius;
         _itemQuads [3] = (GameObject)Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
-        _itemQuads [3].transform.parent = transform;
+		_itemQuads [3].transform.parent = _weaponWheel.transform;
         quadPos = wheelCenter + Vector3.RotateTowards (Vector3.left, Vector3.down, Mathf.PI * 3.0f / 8.0f, 0.0f) * ItemCountRadius;
         _itemCountQuads [3] = (GameObject)Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
-        _itemCountQuads [3].transform.parent = transform;
+		_itemCountQuads [3].transform.parent = _weaponWheel.transform;
 
 
         // pi / 2
         quadPos = wheelCenter + Vector3.down * ItemWheelRadius;
         _itemQuads [4] = (GameObject)Instantiate (ItemQuadPrefab, quadPos, Quaternion.identity);
-        _itemQuads [4].transform.parent = transform;
+		_itemQuads [4].transform.parent = _weaponWheel.transform;
         quadPos = wheelCenter + Vector3.down * ItemCountRadius;
         _itemCountQuads [4] = (GameObject)Instantiate (ItemCountQuadPrefab, quadPos, Quaternion.identity);
-        _itemCountQuads [4].transform.parent = transform;
+		_itemCountQuads [4].transform.parent = _weaponWheel.transform;
 
 
 
@@ -266,7 +266,8 @@ public class CraftingMenu : MonoBehaviour
 
 	public void ShowWeaponWheel(bool enabled)
 	{
-		_weaponWheel.renderer.enabled = enabled;
+		_weaponWheel.SetActive(enabled);
+
 	}
 
     void OnGUI ()
@@ -618,4 +619,9 @@ public class CraftingMenu : MonoBehaviour
         return(_state == CraftingMenuState.CraftingMenu_Open);
 
     }
+
+	public GameObject WeaponWheel {
+		get { return _weaponWheel; }
+
+	}
 }
