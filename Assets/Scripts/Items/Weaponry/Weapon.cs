@@ -15,8 +15,7 @@ public abstract class Weapon : MonoBehaviour
         Weapon_GravityGun = 3,
 		Weapon_SparkPlug = 4
         
-    }
-    ;
+    };
 
 
     // Refers to the ammo for this weapon

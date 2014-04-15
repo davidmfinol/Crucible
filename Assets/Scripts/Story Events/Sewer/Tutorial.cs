@@ -16,6 +16,7 @@ public class Tutorial : MonoBehaviour
     // Scripted characters in the scene
     public MysteriousRunner Runner;
     public GameObject SewerDoor;
+	public GameObject SpinningFan;
 
     // The locations where certain effects will happen
     public Transform SneakStartPosition;
@@ -31,6 +32,9 @@ public class Tutorial : MonoBehaviour
     void Start ()
     {
 		SewerDoor.animation.Play ("Close");
+
+		SpinningFan.animation.Play ("SpinningLoop");
+		StartCoroutine (KeepFanSpinning ());
 
     }
 
@@ -247,6 +251,48 @@ public class Tutorial : MonoBehaviour
                 break;
 			input.Attack = 1.0f;
 		}
+	}
+
+	public IEnumerator KeepFanSpinning ()
+	{
+		while(true)
+		{
+			
+			yield return new WaitForSeconds(0.5f);
+
+			bool sparkPlugFound = false;
+
+			// spark plug still in the level?
+			foreach( Item item in GameManager.Level.Items) {
+				if( item.WeaponPrefab.GetComponent<SparkPlug>() != null) {
+					sparkPlugFound = true;
+					break;
+
+				}
+
+			}
+
+			// all spark plugs removed from level?
+			// make the fan non-lethal and enter a separate wind-down loop
+			if( !sparkPlugFound ) {
+				Destroy(SpinningFan.GetComponentInChildren<DeathTrigger>());
+				break;
+
+			}
+
+		}
+
+
+		// power down.
+		while(SpinningFan.animation["SpinningLoop"].speed > 0.1f) {
+			SpinningFan.animation["SpinningLoop"].speed -= (0.5f * Time.deltaTime);
+
+			yield return null;
+
+		}
+
+		SpinningFan.animation.Stop ();
+	
 	}
 
 }
