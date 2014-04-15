@@ -119,6 +119,7 @@ public class InventoryManager : MonoBehaviour
                     GameManager.UI.CycleToNextWeapon ();
                 }
 
+				GameManager.UI.RefreshWeaponWheel();
                 return true;
             }
             
