@@ -13,7 +13,8 @@ public abstract class Weapon : MonoBehaviour
         Weapon_PipeWeapon = 1,
         Weapon_HandMINE = 2,
         Weapon_GravityGun = 3,
-		Weapon_SparkPlug = 4
+		Weapon_SparkPlug = 4,
+		Weapon_HoloShield = 5
         
     };
 
