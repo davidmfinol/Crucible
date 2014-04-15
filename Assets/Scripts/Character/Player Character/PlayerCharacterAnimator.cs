@@ -147,8 +147,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
-        if (currentWeapon.CanStealthKill && CharInput.AttackPressed && StealthKillable != null)
+        if (CurrentState.nameHash != StealthKillState && currentWeapon.CanStealthKill && 
+		    CharInput.AttackPressed && StealthKillable != null) {
+
+			MecanimAnimator.SetBool (MecanimHashes.StealthKill, true);
             StartCoroutine (ShowStealthKill());
+
+		}
 
         // TODO: DON'T USE CURRRENTWEAPON IS TYPE, INSTEAD USE THINGS LIKE CURRENTWEAPON.ISGUN OR CURRENTWEAPON.ISMINE
         if (CurrentState.nameHash != StealthKillState) {
@@ -165,7 +170,6 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     public IEnumerator ShowStealthKill ()
     {
-        MecanimAnimator.SetBool (MecanimHashes.StealthKill, true);
         GenerateStealthKillEvent ();
         GameManager.MainCamera.CinematicOverride = true;
         
@@ -188,6 +192,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
         Time.timeScale = 1.0f;
 
 		// remove a charge from weapon.
+		Debug.Log ("Removing a charge from weapon.");
 		GameManager.Inventory.TryRemoveAmmo (GameManager.Inventory.CurrentWeapon.Type, 1);
 
         GameManager.MainCamera.CinematicOverride = false;
