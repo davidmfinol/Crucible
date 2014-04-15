@@ -235,8 +235,8 @@ public class TouchInput : MonoBehaviour
 				_input.Horizontal = delta.x / _distanceForMaxSpeed;
                 if(_input.Horizontal > 0.5f)
                     _input.Horizontal += _input.Horizontal - 0.5f;
-                else if (_input.Horizontal < 0.5f)
-                    _input.Horizontal -= _input.Horizontal + 0.5f;
+                else if (_input.Horizontal < -0.5f)
+                    _input.Horizontal += _input.Horizontal + 0.5f;
 
             // Handle vertical input
             } else if (GameManager.Player.CanInputVertical)
