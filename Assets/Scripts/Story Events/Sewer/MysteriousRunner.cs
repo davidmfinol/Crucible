@@ -115,7 +115,7 @@ public class MysteriousRunner : MonoBehaviour
 		input.Attack = 0f;
 		GameManager.MainCamera.Target = null;
 		input.Horizontal = -1f;
-		yield return new WaitForSeconds (1.3f);
+		yield return new WaitForSeconds (0.75f);
 		input.Jump = new Vector2(-1,1);
 		input.Horizontal = 0f;
 		yield return new WaitForSeconds (3.5f);

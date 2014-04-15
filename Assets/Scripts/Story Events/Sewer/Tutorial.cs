@@ -231,8 +231,8 @@ public class Tutorial : MonoBehaviour
 
 		yield return new WaitForSeconds(2.3f);
 		CharacterInput input = newOlympus.GetComponent<CharacterInput> ();
-		input.Horizontal = -0.4f;
-		yield return new WaitForSeconds(0.55f);
+		input.Horizontal = -0.7f;
+		yield return new WaitForSeconds(0.90f);
 		input.Horizontal = 0.0f;
 		input.Attack = 1.0f;
 		yield return new WaitForSeconds(2.0f);
