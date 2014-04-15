@@ -37,7 +37,7 @@ public class SparkPlug : Weapon
     public override Texture2D Texture {
         get { 
             if (_texture == null)
-                _texture = Resources.Load <Texture2D> ("Textures/User Interface/Item Icons/SparkPlugIcon");
+                _texture = Resources.Load <Texture2D> ("Textures/User Interface/Item Icons/BindingIcon");
             return _texture;
         }
     }
