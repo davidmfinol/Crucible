@@ -147,8 +147,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
-        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null)
-            StartCoroutine (ShowStealthKill ());
+        if (currentWeapon.CanStealthKill && CharInput.AttackPressed && StealthKillable != null)
+            StartCoroutine (ShowStealthKill());
 
         // TODO: DON'T USE CURRRENTWEAPON IS TYPE, INSTEAD USE THINGS LIKE CURRENTWEAPON.ISGUN OR CURRENTWEAPON.ISMINE
         if (CurrentState.nameHash != StealthKillState) {
@@ -187,6 +187,9 @@ public class PlayerCharacterAnimator : CharacterAnimator
         
         Time.timeScale = 1.0f;
 
+		// remove a charge from weapon.
+		GameManager.Inventory.TryRemoveAmmo (GameManager.Inventory.CurrentWeapon.Type, 1);
+
         GameManager.MainCamera.CinematicOverride = false;
         StealthKillable = null;
 
@@ -222,19 +225,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
                 GameManager.UI.RefreshWeaponWheel ();
 
             }
-
-
-
-//          // don't remove the mine from your list.
-//          if(weapon.Quantity == 1) {
-//              // remove it.
-//              GameManager.Inventory.RemoveWeapon(weapon.WeaponType);
-//              GameManager.Inventory.CurrentWeapon = null;
-//              GameManager.UI.CycleToNextWeapon();
-//
-//
-//          }
-        
+			        
         } else {
             Debug.LogWarning ("PlaceMine() called with: " + weapon);
 

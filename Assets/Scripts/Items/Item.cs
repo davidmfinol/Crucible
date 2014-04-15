@@ -39,7 +39,7 @@ public class Item : MonoBehaviour
     {
         // Make sure our settings are correct
         collider.isTrigger = false;
-        rigidbody.useGravity = false;
+
         // TODO: MAKE SURE FREEZE ROTATION AND FREEZE Z-POSITION ARE ON
         //gameObject.layer = LayerMask.NameToLayer ("Item"); NOT DONE BECAUSE OF HOLOSHIELD OBJECT
 

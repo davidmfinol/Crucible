@@ -467,10 +467,7 @@ public class OlympusAnimator : CharacterAnimator
         yield return new WaitForSeconds (1.5f);
 
         DoRagDoll ();
-        
-        yield return new WaitForSeconds (2.0f);
-
-        DropItems();
+		DropItems();
 
     }
 
