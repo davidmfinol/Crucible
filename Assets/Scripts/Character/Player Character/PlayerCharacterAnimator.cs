@@ -934,11 +934,11 @@ public class PlayerCharacterAnimator : CharacterAnimator
     }
     
     public override bool CanInputHorizontal {
-        get { return true; }  // TODO
+        get { return !IgnoreXYMovement && CurrentState.nameHash != ClimbingPipeState; }
     }
     
     public override bool CanInputVertical {
-        get { return true; } // TODO
+        get { return CanTransitionZ || CurrentState.nameHash == ClimbingPipeState; }
     }
     
     public override bool CanInputAttack {

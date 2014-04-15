@@ -76,6 +76,9 @@ public class TouchInput : MonoBehaviour
         // Left-hand side GUI
         _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.identity);
         _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler (new Vector3 (0, 0, 90)));
+        Vector3 verticalScale = _verticalSlider.localScale;
+        verticalScale.x *= 12;
+        _verticalSlider.transform.localScale = verticalScale;
         _moveButton = (Transform)Instantiate (MoveButtonPrefab, MoveButtonPrefab.position, MoveButtonPrefab.rotation);
         _radioWaves = (Transform)Instantiate (RadioPrefab, RadioPrefab.position, RadioPrefab.rotation);
 
@@ -227,13 +230,16 @@ public class TouchInput : MonoBehaviour
         Vector2 delta = _lastMovePos - _moveStartPos;
         if (delta.magnitude > _moveMin) {
 
-            // TODO: ONLY ALLOW LEFT/RIGHT WHEN RUNNING AND ONLY ALLOW UP/DOWN WHEN CLIMBING
             // Handle horizontal input
-            if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { 
+            if (GameManager.Player.CanInputHorizontal && Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { 
 				_input.Horizontal = delta.x / _distanceForMaxSpeed;
+                if(_input.Horizontal > 0.5f)
+                    _input.Horizontal += _input.Horizontal - 0.5f;
+                else if (_input.Horizontal < -0.5f)
+                    _input.Horizontal += _input.Horizontal + 0.5f;
 
             // Handle vertical input
-            } else 
+            } else if (GameManager.Player.CanInputVertical)
                 _input.Vertical = delta.y / _distanceForMaxSpeed;
         }
 
@@ -300,8 +306,8 @@ public class TouchInput : MonoBehaviour
             
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
-            _horizontalSlider.renderer.enabled = moveTouched;
-            _verticalSlider.renderer.enabled = moveTouched;
+            _horizontalSlider.renderer.enabled = moveTouched && GameManager.Player.CanInputHorizontal;
+            _verticalSlider.renderer.enabled = moveTouched && GameManager.Player.CanInputVertical;
             _moveButton.renderer.enabled = moveTouched;
             _radioWaves.renderer.enabled = false;
             if (!moveTouched)
@@ -320,7 +326,6 @@ public class TouchInput : MonoBehaviour
             float targetScale = 1 + 15 * _input.Horizontal;
             horizontalScale.x = targetScale;
             _horizontalSlider.transform.localScale = horizontalScale;
-            _verticalSlider.transform.localScale = horizontalScale;
             
             // Move the button to the correct spot
             _moveButton.position = currentPos;
