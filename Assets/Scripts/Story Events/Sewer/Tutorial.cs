@@ -29,16 +29,13 @@ public class Tutorial : MonoBehaviour
 
     private bool _sewerDoorOpen;
 
-	// dropped shield from the NPC
-	private GameObject _droppedShield;
-
-
     void Start ()
     {
 		SewerDoor.animation.Play ("Close");
 
 		SpinningFan.animation.Play ("SpinningLoop");
 		StartCoroutine (KeepFanSpinning ());
+        StartCoroutine (KeepShieldActive());
 
     }
 
@@ -203,12 +200,18 @@ public class Tutorial : MonoBehaviour
 		newOlympus.GetComponent<EnemyAISettings> ().ShouldWander = false;
 		newOlympus.GetComponent<CharacterAnimator> ().Direction = new Vector3 (-1.0f, 0.0f, 0.0f);
 		EnemyAI enemyAI = newOlympus.GetComponent<EnemyAI>();
-		enemyAI.enabled = false;
-		// drops 2 items.
+  		// drops 2 items.
 		newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts);
 
         // Olympus gives chase to the mysterious runner for a bit
 		yield return new WaitForSeconds(2.3f);
+
+        // THESE MUST BE DONE HERE, SO THAT THE START METHOD CANNOT OVERWRITE THEM.
+        enemyAI.GetComponent<CharacterInput>().UpdateInputMethod = null;
+        enemyAI.GetComponent<EnemyAISettings>().ShouldWander = false;
+        enemyAI.GetComponent<EnemyAISettings>().CanSee = false;                        
+        enemyAI.GetComponent<EnemyAISettings>().CanHear = false;
+
 		CharacterInput input = newOlympus.GetComponent<CharacterInput> ();
 		input.Horizontal = -0.7f;
 		yield return new WaitForSeconds(0.90f);
@@ -216,16 +219,12 @@ public class Tutorial : MonoBehaviour
 		input.Attack = 1.0f;
 		yield return new WaitForSeconds(2.0f);
 
-		// *** save a reference to the shield that the runner dropped so we can destroy it ***
-		_droppedShield = Runner.DroppedShield;
-
 		StartCoroutine(ForcePunch(input));
-		StartCoroutine (KeepShieldActive(input));
 
-        // never let the tutorial bot forget where you are.
-        enemyAI.GetComponent<EnemyAISettings>().VisionMemory = 99.9f;
-		enemyAI.enabled = true;
-	
+        enemyAI.GetComponent<CharacterInput>().UpdateInputMethod = enemyAI.UpdateInput;
+        enemyAI.GetComponent<EnemyAISettings>().CanSee = true;                        
+        enemyAI.GetComponent<EnemyAISettings>().CanHear = true;
+        	
 	}
 
 	public IEnumerator ForcePunch (CharacterInput input)
@@ -240,16 +239,55 @@ public class Tutorial : MonoBehaviour
 		}
 	}
 
-	public IEnumerator KeepShieldActive(CharacterInput input) {
+	public IEnumerator KeepShieldActive() {
+        yield return null;
+
 		while(true) {
-			yield return new WaitForSeconds(0.5f);
+            // if there are no olympuses near the holoshield, destroy it.
 
-			// dead, destroy shield
-			if((input) == null) {
-				Destroy (_droppedShield);
-				break;
+            yield return new WaitForSeconds(0.25f);
 
-			}
+            // *** find the shield ***
+            Item shield = null;
+            
+            // if found shield, remove it and stop.
+            foreach(Item item in GameManager.Level.Items) {
+                if(item.name.Contains ("HoloShield")) {
+                    shield = item;
+                    
+                }
+                
+            }
+
+            Debug.Log ("Olympuses Alive " + GameManager.AI.OlympusesAlive);
+
+
+            // no more olympuses alive, destroy
+            if(GameManager.AI.OlympusesAlive == 0) {
+           
+                if(shield != null) {
+                    Debug.Log ("destroyed shield.");
+                    Destroy (shield.gameObject);
+
+                }
+
+            } else {
+                if(shield != null) {
+                    // make any Olympuses not wander who are near the shield.
+                    foreach(EnemyAI ai in GameManager.AI.Enemies) {
+                       if((ai is OlympusAI) && (Vector3.Distance(shield.transform.position, ai.transform.position) < 40.0f) ) {
+                            ai.Settings.ShouldWander = false;
+                            ai.Settings.CanSee = true;                        
+                            ai.Settings.CanHear = true;
+                            ai.Settings.VisionMemory = 999.9f;
+
+                        }
+                       
+                    }
+
+                }
+
+            }
 
 		}
 

@@ -16,6 +16,8 @@ public class AIManager : MonoBehaviour
     private int _enemiesSearching;
     private int _enemiesChasing;
 
+    private int _olympusesAlive;
+
     // All managers keep track of their ready status for the game manager
     private bool _ready;
 
@@ -52,9 +54,9 @@ public class AIManager : MonoBehaviour
         // We're going to re-count these values each frame, so reset them
         _enemiesSearching = 0;
         _enemiesChasing = 0;
+        _olympusesAlive = 0;
 
         foreach (EnemyAI enemy in _enemies) {
-
             // De-activate enemies that are too far away from the player, to save on performance
             if(GameManager.Player != null && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
                 if(enemy.gameObject.activeSelf)
@@ -65,6 +67,14 @@ public class AIManager : MonoBehaviour
             // Re-activate the enemies as necessary
             if(!enemy.gameObject.activeSelf)
                 enemy.gameObject.SetActive(true);
+
+
+            // check for living olympuses WITHIN THE ACTIVE RANGE.
+            if((enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) && !enemy.Animator.IsDead) {
+                _olympusesAlive += 1;
+                
+            }
+
 
             // Count up the number of aware enemies
             if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
@@ -111,6 +121,11 @@ public class AIManager : MonoBehaviour
 
     public int EnemiesChasing {
         get { return _enemiesChasing; }
+    }
+
+    public int OlympusesAlive {
+        get { return _olympusesAlive; }
+
     }
 
     public ZoneGraph Graph {
