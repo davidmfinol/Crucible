@@ -367,10 +367,10 @@ public class TouchInput : MonoBehaviour
             _moveButton.position = currentPos;
             Vector2 delta = _lastMovePos - _moveStartPos;
             if (delta.magnitude > _moveMin) {
-                if (GameManager.Player.CanInputHorizontal && Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
-                    _moveButton.position = new Vector3 (currentPos.x, startPos.y, currentPos.z);
-                else if (GameManager.Player.CanInputVertical)
+                if (GameManager.Player.CanInputVertical && Mathf.Abs (delta.x) < Mathf.Abs (delta.y))
                     _moveButton.position = new Vector3 (startPos.x, currentPos.y, currentPos.z);
+                else if (GameManager.Player.CanInputHorizontal) 
+                    _moveButton.position = new Vector3 (currentPos.x, startPos.y, currentPos.z);
             }
 
             // Have certain effects to really show off player sneaking
