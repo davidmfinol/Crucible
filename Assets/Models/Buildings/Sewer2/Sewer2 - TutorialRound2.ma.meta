@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 9af355a9877734f998903bda11edab8b
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: Attached_on_the_side
     100002: curve1
@@ -732,6 +732,73 @@ ModelImporter:
     101452: Ledge16
     101454: Ledge17
     101456: WallLedge8
+    101458: Ladder
+    101460: Ledge18
+    101462: Ledge19
+    101464: Ledge20
+    101466: Ledge21
+    101468: Ledge22
+    101470: Ledge23
+    101472: Nothing
+    101474: Nothing1
+    101476: pCube64
+    101478: pCube65
+    101480: pCube66
+    101482: pCube67
+    101484: pCube68
+    101486: pCube69
+    101488: pCube70
+    101490: pCube71
+    101492: pCube73
+    101494: pCube74
+    101496: pCube75
+    101498: pCube76
+    101500: pCube78
+    101502: pCube79
+    101504: pCube80
+    101506: pCube81
+    101508: polySurface323
+    101510: polySurface324
+    101512: polySurface325
+    101514: transform136
+    101516: transform137
+    101518: transform138
+    101520: transform139
+    101522: transform140
+    101524: transform141
+    101526: transform142
+    101528: transform143
+    101530: transform144
+    101532: transform145
+    101534: Ledgeq
+    101536: Nada 2
+    101538: transform146
+    101540: WallJump
+    101542: LadderX
+    101544: Nadaq
+    101546: Nadaq1
+    101548: Wall 7
+    101550: polySurface327
+    101552: transform147
+    101554: LadderX1
+    101556: Ledge24
+    101558: Ledge25
+    101560: Ledge26
+    101562: Ledge27
+    101564: Ledge28
+    101566: Ledge29
+    101568: Ledge30
+    101570: pCube82
+    101572: pCube83
+    101574: pCube84
+    101576: pCube85
+    101578: polySurface328
+    101580: polySurface329
+    101582: transform148
+    101584: LedgeRightOnly 1
+    101586: Wall7
+    101588: Wall8
+    101590: WallLedge9
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1461,6 +1528,73 @@ ModelImporter:
     401452: Ledge16
     401454: Ledge17
     401456: WallLedge8
+    401458: Ladder
+    401460: Ledge18
+    401462: Ledge19
+    401464: Ledge20
+    401466: Ledge21
+    401468: Ledge22
+    401470: Ledge23
+    401472: Nothing
+    401474: Nothing1
+    401476: pCube64
+    401478: pCube65
+    401480: pCube66
+    401482: pCube67
+    401484: pCube68
+    401486: pCube69
+    401488: pCube70
+    401490: pCube71
+    401492: pCube73
+    401494: pCube74
+    401496: pCube75
+    401498: pCube76
+    401500: pCube78
+    401502: pCube79
+    401504: pCube80
+    401506: pCube81
+    401508: polySurface323
+    401510: polySurface324
+    401512: polySurface325
+    401514: transform136
+    401516: transform137
+    401518: transform138
+    401520: transform139
+    401522: transform140
+    401524: transform141
+    401526: transform142
+    401528: transform143
+    401530: transform144
+    401532: transform145
+    401534: Ledgeq
+    401536: Nada 2
+    401538: transform146
+    401540: WallJump
+    401542: LadderX
+    401544: Nadaq
+    401546: Nadaq1
+    401548: Wall 7
+    401550: polySurface327
+    401552: transform147
+    401554: LadderX1
+    401556: Ledge24
+    401558: Ledge25
+    401560: Ledge26
+    401562: Ledge27
+    401564: Ledge28
+    401566: Ledge29
+    401568: Ledge30
+    401570: pCube82
+    401572: pCube83
+    401574: pCube84
+    401576: pCube85
+    401578: polySurface328
+    401580: polySurface329
+    401582: transform148
+    401584: LedgeRightOnly 1
+    401586: Wall7
+    401588: Wall8
+    401590: WallLedge9
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1914,6 +2048,50 @@ ModelImporter:
     2300900: Ledge16
     2300902: Ledge17
     2300904: WallLedge8
+    2300906: Ladder
+    2300908: Ledge18
+    2300910: Ledge19
+    2300912: Ledge20
+    2300914: Ledge21
+    2300916: Ledge22
+    2300918: Ledge23
+    2300920: Nothing
+    2300922: Nothing1
+    2300924: pCube73
+    2300926: pCube74
+    2300928: pCube75
+    2300930: pCube76
+    2300932: pCube78
+    2300934: pCube79
+    2300936: pCube80
+    2300938: pCube81
+    2300940: polySurface324
+    2300942: polySurface325
+    2300944: Ledgeq
+    2300946: WallJump
+    2300948: LadderX
+    2300950: Nadaq
+    2300952: Nadaq1
+    2300954: Wall 7
+    2300956: polySurface327
+    2300958: LadderX1
+    2300960: Ledge24
+    2300962: Ledge25
+    2300964: Ledge26
+    2300966: Ledge27
+    2300968: Ledge28
+    2300970: Ledge29
+    2300972: Ledge30
+    2300974: pCube82
+    2300976: pCube83
+    2300978: pCube84
+    2300980: pCube85
+    2300982: polySurface328
+    2300984: polySurface329
+    2300986: LedgeRightOnly 1
+    2300988: Wall7
+    2300990: Wall8
+    2300992: WallLedge9
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2367,6 +2545,50 @@ ModelImporter:
     3300900: Ledge16
     3300902: Ledge17
     3300904: WallLedge8
+    3300906: Ladder
+    3300908: Ledge18
+    3300910: Ledge19
+    3300912: Ledge20
+    3300914: Ledge21
+    3300916: Ledge22
+    3300918: Ledge23
+    3300920: Nothing
+    3300922: Nothing1
+    3300924: pCube73
+    3300926: pCube74
+    3300928: pCube75
+    3300930: pCube76
+    3300932: pCube78
+    3300934: pCube79
+    3300936: pCube80
+    3300938: pCube81
+    3300940: polySurface324
+    3300942: polySurface325
+    3300944: Ledgeq
+    3300946: WallJump
+    3300948: LadderX
+    3300950: Nadaq
+    3300952: Nadaq1
+    3300954: Wall 7
+    3300956: polySurface327
+    3300958: LadderX1
+    3300960: Ledge24
+    3300962: Ledge25
+    3300964: Ledge26
+    3300966: Ledge27
+    3300968: Ledge28
+    3300970: Ledge29
+    3300972: Ledge30
+    3300974: pCube82
+    3300976: pCube83
+    3300978: pCube84
+    3300980: pCube85
+    3300982: polySurface328
+    3300984: polySurface329
+    3300986: LedgeRightOnly 1
+    3300988: Wall7
+    3300990: Wall8
+    3300992: WallLedge9
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -2813,6 +3035,50 @@ ModelImporter:
     4300886: Ledge16
     4300888: Ledge17
     4300890: WallLedge8
+    4300892: polySurface324
+    4300894: polySurface325
+    4300896: Ledge18
+    4300898: Ladder
+    4300900: Ledge19
+    4300902: pCube73
+    4300904: pCube74
+    4300906: pCube75
+    4300908: pCube76
+    4300910: Ledge20
+    4300912: pCube78
+    4300914: pCube79
+    4300916: pCube80
+    4300918: pCube81
+    4300920: Ledge21
+    4300922: Ledge22
+    4300924: Ledge23
+    4300926: Nothing
+    4300928: Nothing1
+    4300930: WallJump
+    4300932: Ledgeq
+    4300934: LadderX
+    4300936: Nadaq
+    4300938: Nadaq1
+    4300940: Wall
+    4300942: polySurface327
+    4300944: polySurface328
+    4300946: polySurface329
+    4300948: LadderX1
+    4300950: Ledge24
+    4300952: Ledge25
+    4300954: Ledge26
+    4300956: Ledge27
+    4300958: Ledge28
+    4300960: Ledge29
+    4300962: Ledge30
+    4300964: pCube82
+    4300966: pCube83
+    4300968: pCube84
+    4300970: pCube85
+    4300972: Wall8
+    4300974: WallLedge9
+    4300976: LedgeRightOnly
+    4300978: Wall7
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -2866,5 +3132,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  additionalBone: 0
   userData: 
