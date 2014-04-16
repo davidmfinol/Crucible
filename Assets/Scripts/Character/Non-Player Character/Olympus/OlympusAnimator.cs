@@ -158,7 +158,7 @@ public class OlympusAnimator : CharacterAnimator
     {
         // find where to place the attack event
         Vector3 meleePos = transform.position;
-        meleePos.x += (1.0f * Direction.x);
+        meleePos.x += (2.5f * Direction.x);
         
         // attack above us
         GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
@@ -467,10 +467,7 @@ public class OlympusAnimator : CharacterAnimator
         yield return new WaitForSeconds (1.5f);
 
         DoRagDoll ();
-        
-        yield return new WaitForSeconds (2.0f);
-
-        DropItems();
+		DropItems();
 
     }
 

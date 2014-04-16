@@ -65,10 +65,8 @@ public class AlphaPulse : MonoBehaviour
     
     public void ApplyAlpha ()
     {
-        foreach (Material m in _changeableMaterials) {
+        foreach (Material m in _changeableMaterials)
             m.color = new Vector4 (m.color.r, m.color.g, m.color.b, _alpha);
-
-        }
 
     }
 
@@ -85,7 +83,6 @@ public class AlphaPulse : MonoBehaviour
     public bool On {
         get { return _on; }
         set { _on = value; }
-
     }
 
 }

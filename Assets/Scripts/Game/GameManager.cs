@@ -11,6 +11,9 @@ using System.IO;
 [AddComponentMenu("Game/Game Manager")]
 public class GameManager : MonoBehaviour
 {
+    // HACK: WE'RE TRYING TO AVOID AN ERROR WITH MECANIM
+    public Transform PlayerCharacterPrefab;
+
     // The UIManager is rather complicated, so we're going to load it as a prefab instead of creating at runtime
     public Transform UIPrefab;
     

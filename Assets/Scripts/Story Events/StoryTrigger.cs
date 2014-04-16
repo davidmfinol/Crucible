@@ -13,7 +13,8 @@ public class StoryTrigger : MonoBehaviour
 
     void OnTriggerEnter (Collider other)
     {
-        if (other.CompareTag ("Player"))
+        CharacterAnimator player = other.GetComponent<CharacterAnimator> ();
+        if (other.CompareTag ("Player") && player != null && !player.IsDead)
             SendMessageUpwards (Message);
 
     }

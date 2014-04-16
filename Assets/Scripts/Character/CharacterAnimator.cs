@@ -82,7 +82,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         
         // HACK: SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS TRIES TO GET AROUND IT
         while (_animator == null || _animator.layerCount < 1) {
-            Debug.LogWarning ("Mecanim animation layers missing for " + gameObject.name + ". Trying to recreate.");
+            Debug.LogError ("Mecanim animation layers missing for " + gameObject.name + ". Trying to recreate.");
             DestroyImmediate (_animator);
             _animator = gameObject.AddComponent<Animator> ();
             _animator.avatar = CharAvatar;
@@ -703,7 +703,25 @@ public abstract class CharacterAnimator : MonoBehaviour
 		set { _ignoreXYMovement = value; }
 	}
 
-    // TODO: CAN INPUT HORIZONTAL
+    public virtual bool CanInputHorizontal {
+        get { return true; }
+    }
+    
+    public virtual bool CanInputVertical {
+        get { return true; }
+    }
+    
+    public virtual bool CanInputJump {
+        get { return true; }
+    }
+    
+    public virtual bool CanInputAttack {
+        get { return true; }
+    }
+    
+    public virtual bool CanInputPickup {
+        get { return true; }
+    }
 
     public float HorizontalSpeed {
         get { return _horizontalSpeed; }

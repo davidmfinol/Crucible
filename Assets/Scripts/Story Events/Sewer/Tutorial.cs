@@ -16,6 +16,7 @@ public class Tutorial : MonoBehaviour
     // Scripted characters in the scene
     public MysteriousRunner Runner;
     public GameObject SewerDoor;
+	public GameObject SpinningFan;
 
     // The locations where certain effects will happen
     public Transform SneakStartPosition;
@@ -31,6 +32,9 @@ public class Tutorial : MonoBehaviour
     void Start ()
     {
 		SewerDoor.animation.Play ("Close");
+
+		SpinningFan.animation.Play ("SpinningLoop");
+		StartCoroutine (KeepFanSpinning ());
 
     }
 
@@ -102,10 +106,6 @@ public class Tutorial : MonoBehaviour
         // Let them move around a bit
         GameManager.MainCamera.CinematicOverride = false;
         GameManager.UI.EnableInput ();
-        yield return new WaitForSeconds(5.0f);
-
-        // And then show the wall jump
-        ShowWallJump ();
 
     }
 
@@ -203,15 +203,11 @@ public class Tutorial : MonoBehaviour
 		// drops 2 items.
 		newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts);
 
-		// close the door behind you
-		StopCoroutine("OperateDoor");
-		SewerDoor.animation.Play("Close");
-
-
+        // Olympus gives chase to the mysterious runner for a bit
 		yield return new WaitForSeconds(2.3f);
 		CharacterInput input = newOlympus.GetComponent<CharacterInput> ();
-		input.Horizontal = -0.4f;
-		yield return new WaitForSeconds(0.55f);
+		input.Horizontal = -0.7f;
+		yield return new WaitForSeconds(0.90f);
 		input.Horizontal = 0.0f;
 		input.Attack = 1.0f;
 		yield return new WaitForSeconds(2.0f);
@@ -230,6 +226,52 @@ public class Tutorial : MonoBehaviour
                 break;
 			input.Attack = 1.0f;
 		}
+	}
+
+	public IEnumerator KeepFanSpinning ()
+	{
+		while(true)
+		{
+			
+			yield return new WaitForSeconds(0.5f);
+
+			bool sparkPlugFound = false;
+
+			// spark plug still in the level?
+			foreach( Item item in GameManager.Level.Items) {
+				if( item.WeaponPrefab.GetComponent<SparkPlug>() != null) {
+					sparkPlugFound = true;
+					break;
+
+				}
+
+			}
+
+			// all spark plugs removed from level?
+			// make the fan non-lethal and enter a separate wind-down loop
+			if( !sparkPlugFound ) {
+				Destroy(SpinningFan.GetComponentInChildren<DeathTrigger>());
+				break;
+
+			}
+
+        }
+        
+        // close the door behind you
+        StopCoroutine("OperateDoor");
+        SewerDoor.animation.Play("Close");
+
+
+		// power down.
+		while(SpinningFan.animation["SpinningLoop"].speed > 0.1f) {
+			SpinningFan.animation["SpinningLoop"].speed -= (0.5f * Time.deltaTime);
+
+			yield return null;
+
+		}
+
+		SpinningFan.animation.Stop ();
+	
 	}
 
 }

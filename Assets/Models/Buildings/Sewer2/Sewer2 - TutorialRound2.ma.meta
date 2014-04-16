@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 9af355a9877734f998903bda11edab8b
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Attached_on_the_side
     100002: curve1
@@ -727,6 +727,11 @@ ModelImporter:
     101442: polySurface321
     101444: polySurface322
     101446: transform135
+    101448: GlowingLED
+    101450: group12
+    101452: Ledge16
+    101454: Ledge17
+    101456: WallLedge8
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1451,6 +1456,11 @@ ModelImporter:
     401442: polySurface321
     401444: polySurface322
     401446: transform135
+    401448: GlowingLED
+    401450: group12
+    401452: Ledge16
+    401454: Ledge17
+    401456: WallLedge8
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -1901,6 +1911,9 @@ ModelImporter:
     2300894: polySurface320
     2300896: polySurface321
     2300898: polySurface322
+    2300900: Ledge16
+    2300902: Ledge17
+    2300904: WallLedge8
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2351,6 +2364,9 @@ ModelImporter:
     3300894: polySurface320
     3300896: polySurface321
     3300898: polySurface322
+    3300900: Ledge16
+    3300902: Ledge17
+    3300904: WallLedge8
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -2794,6 +2810,9 @@ ModelImporter:
     4300880: polySurface320
     4300882: polySurface321
     4300884: polySurface322
+    4300886: Ledge16
+    4300888: Ledge17
+    4300890: WallLedge8
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -2847,4 +2866,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
+  additionalBone: 0
   userData: 

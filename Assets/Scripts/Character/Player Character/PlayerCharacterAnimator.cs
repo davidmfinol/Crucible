@@ -147,8 +147,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
-        if (currentWeapon.CanStealthKill && CharInput.AttackActive && StealthKillable != null && currentWeapon.CanStealthKill)
-            StartCoroutine (ShowStealthKill ());
+        if (CurrentState.nameHash != StealthKillState && currentWeapon.CanStealthKill && 
+		    CharInput.AttackPressed && StealthKillable != null) {
+
+			MecanimAnimator.SetBool (MecanimHashes.StealthKill, true);
+            StartCoroutine (ShowStealthKill());
+
+		}
 
         // TODO: DON'T USE CURRRENTWEAPON IS TYPE, INSTEAD USE THINGS LIKE CURRENTWEAPON.ISGUN OR CURRENTWEAPON.ISMINE
         if (CurrentState.nameHash != StealthKillState) {
@@ -165,27 +170,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     public IEnumerator ShowStealthKill ()
     {
-        MecanimAnimator.SetBool (MecanimHashes.StealthKill, true);
         GenerateStealthKillEvent ();
         GameManager.MainCamera.CinematicOverride = true;
-        
-        Time.timeScale = 1.5f;
 
-        yield return new WaitForSeconds (1.5f);
+        yield return new WaitForSeconds (4.0f);
 
-        Time.timeScale = 0.5f;
-
-        yield return new WaitForSeconds (1.0f);
-
-        Time.timeScale = 1.5f;
-
-        yield return new WaitForSeconds (1.0f);
-        
-        Time.timeScale = 0.1f;
-        
-        yield return new WaitForSeconds (0.5f);
-        
-        Time.timeScale = 1.0f;
+		// remove a charge from weapon.
+		GameManager.Inventory.TryRemoveAmmo (GameManager.Inventory.CurrentWeapon.Type, 1);
 
         GameManager.MainCamera.CinematicOverride = false;
         StealthKillable = null;
@@ -222,19 +213,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
                 GameManager.UI.RefreshWeaponWheel ();
 
             }
-
-
-
-//          // don't remove the mine from your list.
-//          if(weapon.Quantity == 1) {
-//              // remove it.
-//              GameManager.Inventory.RemoveWeapon(weapon.WeaponType);
-//              GameManager.Inventory.CurrentWeapon = null;
-//              GameManager.UI.CycleToNextWeapon();
-//
-//
-//          }
-        
+			        
         } else {
             Debug.LogWarning ("PlaceMine() called with: " + weapon);
 
@@ -935,6 +914,25 @@ public class PlayerCharacterAnimator : CharacterAnimator
         obj = null;
         return false;
 
+    }
+    
+    public override bool CanInputHorizontal {
+        get { return !IgnoreXYMovement && CurrentState.nameHash != ClimbingPipeState; }
+    }
+    
+    public override bool CanInputVertical {
+        get { return CanTransitionZ || CurrentState.nameHash == ClimbingPipeState; }
+    }
+    
+    public override bool CanInputAttack {
+        get { return GameManager.Inventory.CanWeaponStealthKill && StealthKillable != null; }
+    }
+    
+    public override bool CanInputPickup {
+        get {
+            GameObject itemObj;
+            return CanPickupItem (out itemObj);
+        }
     }
 
     public override bool IsDead {

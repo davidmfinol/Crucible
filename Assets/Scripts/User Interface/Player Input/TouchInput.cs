@@ -14,9 +14,10 @@ public class TouchInput : MonoBehaviour
     public Transform RadioPrefab;
 
     // Prefabs for the right-hand side of the touch input
+    public Transform BlueCirclePrefab;
     public Transform SelectionsPrefab;
     public Transform GlowOffPrefab;
-    public Transform BlueCirclePrefab;
+    public Transform ParticlePrefab;
     public Transform JumpSignPrefab;
     public Transform AttackSignPrefab;
     public Transform ItemPickupSignPrefab;
@@ -35,7 +36,8 @@ public class TouchInput : MonoBehaviour
     private Transform _attack1Sign;
     private Transform _attack2Sign;
     private Transform _pickupSign;
-    private AlphaPulse _glowOff;
+    private Transform _glowOff;
+    private ParticleSystem _particles;
     private List<Transform> _uiDots;
     private List<Vector3> _dotPositions;
 
@@ -75,7 +77,12 @@ public class TouchInput : MonoBehaviour
 
         // Left-hand side GUI
         _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.identity);
-        _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler (new Vector3 (0, 0, 90)));
+        _horizontalSlider.GetComponent<AlphaPulse> ().On = true;
+        _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler (Vector3.forward * 90));
+        _verticalSlider.GetComponent<AlphaPulse> ().On = true;
+        Vector3 verticalScale = _verticalSlider.localScale;
+        verticalScale.x *= 12;
+        _verticalSlider.transform.localScale = verticalScale;
         _moveButton = (Transform)Instantiate (MoveButtonPrefab, MoveButtonPrefab.position, MoveButtonPrefab.rotation);
         _radioWaves = (Transform)Instantiate (RadioPrefab, RadioPrefab.position, RadioPrefab.rotation);
 
@@ -93,15 +100,18 @@ public class TouchInput : MonoBehaviour
 
         // Right-hand side GUI
         _blueCircle = (Transform)Instantiate (BlueCirclePrefab, BlueCirclePrefab.position, BlueCirclePrefab.rotation);
+        Color blueAlpha = _blueCircle.renderer.material.color;
+        blueAlpha.a = blueAlpha.a * 0.5f;
+        _blueCircle.renderer.material.color = blueAlpha;
         _selections = (Transform)Instantiate (SelectionsPrefab, SelectionsPrefab.position, SelectionsPrefab.rotation);
         _jumpSign = (Transform)Instantiate (JumpSignPrefab, JumpSignPrefab.position, JumpSignPrefab.rotation);
         _attack1Sign = (Transform)Instantiate (AttackSignPrefab, AttackSignPrefab.position, AttackSignPrefab.rotation);
         _attack2Sign = (Transform)Instantiate (AttackSignPrefab, -AttackSignPrefab.position, AttackSignPrefab.rotation);
         _pickupSign = (Transform)Instantiate (ItemPickupSignPrefab, ItemPickupSignPrefab.position, ItemPickupSignPrefab.rotation);
-        Transform glowOff = (Transform)Instantiate (GlowOffPrefab, GlowOffPrefab.position, GlowOffPrefab.rotation);
-        _glowOff = glowOff.GetComponent<AlphaPulse> ();
-        if (_glowOff == null)
-            _glowOff = glowOff.gameObject.AddComponent<AlphaPulse> ();
+        _glowOff = (Transform)Instantiate (GlowOffPrefab, GlowOffPrefab.position, GlowOffPrefab.rotation);
+        Transform particles = (Transform)Instantiate (ParticlePrefab, ParticlePrefab.position, ParticlePrefab.rotation);
+        _particles = particles.GetComponent<ParticleSystem> ();
+
 
         // Organize them away
         _blueCircle.parent = transform;
@@ -110,7 +120,7 @@ public class TouchInput : MonoBehaviour
         _attack1Sign.parent = transform;
         _attack2Sign.parent = transform;
         _pickupSign.parent = transform;
-        glowOff.parent = transform;
+        _glowOff.parent = transform;
 
         // And hide them
         _blueCircle.renderer.enabled = false;
@@ -119,7 +129,7 @@ public class TouchInput : MonoBehaviour
         _attack1Sign.renderer.enabled = false;
         _attack2Sign.renderer.enabled = false;
         _pickupSign.renderer.enabled = false;
-        glowOff.renderer.enabled = false;
+        _glowOff.renderer.enabled = false;
 
         // The dots indicating the action to the player
         _uiDots = new List<Transform> (9);
@@ -127,22 +137,22 @@ public class TouchInput : MonoBehaviour
             Transform dot = (Transform)Instantiate (DotPrefab, DotPrefab.position, DotPrefab.rotation);
             dot.renderer.enabled = false;
             dot.parent = transform;
-            _uiDots.Add(dot);
+            _uiDots.Add (dot);
         }
 
         // The relative positions at which those dots are located
         _dotPositions = new List<Vector3> (9);
         Vector3 originPoint = new Vector3 (0f, 0f, -0.3f);
         Vector3 zeroRotation = originPoint + Vector3.right * 9.7f;
-        _dotPositions.Add(originPoint);
-        _dotPositions.Add(zeroRotation);
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 25.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 90.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 155.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 180.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 210.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 270.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 330.0f));
+        _dotPositions.Add (originPoint);
+        _dotPositions.Add (zeroRotation);
+        _dotPositions.Add (ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * 15.0f));
+        _dotPositions.Add (ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * 90.0f));
+        _dotPositions.Add (ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * 165.0f));
+        _dotPositions.Add (ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * 180.0f));
+        _dotPositions.Add (ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * 235.0f));
+        _dotPositions.Add (ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * 270.0f));
+        _dotPositions.Add (ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * 305.0f));
 
         // Set up new update methods to show the GUI elements
         StartCoroutine (DisplayLeftHandSide ());
@@ -151,14 +161,14 @@ public class TouchInput : MonoBehaviour
     }
 
     // Co-routines get stopped when the level is loaded, so this re-starts them as required
-    void OnLevelWasLoaded()
+    void OnLevelWasLoaded ()
     {
         // Make sure we're actually being used 
         if (_input.UpdateInputMethod != UpdateInput)
             return;
 
         // And make sure the co-routines really did stop 
-        StopAllCoroutines();
+        StopAllCoroutines ();
 
         // Start the co-routines again
         StartCoroutine (DisplayLeftHandSide ());
@@ -175,6 +185,8 @@ public class TouchInput : MonoBehaviour
     public void Disable ()
     {
         _input.UpdateInputMethod = null;
+        _actionID = -1;
+        _moveID = -1;
 
     }
 
@@ -225,13 +237,16 @@ public class TouchInput : MonoBehaviour
         Vector2 delta = _lastMovePos - _moveStartPos;
         if (delta.magnitude > _moveMin) {
 
-            // TODO: ONLY ALLOW LEFT/RIGHT WHEN RUNNING AND ONLY ALLOW UP/DOWN WHEN CLIMBING
             // Handle horizontal input
-            if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { 
-				_input.Horizontal = delta.x / _distanceForMaxSpeed;
+            if (GameManager.Player.CanInputHorizontal && Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { 
+                _input.Horizontal = delta.x / _distanceForMaxSpeed;
+                if (_input.Horizontal > 0.5f)
+                    _input.Horizontal += (_input.Horizontal - 0.5f) * 2.0f;
+                else if (_input.Horizontal < -0.5f)
+                    _input.Horizontal += (_input.Horizontal + 0.5f) * 2.0f;
 
-            // Handle vertical input
-            } else 
+                // Handle vertical input
+            } else if (GameManager.Player.CanInputVertical)
                 _input.Vertical = delta.y / _distanceForMaxSpeed;
         }
 
@@ -245,7 +260,7 @@ public class TouchInput : MonoBehaviour
             _actionStartPos = touch.position;
             _lastActionPos = touch.position;
 
-        // Update the touch as appropriate
+            // Update the touch as appropriate
         } else if (touch.fingerId == _actionID) {
             _lastActionPos = touch.position;
             if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
@@ -261,20 +276,52 @@ public class TouchInput : MonoBehaviour
 
         float deg = CalculateActionDegree ();
 
-        if (IsJumpRight (deg))
+        if (GameManager.Player.CanInputJump && IsJumpRight (deg))
             _input.Jump = new Vector2 (1, 1);
-        else if (IsJumpUp (deg))
+        else if (GameManager.Player.CanInputJump && IsJumpUp (deg))
             _input.Jump = new Vector2 (0, 1);
-        else if (IsJumpLeft (deg))
+        else if (GameManager.Player.CanInputJump && IsJumpLeft (deg))
             _input.Jump = new Vector2 (-1, 1);
-        else if (IsAttackLeft (deg))
+        else if (GameManager.Player.CanInputAttack && IsAttackLeft (deg))
             _input.Attack = -1;
-        else if (IsPickup (deg))
+        else if (GameManager.Player.CanInputPickup && IsPickup (deg))
             _input.Pickup = true;
-        else if (IsAttackRight (deg)) 
+        else if (GameManager.Player.CanInputAttack && IsAttackRight (deg)) 
             _input.Attack = 1;
         else if (IsInteraction (deg))
             _input.Interaction = true;
+
+        DisplayParticles (deg);
+
+    }
+
+    // Helper method to put the GUI images in the correct location
+    public Vector3 ConvertTouchPosToWorldPoint (Vector2 touchPos)
+    {
+        Vector3 cameraPos = touchPos;
+        cameraPos.x /= Screen.width;
+        cameraPos.y /= Screen.height;
+        cameraPos.z = -GameManager.UI.UICamera.transform.position.z;
+        return GameManager.UI.UICamera.ViewportToWorldPoint (cameraPos);
+        
+    }
+
+    public void DisplayParticles (float degrees)
+    {
+        _particles.transform.position = ConvertTouchPosToWorldPoint (_actionStartPos);
+        Quaternion rot = Quaternion.Euler(Vector3.forward * degrees) * ParticlePrefab.rotation;
+        _particles.transform.rotation = rot;
+
+        _particles.startColor = Color.white;
+        if (GameManager.Player.CanInputJump && (IsJumpLeft (degrees) || IsJumpUp (degrees) || IsJumpRight (degrees)))
+            _particles.startColor = Color.blue;
+        else if (GameManager.Player.CanInputAttack && (IsAttackLeft (degrees) || IsAttackRight (degrees)))
+            _particles.startColor = Color.red;
+        else if (GameManager.Player.CanInputPickup && IsPickup (degrees))
+            _particles.startColor = Color.green;
+
+        if(_particles.startColor != Color.white)
+            _particles.Play ();
 
     }
 
@@ -287,8 +334,16 @@ public class TouchInput : MonoBehaviour
             
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
-            _horizontalSlider.renderer.enabled = moveTouched;
-            _verticalSlider.renderer.enabled = moveTouched;
+            bool shouldShowHorizontal = moveTouched && GameManager.Player.CanInputHorizontal;
+            if (!_horizontalSlider.renderer.enabled && shouldShowHorizontal)
+                _horizontalSlider.renderer.enabled = true;
+            else if (_horizontalSlider.renderer.enabled && !shouldShowHorizontal)
+                _horizontalSlider.renderer.enabled = false;
+            bool shouldShowVertical = moveTouched && GameManager.Player.CanInputVertical;
+            if (!_verticalSlider.renderer.enabled && shouldShowVertical)
+                _verticalSlider.renderer.enabled = true;
+            else if (_verticalSlider.renderer.enabled && !shouldShowVertical)
+                _verticalSlider.renderer.enabled = false;
             _moveButton.renderer.enabled = moveTouched;
             _radioWaves.renderer.enabled = false;
             if (!moveTouched)
@@ -307,15 +362,14 @@ public class TouchInput : MonoBehaviour
             float targetScale = 1 + 15 * _input.Horizontal;
             horizontalScale.x = targetScale;
             _horizontalSlider.transform.localScale = horizontalScale;
-            _verticalSlider.transform.localScale = horizontalScale;
             
             // Move the button to the correct spot
             _moveButton.position = currentPos;
             Vector2 delta = _lastMovePos - _moveStartPos;
             if (delta.magnitude > _moveMin) {
-                if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
+                if (GameManager.Player.CanInputHorizontal && Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
                     _moveButton.position = new Vector3 (currentPos.x, startPos.y, currentPos.z);
-                else
+                else if (GameManager.Player.CanInputVertical)
                     _moveButton.position = new Vector3 (startPos.x, currentPos.y, currentPos.z);
             }
 
@@ -340,16 +394,28 @@ public class TouchInput : MonoBehaviour
         while (true) {
             yield return null;
 
-            // Make everything invisible if we're not touching the right-hand side
+            // Make the images visible as appropriate
             bool actTouched = _actionID != -1;
             _blueCircle.renderer.enabled = actTouched;
             _selections.renderer.enabled = actTouched;
-            _jumpSign.renderer.enabled = actTouched;
-            _attack1Sign.renderer.enabled = actTouched;
-            _attack2Sign.renderer.enabled = actTouched;
-            _pickupSign.renderer.enabled = actTouched;
-            for (int dot=0; dot<_uiDots.Count; dot++)
-                _uiDots [dot].renderer.enabled = actTouched;
+            _jumpSign.renderer.enabled = actTouched && GameManager.Player.CanInputJump;
+            _attack1Sign.renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
+            _attack2Sign.renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
+            _pickupSign.renderer.enabled = actTouched && GameManager.Player.CanInputPickup;
+            _glowOff.renderer.enabled = actTouched;
+
+            // Make the dots visible as appropriate
+            _uiDots [0].renderer.enabled = actTouched;
+            _uiDots [1].renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
+            _uiDots [2].renderer.enabled = actTouched && (GameManager.Player.CanInputAttack || GameManager.Player.CanInputJump);
+            _uiDots [3].renderer.enabled = actTouched && GameManager.Player.CanInputJump;
+            _uiDots [4].renderer.enabled = actTouched && (GameManager.Player.CanInputJump || GameManager.Player.CanInputAttack);
+            _uiDots [5].renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
+            _uiDots [6].renderer.enabled = actTouched && (GameManager.Player.CanInputAttack || GameManager.Player.CanInputPickup);
+            _uiDots [7].renderer.enabled = actTouched && GameManager.Player.CanInputPickup;
+            _uiDots [8].renderer.enabled = actTouched && (GameManager.Player.CanInputPickup || GameManager.Player.CanInputAttack);
+
+            // We don't need to move + color things if they're not visible
             if (!actTouched)
                 continue;
 
@@ -357,42 +423,72 @@ public class TouchInput : MonoBehaviour
             Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
             _blueCircle.position = pos;
             _selections.position = pos + SelectionsPrefab.position;
-            _jumpSign.position = pos + JumpSignPrefab.position;
-            _attack1Sign.position = pos + AttackSignPrefab.position;
-            _attack2Sign.position = pos + AttackSignPrefab.position + Vector3.left * 2 * AttackSignPrefab.position.x;
-            _pickupSign.position = pos + ItemPickupSignPrefab.position;
-        
-            // Put the dots at the correct positions, and color/enable things as appropriate
             _selections.renderer.material.color = Color.white;
-            float deg = CalculateActionDegree ();
-            for (int dot=0; dot<_uiDots.Count; dot++) {
-                _uiDots [dot].transform.position = pos + _dotPositions[dot];
-                _uiDots [dot].renderer.enabled = true;
-                _uiDots [dot].renderer.material.color = Color.white;
+            _jumpSign.position = pos + JumpSignPrefab.position;
+            _jumpSign.renderer.material.color = Color.white;
+            _attack1Sign.position = pos + AttackSignPrefab.position;
+            _attack1Sign.renderer.material.color = Color.white;
+            _attack2Sign.position = pos + AttackSignPrefab.position + Vector3.left * 2 * AttackSignPrefab.position.x;
+            _attack2Sign.renderer.material.color = Color.white;
+            _pickupSign.position = pos + ItemPickupSignPrefab.position;
+            _pickupSign.renderer.material.color = Color.white;
 
-                if (IsInteraction (deg) && dot == 0) {
-                    _selections.renderer.material.color = Color.black;
-                    _uiDots [dot].renderer.material.color = Color.black;
-                } else if (IsJumpRight (deg) && dot == 2) {
-                    _selections.renderer.material.color = Color.blue;
-                    _uiDots [dot].renderer.material.color = Color.blue;
-                } else if (IsJumpUp (deg) && dot == 3) {
-                    _selections.renderer.material.color = Color.blue;
-                    _uiDots [dot].renderer.material.color = Color.blue;
-                } else if (IsJumpLeft (deg) && dot == 4) {
-                    _selections.renderer.material.color = Color.blue;
-                    _uiDots [dot].renderer.material.color = Color.blue;
-                } else if (IsAttackLeft (deg) && (dot == 4 || dot == 5 || dot == 6)) {
-                    _selections.renderer.material.color = Color.red;
-                    _uiDots [dot].renderer.material.color = Color.red;
-                } else if (IsPickup (deg) && (dot == 6 || dot == 7 || dot == 8)) {
-                    _selections.renderer.material.color = Color.green;
-                    _uiDots [dot].renderer.material.color = Color.green;
-                } else if (IsAttackRight (deg) && (dot == 8 || dot == 1 || dot == 2)) {
-                    _selections.renderer.material.color = Color.red;
-                    _uiDots [dot].renderer.material.color = Color.red;
-                }
+            // Put the dots at the correct position
+            for (int dot = 0; dot < _uiDots.Count; dot++) {
+                _uiDots [dot].transform.position = pos + _dotPositions [dot];
+                _uiDots [dot].renderer.material.color = Color.white;
             }
+            
+            // Put the glow-off at the correct location
+            float deg = CalculateActionDegree ();
+            Vector3 originPoint = pos + GlowOffPrefab.position;
+            Vector3 zeroRotation = originPoint + Vector3.right * 9.0f;
+            _glowOff.position = ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * deg);
+            _glowOff.rotation = Quaternion.Euler (Vector3.forward * deg);
+            _glowOff.renderer.material.color = Color.white;
+
+            // Color as appropriate
+            if (IsInteraction (deg)) {
+                _selections.renderer.material.color = Color.black;
+                _glowOff.renderer.enabled = false;
+                _uiDots [0].renderer.material.color = Color.black;
+
+            } else if (GameManager.Player.CanInputJump && (IsJumpLeft (deg) || IsJumpUp (deg) || IsJumpRight (deg))) {
+                _selections.renderer.material.color = Color.blue;
+                _jumpSign.renderer.material.color = Color.blue;
+                _glowOff.renderer.material.color = Color.blue;
+                if (IsJumpRight (deg))
+                    _uiDots [2].renderer.material.color = Color.blue;
+                else if (IsJumpUp (deg))
+                    _uiDots [3].renderer.material.color = Color.blue;
+                if (IsJumpLeft (deg))
+                    _uiDots [4].renderer.material.color = Color.blue;
+
+            } else if (GameManager.Player.CanInputAttack && (IsAttackLeft (deg) || IsAttackRight (deg))) {
+                _selections.renderer.material.color = Color.red;
+                _glowOff.renderer.material.color = Color.red;
+                if (IsAttackRight (deg)) {
+                    _attack1Sign.renderer.material.color = Color.red; 
+                    _uiDots [1].renderer.material.color = Color.red; 
+                    _uiDots [2].renderer.material.color = Color.red; 
+                    _uiDots [7].renderer.material.color = Color.red; 
+                } else if (IsAttackLeft (deg)) {
+                    _attack2Sign.renderer.material.color = Color.red;
+                    _uiDots [4].renderer.material.color = Color.red; 
+                    _uiDots [5].renderer.material.color = Color.red; 
+                    _uiDots [6].renderer.material.color = Color.red; 
+                }
+
+            } else if (GameManager.Player.CanInputPickup && IsPickup (deg)) {
+                _selections.renderer.material.color = Color.green;
+                _pickupSign.renderer.material.color = Color.green;
+                _glowOff.renderer.material.color = Color.green;
+                _uiDots [6].renderer.material.color = Color.green;
+                _uiDots [7].renderer.material.color = Color.green;
+                _uiDots [8].renderer.material.color = Color.green;
+
+            }
+
         }
 
     }
@@ -403,7 +499,7 @@ public class TouchInput : MonoBehaviour
         float deg = -1000;
         if (delta.magnitude > _actionMin) {
             float rad = Mathf.Atan2 (delta.y, delta.x);
-            deg = rad * 180.0f / Mathf.PI;
+            deg = rad * Mathf.Rad2Deg;
         }
         return deg;
 
@@ -411,7 +507,7 @@ public class TouchInput : MonoBehaviour
 
     public bool IsJumpRight (float deg)
     {
-        return deg > 25.0f && deg <= 80.0f;
+        return deg > 15.0f && deg <= 80.0f;
     }
 
     public bool IsJumpUp (float deg)
@@ -421,36 +517,27 @@ public class TouchInput : MonoBehaviour
 
     public bool IsJumpLeft (float deg)
     {
-        return deg > 100.0f && deg <= 155.0f;
+        return deg > 100.0f && deg <= 165.0f;
     }
 
     public bool IsAttackLeft (float deg)
     {
-        return ((deg > 155.0f && deg <= 210.0f) || (deg > -205.0f && deg <= -150.0f) || (deg > 515.0f && deg <= 570.0f));
+        return (deg > 165.0f && deg <= 235.0f) || (deg > -195.0f && deg <= -125.0f);
     }
 
     public bool IsPickup (float deg)
     {
-        return ((deg > 210.0f && deg <= 330.0f) || (deg > -150.0f && deg <= -30.0f) || (deg > 570.0f && deg <= 690.0f));
+        return (deg > 235.0f && deg <= 305.0f) || (deg > -125.0f && deg <= -55.0f);
     }
 
     public bool IsAttackRight (float deg)
     {
-        return (((deg > 330.0f && deg <= 360.0f) || (deg >= 0.0f && deg < 25.0f)) || ((deg > -30.0f && deg <= 0.0f) || (deg >= -360.0f && deg < -335.0f)) || ((deg > 690.0f && deg <= 720.0f) || (deg >= 360.0f && deg < 385.0f)));
+        return (deg > 305.0f && deg <= 375.0f) || (deg > -55.0f && deg <= 15.0f);
     }
 
     public bool IsInteraction (float deg)
     {
         return deg == -1000;
-    }
-    
-    public Vector3 ConvertTouchPosToWorldPoint (Vector2 touchPos)
-    {
-        Vector3 cameraPos = touchPos;
-        cameraPos.x /= Screen.width;
-        cameraPos.y /= Screen.height;
-        cameraPos.z = -GameManager.UI.UICamera.transform.position.z;
-        return GameManager.UI.UICamera.ViewportToWorldPoint (cameraPos);
     }
 
     public float DistanceForMaxSpeed {
