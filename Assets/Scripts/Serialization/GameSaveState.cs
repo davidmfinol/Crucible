@@ -21,6 +21,14 @@ public class GameSaveState
 	public bool HasSeenDoorHint;
     public bool HasSeenJumpHint;
     public bool HasSeenWallJumpHint;
+    public bool HasSeenSneakHint;
+    public bool HasSeenFootstepsHint;
+    public bool HasSeenPipeHint;
+    public bool HasSeenTraversePipeHint;
+    public bool HasSeenCameraHint;
+    public bool HasSeenHideInHint;
+    public bool HasSeenHideOutHint;
+    public bool HasSeenSparkPlugHint;
 
     // Jasper tells you what to do
     public bool ShownMeetJasper;
