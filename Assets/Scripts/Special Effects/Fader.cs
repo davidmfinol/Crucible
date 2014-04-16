@@ -19,6 +19,11 @@ public class Fader : MonoBehaviour
     // We can set the ranges for the opacity
     public float MaxAlpha = 1;
     public float MinAlpha = 0;
+
+    // Keep track of current state to let other classes know
+    private bool _isFadingIn = false;
+    private bool _isStaying = false;
+    private bool _isFadingOut = false;
     
     void Start ()
     {
@@ -34,6 +39,11 @@ public class Fader : MonoBehaviour
     
     public void FadeIn (float time = 0)
     {
+        _isFadingIn = false;
+        _isStaying = false;
+        _isFadingOut = false;
+        StopAllCoroutines ();
+
         if (time > 0)
             FadeInSeconds = time;
         StartCoroutine (DoFadeIn ());
@@ -42,6 +52,7 @@ public class Fader : MonoBehaviour
 
     public IEnumerator DoFadeIn ()
     {
+        _isFadingIn = true;
         while (renderer.material.color.a < MaxAlpha) {
             yield return null;
             Color temp = renderer.material.color;
@@ -49,21 +60,30 @@ public class Fader : MonoBehaviour
             temp.a = Mathf.Min (temp.a, MaxAlpha);
             renderer.material.color = temp;
         }
-        if (FadeInAtStart)
+
+        _isFadingIn = false;
+        if (StaySeconds >= 0)
             StartCoroutine (Stay ());
 
     }
 
     public IEnumerator Stay ()
     {
+        _isStaying = true;
         yield return new WaitForSeconds (StaySeconds);
-        if (FadeInAtStart) // && StaySeconds >= 0)
+        _isStaying = false;
+        if (FadeOutSeconds >= 0) 
             StartCoroutine (DoFadeOut ());
 
     }
 
-    void FadeOut (float time = 0)
+    public void FadeOut (float time = 0)
     {
+        _isFadingIn = false;
+        _isStaying = false;
+        _isFadingOut = false;
+        StopAllCoroutines ();
+
         if (time > 0)
             FadeOutSeconds = time;
         StartCoroutine (DoFadeOut ());
@@ -72,6 +92,7 @@ public class Fader : MonoBehaviour
 
     public IEnumerator DoFadeOut ()
     {
+        _isFadingOut = true;
         while (renderer.material.color.a > MinAlpha) {
             yield return null;
             Color temp = renderer.material.color;
@@ -79,6 +100,20 @@ public class Fader : MonoBehaviour
             temp.a = Mathf.Max (temp.a, MinAlpha);
             renderer.material.color = temp;
         }
+        _isFadingOut = false;
 
     }
+
+    public bool IsFadingIn {
+        get { return _isFadingIn; }
+    }
+
+    public bool IsStaying {
+        get { return _isStaying; }
+    }
+
+    public bool IsFadingOut {
+        get { return _isFadingOut; }
+    }
+
 }

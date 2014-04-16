@@ -6,13 +6,21 @@ MonoImporter:
   - ChaseVignette: {fileID: 400000, guid: 6bde6f180fa5e49fabec9e89d5cba209, type: 2}
   - SearchVignette: {fileID: 400000, guid: fa66811236af2cb4dbe3ebc47dfcffea, type: 2}
   - HurtVignette: {fileID: 400000, guid: 12b68f8336b0949ceaf6efbd3acbb2bd, type: 2}
-  - MatteBars: {fileID: 400000, guid: b71658430af5ba54f8745f79a20e2fd0, type: 2}
   - LensFlareFlash: {fileID: 400000, guid: cb3bc35996217e849b9f43110c17eedd, type: 2}
-  - WeaponQuadPrefab: {instanceID: 0}
-  - WeaponCountQuadPrefab: {instanceID: 0}
-  - ObjectiveQuadPrefab: {instanceID: 0}
-  - MapQuadPrefab: {instanceID: 0}
-  - AlarmMaterial: {instanceID: 0}
+  - MatteBars: {fileID: 400000, guid: b71658430af5ba54f8745f79a20e2fd0, type: 2}
+  - StealthKillVignette: {fileID: 400000, guid: 1561657507b623b458b033199e5253d4,
+      type: 2}
+  - StealthKillVignette1: {fileID: 400000, guid: 8791d5c18ba23ca45b1ab115116e51ca,
+      type: 2}
+  - StealthKillVignette2: {fileID: 400000, guid: 19580e6c3f407d94ab4fa055220afc36,
+      type: 2}
+  - WeaponQuadPrefab: {fileID: 100000, guid: e83fafef436ab46a89ab9966f4dcda0c, type: 2}
+  - WeaponCountQuadPrefab: {fileID: 100000, guid: 1b119e5189e5b4e95af73c9af3422e7c,
+      type: 2}
+  - ObjectiveQuadPrefab: {fileID: 100000, guid: 62c39b8949e5c4c6ab56160d1ded2126,
+      type: 2}
+  - HintQuadPrefab: {fileID: 100000, guid: ebdf82173d0904a13a8ee5411419ac31, type: 2}
+  - MapQuadPrefab: {fileID: 100000, guid: f0110aac08ccb49f1aec745bda3a0035, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
