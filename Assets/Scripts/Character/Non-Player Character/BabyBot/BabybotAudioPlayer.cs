@@ -15,5 +15,6 @@ public class BabybotAudioPlayer : AudioPlayer
     public AudioClip AlmostAwake;
     public AudioClip Running;
     public AudioClip Landing;
+	public AudioClip Snoring;
 
 }

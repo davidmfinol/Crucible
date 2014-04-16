@@ -520,6 +520,11 @@ public class OlympusAnimator : CharacterAnimator
 
     }
 
+	public void PlayServo()
+	{
+		_sound.Play (_sound.Idling, 1.0f);
+	}
+
     public override bool IsLanding {
         get {
             return CurrentState.nameHash == LandingState || (IsGrounded && (CurrentState.nameHash == JumpingState || CurrentState.nameHash == FallingState));

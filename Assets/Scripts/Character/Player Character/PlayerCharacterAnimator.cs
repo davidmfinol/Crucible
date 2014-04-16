@@ -902,6 +902,21 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     }
 
+	public void PlaySparkplugCharge ()
+	{ 
+		_sound.Play (_sound.SparkplugCharge, 1.0f);
+	}
+
+	public void PlaySparkplugBleep ()
+	{
+		_sound.Play (_sound.SparkplugBeep, 1.0f);
+	}
+
+	public void PlaySparkplugHit ()
+	{
+		_sound.Play (_sound.SparkplugHit, 1.0f);
+	}
+
     public bool CanPickupItem (out GameObject obj)
     {
         RaycastHit hit;

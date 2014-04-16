@@ -136,11 +136,16 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
-    public void PlayJump ()
+    public void PlayLeap ()
     {
         _sound.Play (_sound.Jump, 1.0f);
 
     }
+
+	public void PlaySnore()
+	{
+		_sound.Play(_sound.Snoring, 1.0f);
+	}
 
     public override EnemySaveState.EnemyType EnemyType {
         get { return EnemySaveState.EnemyType.Enemy_BabyBot; }

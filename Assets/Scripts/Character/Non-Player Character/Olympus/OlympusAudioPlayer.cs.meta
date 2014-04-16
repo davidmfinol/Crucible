@@ -10,6 +10,7 @@ MonoImporter:
   - Chasing: {instanceID: 0}
   - Landing: {fileID: 8300000, guid: 5eecc5ed24392ac4da554676d2841739, type: 3}
   - Jumping: {fileID: 8300000, guid: c9be3aa3f3f84e04ea3a1cd75b60f68c, type: 3}
+  - Idling: {fileID: 8300000, guid: 064bb06a740b0474ab115397bf51f6f0, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

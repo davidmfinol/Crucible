@@ -12,6 +12,9 @@ MonoImporter:
   - ItemPickup: {fileID: 8300000, guid: 8b45ec512c69c004a99863f035c37f1b, type: 3}
   - Flip: {fileID: 8300000, guid: 545b6012a2df0d7458bfd857d54e0ed9, type: 3}
   - Landing: {fileID: 8300000, guid: 46fa8815dc0750048bb5b2165ca63407, type: 3}
+  - SparkplugCharge: {fileID: 8300000, guid: b9969e90e542bd347a161c28c5a2ab11, type: 3}
+  - SparkplugHit: {fileID: 8300000, guid: da3dfdeefa38ea841bc7d1a7168a2cd4, type: 3}
+  - SparkplugBeep: {fileID: 8300000, guid: 0368c42135066a948b12b15129509c0d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

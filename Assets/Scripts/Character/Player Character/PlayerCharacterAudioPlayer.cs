@@ -17,6 +17,13 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
     public AudioClip[] Running;
     public AudioClip Flip;
     public AudioClip Landing;
+
+	//Weapon Sounds
+	public AudioClip SparkplugCharge;
+	public AudioClip SparkplugHit;
+	public AudioClip SparkplugBeep;
+
+	//Audiosource switching to not clip sounds
     private int _currentAudio;
     private AudioSource[] _audios;
 
