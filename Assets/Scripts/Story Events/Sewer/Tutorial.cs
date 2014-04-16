@@ -221,6 +221,9 @@ public class Tutorial : MonoBehaviour
 
 		StartCoroutine(ForcePunch(input));
 		StartCoroutine (KeepShieldActive(input));
+
+        // never let the tutorial bot forget where you are.
+        enemyAI.GetComponent<EnemyAISettings>().VisionMemory = 99.9f;
 		enemyAI.enabled = true;
 	
 	}

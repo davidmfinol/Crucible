@@ -107,7 +107,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Then hearing
-        else if (_settings.CanHear && HasHeardSound)
+        else if (_timeSincePlayerSeen <= 0.0f && _settings.CanHear && HasHeardSound)
             Awareness = AwarenessLevel.Searching;
 
         // If we can't see or hear the player, wait a while before we completely forget where the player is
