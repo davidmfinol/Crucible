@@ -20,8 +20,6 @@ public class OlympusAwareness : MonoBehaviour
 
     public void ChangeAwareness (EnemyAI.AwarenessLevel awareness)
     {
-		Debug.Log ("Change awareness to " + awareness);
-
         Color newColor = Color.black;
         switch (awareness) {
         case EnemyAI.AwarenessLevel.Unaware:
@@ -35,12 +33,8 @@ public class OlympusAwareness : MonoBehaviour
             break;
         }
 
-        foreach (Material mat in _changeableMaterials) {
-			Debug.Log ("Change mat " + mat.name + " to " + newColor);
-
+        foreach (Material mat in _changeableMaterials)
             mat.color = newColor;
-		
-		}
 
     }
 
@@ -53,4 +47,5 @@ public class OlympusAwareness : MonoBehaviour
         return changeableMaterials;
 
     }
+
 }
