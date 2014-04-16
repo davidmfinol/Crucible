@@ -96,6 +96,9 @@ public class TouchInput : MonoBehaviour
 
         // Right-hand side GUI
         _blueCircle = (Transform)Instantiate (BlueCirclePrefab, BlueCirclePrefab.position, BlueCirclePrefab.rotation);
+        Color blueAlpha = _blueCircle.renderer.material.color;
+        blueAlpha.a = blueAlpha.a * 0.5f;
+        _blueCircle.renderer.material.color = blueAlpha;
         _selections = (Transform)Instantiate (SelectionsPrefab, SelectionsPrefab.position, SelectionsPrefab.rotation);
         _jumpSign = (Transform)Instantiate (JumpSignPrefab, JumpSignPrefab.position, JumpSignPrefab.rotation);
         _attack1Sign = (Transform)Instantiate (AttackSignPrefab, AttackSignPrefab.position, AttackSignPrefab.rotation);
@@ -139,13 +142,13 @@ public class TouchInput : MonoBehaviour
         Vector3 zeroRotation = originPoint + Vector3.right * 9.7f;
         _dotPositions.Add(originPoint);
         _dotPositions.Add(zeroRotation);
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 25.0f));
+        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 15.0f));
         _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 90.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 155.0f));
+        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 165.0f));
         _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 180.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 210.0f));
+        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 235.0f));
         _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 270.0f));
-        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 330.0f));
+        _dotPositions.Add(ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * 305.0f));
 
         // Set up new update methods to show the GUI elements
         StartCoroutine (DisplayLeftHandSide ());
@@ -234,9 +237,9 @@ public class TouchInput : MonoBehaviour
             if (GameManager.Player.CanInputHorizontal && Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { 
 				_input.Horizontal = delta.x / _distanceForMaxSpeed;
                 if(_input.Horizontal > 0.5f)
-                    _input.Horizontal += _input.Horizontal - 0.5f;
+                    _input.Horizontal += (_input.Horizontal - 0.5f) * 2.0f;
                 else if (_input.Horizontal < -0.5f)
-                    _input.Horizontal += _input.Horizontal + 0.5f;
+                    _input.Horizontal += (_input.Horizontal + 0.5f) * 2.0f;
 
             // Handle vertical input
             } else if (GameManager.Player.CanInputVertical)
@@ -306,8 +309,16 @@ public class TouchInput : MonoBehaviour
             
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
-            _horizontalSlider.renderer.enabled = moveTouched && GameManager.Player.CanInputHorizontal;
-            _verticalSlider.renderer.enabled = moveTouched && GameManager.Player.CanInputVertical;
+            bool shouldShowHorizontal = moveTouched && GameManager.Player.CanInputHorizontal;
+            if(!_horizontalSlider.renderer.enabled && shouldShowHorizontal)
+                _horizontalSlider.renderer.enabled = true;
+            else if(_horizontalSlider.renderer.enabled && !shouldShowHorizontal)
+                _horizontalSlider.renderer.enabled = false;
+            bool shouldShowVertical = moveTouched && GameManager.Player.CanInputVertical;
+            if(!_verticalSlider.renderer.enabled && shouldShowVertical)
+                _verticalSlider.renderer.enabled = true;
+            else if (_verticalSlider.renderer.enabled && !shouldShowVertical)
+                _verticalSlider.renderer.enabled = false;
             _moveButton.renderer.enabled = moveTouched;
             _radioWaves.renderer.enabled = false;
             if (!moveTouched)
@@ -331,9 +342,9 @@ public class TouchInput : MonoBehaviour
             _moveButton.position = currentPos;
             Vector2 delta = _lastMovePos - _moveStartPos;
             if (delta.magnitude > _moveMin) {
-                if (Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
+                if (GameManager.Player.CanInputHorizontal && Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) 
                     _moveButton.position = new Vector3 (currentPos.x, startPos.y, currentPos.z);
-                else
+                else if(GameManager.Player.CanInputVertical)
                     _moveButton.position = new Vector3 (startPos.x, currentPos.y, currentPos.z);
             }
 
@@ -465,7 +476,7 @@ public class TouchInput : MonoBehaviour
         float deg = -1000;
         if (delta.magnitude > _actionMin) {
             float rad = Mathf.Atan2 (delta.y, delta.x);
-            deg = rad * 180.0f / Mathf.PI;
+            deg = rad * Mathf.Rad2Deg;
         }
         return deg;
 
@@ -473,7 +484,7 @@ public class TouchInput : MonoBehaviour
 
     public bool IsJumpRight (float deg)
     {
-        return deg > 25.0f && deg <= 80.0f;
+        return deg > 15.0f && deg <= 80.0f;
     }
 
     public bool IsJumpUp (float deg)
@@ -483,22 +494,22 @@ public class TouchInput : MonoBehaviour
 
     public bool IsJumpLeft (float deg)
     {
-        return deg > 100.0f && deg <= 155.0f;
+        return deg > 100.0f && deg <= 165.0f;
     }
 
     public bool IsAttackLeft (float deg)
     {
-        return ((deg > 155.0f && deg <= 210.0f) || (deg > -205.0f && deg <= -150.0f) || (deg > 515.0f && deg <= 570.0f));
+        return (deg > 165.0f && deg <= 235.0f) || (deg > -195.0f && deg <= -125.0f);
     }
 
     public bool IsPickup (float deg)
     {
-        return ((deg > 210.0f && deg <= 330.0f) || (deg > -150.0f && deg <= -30.0f) || (deg > 570.0f && deg <= 690.0f));
+        return (deg > 235.0f && deg <= 305.0f) || (deg > -125.0f && deg <= -55.0f);
     }
 
     public bool IsAttackRight (float deg)
     {
-        return (((deg > 330.0f && deg <= 360.0f) || (deg >= 0.0f && deg < 25.0f)) || ((deg > -30.0f && deg <= 0.0f) || (deg >= -360.0f && deg < -335.0f)) || ((deg > 690.0f && deg <= 720.0f) || (deg >= 360.0f && deg < 385.0f)));
+        return (deg > 305.0f && deg <= 375.0f) || (deg > -55.0f && deg <= 15.0f);
     }
 
     public bool IsInteraction (float deg)
