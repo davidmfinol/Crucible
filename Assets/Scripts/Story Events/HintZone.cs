@@ -3,7 +3,9 @@ using System.Collections;
 
 public class HintZone : MonoBehaviour {
 	public enum HintType {
-		SewerDoor = 1
+		SewerDoor = 1,
+        Jump = 2,
+        WallJump = 3
 
 	};
 
@@ -20,7 +22,9 @@ public class HintZone : MonoBehaviour {
 			return;
 
 		// *** IMPLEMENT: put in a check for each hint type. ***
-		if ((Type == HintZone.HintType.SewerDoor) && GameManager.SaveData.HasSeenDoorHint)
+		if ( ( (Type == HintZone.HintType.SewerDoor) && GameManager.SaveData.HasSeenDoorHint) ||
+            ( (Type == HintZone.HintType.Jump) && GameManager.SaveData.HasSeenJumpHint) ||
+            ( (Type == HintZone.HintType.WallJump) && GameManager.SaveData.HasSeenWallJumpHint))
 			return;
 
 		_timeInZone += Time.deltaTime;
@@ -31,6 +35,10 @@ public class HintZone : MonoBehaviour {
 			// *** IMPLEMENT: save proper game data based on each hint type. ***
 			if(Type == HintType.SewerDoor)
 				GameManager.SaveData.HasSeenDoorHint = true;
+            else if(Type == HintType.Jump)
+                GameManager.SaveData.HasSeenJumpHint = true;
+            else if(Type == HintType.WallJump)
+                GameManager.SaveData.HasSeenWallJumpHint = true;
 
 		}
 

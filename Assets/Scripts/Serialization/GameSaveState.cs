@@ -17,8 +17,10 @@ public class GameSaveState
 	public bool HasShownSightPuzzle;
 	public bool HasShownOlympusSpawn;
 
-	// seen sewer door hint on how to pass it?
+	// *** hint flags ***
 	public bool HasSeenDoorHint;
+    public bool HasSeenJumpHint;
+    public bool HasSeenWallJumpHint;
 
     // Jasper tells you what to do
     public bool ShownMeetJasper;
