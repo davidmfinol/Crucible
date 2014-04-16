@@ -14,9 +14,9 @@ public class TouchInput : MonoBehaviour
     public Transform RadioPrefab;
 
     // Prefabs for the right-hand side of the touch input
+    public Transform BlueCirclePrefab;
     public Transform SelectionsPrefab;
     public Transform GlowOffPrefab;
-    public Transform BlueCirclePrefab;
     public Transform JumpSignPrefab;
     public Transform AttackSignPrefab;
     public Transform ItemPickupSignPrefab;
@@ -35,7 +35,7 @@ public class TouchInput : MonoBehaviour
     private Transform _attack1Sign;
     private Transform _attack2Sign;
     private Transform _pickupSign;
-    private AlphaPulse _glowOff;
+    private Transform _glowOff;
     private List<Transform> _uiDots;
     private List<Vector3> _dotPositions;
 
@@ -104,10 +104,7 @@ public class TouchInput : MonoBehaviour
         _attack1Sign = (Transform)Instantiate (AttackSignPrefab, AttackSignPrefab.position, AttackSignPrefab.rotation);
         _attack2Sign = (Transform)Instantiate (AttackSignPrefab, -AttackSignPrefab.position, AttackSignPrefab.rotation);
         _pickupSign = (Transform)Instantiate (ItemPickupSignPrefab, ItemPickupSignPrefab.position, ItemPickupSignPrefab.rotation);
-        Transform glowOff = (Transform)Instantiate (GlowOffPrefab, GlowOffPrefab.position, GlowOffPrefab.rotation);
-        _glowOff = glowOff.GetComponent<AlphaPulse> ();
-        if (_glowOff == null)
-            _glowOff = glowOff.gameObject.AddComponent<AlphaPulse> ();
+        _glowOff = (Transform)Instantiate (GlowOffPrefab, GlowOffPrefab.position, GlowOffPrefab.rotation);
 
         // Organize them away
         _blueCircle.parent = transform;
@@ -116,7 +113,7 @@ public class TouchInput : MonoBehaviour
         _attack1Sign.parent = transform;
         _attack2Sign.parent = transform;
         _pickupSign.parent = transform;
-        glowOff.parent = transform;
+        _glowOff.parent = transform;
 
         // And hide them
         _blueCircle.renderer.enabled = false;
@@ -125,7 +122,7 @@ public class TouchInput : MonoBehaviour
         _attack1Sign.renderer.enabled = false;
         _attack2Sign.renderer.enabled = false;
         _pickupSign.renderer.enabled = false;
-        _glowOff.On = false;
+        _glowOff.renderer.enabled = false;
 
         // The dots indicating the action to the player
         _uiDots = new List<Transform> (9);
@@ -377,8 +374,7 @@ public class TouchInput : MonoBehaviour
             _attack1Sign.renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
             _attack2Sign.renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
             _pickupSign.renderer.enabled = actTouched && GameManager.Player.CanInputPickup;
-            _glowOff.renderer.enabled = true;
-            _glowOff.On = actTouched;
+            _glowOff.renderer.enabled = actTouched;
 
             // Make the dots visible as appropriate
             _uiDots[0].renderer.enabled = actTouched;
@@ -419,8 +415,8 @@ public class TouchInput : MonoBehaviour
             float deg = CalculateActionDegree ();
             Vector3 originPoint = pos + GlowOffPrefab.position;
             Vector3 zeroRotation = originPoint + Vector3.right * 10.75f;
-            _glowOff.transform.position = ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * deg);
-            _glowOff.transform.rotation = Quaternion.Euler(Vector3.forward * deg);
+            _glowOff.position = ZoneGraph.RotatePointAroundPivot(zeroRotation, originPoint, Vector3.forward * deg);
+            _glowOff.rotation = Quaternion.Euler(Vector3.forward * deg);
             _glowOff.renderer.material.color = Color.white;
 
             // Color as appropriate
