@@ -43,14 +43,26 @@ public class MysteriousRunner : MonoBehaviour
         GameManager.IsPlayingCutscene = true;
         GameManager.MainCamera.Target = transform;
 
+		// Start moving left
         transform.position = startPosition;
-//        input.Horizontal = 1.0f;
-//        yield return new WaitForSeconds (0.3f);
-
 		input.Horizontal = 0.4f;
-		yield return new WaitForSeconds (3.0f);
-		GameManager.MainCamera.Target = null; 
-		yield return new WaitForSeconds (3.5f);
+		yield return new WaitForSeconds (1.0f);
+
+		// Zoom in on Babybot
+		GameManager.MainCamera.CinematicOverride = true;
+		EnemyAI babyBot = null;
+		foreach(EnemyAI ai in GameManager.AI.Enemies)
+			if(ai.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_BabyBot)
+				babyBot = ai;
+		GameManager.MainCamera.Target = babyBot.transform; 
+		GameManager.MainCamera.CinematicOverride = false;
+		yield return new WaitForSeconds (1.5f);
+
+		// Go back to the runner
+		CameraTargetAttributes camAtt = gameObject.AddComponent<CameraTargetAttributes>();
+		GameManager.MainCamera.Target = transform;
+		yield return new WaitForSeconds (1.5f);
+		Destroy(camAtt);
 
         GameManager.MainCamera.Target = GameManager.Player.transform;
         GameManager.IsPlayingCutscene = false;

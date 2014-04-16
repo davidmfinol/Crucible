@@ -164,7 +164,7 @@ public class TouchInput : MonoBehaviour
     void OnLevelWasLoaded ()
     {
         // Make sure we're actually being used 
-        if (_input.UpdateInputMethod != UpdateInput)
+        if (!this.enabled || _input.UpdateInputMethod != UpdateInput)
             return;
 
         // And make sure the co-routines really did stop 
