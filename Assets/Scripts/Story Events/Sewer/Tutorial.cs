@@ -106,10 +106,6 @@ public class Tutorial : MonoBehaviour
         // Let them move around a bit
         GameManager.MainCamera.CinematicOverride = false;
         GameManager.UI.EnableInput ();
-        yield return new WaitForSeconds(5.0f);
-
-        // And then show the wall jump
-        ShowWallJump ();
 
     }
 
@@ -224,11 +220,7 @@ public class Tutorial : MonoBehaviour
 		// drops 2 items.
 		newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts);
 
-		// close the door behind you
-		StopCoroutine("OperateDoor");
-		SewerDoor.animation.Play("Close");
-
-
+        // Olympus gives chase to the mysterious runner for a bit
 		yield return new WaitForSeconds(2.3f);
 		CharacterInput input = newOlympus.GetComponent<CharacterInput> ();
 		input.Horizontal = -0.7f;
@@ -280,7 +272,11 @@ public class Tutorial : MonoBehaviour
 
 			}
 
-		}
+        }
+        
+        // close the door behind you
+        StopCoroutine("OperateDoor");
+        SewerDoor.animation.Play("Close");
 
 
 		// power down.
