@@ -9,6 +9,8 @@ public class MysteriousRunner : MonoBehaviour
 {
 	private bool _walkedUnderneath = false;
 
+	private GameObject _droppedShield;
+
     public IEnumerator ShowWallJump ()
     {
         CharacterInput input = GetComponent<CharacterInput> ();
@@ -110,7 +112,9 @@ public class MysteriousRunner : MonoBehaviour
 		Vector3 shieldPos = transform.position;
 		shieldPos += Vector3.right * 3.0f;
 		shieldPos += Vector3.down * 2.0f;
-		Instantiate(Resources.Load("Prefabs/Weapons/OnField/HoloShield"), shieldPos, Quaternion.Euler(0.0f, 270.0f, 0.0f) );
+
+		_droppedShield = (GameObject) Instantiate(Resources.Load("Prefabs/Weapons/OnField/HoloShield"), shieldPos, Quaternion.Euler(0.0f, 270.0f, 0.0f) );
+
 		yield return new WaitForSeconds (0.5f);
 		input.Attack = 0f;
 		GameManager.MainCamera.Target = null;
@@ -130,5 +134,10 @@ public class MysteriousRunner : MonoBehaviour
 		get {
 			return _walkedUnderneath;
 		}
+	}
+
+	public GameObject DroppedShield {
+		get { return _droppedShield; }
+
 	}
 }

@@ -178,6 +178,8 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		// remove a charge from weapon.
 		GameManager.Inventory.TryRemoveAmmo (GameManager.Inventory.CurrentWeapon.Type, 1);
 
+
+
         GameManager.MainCamera.CinematicOverride = false;
         StealthKillable = null;
 

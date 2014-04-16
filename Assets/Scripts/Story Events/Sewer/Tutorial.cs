@@ -29,6 +29,10 @@ public class Tutorial : MonoBehaviour
 
     private bool _sewerDoorOpen;
 
+	// dropped shield from the NPC
+	private GameObject _droppedShield;
+
+
     void Start ()
     {
 		SewerDoor.animation.Play ("Close");
@@ -212,7 +216,11 @@ public class Tutorial : MonoBehaviour
 		input.Attack = 1.0f;
 		yield return new WaitForSeconds(2.0f);
 
+		// *** save a reference to the shield that the runner dropped so we can destroy it ***
+		_droppedShield = Runner.DroppedShield;
+
 		StartCoroutine(ForcePunch(input));
+		StartCoroutine (KeepShieldActive(input));
 		enemyAI.enabled = true;
 	
 	}
@@ -222,10 +230,26 @@ public class Tutorial : MonoBehaviour
 		while(true)
 		{
 			yield return new WaitForSeconds(0.5f);
-            if(input == null)
+			// if he's dead or after you, stop punching randomly.
+            if((input) == null || Mathf.Abs (input.Horizontal) > 0.1f)
                 break;
 			input.Attack = 1.0f;
 		}
+	}
+
+	public IEnumerator KeepShieldActive(CharacterInput input) {
+		while(true) {
+			yield return new WaitForSeconds(0.5f);
+
+			// dead, destroy shield
+			if((input) == null) {
+				Destroy (_droppedShield);
+				break;
+
+			}
+
+		}
+
 	}
 
 	public IEnumerator KeepFanSpinning ()

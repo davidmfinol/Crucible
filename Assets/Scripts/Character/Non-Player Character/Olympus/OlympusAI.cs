@@ -50,6 +50,11 @@ public class OlympusAI : EnemyAI
                 oa.StartSearch ();
         }
 
+		// initiate the color change on alert
+		if(oldAwareness != Awareness) {
+			_olympusAwareness.ChangeAwareness (Awareness);
+
+		}
     }
 
     protected override void Wander ()
@@ -107,17 +112,6 @@ public class OlympusAI : EnemyAI
         if (GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.DamagedState)
             Animator.CharInput.Horizontal = 0;
 
-    }
-
-    public override AwarenessLevel Awareness {
-        get {
-            return base.Awareness;
-        }
-        set {
-            base.Awareness = value;
-            if (_olympusAwareness != null && Awareness != value)
-                _olympusAwareness.ChangeAwareness (value);
-        }
     }
 
 }
