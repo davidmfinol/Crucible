@@ -196,7 +196,7 @@ public class UIManager : MonoBehaviour
 		_mapQuad.gameObject.SetActive (false);
 
 		// *** add all game objects to map ***
-		_mapQuad.renderer.material.mainTexture = Resources.Load<Texture2D> ("Maps/Commercial Zone Map");
+		_mapQuad.renderer.material.mainTexture = Resources.Load<Texture2D> ("Textures/User Interface/Maps/Commercial Zone Map");
 		//   _mapQuad.renderer.material.color = new Color (_mapQuad.renderer.material.color.r, 
 		//                                                 _mapQuad.renderer.material.color.g, 
 		//                                                 _mapQuad.renderer.material.color.b, 
