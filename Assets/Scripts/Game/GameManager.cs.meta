@@ -5,6 +5,8 @@ MonoImporter:
   defaultReferences:
   - PlayerCharacterPrefab: {fileID: 400034, guid: 01bb07965aa214e4a8c04dc0061792e6,
       type: 2}
+  - PlayerCharacterPrefab2: {fileID: 400034, guid: 01bb07965aa214e4a8c04dc0061792e6,
+      type: 2}
   - UIPrefab: {fileID: 400000, guid: 6ed616d12c81bae40981f28d86406edb, type: 2}
   executionOrder: -100
   icon: {instanceID: 0}
