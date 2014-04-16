@@ -938,7 +938,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     }
     
     public override bool CanInputVertical {
-        get { return CanTransitionZ || CurrentState.nameHash == ClimbingPipeState; }
+        get { return CanTransitionZ || CurrentState.nameHash == ClimbingPipeState|| CurrentState.nameHash == ClimbingLadderState; }
     }
     
     public override bool CanInputAttack {
