@@ -9,13 +9,17 @@ using System.Collections;
 [AddComponentMenu("User Interface/UIManager")]
 public class UIManager : MonoBehaviour
 {
-    // Prefabs used by the UI Manager
+    // Prefabs for the on-screen filters/effects
 	public Transform ChaseVignette;
 	public Transform SearchVignette;
 	public Transform HurtVignette;
     public Transform LensFlareFlash;
     public Transform MatteBars;
     public Transform StealthKillVignette;
+    public Transform StealthKillVignette1;
+    public Transform StealthKillVignette2;
+
+    // Prefabs for the top-right weapon-wheel
     public GameObject WeaponQuadPrefab;
     public GameObject WeaponCountQuadPrefab;
 
@@ -27,6 +31,7 @@ public class UIManager : MonoBehaviour
 	// quad containing objective arrow texture.
 	public GameObject ObjectiveQuadPrefab;
 	public Vector3 ObjectiveQuadPos;
+
 	// how delayed are our objective removal updates
 	public float ObjectiveReachedInterval;
 
@@ -53,7 +58,9 @@ public class UIManager : MonoBehaviour
 	private AlphaPulse _flashAlpha;
     private bool _hasFlashed;
     private Transform _matteBars;
-    private Transform _stealthKillVignette;
+    private Fader _stealthKillVignette;
+    private Fader _stealthKillVignette1;
+    private Fader _stealthKillVignette2;
 
     // Also has some information about the top-right weapon wheel
 	private Vector3 _weaponWheelPos;
@@ -118,9 +125,22 @@ public class UIManager : MonoBehaviour
         
         _matteBars = (Transform)Instantiate (MatteBars, MatteBars.position, MatteBars.rotation);
         _matteBars.parent = transform;
+        Transform stealthKillVignette = (Transform)Instantiate (StealthKillVignette, StealthKillVignette.position, StealthKillVignette.rotation);
+        stealthKillVignette.parent = transform;
+        _stealthKillVignette = stealthKillVignette.GetComponent<Fader> ();
+        Color stealthColor = _stealthKillVignette.renderer.material.color;
+        stealthColor.a = 0;
+        _stealthKillVignette.renderer.material.color = stealthColor;
 
-        _stealthKillVignette = (Transform)Instantiate (StealthKillVignette, StealthKillVignette.position, StealthKillVignette.rotation);
-        _stealthKillVignette.parent = transform;
+        Transform stealthKillVignette1 = (Transform)Instantiate (StealthKillVignette1, StealthKillVignette1.position, StealthKillVignette1.rotation);
+        stealthKillVignette1.parent = transform;
+        _stealthKillVignette1 = stealthKillVignette1.GetComponent<Fader> ();
+        _stealthKillVignette1.renderer.material.color = stealthColor;
+
+        Transform stealthKillVignette2 = (Transform)Instantiate (StealthKillVignette2, StealthKillVignette2.position, StealthKillVignette2.rotation);
+        stealthKillVignette2.parent = transform;
+        _stealthKillVignette2 = stealthKillVignette2.GetComponent<Fader> ();
+        _stealthKillVignette2.renderer.material.color = stealthColor;
 
 		_weaponWheelPos = new Vector3 (1, 1, 8);
 		_weaponWheelPos = _uiCamera.ViewportToWorldPoint (_weaponWheelPos);
@@ -566,7 +586,17 @@ public class UIManager : MonoBehaviour
 		} else if (_hasFlashed)
 			_flashAlpha.On = false;
 
-        _stealthKillVignette.gameObject.SetActive(GameManager.Player is PlayerCharacterAnimator && ((PlayerCharacterAnimator)GameManager.Player).StealthKillable != null);
+        bool canStealthKill = GameManager.Player is PlayerCharacterAnimator && ((PlayerCharacterAnimator)GameManager.Player).StealthKillable != null;
+        bool vignetteActive = _stealthKillVignette.IsFadingIn || _stealthKillVignette.IsStaying;
+        if (canStealthKill && !vignetteActive) {
+            _stealthKillVignette.FadeIn ();
+            _stealthKillVignette1.FadeIn();
+            _stealthKillVignette2.FadeIn();
+        } else if (!canStealthKill && vignetteActive) {
+            _stealthKillVignette.FadeOut ();
+            _stealthKillVignette1.FadeOut ();
+            _stealthKillVignette2.FadeOut ();
+        }
 
 	}
 
