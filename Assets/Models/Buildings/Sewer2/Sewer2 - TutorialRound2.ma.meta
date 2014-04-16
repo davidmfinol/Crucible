@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 9af355a9877734f998903bda11edab8b
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Attached_on_the_side
     100002: curve1
@@ -727,6 +727,8 @@ ModelImporter:
     101442: polySurface321
     101444: polySurface322
     101446: transform135
+    101448: GlowingLED
+    101450: group12
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1451,6 +1453,8 @@ ModelImporter:
     401442: polySurface321
     401444: polySurface322
     401446: transform135
+    401448: GlowingLED
+    401450: group12
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -2847,4 +2851,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
+  additionalBone: 0
   userData: 
