@@ -19,6 +19,13 @@ public class ItemQuad : MonoBehaviour
         ItemQuad itemQuad = quadCopy.GetComponent<ItemQuad> ();
         itemQuad.invItem = invItem;
         itemQuad.IsDraggedCopy = true;
+
+        Vector3 newScale = new Vector3(transform.parent.localScale.x, transform.parent.localScale.y, transform.parent.localScale.z);
+
+        // TODO: make not arbitrary scale-down.
+        newScale /= 4.0f;
+
+        itemQuad.transform.localScale = newScale;
         return quadCopy;
 
     }
