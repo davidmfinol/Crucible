@@ -27,12 +27,16 @@ public class Tutorial : MonoBehaviour
 	public Transform AIBarrier;
     //public Transform Olympus2Position;
 
+	private TutorialAudioPlayer _sound;
+
+	private bool _stopFanStopping;
     private bool _sewerDoorOpen;
 
     void Start ()
     {
 		SewerDoor.animation.Play ("Close");
 
+		_sound = gameObject.GetComponentInChildren<TutorialAudioPlayer> ();
 		SpinningFan.animation.Play ("SpinningLoop");
 		StartCoroutine (KeepFanSpinning ());
         StartCoroutine (KeepShieldActive());
@@ -172,11 +176,13 @@ public class Tutorial : MonoBehaviour
             // see player & open? close.
             if ((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
                 SewerDoor.animation.Play ("Close");
+				_sound.Play (_sound.DoorSlam, 1.0f);
                 _sewerDoorOpen = false;
 
                 // no longer see player & closed? open.
             } else if ((GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
                 SewerDoor.animation.Play ("Open");
+				_sound.Play (_sound.DoorOpen, 1.0f);
                 _sewerDoorOpen = true;
 
             }
@@ -291,6 +297,8 @@ public class Tutorial : MonoBehaviour
 
 	public IEnumerator KeepFanSpinning ()
 	{
+		_sound.PlayLoop(_sound.FanSpinning, 1.0f);
+
 		while(true)
 		{
 			
@@ -312,6 +320,11 @@ public class Tutorial : MonoBehaviour
 			// make the fan non-lethal and enter a separate wind-down loop
 			if( !sparkPlugFound ) {
 				Destroy(SpinningFan.GetComponentInChildren<DeathTrigger>());
+				if(!_stopFanStopping)
+				{
+					_stopFanStopping = true;
+					_sound.Play(_sound.FanStopping, 1.0f);
+				}
 				break;
 
 			}

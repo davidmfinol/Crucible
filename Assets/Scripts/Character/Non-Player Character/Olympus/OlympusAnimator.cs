@@ -156,6 +156,7 @@ public class OlympusAnimator : CharacterAnimator
 
     protected void Punch (float elapsedTime)
     {
+		_sound.Play (_sound.Idling, 0.5f);
         // find where to place the attack event
         Vector3 meleePos = transform.position;
         meleePos.x += (2.5f * Direction.x);
@@ -522,7 +523,7 @@ public class OlympusAnimator : CharacterAnimator
 
 	public void PlayServo()
 	{
-		_sound.Play (_sound.Idling, 1.0f);
+		_sound.Play (_sound.Idling, 0.5f);
 	}
 
     public override bool IsLanding {
