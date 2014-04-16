@@ -77,7 +77,9 @@ public class TouchInput : MonoBehaviour
 
         // Left-hand side GUI
         _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.identity);
-        _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler (new Vector3 (0, 0, 90)));
+        _horizontalSlider.GetComponent<AlphaPulse> ().On = true;
+        _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler (Vector3.forward * 90));
+        _verticalSlider.GetComponent<AlphaPulse> ().On = true;
         Vector3 verticalScale = _verticalSlider.localScale;
         verticalScale.x *= 12;
         _verticalSlider.transform.localScale = verticalScale;
@@ -307,9 +309,10 @@ public class TouchInput : MonoBehaviour
     public void DisplayParticles (float degrees)
     {
         _particles.transform.position = ConvertTouchPosToWorldPoint (_actionStartPos);
-        Quaternion rotation = ParticlePrefab.rotation * Quaternion.Euler(Vector3.forward * degrees);
-        _particles.transform.rotation = rotation;
+        Quaternion rot = Quaternion.Euler(Vector3.forward * degrees) * ParticlePrefab.rotation;
+        _particles.transform.rotation = rot;
 
+        _particles.startColor = Color.white;
         if (GameManager.Player.CanInputJump && (IsJumpLeft (degrees) || IsJumpUp (degrees) || IsJumpRight (degrees)))
             _particles.startColor = Color.blue;
         else if (GameManager.Player.CanInputAttack && (IsAttackLeft (degrees) || IsAttackRight (degrees)))
@@ -439,7 +442,7 @@ public class TouchInput : MonoBehaviour
             // Put the glow-off at the correct location
             float deg = CalculateActionDegree ();
             Vector3 originPoint = pos + GlowOffPrefab.position;
-            Vector3 zeroRotation = originPoint + Vector3.right * 10.75f;
+            Vector3 zeroRotation = originPoint + Vector3.right * 9.0f;
             _glowOff.position = ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * deg);
             _glowOff.rotation = Quaternion.Euler (Vector3.forward * deg);
             _glowOff.renderer.material.color = Color.white;

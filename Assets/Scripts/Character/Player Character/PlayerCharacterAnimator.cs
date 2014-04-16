@@ -172,27 +172,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
     {
         GenerateStealthKillEvent ();
         GameManager.MainCamera.CinematicOverride = true;
-        
-        Time.timeScale = 1.5f;
 
-        yield return new WaitForSeconds (1.5f);
-
-        Time.timeScale = 0.5f;
-
-        yield return new WaitForSeconds (1.0f);
-
-        Time.timeScale = 1.5f;
-
-        yield return new WaitForSeconds (1.0f);
-        
-        Time.timeScale = 0.1f;
-        
-        yield return new WaitForSeconds (0.5f);
-        
-        Time.timeScale = 1.0f;
+        yield return new WaitForSeconds (4.0f);
 
 		// remove a charge from weapon.
-		Debug.Log ("Removing a charge from weapon.");
 		GameManager.Inventory.TryRemoveAmmo (GameManager.Inventory.CurrentWeapon.Type, 1);
 
         GameManager.MainCamera.CinematicOverride = false;
