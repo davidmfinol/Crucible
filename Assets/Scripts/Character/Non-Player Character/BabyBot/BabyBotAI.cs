@@ -7,14 +7,29 @@ using System.Collections;
 [AddComponentMenu("AI/BabyBot AI")]
 public class BabyBotAI : EnemyAI
 {
+    BabyBotAwareness _babyBotAwareness;
+
+    protected override void OnStart()
+    {
+        _babyBotAwareness = GetComponent<BabyBotAwareness> ();
+
+    }
+
     protected override void UpdateAwareness ()
     {
+        AwarenessLevel oldAwareness = Awareness;
+
         base.UpdateAwareness ();
+
         Settings.CanSee = Awareness != AwarenessLevel.Unaware;
 
 		// if baby bot attacking, remain in chasing mode.
 		if(Animator.CurrentState.nameHash == BabyBotAnimator.AttackState)
-			Awareness = AwarenessLevel.Chasing;
+            Awareness = AwarenessLevel.Chasing;
+
+        // update the babybot's face as appropriate
+        if(oldAwareness != Awareness)
+            _babyBotAwareness.ChangeAwareness (Awareness);
 
     }
 
