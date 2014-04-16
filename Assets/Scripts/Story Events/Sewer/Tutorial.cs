@@ -111,11 +111,6 @@ public class Tutorial : MonoBehaviour
 
     public void ShowWallJump ()
     {
-		// don't bother if dead.
-		if( (GameManager.Player == null) || GameManager.Player.IsDead)
-			return;
-
-
         if (!GameManager.SaveData.HasShownWallJump) {
             GameManager.SaveData.HasShownWallJump = true;
 
@@ -128,10 +123,6 @@ public class Tutorial : MonoBehaviour
 
     public void ShowSneak ()
     {
-		// don't bother if dead.
-		if( (GameManager.Player == null) || GameManager.Player.IsDead)
-			return;
-
         if (!GameManager.SaveData.HasShownSneak) {
             GameManager.SaveData.HasShownSneak = true;
             
@@ -144,10 +135,6 @@ public class Tutorial : MonoBehaviour
 
 	public void ShowSightPuzzle ()
 	{
-		// don't bother if dead.
-		if( (GameManager.Player == null) || GameManager.Player.IsDead)
-			return;
-
 		if (!GameManager.SaveData.HasShownSightPuzzle){
 			GameManager.SaveData.HasShownSightPuzzle = true;
 
@@ -159,10 +146,6 @@ public class Tutorial : MonoBehaviour
 
 	public void ShowSpawnOlympus ()
 	{
-		// don't bother if dead.
-		if( (GameManager.Player == null) || GameManager.Player.IsDead)
-			return;
-
 		if (!GameManager.SaveData.HasShownOlympusSpawn){
 			GameManager.SaveData.HasShownOlympusSpawn = true;
 

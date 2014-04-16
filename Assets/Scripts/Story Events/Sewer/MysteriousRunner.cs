@@ -13,8 +13,8 @@ public class MysteriousRunner : MonoBehaviour
     {
         CharacterInput input = GetComponent<CharacterInput> ();
         input.UpdateInputMethod = null;
-        GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = true;
+        GameManager.MainCamera.Target = transform;
 
         input.Horizontal = -1;
         yield return new WaitForSeconds (1.15f);
@@ -28,8 +28,8 @@ public class MysteriousRunner : MonoBehaviour
         yield return new WaitForSeconds (1.5f);
 		input.Jump = new Vector2 (1, 1);
 
-        GameManager.IsPlayingCutscene = false;
         GameManager.MainCamera.Target = GameManager.Player.transform;
+        GameManager.IsPlayingCutscene = false;
         gameObject.SetActive (false);
 
     }
@@ -38,20 +38,20 @@ public class MysteriousRunner : MonoBehaviour
     {
         CharacterInput input = GetComponent<CharacterInput> ();
         input.UpdateInputMethod = null;
-        GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = true;
+        GameManager.MainCamera.Target = transform;
 
         transform.position = startPosition;
 //        input.Horizontal = 1.0f;
 //        yield return new WaitForSeconds (0.3f);
 
-		input.Horizontal = 0.5f;
+		input.Horizontal = 0.4f;
 		yield return new WaitForSeconds (3.0f);
 		GameManager.MainCamera.Target = null; 
 		yield return new WaitForSeconds (3.5f);
 
-        GameManager.IsPlayingCutscene = false;
         GameManager.MainCamera.Target = GameManager.Player.transform;
+        GameManager.IsPlayingCutscene = false;
         gameObject.SetActive (false);
 
     }
@@ -60,8 +60,8 @@ public class MysteriousRunner : MonoBehaviour
 	{
         CharacterInput input = GetComponent<CharacterInput> ();
         input.UpdateInputMethod = null;
-        GameManager.MainCamera.Target = transform;
         GameManager.IsPlayingCutscene = true;
+        GameManager.MainCamera.Target = transform;
 
         transform.position = startPosition;
 		input.Horizontal = -1f;
@@ -80,17 +80,17 @@ public class MysteriousRunner : MonoBehaviour
 		input.Jump = new Vector2(-1, 1);
 		yield return new WaitForSeconds (3.5f);
 
-        GameManager.IsPlayingCutscene = false;
         GameManager.MainCamera.Target = GameManager.Player.transform;
+        GameManager.IsPlayingCutscene = false;
         gameObject.SetActive (false);
 	}
 
 	public IEnumerator ShowOlympusSpawn (Vector3 startPosition)
 	{
 		CharacterInput input = GetComponent<CharacterInput> ();
-		input.UpdateInputMethod = null;
+        input.UpdateInputMethod = null;
+        GameManager.IsPlayingCutscene = true;
 		GameManager.MainCamera.Target = transform;
-		GameManager.IsPlayingCutscene = true;
 
 		transform.position = startPosition;
 		input.Horizontal = -0.5f;
@@ -121,8 +121,8 @@ public class MysteriousRunner : MonoBehaviour
 		yield return new WaitForSeconds (3.5f);
 
 
-		GameManager.IsPlayingCutscene = false;
-		GameManager.MainCamera.Target = GameManager.Player.transform;
+        GameManager.MainCamera.Target = GameManager.Player.transform;
+        GameManager.IsPlayingCutscene = false;
 		gameObject.SetActive (false);
 	}
 
