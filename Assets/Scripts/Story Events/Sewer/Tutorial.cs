@@ -259,14 +259,10 @@ public class Tutorial : MonoBehaviour
                 
             }
 
-            Debug.Log ("Olympuses Alive " + GameManager.AI.OlympusesAlive);
-
-
             // no more olympuses alive, destroy
             if(GameManager.AI.OlympusesAlive == 0) {
            
                 if(shield != null) {
-                    Debug.Log ("destroyed shield.");
                     Destroy (shield.gameObject);
 
                 }
