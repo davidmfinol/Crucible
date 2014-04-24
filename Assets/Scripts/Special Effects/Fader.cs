@@ -29,10 +29,7 @@ public class Fader : MonoBehaviour
     {
         if (!FadeInAtStart)
             return;
-        
-        Color alphaed = renderer.material.color;
-        alphaed.a = 0;
-        renderer.material.color = alphaed;
+
         FadeIn ();
 
     }
@@ -50,9 +47,13 @@ public class Fader : MonoBehaviour
 
     }
 
-    public IEnumerator DoFadeIn ()
+    private IEnumerator DoFadeIn ()
     {
         _isFadingIn = true;
+
+        Color alphaed = renderer.material.color;
+        alphaed.a = MinAlpha;
+        renderer.material.color = alphaed;
         while (renderer.material.color.a < MaxAlpha) {
             yield return null;
             Color temp = renderer.material.color;
@@ -67,13 +68,13 @@ public class Fader : MonoBehaviour
 
     }
 
-    public IEnumerator Stay ()
+    private IEnumerator Stay ()
     {
         _isStaying = true;
         yield return new WaitForSeconds (StaySeconds);
         _isStaying = false;
-        if (FadeOutSeconds >= 0) 
-            StartCoroutine (DoFadeOut ());
+        if (FadeOutSeconds >= 0)
+            FadeOut();
 
     }
 
@@ -90,7 +91,7 @@ public class Fader : MonoBehaviour
 
     }
 
-    public IEnumerator DoFadeOut ()
+    private IEnumerator DoFadeOut ()
     {
         _isFadingOut = true;
         while (renderer.material.color.a > MinAlpha) {
