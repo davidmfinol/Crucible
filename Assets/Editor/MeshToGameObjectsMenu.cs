@@ -96,8 +96,10 @@ public class MeshToGameObjectsMenu
             foreach (string objName in objectNames)
                 if (name.Contains (objName.ToLower ()))
                     containsName = true;
-            if (!containsName)
+            if (!containsName) {
+                transform.gameObject.isStatic = true;
                 return;
+            }
 
             // Set up the object
             SetupObject (transform);

@@ -23,13 +23,14 @@ public class Checkpoint : MonoBehaviour
 		Commercial_MidLeft,
 		Commercial_BottomLeft,
         
-        Checkpoint_LeftOCourse = 100,
-        Checkpoint_CentralOCourse,
-        Checkpoint_RightOCourse,
-        Checkpoint_OCourseToAnvilPark,
-        Checkpoint_OcourseStart,
-        Checkpoint_UpperAnvilPark,
-        Checkpoint_LowerAnvilPark,
+        OCourse_Left = 100,
+        OCourse_Central,
+        OCourse_Right,
+        OCourse_ToAnvilPark,
+        OCourse_Start,
+
+        AnvilPark_Upper = 150,
+        AnvilPark_Lower,
     }
     ;
 

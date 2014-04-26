@@ -6,8 +6,9 @@ using UnityEngine;
 using UnityEditor;
 
 /// <summary>
-/// Combine children is used by the MeshToGameObjectsMenu to combine all the meshes of a gameobject into 1 mesh.
-/// This greatly helps performance by reducing the number of draw calls.
+/// Combine children can be used by the MeshToGameObjectsMenu to combine all the meshes of a gameobject into 1 mesh.
+/// This can greatly help performance by reducing the number of draw calls.
+/// It is currently unused in favor of static batching (https://docs.unity3d.com/Documentation/Manual/DrawCallBatching.html).
 /// 
 /// This script is heavily based off the script found here: http://forum.unity3d.com/threads/37721-Combine-Children-Extented-(sources-to-share)
 /// </summary>
