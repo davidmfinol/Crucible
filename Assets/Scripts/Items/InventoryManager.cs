@@ -59,14 +59,14 @@ public class InventoryManager : MonoBehaviour
             if (item.Type == newItem.Type) {
                 item.Quantity += newItem.Quantity;
                 item.Quantity = Mathf.Min (item.MaxQuantity, item.Quantity);
-                Debug.Log ("Update item: " + item.Quantity + " " + item.Name);
+                //Debug.Log ("Update item: " + item.Quantity + " " + item.Name);
                 return;
 
             }
         }
 
         Items.Add (newItem);
-        Debug.Log ("New item: " + newItem.Quantity + " " + newItem.Name);
+        //Debug.Log ("New item: " + newItem.Quantity + " " + newItem.Name);
 
     }
     
@@ -76,11 +76,8 @@ public class InventoryManager : MonoBehaviour
         
         // persist weapons as savestates since weapons themselves are monobehaviors
         List<WeaponSaveState> weaponSaves = new List<WeaponSaveState> ();
-
-        foreach (Weapon w in Weapons) {
+        foreach (Weapon w in Weapons)
             weaponSaves.Add (w.SaveState ());
-
-        }
 
         save.WeaponsHeld = weaponSaves.ToArray ();
         save.ItemsHeld = Items.ToArray ();        

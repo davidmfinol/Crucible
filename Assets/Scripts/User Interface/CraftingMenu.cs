@@ -13,7 +13,6 @@ public class CraftingMenu : MonoBehaviour
         
     }
 
-    // TODO: USE RESOURCES.LOAD INSTEAD OF PUBLIC PREFABS
     // graphical prefabs and radius of items to sit in them.
     public GameObject WeaponWheelPrefab;
     public GameObject ItemWheelPrefab;
