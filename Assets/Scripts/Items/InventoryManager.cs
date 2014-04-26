@@ -76,11 +76,8 @@ public class InventoryManager : MonoBehaviour
         
         // persist weapons as savestates since weapons themselves are monobehaviors
         List<WeaponSaveState> weaponSaves = new List<WeaponSaveState> ();
-
-        foreach (Weapon w in Weapons) {
+        foreach (Weapon w in Weapons)
             weaponSaves.Add (w.SaveState ());
-
-        }
 
         save.WeaponsHeld = weaponSaves.ToArray ();
         save.ItemsHeld = Items.ToArray ();        
