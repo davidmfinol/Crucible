@@ -83,6 +83,7 @@ public class MapQuad : MonoBehaviour
 		// add player to map
 		AddMapPoint (GameManager.Player.gameObject, "Player", "Maps/PlayerBlip");
 		
+        // FIXME: SLOW
 		GameObject items = GameObject.Find ("Items");
 
 		if(items != null) {
