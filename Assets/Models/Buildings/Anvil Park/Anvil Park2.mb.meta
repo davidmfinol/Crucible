@@ -363,6 +363,11 @@ ModelImporter:
     100714: polySurface90
     100716: polySurface91
     100718: polySurface92
+    100720: Rope
+    100722: Rope1
+    100724: Rope2
+    100726: GroundMesh
+    100728: mesh
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -723,6 +728,11 @@ ModelImporter:
     400714: polySurface90
     400716: polySurface91
     400718: polySurface92
+    400720: Rope
+    400722: Rope1
+    400724: Rope2
+    400726: GroundMesh
+    400728: mesh
     2300000: Fixture
     2300002: HarshRedLight
     2300004: HarshRedLight1
@@ -989,6 +999,10 @@ ModelImporter:
     2300526: polySurface90
     2300528: polySurface91
     2300530: polySurface92
+    2300532: Rope
+    2300534: Rope1
+    2300536: Rope2
+    2300538: GroundMesh
     3300000: Fixture
     3300002: HarshRedLight
     3300004: HarshRedLight1
@@ -1255,6 +1269,10 @@ ModelImporter:
     3300526: polySurface90
     3300528: polySurface91
     3300530: polySurface92
+    3300532: Rope
+    3300534: Rope1
+    3300536: Rope2
+    3300538: GroundMesh
     4300000: pCube4
     4300002: Ledge7
     4300004: Ledge8
@@ -1520,6 +1538,10 @@ ModelImporter:
     4300524: polySurface90
     4300526: polySurface91
     4300528: polySurface92
+    4300530: Rope
+    4300532: Rope2
+    4300534: Rope1
+    4300536: GroundMesh
     7400000: Take 001
     9500000: //RootNode
   materials:
