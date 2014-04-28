@@ -803,7 +803,81 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      transformMask: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armguard
+        weight: 1
+      - path: Char
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/foot_IK_L
+        weight: 1
+      - path: metarig/foot_IK_L/knee_L
+        weight: 1
+      - path: metarig/foot_IK_R
+        weight: 1
+      - path: metarig/foot_IK_R/knee_R
+        weight: 1
+      - path: metarig/hip
+        weight: 1
+      - path: metarig/hip/spine
+        weight: 1
+      - path: metarig/hip/spine/chest
+        weight: 1
+      - path: metarig/hip/spine/chest/neck
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: metarig/hip/thigh_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: metarig/hip/thigh_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: Plane_001
+        weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
@@ -883,7 +957,81 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []
-      transformMask: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armguard
+        weight: 1
+      - path: Char
+        weight: 1
+      - path: metarig
+        weight: 1
+      - path: metarig/foot_IK_L
+        weight: 1
+      - path: metarig/foot_IK_L/knee_L
+        weight: 1
+      - path: metarig/foot_IK_R
+        weight: 1
+      - path: metarig/foot_IK_R/knee_R
+        weight: 1
+      - path: metarig/hip
+        weight: 1
+      - path: metarig/hip/spine
+        weight: 1
+      - path: metarig/hip/spine/chest
+        weight: 1
+      - path: metarig/hip/spine/chest/neck
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
+        weight: 1
+      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
+        weight: 1
+      - path: metarig/hip/thigh_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L
+        weight: 1
+      - path: metarig/hip/thigh_L/shin_L/foot_L
+        weight: 1
+      - path: metarig/hip/thigh_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R
+        weight: 1
+      - path: metarig/hip/thigh_R/shin_R/foot_R
+        weight: 1
+      - path: Plane_001
+        weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16

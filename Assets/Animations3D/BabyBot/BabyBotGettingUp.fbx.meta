@@ -989,7 +989,7 @@ ModelImporter:
       transformModified: 1
     - name: LeftElbow
       position: {x: .0326901004, y: 5.55111479e-18, z: -4.44089183e-17}
-      rotation: {x: .0359798968, y: -.00169277412, z: -.0359462053, w: .998704433}
+      rotation: {x: 3.5558817e-10, y: -.0277507696, z: -4.76614126e-09, w: .999614894}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCube17
@@ -1004,7 +1004,7 @@ ModelImporter:
       transformModified: 1
     - name: LeftHand
       position: {x: .0422246978, y: 1.3322676e-17, z: -3.5527136e-17}
-      rotation: {x: .734299123, y: .170399427, z: .170399442, w: -.634612441}
+      rotation: {x: .687202156, y: .166593418, z: .166593388, w: -.687201977}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCube1
@@ -1044,7 +1044,7 @@ ModelImporter:
       transformModified: 1
     - name: RightShoulder
       position: {x: -.0286038574, y: 6.661338e-18, z: 0}
-      rotation: {x: -.615703821, y: -.0122646037, z: -.00816932321, w: .78783989}
+      rotation: {x: 0, y: -.0107049085, z: 1.38294318e-08, w: .99994272}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCylinder16
@@ -1054,7 +1054,7 @@ ModelImporter:
       transformModified: 1
     - name: RightElbow
       position: {x: -.0326901227, y: 6.661338e-18, z: -1.3322676e-17}
-      rotation: {x: .0568522252, y: .02512048, z: -.00981099438, w: .998018384}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCylinder17
@@ -1069,7 +1069,7 @@ ModelImporter:
       transformModified: 1
     - name: RightHand
       position: {x: -.0422247462, y: 1.11022296e-17, z: -1.3322676e-17}
-      rotation: {x: .412784338, y: .0517255589, z: .0517255291, w: .907886624}
+      rotation: {x: .55490756, y: .438266665, z: .438266695, w: -.55490756}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: RightHand 1

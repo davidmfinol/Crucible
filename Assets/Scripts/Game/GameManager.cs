@@ -202,17 +202,17 @@ public class GameManager : MonoBehaviour
         // TODO: MAKE THESE OBJECTIVES BE HANDLED IN ONE CENTRALIZED LOCATION/METHOD
         // *** load checkpoints he hasn't reached ***
         if (Application.loadedLevelName == "OCourse") {
-            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint1"));
+            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint1")); //FIXME: EXTREMELY SLOW
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint2"));
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint3"));
             
         } else if (Application.loadedLevelName == "Sewer") {
             if (!_saveData.HasShownWallJump)
-                GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger1"));
+				GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger1"));//FIXME: EXTREMELY SLOW
 
 
         } else if (Application.loadedLevelName == "Commercial Zone") {
-            GameManager.UI.Objectives.AddObjective (GameObject.Find ("GunParts"));
+			GameManager.UI.Objectives.AddObjective (GameObject.Find ("GunParts"));//FIXME: EXTREMELY SLOW
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("Isolator"));
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("HiggsDrive"));
 
@@ -351,7 +351,6 @@ public class GameManager : MonoBehaviour
             Item newItem = createdItem.GetComponent<Item> ();
             newItem.Quantity = itemState.Quantity;
             newItem.WasPlaced = itemState.WasPlaced;
-    
         }
 
     }

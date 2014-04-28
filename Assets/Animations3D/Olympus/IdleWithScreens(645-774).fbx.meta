@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6fd0f156f199e4478892588ea584d591
+guid: 7412e1abea95d80438b5493102641550
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -12,12 +12,12 @@ ModelImporter:
     100012: anim_l_arm01
     100014: anim_l_arm02
     100016: anim_l_elbow01
-    100018: anim_l_elbow02
-    100020: anim_l_knee01
-    100022: anim_pelvis01
-    100024: anim_r_knee
-    100026: camera1
-    100028: Controls01
+    100018: anim_l_knee01
+    100020: anim_pelvis01
+    100022: anim_r_knee
+    100024: camera1
+    100026: Controls01
+    100028: FKJoin_shoulder
     100030: group1
     100032: Head
     100034: head
@@ -153,12 +153,12 @@ ModelImporter:
     400012: anim_l_arm01
     400014: anim_l_arm02
     400016: anim_l_elbow01
-    400018: anim_l_elbow02
-    400020: anim_l_knee01
-    400022: anim_pelvis01
-    400024: anim_r_knee
-    400026: camera1
-    400028: Controls01
+    400018: anim_l_knee01
+    400020: anim_pelvis01
+    400022: anim_r_knee
+    400024: camera1
+    400026: Controls01
+    400028: FKJoin_shoulder
     400030: group1
     400032: Head
     400034: head
@@ -387,8 +387,7 @@ ModelImporter:
     4300078: pCube26
     4300080: pCube27
     4300082: pCube28
-    7400000: Take 001
-    7400002: TurnAround
+    7400000: Idle
     9500000: //RootNode
     13700000: pCube14
     13700002: pCube18
@@ -418,20 +417,20 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Idle
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 26
+      firstFrame: 645
+      lastFrame: 774
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -.150000006
       cycleOffset: 0
       loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
@@ -439,7 +438,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .275942057
+        functionName: PlayServo
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -466,8 +472,6 @@ ModelImporter:
       - path: anim_global01/Controls01/anim_CenterofGravity/anim_ChestControl/anim_l_arm02
         weight: 0
       - path: anim_global01/Controls01/anim_CenterofGravity/anim_ChestControl/anim_l_elbow01
-        weight: 0
-      - path: anim_global01/Controls01/anim_CenterofGravity/anim_ChestControl/anim_l_elbow02
         weight: 0
       - path: anim_global01/Controls01/anim_CenterofGravity/anim_pelvis01
         weight: 0
@@ -541,6 +545,89 @@ ModelImporter:
         weight: 0
       - path: anim_global01/Root/spine/shoulder
         weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint22
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint22/joint23
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint22/joint23/joint24
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint22/joint23/joint24/joint25
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint26
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint26/joint27
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint26/joint27/joint28
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint26/joint27/joint28/joint29
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint30
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint30/joint31
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint30/joint31/joint32
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint30/joint31/joint32/joint33
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint34
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint34/joint35
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint34/joint35/joint36
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint34/joint35/joint36/joint37
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint38
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint38/joint39
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint38/joint39/joint40
+        weight: 1
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/right_palm
+          1/joint38/joint39/joint40/joint41
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/right_hand/RightHand
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/RightForeArm
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/RightForeArm/polySurface5
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/RightForeArm/polySurface6
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/right_elbow/RightForeArm/transform7
+        weight: 0
+      - path: anim_global01/Root/spine/shoulder/FKJoin_shoulder/right_shoulder/RightArm
+        weight: 0
       - path: anim_global01/Root/spine/shoulder/left_shoulder
         weight: 1
       - path: anim_global01/Root/spine/shoulder/left_shoulder/left_elbow
@@ -602,9 +689,9 @@ ModelImporter:
       - path: anim_global01/Root/spine/shoulder/left_shoulder/RightArm1
         weight: 0
       - path: anim_global01/Root/spine/shoulder/neck
-        weight: 0
+        weight: 1
       - path: anim_global01/Root/spine/shoulder/neck/head
-        weight: 0
+        weight: 1
       - path: anim_global01/Root/spine/shoulder/neck/head/Head
         weight: 0
       - path: anim_global01/Root/spine/shoulder/neck/head/Head/polySurface2
@@ -615,101 +702,20 @@ ModelImporter:
         weight: 0
       - path: anim_global01/Root/spine/shoulder/neck/head/Head/transform1
         weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint22
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint22/joint23
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint22/joint23/joint24
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint22/joint23/joint24/joint25
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint26
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint26/joint27
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint26/joint27/joint28
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint26/joint27/joint28/joint29
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint30
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint30/joint31
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint30/joint31/joint32
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint30/joint31/joint32/joint33
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint34
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint34/joint35
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint34/joint35/joint36
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint34/joint35/joint36/joint37
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint38
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint38/joint39
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint38/joint39/joint40
-        weight: 1
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/right_palm
-          1/joint38/joint39/joint40/joint41
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/right_hand/RightHand
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/RightForeArm
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/RightForeArm/polySurface5
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/RightForeArm/polySurface6
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/right_elbow/RightForeArm/transform7
-        weight: 0
-      - path: anim_global01/Root/spine/shoulder/right_shoulder/RightArm
-        weight: 0
       - path: anim_global01/Root/spine/Torso
-        weight: 1
+        weight: 0
       - path: anim_global01/Root/spine/Torso/Torso 1
-        weight: 1
+        weight: 0
       - path: anim_global01/Root/spine/Torso/Torso 1/polySurface8
         weight: 0
       - path: anim_global01/Root/spine/Torso/Torso 1/pPlane1
-        weight: 1
+        weight: 0
       - path: anim_global01/Root/spine/Torso/Torso 1/pPlane2
-        weight: 1
+        weight: 0
       - path: anim_global01/Root/spine/Torso/Torso 1/pTorus1
         weight: 0
       - path: anim_global01/Root/spine/Torso/Torso 1/pTorus2
-        weight: 1
+        weight: 0
       - path: anim_global01/Root/spine/Torso/Torso 1/transform8
         weight: 0
       - path: anim_global01/Root/spine/Torso/transform2
@@ -749,7 +755,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: .00999999978
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -767,8 +773,8 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 0
-  copyAvatar: 0
+  importAnimation: 1
+  copyAvatar: 1
   humanDescription:
     human:
     - boneName: Root
@@ -1148,7 +1154,7 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: OlympusCustomRigged(Clone)
+    - name: Olympus(Clone)
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -1430,7 +1436,7 @@ ModelImporter:
       transformModified: 1
     - name: joint2
       position: {x: -.40583846, y: -2.52402266e-16, z: 1.66533454e-16}
-      rotation: {x: .00294335489, y: .000866925693, z: .0298452508, w: .999549806}
+      rotation: {x: .00294335512, y: .000866925751, z: .0298452526, w: .999549866}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint3
@@ -1549,8 +1555,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: neck
-      position: {x: -.39381215, y: -.0513123684, z: -2.13058591e-16}
-      rotation: {x: 0, y: 0, z: -.0553003848, w: .99846977}
+      position: {x: -.393812895, y: -.0513121113, z: -1.44399007e-10}
+      rotation: {x: -2.01513657e-07, y: -7.07926944e-08, z: .533623219, w: .845722377}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: head
@@ -1605,7 +1611,7 @@ ModelImporter:
       transformModified: 1
     - name: joint22
       position: {x: .229668677, y: .029711308, z: .294440597}
-      rotation: {x: -.00624434231, y: .922680795, z: -.0378501303, w: .383651465}
+      rotation: {x: -.00624434277, y: .922680855, z: -.0378501341, w: .383651495}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint23
@@ -1630,7 +1636,7 @@ ModelImporter:
       transformModified: 1
     - name: joint27
       position: {x: -.303903788, y: 8.49743453e-17, z: -3.81639165e-17}
-      rotation: {x: .0125585087, y: .00370285986, z: .031274382, w: .999425054}
+      rotation: {x: .0125585096, y: .00370286009, z: .0312743858, w: .999425113}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: joint28
@@ -1861,7 +1867,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 6fd0f156f199e4478892588ea584d591,
+    type: 3}
   animationType: 3
   additionalBone: 0
   userData: 
