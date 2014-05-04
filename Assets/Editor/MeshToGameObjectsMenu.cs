@@ -143,13 +143,16 @@ public class MeshToGameObjectsMenu
         // Mark it as waypoint for the AI system, unless told not to
         if (!transform.name.ToLower ().Contains ("waypointless"))
             transform.tag = "Waypoint";
-
-        // Make the gameobject static for optimization
-        transform.gameObject.isStatic = true;
         
         // Get rid of any child objects that we may have created in previous runs of this script
-        DestroyChildren (transform);
-        
+		DestroyChildren (transform);
+
+		// Change the shader so that it will be outlined
+		transform.renderer.sharedMaterial.shader = Shader.Find ("Interactive");
+		transform.renderer.sharedMaterial.SetColor ("_OutlineColor", Color.white);
+		
+		// Make the gameobject static for optimization
+		transform.gameObject.isStatic = true;
     }
     
     static void DestroyChildren (Transform transform)
