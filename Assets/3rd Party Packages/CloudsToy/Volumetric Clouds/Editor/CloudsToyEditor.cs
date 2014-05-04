@@ -175,6 +175,8 @@ public class CloudsToyEditor : Editor {
 			if (GUI.changed)
 				EditorUtility.SetDirty (CloudSystem);
 			GUI.changed = false;
+			
+			EditorGUILayout.EndVertical();
 			break;
 			
 			

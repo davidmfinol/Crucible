@@ -278,7 +278,7 @@ void  Start (){
 	MyPosition = transform.position;
 	CloudParticle MyCloudParticle;
 	Vector3 MyPos;
-	Vector3 SideAux;
+	//NOTE: REMOVED TO GIVE MORE CONTROL: Vector3 SideAux;
 	int i;
 	
 	//CloudPrefab = GameObject.Find("VolCloud Basic");
@@ -365,12 +365,12 @@ void  Start (){
 	
 	// Generate the clouds for first time, never well be destroyed during the scene.
 	// Using a cubic shape to bounds the limits of coords. creation
-	SideAux =  Side/2;
+	//NOTE: REMOVED TO GIVE MORE CONTROL: SideAux =  Side/2;
 	for(i = 0; i < MaximunClouds; i++){
 		MyPos = MyPosition;
-		MyPos.x = Random.Range (MyPos.x-SideAux.x, MyPos.x+SideAux.x);
-		MyPos.y = Random.Range (MyPos.y-SideAux.y, MyPos.y+SideAux.y);
-		MyPos.z = Random.Range (MyPos.z-SideAux.z, MyPos.z+SideAux.z);
+		//NOTE: REMOVED TO GIVE MORE CONTROL: MyPos.x = Random.Range (MyPos.x-SideAux.x, MyPos.x+SideAux.x);
+		//NOTE: REMOVED TO GIVE MORE CONTROL: MyPos.y = Random.Range (MyPos.y-SideAux.y, MyPos.y+SideAux.y);
+		//NOTE: REMOVED TO GIVE MORE CONTROL: MyPos.z = Random.Range (MyPos.z-SideAux.z, MyPos.z+SideAux.z);
 		MyCloudParticle = new CloudParticle(MyPos, Quaternion.identity);
 		MyCloudParticle.SetCloudParent(MyTransform);
 		MyCloudsParticles.Add(MyCloudParticle);
@@ -682,9 +682,9 @@ void  LateUpdate (){
 			DestroyIt = false;
 			SideAux =  (Side * DisappearMultiplier)/2;
 			MyPos = MyPosition;
-			MyPos.x = Random.Range (MyPos.x-Side.x/2, MyPos.x+Side.x/2);
-			MyPos.y = Random.Range (MyPos.y-Side.y/2, MyPos.y+Side.y/2);
-			MyPos.z = Random.Range (MyPos.z-Side.z/2, MyPos.z+Side.z/2);
+			//NOTE: REMOVED TO GIVE MORE CONTROL: MyPos.x = Random.Range (MyPos.x-Side.x/2, MyPos.x+Side.x/2);
+			//NOTE: REMOVED TO GIVE MORE CONTROL: MyPos.y = Random.Range (MyPos.y-Side.y/2, MyPos.y+Side.y/2);
+			//NOTE: REMOVED TO GIVE MORE CONTROL: MyPos.z = Random.Range (MyPos.z-Side.z/2, MyPos.z+Side.z/2);
 			if(CloudsGenerateAxis == Axis.X)
 				MyPos.x = MyPosition.x-SideAux.x;
 			else
