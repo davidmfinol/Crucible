@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 5b62b8d4dff92465786f4e9cbf026c17
 ModelImporter:
-  serializedVersion: 15
+  serializedVersion: 16
   fileIDToRecycleName:
     100000: Box
     100002: Box1
@@ -829,6 +829,9 @@ ModelImporter:
     101646: WallLeftLedgeOnly
     101648: WallRightLedgeOnly
     101650: WaypointlessMesh
+    101652: polySurface295
+    101654: polySurface296
+    101656: transform176
     400000: Box
     400002: Box1
     400004: Box10
@@ -1655,6 +1658,9 @@ ModelImporter:
     401646: WallLeftLedgeOnly
     401648: WallRightLedgeOnly
     401650: WaypointlessMesh
+    401652: polySurface295
+    401654: polySurface296
+    401656: transform176
     2300000: Box12
     2300002: Box15
     2300004: Box3
@@ -2169,6 +2175,8 @@ ModelImporter:
     2301022: WallLeftLedgeOnly
     2301024: WallRightLedgeOnly
     2301026: WaypointlessMesh
+    2301028: polySurface295
+    2301030: polySurface296
     3300000: Box12
     3300002: Box15
     3300004: Box3
@@ -2683,6 +2691,8 @@ ModelImporter:
     3301022: WallLeftLedgeOnly
     3301024: WallRightLedgeOnly
     3301026: WaypointlessMesh
+    3301028: polySurface295
+    3301030: polySurface296
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -3197,6 +3207,8 @@ ModelImporter:
     4301022: pCylinder91
     4301024: pCylinder92
     4301026: pCylinder93
+    4301028: polySurface295
+    4301030: polySurface296
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -3250,4 +3262,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
+  additionalBone: 0
   userData: 
