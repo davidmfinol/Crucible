@@ -305,22 +305,328 @@ ModelImporter:
     4300086: pasted__pPipe2
     4300088: pasted__pPipe3
     7400000: Take 001
+    7400002: Take 001 //// polySurface1
+    7400004: Take 001 //// Right
+    7400006: Take 001 //// InnerRight
+    7400008: Take 001 //// Left
+    7400010: Take 001 //// InnerLeft
+    7400012: Take 001 //// BackPlane
+    7400014: Take 001 //// joint1
+    7400016: Take 001 //// joint2
+    7400018: Take 001 //// joint3
+    7400020: Take 001 //// joint4
+    7400022: Take 001 //// LeftArmControl
+    7400024: Take 001 //// ikHandle1 1
+    7400026: Take 001 //// joint1 1
+    7400028: Take 001 //// joint2 1
+    7400030: Take 001 //// joint3 1
+    7400032: Take 001 //// joint4 1
+    7400034: Take 001 //// ikHandle1
+    7400036: Take 001 //// pSphere4
+    7400038: Take 001 //// BackProjector
+    7400040: Take 001 //// LeftArm
+    7400042: Take 001 //// RightARm
     9500000: //RootNode
+    11100000: //RootNode
+    11100002: annotation1
+    11100004: annotation1 1
+    11100006: annotationLocator1
+    11100008: annotationLocator1 1
+    11100010: BackPlane
+    11100012: BackProjector
+    11100014: Base
+    11100016: Base 1
+    11100018: BLFrameHolder
+    11100020: BLFrameHolder 1
+    11100022: Camera
+    11100024: Camera 1
+    11100026: Camera 2
+    11100028: Camera 3
+    11100030: CameraHead
+    11100032: CameraHead 1
+    11100034: Extension
+    11100036: Extension 1
+    11100038: Frame
+    11100040: Frame 1
+    11100042: ikHandle1
+    11100044: ikHandle1 1
+    11100046: InnerLeft
+    11100048: InnerLIght
+    11100050: InnerRight
+    11100052: InnerSphere
+    11100054: InnerSphere 1
+    11100056: joint1
+    11100058: joint1 1
+    11100060: joint2
+    11100062: joint2 1
+    11100064: joint3
+    11100066: joint3 1
+    11100068: joint4
+    11100070: joint4 1
+    11100072: Left
+    11100074: LeftArm
+    11100076: LeftArmControl
+    11100078: LeftArmControl 1
+    11100080: MidPiece
+    11100082: MidPiece 1
+    11100084: OuterLeft
+    11100086: OuterRight
+    11100088: pasted__Frame
+    11100090: pasted__Frame 1
+    11100092: pasted__pasted__Frame
+    11100094: pasted__pasted__Frame 1
+    11100096: pasted__pasted__Frame1
+    11100098: pasted__pasted__Frame1 1
+    11100100: pasted__pasted__pCylinder1
+    11100102: pasted__pasted__pCylinder1 1
+    11100104: pasted__pasted__pPipe1
+    11100106: pasted__pasted__pPipe1 1
+    11100108: pasted__pCylinder1
+    11100110: pasted__pCylinder1 1
+    11100112: pasted__pCylinder2
+    11100114: pasted__pCylinder2 1
+    11100116: pasted__pPipe1
+    11100118: pasted__pPipe1 1
+    11100120: pasted__pPipe2
+    11100122: pasted__pPipe2 1
+    11100124: pasted__pPipe3
+    11100126: pasted__pPipe3 1
+    11100128: pasted__pSphere4
+    11100130: pasted__pSphere4 1
+    11100132: polySurface1
+    11100134: polySurface2
+    11100136: Posts
+    11100138: Posts 1
+    11100140: pPlane1
+    11100142: pPlane1 1
+    11100144: pSphere3
+    11100146: pSphere3 1
+    11100148: pSphere4
+    11100150: pTorus1
+    11100152: pTorus1 1
+    11100154: Right
+    11100156: RightARm
+    11100158: Rotator
+    11100160: Rotator 1
+    11100162: Support
+    11100164: transform1
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
-    legacyGenerateAnimations: 4
-    bakeSimulation: 0
+    legacyGenerateAnimations: 0
+    bakeSimulation: 1
     optimizeGameObjects: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 39
+      lastFrame: 1700
+      wrapMode: 1
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BackPlane
+        weight: 1
+      - path: BackProjector
+        weight: 1
+      - path: BackProjector/Left
+        weight: 1
+      - path: BackProjector/Left/InnerLeft
+        weight: 1
+      - path: BackProjector/Left/OuterLeft
+        weight: 1
+      - path: BackProjector/Right
+        weight: 1
+      - path: BackProjector/Right/InnerRight
+        weight: 1
+      - path: BackProjector/Right/OuterRight
+        weight: 1
+      - path: BackProjector/Support
+        weight: 1
+      - path: InnerSphere
+        weight: 1
+      - path: InnerSphere/InnerLIght
+        weight: 1
+      - path: InnerSphere/InnerSphere 1
+        weight: 1
+      - path: LeftArm
+        weight: 1
+      - path: LeftArm/joint1
+        weight: 1
+      - path: LeftArm/joint1/Base
+        weight: 1
+      - path: LeftArm/joint1/Base/pasted__pPipe2
+        weight: 1
+      - path: LeftArm/joint1/Base/pasted__pPipe3
+        weight: 1
+      - path: LeftArm/joint1/joint2
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/Extension
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/Extension/pasted__pPipe1
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/Extension/pasted__pSphere4
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/CameraHead
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/CameraHead/Camera 2
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/CameraHead/pSphere3
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/CameraHead/pTorus1
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/Frame
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/pasted__Frame
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/pasted__pasted__Frame
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/pasted__pasted__Frame1
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/Posts
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/Posts/BLFrameHolder
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/Posts/pasted__pasted__pCylinder1
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/Posts/pasted__pCylinder1
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/Posts/pasted__pCylinder2
+        weight: 1
+      - path: LeftArm/joint1/joint2/joint3/joint4/Camera/pPlane1
+        weight: 1
+      - path: LeftArm/joint1/joint2/MidPiece
+        weight: 1
+      - path: LeftArm/joint1/joint2/MidPiece/pasted__pasted__pPipe1
+        weight: 1
+      - path: LeftArm/joint1/joint2/MidPiece/Rotator
+        weight: 1
+      - path: LeftArm/LeftArmControl
+        weight: 1
+      - path: LeftArm/LeftArmControl/annotationLocator1
+        weight: 1
+      - path: LeftArm/LeftArmControl/annotationLocator1/annotation1
+        weight: 1
+      - path: LeftArm/LeftArmControl/ikHandle1 1
+        weight: 1
+      - path: pSphere4
+        weight: 1
+      - path: pSphere4/polySurface1
+        weight: 1
+      - path: pSphere4/polySurface2
+        weight: 1
+      - path: pSphere4/transform1
+        weight: 1
+      - path: RightARm
+        weight: 1
+      - path: RightARm/ikHandle1
+        weight: 1
+      - path: RightARm/joint1 1
+        weight: 1
+      - path: RightARm/joint1 1/Base 1
+        weight: 1
+      - path: RightARm/joint1 1/Base 1/pasted__pPipe2 1
+        weight: 1
+      - path: RightARm/joint1 1/Base 1/pasted__pPipe3 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/Extension 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/Extension 1/pasted__pPipe1 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/Extension 1/pasted__pSphere4 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/CameraHead 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/CameraHead 1/Camera
+          3
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/CameraHead 1/pSphere3
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/CameraHead 1/pTorus1
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/Frame 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/pasted__Frame
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/pasted__pasted__Frame
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/pasted__pasted__Frame1
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/Posts 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/Posts 1/BLFrameHolder
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/Posts 1/pasted__pasted__pCylinder1
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/Posts 1/pasted__pCylinder1
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/Posts 1/pasted__pCylinder2
+          1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/joint3 1/joint4 1/Camera 1/pPlane1 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/MidPiece 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/MidPiece 1/pasted__pasted__pPipe1 1
+        weight: 1
+      - path: RightARm/joint1 1/joint2 1/MidPiece 1/Rotator 1
+        weight: 1
+      - path: RightARm/LeftArmControl 1
+        weight: 1
+      - path: RightARm/LeftArmControl 1/annotationLocator1 1
+        weight: 1
+      - path: RightARm/LeftArmControl 1/annotationLocator1 1/annotation1 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
