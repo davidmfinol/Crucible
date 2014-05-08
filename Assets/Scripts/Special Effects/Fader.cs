@@ -10,6 +10,8 @@ public class Fader : MonoBehaviour
 {
     // Whether the fade in, stay, then fadeout effect should happen immediately on start
     public bool FadeInAtStart = true;
+	// Whether the object should be destroyed when it finishes fading out
+	public bool DestroyAtFadeOut = false;
     
     /// How many seconds the fading takes.
     public float FadeInSeconds = 5;
@@ -102,6 +104,9 @@ public class Fader : MonoBehaviour
             renderer.material.color = temp;
         }
         _isFadingOut = false;
+
+		if(DestroyAtFadeOut)
+			Destroy(gameObject);
 
     }
 

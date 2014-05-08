@@ -43,22 +43,44 @@ public class Tutorial : MonoBehaviour
 
     }
 
-    public void ForceTwoHands ()
-    {
-        if (!GameManager.SaveData.HasUsed2Hands) {
-            StartCoroutine (ShowTwoHands ());
-        }
+	public void ShowIntroCutscene()
+	{
+		if(!GameManager.SaveData.HasShownIntroCutscene)
+			StartCoroutine(PlayIntroCutscene());
 
-    }
+	}
+
+	public IEnumerator PlayIntroCutscene()
+	{
+		GameManager.IsPlayingCutscene = true;
+
+		// Disable the camera
+		GameManager.MainCamera.enabled = false;
+		GameManager.MainCamera.GetComponent<Animator> ().SetBool (Animator.StringToHash("MoveIn"), true);
+
+		// Make the player fall down
+		GameManager.MainCamera.CinematicOverride = true;
+		GameManager.UI.DisableInput ();
+		GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.Die, true);
+
+		yield return new WaitForSeconds (7);
+
+		GameManager.MainCamera.GetComponent<Animator> ().SetBool (Animator.StringToHash("MoveIn"), false);
+
+		yield return new WaitForSeconds (3);
+
+		// Re-enable the camera
+		Animator cameraAnim = GameManager.MainCamera.GetComponent<Animator> ();
+		Destroy (cameraAnim);
+		GameManager.MainCamera.enabled = true;
+		
+		GameManager.IsPlayingCutscene = false;
+		GameManager.SaveData.HasShownIntroCutscene = true;
+		StartCoroutine (ShowTwoHands ());
+	}
 
     public IEnumerator ShowTwoHands ()
     {
-        // Make the player fall down
-        GameManager.MainCamera.CinematicOverride = true;
-        GameManager.UI.DisableInput ();
-        GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.Die, true);
-        yield return new WaitForSeconds(2.0f);
-
         // Create the pieces we're showing
         Transform leftHandVignette = (Transform)Instantiate (LeftHandVignette, LeftHandVignette.position, LeftHandVignette.rotation);
         AlphaPulse leftPulse = leftHandVignette.GetComponent<AlphaPulse> ();
@@ -71,13 +93,14 @@ public class Tutorial : MonoBehaviour
         Transform leftThumb = (Transform)Instantiate (LeftThumbPrint, LeftThumbPrint.position, LeftThumbPrint.rotation);
         Transform rightThumb = (Transform)Instantiate (RightThumbPrint, RightThumbPrint.position, RightThumbPrint.rotation);
 
-        // We only need to force 2 hands on the mobile devices
+		// We only need to force 2 hands on the mobile devices
+		bool hasUsed2Hands = false;
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB
-        GameManager.SaveData.HasUsed2Hands = true;
+		hasUsed2Hands = true;
 #endif
 
         // Wait until they finally have used both hands to move on
-        while (!GameManager.SaveData.HasUsed2Hands) {
+		while (!hasUsed2Hands) {
             yield return null;
             bool leftSideTouched = false;
             bool rightSideTouched = false;
@@ -95,7 +118,7 @@ public class Tutorial : MonoBehaviour
             rightThumb.renderer.enabled = !rightSideTouched;
 
             if(leftSideTouched && rightSideTouched)
-                GameManager.SaveData.HasUsed2Hands = true;
+				hasUsed2Hands = true;
         }
 
         // Remove the shown pieces

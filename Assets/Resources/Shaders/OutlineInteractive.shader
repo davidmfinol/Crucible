@@ -62,7 +62,7 @@ ENDCG
             Tags { "LightMode" = "Always" }
             Cull Off
             ZWrite Off
-            //ZTest Always
+            ZTest Always
             ColorMask RGB // alpha not used
  
             // you can choose what kind of blending mode you want for the outline
@@ -110,7 +110,7 @@ ENDCG
             Tags { "LightMode" = "Always" }
             Cull Front
             ZWrite Off
-            //ZTest Always
+            ZTest Always
             ColorMask RGB
  
             // you can choose what kind of blending mode you want for the outline

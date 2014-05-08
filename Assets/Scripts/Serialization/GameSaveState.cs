@@ -11,13 +11,14 @@ public class GameSaveState
     public PlayerSaveState PlayerState;
 
     // *** tutorial zone ***
-    public bool HasUsed2Hands;
+	public bool HasShownIntroCutscene;
     public bool HasShownWallJump;
 	public bool HasShownSneak;
 	public bool HasShownSightPuzzle;
 	public bool HasShownOlympusSpawn;
 
 	// *** hint flags ***
+	public bool HasSeenTopHint;
 	public bool HasSeenDoorHint;
     public bool HasSeenJumpHint;
     public bool HasSeenWallJumpHint;
