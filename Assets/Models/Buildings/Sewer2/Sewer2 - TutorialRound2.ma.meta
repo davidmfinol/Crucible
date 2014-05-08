@@ -844,6 +844,9 @@ ModelImporter:
     101676: ToFadeFront
     101678: Wall10
     101680: Wall9
+    101682: huge_pipe
+    101684: huge_pipe1
+    101686: TallStrucutre
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1685,6 +1688,9 @@ ModelImporter:
     401676: ToFadeFront
     401678: Wall10
     401680: Wall9
+    401682: huge_pipe
+    401684: huge_pipe1
+    401686: TallStrucutre
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -2224,6 +2230,9 @@ ModelImporter:
     2301072: polySurface336
     2301074: Wall10
     2301076: Wall9
+    2301078: huge_pipe
+    2301080: huge_pipe1
+    2301082: TallStrucutre
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2763,6 +2772,9 @@ ModelImporter:
     3301072: polySurface336
     3301074: Wall10
     3301076: Wall9
+    3301078: huge_pipe
+    3301080: huge_pipe1
+    3301082: TallStrucutre
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -3295,6 +3307,9 @@ ModelImporter:
     4301058: pCube112
     4301060: pCube113
     4301062: pCube114
+    4301064: huge_pipe1
+    4301066: TallStrucutre
+    4301068: huge_pipe
     7400000: Take 001
     9500000: //RootNode
   materials:

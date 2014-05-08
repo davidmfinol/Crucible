@@ -1,8 +1,9 @@
 //Maya ASCII 2014 scene
 //Name: Sewer2 - TutorialRound2.ma
-//Last modified: Thu, May 08, 2014 02:31:41 AM
+//Last modified: Thu, May 08, 2014 04:09:07 AM
 //Codeset: 1252
 requires maya "2014";
+requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
 fileInfo "product" "Maya 2014";
@@ -11,28 +12,28 @@ fileInfo "cutIdentifier" "201307170459-880822";
 fileInfo "osv" "Microsoft Windows 8 Business Edition, 64-bit  (Build 9200)\n";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" -12.903542060644497 48.243476921702857 813.94666784329229 ;
-	setAttr ".r" -type "double3" -1.1999999999999993 -3.1999999999999966 -1.8665165982048767e-017 ;
+	setAttr ".t" -type "double3" 12.815203022466346 18.67986639881785 26.667790243962223 ;
+	setAttr ".r" -type "double3" -43.199999999994063 36.79999999999837 3.9720620383525379e-015 ;
 	setAttr ".rp" -type "double3" -8.8817841970012523e-016 3.5527136788005009e-015 0 ;
 	setAttr ".rpt" -type "double3" -3.6388017749239875e-014 4.7855735007240186e-014 
 		-1.997395347599012e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".fl" 30.44216994994995;
-	setAttr ".coi" 802.42466489093113;
+	setAttr ".coi" 25.182775304027718;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" 31.879186630249023 31.438762664794922 12.948882818222046 ;
+	setAttr ".tp" -type "double3" 1.8186553781461638 1.4410704451953349 11.968401617604531 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
-	setAttr ".t" -type "double3" -645.23220256056061 16.71029114616249 2109.4574508702049 ;
+	setAttr ".t" -type "double3" 44.477587938308716 51.396976382907908 2217.8845962642281 ;
 	setAttr ".rpt" -type "double3" 1.00879708957009e-015 -3.5927483794247005e-016 1.0775841057474068e-015 ;
 createNode camera -s -n "topShape" -p "top";
 	setAttr -k off ".v";
 	setAttr ".rnd" no;
 	setAttr ".coi" 3.011204395936808;
-	setAttr ".ow" 35.179559808028372;
+	setAttr ".ow" 80.419288936414219;
 	setAttr ".imn" -type "string" "top";
 	setAttr ".den" -type "string" "top_depth";
 	setAttr ".man" -type "string" "top_mask";
@@ -40,7 +41,7 @@ createNode camera -s -n "topShape" -p "top";
 	setAttr ".hc" -type "string" "viewSet -t %camera";
 	setAttr ".o" yes;
 createNode transform -s -n "front";
-	setAttr ".t" -type "double3" -645.23220256056061 16.71029114616249 1764.6422202792805 ;
+	setAttr ".t" -type "double3" 44.477587938308716 51.396976382907908 1892.5589022899173 ;
 	setAttr ".rp" -type "double3" 4.4408920985006262e-016 4.4408920985006262e-016 -4.4408920985006262e-016 ;
 	setAttr ".rpt" -type "double3" -9.0419845428070367e-016 0 1.2447379725832106e-016 ;
 createNode camera -s -n "frontShape" -p "front";
@@ -48,7 +49,7 @@ createNode camera -s -n "frontShape" -p "front";
 	setAttr ".rnd" no;
 	setAttr ".pze" yes;
 	setAttr ".coi" 3.4366108433302269;
-	setAttr ".ow" 35.179559808028372;
+	setAttr ".ow" 80.419288936414219;
 	setAttr ".imn" -type "string" "front";
 	setAttr ".den" -type "string" "front_depth";
 	setAttr ".man" -type "string" "front_mask";
@@ -56,7 +57,7 @@ createNode camera -s -n "frontShape" -p "front";
 	setAttr ".hc" -type "string" "viewSet -f %camera";
 	setAttr ".o" yes;
 createNode transform -s -n "side";
-	setAttr ".t" -type "double3" 952.31037669470788 16.71029114616249 984.91090309091862 ;
+	setAttr ".t" -type "double3" 1410.7246434797714 51.396976382907908 -35.514242768287318 ;
 	setAttr ".r" -type "double3" 0 89.999999999999986 0 ;
 	setAttr ".rp" -type "double3" 0 0 -1.2870486256249425 ;
 	setAttr ".rpt" -type "double3" -1.2870486256249427 0 1.2870486256249427 ;
@@ -65,7 +66,7 @@ createNode camera -s -n "sideShape" -p "side";
 	setAttr -k off ".v";
 	setAttr ".rnd" no;
 	setAttr ".coi" 100.1;
-	setAttr ".ow" 35.179559808028372;
+	setAttr ".ow" 79.880919958415788;
 	setAttr ".imn" -type "string" "side";
 	setAttr ".den" -type "string" "side_depth";
 	setAttr ".man" -type "string" "side_mask";
@@ -15137,7 +15138,6 @@ createNode mesh -n "polySurfaceShape282" -p "polySurface190";
 createNode transform -n "Box" -p "polySurface190";
 createNode mesh -n "BoxShape" -p "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box";
 	setAttr -k off ".v";
-	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".pv" -type "double2" 0.29503101110458374 0.49999978393316274 ;
@@ -15163,7 +15163,6 @@ createNode transform -n "polySurface227" -p "polySurface190";
 	setAttr ".t" -type "double3" 0 0 -1.8060099878757443 ;
 createNode mesh -n "polySurfaceShape284" -p "polySurface227";
 	setAttr -k off ".v";
-	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".pv" -type "double2" 0.4859048724174499 0.64055058360099792 ;
@@ -15204,7 +15203,7 @@ createNode mesh -n "polySurfaceShape241" -p "polySurface181";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 32 ".pt";
+	setAttr -s 31 ".pt";
 	setAttr ".pt[58]" -type "float3" 0 0.23696309 0 ;
 	setAttr ".pt[59]" -type "float3" 0 0.23696309 0 ;
 	setAttr ".pt[60]" -type "float3" 0 0.23696309 0 ;
@@ -20939,7 +20938,6 @@ createNode transform -n "polySurface182";
 createNode transform -n "polySurface225" -p "polySurface182";
 createNode transform -n "polySurface229" -p "polySurface225";
 createNode transform -n "transform87" -p "polySurface229";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape286" -p "transform87";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -20956,7 +20954,6 @@ createNode mesh -n "polySurfaceShape286" -p "transform87";
 createNode transform -n "polySurface230" -p "polySurface225";
 createNode transform -n "polySurface239" -p "polySurface230";
 createNode transform -n "transform86" -p "polySurface239";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape298" -p "transform86";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -20971,7 +20968,6 @@ createNode mesh -n "polySurfaceShape298" -p "transform86";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform85" -p "polySurface230";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape287" -p "transform85";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -20991,7 +20987,6 @@ createNode transform -n "polySurface240" -p "polySurface230";
 	setAttr ".sp" -type "double3" 31.371187210083008 30.205197334289551 -1.4003844261169434 ;
 createNode mesh -n "polySurfaceShape240" -p "polySurface240";
 	setAttr -k off ".v";
-	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".pv" -type "double2" 0.56616137493548424 0.19533530095895557 ;
@@ -21088,7 +21083,6 @@ createNode transform -n "polySurface248" -p "polySurface230";
 	setAttr ".sp" -type "double3" 31.371187210083008 30.205197334289551 -1.4003844261169434 ;
 createNode mesh -n "polySurfaceShape248" -p "polySurface248";
 	setAttr -k off ".v";
-	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".pv" -type "double2" 0.40953251340216917 0.47665342736628746 ;
@@ -21930,7 +21924,6 @@ createNode transform -n "group9";
 	setAttr ".sp" -type "double3" -21.829983630474629 25.98785400390625 -1.6110134124755859 ;
 createNode transform -n "Wall2" -p "group9";
 createNode transform -n "transform96" -p "Wall2";
-	setAttr ".v" no;
 createNode mesh -n "WallShape2" -p "transform96";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -22288,7 +22281,6 @@ createNode transform -n "TopLeftPipeTogether";
 	setAttr ".sp" -type "double3" -32.529340744018555 4.2907295227050781 0.29584240913391113 ;
 createNode transform -n "BoxBottom" -p "TopLeftPipeTogether";
 createNode transform -n "transform92" -p "BoxBottom";
-	setAttr ".v" no;
 createNode mesh -n "BoxBottomShape" -p "transform92";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -22324,7 +22316,6 @@ createNode mesh -n "BoxBottomShape" -p "transform92";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface210" -p "TopLeftPipeTogether";
 createNode transform -n "transform91" -p "polySurface210";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape273" -p "transform91";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -22400,7 +22391,6 @@ createNode mesh -n "polySurfaceShape273" -p "transform91";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "BoxTop" -p "TopLeftPipeTogether";
 createNode transform -n "transform94" -p "BoxTop";
-	setAttr ".v" no;
 createNode mesh -n "BoxTopShape" -p "transform94";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -23645,7 +23635,6 @@ createNode transform -n "pCube40";
 createNode transform -n "polySurface292" -p "pCube40";
 createNode mesh -n "polySurfaceShape345" -p "polySurface292";
 	setAttr -k off ".v";
-	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -23666,7 +23655,6 @@ createNode mesh -n "polySurfaceShape346" -p "polySurface293";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform117" -p "pCube40";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape34" -p "transform117";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -24310,7 +24298,6 @@ createNode mesh -n "polySurfaceShape341" -p "polySurface289";
 	setAttr ".pt[17]" -type "float3" 1.4901161e-007 0 0 ;
 	setAttr ".pt[25]" -type "float3" 1.4901161e-007 0 0 ;
 createNode transform -n "transform115" -p "pCube50";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape50" -p "transform115";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -24541,7 +24528,6 @@ createNode mesh -n "polySurfaceShape339" -p "polySurface281";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform114" -p "pCube51";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape51" -p "transform114";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -24761,7 +24747,6 @@ createNode mesh -n "polySurfaceShape343" -p "polySurface291";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform116" -p "pCube52";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape52" -p "transform116";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -24886,7 +24871,6 @@ createNode mesh -n "polySurfaceShape296" -p "transform79";
 createNode transform -n "polySurface249";
 createNode transform -n "polySurface250" -p "polySurface249";
 createNode transform -n "transform90" -p "polySurface250";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape308" -p "transform90";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -24916,7 +24900,6 @@ createNode mesh -n "polySurfaceShape308" -p "transform90";
 	setAttr ".pt[96]" -type "float3" 0 0 -31.353504 ;
 createNode transform -n "polySurface251" -p "polySurface249";
 createNode transform -n "transform89" -p "polySurface251";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape309" -p "transform89";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -24960,7 +24943,6 @@ createNode mesh -n "polySurfaceShape310" -p "polySurface252";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform88" -p "polySurface249";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape307" -p "transform88";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -24977,7 +24959,6 @@ createNode mesh -n "polySurfaceShape307" -p "transform88";
 createNode transform -n "polySurface253";
 createNode mesh -n "polySurfaceShape311" -p "polySurface253";
 	setAttr -k off ".v";
-	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr -s 2 ".uvst";
@@ -25031,7 +25012,6 @@ createNode mesh -n "pCylinderShape2" -p "pCylinder2";
 	setAttr ".pt[35]" -type "float3" 2.4106541 1.7538154 0 ;
 createNode transform -n "polySurface254";
 createNode transform -n "transform93" -p "polySurface254";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape312" -p "transform93";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25047,7 +25027,6 @@ createNode transform -n "polySurface255";
 	setAttr ".rp" -type "double3" -23.545027732849121 47.684978485107422 -3.517869234085083 ;
 	setAttr ".sp" -type "double3" -23.545027732849121 47.684978485107422 -3.517869234085083 ;
 createNode transform -n "transform97" -p "polySurface255";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape313" -p "transform97";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25085,7 +25064,6 @@ createNode transform -n "pCube53";
 	setAttr ".rp" -type "double3" -4.7495632171630859 -1.9073486328125e-006 0 ;
 	setAttr ".sp" -type "double3" -4.7495632171630859 -1.9073486328125e-006 0 ;
 createNode transform -n "transform98" -p "pCube53";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape53" -p "transform98";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25101,7 +25079,6 @@ createNode mesh -n "pCubeShape53" -p "transform98";
 		0 0 -40.336273 0 0 -40.336273;
 createNode transform -n "polySurface256";
 createNode transform -n "transform95" -p "polySurface256";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape256" -p "transform95";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25423,7 +25400,6 @@ createNode mesh -n "polySurfaceShape323" -p "|Mesh7|polySurface258|polySurface26
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface268" -p "|Mesh7|polySurface258|polySurface260|Mesh";
 createNode transform -n "transform106" -p "polySurface268";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape326" -p "transform106";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25437,7 +25413,6 @@ createNode mesh -n "polySurfaceShape326" -p "transform106";
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "polySurface269" -p "|Mesh7|polySurface258|polySurface260|Mesh";
 createNode transform -n "transform105" -p "polySurface269";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape327" -p "transform105";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25450,7 +25425,6 @@ createNode mesh -n "polySurfaceShape327" -p "transform105";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform104" -p "|Mesh7|polySurface258|polySurface260|Mesh";
-	setAttr ".v" no;
 createNode mesh -n "MeshShape" -p "transform104";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25492,7 +25466,6 @@ createNode mesh -n "WallShape" -p "|Mesh7|polySurface258|polySurface260|polySurf
 	setAttr -s 4 ".pt[4:7]" -type "float3"  0 4.2992988 0 0 4.2992988 
 		0 0 4.2992988 0 0 4.2992988 0;
 createNode transform -n "transform109" -p "|Mesh7|polySurface258|polySurface260|polySurface263|Box";
-	setAttr ".v" no;
 createNode mesh -n "Wall" -p "transform109";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25506,7 +25479,6 @@ createNode mesh -n "Wall" -p "transform109";
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "polySurface265" -p "polySurface263";
 createNode transform -n "transform103" -p "polySurface265";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape322" -p "transform103";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25575,7 +25547,6 @@ createNode mesh -n "polySurfaceShape429" -p "polySurface336";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "transform102" -p "polySurface263";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape320" -p "transform102";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25588,7 +25559,6 @@ createNode mesh -n "polySurfaceShape320" -p "transform102";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform101" -p "polySurface260";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape317" -p "transform101";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25605,7 +25575,6 @@ createNode transform -n "Nada" -p "polySurface258";
 	setAttr ".rp" -type "double3" -83.523105621337891 41.375741958618157 -20.361497044563293 ;
 	setAttr ".sp" -type "double3" -83.523105621337891 41.375741958618157 -20.361497044563293 ;
 createNode transform -n "transform146" -p "|Mesh7|polySurface258|Nada";
-	setAttr ".v" no;
 createNode mesh -n "WallBoxShape" -p "transform146";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25618,7 +25587,6 @@ createNode mesh -n "WallBoxShape" -p "transform146";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform100" -p "polySurface258";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape315" -p "transform100";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25650,7 +25618,6 @@ createNode mesh -n "polySurfaceShape395" -p "polySurface328";
 	setAttr ".pt[19]" -type "float3" 2.8927455 0 0 ;
 	setAttr ".pt[23]" -type "float3" 6.3712034 0 0 ;
 createNode transform -n "transform148" -p "|Mesh7|Mesh";
-	setAttr ".v" no;
 createNode mesh -n "MeshShape" -p "transform148";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -25663,7 +25630,6 @@ createNode mesh -n "MeshShape" -p "transform148";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform99" -p "Mesh7";
-	setAttr ".v" no;
 createNode mesh -n "MeshShape7" -p "transform99";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -26952,12 +26918,12 @@ createNode mesh -n "WallLedge6Shape" -p "WallLedge6";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "Ledge12";
+createNode transform -n "huge_pipe1";
 	setAttr ".t" -type "double3" 92.116913753019674 -317.58739976470918 464.91428917314636 ;
 	setAttr ".s" -type "double3" 146.20096628580313 69.174571943140307 69.174571943140307 ;
 	setAttr ".rp" -type "double3" -70.149184600824668 48.331508492200818 -2.6340342408666868 ;
 	setAttr ".sp" -type "double3" -70.149184600824668 48.331508492200818 -2.6340342408666868 ;
-createNode mesh -n "Ledge12Shape" -p "Ledge12";
+createNode mesh -n "huge_pipe1Shape" -p "huge_pipe1";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -27210,7 +27176,6 @@ createNode mesh -n "polySurfaceShape394" -p "polySurface327";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform147" -p "polySurface325";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape392" -p "transform147";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -27223,7 +27188,6 @@ createNode mesh -n "polySurfaceShape392" -p "transform147";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform145" -p "polySurface323";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape390" -p "transform145";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -27247,7 +27211,6 @@ createNode mesh -n "LedgeShape" -p "|polySurface270|Box|WallBox|Ledge";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform144" -p "WallBox";
-	setAttr ".v" no;
 createNode mesh -n "WallBoxShape" -p "transform144";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -27266,6 +27229,17 @@ createNode transform -n "Nadaq" -p "WallBox";
 	setAttr ".sp" -type "double3" -39.248573303222656 54.712690353393555 -17.474190711975098 ;
 createNode mesh -n "NadaqShape" -p "Nadaq";
 	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.5485372394323349 0.71278238296508789 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode mesh -n "polySurfaceShape430" -p "Nadaq";
+	setAttr -k off ".v";
+	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -27306,6 +27280,16 @@ createNode transform -n "Nadaq1" -p "WallBox";
 	setAttr ".sp" -type "double3" -39.248573303222656 54.712690353393555 -17.474190711975098 ;
 createNode mesh -n "Nadaq1Shape" -p "Nadaq1";
 	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode mesh -n "polySurfaceShape431" -p "Nadaq1";
+	setAttr -k off ".v";
+	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:4]";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -27340,7 +27324,6 @@ createNode mesh -n "Nadaq1Shape" -p "Nadaq1";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "transform108" -p "|polySurface270|Box";
-	setAttr ".v" no;
 createNode mesh -n "BoxShape" -p "transform108";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -27353,7 +27336,6 @@ createNode mesh -n "BoxShape" -p "transform108";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform107" -p "polySurface270";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape328" -p "transform107";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -27506,7 +27488,6 @@ createNode mesh -n "polySurfaceShape373" -p "polySurface306";
 createNode transform -n "Box" -p "|HoldsFan|Nada";
 createNode mesh -n "BoxShape" -p "|HoldsFan|Nada|Box";
 	setAttr -k off ".v";
-	setAttr -s 2 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -27526,7 +27507,6 @@ createNode mesh -n "polySurfaceShape375" -p "polySurface308";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform134" -p "|HoldsFan|Nada";
-	setAttr ".v" no;
 createNode mesh -n "MeshShape" -p "transform134";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -27544,7 +27524,6 @@ createNode transform -n "polySurface273";
 	setAttr ".rp" -type "double3" 91.591481121761262 0.56825535556457751 -17.302267814000356 ;
 	setAttr ".sp" -type "double3" 91.591481121761262 0.56825535556457751 -17.302267814000356 ;
 createNode transform -n "transform111" -p "polySurface273";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape273" -p "transform111";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -28024,7 +28003,6 @@ createNode transform -n "polySurface274";
 	setAttr ".rp" -type "double3" 91.591481121761262 0.56825535556457751 -17.302267814000356 ;
 	setAttr ".sp" -type "double3" 91.591481121761262 0.56825535556457751 -17.302267814000356 ;
 createNode transform -n "transform112" -p "polySurface274";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape274" -p "transform112";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -28940,7 +28918,6 @@ createNode transform -n "pCube61";
 	setAttr ".r" -type "double3" 176.46572432142133 1 -0.12461445833513791 ;
 	setAttr ".s" -type "double3" 0.21973213664495231 1 1 ;
 createNode transform -n "transform119" -p "pCube61";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape61" -p "transform119";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -28991,7 +28968,6 @@ createNode mesh -n "polySurfaceShape353" -p "pCube62";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "transform118" -p "pCube62";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape62" -p "transform118";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29022,7 +28998,6 @@ createNode transform -n "Ledge" -p "Generator";
 	setAttr ".sp" -type "double3" 0 -2.2427657246589661 0 ;
 	setAttr ".spt" -type "double3" 0 1.1534055986190102 0 ;
 createNode transform -n "transform120" -p "|Generator|Ledge";
-	setAttr ".v" no;
 createNode mesh -n "LedgeShape" -p "transform120";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29070,7 +29045,6 @@ createNode transform -n "polySurface277" -p "Generator";
 	setAttr ".sp" -type "double3" 1.9073486328125e-006 2.6778984069824219 0.11629438400268556 ;
 	setAttr ".spt" -type "double3" -9.2297199805396919e-007 -1.2958434555477922 -0.056275217922347111 ;
 createNode transform -n "transform121" -p "polySurface277";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape334" -p "transform121";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29099,7 +29073,6 @@ createNode transform -n "polySurface272" -p "Generator";
 	setAttr ".r" -type "double3" -89.999999999999929 0 -36 ;
 	setAttr ".s" -type "double3" 0.59022556043139984 0.3349538370785885 0.59022556043139995 ;
 createNode transform -n "transform122" -p "polySurface272";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape330" -p "transform122";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29131,7 +29104,6 @@ createNode transform -n "pCube63" -p "Generator";
 	setAttr ".t" -type "double3" 14.504425048603959 44.996716439295675 -10.302049239776176 ;
 	setAttr ".r" -type "double3" 0 0 -0.00066074909897505165 ;
 createNode transform -n "transform123" -p "pCube63";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape63" -p "transform123";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29182,7 +29154,6 @@ createNode transform -n "HologramAboveEngine" -p "Generator";
 	setAttr ".r" -type "double3" 90 0 0 ;
 	setAttr ".s" -type "double3" 0.80308307447214544 0.80308307447214544 0.32622977708547501 ;
 createNode transform -n "transform124" -p "HologramAboveEngine";
-	setAttr ".v" no;
 createNode mesh -n "HologramAboveEngineShape" -p "transform124";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29209,7 +29180,6 @@ createNode mesh -n "HologramAboveEngineShape" -p "transform124";
 createNode transform -n "polySurface295";
 createNode transform -n "polySurface296" -p "polySurface295";
 createNode transform -n "transform125" -p "polySurface296";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape363" -p "transform125";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29359,7 +29329,6 @@ createNode mesh -n "polySurfaceShape363" -p "transform125";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface297" -p "polySurface295";
 createNode transform -n "transform126" -p "polySurface297";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape364" -p "transform126";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29464,7 +29433,6 @@ createNode transform -n "polySurface298" -p "polySurface295";
 	setAttr ".rp" -type "double3" 17.297282218933105 41.97205924987793 -10.750778198242188 ;
 	setAttr ".sp" -type "double3" 17.297282218933105 41.97205924987793 -10.750778198242188 ;
 createNode transform -n "transform127" -p "polySurface298";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape365" -p "transform127";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29545,7 +29513,6 @@ createNode transform -n "polySurface299" -p "polySurface295";
 	setAttr ".rp" -type "double3" 11.48499584197998 41.97205924987793 -10.750778198242188 ;
 	setAttr ".sp" -type "double3" 11.48499584197998 41.97205924987793 -10.750778198242188 ;
 createNode transform -n "transform128" -p "polySurface299";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape366" -p "transform128";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29625,7 +29592,6 @@ createNode mesh -n "polySurfaceShape366" -p "transform128";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface300" -p "polySurface295";
 createNode transform -n "transform129" -p "polySurface300";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape367" -p "transform129";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29668,7 +29634,6 @@ createNode mesh -n "polySurfaceShape367" -p "transform129";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface301" -p "polySurface295";
 createNode transform -n "transform130" -p "polySurface301";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape368" -p "transform130";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29710,7 +29675,6 @@ createNode mesh -n "polySurfaceShape368" -p "transform130";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface302" -p "polySurface295";
 createNode transform -n "transform131" -p "polySurface302";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape369" -p "transform131";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29752,7 +29716,6 @@ createNode mesh -n "polySurfaceShape369" -p "transform131";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface303" -p "polySurface295";
 createNode transform -n "transform132" -p "polySurface303";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape370" -p "transform132";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -29807,7 +29770,6 @@ createNode mesh -n "polySurfaceShape370" -p "transform132";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "polySurface304" -p "polySurface295";
 createNode transform -n "transform133" -p "polySurface304";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape371" -p "transform133";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30006,7 +29968,6 @@ createNode mesh -n "polySurfaceShape389" -p "polySurface322";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform135" -p "polySurface305";
-	setAttr ".v" no;
 createNode mesh -n "polySurfaceShape372" -p "transform135";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30436,7 +30397,6 @@ createNode transform -n "pCube64";
 	setAttr ".t" -type "double3" -51.12124914947097 46.495118532990674 -1.4234629611149316 ;
 	setAttr ".s" -type "double3" 0.1182598649405933 0.1182598649405933 0.1182598649405933 ;
 createNode transform -n "transform136" -p "pCube64";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape64" -p "transform136";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30454,7 +30414,6 @@ createNode transform -n "pCube65";
 	setAttr ".t" -type "double3" -51.12124914947097 46.495118532990674 -3.8746422078870286 ;
 	setAttr ".s" -type "double3" 0.1182598649405933 0.1182598649405933 0.1182598649405933 ;
 createNode transform -n "transform142" -p "pCube65";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape65" -p "transform142";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30497,7 +30456,6 @@ createNode transform -n "pCube66";
 	setAttr ".r" -type "double3" 90 0 0 ;
 	setAttr ".s" -type "double3" 0.1182598649405933 0.1182598649405933 0.1182598649405933 ;
 createNode transform -n "transform141" -p "pCube66";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape66" -p "transform141";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30543,7 +30501,6 @@ createNode transform -n "pCube67";
 	setAttr ".r" -type "double3" 90 0 0 ;
 	setAttr ".s" -type "double3" 0.1182598649405933 0.1182598649405933 0.1182598649405933 ;
 createNode transform -n "transform140" -p "pCube67";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape67" -p "transform140";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30589,7 +30546,6 @@ createNode transform -n "pCube68";
 	setAttr ".r" -type "double3" 90 0 0 ;
 	setAttr ".s" -type "double3" 0.1182598649405933 0.1182598649405933 0.1182598649405933 ;
 createNode transform -n "transform139" -p "pCube68";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape68" -p "transform139";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30635,7 +30591,6 @@ createNode transform -n "pCube69";
 	setAttr ".r" -type "double3" 90 0 0 ;
 	setAttr ".s" -type "double3" 0.1182598649405933 0.1182598649405933 0.1182598649405933 ;
 createNode transform -n "transform138" -p "pCube69";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape69" -p "transform138";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30681,7 +30636,6 @@ createNode transform -n "pCube70";
 	setAttr ".r" -type "double3" 90 0 0 ;
 	setAttr ".s" -type "double3" 0.1182598649405933 0.1182598649405933 0.1182598649405933 ;
 createNode transform -n "transform137" -p "pCube70";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape70" -p "transform137";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -30727,7 +30681,6 @@ createNode transform -n "pCube71";
 	setAttr ".r" -type "double3" 90 0 0 ;
 	setAttr ".s" -type "double3" 0.1182598649405933 0.1182598649405933 0.1182598649405933 ;
 createNode transform -n "transform143" -p "pCube71";
-	setAttr ".v" no;
 createNode mesh -n "pCubeShape71" -p "transform143";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -32165,7 +32118,6 @@ createNode mesh -n "polySurfaceShape399" -p "polySurface331";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
 createNode transform -n "transform149" -p "Nada1";
-	setAttr ".v" no;
 createNode mesh -n "NadaShape1" -p "transform149";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
@@ -33060,6 +33012,7 @@ createNode mesh -n "pCubeShape109" -p "pCube109";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode transform -n "ToFadeFront";
+	setAttr ".v" no;
 	setAttr ".rp" -type "double3" -2.6108636856079102 31.007576617200385 15.39336122895746 ;
 	setAttr ".sp" -type "double3" -2.6108636856079102 31.007576617200385 15.39336122895746 ;
 createNode transform -n "polySurface333" -p "ToFadeFront";
@@ -34280,7 +34233,6 @@ createNode transform -n "polySurface334" -p "ToFadeFront";
 	setAttr ".sp" -type "double3" 0 0 8.4147925032298296 ;
 createNode mesh -n "polySurfaceShape334" -p "polySurface334";
 	setAttr -k off ".v";
-	setAttr -s 4 ".iog[0].og";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
@@ -34593,10 +34545,10 @@ createNode mesh -n "pCubeShape112" -p "pCube112";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "pCube113";
+createNode transform -n "TallStrucutre";
 	setAttr ".t" -type "double3" 1055.7296389932853 59.914956016684577 453.17871043975902 ;
 	setAttr ".s" -type "double3" 2.213702233305586 1 4.9214881896818605 ;
-createNode mesh -n "pCubeShape113" -p "pCube113";
+createNode mesh -n "TallStrucutreShape" -p "TallStrucutre";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -34941,12 +34893,12 @@ createNode mesh -n "pCubeShape114" -p "pCube114";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode transform -n "Ledge31";
+createNode transform -n "huge_pipe";
 	setAttr ".t" -type "double3" 92.116913753019674 -317.58739976470918 -525.14576823456196 ;
 	setAttr ".s" -type "double3" 146.20096628580313 69.174571943140307 69.174571943140307 ;
 	setAttr ".rp" -type "double3" -70.149184600824668 48.331508492200818 -2.6340342408666868 ;
 	setAttr ".sp" -type "double3" -70.149184600824668 48.331508492200818 -2.6340342408666868 ;
-createNode mesh -n "Ledge31Shape" -p "Ledge31";
+createNode mesh -n "huge_pipeShape" -p "huge_pipe";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -35051,8 +35003,8 @@ createNode mesh -n "Ledge31Shape" -p "Ledge31";
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
-	setAttr -s 40 ".lnk";
-	setAttr -s 40 ".slnk";
+	setAttr -s 93 ".lnk";
+	setAttr -s 93 ".slnk";
 createNode displayLayerManager -n "layerManager";
 	setAttr ".cdl" 1;
 	setAttr -s 2 ".dli[1]"  1;
@@ -35126,22 +35078,22 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 1\n                -showAssets 1\n                -showContainedOnly 1\n                -showPublishedAsConnected 0\n                -showContainerContents 1\n                -ignoreDagHierarchy 0\n                -expandConnections 0\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 0\n                -highlightActive 1\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"defaultSetFilter\" \n                -showSetMembers 1\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n"
 		+ "                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 0\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showReferenceNodes 1\n            -showReferenceMembers 1\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n"
 		+ "            -autoExpand 0\n            -showDagOnly 1\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n"
-		+ "            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\toutlinerPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"graphEditor\" -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n"
-		+ "                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n"
-		+ "                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n"
-		+ "                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n"
-		+ "                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n"
-		+ "                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -stackedCurves 0\n"
-		+ "                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dopeSheetPanel\" (localizedPanelLabel(\"Dope Sheet\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dopeSheetPanel\" -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n"
-		+ "                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n"
-		+ "                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n"
-		+ "                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n"
-		+ "                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                $editorName;\n"
-		+ "\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"clipEditorPanel\" (localizedPanelLabel(\"Trax Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"clipEditorPanel\" -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = clipEditorNameFromPanel($panelName);\n"
-		+ "            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 0 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = clipEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"sequenceEditorPanel\" (localizedPanelLabel(\"Camera Sequencer\")) `;\n"
+		+ "            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"graphEditor\" -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n"
+		+ "                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n"
+		+ "                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n"
+		+ "                -showUpstreamCurves 1\n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n"
+		+ "                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n"
+		+ "                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n"
+		+ "                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dopeSheetPanel\" (localizedPanelLabel(\"Dope Sheet\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dopeSheetPanel\" -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n"
+		+ "                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n"
+		+ "                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n"
+		+ "\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n"
+		+ "                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n"
+		+ "                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"clipEditorPanel\" (localizedPanelLabel(\"Trax Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"clipEditorPanel\" -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = clipEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n"
+		+ "                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 0 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = clipEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"sequenceEditorPanel\" (localizedPanelLabel(\"Camera Sequencer\")) `;\n"
 		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"sequenceEditorPanel\" -l (localizedPanelLabel(\"Camera Sequencer\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = sequenceEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 1 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Camera Sequencer\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = sequenceEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n"
-		+ "                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperGraphPanel\" (localizedPanelLabel(\"Hypergraph Hierarchy\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"hyperGraphPanel\" -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n                -showConnectionFromSelected 0\n"
-		+ "                -showConnectionToSelected 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n"
+		+ "                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperGraphPanel\" (localizedPanelLabel(\"Hypergraph Hierarchy\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"hyperGraphPanel\" -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 1\n                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n                -showConnectionFromSelected 0\n"
+		+ "                -showConnectionToSelected 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 1\n"
 		+ "                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n                -showShapes 0\n                -showDeformers 0\n                -showExpressions 0\n                -showConstraints 0\n                -showConnectionFromSelected 0\n                -showConnectionToSelected 0\n                -showUnderworld 0\n                -showInvisible 0\n                -transitionFrames 1\n                -opaqueContainers 0\n                -freeform 0\n                -imagePosition 0 0 \n                -imageScale 1\n                -imageEnabled 0\n                -graphType \"DAG\" \n                -heatMapDisplay 0\n                -updateSelection 1\n                -updateNodeAdded 1\n                -useDrawOverrideColor 0\n                -limitGraphTraversal -1\n                -range 0 0 \n                -iconSize \"smallIcons\" \n                -showCachedConnections 0\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperShadePanel\" (localizedPanelLabel(\"Hypershade\")) `;\n"
 		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"hyperShadePanel\" -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Hypershade\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"visorPanel\" (localizedPanelLabel(\"Visor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"visorPanel\" -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Visor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"nodeEditorPanel\" (localizedPanelLabel(\"Node Editor\")) `;\n\tif (\"\" == $panelName) {\n"
 		+ "\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"nodeEditorPanel\" -l (localizedPanelLabel(\"Node Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"NodeEditorEd\");\n            nodeEditor -e \n                -allAttributes 0\n                -allNodes 0\n                -autoSizeNodes 1\n                -createNodeCommand \"nodeEdCreateNodeCommand\" \n                -defaultPinnedState 0\n                -ignoreAssets 1\n                -additiveGraphingMode 0\n                -settingsChangedCallback \"nodeEdSyncControls\" \n                -traversalDepthLimit -1\n                -keyPressCommand \"nodeEdKeyPressCommand\" \n                -keyReleaseCommand \"nodeEdKeyReleaseCommand\" \n                -nodeTitleMode \"name\" \n                -gridSnap 0\n                -gridVisibility 1\n                -popupMenuScript \"nodeEdBuildPanelMenus\" \n                -island 0\n                -showNamespace 1\n                -showShapes 1\n                -showSGShapes 0\n                -showTransforms 1\n"
@@ -35160,7 +35112,7 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels  $panelName;\nstring $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -camera \"persp\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 1\n                -backfaceCulling 0\n"
 		+ "                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 16384\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n                -maxConstantTransparency 1\n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n"
 		+ "                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n"
-		+ "                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-defaultImage \"\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"vertical2\\\" -ps 1 59 100 -ps 2 41 100 $gMainPane;\"\n"
+		+ "                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-defaultImage \"\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"vertical2\\\" -ps 1 50 100 -ps 2 50 100 $gMainPane;\"\n"
 		+ "\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
 		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 0\\n    -headsUpDisplay 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 16384\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 0\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
 		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 0\\n    -headsUpDisplay 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 0\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 0\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 16384\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -maxConstantTransparency 1\\n    -rendererName \\\"vp2Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 0\\n    -imagePlane 1\\n    -joints 1\\n    -ikHandles 1\\n    -deformers 1\\n    -dynamics 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
@@ -35251,12 +35203,11 @@ createNode materialInfo -n "materialInfo8";
 createNode file -n "file6";
 	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles//Sewer - Tutorial/NonLoopable.jpg";
 createNode place2dTexture -n "place2dTexture6";
-createNode lambert -n "SewerRightHandSide";
 createNode shadingEngine -n "lambert7SG";
 	setAttr ".ihi" 0;
-	setAttr -s 19 ".dsm";
+	setAttr -s 17 ".dsm";
 	setAttr ".ro" yes;
-	setAttr -s 12 ".gn";
+	setAttr -s 11 ".gn";
 createNode materialInfo -n "materialInfo9";
 createNode file -n "file7";
 	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Buildings/Sewer2/SewerRightHandSideTexture.jpg";
@@ -37199,9 +37150,9 @@ createNode groupId -n "groupId231";
 createNode blinn -n "ForFalseLighting";
 createNode shadingEngine -n "blinn5SG";
 	setAttr ".ihi" 0;
-	setAttr -s 73 ".dsm";
+	setAttr -s 75 ".dsm";
 	setAttr ".ro" yes;
-	setAttr -s 50 ".gn";
+	setAttr -s 48 ".gn";
 createNode materialInfo -n "materialInfo12";
 createNode polyExtrudeEdge -n "polyExtrudeEdge30";
 	setAttr ".uopa" yes;
@@ -37626,7 +37577,7 @@ createNode blinn -n "PipeDesaturatedGray";
 	setAttr ".c" -type "float3" 0.32350001 0.49682888 0.5 ;
 createNode shadingEngine -n "blinn6SG";
 	setAttr ".ihi" 0;
-	setAttr -s 54 ".dsm";
+	setAttr -s 52 ".dsm";
 	setAttr ".ro" yes;
 	setAttr -s 21 ".gn";
 createNode materialInfo -n "materialInfo13";
@@ -39330,9 +39281,9 @@ createNode place2dTexture -n "place2dTexture10";
 createNode lambert -n "SewerRightHandSide1";
 createNode shadingEngine -n "lambert16SG";
 	setAttr ".ihi" 0;
-	setAttr -s 25 ".dsm";
+	setAttr -s 18 ".dsm";
 	setAttr ".ro" yes;
-	setAttr -s 22 ".gn";
+	setAttr -s 16 ".gn";
 createNode materialInfo -n "materialInfo24";
 createNode file -n "file11";
 	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Buildings/Sewer2/SewerRightHandSideTexture.jpg";
@@ -39385,9 +39336,9 @@ createNode polyTweakUV -n "polyTweakUV27";
 createNode lambert -n "LeftSide";
 createNode shadingEngine -n "lambert17SG";
 	setAttr ".ihi" 0;
-	setAttr -s 37 ".dsm";
+	setAttr -s 31 ".dsm";
 	setAttr ".ro" yes;
-	setAttr -s 8 ".gn";
+	setAttr -s 7 ".gn";
 createNode materialInfo -n "materialInfo25";
 createNode file -n "file12";
 	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Buildings/Sewer2/SewerLeft.jpg";
@@ -41002,9 +40953,6 @@ createNode polyTweak -n "polyTweak150";
 	setAttr ".tk[51]" -type "float3" -0.24443883 0 -42.622818 ;
 createNode groupId -n "groupId403";
 	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts425";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:28]";
 createNode polyExtrudeEdge -n "polyExtrudeEdge83";
 	setAttr ".uopa" yes;
 	setAttr ".ics" -type "componentList" 1 "e[43]";
@@ -41153,9 +41101,6 @@ createNode polyTweak -n "polyTweak156";
 	setAttr ".tk[17]" -type "float3" -0.50729734 0 0 ;
 createNode groupId -n "groupId404";
 	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts427";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:8]";
 createNode polyExtrudeFace -n "polyExtrudeFace46";
 	setAttr ".ics" -type "componentList" 1 "f[7]";
 	setAttr ".ix" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
@@ -42646,11 +42591,6 @@ createNode polyBridgeEdge -n "polyBridgeEdge102";
 	setAttr ".sv1" 160;
 	setAttr ".sv2" 171;
 	setAttr ".sma" 99.3103;
-createNode groupId -n "groupId430";
-	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts477";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:123]";
 createNode polySoftEdge -n "polySoftEdge40";
 	setAttr ".uopa" yes;
 	setAttr ".ics" -type "componentList" 1 "e[*]";
@@ -42803,8 +42743,6 @@ createNode deleteComponent -n "deleteComponent167";
 	setAttr ".dc" -type "componentList" 1 "f[6]";
 createNode deleteComponent -n "deleteComponent168";
 	setAttr ".dc" -type "componentList" 1 "f[0:6]";
-createNode groupId -n "groupId439";
-	setAttr ".ihi" 0;
 createNode polyBoolOp -n "polyBoolOp4";
 	setAttr -s 2 ".ip";
 	setAttr -s 2 ".im";
@@ -43413,9 +43351,6 @@ createNode polyBridgeEdge -n "polyBridgeEdge104";
 	setAttr ".sma" 99.3103;
 createNode groupId -n "groupId471";
 	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts518";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:37]";
 createNode polyCut -n "polyCut35";
 	setAttr ".uopa" yes;
 	setAttr ".ics" -type "componentList" 1 "f[0:37]";
@@ -44757,11 +44692,6 @@ createNode groupParts -n "groupParts534";
 	setAttr ".ic" -type "componentList" 1 "f[0:39]";
 createNode groupId -n "groupId495";
 	setAttr ".ihi" 0;
-createNode groupId -n "groupId496";
-	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts535";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:15]";
 createNode groupId -n "groupId497";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts536";
@@ -45444,11 +45374,6 @@ createNode polyPlanarProj -n "polyPlanarProj38";
 	setAttr ".ro" -type "double3" 0 90 0 ;
 	setAttr ".ps" -type "double2" 16.085436463356018 9.4497833251953125 ;
 	setAttr ".cam" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
-createNode groupId -n "groupId510";
-	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts543";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:34]";
 createNode polyTweakUV -n "polyTweakUV65";
 	setAttr ".uopa" yes;
 	setAttr -s 69 ".uvtk";
@@ -45920,11 +45845,6 @@ createNode groupId -n "groupId562";
 createNode groupParts -n "groupParts552";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "f[0:15]";
-createNode groupId -n "groupId563";
-	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts553";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:13]";
 createNode groupId -n "groupId564";
 	setAttr ".ihi" 0;
 createNode groupParts -n "groupParts554";
@@ -46683,10 +46603,6 @@ createNode groupId -n "groupId605";
 createNode groupParts -n "groupParts581";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "f[0:8]";
-createNode groupId -n "groupId606";
-	setAttr ".ihi" 0;
-createNode groupId -n "groupId607";
-	setAttr ".ihi" 0;
 createNode polyChipOff -n "polyChipOff57";
 	setAttr ".ics" -type "componentList" 2 "f[1:3]" "f[5:9]";
 	setAttr ".ix" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
@@ -46708,8 +46624,6 @@ createNode groupId -n "groupId609";
 createNode groupParts -n "groupParts583";
 	setAttr ".ihi" 0;
 	setAttr ".ic" -type "componentList" 1 "f[0:5]";
-createNode groupId -n "groupId610";
-	setAttr ".ihi" 0;
 createNode polyChipOff -n "polyChipOff58";
 	setAttr ".ics" -type "componentList" 1 "f[1]";
 	setAttr ".ix" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
@@ -47193,7 +47107,7 @@ createNode polyAutoProj -n "polyAutoProj61";
 createNode lambert -n "LeftHandSquareOffq";
 createNode shadingEngine -n "lambert28SG";
 	setAttr ".ihi" 0;
-	setAttr -s 18 ".dsm";
+	setAttr -s 20 ".dsm";
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo37";
 createNode polyTweakUV -n "polyTweakUV71";
@@ -47898,16 +47812,6 @@ createNode polyExtrudeEdge -n "polyExtrudeEdge120";
 createNode polyNormal -n "polyNormal18";
 	setAttr ".ics" -type "componentList" 1 "f[*]";
 	setAttr ".unm" no;
-createNode groupId -n "groupId620";
-	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts591";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[6:10]";
-createNode groupId -n "groupId621";
-	setAttr ".ihi" 0;
-createNode groupParts -n "groupParts592";
-	setAttr ".ihi" 0;
-	setAttr ".ic" -type "componentList" 1 "f[0:5]";
 createNode polyNormal -n "polyNormal19";
 	setAttr ".ics" -type "componentList" 1 "f[*]";
 	setAttr ".unm" no;
@@ -48171,18 +48075,9 @@ createNode polyAutoProj -n "polyAutoProj93";
 	setAttr ".dl" yes;
 createNode polyTweak -n "polyTweak289";
 	setAttr ".uopa" yes;
-	setAttr -s 12 ".tk";
-	setAttr ".tk[40]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[41]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[42]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[43]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[44]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[45]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[46]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[47]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[48]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[49]" -type "float3" 0 -1.7175691 0 ;
-	setAttr ".tk[50]" -type "float3" 0 -1.7175691 0 ;
+	setAttr -s 11 ".tk[40:50]" -type "float3"  0 -1.71756911 0 0 -1.71756911
+		 0 0 -1.71756911 0 0 -1.71756911 0 0 -1.71756911 0 0 -1.71756911 0 0 -1.71756911 0
+		 0 -1.71756911 0 0 -1.71756911 0 0 -1.71756911 0 0 -1.71756911 0;
 createNode polyTweakUV -n "polyTweakUV106";
 	setAttr ".uopa" yes;
 	setAttr -s 75 ".uvtk";
@@ -48503,11 +48398,8 @@ createNode polyExtrudeFace -n "polyExtrudeFace92";
 	setAttr ".cbx" -type "double3" -980.82005220587803 48.805512352133796 542.07939892570107 ;
 createNode polyTweak -n "polyTweak300";
 	setAttr ".uopa" yes;
-	setAttr -s 6 ".tk";
-	setAttr ".tk[20]" -type "float3" 0 -399.323 0 ;
-	setAttr ".tk[21]" -type "float3" 0 -399.323 0 ;
-	setAttr ".tk[22]" -type "float3" 0 -399.323 0 ;
-	setAttr ".tk[23]" -type "float3" 0 -399.323 0 ;
+	setAttr -s 4 ".tk[20:23]" -type "float3"  0 -399.32299805 0 0 -399.32299805
+		 0 0 -399.32299805 0 0 -399.32299805 0;
 createNode polyExtrudeFace -n "polyExtrudeFace93";
 	setAttr ".ics" -type "componentList" 2 "f[19]" "f[21]";
 	setAttr ".ix" -type "matrix" 2.213702233305586 0 0 0 0 1 0 0 0 0 4.9214881896818605 0
@@ -48639,28 +48531,492 @@ createNode polyPipe -n "polyPipe1";
 	setAttr ".h" 86.979987107620843;
 	setAttr ".t" 1.5;
 	setAttr ".sa" 7;
-select -ne :time1;
-	setAttr ".o" 49;
-	setAttr ".unw" 49;
-select -ne :renderPartition;
-	setAttr -s 40 ".st";
-select -ne :initialShadingGroup;
-	setAttr -s 149 ".dsm";
+createNode lambert -n "TallStructure";
+	setAttr ".c" -type "float3" 0.398 0.33728006 0.31083801 ;
+createNode shadingEngine -n "lambert30SG";
+	setAttr ".ihi" 0;
+	setAttr -s 4 ".dsm";
 	setAttr ".ro" yes;
-	setAttr -s 124 ".gn";
+createNode materialInfo -n "materialInfo39";
+createNode lambert -n "LightHolders";
+	setAttr ".c" -type "float3" 0.10525674 0.10525674 0.10525674 ;
+createNode shadingEngine -n "lambert31SG";
+	setAttr ".ihi" 0;
+	setAttr -s 12 ".dsm";
+	setAttr ".ro" yes;
+createNode materialInfo -n "materialInfo40";
+createNode polyAutoProj -n "polyAutoProj94";
+	setAttr ".uopa" yes;
+	setAttr ".ics" -type "componentList" 1 "f[0:4]";
+	setAttr ".ix" -type "matrix" 0.75220549966961292 -0.65892858965656353 0 0 0.65892858965656353 0.75220549966961292 0 0
+		 0 0 1 0 -43.338197122184425 -16.277813528115033 5.7648803045974919 1;
+	setAttr ".s" -type "double3" 22.744146281982651 22.744146281982651 22.744146281982651 ;
+	setAttr ".ps" 0.20000000298023224;
+	setAttr ".dl" yes;
+createNode polyAutoProj -n "polyAutoProj95";
+	setAttr ".uopa" yes;
+	setAttr ".ics" -type "componentList" 1 "f[0:4]";
+	setAttr ".ix" -type "matrix" 0.75220549966961292 -0.65892858965656353 0 0 0.65892858965656353 0.75220549966961292 0 0
+		 0 0 1 0 -43.338197122184425 -16.277813528115033 -10.649239350798243 1;
+	setAttr ".s" -type "double3" 22.744146281982651 22.744146281982651 22.744146281982651 ;
+	setAttr ".ps" 0.20000000298023224;
+	setAttr ".dl" yes;
+createNode polyTweakUV -n "polyTweakUV110";
+	setAttr ".uopa" yes;
+	setAttr -s 20 ".uvtk[0:19]" -type "float2" -0.39184377 -0.095026284
+		 -0.39184377 -0.095026284 -0.39184374 -0.095026284 -0.39184374 -0.095026284 0.046891108
+		 0.3532463 0.046891078 0.3532463 0.046891078 0.3532463 0.046891108 0.3532463 0.046891104
+		 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463 0.046891104 0.3532463 0.046891108
+		 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463 0.046891108
+		 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463;
+createNode polyTweakUV -n "polyTweakUV111";
+	setAttr ".uopa" yes;
+	setAttr -s 20 ".uvtk[0:19]" -type "float2" -0.39184377 -0.095026284
+		 -0.39184377 -0.095026284 -0.39184374 -0.095026284 -0.39184374 -0.095026284 0.046891108
+		 0.3532463 0.046891078 0.3532463 0.046891078 0.3532463 0.046891108 0.3532463 0.046891104
+		 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463 0.046891104 0.3532463 0.046891108
+		 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463 0.046891108
+		 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463 0.046891108 0.3532463;
+createNode blinn -n "PipeShaderNonBS";
+	setAttr ".c" -type "float3" 0.32350001 0.49682888 0.5 ;
+createNode shadingEngine -n "PipeShaderNonBSSG";
+	setAttr ".ihi" 0;
+	setAttr -s 2 ".dsm";
+	setAttr ".ro" yes;
+createNode materialInfo -n "materialInfo41";
+createNode lambert -n "SewerRightHandSide2";
+createNode file -n "file20";
+	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Buildings/Sewer2/SewerRightHandSideTexture.jpg";
+createNode place2dTexture -n "place2dTexture20";
+createNode shadingEngine -n "SewerRightHandSide2SG";
+	setAttr ".ihi" 0;
+	setAttr -s 10 ".dsm";
+	setAttr ".ro" yes;
+createNode materialInfo -n "materialInfo42";
+createNode lambert -n "LeftSideBGq";
+createNode file -n "file21";
+	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Buildings/Sewer2/SewerLeft.jpg";
+createNode place2dTexture -n "place2dTexture21";
+createNode shadingEngine -n "LeftSideBGqSG";
+	setAttr ".ihi" 0;
+	setAttr -s 5 ".dsm";
+	setAttr ".ro" yes;
+createNode materialInfo -n "materialInfo43";
+createNode blinn -n "InnerLight";
+	setAttr ".c" -type "float3" 0.92199999 0.92199999 0.92199999 ;
+createNode shadingEngine -n "IntroProjector_blinn1SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo1";
+createNode groupId -n "groupId5";
+	setAttr ".ihi" 0;
+createNode lambert -n "IntroProjector_lambert2";
+createNode shadingEngine -n "IntroProjector_lambert2SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo2";
+createNode psdFileTex -n "psdFileTex1";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture1";
+createNode lambert -n "Checkered";
+createNode shadingEngine -n "IntroProjector_lambert3SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo3";
+createNode psdFileTex -n "psdFileTex2";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture2";
+createNode lambert -n "IntroProjector_lambert4";
+createNode shadingEngine -n "IntroProjector_lambert4SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo4";
+createNode psdFileTex -n "psdFileTex3";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture3";
+createNode lambert -n "IntroProjector_lambert5";
+createNode shadingEngine -n "IntroProjector_lambert5SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo5";
+createNode psdFileTex -n "psdFileTex4";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture4";
+createNode lambert -n "IntroProjector_lambert6";
+createNode shadingEngine -n "IntroProjector_lambert6SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo6";
+createNode checker -n "checker1";
+createNode place2dTexture -n "IntroProjector_place2dTexture5";
+	setAttr ".re" -type "float2" 4 4 ;
+createNode lambert -n "lambert7";
+createNode shadingEngine -n "IntroProjector_lambert7SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo7";
+createNode checker -n "checker2";
+createNode place2dTexture -n "IntroProjector_place2dTexture6";
+	setAttr ".re" -type "float2" 4 4 ;
+createNode psdFileTex -n "psdFileTex5";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture7";
+createNode blinn -n "IntroProjector_blinn2";
+createNode shadingEngine -n "IntroProjector_blinn2SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo8";
+createNode blinn -n "IntroProjector_blinn3";
+createNode shadingEngine -n "IntroProjector_blinn3SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo9";
+createNode psdFileTex -n "psdFileTex6";
+createNode place2dTexture -n "IntroProjector_place2dTexture8";
+createNode blinn -n "IntroProjector_blinn4";
+createNode shadingEngine -n "IntroProjector_blinn4SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo10";
+createNode psdFileTex -n "psdFileTex7";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture9";
+createNode psdFileTex -n "psdFileTex8";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture10";
+createNode blinn -n "blinn5";
+createNode shadingEngine -n "IntroProjector_blinn5SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo11";
+createNode checker -n "checker3";
+createNode place2dTexture -n "IntroProjector_place2dTexture11";
+	setAttr ".re" -type "float2" 4 4 ;
+createNode blinn -n "blinn6";
+createNode shadingEngine -n "IntroProjector_blinn6SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo12";
+createNode psdFileTex -n "psdFileTex9";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture12";
+createNode lambert -n "IntroProjector_lambert8";
+createNode shadingEngine -n "IntroProjector_lambert8SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo13";
+createNode psdFileTex -n "psdFileTex10";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture13";
+createNode materialInfo -n "pasted__materialInfo13";
+createNode shadingEngine -n "pasted__lambert8SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode lambert -n "pasted__lambert8";
+createNode psdFileTex -n "pasted__psdFileTex10";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "pasted__place2dTexture13";
+createNode blinn -n "blinn7";
+createNode shadingEngine -n "IntroProjector_blinn7SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo14";
+createNode psdFileTex -n "psdFileTex11";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/IntroProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture14";
+createNode blinn -n "blinn8";
+createNode shadingEngine -n "IntroProjector_blinn8SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo15";
+createNode materialInfo -n "pasted__materialInfo14";
+createNode shadingEngine -n "pasted__blinn7SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode blinn -n "pasted__blinn7";
+createNode psdFileTex -n "pasted__psdFileTex11";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/IntroProjector.psd";
+createNode place2dTexture -n "pasted__place2dTexture14";
+createNode blinn -n "Projector";
+createNode shadingEngine -n "IntroProjector_blinn9SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo16";
+createNode psdFileTex -n "psdFileTex12";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/Marshal'sProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture15";
+createNode materialInfo -n "pasted__materialInfo16";
+createNode shadingEngine -n "pasted__blinn9SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode blinn -n "pasted__blinn9";
+createNode psdFileTex -n "pasted__psdFileTex12";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/Marshal'sProjector.psd";
+createNode place2dTexture -n "pasted__place2dTexture15";
+createNode materialInfo -n "pasted__materialInfo17";
+createNode shadingEngine -n "pasted__blinn9SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode blinn -n "pasted__blinn10";
+createNode psdFileTex -n "pasted__psdFileTex13";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/Marshal'sProjector.psd";
+createNode place2dTexture -n "pasted__place2dTexture16";
+createNode animCurveTA -n "pairBlend1_inRotateZ1";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  5 91.304590774597045;
+createNode file -n "IntroProjector_file1";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Marshal/MarshallConceptArt3.png";
+createNode place2dTexture -n "IntroProjector_place2dTexture16";
+createNode lambert -n "lambert9";
+createNode shadingEngine -n "IntroProjector_lambert9SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo17";
+createNode lambert -n "lambert10";
+createNode shadingEngine -n "IntroProjector_lambert10SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo18";
+createNode file -n "IntroProjector_file2";
+	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Characters/jASPER/Projector1.png";
+createNode place2dTexture -n "IntroProjector_place2dTexture17";
+createNode lambert -n "lambert11";
+createNode shadingEngine -n "IntroProjector_lambert11SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo19";
+createNode file -n "IntroProjector_file3";
+	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Characters/jASPER/Projector1.png";
+createNode place2dTexture -n "IntroProjector_place2dTexture18";
+createNode blinn -n "blinn10";
+createNode shadingEngine -n "IntroProjector_blinn10SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo20";
+createNode file -n "IntroProjector_file4";
+	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Characters/jASPER/jASPERTexture.jpg";
+createNode place2dTexture -n "IntroProjector_place2dTexture19";
+createNode blinn -n "IntroProjector_InnerLight";
+	setAttr ".c" -type "float3" 0.92199999 0.92199999 0.92199999 ;
+createNode shadingEngine -n "IntroProjector_blinn1SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo21";
+createNode groupId -n "IntroProjector_groupId5";
+	setAttr ".ihi" 0;
+createNode lambert -n "IntroProjector_lambert12";
+createNode shadingEngine -n "IntroProjector_lambert2SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo22";
+createNode psdFileTex -n "IntroProjector_psdFileTex1";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture20";
+createNode lambert -n "IntroProjector_Checkered";
+createNode shadingEngine -n "IntroProjector_lambert3SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo23";
+createNode psdFileTex -n "IntroProjector_psdFileTex2";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture21";
+createNode lambert -n "IntroProjector_lambert13";
+createNode shadingEngine -n "IntroProjector_lambert4SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo24";
+createNode psdFileTex -n "IntroProjector_psdFileTex3";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture22";
+createNode lambert -n "IntroProjector_lambert14";
+createNode shadingEngine -n "IntroProjector_lambert5SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo25";
+createNode psdFileTex -n "IntroProjector_psdFileTex4";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture23";
+createNode lambert -n "IntroProjector_lambert15";
+createNode shadingEngine -n "IntroProjector_lambert6SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo26";
+createNode checker -n "IntroProjector_checker1";
+createNode place2dTexture -n "IntroProjector_place2dTexture24";
+	setAttr ".re" -type "float2" 4 4 ;
+createNode lambert -n "IntroProjector_lambert7";
+createNode shadingEngine -n "IntroProjector_lambert7SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo27";
+createNode checker -n "IntroProjector_checker2";
+createNode place2dTexture -n "IntroProjector_place2dTexture25";
+	setAttr ".re" -type "float2" 4 4 ;
+createNode psdFileTex -n "IntroProjector_psdFileTex5";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture26";
+createNode blinn -n "IntroProjector_blinn11";
+createNode shadingEngine -n "IntroProjector_blinn2SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo28";
+createNode blinn -n "IntroProjector_blinn12";
+createNode shadingEngine -n "IntroProjector_blinn3SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo29";
+createNode psdFileTex -n "IntroProjector_psdFileTex6";
+createNode place2dTexture -n "IntroProjector_place2dTexture27";
+createNode blinn -n "IntroProjector_blinn13";
+createNode shadingEngine -n "IntroProjector_blinn4SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo30";
+createNode psdFileTex -n "IntroProjector_psdFileTex7";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture28";
+createNode psdFileTex -n "IntroProjector_psdFileTex8";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture29";
+createNode blinn -n "IntroProjector_blinn5";
+createNode shadingEngine -n "IntroProjector_blinn5SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo31";
+createNode checker -n "IntroProjector_checker3";
+createNode place2dTexture -n "IntroProjector_place2dTexture30";
+	setAttr ".re" -type "float2" 4 4 ;
+createNode blinn -n "IntroProjector_blinn6";
+createNode shadingEngine -n "IntroProjector_blinn6SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo32";
+createNode psdFileTex -n "IntroProjector_psdFileTex9";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture31";
+createNode lambert -n "IntroProjector_lambert16";
+createNode shadingEngine -n "IntroProjector_lambert8SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo33";
+createNode psdFileTex -n "IntroProjector_psdFileTex10";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture32";
+createNode materialInfo -n "IntroProjector_pasted__materialInfo13";
+createNode shadingEngine -n "IntroProjector_pasted__lambert8SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode lambert -n "IntroProjector_pasted__lambert8";
+createNode psdFileTex -n "IntroProjector_pasted__psdFileTex10";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/GeneralsProjector.psd";
+createNode place2dTexture -n "IntroProjector_pasted__place2dTexture13";
+createNode blinn -n "IntroProjector_blinn7";
+createNode shadingEngine -n "IntroProjector_blinn7SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo34";
+createNode psdFileTex -n "IntroProjector_psdFileTex11";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/IntroProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture33";
+createNode blinn -n "IntroProjector_blinn8";
+createNode shadingEngine -n "IntroProjector_blinn8SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo35";
+createNode materialInfo -n "IntroProjector_pasted__materialInfo14";
+createNode shadingEngine -n "IntroProjector_pasted__blinn7SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode blinn -n "IntroProjector_pasted__blinn7";
+createNode psdFileTex -n "IntroProjector_pasted__psdFileTex11";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/IntroProjector.psd";
+createNode place2dTexture -n "IntroProjector_pasted__place2dTexture14";
+createNode blinn -n "IntroProjector_Projector";
+createNode shadingEngine -n "IntroProjector_blinn9SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo36";
+createNode psdFileTex -n "IntroProjector_psdFileTex12";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/Marshal'sProjector.psd";
+createNode place2dTexture -n "IntroProjector_place2dTexture34";
+createNode materialInfo -n "IntroProjector_pasted__materialInfo16";
+createNode shadingEngine -n "IntroProjector_pasted__blinn9SG";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode blinn -n "IntroProjector_pasted__blinn9";
+createNode psdFileTex -n "IntroProjector_pasted__psdFileTex12";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/Marshal'sProjector.psd";
+createNode place2dTexture -n "IntroProjector_pasted__place2dTexture15";
+createNode materialInfo -n "IntroProjector_pasted__materialInfo17";
+createNode shadingEngine -n "IntroProjector_pasted__blinn9SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode blinn -n "IntroProjector_pasted__blinn10";
+createNode psdFileTex -n "IntroProjector_pasted__psdFileTex13";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Intro/Marshal'sProjector.psd";
+createNode place2dTexture -n "IntroProjector_pasted__place2dTexture16";
+createNode animCurveTA -n "IntroProjector_pairBlend1_inRotateZ1";
+	setAttr ".tan" 18;
+	setAttr ".wgt" no;
+	setAttr ".ktv[0]"  5 91.304590774597045;
+createNode file -n "IntroProjector_file5";
+	setAttr ".ftn" -type "string" "/Users/nathanwaters/Documents/RunnerFiles/Marshal/MarshallConceptArt3.png";
+createNode place2dTexture -n "IntroProjector_place2dTexture35";
+createNode lambert -n "IntroProjector_lambert9";
+createNode shadingEngine -n "IntroProjector_lambert9SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo37";
+createNode lambert -n "IntroProjector_lambert10";
+createNode shadingEngine -n "IntroProjector_lambert10SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo38";
+createNode file -n "IntroProjector_file6";
+	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Characters/jASPER/Projector1.png";
+createNode place2dTexture -n "IntroProjector_place2dTexture36";
+createNode lambert -n "IntroProjector_lambert11";
+createNode shadingEngine -n "IntroProjector_lambert11SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo39";
+createNode file -n "IntroProjector_file7";
+	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Characters/jASPER/Projector1.png";
+createNode place2dTexture -n "IntroProjector_place2dTexture37";
+createNode blinn -n "IntroProjector_blinn10";
+createNode shadingEngine -n "IntroProjector_blinn10SG1";
+	setAttr ".ihi" 0;
+	setAttr ".ro" yes;
+createNode materialInfo -n "IntroProjector_materialInfo40";
+createNode file -n "IntroProjector_file8";
+	setAttr ".ftn" -type "string" "D:/Documents/GitHub/The-Runners/Assets/Models/Characters/jASPER/jASPERTexture.jpg";
+createNode place2dTexture -n "IntroProjector_place2dTexture38";
+select -ne :time1;
+	setAttr ".o" 80;
+	setAttr ".unw" 80;
+select -ne :renderPartition;
+	setAttr -s 93 ".st";
+select -ne :initialShadingGroup;
+	setAttr -s 128 ".dsm";
+	setAttr ".ro" yes;
+	setAttr -s 121 ".gn";
 select -ne :initialParticleSE;
 	setAttr ".ro" yes;
 select -ne :defaultShaderList1;
-	setAttr -s 40 ".s";
+	setAttr -s 92 ".s";
 select -ne :defaultTextureList1;
-	setAttr -s 19 ".tx";
+	setAttr -s 67 ".tx";
 select -ne :lightList1;
+select -ne :lambert1;
 select -ne :postProcessList1;
 	setAttr -s 2 ".p";
 select -ne :defaultRenderUtilityList1;
-	setAttr -s 19 ".u";
+	setAttr -s 67 ".u";
 select -ne :defaultRenderingList1;
 select -ne :renderGlobalsList1;
+select -ne :initialMaterialInfo;
+	setAttr -s 2 ".t";
 select -ne :defaultRenderGlobals;
 	setAttr ".ren" -type "string" "mayaHardware2";
 	setAttr ".ep" 1;
@@ -48677,7 +49033,9 @@ select -ne :defaultHardwareRenderGlobals;
 	setAttr ".fn" -type "string" "im";
 	setAttr ".res" -type "string" "ntsc_4d 646 485 1.333";
 select -ne :ikSystem;
-	setAttr -s 4 ".sol";
+	setAttr -s 7 ".sol";
+select -ne :hyperGraphLayout;
+	setAttr -s 31 ".hyp";
 connectAttr "deleteComponent15.og" "polySurfaceShape145.i";
 connectAttr "groupId151.id" "polySurfaceShape145.iog.og[0].gid";
 connectAttr "lambert7SG.mwc" "polySurfaceShape145.iog.og[0].gco";
@@ -48825,17 +49183,9 @@ connectAttr "polySurface168_translateY.o" "|polySurface139|Wall.ty";
 connectAttr "polySurface168_translateZ.o" "|polySurface139|Wall.tz";
 connectAttr "polyAutoProj25.out" "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.i"
 		;
-connectAttr "groupId404.id" "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.iog.og[0].gid"
-		;
-connectAttr "lambert16SG.mwc" "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.iog.og[0].gco"
-		;
 connectAttr "polyTweakUV57.uvtk[0]" "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.uvst[0].uvtw"
 		;
 connectAttr "polyTweakUV66.out" "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|polySurface227|polySurfaceShape284.i"
-		;
-connectAttr "groupId403.id" "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|polySurface227|polySurfaceShape284.iog.og[0].gid"
-		;
-connectAttr "lambert16SG.mwc" "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|polySurface227|polySurfaceShape284.iog.og[0].gco"
 		;
 connectAttr "polyTweakUV66.uvtk[0]" "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|polySurface227|polySurfaceShape284.uvst[0].uvtw"
 		;
@@ -49025,11 +49375,7 @@ connectAttr "groupId402.id" "|polySurface182|polySurface225|polySurface230|trans
 connectAttr "lambert16SG.mwc" "|polySurface182|polySurface225|polySurface230|transform85|polySurfaceShape287.iog.og[0].gco"
 		;
 connectAttr "polyTweakUV60.out" "polySurfaceShape240.i";
-connectAttr "groupId471.id" "polySurfaceShape240.iog.og[0].gid";
-connectAttr "lambert16SG.mwc" "polySurfaceShape240.iog.og[0].gco";
 connectAttr "polyTweakUV60.uvtk[0]" "polySurfaceShape240.uvst[0].uvtw";
-connectAttr "groupId510.id" "polySurfaceShape248.iog.og[0].gid";
-connectAttr "lambert16SG.mwc" "polySurfaceShape248.iog.og[0].gco";
 connectAttr "polyTweakUV65.out" "polySurfaceShape248.i";
 connectAttr "polyTweakUV65.uvtk[0]" "polySurfaceShape248.uvst[0].uvtw";
 connectAttr "polyChipOff37.out" "polySurfaceShape281.i";
@@ -49137,9 +49483,7 @@ connectAttr "groupId407.id" "ledge2Shape.iog.og[0].gid";
 connectAttr "blinn6SG.mwc" "ledge2Shape.iog.og[0].gco";
 connectAttr "groupId408.id" "ledge2Shape.ciog.cog[0].cgid";
 connectAttr "polyExtrudeEdge88.out" "box7Shape.i";
-connectAttr "groupParts535.og" "polySurfaceShape345.i";
-connectAttr "groupId496.id" "polySurfaceShape345.iog.og[0].gid";
-connectAttr "lambert7SG.mwc" "polySurfaceShape345.iog.og[0].gco";
+connectAttr "polySeparate56.out[0]" "polySurfaceShape345.i";
 connectAttr "polyTweakUV50.out" "polySurfaceShape346.i";
 connectAttr "groupId497.id" "polySurfaceShape346.iog.og[0].gid";
 connectAttr "lambert7SG.mwc" "polySurfaceShape346.iog.og[0].gco";
@@ -49248,8 +49592,6 @@ connectAttr "polyMergeVert121.out" "polySurfaceShape307.i";
 connectAttr "groupId424.id" "polySurfaceShape307.iog.og[0].gid";
 connectAttr "lambert16SG.mwc" "polySurfaceShape307.iog.og[0].gco";
 connectAttr "polyAutoProj38.out" "polySurfaceShape311.i";
-connectAttr "groupId430.id" "polySurfaceShape311.iog.og[0].gid";
-connectAttr "lambert16SG.mwc" "polySurfaceShape311.iog.og[0].gco";
 connectAttr "polyTweakUV40.uvtk[0]" "polySurfaceShape311.uvst[0].uvtw";
 connectAttr "deleteComponent166.og" "pCylinderShape2.i";
 connectAttr "groupParts480.og" "polySurfaceShape312.i";
@@ -49269,8 +49611,6 @@ connectAttr "groupId437.id" "polySurfaceShape314.iog.og[0].gid";
 connectAttr "lambert17SG.mwc" "polySurfaceShape314.iog.og[0].gco";
 connectAttr "groupId438.id" "polySurfaceShape314.iog.og[1].gid";
 connectAttr "blinn5SG.mwc" "polySurfaceShape314.iog.og[1].gco";
-connectAttr "groupId439.id" "MeshShape6.iog.og[0].gid";
-connectAttr "blinn5SG.mwc" "MeshShape6.iog.og[0].gco";
 connectAttr "groupParts507.og" "polySurfaceShape326.i";
 connectAttr "groupId460.id" "polySurfaceShape326.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "polySurfaceShape326.iog.og[0].gco";
@@ -49384,10 +49724,10 @@ connectAttr "groupId467.id" "|polySurface270|Box|WallBox|transform144|WallBoxSha
 		;
 connectAttr ":initialShadingGroup.mwc" "|polySurface270|Box|WallBox|transform144|WallBoxShape.iog.og[0].gco"
 		;
-connectAttr "groupId606.id" "NadaqShape.iog.og[0].gid";
-connectAttr ":initialShadingGroup.mwc" "NadaqShape.iog.og[0].gco";
-connectAttr "groupId607.id" "Nadaq1Shape.iog.og[0].gid";
-connectAttr ":initialShadingGroup.mwc" "Nadaq1Shape.iog.og[0].gco";
+connectAttr "polyTweakUV110.out" "NadaqShape.i";
+connectAttr "polyTweakUV110.uvtk[0]" "NadaqShape.uvst[0].uvtw";
+connectAttr "polyTweakUV111.out" "Nadaq1Shape.i";
+connectAttr "polyTweakUV111.uvtk[0]" "Nadaq1Shape.uvst[0].uvtw";
 connectAttr "groupParts511.og" "|polySurface270|Box|transform108|BoxShape.i";
 connectAttr "groupId465.id" "|polySurface270|Box|transform108|BoxShape.iog.og[0].gid"
 		;
@@ -49401,9 +49741,7 @@ connectAttr "polySoftEdge43.out" "BoxLedgeShape.i";
 connectAttr "groupParts552.og" "polySurfaceShape373.i";
 connectAttr "groupId562.id" "polySurfaceShape373.iog.og[0].gid";
 connectAttr "lambert16SG.mwc" "polySurfaceShape373.iog.og[0].gco";
-connectAttr "groupParts553.og" "|HoldsFan|Nada|Box|BoxShape.i";
-connectAttr "groupId563.id" "|HoldsFan|Nada|Box|BoxShape.iog.og[0].gid";
-connectAttr "lambert16SG.mwc" "|HoldsFan|Nada|Box|BoxShape.iog.og[0].gco";
+connectAttr "polySeparate57.out[1]" "|HoldsFan|Nada|Box|BoxShape.i";
 connectAttr "groupParts554.og" "polySurfaceShape375.i";
 connectAttr "groupId564.id" "polySurfaceShape375.iog.og[0].gid";
 connectAttr "lambert16SG.mwc" "polySurfaceShape375.iog.og[0].gco";
@@ -49584,8 +49922,6 @@ connectAttr "polyTweakUV71.out" "LedgeqShape.i";
 connectAttr "groupId604.id" "LedgeqShape.iog.og[0].gid";
 connectAttr "lambert28SG.mwc" "LedgeqShape.iog.og[0].gco";
 connectAttr "polyTweakUV71.uvtk[0]" "LedgeqShape.uvst[0].uvtw";
-connectAttr "groupId610.id" "LadderX1Shape.iog.og[0].gid";
-connectAttr ":initialShadingGroup.mwc" "LadderX1Shape.iog.og[0].gco";
 connectAttr "polyTweakUV89.out" "|Nada2|Nada.i";
 connectAttr "polyTweakUV89.uvtk[0]" "|Nada2|Nada.uvst[0].uvtw";
 connectAttr "polyTweakUV82.out" "|Nada3|Nada.i";
@@ -49627,14 +49963,6 @@ connectAttr "polyNormal27.out" "Mesh8Shape.i";
 connectAttr "polyExtrudeEdge134.out" "Wall10Shape.i";
 connectAttr "polyTweakUV109.uvtk[0]" "Wall10Shape.uvst[0].uvtw";
 connectAttr "polyNormal23.out" "|ToFadeFront|polySurface334|polySurfaceShape334.i"
-		;
-connectAttr "groupId620.id" "|ToFadeFront|polySurface334|polySurfaceShape334.iog.og[0].gid"
-		;
-connectAttr "lambert17SG.mwc" "|ToFadeFront|polySurface334|polySurfaceShape334.iog.og[0].gco"
-		;
-connectAttr "groupId621.id" "|ToFadeFront|polySurface334|polySurfaceShape334.iog.og[1].gid"
-		;
-connectAttr "blinn5SG.mwc" "|ToFadeFront|polySurface334|polySurfaceShape334.iog.og[1].gco"
 		;
 connectAttr "deleteComponent235.og" "|ToFadeFront|polySurface335|polySurfaceShape335.i"
 		;
@@ -49680,6 +50008,59 @@ relationship "link" ":lightLinker1" "lambert26SG.message" ":defaultLightSet.mess
 relationship "link" ":lightLinker1" "lambert27SG.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "lambert28SG.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "lambert29SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "lambert30SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "lambert31SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "PipeShaderNonBSSG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "SewerRightHandSide2SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "LeftSideBGqSG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn1SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert2SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert3SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert4SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert5SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert6SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert7SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn2SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn3SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn4SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn5SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn6SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert8SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "pasted__lambert8SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn7SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn8SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "pasted__blinn7SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn9SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "pasted__blinn9SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "pasted__blinn9SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert9SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert10SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert11SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn10SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn1SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert2SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert3SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert4SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert5SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert6SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert7SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn2SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn3SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn4SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn5SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn6SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert8SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_pasted__lambert8SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn7SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn8SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_pasted__blinn7SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn9SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_pasted__blinn9SG.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_pasted__blinn9SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert9SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert10SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_lambert11SG1.message" ":defaultLightSet.message";
+relationship "link" ":lightLinker1" "IntroProjector_blinn10SG1.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
@@ -49720,6 +50101,59 @@ relationship "shadowLink" ":lightLinker1" "lambert26SG.message" ":defaultLightSe
 relationship "shadowLink" ":lightLinker1" "lambert27SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "lambert28SG.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" "lambert29SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "lambert30SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "lambert31SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "PipeShaderNonBSSG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "SewerRightHandSide2SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "LeftSideBGqSG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn1SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert2SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert3SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert4SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert5SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert6SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert7SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn2SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn3SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn4SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn5SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn6SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert8SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "pasted__lambert8SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn7SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn8SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "pasted__blinn7SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn9SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "pasted__blinn9SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "pasted__blinn9SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert9SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert10SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert11SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn10SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn1SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert2SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert3SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert4SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert5SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert6SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert7SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn2SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn3SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn4SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn5SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn6SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert8SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_pasted__lambert8SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn7SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn8SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_pasted__blinn7SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn9SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_pasted__blinn9SG.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_pasted__blinn9SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert9SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert10SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_lambert11SG1.message" ":defaultLightSet.message";
+relationship "shadowLink" ":lightLinker1" "IntroProjector_blinn10SG1.message" ":defaultLightSet.message";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
 connectAttr "lambert3.oc" "lambert2.c";
@@ -49885,8 +50319,6 @@ connectAttr "place2dTexture6.vt3" "file6.vt3";
 connectAttr "place2dTexture6.vc1" "file6.vc1";
 connectAttr "place2dTexture6.o" "file6.uv";
 connectAttr "place2dTexture6.ofs" "file6.fs";
-connectAttr "file7.oc" "SewerRightHandSide.c";
-connectAttr "SewerRightHandSide.oc" "lambert7SG.ss";
 connectAttr "polySurfaceShape69.iog.og[0]" "lambert7SG.dsm" -na;
 connectAttr "polySurfaceShape69.ciog.cog[0]" "lambert7SG.dsm" -na;
 connectAttr "polySurfaceShape145.iog.og[0]" "lambert7SG.dsm" -na;
@@ -49897,7 +50329,6 @@ connectAttr "polySurfaceShape155.iog.og[1]" "lambert7SG.dsm" -na;
 connectAttr "polySurfaceShape163.iog.og[1]" "lambert7SG.dsm" -na;
 connectAttr "pCubeShape34.iog.og[0]" "lambert7SG.dsm" -na;
 connectAttr "pCubeShape34.ciog.cog[0]" "lambert7SG.dsm" -na;
-connectAttr "polySurfaceShape345.iog.og[0]" "lambert7SG.dsm" -na;
 connectAttr "polySurfaceShape346.iog.og[0]" "lambert7SG.dsm" -na;
 connectAttr "pCubeShape49.iog.og[0]" "lambert7SG.dsm" -na;
 connectAttr "pCubeShape48.iog.og[0]" "lambert7SG.dsm" -na;
@@ -49905,7 +50336,6 @@ connectAttr "pCubeShape47.iog.og[0]" "lambert7SG.dsm" -na;
 connectAttr "pCubeShape46.iog.og[0]" "lambert7SG.dsm" -na;
 connectAttr "pCubeShape45.iog.og[0]" "lambert7SG.dsm" -na;
 connectAttr "pCubeShape44.iog.og[0]" "lambert7SG.dsm" -na;
-connectAttr "|Mesh|MeshShape.iog" "lambert7SG.dsm" -na;
 connectAttr "groupId148.msg" "lambert7SG.gn" -na;
 connectAttr "groupId149.msg" "lambert7SG.gn" -na;
 connectAttr "groupId151.msg" "lambert7SG.gn" -na;
@@ -49916,11 +50346,8 @@ connectAttr "groupId186.msg" "lambert7SG.gn" -na;
 connectAttr "groupId189.msg" "lambert7SG.gn" -na;
 connectAttr "groupId494.msg" "lambert7SG.gn" -na;
 connectAttr "groupId495.msg" "lambert7SG.gn" -na;
-connectAttr "groupId496.msg" "lambert7SG.gn" -na;
 connectAttr "groupId497.msg" "lambert7SG.gn" -na;
 connectAttr "lambert7SG.msg" "materialInfo9.sg";
-connectAttr "SewerRightHandSide.msg" "materialInfo9.m";
-connectAttr "file7.msg" "materialInfo9.t" -na;
 connectAttr "place2dTexture7.c" "file7.c";
 connectAttr "place2dTexture7.tf" "file7.tf";
 connectAttr "place2dTexture7.rf" "file7.rf";
@@ -50561,14 +50988,15 @@ connectAttr "polySurfaceShape312.iog.og[0]" "blinn5SG.dsm" -na;
 connectAttr "polySurfaceShape313.iog.og[0]" "blinn5SG.dsm" -na;
 connectAttr "polySurfaceShape256.iog.og[0]" "blinn5SG.dsm" -na;
 connectAttr "polySurfaceShape314.iog.og[1]" "blinn5SG.dsm" -na;
-connectAttr "MeshShape6.iog.og[0]" "blinn5SG.dsm" -na;
 connectAttr "MeshShape7.iog.og[1]" "blinn5SG.dsm" -na;
 connectAttr "polySurfaceShape315.iog.og[1]" "blinn5SG.dsm" -na;
 connectAttr "polySurfaceShape317.iog.og[1]" "blinn5SG.dsm" -na;
 connectAttr "polySurfaceShape320.iog.og[1]" "blinn5SG.dsm" -na;
 connectAttr "polySurfaceShape322.iog.og[1]" "blinn5SG.dsm" -na;
-connectAttr "|ToFadeFront|polySurface334|polySurfaceShape334.iog.og[1]" "blinn5SG.dsm"
-		 -na;
+connectAttr "pCubeShape110.iog" "blinn5SG.dsm" -na;
+connectAttr "MeshShape6.iog" "blinn5SG.dsm" -na;
+connectAttr "LadderX1Shape.iog" "blinn5SG.dsm" -na;
+connectAttr "LedgeShape30.iog" "blinn5SG.dsm" -na;
 connectAttr "groupId232.msg" "blinn5SG.gn" -na;
 connectAttr "groupId233.msg" "blinn5SG.gn" -na;
 connectAttr "groupId234.msg" "blinn5SG.gn" -na;
@@ -50612,13 +51040,11 @@ connectAttr "groupId432.msg" "blinn5SG.gn" -na;
 connectAttr "groupId433.msg" "blinn5SG.gn" -na;
 connectAttr "groupId434.msg" "blinn5SG.gn" -na;
 connectAttr "groupId438.msg" "blinn5SG.gn" -na;
-connectAttr "groupId439.msg" "blinn5SG.gn" -na;
 connectAttr "groupId443.msg" "blinn5SG.gn" -na;
 connectAttr "groupId445.msg" "blinn5SG.gn" -na;
 connectAttr "groupId448.msg" "blinn5SG.gn" -na;
 connectAttr "groupId452.msg" "blinn5SG.gn" -na;
 connectAttr "groupId455.msg" "blinn5SG.gn" -na;
-connectAttr "groupId621.msg" "blinn5SG.gn" -na;
 connectAttr "blinn5SG.msg" "materialInfo12.sg";
 connectAttr "ForFalseLighting.msg" "materialInfo12.m";
 connectAttr "polySurfaceShape192.o" "polyExtrudeEdge30.ip";
@@ -50800,7 +51226,6 @@ connectAttr "WallLedge2Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "Ledge13Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "WallLedge5Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "WallLedge6Shape.iog" "blinn6SG.dsm" -na;
-connectAttr "Ledge12Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "WallLedge7Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "BoxLedgeShape.iog" "blinn6SG.dsm" -na;
 connectAttr "HidingZoneMeshShape.iog" "blinn6SG.dsm" -na;
@@ -50809,7 +51234,6 @@ connectAttr "polySurfaceShape279.iog" "blinn6SG.dsm" -na;
 connectAttr "Ledge16Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "Ledge17Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "WallLedge8Shape.iog" "blinn6SG.dsm" -na;
-connectAttr "Ledge31Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "groupId328.msg" "blinn6SG.gn" -na;
 connectAttr "groupId329.msg" "blinn6SG.gn" -na;
 connectAttr "groupId330.msg" "blinn6SG.gn" -na;
@@ -51351,26 +51775,17 @@ connectAttr "|polySurface182|polySurface225|polySurface229|transform87|polySurfa
 		 -na;
 connectAttr "|polySurface182|polySurface225|polySurface230|transform85|polySurfaceShape287.iog.og[0]" "lambert16SG.dsm"
 		 -na;
-connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|polySurface227|polySurfaceShape284.iog.og[0]" "lambert16SG.dsm"
-		 -na;
-connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.iog.og[0]" "lambert16SG.dsm"
-		 -na;
 connectAttr "polySurfaceShape298.iog.og[0]" "lambert16SG.dsm" -na;
 connectAttr "polySurfaceShape307.iog.og[0]" "lambert16SG.dsm" -na;
 connectAttr "polySurfaceShape310.iog.og[0]" "lambert16SG.dsm" -na;
 connectAttr "polySurfaceShape308.iog.og[0]" "lambert16SG.dsm" -na;
 connectAttr "polySurfaceShape309.iog.og[0]" "lambert16SG.dsm" -na;
-connectAttr "polySurfaceShape311.iog.og[0]" "lambert16SG.dsm" -na;
-connectAttr "polySurfaceShape240.iog.og[0]" "lambert16SG.dsm" -na;
 connectAttr "|polySurface182|Wall|WallShape.iog.og[0]" "lambert16SG.dsm" -na;
-connectAttr "polySurfaceShape248.iog.og[0]" "lambert16SG.dsm" -na;
-connectAttr "polySurfaceShape354.iog" "lambert16SG.dsm" -na;
 connectAttr "|HoldsFan|Nada|transform134|MeshShape.iog.og[0]" "lambert16SG.dsm" 
 		-na;
 connectAttr "|HoldsFan|Nada|transform134|MeshShape.ciog.cog[0]" "lambert16SG.dsm"
 		 -na;
 connectAttr "polySurfaceShape373.iog.og[0]" "lambert16SG.dsm" -na;
-connectAttr "|HoldsFan|Nada|Box|BoxShape.iog.og[0]" "lambert16SG.dsm" -na;
 connectAttr "polySurfaceShape375.iog.og[0]" "lambert16SG.dsm" -na;
 connectAttr "groupId367.msg" "lambert16SG.gn" -na;
 connectAttr "groupId368.msg" "lambert16SG.gn" -na;
@@ -51378,21 +51793,15 @@ connectAttr "groupId371.msg" "lambert16SG.gn" -na;
 connectAttr "groupId383.msg" "lambert16SG.gn" -na;
 connectAttr "groupId384.msg" "lambert16SG.gn" -na;
 connectAttr "groupId402.msg" "lambert16SG.gn" -na;
-connectAttr "groupId403.msg" "lambert16SG.gn" -na;
-connectAttr "groupId404.msg" "lambert16SG.gn" -na;
 connectAttr "groupId423.msg" "lambert16SG.gn" -na;
 connectAttr "groupId424.msg" "lambert16SG.gn" -na;
 connectAttr "groupId427.msg" "lambert16SG.gn" -na;
 connectAttr "groupId428.msg" "lambert16SG.gn" -na;
 connectAttr "groupId429.msg" "lambert16SG.gn" -na;
-connectAttr "groupId430.msg" "lambert16SG.gn" -na;
-connectAttr "groupId471.msg" "lambert16SG.gn" -na;
 connectAttr "groupId493.msg" "lambert16SG.gn" -na;
-connectAttr "groupId510.msg" "lambert16SG.gn" -na;
 connectAttr "groupId560.msg" "lambert16SG.gn" -na;
 connectAttr "groupId561.msg" "lambert16SG.gn" -na;
 connectAttr "groupId562.msg" "lambert16SG.gn" -na;
-connectAttr "groupId563.msg" "lambert16SG.gn" -na;
 connectAttr "groupId564.msg" "lambert16SG.gn" -na;
 connectAttr "lambert16SG.msg" "materialInfo24.sg";
 connectAttr "SewerRightHandSide1.msg" "materialInfo24.m";
@@ -51449,8 +51858,6 @@ connectAttr "MeshShape2.iog" "lambert17SG.dsm" -na;
 connectAttr "|group9|Wall|WallShape.iog" "lambert17SG.dsm" -na;
 connectAttr "|polySurface139|Mesh|MeshShape.iog" "lambert17SG.dsm" -na;
 connectAttr "WallShape1.iog" "lambert17SG.dsm" -na;
-connectAttr "|polySurface139|polySurface169|polySurface172|polySurface181|polySurfaceShape241.iog" "lambert17SG.dsm"
-		 -na;
 connectAttr "|polySurface139|Wall|WallShape.iog" "lambert17SG.dsm" -na;
 connectAttr "|WaterStorage1|Ledge|LedgeShape.iog" "lambert17SG.dsm" -na;
 connectAttr "MeshShape5.iog.og[0]" "lambert17SG.dsm" -na;
@@ -51460,12 +51867,6 @@ connectAttr "MeshShape4.ciog.cog[0]" "lambert17SG.dsm" -na;
 connectAttr "WallShape2.iog.og[10]" "lambert17SG.dsm" -na;
 connectAttr "WallShape2.ciog.cog[10]" "lambert17SG.dsm" -na;
 connectAttr "polySurfaceShape314.iog.og[0]" "lambert17SG.dsm" -na;
-connectAttr "Wall9Shape.iog" "lambert17SG.dsm" -na;
-connectAttr "Mesh8Shape.iog" "lambert17SG.dsm" -na;
-connectAttr "polySurfaceShape333.iog" "lambert17SG.dsm" -na;
-connectAttr "Wall10Shape.iog" "lambert17SG.dsm" -na;
-connectAttr "|ToFadeFront|polySurface334|polySurfaceShape334.iog.og[0]" "lambert17SG.dsm"
-		 -na;
 connectAttr "groupId378.msg" "lambert17SG.gn" -na;
 connectAttr "groupId379.msg" "lambert17SG.gn" -na;
 connectAttr "groupId380.msg" "lambert17SG.gn" -na;
@@ -51473,7 +51874,6 @@ connectAttr "groupId381.msg" "lambert17SG.gn" -na;
 connectAttr "groupId435.msg" "lambert17SG.gn" -na;
 connectAttr "groupId436.msg" "lambert17SG.gn" -na;
 connectAttr "groupId437.msg" "lambert17SG.gn" -na;
-connectAttr "groupId620.msg" "lambert17SG.gn" -na;
 connectAttr "lambert17SG.msg" "materialInfo25.sg";
 connectAttr "LeftSide.msg" "materialInfo25.m";
 connectAttr "file12.msg" "materialInfo25.t" -na;
@@ -51939,8 +52339,6 @@ connectAttr "polyTweak150.out" "polyExtrudeEdge82.ip";
 connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|polySurface227|polySurfaceShape284.wm" "polyExtrudeEdge82.mp"
 		;
 connectAttr "groupParts424.og" "polyTweak150.ip";
-connectAttr "polyExtrudeEdge82.out" "groupParts425.ig";
-connectAttr "groupId403.id" "groupParts425.gi";
 connectAttr "polySurfaceShape290.o" "polyExtrudeEdge83.ip";
 connectAttr "Mesh1Shape.wm" "polyExtrudeEdge83.mp";
 connectAttr "deleteComponent116.og" "polyTweak151.ip";
@@ -51955,7 +52353,7 @@ connectAttr "polyExtrudeEdge83.out" "polyTweak153.ip";
 connectAttr "polyTweak154.out" "polyMergeVert103.ip";
 connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|polySurface227|polySurfaceShape284.wm" "polyMergeVert103.mp"
 		;
-connectAttr "groupParts425.og" "polyTweak154.ip";
+connectAttr "polyExtrudeEdge82.out" "polyTweak154.ip";
 connectAttr "polyTweak155.out" "polyExtrudeEdge84.ip";
 connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.wm" "polyExtrudeEdge84.mp"
 		;
@@ -51965,12 +52363,10 @@ connectAttr "polyTweak156.out" "polyExtrudeEdge85.ip";
 connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.wm" "polyExtrudeEdge85.mp"
 		;
 connectAttr "groupParts426.og" "polyTweak156.ip";
-connectAttr "polyExtrudeEdge85.out" "groupParts427.ig";
-connectAttr "groupId404.id" "groupParts427.gi";
 connectAttr "polyTweak157.out" "polyExtrudeFace46.ip";
 connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.wm" "polyExtrudeFace46.mp"
 		;
-connectAttr "groupParts427.og" "polyTweak157.ip";
+connectAttr "polyExtrudeEdge85.out" "polyTweak157.ip";
 connectAttr "polySeparate38.out[1]" "polySoftEdge34.ip";
 connectAttr "ledgeShape.wm" "polySoftEdge34.mp";
 connectAttr "polySurfaceShape291.o" "polyCut19.ip";
@@ -52349,9 +52745,7 @@ connectAttr "polySurfaceShape311.wm" "polyBridgeEdge101.mp";
 connectAttr "polyBridgeEdge101.out" "groupParts476.ig";
 connectAttr "groupParts476.og" "polyBridgeEdge102.ip";
 connectAttr "polySurfaceShape311.wm" "polyBridgeEdge102.mp";
-connectAttr "polyBridgeEdge102.out" "groupParts477.ig";
-connectAttr "groupId430.id" "groupParts477.gi";
-connectAttr "groupParts477.og" "polySoftEdge40.ip";
+connectAttr "polyBridgeEdge102.out" "polySoftEdge40.ip";
 connectAttr "polySurfaceShape311.wm" "polySoftEdge40.mp";
 connectAttr "polyCylinder4.out" "polyExtrudeFace51.ip";
 connectAttr "pCylinderShape2.wm" "polyExtrudeFace51.mp";
@@ -52589,11 +52983,9 @@ connectAttr "deleteComponent190.og" "polyTweak214.ip";
 connectAttr "polyBridgeEdge103.out" "groupParts517.ig";
 connectAttr "groupParts517.og" "polyBridgeEdge104.ip";
 connectAttr "polySurfaceShape240.wm" "polyBridgeEdge104.mp";
-connectAttr "polyBridgeEdge104.out" "groupParts518.ig";
-connectAttr "groupId471.id" "groupParts518.gi";
 connectAttr "polyTweak215.out" "polyCut35.ip";
 connectAttr "polySurfaceShape240.wm" "polyCut35.mp";
-connectAttr "groupParts518.og" "polyTweak215.ip";
+connectAttr "polyBridgeEdge104.out" "polyTweak215.ip";
 connectAttr "polyCut35.out" "polyCut36.ip";
 connectAttr "polySurfaceShape240.wm" "polyCut36.mp";
 connectAttr "polyPipe2.out" "polyCut37.ip";
@@ -52851,8 +53243,6 @@ connectAttr "pCubeShape34.wm" "polyChipOff53.mp";
 connectAttr "pCubeShape34.o" "polySeparate56.ip";
 connectAttr "polyChipOff53.out" "groupParts534.ig";
 connectAttr "groupId494.id" "groupParts534.gi";
-connectAttr "polySeparate56.out[0]" "groupParts535.ig";
-connectAttr "groupId496.id" "groupParts535.gi";
 connectAttr "polySeparate56.out[1]" "groupParts536.ig";
 connectAttr "groupId497.id" "groupParts536.gi";
 connectAttr "groupParts536.og" "polyTweakUV45.ip";
@@ -52965,10 +53355,8 @@ connectAttr "polyTweak256.out" "polyAutoProj37.ip";
 connectAttr "Mesh1Shape.wm" "polyAutoProj37.mp";
 connectAttr "polyTweakUV63.out" "polyTweak256.ip";
 connectAttr "polyAutoProj37.out" "polyTweakUV64.ip";
-connectAttr "groupParts543.og" "polyPlanarProj38.ip";
+connectAttr "polySurfaceShape352.o" "polyPlanarProj38.ip";
 connectAttr "polySurfaceShape248.wm" "polyPlanarProj38.mp";
-connectAttr "polySurfaceShape352.o" "groupParts543.ig";
-connectAttr "groupId510.id" "groupParts543.gi";
 connectAttr "polyPlanarProj38.out" "polyTweakUV65.ip";
 connectAttr "polyTweak257.out" "polyAutoProj38.ip";
 connectAttr "polySurfaceShape311.wm" "polyAutoProj38.mp";
@@ -53056,8 +53444,6 @@ connectAttr "polyChipOff54.out" "groupParts551.ig";
 connectAttr "groupId560.id" "groupParts551.gi";
 connectAttr "polySeparate57.out[0]" "groupParts552.ig";
 connectAttr "groupId562.id" "groupParts552.gi";
-connectAttr "polySeparate57.out[1]" "groupParts553.ig";
-connectAttr "groupId563.id" "groupParts553.gi";
 connectAttr "polySeparate57.out[2]" "groupParts554.ig";
 connectAttr "groupId564.id" "groupParts554.gi";
 connectAttr "polyUnite20.out" "polyTweakUV69.ip";
@@ -53425,6 +53811,8 @@ connectAttr "pCubeShape86.iog" "lambert28SG.dsm" -na;
 connectAttr "|Nada3|Nada.iog" "lambert28SG.dsm" -na;
 connectAttr "|Nada4|Nada.iog" "lambert28SG.dsm" -na;
 connectAttr "polySurfaceShape399.iog" "lambert28SG.dsm" -na;
+connectAttr "Nadaq1Shape.iog" "lambert28SG.dsm" -na;
+connectAttr "NadaqShape.iog" "lambert28SG.dsm" -na;
 connectAttr "lambert28SG.msg" "materialInfo37.sg";
 connectAttr "LeftHandSquareOffq.msg" "materialInfo37.m";
 connectAttr "file18.msg" "materialInfo37.t" -na;
@@ -53581,11 +53969,7 @@ connectAttr "polyAutoProj88.out" "polyTweakUV104.ip";
 connectAttr "polyAutoProj89.out" "polyTweakUV105.ip";
 connectAttr "polySurfaceShape423.o" "polyExtrudeEdge120.ip";
 connectAttr "polySurfaceShape333.wm" "polyExtrudeEdge120.mp";
-connectAttr "groupParts592.og" "polyNormal18.ip";
-connectAttr "polySurfaceShape424.o" "groupParts591.ig";
-connectAttr "groupId620.id" "groupParts591.gi";
-connectAttr "groupParts591.og" "groupParts592.ig";
-connectAttr "groupId621.id" "groupParts592.gi";
+connectAttr "polySurfaceShape424.o" "polyNormal18.ip";
 connectAttr "polySurfaceShape425.o" "polyNormal19.ip";
 connectAttr "polySurfaceShape426.o" "polyNormal20.ip";
 connectAttr "polyTweak281.out" "polyExtrudeEdge121.ip";
@@ -53702,6 +54086,1369 @@ connectAttr "polySplitRing34.out" "polySplitRing35.ip";
 connectAttr "|ToFadeFront|polySurface335|polySurfaceShape335.wm" "polySplitRing35.mp"
 		;
 connectAttr "polySplitRing35.out" "deleteComponent235.ig";
+connectAttr "TallStructure.oc" "lambert30SG.ss";
+connectAttr "TallStrucutreShape.iog" "lambert30SG.dsm" -na;
+connectAttr "pCubeShape111.iog" "lambert30SG.dsm" -na;
+connectAttr "pCubeShape112.iog" "lambert30SG.dsm" -na;
+connectAttr "pCubeShape114.iog" "lambert30SG.dsm" -na;
+connectAttr "lambert30SG.msg" "materialInfo39.sg";
+connectAttr "TallStructure.msg" "materialInfo39.m";
+connectAttr "LightHolders.oc" "lambert31SG.ss";
+connectAttr "pCubeShape76.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape74.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape75.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape73.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape81.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape80.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape79.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape78.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape85.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape84.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape83.iog" "lambert31SG.dsm" -na;
+connectAttr "pCubeShape82.iog" "lambert31SG.dsm" -na;
+connectAttr "lambert31SG.msg" "materialInfo40.sg";
+connectAttr "LightHolders.msg" "materialInfo40.m";
+connectAttr "polySurfaceShape430.o" "polyAutoProj94.ip";
+connectAttr "NadaqShape.wm" "polyAutoProj94.mp";
+connectAttr "polySurfaceShape431.o" "polyAutoProj95.ip";
+connectAttr "Nadaq1Shape.wm" "polyAutoProj95.mp";
+connectAttr "polyAutoProj94.out" "polyTweakUV110.ip";
+connectAttr "polyAutoProj95.out" "polyTweakUV111.ip";
+connectAttr "PipeShaderNonBS.oc" "PipeShaderNonBSSG.ss";
+connectAttr "huge_pipeShape.iog" "PipeShaderNonBSSG.dsm" -na;
+connectAttr "huge_pipe1Shape.iog" "PipeShaderNonBSSG.dsm" -na;
+connectAttr "PipeShaderNonBSSG.msg" "materialInfo41.sg";
+connectAttr "PipeShaderNonBS.msg" "materialInfo41.m";
+connectAttr "file20.oc" "SewerRightHandSide2.c";
+connectAttr "place2dTexture20.c" "file20.c";
+connectAttr "place2dTexture20.tf" "file20.tf";
+connectAttr "place2dTexture20.rf" "file20.rf";
+connectAttr "place2dTexture20.mu" "file20.mu";
+connectAttr "place2dTexture20.mv" "file20.mv";
+connectAttr "place2dTexture20.s" "file20.s";
+connectAttr "place2dTexture20.wu" "file20.wu";
+connectAttr "place2dTexture20.wv" "file20.wv";
+connectAttr "place2dTexture20.re" "file20.re";
+connectAttr "place2dTexture20.of" "file20.of";
+connectAttr "place2dTexture20.r" "file20.ro";
+connectAttr "place2dTexture20.n" "file20.n";
+connectAttr "place2dTexture20.vt1" "file20.vt1";
+connectAttr "place2dTexture20.vt2" "file20.vt2";
+connectAttr "place2dTexture20.vt3" "file20.vt3";
+connectAttr "place2dTexture20.vc1" "file20.vc1";
+connectAttr "place2dTexture20.o" "file20.uv";
+connectAttr "place2dTexture20.ofs" "file20.fs";
+connectAttr "SewerRightHandSide2.oc" "SewerRightHandSide2SG.ss";
+connectAttr "|polySurface139|polySurface169|polySurface172|polySurface181|polySurfaceShape241.iog" "SewerRightHandSide2SG.dsm"
+		 -na;
+connectAttr "|Mesh|MeshShape.iog" "SewerRightHandSide2SG.dsm" -na;
+connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|polySurface227|polySurfaceShape284.iog" "SewerRightHandSide2SG.dsm"
+		 -na;
+connectAttr "polySurfaceShape240.iog" "SewerRightHandSide2SG.dsm" -na;
+connectAttr "polySurfaceShape311.iog" "SewerRightHandSide2SG.dsm" -na;
+connectAttr "|polySurface139|polySurface169|polySurface172|polySurface180|polySurface190|Box|BoxShape.iog" "SewerRightHandSide2SG.dsm"
+		 -na;
+connectAttr "|HoldsFan|Nada|Box|BoxShape.iog" "SewerRightHandSide2SG.dsm" -na;
+connectAttr "polySurfaceShape354.iog" "SewerRightHandSide2SG.dsm" -na;
+connectAttr "polySurfaceShape248.iog" "SewerRightHandSide2SG.dsm" -na;
+connectAttr "polySurfaceShape345.iog" "SewerRightHandSide2SG.dsm" -na;
+connectAttr "SewerRightHandSide2SG.msg" "materialInfo42.sg";
+connectAttr "SewerRightHandSide2.msg" "materialInfo42.m";
+connectAttr "file20.msg" "materialInfo42.t" -na;
+connectAttr "file21.oc" "LeftSideBGq.c";
+connectAttr "place2dTexture21.c" "file21.c";
+connectAttr "place2dTexture21.tf" "file21.tf";
+connectAttr "place2dTexture21.rf" "file21.rf";
+connectAttr "place2dTexture21.mu" "file21.mu";
+connectAttr "place2dTexture21.mv" "file21.mv";
+connectAttr "place2dTexture21.s" "file21.s";
+connectAttr "place2dTexture21.wu" "file21.wu";
+connectAttr "place2dTexture21.wv" "file21.wv";
+connectAttr "place2dTexture21.re" "file21.re";
+connectAttr "place2dTexture21.of" "file21.of";
+connectAttr "place2dTexture21.r" "file21.ro";
+connectAttr "place2dTexture21.n" "file21.n";
+connectAttr "place2dTexture21.vt1" "file21.vt1";
+connectAttr "place2dTexture21.vt2" "file21.vt2";
+connectAttr "place2dTexture21.vt3" "file21.vt3";
+connectAttr "place2dTexture21.vc1" "file21.vc1";
+connectAttr "place2dTexture21.o" "file21.uv";
+connectAttr "place2dTexture21.ofs" "file21.fs";
+connectAttr "LeftSideBGq.oc" "LeftSideBGqSG.ss";
+connectAttr "Mesh8Shape.iog" "LeftSideBGqSG.dsm" -na;
+connectAttr "Wall9Shape.iog" "LeftSideBGqSG.dsm" -na;
+connectAttr "|ToFadeFront|polySurface334|polySurfaceShape334.iog" "LeftSideBGqSG.dsm"
+		 -na;
+connectAttr "Wall10Shape.iog" "LeftSideBGqSG.dsm" -na;
+connectAttr "polySurfaceShape333.iog" "LeftSideBGqSG.dsm" -na;
+connectAttr "LeftSideBGqSG.msg" "materialInfo43.sg";
+connectAttr "LeftSideBGq.msg" "materialInfo43.m";
+connectAttr "file21.msg" "materialInfo43.t" -na;
+connectAttr "InnerLight.oc" "IntroProjector_blinn1SG.ss";
+connectAttr "IntroProjector_blinn1SG.msg" "IntroProjector_materialInfo1.sg";
+connectAttr "InnerLight.msg" "IntroProjector_materialInfo1.m";
+connectAttr "psdFileTex1.oc" "IntroProjector_lambert2.c";
+connectAttr "psdFileTex1.ot" "IntroProjector_lambert2.it";
+connectAttr "IntroProjector_lambert2.oc" "IntroProjector_lambert2SG.ss";
+connectAttr "IntroProjector_lambert2SG.msg" "IntroProjector_materialInfo2.sg";
+connectAttr "IntroProjector_lambert2.msg" "IntroProjector_materialInfo2.m";
+connectAttr "psdFileTex1.msg" "IntroProjector_materialInfo2.t" -na;
+connectAttr "IntroProjector_place2dTexture1.c" "psdFileTex1.c";
+connectAttr "IntroProjector_place2dTexture1.tf" "psdFileTex1.tf";
+connectAttr "IntroProjector_place2dTexture1.rf" "psdFileTex1.rf";
+connectAttr "IntroProjector_place2dTexture1.mu" "psdFileTex1.mu";
+connectAttr "IntroProjector_place2dTexture1.mv" "psdFileTex1.mv";
+connectAttr "IntroProjector_place2dTexture1.s" "psdFileTex1.s";
+connectAttr "IntroProjector_place2dTexture1.wu" "psdFileTex1.wu";
+connectAttr "IntroProjector_place2dTexture1.wv" "psdFileTex1.wv";
+connectAttr "IntroProjector_place2dTexture1.re" "psdFileTex1.re";
+connectAttr "IntroProjector_place2dTexture1.of" "psdFileTex1.of";
+connectAttr "IntroProjector_place2dTexture1.r" "psdFileTex1.ro";
+connectAttr "IntroProjector_place2dTexture1.n" "psdFileTex1.n";
+connectAttr "IntroProjector_place2dTexture1.vt1" "psdFileTex1.vt1";
+connectAttr "IntroProjector_place2dTexture1.vt2" "psdFileTex1.vt2";
+connectAttr "IntroProjector_place2dTexture1.vt3" "psdFileTex1.vt3";
+connectAttr "IntroProjector_place2dTexture1.vc1" "psdFileTex1.vc1";
+connectAttr "IntroProjector_place2dTexture1.o" "psdFileTex1.uv";
+connectAttr "IntroProjector_place2dTexture1.ofs" "psdFileTex1.fs";
+connectAttr "psdFileTex2.oc" "Checkered.c";
+connectAttr "psdFileTex2.ot" "Checkered.it";
+connectAttr "Checkered.oc" "IntroProjector_lambert3SG.ss";
+connectAttr "IntroProjector_lambert3SG.msg" "IntroProjector_materialInfo3.sg";
+connectAttr "Checkered.msg" "IntroProjector_materialInfo3.m";
+connectAttr "psdFileTex2.msg" "IntroProjector_materialInfo3.t" -na;
+connectAttr "IntroProjector_place2dTexture2.c" "psdFileTex2.c";
+connectAttr "IntroProjector_place2dTexture2.tf" "psdFileTex2.tf";
+connectAttr "IntroProjector_place2dTexture2.rf" "psdFileTex2.rf";
+connectAttr "IntroProjector_place2dTexture2.mu" "psdFileTex2.mu";
+connectAttr "IntroProjector_place2dTexture2.mv" "psdFileTex2.mv";
+connectAttr "IntroProjector_place2dTexture2.s" "psdFileTex2.s";
+connectAttr "IntroProjector_place2dTexture2.wu" "psdFileTex2.wu";
+connectAttr "IntroProjector_place2dTexture2.wv" "psdFileTex2.wv";
+connectAttr "IntroProjector_place2dTexture2.re" "psdFileTex2.re";
+connectAttr "IntroProjector_place2dTexture2.of" "psdFileTex2.of";
+connectAttr "IntroProjector_place2dTexture2.r" "psdFileTex2.ro";
+connectAttr "IntroProjector_place2dTexture2.n" "psdFileTex2.n";
+connectAttr "IntroProjector_place2dTexture2.vt1" "psdFileTex2.vt1";
+connectAttr "IntroProjector_place2dTexture2.vt2" "psdFileTex2.vt2";
+connectAttr "IntroProjector_place2dTexture2.vt3" "psdFileTex2.vt3";
+connectAttr "IntroProjector_place2dTexture2.vc1" "psdFileTex2.vc1";
+connectAttr "IntroProjector_place2dTexture2.o" "psdFileTex2.uv";
+connectAttr "IntroProjector_place2dTexture2.ofs" "psdFileTex2.fs";
+connectAttr "psdFileTex3.oc" "IntroProjector_lambert4.c";
+connectAttr "psdFileTex3.ot" "IntroProjector_lambert4.it";
+connectAttr "IntroProjector_lambert4.oc" "IntroProjector_lambert4SG.ss";
+connectAttr "IntroProjector_lambert4SG.msg" "IntroProjector_materialInfo4.sg";
+connectAttr "IntroProjector_lambert4.msg" "IntroProjector_materialInfo4.m";
+connectAttr "psdFileTex3.msg" "IntroProjector_materialInfo4.t" -na;
+connectAttr "IntroProjector_place2dTexture3.c" "psdFileTex3.c";
+connectAttr "IntroProjector_place2dTexture3.tf" "psdFileTex3.tf";
+connectAttr "IntroProjector_place2dTexture3.rf" "psdFileTex3.rf";
+connectAttr "IntroProjector_place2dTexture3.mu" "psdFileTex3.mu";
+connectAttr "IntroProjector_place2dTexture3.mv" "psdFileTex3.mv";
+connectAttr "IntroProjector_place2dTexture3.s" "psdFileTex3.s";
+connectAttr "IntroProjector_place2dTexture3.wu" "psdFileTex3.wu";
+connectAttr "IntroProjector_place2dTexture3.wv" "psdFileTex3.wv";
+connectAttr "IntroProjector_place2dTexture3.re" "psdFileTex3.re";
+connectAttr "IntroProjector_place2dTexture3.of" "psdFileTex3.of";
+connectAttr "IntroProjector_place2dTexture3.r" "psdFileTex3.ro";
+connectAttr "IntroProjector_place2dTexture3.n" "psdFileTex3.n";
+connectAttr "IntroProjector_place2dTexture3.vt1" "psdFileTex3.vt1";
+connectAttr "IntroProjector_place2dTexture3.vt2" "psdFileTex3.vt2";
+connectAttr "IntroProjector_place2dTexture3.vt3" "psdFileTex3.vt3";
+connectAttr "IntroProjector_place2dTexture3.vc1" "psdFileTex3.vc1";
+connectAttr "IntroProjector_place2dTexture3.o" "psdFileTex3.uv";
+connectAttr "IntroProjector_place2dTexture3.ofs" "psdFileTex3.fs";
+connectAttr "psdFileTex4.oc" "IntroProjector_lambert5.c";
+connectAttr "psdFileTex4.ot" "IntroProjector_lambert5.it";
+connectAttr "IntroProjector_lambert5.oc" "IntroProjector_lambert5SG.ss";
+connectAttr "IntroProjector_lambert5SG.msg" "IntroProjector_materialInfo5.sg";
+connectAttr "IntroProjector_lambert5.msg" "IntroProjector_materialInfo5.m";
+connectAttr "psdFileTex4.msg" "IntroProjector_materialInfo5.t" -na;
+connectAttr "IntroProjector_place2dTexture4.c" "psdFileTex4.c";
+connectAttr "IntroProjector_place2dTexture4.tf" "psdFileTex4.tf";
+connectAttr "IntroProjector_place2dTexture4.rf" "psdFileTex4.rf";
+connectAttr "IntroProjector_place2dTexture4.mu" "psdFileTex4.mu";
+connectAttr "IntroProjector_place2dTexture4.mv" "psdFileTex4.mv";
+connectAttr "IntroProjector_place2dTexture4.s" "psdFileTex4.s";
+connectAttr "IntroProjector_place2dTexture4.wu" "psdFileTex4.wu";
+connectAttr "IntroProjector_place2dTexture4.wv" "psdFileTex4.wv";
+connectAttr "IntroProjector_place2dTexture4.re" "psdFileTex4.re";
+connectAttr "IntroProjector_place2dTexture4.of" "psdFileTex4.of";
+connectAttr "IntroProjector_place2dTexture4.r" "psdFileTex4.ro";
+connectAttr "IntroProjector_place2dTexture4.n" "psdFileTex4.n";
+connectAttr "IntroProjector_place2dTexture4.vt1" "psdFileTex4.vt1";
+connectAttr "IntroProjector_place2dTexture4.vt2" "psdFileTex4.vt2";
+connectAttr "IntroProjector_place2dTexture4.vt3" "psdFileTex4.vt3";
+connectAttr "IntroProjector_place2dTexture4.vc1" "psdFileTex4.vc1";
+connectAttr "IntroProjector_place2dTexture4.o" "psdFileTex4.uv";
+connectAttr "IntroProjector_place2dTexture4.ofs" "psdFileTex4.fs";
+connectAttr "checker1.oc" "IntroProjector_lambert6.c";
+connectAttr "IntroProjector_lambert6.oc" "IntroProjector_lambert6SG.ss";
+connectAttr "IntroProjector_lambert6SG.msg" "IntroProjector_materialInfo6.sg";
+connectAttr "IntroProjector_lambert6.msg" "IntroProjector_materialInfo6.m";
+connectAttr "checker1.msg" "IntroProjector_materialInfo6.t" -na;
+connectAttr "IntroProjector_place2dTexture5.o" "checker1.uv";
+connectAttr "IntroProjector_place2dTexture5.ofs" "checker1.fs";
+connectAttr "checker2.oc" "lambert7.c";
+connectAttr "lambert7.oc" "IntroProjector_lambert7SG.ss";
+connectAttr "IntroProjector_lambert7SG.msg" "IntroProjector_materialInfo7.sg";
+connectAttr "lambert7.msg" "IntroProjector_materialInfo7.m";
+connectAttr "checker2.msg" "IntroProjector_materialInfo7.t" -na;
+connectAttr "IntroProjector_place2dTexture6.o" "checker2.uv";
+connectAttr "IntroProjector_place2dTexture6.ofs" "checker2.fs";
+connectAttr "psdFileTex5.oc" "checker2.c1";
+connectAttr "IntroProjector_place2dTexture7.c" "psdFileTex5.c";
+connectAttr "IntroProjector_place2dTexture7.tf" "psdFileTex5.tf";
+connectAttr "IntroProjector_place2dTexture7.rf" "psdFileTex5.rf";
+connectAttr "IntroProjector_place2dTexture7.mu" "psdFileTex5.mu";
+connectAttr "IntroProjector_place2dTexture7.mv" "psdFileTex5.mv";
+connectAttr "IntroProjector_place2dTexture7.s" "psdFileTex5.s";
+connectAttr "IntroProjector_place2dTexture7.wu" "psdFileTex5.wu";
+connectAttr "IntroProjector_place2dTexture7.wv" "psdFileTex5.wv";
+connectAttr "IntroProjector_place2dTexture7.re" "psdFileTex5.re";
+connectAttr "IntroProjector_place2dTexture7.of" "psdFileTex5.of";
+connectAttr "IntroProjector_place2dTexture7.r" "psdFileTex5.ro";
+connectAttr "IntroProjector_place2dTexture7.n" "psdFileTex5.n";
+connectAttr "IntroProjector_place2dTexture7.vt1" "psdFileTex5.vt1";
+connectAttr "IntroProjector_place2dTexture7.vt2" "psdFileTex5.vt2";
+connectAttr "IntroProjector_place2dTexture7.vt3" "psdFileTex5.vt3";
+connectAttr "IntroProjector_place2dTexture7.vc1" "psdFileTex5.vc1";
+connectAttr "IntroProjector_place2dTexture7.o" "psdFileTex5.uv";
+connectAttr "IntroProjector_place2dTexture7.ofs" "psdFileTex5.fs";
+connectAttr "psdFileTex8.oc" "IntroProjector_blinn2.c";
+connectAttr "psdFileTex8.ot" "IntroProjector_blinn2.it";
+connectAttr "IntroProjector_blinn2.oc" "IntroProjector_blinn2SG.ss";
+connectAttr "IntroProjector_blinn2SG.msg" "IntroProjector_materialInfo8.sg";
+connectAttr "IntroProjector_blinn2.msg" "IntroProjector_materialInfo8.m";
+connectAttr "psdFileTex8.msg" "IntroProjector_materialInfo8.t" -na;
+connectAttr "psdFileTex6.oc" "IntroProjector_blinn3.c";
+connectAttr "IntroProjector_blinn3.oc" "IntroProjector_blinn3SG.ss";
+connectAttr "IntroProjector_blinn3SG.msg" "IntroProjector_materialInfo9.sg";
+connectAttr "IntroProjector_blinn3.msg" "IntroProjector_materialInfo9.m";
+connectAttr "psdFileTex6.msg" "IntroProjector_materialInfo9.t" -na;
+connectAttr "IntroProjector_place2dTexture8.c" "psdFileTex6.c";
+connectAttr "IntroProjector_place2dTexture8.tf" "psdFileTex6.tf";
+connectAttr "IntroProjector_place2dTexture8.rf" "psdFileTex6.rf";
+connectAttr "IntroProjector_place2dTexture8.mu" "psdFileTex6.mu";
+connectAttr "IntroProjector_place2dTexture8.mv" "psdFileTex6.mv";
+connectAttr "IntroProjector_place2dTexture8.s" "psdFileTex6.s";
+connectAttr "IntroProjector_place2dTexture8.wu" "psdFileTex6.wu";
+connectAttr "IntroProjector_place2dTexture8.wv" "psdFileTex6.wv";
+connectAttr "IntroProjector_place2dTexture8.re" "psdFileTex6.re";
+connectAttr "IntroProjector_place2dTexture8.of" "psdFileTex6.of";
+connectAttr "IntroProjector_place2dTexture8.r" "psdFileTex6.ro";
+connectAttr "IntroProjector_place2dTexture8.n" "psdFileTex6.n";
+connectAttr "IntroProjector_place2dTexture8.vt1" "psdFileTex6.vt1";
+connectAttr "IntroProjector_place2dTexture8.vt2" "psdFileTex6.vt2";
+connectAttr "IntroProjector_place2dTexture8.vt3" "psdFileTex6.vt3";
+connectAttr "IntroProjector_place2dTexture8.vc1" "psdFileTex6.vc1";
+connectAttr "IntroProjector_place2dTexture8.o" "psdFileTex6.uv";
+connectAttr "IntroProjector_place2dTexture8.ofs" "psdFileTex6.fs";
+connectAttr "psdFileTex7.oc" "IntroProjector_blinn4.c";
+connectAttr "psdFileTex7.ot" "IntroProjector_blinn4.it";
+connectAttr "IntroProjector_blinn4.oc" "IntroProjector_blinn4SG.ss";
+connectAttr "IntroProjector_blinn4SG.msg" "IntroProjector_materialInfo10.sg";
+connectAttr "IntroProjector_blinn4.msg" "IntroProjector_materialInfo10.m";
+connectAttr "psdFileTex7.msg" "IntroProjector_materialInfo10.t" -na;
+connectAttr "IntroProjector_place2dTexture9.c" "psdFileTex7.c";
+connectAttr "IntroProjector_place2dTexture9.tf" "psdFileTex7.tf";
+connectAttr "IntroProjector_place2dTexture9.rf" "psdFileTex7.rf";
+connectAttr "IntroProjector_place2dTexture9.mu" "psdFileTex7.mu";
+connectAttr "IntroProjector_place2dTexture9.mv" "psdFileTex7.mv";
+connectAttr "IntroProjector_place2dTexture9.s" "psdFileTex7.s";
+connectAttr "IntroProjector_place2dTexture9.wu" "psdFileTex7.wu";
+connectAttr "IntroProjector_place2dTexture9.wv" "psdFileTex7.wv";
+connectAttr "IntroProjector_place2dTexture9.re" "psdFileTex7.re";
+connectAttr "IntroProjector_place2dTexture9.of" "psdFileTex7.of";
+connectAttr "IntroProjector_place2dTexture9.r" "psdFileTex7.ro";
+connectAttr "IntroProjector_place2dTexture9.n" "psdFileTex7.n";
+connectAttr "IntroProjector_place2dTexture9.vt1" "psdFileTex7.vt1";
+connectAttr "IntroProjector_place2dTexture9.vt2" "psdFileTex7.vt2";
+connectAttr "IntroProjector_place2dTexture9.vt3" "psdFileTex7.vt3";
+connectAttr "IntroProjector_place2dTexture9.vc1" "psdFileTex7.vc1";
+connectAttr "IntroProjector_place2dTexture9.o" "psdFileTex7.uv";
+connectAttr "IntroProjector_place2dTexture9.ofs" "psdFileTex7.fs";
+connectAttr "IntroProjector_place2dTexture10.c" "psdFileTex8.c";
+connectAttr "IntroProjector_place2dTexture10.tf" "psdFileTex8.tf";
+connectAttr "IntroProjector_place2dTexture10.rf" "psdFileTex8.rf";
+connectAttr "IntroProjector_place2dTexture10.mu" "psdFileTex8.mu";
+connectAttr "IntroProjector_place2dTexture10.mv" "psdFileTex8.mv";
+connectAttr "IntroProjector_place2dTexture10.s" "psdFileTex8.s";
+connectAttr "IntroProjector_place2dTexture10.wu" "psdFileTex8.wu";
+connectAttr "IntroProjector_place2dTexture10.wv" "psdFileTex8.wv";
+connectAttr "IntroProjector_place2dTexture10.re" "psdFileTex8.re";
+connectAttr "IntroProjector_place2dTexture10.of" "psdFileTex8.of";
+connectAttr "IntroProjector_place2dTexture10.r" "psdFileTex8.ro";
+connectAttr "IntroProjector_place2dTexture10.n" "psdFileTex8.n";
+connectAttr "IntroProjector_place2dTexture10.vt1" "psdFileTex8.vt1";
+connectAttr "IntroProjector_place2dTexture10.vt2" "psdFileTex8.vt2";
+connectAttr "IntroProjector_place2dTexture10.vt3" "psdFileTex8.vt3";
+connectAttr "IntroProjector_place2dTexture10.vc1" "psdFileTex8.vc1";
+connectAttr "IntroProjector_place2dTexture10.o" "psdFileTex8.uv";
+connectAttr "IntroProjector_place2dTexture10.ofs" "psdFileTex8.fs";
+connectAttr "checker3.oc" "blinn5.c";
+connectAttr "blinn5.oc" "IntroProjector_blinn5SG.ss";
+connectAttr "IntroProjector_blinn5SG.msg" "IntroProjector_materialInfo11.sg";
+connectAttr "blinn5.msg" "IntroProjector_materialInfo11.m";
+connectAttr "checker3.msg" "IntroProjector_materialInfo11.t" -na;
+connectAttr "IntroProjector_place2dTexture11.o" "checker3.uv";
+connectAttr "IntroProjector_place2dTexture11.ofs" "checker3.fs";
+connectAttr "psdFileTex9.oc" "blinn6.c";
+connectAttr "psdFileTex9.ot" "blinn6.it";
+connectAttr "blinn6.oc" "IntroProjector_blinn6SG.ss";
+connectAttr "IntroProjector_blinn6SG.msg" "IntroProjector_materialInfo12.sg";
+connectAttr "blinn6.msg" "IntroProjector_materialInfo12.m";
+connectAttr "psdFileTex9.msg" "IntroProjector_materialInfo12.t" -na;
+connectAttr "IntroProjector_place2dTexture12.c" "psdFileTex9.c";
+connectAttr "IntroProjector_place2dTexture12.tf" "psdFileTex9.tf";
+connectAttr "IntroProjector_place2dTexture12.rf" "psdFileTex9.rf";
+connectAttr "IntroProjector_place2dTexture12.mu" "psdFileTex9.mu";
+connectAttr "IntroProjector_place2dTexture12.mv" "psdFileTex9.mv";
+connectAttr "IntroProjector_place2dTexture12.s" "psdFileTex9.s";
+connectAttr "IntroProjector_place2dTexture12.wu" "psdFileTex9.wu";
+connectAttr "IntroProjector_place2dTexture12.wv" "psdFileTex9.wv";
+connectAttr "IntroProjector_place2dTexture12.re" "psdFileTex9.re";
+connectAttr "IntroProjector_place2dTexture12.of" "psdFileTex9.of";
+connectAttr "IntroProjector_place2dTexture12.r" "psdFileTex9.ro";
+connectAttr "IntroProjector_place2dTexture12.n" "psdFileTex9.n";
+connectAttr "IntroProjector_place2dTexture12.vt1" "psdFileTex9.vt1";
+connectAttr "IntroProjector_place2dTexture12.vt2" "psdFileTex9.vt2";
+connectAttr "IntroProjector_place2dTexture12.vt3" "psdFileTex9.vt3";
+connectAttr "IntroProjector_place2dTexture12.vc1" "psdFileTex9.vc1";
+connectAttr "IntroProjector_place2dTexture12.o" "psdFileTex9.uv";
+connectAttr "IntroProjector_place2dTexture12.ofs" "psdFileTex9.fs";
+connectAttr "psdFileTex10.oc" "IntroProjector_lambert8.c";
+connectAttr "psdFileTex10.ot" "IntroProjector_lambert8.it";
+connectAttr "IntroProjector_lambert8.oc" "IntroProjector_lambert8SG.ss";
+connectAttr "IntroProjector_lambert8SG.msg" "IntroProjector_materialInfo13.sg";
+connectAttr "IntroProjector_lambert8.msg" "IntroProjector_materialInfo13.m";
+connectAttr "psdFileTex10.msg" "IntroProjector_materialInfo13.t" -na;
+connectAttr "IntroProjector_place2dTexture13.c" "psdFileTex10.c";
+connectAttr "IntroProjector_place2dTexture13.tf" "psdFileTex10.tf";
+connectAttr "IntroProjector_place2dTexture13.rf" "psdFileTex10.rf";
+connectAttr "IntroProjector_place2dTexture13.mu" "psdFileTex10.mu";
+connectAttr "IntroProjector_place2dTexture13.mv" "psdFileTex10.mv";
+connectAttr "IntroProjector_place2dTexture13.s" "psdFileTex10.s";
+connectAttr "IntroProjector_place2dTexture13.wu" "psdFileTex10.wu";
+connectAttr "IntroProjector_place2dTexture13.wv" "psdFileTex10.wv";
+connectAttr "IntroProjector_place2dTexture13.re" "psdFileTex10.re";
+connectAttr "IntroProjector_place2dTexture13.of" "psdFileTex10.of";
+connectAttr "IntroProjector_place2dTexture13.r" "psdFileTex10.ro";
+connectAttr "IntroProjector_place2dTexture13.n" "psdFileTex10.n";
+connectAttr "IntroProjector_place2dTexture13.vt1" "psdFileTex10.vt1";
+connectAttr "IntroProjector_place2dTexture13.vt2" "psdFileTex10.vt2";
+connectAttr "IntroProjector_place2dTexture13.vt3" "psdFileTex10.vt3";
+connectAttr "IntroProjector_place2dTexture13.vc1" "psdFileTex10.vc1";
+connectAttr "IntroProjector_place2dTexture13.o" "psdFileTex10.uv";
+connectAttr "IntroProjector_place2dTexture13.ofs" "psdFileTex10.fs";
+connectAttr "pasted__lambert8SG.msg" "pasted__materialInfo13.sg";
+connectAttr "pasted__lambert8.msg" "pasted__materialInfo13.m";
+connectAttr "pasted__psdFileTex10.msg" "pasted__materialInfo13.t" -na;
+connectAttr "pasted__lambert8.oc" "pasted__lambert8SG.ss";
+connectAttr "pasted__psdFileTex10.oc" "pasted__lambert8.c";
+connectAttr "pasted__psdFileTex10.ot" "pasted__lambert8.it";
+connectAttr "pasted__place2dTexture13.c" "pasted__psdFileTex10.c";
+connectAttr "pasted__place2dTexture13.tf" "pasted__psdFileTex10.tf";
+connectAttr "pasted__place2dTexture13.rf" "pasted__psdFileTex10.rf";
+connectAttr "pasted__place2dTexture13.mu" "pasted__psdFileTex10.mu";
+connectAttr "pasted__place2dTexture13.mv" "pasted__psdFileTex10.mv";
+connectAttr "pasted__place2dTexture13.s" "pasted__psdFileTex10.s";
+connectAttr "pasted__place2dTexture13.wu" "pasted__psdFileTex10.wu";
+connectAttr "pasted__place2dTexture13.wv" "pasted__psdFileTex10.wv";
+connectAttr "pasted__place2dTexture13.re" "pasted__psdFileTex10.re";
+connectAttr "pasted__place2dTexture13.of" "pasted__psdFileTex10.of";
+connectAttr "pasted__place2dTexture13.r" "pasted__psdFileTex10.ro";
+connectAttr "pasted__place2dTexture13.n" "pasted__psdFileTex10.n";
+connectAttr "pasted__place2dTexture13.vt1" "pasted__psdFileTex10.vt1";
+connectAttr "pasted__place2dTexture13.vt2" "pasted__psdFileTex10.vt2";
+connectAttr "pasted__place2dTexture13.vt3" "pasted__psdFileTex10.vt3";
+connectAttr "pasted__place2dTexture13.vc1" "pasted__psdFileTex10.vc1";
+connectAttr "pasted__place2dTexture13.o" "pasted__psdFileTex10.uv";
+connectAttr "pasted__place2dTexture13.ofs" "pasted__psdFileTex10.fs";
+connectAttr "psdFileTex11.oc" "blinn7.c";
+connectAttr "psdFileTex11.ot" "blinn7.it";
+connectAttr "blinn7.oc" "IntroProjector_blinn7SG.ss";
+connectAttr "IntroProjector_blinn7SG.msg" "IntroProjector_materialInfo14.sg";
+connectAttr "blinn7.msg" "IntroProjector_materialInfo14.m";
+connectAttr "psdFileTex11.msg" "IntroProjector_materialInfo14.t" -na;
+connectAttr "IntroProjector_place2dTexture14.c" "psdFileTex11.c";
+connectAttr "IntroProjector_place2dTexture14.tf" "psdFileTex11.tf";
+connectAttr "IntroProjector_place2dTexture14.rf" "psdFileTex11.rf";
+connectAttr "IntroProjector_place2dTexture14.mu" "psdFileTex11.mu";
+connectAttr "IntroProjector_place2dTexture14.mv" "psdFileTex11.mv";
+connectAttr "IntroProjector_place2dTexture14.s" "psdFileTex11.s";
+connectAttr "IntroProjector_place2dTexture14.wu" "psdFileTex11.wu";
+connectAttr "IntroProjector_place2dTexture14.wv" "psdFileTex11.wv";
+connectAttr "IntroProjector_place2dTexture14.re" "psdFileTex11.re";
+connectAttr "IntroProjector_place2dTexture14.of" "psdFileTex11.of";
+connectAttr "IntroProjector_place2dTexture14.r" "psdFileTex11.ro";
+connectAttr "IntroProjector_place2dTexture14.n" "psdFileTex11.n";
+connectAttr "IntroProjector_place2dTexture14.vt1" "psdFileTex11.vt1";
+connectAttr "IntroProjector_place2dTexture14.vt2" "psdFileTex11.vt2";
+connectAttr "IntroProjector_place2dTexture14.vt3" "psdFileTex11.vt3";
+connectAttr "IntroProjector_place2dTexture14.vc1" "psdFileTex11.vc1";
+connectAttr "IntroProjector_place2dTexture14.o" "psdFileTex11.uv";
+connectAttr "IntroProjector_place2dTexture14.ofs" "psdFileTex11.fs";
+connectAttr "blinn8.oc" "IntroProjector_blinn8SG.ss";
+connectAttr "IntroProjector_blinn8SG.msg" "IntroProjector_materialInfo15.sg";
+connectAttr "blinn8.msg" "IntroProjector_materialInfo15.m";
+connectAttr "pasted__blinn7SG.msg" "pasted__materialInfo14.sg";
+connectAttr "pasted__blinn7.msg" "pasted__materialInfo14.m";
+connectAttr "pasted__psdFileTex11.msg" "pasted__materialInfo14.t" -na;
+connectAttr "pasted__blinn7.oc" "pasted__blinn7SG.ss";
+connectAttr "pasted__psdFileTex11.oc" "pasted__blinn7.c";
+connectAttr "pasted__psdFileTex11.ot" "pasted__blinn7.it";
+connectAttr "pasted__place2dTexture14.c" "pasted__psdFileTex11.c";
+connectAttr "pasted__place2dTexture14.tf" "pasted__psdFileTex11.tf";
+connectAttr "pasted__place2dTexture14.rf" "pasted__psdFileTex11.rf";
+connectAttr "pasted__place2dTexture14.mu" "pasted__psdFileTex11.mu";
+connectAttr "pasted__place2dTexture14.mv" "pasted__psdFileTex11.mv";
+connectAttr "pasted__place2dTexture14.s" "pasted__psdFileTex11.s";
+connectAttr "pasted__place2dTexture14.wu" "pasted__psdFileTex11.wu";
+connectAttr "pasted__place2dTexture14.wv" "pasted__psdFileTex11.wv";
+connectAttr "pasted__place2dTexture14.re" "pasted__psdFileTex11.re";
+connectAttr "pasted__place2dTexture14.of" "pasted__psdFileTex11.of";
+connectAttr "pasted__place2dTexture14.r" "pasted__psdFileTex11.ro";
+connectAttr "pasted__place2dTexture14.n" "pasted__psdFileTex11.n";
+connectAttr "pasted__place2dTexture14.vt1" "pasted__psdFileTex11.vt1";
+connectAttr "pasted__place2dTexture14.vt2" "pasted__psdFileTex11.vt2";
+connectAttr "pasted__place2dTexture14.vt3" "pasted__psdFileTex11.vt3";
+connectAttr "pasted__place2dTexture14.vc1" "pasted__psdFileTex11.vc1";
+connectAttr "pasted__place2dTexture14.o" "pasted__psdFileTex11.uv";
+connectAttr "pasted__place2dTexture14.ofs" "pasted__psdFileTex11.fs";
+connectAttr "psdFileTex12.oc" "Projector.c";
+connectAttr "psdFileTex12.ot" "Projector.it";
+connectAttr "Projector.oc" "IntroProjector_blinn9SG.ss";
+connectAttr "IntroProjector_blinn9SG.msg" "IntroProjector_materialInfo16.sg";
+connectAttr "Projector.msg" "IntroProjector_materialInfo16.m";
+connectAttr "psdFileTex12.msg" "IntroProjector_materialInfo16.t" -na;
+connectAttr "IntroProjector_place2dTexture15.c" "psdFileTex12.c";
+connectAttr "IntroProjector_place2dTexture15.tf" "psdFileTex12.tf";
+connectAttr "IntroProjector_place2dTexture15.rf" "psdFileTex12.rf";
+connectAttr "IntroProjector_place2dTexture15.mu" "psdFileTex12.mu";
+connectAttr "IntroProjector_place2dTexture15.mv" "psdFileTex12.mv";
+connectAttr "IntroProjector_place2dTexture15.s" "psdFileTex12.s";
+connectAttr "IntroProjector_place2dTexture15.wu" "psdFileTex12.wu";
+connectAttr "IntroProjector_place2dTexture15.wv" "psdFileTex12.wv";
+connectAttr "IntroProjector_place2dTexture15.re" "psdFileTex12.re";
+connectAttr "IntroProjector_place2dTexture15.of" "psdFileTex12.of";
+connectAttr "IntroProjector_place2dTexture15.r" "psdFileTex12.ro";
+connectAttr "IntroProjector_place2dTexture15.n" "psdFileTex12.n";
+connectAttr "IntroProjector_place2dTexture15.vt1" "psdFileTex12.vt1";
+connectAttr "IntroProjector_place2dTexture15.vt2" "psdFileTex12.vt2";
+connectAttr "IntroProjector_place2dTexture15.vt3" "psdFileTex12.vt3";
+connectAttr "IntroProjector_place2dTexture15.vc1" "psdFileTex12.vc1";
+connectAttr "IntroProjector_place2dTexture15.o" "psdFileTex12.uv";
+connectAttr "IntroProjector_place2dTexture15.ofs" "psdFileTex12.fs";
+connectAttr "pasted__blinn9SG.msg" "pasted__materialInfo16.sg";
+connectAttr "pasted__blinn9.msg" "pasted__materialInfo16.m";
+connectAttr "pasted__psdFileTex12.msg" "pasted__materialInfo16.t" -na;
+connectAttr "pasted__blinn9.oc" "pasted__blinn9SG.ss";
+connectAttr "pasted__psdFileTex12.oc" "pasted__blinn9.c";
+connectAttr "pasted__psdFileTex12.ot" "pasted__blinn9.it";
+connectAttr "pasted__place2dTexture15.c" "pasted__psdFileTex12.c";
+connectAttr "pasted__place2dTexture15.tf" "pasted__psdFileTex12.tf";
+connectAttr "pasted__place2dTexture15.rf" "pasted__psdFileTex12.rf";
+connectAttr "pasted__place2dTexture15.mu" "pasted__psdFileTex12.mu";
+connectAttr "pasted__place2dTexture15.mv" "pasted__psdFileTex12.mv";
+connectAttr "pasted__place2dTexture15.s" "pasted__psdFileTex12.s";
+connectAttr "pasted__place2dTexture15.wu" "pasted__psdFileTex12.wu";
+connectAttr "pasted__place2dTexture15.wv" "pasted__psdFileTex12.wv";
+connectAttr "pasted__place2dTexture15.re" "pasted__psdFileTex12.re";
+connectAttr "pasted__place2dTexture15.of" "pasted__psdFileTex12.of";
+connectAttr "pasted__place2dTexture15.r" "pasted__psdFileTex12.ro";
+connectAttr "pasted__place2dTexture15.n" "pasted__psdFileTex12.n";
+connectAttr "pasted__place2dTexture15.vt1" "pasted__psdFileTex12.vt1";
+connectAttr "pasted__place2dTexture15.vt2" "pasted__psdFileTex12.vt2";
+connectAttr "pasted__place2dTexture15.vt3" "pasted__psdFileTex12.vt3";
+connectAttr "pasted__place2dTexture15.vc1" "pasted__psdFileTex12.vc1";
+connectAttr "pasted__place2dTexture15.o" "pasted__psdFileTex12.uv";
+connectAttr "pasted__place2dTexture15.ofs" "pasted__psdFileTex12.fs";
+connectAttr "pasted__blinn9SG1.msg" "pasted__materialInfo17.sg";
+connectAttr "pasted__blinn10.msg" "pasted__materialInfo17.m";
+connectAttr "pasted__psdFileTex13.msg" "pasted__materialInfo17.t" -na;
+connectAttr "pasted__blinn10.oc" "pasted__blinn9SG1.ss";
+connectAttr "pasted__psdFileTex13.oc" "pasted__blinn10.c";
+connectAttr "pasted__psdFileTex13.ot" "pasted__blinn10.it";
+connectAttr "pasted__place2dTexture16.c" "pasted__psdFileTex13.c";
+connectAttr "pasted__place2dTexture16.tf" "pasted__psdFileTex13.tf";
+connectAttr "pasted__place2dTexture16.rf" "pasted__psdFileTex13.rf";
+connectAttr "pasted__place2dTexture16.mu" "pasted__psdFileTex13.mu";
+connectAttr "pasted__place2dTexture16.mv" "pasted__psdFileTex13.mv";
+connectAttr "pasted__place2dTexture16.s" "pasted__psdFileTex13.s";
+connectAttr "pasted__place2dTexture16.wu" "pasted__psdFileTex13.wu";
+connectAttr "pasted__place2dTexture16.wv" "pasted__psdFileTex13.wv";
+connectAttr "pasted__place2dTexture16.re" "pasted__psdFileTex13.re";
+connectAttr "pasted__place2dTexture16.of" "pasted__psdFileTex13.of";
+connectAttr "pasted__place2dTexture16.r" "pasted__psdFileTex13.ro";
+connectAttr "pasted__place2dTexture16.n" "pasted__psdFileTex13.n";
+connectAttr "pasted__place2dTexture16.vt1" "pasted__psdFileTex13.vt1";
+connectAttr "pasted__place2dTexture16.vt2" "pasted__psdFileTex13.vt2";
+connectAttr "pasted__place2dTexture16.vt3" "pasted__psdFileTex13.vt3";
+connectAttr "pasted__place2dTexture16.vc1" "pasted__psdFileTex13.vc1";
+connectAttr "pasted__place2dTexture16.o" "pasted__psdFileTex13.uv";
+connectAttr "pasted__place2dTexture16.ofs" "pasted__psdFileTex13.fs";
+connectAttr "IntroProjector_place2dTexture16.c" "IntroProjector_file1.c";
+connectAttr "IntroProjector_place2dTexture16.tf" "IntroProjector_file1.tf";
+connectAttr "IntroProjector_place2dTexture16.rf" "IntroProjector_file1.rf";
+connectAttr "IntroProjector_place2dTexture16.mu" "IntroProjector_file1.mu";
+connectAttr "IntroProjector_place2dTexture16.mv" "IntroProjector_file1.mv";
+connectAttr "IntroProjector_place2dTexture16.s" "IntroProjector_file1.s";
+connectAttr "IntroProjector_place2dTexture16.wu" "IntroProjector_file1.wu";
+connectAttr "IntroProjector_place2dTexture16.wv" "IntroProjector_file1.wv";
+connectAttr "IntroProjector_place2dTexture16.re" "IntroProjector_file1.re";
+connectAttr "IntroProjector_place2dTexture16.of" "IntroProjector_file1.of";
+connectAttr "IntroProjector_place2dTexture16.r" "IntroProjector_file1.ro";
+connectAttr "IntroProjector_place2dTexture16.n" "IntroProjector_file1.n";
+connectAttr "IntroProjector_place2dTexture16.vt1" "IntroProjector_file1.vt1";
+connectAttr "IntroProjector_place2dTexture16.vt2" "IntroProjector_file1.vt2";
+connectAttr "IntroProjector_place2dTexture16.vt3" "IntroProjector_file1.vt3";
+connectAttr "IntroProjector_place2dTexture16.vc1" "IntroProjector_file1.vc1";
+connectAttr "IntroProjector_place2dTexture16.o" "IntroProjector_file1.uv";
+connectAttr "IntroProjector_place2dTexture16.ofs" "IntroProjector_file1.fs";
+connectAttr "lambert9.oc" "IntroProjector_lambert9SG.ss";
+connectAttr "IntroProjector_lambert9SG.msg" "IntroProjector_materialInfo17.sg";
+connectAttr "lambert9.msg" "IntroProjector_materialInfo17.m";
+connectAttr "IntroProjector_file2.oc" "lambert10.c";
+connectAttr "IntroProjector_file2.ot" "lambert10.it";
+connectAttr "lambert10.oc" "IntroProjector_lambert10SG.ss";
+connectAttr "IntroProjector_lambert10SG.msg" "IntroProjector_materialInfo18.sg";
+connectAttr "lambert10.msg" "IntroProjector_materialInfo18.m";
+connectAttr "IntroProjector_file2.msg" "IntroProjector_materialInfo18.t" -na;
+connectAttr "IntroProjector_place2dTexture17.c" "IntroProjector_file2.c";
+connectAttr "IntroProjector_place2dTexture17.tf" "IntroProjector_file2.tf";
+connectAttr "IntroProjector_place2dTexture17.rf" "IntroProjector_file2.rf";
+connectAttr "IntroProjector_place2dTexture17.mu" "IntroProjector_file2.mu";
+connectAttr "IntroProjector_place2dTexture17.mv" "IntroProjector_file2.mv";
+connectAttr "IntroProjector_place2dTexture17.s" "IntroProjector_file2.s";
+connectAttr "IntroProjector_place2dTexture17.wu" "IntroProjector_file2.wu";
+connectAttr "IntroProjector_place2dTexture17.wv" "IntroProjector_file2.wv";
+connectAttr "IntroProjector_place2dTexture17.re" "IntroProjector_file2.re";
+connectAttr "IntroProjector_place2dTexture17.of" "IntroProjector_file2.of";
+connectAttr "IntroProjector_place2dTexture17.r" "IntroProjector_file2.ro";
+connectAttr "IntroProjector_place2dTexture17.n" "IntroProjector_file2.n";
+connectAttr "IntroProjector_place2dTexture17.vt1" "IntroProjector_file2.vt1";
+connectAttr "IntroProjector_place2dTexture17.vt2" "IntroProjector_file2.vt2";
+connectAttr "IntroProjector_place2dTexture17.vt3" "IntroProjector_file2.vt3";
+connectAttr "IntroProjector_place2dTexture17.vc1" "IntroProjector_file2.vc1";
+connectAttr "IntroProjector_place2dTexture17.o" "IntroProjector_file2.uv";
+connectAttr "IntroProjector_place2dTexture17.ofs" "IntroProjector_file2.fs";
+connectAttr "IntroProjector_file3.oc" "lambert11.c";
+connectAttr "IntroProjector_file3.ot" "lambert11.it";
+connectAttr "lambert11.oc" "IntroProjector_lambert11SG.ss";
+connectAttr "IntroProjector_lambert11SG.msg" "IntroProjector_materialInfo19.sg";
+connectAttr "lambert11.msg" "IntroProjector_materialInfo19.m";
+connectAttr "IntroProjector_file3.msg" "IntroProjector_materialInfo19.t" -na;
+connectAttr "IntroProjector_place2dTexture18.c" "IntroProjector_file3.c";
+connectAttr "IntroProjector_place2dTexture18.tf" "IntroProjector_file3.tf";
+connectAttr "IntroProjector_place2dTexture18.rf" "IntroProjector_file3.rf";
+connectAttr "IntroProjector_place2dTexture18.mu" "IntroProjector_file3.mu";
+connectAttr "IntroProjector_place2dTexture18.mv" "IntroProjector_file3.mv";
+connectAttr "IntroProjector_place2dTexture18.s" "IntroProjector_file3.s";
+connectAttr "IntroProjector_place2dTexture18.wu" "IntroProjector_file3.wu";
+connectAttr "IntroProjector_place2dTexture18.wv" "IntroProjector_file3.wv";
+connectAttr "IntroProjector_place2dTexture18.re" "IntroProjector_file3.re";
+connectAttr "IntroProjector_place2dTexture18.of" "IntroProjector_file3.of";
+connectAttr "IntroProjector_place2dTexture18.r" "IntroProjector_file3.ro";
+connectAttr "IntroProjector_place2dTexture18.n" "IntroProjector_file3.n";
+connectAttr "IntroProjector_place2dTexture18.vt1" "IntroProjector_file3.vt1";
+connectAttr "IntroProjector_place2dTexture18.vt2" "IntroProjector_file3.vt2";
+connectAttr "IntroProjector_place2dTexture18.vt3" "IntroProjector_file3.vt3";
+connectAttr "IntroProjector_place2dTexture18.vc1" "IntroProjector_file3.vc1";
+connectAttr "IntroProjector_place2dTexture18.o" "IntroProjector_file3.uv";
+connectAttr "IntroProjector_place2dTexture18.ofs" "IntroProjector_file3.fs";
+connectAttr "IntroProjector_file4.oc" "blinn10.c";
+connectAttr "blinn10.oc" "IntroProjector_blinn10SG.ss";
+connectAttr "IntroProjector_blinn10SG.msg" "IntroProjector_materialInfo20.sg";
+connectAttr "blinn10.msg" "IntroProjector_materialInfo20.m";
+connectAttr "IntroProjector_file4.msg" "IntroProjector_materialInfo20.t" -na;
+connectAttr "IntroProjector_place2dTexture19.c" "IntroProjector_file4.c";
+connectAttr "IntroProjector_place2dTexture19.tf" "IntroProjector_file4.tf";
+connectAttr "IntroProjector_place2dTexture19.rf" "IntroProjector_file4.rf";
+connectAttr "IntroProjector_place2dTexture19.mu" "IntroProjector_file4.mu";
+connectAttr "IntroProjector_place2dTexture19.mv" "IntroProjector_file4.mv";
+connectAttr "IntroProjector_place2dTexture19.s" "IntroProjector_file4.s";
+connectAttr "IntroProjector_place2dTexture19.wu" "IntroProjector_file4.wu";
+connectAttr "IntroProjector_place2dTexture19.wv" "IntroProjector_file4.wv";
+connectAttr "IntroProjector_place2dTexture19.re" "IntroProjector_file4.re";
+connectAttr "IntroProjector_place2dTexture19.of" "IntroProjector_file4.of";
+connectAttr "IntroProjector_place2dTexture19.r" "IntroProjector_file4.ro";
+connectAttr "IntroProjector_place2dTexture19.n" "IntroProjector_file4.n";
+connectAttr "IntroProjector_place2dTexture19.vt1" "IntroProjector_file4.vt1";
+connectAttr "IntroProjector_place2dTexture19.vt2" "IntroProjector_file4.vt2";
+connectAttr "IntroProjector_place2dTexture19.vt3" "IntroProjector_file4.vt3";
+connectAttr "IntroProjector_place2dTexture19.vc1" "IntroProjector_file4.vc1";
+connectAttr "IntroProjector_place2dTexture19.o" "IntroProjector_file4.uv";
+connectAttr "IntroProjector_place2dTexture19.ofs" "IntroProjector_file4.fs";
+connectAttr "IntroProjector_InnerLight.oc" "IntroProjector_blinn1SG1.ss";
+connectAttr "IntroProjector_blinn1SG1.msg" "IntroProjector_materialInfo21.sg";
+connectAttr "IntroProjector_InnerLight.msg" "IntroProjector_materialInfo21.m";
+connectAttr "IntroProjector_psdFileTex1.oc" "IntroProjector_lambert12.c";
+connectAttr "IntroProjector_psdFileTex1.ot" "IntroProjector_lambert12.it";
+connectAttr "IntroProjector_lambert12.oc" "IntroProjector_lambert2SG1.ss";
+connectAttr "IntroProjector_lambert2SG1.msg" "IntroProjector_materialInfo22.sg";
+connectAttr "IntroProjector_lambert12.msg" "IntroProjector_materialInfo22.m";
+connectAttr "IntroProjector_psdFileTex1.msg" "IntroProjector_materialInfo22.t" -na
+		;
+connectAttr "IntroProjector_place2dTexture20.c" "IntroProjector_psdFileTex1.c";
+connectAttr "IntroProjector_place2dTexture20.tf" "IntroProjector_psdFileTex1.tf"
+		;
+connectAttr "IntroProjector_place2dTexture20.rf" "IntroProjector_psdFileTex1.rf"
+		;
+connectAttr "IntroProjector_place2dTexture20.mu" "IntroProjector_psdFileTex1.mu"
+		;
+connectAttr "IntroProjector_place2dTexture20.mv" "IntroProjector_psdFileTex1.mv"
+		;
+connectAttr "IntroProjector_place2dTexture20.s" "IntroProjector_psdFileTex1.s";
+connectAttr "IntroProjector_place2dTexture20.wu" "IntroProjector_psdFileTex1.wu"
+		;
+connectAttr "IntroProjector_place2dTexture20.wv" "IntroProjector_psdFileTex1.wv"
+		;
+connectAttr "IntroProjector_place2dTexture20.re" "IntroProjector_psdFileTex1.re"
+		;
+connectAttr "IntroProjector_place2dTexture20.of" "IntroProjector_psdFileTex1.of"
+		;
+connectAttr "IntroProjector_place2dTexture20.r" "IntroProjector_psdFileTex1.ro";
+connectAttr "IntroProjector_place2dTexture20.n" "IntroProjector_psdFileTex1.n";
+connectAttr "IntroProjector_place2dTexture20.vt1" "IntroProjector_psdFileTex1.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture20.vt2" "IntroProjector_psdFileTex1.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture20.vt3" "IntroProjector_psdFileTex1.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture20.vc1" "IntroProjector_psdFileTex1.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture20.o" "IntroProjector_psdFileTex1.uv";
+connectAttr "IntroProjector_place2dTexture20.ofs" "IntroProjector_psdFileTex1.fs"
+		;
+connectAttr "IntroProjector_psdFileTex2.oc" "IntroProjector_Checkered.c";
+connectAttr "IntroProjector_psdFileTex2.ot" "IntroProjector_Checkered.it";
+connectAttr "IntroProjector_Checkered.oc" "IntroProjector_lambert3SG1.ss";
+connectAttr "IntroProjector_lambert3SG1.msg" "IntroProjector_materialInfo23.sg";
+connectAttr "IntroProjector_Checkered.msg" "IntroProjector_materialInfo23.m";
+connectAttr "IntroProjector_psdFileTex2.msg" "IntroProjector_materialInfo23.t" -na
+		;
+connectAttr "IntroProjector_place2dTexture21.c" "IntroProjector_psdFileTex2.c";
+connectAttr "IntroProjector_place2dTexture21.tf" "IntroProjector_psdFileTex2.tf"
+		;
+connectAttr "IntroProjector_place2dTexture21.rf" "IntroProjector_psdFileTex2.rf"
+		;
+connectAttr "IntroProjector_place2dTexture21.mu" "IntroProjector_psdFileTex2.mu"
+		;
+connectAttr "IntroProjector_place2dTexture21.mv" "IntroProjector_psdFileTex2.mv"
+		;
+connectAttr "IntroProjector_place2dTexture21.s" "IntroProjector_psdFileTex2.s";
+connectAttr "IntroProjector_place2dTexture21.wu" "IntroProjector_psdFileTex2.wu"
+		;
+connectAttr "IntroProjector_place2dTexture21.wv" "IntroProjector_psdFileTex2.wv"
+		;
+connectAttr "IntroProjector_place2dTexture21.re" "IntroProjector_psdFileTex2.re"
+		;
+connectAttr "IntroProjector_place2dTexture21.of" "IntroProjector_psdFileTex2.of"
+		;
+connectAttr "IntroProjector_place2dTexture21.r" "IntroProjector_psdFileTex2.ro";
+connectAttr "IntroProjector_place2dTexture21.n" "IntroProjector_psdFileTex2.n";
+connectAttr "IntroProjector_place2dTexture21.vt1" "IntroProjector_psdFileTex2.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture21.vt2" "IntroProjector_psdFileTex2.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture21.vt3" "IntroProjector_psdFileTex2.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture21.vc1" "IntroProjector_psdFileTex2.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture21.o" "IntroProjector_psdFileTex2.uv";
+connectAttr "IntroProjector_place2dTexture21.ofs" "IntroProjector_psdFileTex2.fs"
+		;
+connectAttr "IntroProjector_psdFileTex3.oc" "IntroProjector_lambert13.c";
+connectAttr "IntroProjector_psdFileTex3.ot" "IntroProjector_lambert13.it";
+connectAttr "IntroProjector_lambert13.oc" "IntroProjector_lambert4SG1.ss";
+connectAttr "IntroProjector_lambert4SG1.msg" "IntroProjector_materialInfo24.sg";
+connectAttr "IntroProjector_lambert13.msg" "IntroProjector_materialInfo24.m";
+connectAttr "IntroProjector_psdFileTex3.msg" "IntroProjector_materialInfo24.t" -na
+		;
+connectAttr "IntroProjector_place2dTexture22.c" "IntroProjector_psdFileTex3.c";
+connectAttr "IntroProjector_place2dTexture22.tf" "IntroProjector_psdFileTex3.tf"
+		;
+connectAttr "IntroProjector_place2dTexture22.rf" "IntroProjector_psdFileTex3.rf"
+		;
+connectAttr "IntroProjector_place2dTexture22.mu" "IntroProjector_psdFileTex3.mu"
+		;
+connectAttr "IntroProjector_place2dTexture22.mv" "IntroProjector_psdFileTex3.mv"
+		;
+connectAttr "IntroProjector_place2dTexture22.s" "IntroProjector_psdFileTex3.s";
+connectAttr "IntroProjector_place2dTexture22.wu" "IntroProjector_psdFileTex3.wu"
+		;
+connectAttr "IntroProjector_place2dTexture22.wv" "IntroProjector_psdFileTex3.wv"
+		;
+connectAttr "IntroProjector_place2dTexture22.re" "IntroProjector_psdFileTex3.re"
+		;
+connectAttr "IntroProjector_place2dTexture22.of" "IntroProjector_psdFileTex3.of"
+		;
+connectAttr "IntroProjector_place2dTexture22.r" "IntroProjector_psdFileTex3.ro";
+connectAttr "IntroProjector_place2dTexture22.n" "IntroProjector_psdFileTex3.n";
+connectAttr "IntroProjector_place2dTexture22.vt1" "IntroProjector_psdFileTex3.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture22.vt2" "IntroProjector_psdFileTex3.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture22.vt3" "IntroProjector_psdFileTex3.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture22.vc1" "IntroProjector_psdFileTex3.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture22.o" "IntroProjector_psdFileTex3.uv";
+connectAttr "IntroProjector_place2dTexture22.ofs" "IntroProjector_psdFileTex3.fs"
+		;
+connectAttr "IntroProjector_psdFileTex4.oc" "IntroProjector_lambert14.c";
+connectAttr "IntroProjector_psdFileTex4.ot" "IntroProjector_lambert14.it";
+connectAttr "IntroProjector_lambert14.oc" "IntroProjector_lambert5SG1.ss";
+connectAttr "IntroProjector_lambert5SG1.msg" "IntroProjector_materialInfo25.sg";
+connectAttr "IntroProjector_lambert14.msg" "IntroProjector_materialInfo25.m";
+connectAttr "IntroProjector_psdFileTex4.msg" "IntroProjector_materialInfo25.t" -na
+		;
+connectAttr "IntroProjector_place2dTexture23.c" "IntroProjector_psdFileTex4.c";
+connectAttr "IntroProjector_place2dTexture23.tf" "IntroProjector_psdFileTex4.tf"
+		;
+connectAttr "IntroProjector_place2dTexture23.rf" "IntroProjector_psdFileTex4.rf"
+		;
+connectAttr "IntroProjector_place2dTexture23.mu" "IntroProjector_psdFileTex4.mu"
+		;
+connectAttr "IntroProjector_place2dTexture23.mv" "IntroProjector_psdFileTex4.mv"
+		;
+connectAttr "IntroProjector_place2dTexture23.s" "IntroProjector_psdFileTex4.s";
+connectAttr "IntroProjector_place2dTexture23.wu" "IntroProjector_psdFileTex4.wu"
+		;
+connectAttr "IntroProjector_place2dTexture23.wv" "IntroProjector_psdFileTex4.wv"
+		;
+connectAttr "IntroProjector_place2dTexture23.re" "IntroProjector_psdFileTex4.re"
+		;
+connectAttr "IntroProjector_place2dTexture23.of" "IntroProjector_psdFileTex4.of"
+		;
+connectAttr "IntroProjector_place2dTexture23.r" "IntroProjector_psdFileTex4.ro";
+connectAttr "IntroProjector_place2dTexture23.n" "IntroProjector_psdFileTex4.n";
+connectAttr "IntroProjector_place2dTexture23.vt1" "IntroProjector_psdFileTex4.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture23.vt2" "IntroProjector_psdFileTex4.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture23.vt3" "IntroProjector_psdFileTex4.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture23.vc1" "IntroProjector_psdFileTex4.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture23.o" "IntroProjector_psdFileTex4.uv";
+connectAttr "IntroProjector_place2dTexture23.ofs" "IntroProjector_psdFileTex4.fs"
+		;
+connectAttr "IntroProjector_checker1.oc" "IntroProjector_lambert15.c";
+connectAttr "IntroProjector_lambert15.oc" "IntroProjector_lambert6SG1.ss";
+connectAttr "IntroProjector_lambert6SG1.msg" "IntroProjector_materialInfo26.sg";
+connectAttr "IntroProjector_lambert15.msg" "IntroProjector_materialInfo26.m";
+connectAttr "IntroProjector_checker1.msg" "IntroProjector_materialInfo26.t" -na;
+connectAttr "IntroProjector_place2dTexture24.o" "IntroProjector_checker1.uv";
+connectAttr "IntroProjector_place2dTexture24.ofs" "IntroProjector_checker1.fs";
+connectAttr "IntroProjector_checker2.oc" "IntroProjector_lambert7.c";
+connectAttr "IntroProjector_lambert7.oc" "IntroProjector_lambert7SG1.ss";
+connectAttr "IntroProjector_lambert7SG1.msg" "IntroProjector_materialInfo27.sg";
+connectAttr "IntroProjector_lambert7.msg" "IntroProjector_materialInfo27.m";
+connectAttr "IntroProjector_checker2.msg" "IntroProjector_materialInfo27.t" -na;
+connectAttr "IntroProjector_place2dTexture25.o" "IntroProjector_checker2.uv";
+connectAttr "IntroProjector_place2dTexture25.ofs" "IntroProjector_checker2.fs";
+connectAttr "IntroProjector_psdFileTex5.oc" "IntroProjector_checker2.c1";
+connectAttr "IntroProjector_place2dTexture26.c" "IntroProjector_psdFileTex5.c";
+connectAttr "IntroProjector_place2dTexture26.tf" "IntroProjector_psdFileTex5.tf"
+		;
+connectAttr "IntroProjector_place2dTexture26.rf" "IntroProjector_psdFileTex5.rf"
+		;
+connectAttr "IntroProjector_place2dTexture26.mu" "IntroProjector_psdFileTex5.mu"
+		;
+connectAttr "IntroProjector_place2dTexture26.mv" "IntroProjector_psdFileTex5.mv"
+		;
+connectAttr "IntroProjector_place2dTexture26.s" "IntroProjector_psdFileTex5.s";
+connectAttr "IntroProjector_place2dTexture26.wu" "IntroProjector_psdFileTex5.wu"
+		;
+connectAttr "IntroProjector_place2dTexture26.wv" "IntroProjector_psdFileTex5.wv"
+		;
+connectAttr "IntroProjector_place2dTexture26.re" "IntroProjector_psdFileTex5.re"
+		;
+connectAttr "IntroProjector_place2dTexture26.of" "IntroProjector_psdFileTex5.of"
+		;
+connectAttr "IntroProjector_place2dTexture26.r" "IntroProjector_psdFileTex5.ro";
+connectAttr "IntroProjector_place2dTexture26.n" "IntroProjector_psdFileTex5.n";
+connectAttr "IntroProjector_place2dTexture26.vt1" "IntroProjector_psdFileTex5.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture26.vt2" "IntroProjector_psdFileTex5.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture26.vt3" "IntroProjector_psdFileTex5.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture26.vc1" "IntroProjector_psdFileTex5.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture26.o" "IntroProjector_psdFileTex5.uv";
+connectAttr "IntroProjector_place2dTexture26.ofs" "IntroProjector_psdFileTex5.fs"
+		;
+connectAttr "IntroProjector_psdFileTex8.oc" "IntroProjector_blinn11.c";
+connectAttr "IntroProjector_psdFileTex8.ot" "IntroProjector_blinn11.it";
+connectAttr "IntroProjector_blinn11.oc" "IntroProjector_blinn2SG1.ss";
+connectAttr "IntroProjector_blinn2SG1.msg" "IntroProjector_materialInfo28.sg";
+connectAttr "IntroProjector_blinn11.msg" "IntroProjector_materialInfo28.m";
+connectAttr "IntroProjector_psdFileTex8.msg" "IntroProjector_materialInfo28.t" -na
+		;
+connectAttr "IntroProjector_psdFileTex6.oc" "IntroProjector_blinn12.c";
+connectAttr "IntroProjector_blinn12.oc" "IntroProjector_blinn3SG1.ss";
+connectAttr "IntroProjector_blinn3SG1.msg" "IntroProjector_materialInfo29.sg";
+connectAttr "IntroProjector_blinn12.msg" "IntroProjector_materialInfo29.m";
+connectAttr "IntroProjector_psdFileTex6.msg" "IntroProjector_materialInfo29.t" -na
+		;
+connectAttr "IntroProjector_place2dTexture27.c" "IntroProjector_psdFileTex6.c";
+connectAttr "IntroProjector_place2dTexture27.tf" "IntroProjector_psdFileTex6.tf"
+		;
+connectAttr "IntroProjector_place2dTexture27.rf" "IntroProjector_psdFileTex6.rf"
+		;
+connectAttr "IntroProjector_place2dTexture27.mu" "IntroProjector_psdFileTex6.mu"
+		;
+connectAttr "IntroProjector_place2dTexture27.mv" "IntroProjector_psdFileTex6.mv"
+		;
+connectAttr "IntroProjector_place2dTexture27.s" "IntroProjector_psdFileTex6.s";
+connectAttr "IntroProjector_place2dTexture27.wu" "IntroProjector_psdFileTex6.wu"
+		;
+connectAttr "IntroProjector_place2dTexture27.wv" "IntroProjector_psdFileTex6.wv"
+		;
+connectAttr "IntroProjector_place2dTexture27.re" "IntroProjector_psdFileTex6.re"
+		;
+connectAttr "IntroProjector_place2dTexture27.of" "IntroProjector_psdFileTex6.of"
+		;
+connectAttr "IntroProjector_place2dTexture27.r" "IntroProjector_psdFileTex6.ro";
+connectAttr "IntroProjector_place2dTexture27.n" "IntroProjector_psdFileTex6.n";
+connectAttr "IntroProjector_place2dTexture27.vt1" "IntroProjector_psdFileTex6.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture27.vt2" "IntroProjector_psdFileTex6.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture27.vt3" "IntroProjector_psdFileTex6.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture27.vc1" "IntroProjector_psdFileTex6.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture27.o" "IntroProjector_psdFileTex6.uv";
+connectAttr "IntroProjector_place2dTexture27.ofs" "IntroProjector_psdFileTex6.fs"
+		;
+connectAttr "IntroProjector_psdFileTex7.oc" "IntroProjector_blinn13.c";
+connectAttr "IntroProjector_psdFileTex7.ot" "IntroProjector_blinn13.it";
+connectAttr "IntroProjector_blinn13.oc" "IntroProjector_blinn4SG1.ss";
+connectAttr "IntroProjector_blinn4SG1.msg" "IntroProjector_materialInfo30.sg";
+connectAttr "IntroProjector_blinn13.msg" "IntroProjector_materialInfo30.m";
+connectAttr "IntroProjector_psdFileTex7.msg" "IntroProjector_materialInfo30.t" -na
+		;
+connectAttr "IntroProjector_place2dTexture28.c" "IntroProjector_psdFileTex7.c";
+connectAttr "IntroProjector_place2dTexture28.tf" "IntroProjector_psdFileTex7.tf"
+		;
+connectAttr "IntroProjector_place2dTexture28.rf" "IntroProjector_psdFileTex7.rf"
+		;
+connectAttr "IntroProjector_place2dTexture28.mu" "IntroProjector_psdFileTex7.mu"
+		;
+connectAttr "IntroProjector_place2dTexture28.mv" "IntroProjector_psdFileTex7.mv"
+		;
+connectAttr "IntroProjector_place2dTexture28.s" "IntroProjector_psdFileTex7.s";
+connectAttr "IntroProjector_place2dTexture28.wu" "IntroProjector_psdFileTex7.wu"
+		;
+connectAttr "IntroProjector_place2dTexture28.wv" "IntroProjector_psdFileTex7.wv"
+		;
+connectAttr "IntroProjector_place2dTexture28.re" "IntroProjector_psdFileTex7.re"
+		;
+connectAttr "IntroProjector_place2dTexture28.of" "IntroProjector_psdFileTex7.of"
+		;
+connectAttr "IntroProjector_place2dTexture28.r" "IntroProjector_psdFileTex7.ro";
+connectAttr "IntroProjector_place2dTexture28.n" "IntroProjector_psdFileTex7.n";
+connectAttr "IntroProjector_place2dTexture28.vt1" "IntroProjector_psdFileTex7.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture28.vt2" "IntroProjector_psdFileTex7.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture28.vt3" "IntroProjector_psdFileTex7.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture28.vc1" "IntroProjector_psdFileTex7.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture28.o" "IntroProjector_psdFileTex7.uv";
+connectAttr "IntroProjector_place2dTexture28.ofs" "IntroProjector_psdFileTex7.fs"
+		;
+connectAttr "IntroProjector_place2dTexture29.c" "IntroProjector_psdFileTex8.c";
+connectAttr "IntroProjector_place2dTexture29.tf" "IntroProjector_psdFileTex8.tf"
+		;
+connectAttr "IntroProjector_place2dTexture29.rf" "IntroProjector_psdFileTex8.rf"
+		;
+connectAttr "IntroProjector_place2dTexture29.mu" "IntroProjector_psdFileTex8.mu"
+		;
+connectAttr "IntroProjector_place2dTexture29.mv" "IntroProjector_psdFileTex8.mv"
+		;
+connectAttr "IntroProjector_place2dTexture29.s" "IntroProjector_psdFileTex8.s";
+connectAttr "IntroProjector_place2dTexture29.wu" "IntroProjector_psdFileTex8.wu"
+		;
+connectAttr "IntroProjector_place2dTexture29.wv" "IntroProjector_psdFileTex8.wv"
+		;
+connectAttr "IntroProjector_place2dTexture29.re" "IntroProjector_psdFileTex8.re"
+		;
+connectAttr "IntroProjector_place2dTexture29.of" "IntroProjector_psdFileTex8.of"
+		;
+connectAttr "IntroProjector_place2dTexture29.r" "IntroProjector_psdFileTex8.ro";
+connectAttr "IntroProjector_place2dTexture29.n" "IntroProjector_psdFileTex8.n";
+connectAttr "IntroProjector_place2dTexture29.vt1" "IntroProjector_psdFileTex8.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture29.vt2" "IntroProjector_psdFileTex8.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture29.vt3" "IntroProjector_psdFileTex8.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture29.vc1" "IntroProjector_psdFileTex8.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture29.o" "IntroProjector_psdFileTex8.uv";
+connectAttr "IntroProjector_place2dTexture29.ofs" "IntroProjector_psdFileTex8.fs"
+		;
+connectAttr "IntroProjector_checker3.oc" "IntroProjector_blinn5.c";
+connectAttr "IntroProjector_blinn5.oc" "IntroProjector_blinn5SG1.ss";
+connectAttr "IntroProjector_blinn5SG1.msg" "IntroProjector_materialInfo31.sg";
+connectAttr "IntroProjector_blinn5.msg" "IntroProjector_materialInfo31.m";
+connectAttr "IntroProjector_checker3.msg" "IntroProjector_materialInfo31.t" -na;
+connectAttr "IntroProjector_place2dTexture30.o" "IntroProjector_checker3.uv";
+connectAttr "IntroProjector_place2dTexture30.ofs" "IntroProjector_checker3.fs";
+connectAttr "IntroProjector_psdFileTex9.oc" "IntroProjector_blinn6.c";
+connectAttr "IntroProjector_psdFileTex9.ot" "IntroProjector_blinn6.it";
+connectAttr "IntroProjector_blinn6.oc" "IntroProjector_blinn6SG1.ss";
+connectAttr "IntroProjector_blinn6SG1.msg" "IntroProjector_materialInfo32.sg";
+connectAttr "IntroProjector_blinn6.msg" "IntroProjector_materialInfo32.m";
+connectAttr "IntroProjector_psdFileTex9.msg" "IntroProjector_materialInfo32.t" -na
+		;
+connectAttr "IntroProjector_place2dTexture31.c" "IntroProjector_psdFileTex9.c";
+connectAttr "IntroProjector_place2dTexture31.tf" "IntroProjector_psdFileTex9.tf"
+		;
+connectAttr "IntroProjector_place2dTexture31.rf" "IntroProjector_psdFileTex9.rf"
+		;
+connectAttr "IntroProjector_place2dTexture31.mu" "IntroProjector_psdFileTex9.mu"
+		;
+connectAttr "IntroProjector_place2dTexture31.mv" "IntroProjector_psdFileTex9.mv"
+		;
+connectAttr "IntroProjector_place2dTexture31.s" "IntroProjector_psdFileTex9.s";
+connectAttr "IntroProjector_place2dTexture31.wu" "IntroProjector_psdFileTex9.wu"
+		;
+connectAttr "IntroProjector_place2dTexture31.wv" "IntroProjector_psdFileTex9.wv"
+		;
+connectAttr "IntroProjector_place2dTexture31.re" "IntroProjector_psdFileTex9.re"
+		;
+connectAttr "IntroProjector_place2dTexture31.of" "IntroProjector_psdFileTex9.of"
+		;
+connectAttr "IntroProjector_place2dTexture31.r" "IntroProjector_psdFileTex9.ro";
+connectAttr "IntroProjector_place2dTexture31.n" "IntroProjector_psdFileTex9.n";
+connectAttr "IntroProjector_place2dTexture31.vt1" "IntroProjector_psdFileTex9.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture31.vt2" "IntroProjector_psdFileTex9.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture31.vt3" "IntroProjector_psdFileTex9.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture31.vc1" "IntroProjector_psdFileTex9.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture31.o" "IntroProjector_psdFileTex9.uv";
+connectAttr "IntroProjector_place2dTexture31.ofs" "IntroProjector_psdFileTex9.fs"
+		;
+connectAttr "IntroProjector_psdFileTex10.oc" "IntroProjector_lambert16.c";
+connectAttr "IntroProjector_psdFileTex10.ot" "IntroProjector_lambert16.it";
+connectAttr "IntroProjector_lambert16.oc" "IntroProjector_lambert8SG1.ss";
+connectAttr "IntroProjector_lambert8SG1.msg" "IntroProjector_materialInfo33.sg";
+connectAttr "IntroProjector_lambert16.msg" "IntroProjector_materialInfo33.m";
+connectAttr "IntroProjector_psdFileTex10.msg" "IntroProjector_materialInfo33.t" 
+		-na;
+connectAttr "IntroProjector_place2dTexture32.c" "IntroProjector_psdFileTex10.c";
+connectAttr "IntroProjector_place2dTexture32.tf" "IntroProjector_psdFileTex10.tf"
+		;
+connectAttr "IntroProjector_place2dTexture32.rf" "IntroProjector_psdFileTex10.rf"
+		;
+connectAttr "IntroProjector_place2dTexture32.mu" "IntroProjector_psdFileTex10.mu"
+		;
+connectAttr "IntroProjector_place2dTexture32.mv" "IntroProjector_psdFileTex10.mv"
+		;
+connectAttr "IntroProjector_place2dTexture32.s" "IntroProjector_psdFileTex10.s";
+connectAttr "IntroProjector_place2dTexture32.wu" "IntroProjector_psdFileTex10.wu"
+		;
+connectAttr "IntroProjector_place2dTexture32.wv" "IntroProjector_psdFileTex10.wv"
+		;
+connectAttr "IntroProjector_place2dTexture32.re" "IntroProjector_psdFileTex10.re"
+		;
+connectAttr "IntroProjector_place2dTexture32.of" "IntroProjector_psdFileTex10.of"
+		;
+connectAttr "IntroProjector_place2dTexture32.r" "IntroProjector_psdFileTex10.ro"
+		;
+connectAttr "IntroProjector_place2dTexture32.n" "IntroProjector_psdFileTex10.n";
+connectAttr "IntroProjector_place2dTexture32.vt1" "IntroProjector_psdFileTex10.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture32.vt2" "IntroProjector_psdFileTex10.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture32.vt3" "IntroProjector_psdFileTex10.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture32.vc1" "IntroProjector_psdFileTex10.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture32.o" "IntroProjector_psdFileTex10.uv"
+		;
+connectAttr "IntroProjector_place2dTexture32.ofs" "IntroProjector_psdFileTex10.fs"
+		;
+connectAttr "IntroProjector_pasted__lambert8SG.msg" "IntroProjector_pasted__materialInfo13.sg"
+		;
+connectAttr "IntroProjector_pasted__lambert8.msg" "IntroProjector_pasted__materialInfo13.m"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex10.msg" "IntroProjector_pasted__materialInfo13.t"
+		 -na;
+connectAttr "IntroProjector_pasted__lambert8.oc" "IntroProjector_pasted__lambert8SG.ss"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex10.oc" "IntroProjector_pasted__lambert8.c"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex10.ot" "IntroProjector_pasted__lambert8.it"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.c" "IntroProjector_pasted__psdFileTex10.c"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.tf" "IntroProjector_pasted__psdFileTex10.tf"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.rf" "IntroProjector_pasted__psdFileTex10.rf"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.mu" "IntroProjector_pasted__psdFileTex10.mu"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.mv" "IntroProjector_pasted__psdFileTex10.mv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.s" "IntroProjector_pasted__psdFileTex10.s"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.wu" "IntroProjector_pasted__psdFileTex10.wu"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.wv" "IntroProjector_pasted__psdFileTex10.wv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.re" "IntroProjector_pasted__psdFileTex10.re"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.of" "IntroProjector_pasted__psdFileTex10.of"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.r" "IntroProjector_pasted__psdFileTex10.ro"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.n" "IntroProjector_pasted__psdFileTex10.n"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.vt1" "IntroProjector_pasted__psdFileTex10.vt1"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.vt2" "IntroProjector_pasted__psdFileTex10.vt2"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.vt3" "IntroProjector_pasted__psdFileTex10.vt3"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.vc1" "IntroProjector_pasted__psdFileTex10.vc1"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.o" "IntroProjector_pasted__psdFileTex10.uv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture13.ofs" "IntroProjector_pasted__psdFileTex10.fs"
+		;
+connectAttr "IntroProjector_psdFileTex11.oc" "IntroProjector_blinn7.c";
+connectAttr "IntroProjector_psdFileTex11.ot" "IntroProjector_blinn7.it";
+connectAttr "IntroProjector_blinn7.oc" "IntroProjector_blinn7SG1.ss";
+connectAttr "IntroProjector_blinn7SG1.msg" "IntroProjector_materialInfo34.sg";
+connectAttr "IntroProjector_blinn7.msg" "IntroProjector_materialInfo34.m";
+connectAttr "IntroProjector_psdFileTex11.msg" "IntroProjector_materialInfo34.t" 
+		-na;
+connectAttr "IntroProjector_place2dTexture33.c" "IntroProjector_psdFileTex11.c";
+connectAttr "IntroProjector_place2dTexture33.tf" "IntroProjector_psdFileTex11.tf"
+		;
+connectAttr "IntroProjector_place2dTexture33.rf" "IntroProjector_psdFileTex11.rf"
+		;
+connectAttr "IntroProjector_place2dTexture33.mu" "IntroProjector_psdFileTex11.mu"
+		;
+connectAttr "IntroProjector_place2dTexture33.mv" "IntroProjector_psdFileTex11.mv"
+		;
+connectAttr "IntroProjector_place2dTexture33.s" "IntroProjector_psdFileTex11.s";
+connectAttr "IntroProjector_place2dTexture33.wu" "IntroProjector_psdFileTex11.wu"
+		;
+connectAttr "IntroProjector_place2dTexture33.wv" "IntroProjector_psdFileTex11.wv"
+		;
+connectAttr "IntroProjector_place2dTexture33.re" "IntroProjector_psdFileTex11.re"
+		;
+connectAttr "IntroProjector_place2dTexture33.of" "IntroProjector_psdFileTex11.of"
+		;
+connectAttr "IntroProjector_place2dTexture33.r" "IntroProjector_psdFileTex11.ro"
+		;
+connectAttr "IntroProjector_place2dTexture33.n" "IntroProjector_psdFileTex11.n";
+connectAttr "IntroProjector_place2dTexture33.vt1" "IntroProjector_psdFileTex11.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture33.vt2" "IntroProjector_psdFileTex11.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture33.vt3" "IntroProjector_psdFileTex11.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture33.vc1" "IntroProjector_psdFileTex11.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture33.o" "IntroProjector_psdFileTex11.uv"
+		;
+connectAttr "IntroProjector_place2dTexture33.ofs" "IntroProjector_psdFileTex11.fs"
+		;
+connectAttr "IntroProjector_blinn8.oc" "IntroProjector_blinn8SG1.ss";
+connectAttr "IntroProjector_blinn8SG1.msg" "IntroProjector_materialInfo35.sg";
+connectAttr "IntroProjector_blinn8.msg" "IntroProjector_materialInfo35.m";
+connectAttr "IntroProjector_pasted__blinn7SG.msg" "IntroProjector_pasted__materialInfo14.sg"
+		;
+connectAttr "IntroProjector_pasted__blinn7.msg" "IntroProjector_pasted__materialInfo14.m"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex11.msg" "IntroProjector_pasted__materialInfo14.t"
+		 -na;
+connectAttr "IntroProjector_pasted__blinn7.oc" "IntroProjector_pasted__blinn7SG.ss"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex11.oc" "IntroProjector_pasted__blinn7.c"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex11.ot" "IntroProjector_pasted__blinn7.it"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.c" "IntroProjector_pasted__psdFileTex11.c"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.tf" "IntroProjector_pasted__psdFileTex11.tf"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.rf" "IntroProjector_pasted__psdFileTex11.rf"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.mu" "IntroProjector_pasted__psdFileTex11.mu"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.mv" "IntroProjector_pasted__psdFileTex11.mv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.s" "IntroProjector_pasted__psdFileTex11.s"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.wu" "IntroProjector_pasted__psdFileTex11.wu"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.wv" "IntroProjector_pasted__psdFileTex11.wv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.re" "IntroProjector_pasted__psdFileTex11.re"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.of" "IntroProjector_pasted__psdFileTex11.of"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.r" "IntroProjector_pasted__psdFileTex11.ro"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.n" "IntroProjector_pasted__psdFileTex11.n"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.vt1" "IntroProjector_pasted__psdFileTex11.vt1"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.vt2" "IntroProjector_pasted__psdFileTex11.vt2"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.vt3" "IntroProjector_pasted__psdFileTex11.vt3"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.vc1" "IntroProjector_pasted__psdFileTex11.vc1"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.o" "IntroProjector_pasted__psdFileTex11.uv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture14.ofs" "IntroProjector_pasted__psdFileTex11.fs"
+		;
+connectAttr "IntroProjector_psdFileTex12.oc" "IntroProjector_Projector.c";
+connectAttr "IntroProjector_psdFileTex12.ot" "IntroProjector_Projector.it";
+connectAttr "IntroProjector_Projector.oc" "IntroProjector_blinn9SG1.ss";
+connectAttr "IntroProjector_blinn9SG1.msg" "IntroProjector_materialInfo36.sg";
+connectAttr "IntroProjector_Projector.msg" "IntroProjector_materialInfo36.m";
+connectAttr "IntroProjector_psdFileTex12.msg" "IntroProjector_materialInfo36.t" 
+		-na;
+connectAttr "IntroProjector_place2dTexture34.c" "IntroProjector_psdFileTex12.c";
+connectAttr "IntroProjector_place2dTexture34.tf" "IntroProjector_psdFileTex12.tf"
+		;
+connectAttr "IntroProjector_place2dTexture34.rf" "IntroProjector_psdFileTex12.rf"
+		;
+connectAttr "IntroProjector_place2dTexture34.mu" "IntroProjector_psdFileTex12.mu"
+		;
+connectAttr "IntroProjector_place2dTexture34.mv" "IntroProjector_psdFileTex12.mv"
+		;
+connectAttr "IntroProjector_place2dTexture34.s" "IntroProjector_psdFileTex12.s";
+connectAttr "IntroProjector_place2dTexture34.wu" "IntroProjector_psdFileTex12.wu"
+		;
+connectAttr "IntroProjector_place2dTexture34.wv" "IntroProjector_psdFileTex12.wv"
+		;
+connectAttr "IntroProjector_place2dTexture34.re" "IntroProjector_psdFileTex12.re"
+		;
+connectAttr "IntroProjector_place2dTexture34.of" "IntroProjector_psdFileTex12.of"
+		;
+connectAttr "IntroProjector_place2dTexture34.r" "IntroProjector_psdFileTex12.ro"
+		;
+connectAttr "IntroProjector_place2dTexture34.n" "IntroProjector_psdFileTex12.n";
+connectAttr "IntroProjector_place2dTexture34.vt1" "IntroProjector_psdFileTex12.vt1"
+		;
+connectAttr "IntroProjector_place2dTexture34.vt2" "IntroProjector_psdFileTex12.vt2"
+		;
+connectAttr "IntroProjector_place2dTexture34.vt3" "IntroProjector_psdFileTex12.vt3"
+		;
+connectAttr "IntroProjector_place2dTexture34.vc1" "IntroProjector_psdFileTex12.vc1"
+		;
+connectAttr "IntroProjector_place2dTexture34.o" "IntroProjector_psdFileTex12.uv"
+		;
+connectAttr "IntroProjector_place2dTexture34.ofs" "IntroProjector_psdFileTex12.fs"
+		;
+connectAttr "IntroProjector_pasted__blinn9SG.msg" "IntroProjector_pasted__materialInfo16.sg"
+		;
+connectAttr "IntroProjector_pasted__blinn9.msg" "IntroProjector_pasted__materialInfo16.m"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex12.msg" "IntroProjector_pasted__materialInfo16.t"
+		 -na;
+connectAttr "IntroProjector_pasted__blinn9.oc" "IntroProjector_pasted__blinn9SG.ss"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex12.oc" "IntroProjector_pasted__blinn9.c"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex12.ot" "IntroProjector_pasted__blinn9.it"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.c" "IntroProjector_pasted__psdFileTex12.c"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.tf" "IntroProjector_pasted__psdFileTex12.tf"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.rf" "IntroProjector_pasted__psdFileTex12.rf"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.mu" "IntroProjector_pasted__psdFileTex12.mu"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.mv" "IntroProjector_pasted__psdFileTex12.mv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.s" "IntroProjector_pasted__psdFileTex12.s"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.wu" "IntroProjector_pasted__psdFileTex12.wu"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.wv" "IntroProjector_pasted__psdFileTex12.wv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.re" "IntroProjector_pasted__psdFileTex12.re"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.of" "IntroProjector_pasted__psdFileTex12.of"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.r" "IntroProjector_pasted__psdFileTex12.ro"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.n" "IntroProjector_pasted__psdFileTex12.n"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.vt1" "IntroProjector_pasted__psdFileTex12.vt1"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.vt2" "IntroProjector_pasted__psdFileTex12.vt2"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.vt3" "IntroProjector_pasted__psdFileTex12.vt3"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.vc1" "IntroProjector_pasted__psdFileTex12.vc1"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.o" "IntroProjector_pasted__psdFileTex12.uv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture15.ofs" "IntroProjector_pasted__psdFileTex12.fs"
+		;
+connectAttr "IntroProjector_pasted__blinn9SG1.msg" "IntroProjector_pasted__materialInfo17.sg"
+		;
+connectAttr "IntroProjector_pasted__blinn10.msg" "IntroProjector_pasted__materialInfo17.m"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex13.msg" "IntroProjector_pasted__materialInfo17.t"
+		 -na;
+connectAttr "IntroProjector_pasted__blinn10.oc" "IntroProjector_pasted__blinn9SG1.ss"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex13.oc" "IntroProjector_pasted__blinn10.c"
+		;
+connectAttr "IntroProjector_pasted__psdFileTex13.ot" "IntroProjector_pasted__blinn10.it"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.c" "IntroProjector_pasted__psdFileTex13.c"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.tf" "IntroProjector_pasted__psdFileTex13.tf"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.rf" "IntroProjector_pasted__psdFileTex13.rf"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.mu" "IntroProjector_pasted__psdFileTex13.mu"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.mv" "IntroProjector_pasted__psdFileTex13.mv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.s" "IntroProjector_pasted__psdFileTex13.s"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.wu" "IntroProjector_pasted__psdFileTex13.wu"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.wv" "IntroProjector_pasted__psdFileTex13.wv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.re" "IntroProjector_pasted__psdFileTex13.re"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.of" "IntroProjector_pasted__psdFileTex13.of"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.r" "IntroProjector_pasted__psdFileTex13.ro"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.n" "IntroProjector_pasted__psdFileTex13.n"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.vt1" "IntroProjector_pasted__psdFileTex13.vt1"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.vt2" "IntroProjector_pasted__psdFileTex13.vt2"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.vt3" "IntroProjector_pasted__psdFileTex13.vt3"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.vc1" "IntroProjector_pasted__psdFileTex13.vc1"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.o" "IntroProjector_pasted__psdFileTex13.uv"
+		;
+connectAttr "IntroProjector_pasted__place2dTexture16.ofs" "IntroProjector_pasted__psdFileTex13.fs"
+		;
+connectAttr "IntroProjector_place2dTexture35.c" "IntroProjector_file5.c";
+connectAttr "IntroProjector_place2dTexture35.tf" "IntroProjector_file5.tf";
+connectAttr "IntroProjector_place2dTexture35.rf" "IntroProjector_file5.rf";
+connectAttr "IntroProjector_place2dTexture35.mu" "IntroProjector_file5.mu";
+connectAttr "IntroProjector_place2dTexture35.mv" "IntroProjector_file5.mv";
+connectAttr "IntroProjector_place2dTexture35.s" "IntroProjector_file5.s";
+connectAttr "IntroProjector_place2dTexture35.wu" "IntroProjector_file5.wu";
+connectAttr "IntroProjector_place2dTexture35.wv" "IntroProjector_file5.wv";
+connectAttr "IntroProjector_place2dTexture35.re" "IntroProjector_file5.re";
+connectAttr "IntroProjector_place2dTexture35.of" "IntroProjector_file5.of";
+connectAttr "IntroProjector_place2dTexture35.r" "IntroProjector_file5.ro";
+connectAttr "IntroProjector_place2dTexture35.n" "IntroProjector_file5.n";
+connectAttr "IntroProjector_place2dTexture35.vt1" "IntroProjector_file5.vt1";
+connectAttr "IntroProjector_place2dTexture35.vt2" "IntroProjector_file5.vt2";
+connectAttr "IntroProjector_place2dTexture35.vt3" "IntroProjector_file5.vt3";
+connectAttr "IntroProjector_place2dTexture35.vc1" "IntroProjector_file5.vc1";
+connectAttr "IntroProjector_place2dTexture35.o" "IntroProjector_file5.uv";
+connectAttr "IntroProjector_place2dTexture35.ofs" "IntroProjector_file5.fs";
+connectAttr "IntroProjector_lambert9.oc" "IntroProjector_lambert9SG1.ss";
+connectAttr "IntroProjector_lambert9SG1.msg" "IntroProjector_materialInfo37.sg";
+connectAttr "IntroProjector_lambert9.msg" "IntroProjector_materialInfo37.m";
+connectAttr "IntroProjector_file6.oc" "IntroProjector_lambert10.c";
+connectAttr "IntroProjector_file6.ot" "IntroProjector_lambert10.it";
+connectAttr "IntroProjector_lambert10.oc" "IntroProjector_lambert10SG1.ss";
+connectAttr "IntroProjector_lambert10SG1.msg" "IntroProjector_materialInfo38.sg"
+		;
+connectAttr "IntroProjector_lambert10.msg" "IntroProjector_materialInfo38.m";
+connectAttr "IntroProjector_file6.msg" "IntroProjector_materialInfo38.t" -na;
+connectAttr "IntroProjector_place2dTexture36.c" "IntroProjector_file6.c";
+connectAttr "IntroProjector_place2dTexture36.tf" "IntroProjector_file6.tf";
+connectAttr "IntroProjector_place2dTexture36.rf" "IntroProjector_file6.rf";
+connectAttr "IntroProjector_place2dTexture36.mu" "IntroProjector_file6.mu";
+connectAttr "IntroProjector_place2dTexture36.mv" "IntroProjector_file6.mv";
+connectAttr "IntroProjector_place2dTexture36.s" "IntroProjector_file6.s";
+connectAttr "IntroProjector_place2dTexture36.wu" "IntroProjector_file6.wu";
+connectAttr "IntroProjector_place2dTexture36.wv" "IntroProjector_file6.wv";
+connectAttr "IntroProjector_place2dTexture36.re" "IntroProjector_file6.re";
+connectAttr "IntroProjector_place2dTexture36.of" "IntroProjector_file6.of";
+connectAttr "IntroProjector_place2dTexture36.r" "IntroProjector_file6.ro";
+connectAttr "IntroProjector_place2dTexture36.n" "IntroProjector_file6.n";
+connectAttr "IntroProjector_place2dTexture36.vt1" "IntroProjector_file6.vt1";
+connectAttr "IntroProjector_place2dTexture36.vt2" "IntroProjector_file6.vt2";
+connectAttr "IntroProjector_place2dTexture36.vt3" "IntroProjector_file6.vt3";
+connectAttr "IntroProjector_place2dTexture36.vc1" "IntroProjector_file6.vc1";
+connectAttr "IntroProjector_place2dTexture36.o" "IntroProjector_file6.uv";
+connectAttr "IntroProjector_place2dTexture36.ofs" "IntroProjector_file6.fs";
+connectAttr "IntroProjector_file7.oc" "IntroProjector_lambert11.c";
+connectAttr "IntroProjector_file7.ot" "IntroProjector_lambert11.it";
+connectAttr "IntroProjector_lambert11.oc" "IntroProjector_lambert11SG1.ss";
+connectAttr "IntroProjector_lambert11SG1.msg" "IntroProjector_materialInfo39.sg"
+		;
+connectAttr "IntroProjector_lambert11.msg" "IntroProjector_materialInfo39.m";
+connectAttr "IntroProjector_file7.msg" "IntroProjector_materialInfo39.t" -na;
+connectAttr "IntroProjector_place2dTexture37.c" "IntroProjector_file7.c";
+connectAttr "IntroProjector_place2dTexture37.tf" "IntroProjector_file7.tf";
+connectAttr "IntroProjector_place2dTexture37.rf" "IntroProjector_file7.rf";
+connectAttr "IntroProjector_place2dTexture37.mu" "IntroProjector_file7.mu";
+connectAttr "IntroProjector_place2dTexture37.mv" "IntroProjector_file7.mv";
+connectAttr "IntroProjector_place2dTexture37.s" "IntroProjector_file7.s";
+connectAttr "IntroProjector_place2dTexture37.wu" "IntroProjector_file7.wu";
+connectAttr "IntroProjector_place2dTexture37.wv" "IntroProjector_file7.wv";
+connectAttr "IntroProjector_place2dTexture37.re" "IntroProjector_file7.re";
+connectAttr "IntroProjector_place2dTexture37.of" "IntroProjector_file7.of";
+connectAttr "IntroProjector_place2dTexture37.r" "IntroProjector_file7.ro";
+connectAttr "IntroProjector_place2dTexture37.n" "IntroProjector_file7.n";
+connectAttr "IntroProjector_place2dTexture37.vt1" "IntroProjector_file7.vt1";
+connectAttr "IntroProjector_place2dTexture37.vt2" "IntroProjector_file7.vt2";
+connectAttr "IntroProjector_place2dTexture37.vt3" "IntroProjector_file7.vt3";
+connectAttr "IntroProjector_place2dTexture37.vc1" "IntroProjector_file7.vc1";
+connectAttr "IntroProjector_place2dTexture37.o" "IntroProjector_file7.uv";
+connectAttr "IntroProjector_place2dTexture37.ofs" "IntroProjector_file7.fs";
+connectAttr "IntroProjector_file8.oc" "IntroProjector_blinn10.c";
+connectAttr "IntroProjector_blinn10.oc" "IntroProjector_blinn10SG1.ss";
+connectAttr "IntroProjector_blinn10SG1.msg" "IntroProjector_materialInfo40.sg";
+connectAttr "IntroProjector_blinn10.msg" "IntroProjector_materialInfo40.m";
+connectAttr "IntroProjector_file8.msg" "IntroProjector_materialInfo40.t" -na;
+connectAttr "IntroProjector_place2dTexture38.c" "IntroProjector_file8.c";
+connectAttr "IntroProjector_place2dTexture38.tf" "IntroProjector_file8.tf";
+connectAttr "IntroProjector_place2dTexture38.rf" "IntroProjector_file8.rf";
+connectAttr "IntroProjector_place2dTexture38.mu" "IntroProjector_file8.mu";
+connectAttr "IntroProjector_place2dTexture38.mv" "IntroProjector_file8.mv";
+connectAttr "IntroProjector_place2dTexture38.s" "IntroProjector_file8.s";
+connectAttr "IntroProjector_place2dTexture38.wu" "IntroProjector_file8.wu";
+connectAttr "IntroProjector_place2dTexture38.wv" "IntroProjector_file8.wv";
+connectAttr "IntroProjector_place2dTexture38.re" "IntroProjector_file8.re";
+connectAttr "IntroProjector_place2dTexture38.of" "IntroProjector_file8.of";
+connectAttr "IntroProjector_place2dTexture38.r" "IntroProjector_file8.ro";
+connectAttr "IntroProjector_place2dTexture38.n" "IntroProjector_file8.n";
+connectAttr "IntroProjector_place2dTexture38.vt1" "IntroProjector_file8.vt1";
+connectAttr "IntroProjector_place2dTexture38.vt2" "IntroProjector_file8.vt2";
+connectAttr "IntroProjector_place2dTexture38.vt3" "IntroProjector_file8.vt3";
+connectAttr "IntroProjector_place2dTexture38.vc1" "IntroProjector_file8.vc1";
+connectAttr "IntroProjector_place2dTexture38.o" "IntroProjector_file8.uv";
+connectAttr "IntroProjector_place2dTexture38.ofs" "IntroProjector_file8.fs";
 connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert3SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert4SG.pa" ":renderPartition.st" -na;
@@ -53740,6 +55487,59 @@ connectAttr "lambert26SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert27SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert28SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert29SG.pa" ":renderPartition.st" -na;
+connectAttr "lambert30SG.pa" ":renderPartition.st" -na;
+connectAttr "lambert31SG.pa" ":renderPartition.st" -na;
+connectAttr "PipeShaderNonBSSG.pa" ":renderPartition.st" -na;
+connectAttr "SewerRightHandSide2SG.pa" ":renderPartition.st" -na;
+connectAttr "LeftSideBGqSG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn1SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert2SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert3SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert4SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert5SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert6SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert7SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn2SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn3SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn4SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn5SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn6SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert8SG.pa" ":renderPartition.st" -na;
+connectAttr "pasted__lambert8SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn7SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn8SG.pa" ":renderPartition.st" -na;
+connectAttr "pasted__blinn7SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn9SG.pa" ":renderPartition.st" -na;
+connectAttr "pasted__blinn9SG.pa" ":renderPartition.st" -na;
+connectAttr "pasted__blinn9SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert9SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert10SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert11SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn10SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn1SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert2SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert3SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert4SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert5SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert6SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert7SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn2SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn3SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn4SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn5SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn6SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert8SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_pasted__lambert8SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn7SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn8SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_pasted__blinn7SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn9SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_pasted__blinn9SG.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_pasted__blinn9SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert9SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert10SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_lambert11SG1.pa" ":renderPartition.st" -na;
+connectAttr "IntroProjector_blinn10SG1.pa" ":renderPartition.st" -na;
 connectAttr "polySurfaceShape152.iog.og[2]" ":initialShadingGroup.dsm" -na;
 connectAttr "pPipeShape56.iog.og[11]" ":initialShadingGroup.dsm" -na;
 connectAttr "pPipeShape56.ciog.cog[11]" ":initialShadingGroup.dsm" -na;
@@ -53873,22 +55673,6 @@ connectAttr "pCubeShape64.ciog.cog[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "LadderXShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape390.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "polySurfaceShape392.iog.og[0]" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape73.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape74.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape75.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape76.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape78.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape79.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape80.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape81.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "NadaqShape.iog.og[0]" ":initialShadingGroup.dsm" -na;
-connectAttr "Nadaq1Shape.iog.og[0]" ":initialShadingGroup.dsm" -na;
-connectAttr "LadderX1Shape.iog.og[0]" ":initialShadingGroup.dsm" -na;
-connectAttr "LedgeShape30.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape82.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape83.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape84.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape85.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape91.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape92.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape93.iog" ":initialShadingGroup.dsm" -na;
@@ -53908,11 +55692,6 @@ connectAttr "pCubeShape106.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape107.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape108.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape109.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape110.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape111.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape112.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape113.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pCubeShape114.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "groupId168.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId173.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId174.msg" ":initialShadingGroup.gn" -na;
@@ -54032,10 +55811,7 @@ connectAttr "groupId602.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId603.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId604.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId605.msg" ":initialShadingGroup.gn" -na;
-connectAttr "groupId606.msg" ":initialShadingGroup.gn" -na;
-connectAttr "groupId607.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId609.msg" ":initialShadingGroup.gn" -na;
-connectAttr "groupId610.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId613.msg" ":initialShadingGroup.gn" -na;
 connectAttr "lambert2.msg" ":defaultShaderList1.s" -na;
 connectAttr "lambert3.msg" ":defaultShaderList1.s" -na;
@@ -54045,7 +55821,6 @@ connectAttr "blinn2.msg" ":defaultShaderList1.s" -na;
 connectAttr "blinn3.msg" ":defaultShaderList1.s" -na;
 connectAttr "lambert5.msg" ":defaultShaderList1.s" -na;
 connectAttr "lambert6.msg" ":defaultShaderList1.s" -na;
-connectAttr "SewerRightHandSide.msg" ":defaultShaderList1.s" -na;
 connectAttr "blinn4.msg" ":defaultShaderList1.s" -na;
 connectAttr "lambert8.msg" ":defaultShaderList1.s" -na;
 connectAttr "ForFalseLighting.msg" ":defaultShaderList1.s" -na;
@@ -54075,6 +55850,59 @@ connectAttr "Generator1.msg" ":defaultShaderList1.s" -na;
 connectAttr "Storage.msg" ":defaultShaderList1.s" -na;
 connectAttr "LeftHandSquareOffq.msg" ":defaultShaderList1.s" -na;
 connectAttr "RedLeftHandSide.msg" ":defaultShaderList1.s" -na;
+connectAttr "TallStructure.msg" ":defaultShaderList1.s" -na;
+connectAttr "LightHolders.msg" ":defaultShaderList1.s" -na;
+connectAttr "PipeShaderNonBS.msg" ":defaultShaderList1.s" -na;
+connectAttr "SewerRightHandSide2.msg" ":defaultShaderList1.s" -na;
+connectAttr "LeftSideBGq.msg" ":defaultShaderList1.s" -na;
+connectAttr "InnerLight.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert2.msg" ":defaultShaderList1.s" -na;
+connectAttr "Checkered.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert4.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert5.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert6.msg" ":defaultShaderList1.s" -na;
+connectAttr "lambert7.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn2.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn3.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn4.msg" ":defaultShaderList1.s" -na;
+connectAttr "blinn5.msg" ":defaultShaderList1.s" -na;
+connectAttr "blinn6.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert8.msg" ":defaultShaderList1.s" -na;
+connectAttr "pasted__lambert8.msg" ":defaultShaderList1.s" -na;
+connectAttr "blinn7.msg" ":defaultShaderList1.s" -na;
+connectAttr "blinn8.msg" ":defaultShaderList1.s" -na;
+connectAttr "pasted__blinn7.msg" ":defaultShaderList1.s" -na;
+connectAttr "Projector.msg" ":defaultShaderList1.s" -na;
+connectAttr "pasted__blinn9.msg" ":defaultShaderList1.s" -na;
+connectAttr "pasted__blinn10.msg" ":defaultShaderList1.s" -na;
+connectAttr "lambert9.msg" ":defaultShaderList1.s" -na;
+connectAttr "lambert10.msg" ":defaultShaderList1.s" -na;
+connectAttr "lambert11.msg" ":defaultShaderList1.s" -na;
+connectAttr "blinn10.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_InnerLight.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert12.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_Checkered.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert13.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert14.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert15.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert7.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn11.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn12.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn13.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn5.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn6.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert16.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_pasted__lambert8.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn7.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn8.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_pasted__blinn7.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_Projector.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_pasted__blinn9.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_pasted__blinn10.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert9.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert10.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_lambert11.msg" ":defaultShaderList1.s" -na;
+connectAttr "IntroProjector_blinn10.msg" ":defaultShaderList1.s" -na;
 connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file2.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file3.msg" ":defaultTextureList1.tx" -na;
@@ -54094,7 +55922,61 @@ connectAttr "file16.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file17.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file18.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file19.msg" ":defaultTextureList1.tx" -na;
+connectAttr "file20.msg" ":defaultTextureList1.tx" -na;
+connectAttr "file21.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex1.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex2.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex3.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex4.msg" ":defaultTextureList1.tx" -na;
+connectAttr "checker1.msg" ":defaultTextureList1.tx" -na;
+connectAttr "checker2.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex5.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex6.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex7.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex8.msg" ":defaultTextureList1.tx" -na;
+connectAttr "checker3.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex9.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex10.msg" ":defaultTextureList1.tx" -na;
+connectAttr "pasted__psdFileTex10.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex11.msg" ":defaultTextureList1.tx" -na;
+connectAttr "pasted__psdFileTex11.msg" ":defaultTextureList1.tx" -na;
+connectAttr "psdFileTex12.msg" ":defaultTextureList1.tx" -na;
+connectAttr "pasted__psdFileTex12.msg" ":defaultTextureList1.tx" -na;
+connectAttr "pasted__psdFileTex13.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_file1.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_file2.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_file3.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_file4.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex1.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex2.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex3.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex4.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_checker1.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_checker2.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex5.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex6.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex7.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex8.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_checker3.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex9.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_psdFileTex10.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_pasted__psdFileTex10.msg" ":defaultTextureList1.tx" 
+		-na;
+connectAttr "IntroProjector_psdFileTex11.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_pasted__psdFileTex11.msg" ":defaultTextureList1.tx" 
+		-na;
+connectAttr "IntroProjector_psdFileTex12.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_pasted__psdFileTex12.msg" ":defaultTextureList1.tx" 
+		-na;
+connectAttr "IntroProjector_pasted__psdFileTex13.msg" ":defaultTextureList1.tx" 
+		-na;
+connectAttr "IntroProjector_file5.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_file6.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_file7.msg" ":defaultTextureList1.tx" -na;
+connectAttr "IntroProjector_file8.msg" ":defaultTextureList1.tx" -na;
 connectAttr "spotLightShape1.ltd" ":lightList1.l" -na;
+connectAttr "IntroProjector_file1.oc" ":lambert1.c";
+connectAttr "IntroProjector_file1.ot" ":lambert1.it";
 connectAttr "place2dTexture1.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "place2dTexture2.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "place2dTexture3.msg" ":defaultRenderUtilityList1.u" -na;
@@ -54114,6 +55996,98 @@ connectAttr "place2dTexture16.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "place2dTexture17.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "place2dTexture18.msg" ":defaultRenderUtilityList1.u" -na;
 connectAttr "place2dTexture19.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "place2dTexture20.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "place2dTexture21.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "IntroProjector_place2dTexture1.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture2.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture3.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture4.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture5.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture6.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture7.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture8.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture9.msg" ":defaultRenderUtilityList1.u" 
+		-na;
+connectAttr "IntroProjector_place2dTexture10.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture11.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture12.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture13.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "pasted__place2dTexture13.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "IntroProjector_place2dTexture14.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "pasted__place2dTexture14.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "IntroProjector_place2dTexture15.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "pasted__place2dTexture15.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "pasted__place2dTexture16.msg" ":defaultRenderUtilityList1.u" -na;
+connectAttr "IntroProjector_place2dTexture16.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture17.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture18.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture19.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture20.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture21.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture22.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture23.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture24.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture25.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture26.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture27.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture28.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture29.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture30.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture31.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture32.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_pasted__place2dTexture13.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture33.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_pasted__place2dTexture14.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture34.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_pasted__place2dTexture15.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_pasted__place2dTexture16.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture35.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture36.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture37.msg" ":defaultRenderUtilityList1.u"
+		 -na;
+connectAttr "IntroProjector_place2dTexture38.msg" ":defaultRenderUtilityList1.u"
+		 -na;
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
+connectAttr "IntroProjector_file1.msg" ":initialMaterialInfo.t" -na;
+connectAttr "IntroProjector_file5.msg" ":initialMaterialInfo.t" -na;
 connectAttr "spotLight1.iog" ":defaultLightSet.dsm" -na;
 // End of Sewer2 - TutorialRound2.ma
