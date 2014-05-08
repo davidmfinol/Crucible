@@ -52,6 +52,7 @@ public class Tutorial : MonoBehaviour
 
 	public IEnumerator PlayIntroCutscene()
 	{
+		GameManager.SaveData.HasShownIntroCutscene = true;
 		GameManager.IsPlayingCutscene = true;
 
 		// Disable the camera
@@ -75,7 +76,6 @@ public class Tutorial : MonoBehaviour
 		GameManager.MainCamera.enabled = true;
 		
 		GameManager.IsPlayingCutscene = false;
-		GameManager.SaveData.HasShownIntroCutscene = true;
 		StartCoroutine (ShowTwoHands ());
 	}
 
