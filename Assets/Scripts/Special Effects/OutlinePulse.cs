@@ -3,16 +3,30 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Outline pulse makes an object's outline pulse synchronized to time.
-/// NOTE: MUST USED OUTLINED SHADER, in addition to having changeable materials tagged.
+/// NOTE: MUST USE OUTLINED SHADER.
 /// </summary>
 [AddComponentMenu("Special Effects/Outline Pulse")]
 public class OutlinePulse : MonoBehaviour
 {
+	// Normally, we want to use the changeable materials tag to find the materials we want,
+	// but we may have another use for the tag and are willing to just use the material on the root object
+	public bool SearchForChangeableMaterials = true;
+	public bool StartOn = true;
+
     private List<Material> _changeableMaterials;
+	private bool _on;
 
     void Start()
     {
-        _changeableMaterials = FindChangeableMaterials ();
+		if(SearchForChangeableMaterials)
+        	_changeableMaterials = FindChangeableMaterials ();
+		else {
+			_changeableMaterials = new List<Material>();
+			_changeableMaterials.Add(renderer.material);
+		}
+
+		if (StartOn)
+			_on = true;
         
         foreach (Material mat in _changeableMaterials)
             mat.SetFloat ("_Outline", 0.002f);
@@ -27,6 +41,8 @@ public class OutlinePulse : MonoBehaviour
         time *= 2 * Mathf.PI;
     
         float alpha = Mathf.Cos (time);
+		if(!_on)
+			alpha = 0;
         Color itemPickupColor = new Color (1.0f, 1.0f, 1.0f, alpha);
     
         foreach (Material mat in _changeableMaterials)
@@ -42,6 +58,11 @@ public class OutlinePulse : MonoBehaviour
                 changeableMaterials.Add (render.material);
         return changeableMaterials;
         
-    }
+	}
+	
+	public bool On {
+		get { return _on; }
+		set { _on = value; }
+	}
 
 }

@@ -1,4 +1,4 @@
-﻿Shader "Interactive" {
+﻿Shader "Outline/Interactive" {
     Properties {
         _Color ("Main Color", Color) = (1,1,1,1)
         _OutlineColor ("Outline Color", Color) = (1,1,1,1)

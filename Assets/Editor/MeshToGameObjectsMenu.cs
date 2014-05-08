@@ -50,7 +50,7 @@ public class MeshToGameObjectsMenu
     }
 
     // Helper Method to add all the children to a selection
-    public static void AddChildren (List<Transform> selected, Transform current)
+    private static void AddChildren (List<Transform> selected, Transform current)
     {
         // activate the ragdoll for all child bones
         for (int i = 0; i < current.childCount; ++i)
@@ -112,15 +112,18 @@ public class MeshToGameObjectsMenu
             if (name.Contains ("rope"))
                 CreateRope (transform);
             if (name.Contains ("ladder"))
-                CreateLadder (transform);
+				CreateLadder (transform);
+			
+			// Make the gameobject static for optimization
+			transform.gameObject.isStatic = true;
         });
 
         // Mark objects as static for optimization
         root.gameObject.isStatic = true;
         wallContainer.isStatic = true;
 
-        // Combine the object into 1 mesh for optimization
-        // TODO: CombineChildren.Combine(root.gameObject, root.name + " Combined Mesh");
+        // Combine the object into 1 mesh for optimization (not needed because of static batching?)
+        // CombineChildren.Combine(root.gameObject, root.name + " Combined Mesh");
 
     }
 
@@ -148,11 +151,13 @@ public class MeshToGameObjectsMenu
 		DestroyChildren (transform);
 
 		// Change the shader so that it will be outlined
-		transform.renderer.sharedMaterial.shader = Shader.Find ("Interactive");
+		transform.renderer.sharedMaterial.shader = Shader.Find ("Outline/Interactive");
 		transform.renderer.sharedMaterial.SetColor ("_OutlineColor", Color.white);
-		
-		// Make the gameobject static for optimization
-		transform.gameObject.isStatic = true;
+		OutlineFader outlineFader = transform.GetComponent<OutlineFader> ();
+		if(outlineFader == null)
+			outlineFader = transform.gameObject.AddComponent<OutlineFader> ();
+		outlineFader.FadeDistance = 20.0f;
+
     }
     
     static void DestroyChildren (Transform transform)
