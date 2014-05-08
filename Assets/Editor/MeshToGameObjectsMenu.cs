@@ -150,13 +150,12 @@ public class MeshToGameObjectsMenu
         // Get rid of any child objects that we may have created in previous runs of this script
 		DestroyChildren (transform);
 
-		// Change the shader so that it will be outlined
+		// Change the shader so that it will be outlined as appropriate
 		transform.renderer.sharedMaterial.shader = Shader.Find ("Outlined/Interactive");
-		transform.renderer.sharedMaterial.SetColor ("_OutlineColor", Color.white);
+		transform.renderer.sharedMaterial.SetFloat ("_FadeDis", 15);
 		OutlineFader outlineFader = transform.GetComponent<OutlineFader> ();
 		if(outlineFader == null)
-			outlineFader = transform.gameObject.AddComponent<OutlineFader> ();
-		outlineFader.FadeDistance = 20.0f;
+			transform.gameObject.AddComponent<OutlineFader> ();
 
     }
     

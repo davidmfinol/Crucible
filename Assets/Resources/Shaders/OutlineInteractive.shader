@@ -4,6 +4,8 @@
         _OutlineColor ("Outline Color", Color) = (1,1,1,1)
         _Outline ("Outline width", Range (0.0, 0.03)) = .005
         _MainTex ("Base (RGB)", 2D) = "white" { }
+        _PlayerPos ("Player Position", Vector) = (0,0,0,0)
+        _FadeDis ("Fade Distance", Float) = 15
     }
  
 CGINCLUDE
@@ -21,6 +23,8 @@ struct v2f {
  
 uniform float _Outline;
 uniform float4 _OutlineColor;
+uniform float4 _PlayerPos;
+uniform float _FadeDis;
  
 v2f vert(appdata v) {
     // just make a copy of incoming vertex data but scaled according to normal direction
@@ -31,6 +35,19 @@ v2f vert(appdata v) {
     float2 offset = TransformViewToProjection(norm.xy);
  
     o.pos.xy += offset * o.pos.z * _Outline;
+    
+    // We customize this shader to make it only outline when close to the player
+    float alpha = 0;
+    float4 objectOrigin = mul(_Object2World, float4(0.0,0.0,0.0,1.0) );
+    float4 worldPos = mul(_Object2World, v.vertex);
+    if( (objectOrigin.z >= _PlayerPos.z && worldPos.z <= _PlayerPos.z) 
+    	|| (objectOrigin.z <= _PlayerPos.z && worldPos.z >= _PlayerPos.z) ) {
+	   	float dist = distance(worldPos.xy, _PlayerPos.xy);
+	    alpha = 1.0 - (dist / _FadeDis);
+	    if (alpha < 0)
+    		alpha = 0;
+    }
+    _OutlineColor.a = alpha;
     o.color = _OutlineColor;
     return o;
 }
