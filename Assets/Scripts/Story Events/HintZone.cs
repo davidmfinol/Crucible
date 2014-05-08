@@ -3,6 +3,7 @@ using System.Collections;
 
 public class HintZone : MonoBehaviour {
 	public enum HintType {
+		Top = 0,
 		SewerDoor = 1,
         Jump = 2,
         WallJump = 3,
@@ -30,7 +31,8 @@ public class HintZone : MonoBehaviour {
 			return;
 
 		// *** IMPLEMENT: put in a check for each hint type. ***
-		if ( ( (Type == HintZone.HintType.SewerDoor) && GameManager.SaveData.HasSeenDoorHint) ||
+		if (  ( (Type == HintZone.HintType.Top) && GameManager.SaveData.HasSeenTopHint) ||
+			( (Type == HintZone.HintType.SewerDoor) && GameManager.SaveData.HasSeenDoorHint) ||
             ( (Type == HintZone.HintType.Jump) && GameManager.SaveData.HasSeenJumpHint) ||
             ( (Type == HintZone.HintType.WallJump) && GameManager.SaveData.HasSeenWallJumpHint) ||
             ( (Type == HintZone.HintType.Sneak) && GameManager.SaveData.HasSeenSneakHint) ||
@@ -49,7 +51,9 @@ public class HintZone : MonoBehaviour {
 			GameManager.UI.ShowHint(HintGraphic, HintDuration);
 
 			// *** IMPLEMENT: save proper game data based on each hint type. ***
-			if(Type == HintType.SewerDoor)
+			if(Type == HintType.Top)
+				GameManager.SaveData.HasSeenTopHint = true;
+			else if(Type == HintType.SewerDoor)
 				GameManager.SaveData.HasSeenDoorHint = true;
             else if(Type == HintType.Jump)
                 GameManager.SaveData.HasSeenJumpHint = true;
