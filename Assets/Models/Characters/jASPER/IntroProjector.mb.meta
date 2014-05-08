@@ -1,0 +1,360 @@
+fileFormatVersion: 2
+guid: 483e4bc5255b74964b0f3a0dcdee0082
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: annotation1
+    100002: annotation1 1
+    100004: annotationLocator1
+    100006: annotationLocator1 1
+    100008: BackPlane
+    100010: BackProjector
+    100012: Base
+    100014: Base 1
+    100016: BLFrameHolder
+    100018: BLFrameHolder 1
+    100020: Camera
+    100022: Camera 1
+    100024: Camera 2
+    100026: Camera 3
+    100028: CameraHead
+    100030: CameraHead 1
+    100032: Extension
+    100034: Extension 1
+    100036: Frame
+    100038: Frame 1
+    100040: ikHandle1
+    100042: ikHandle1 1
+    100044: InnerLeft
+    100046: InnerLIght
+    100048: InnerRight
+    100050: InnerSphere
+    100052: InnerSphere 1
+    100054: //RootNode
+    100056: joint1
+    100058: joint1 1
+    100060: joint2
+    100062: joint2 1
+    100064: joint3
+    100066: joint3 1
+    100068: joint4
+    100070: joint4 1
+    100072: Left
+    100074: LeftArm
+    100076: LeftArmControl
+    100078: LeftArmControl 1
+    100080: MidPiece
+    100082: MidPiece 1
+    100084: OuterLeft
+    100086: OuterRight
+    100088: pasted__Frame
+    100090: pasted__Frame 1
+    100092: pasted__pasted__Frame
+    100094: pasted__pasted__Frame 1
+    100096: pasted__pasted__Frame1
+    100098: pasted__pasted__Frame1 1
+    100100: pasted__pasted__pCylinder1
+    100102: pasted__pasted__pCylinder1 1
+    100104: pasted__pasted__pPipe1
+    100106: pasted__pasted__pPipe1 1
+    100108: pasted__pCylinder1
+    100110: pasted__pCylinder1 1
+    100112: pasted__pCylinder2
+    100114: pasted__pCylinder2 1
+    100116: pasted__pPipe1
+    100118: pasted__pPipe1 1
+    100120: pasted__pPipe2
+    100122: pasted__pPipe2 1
+    100124: pasted__pPipe3
+    100126: pasted__pPipe3 1
+    100128: pasted__pSphere4
+    100130: pasted__pSphere4 1
+    100132: polySurface1
+    100134: polySurface2
+    100136: Posts
+    100138: Posts 1
+    100140: pPlane1
+    100142: pPlane1 1
+    100144: pSphere3
+    100146: pSphere3 1
+    100148: pSphere4
+    100150: pTorus1
+    100152: pTorus1 1
+    100154: Right
+    100156: RightARm
+    100158: Rotator
+    100160: Rotator 1
+    100162: Support
+    100164: transform1
+    400000: annotation1
+    400002: annotation1 1
+    400004: annotationLocator1
+    400006: annotationLocator1 1
+    400008: BackPlane
+    400010: BackProjector
+    400012: Base
+    400014: Base 1
+    400016: BLFrameHolder
+    400018: BLFrameHolder 1
+    400020: Camera
+    400022: Camera 1
+    400024: Camera 2
+    400026: Camera 3
+    400028: CameraHead
+    400030: CameraHead 1
+    400032: Extension
+    400034: Extension 1
+    400036: Frame
+    400038: Frame 1
+    400040: ikHandle1
+    400042: ikHandle1 1
+    400044: InnerLeft
+    400046: InnerLIght
+    400048: InnerRight
+    400050: InnerSphere
+    400052: InnerSphere 1
+    400054: //RootNode
+    400056: joint1
+    400058: joint1 1
+    400060: joint2
+    400062: joint2 1
+    400064: joint3
+    400066: joint3 1
+    400068: joint4
+    400070: joint4 1
+    400072: Left
+    400074: LeftArm
+    400076: LeftArmControl
+    400078: LeftArmControl 1
+    400080: MidPiece
+    400082: MidPiece 1
+    400084: OuterLeft
+    400086: OuterRight
+    400088: pasted__Frame
+    400090: pasted__Frame 1
+    400092: pasted__pasted__Frame
+    400094: pasted__pasted__Frame 1
+    400096: pasted__pasted__Frame1
+    400098: pasted__pasted__Frame1 1
+    400100: pasted__pasted__pCylinder1
+    400102: pasted__pasted__pCylinder1 1
+    400104: pasted__pasted__pPipe1
+    400106: pasted__pasted__pPipe1 1
+    400108: pasted__pCylinder1
+    400110: pasted__pCylinder1 1
+    400112: pasted__pCylinder2
+    400114: pasted__pCylinder2 1
+    400116: pasted__pPipe1
+    400118: pasted__pPipe1 1
+    400120: pasted__pPipe2
+    400122: pasted__pPipe2 1
+    400124: pasted__pPipe3
+    400126: pasted__pPipe3 1
+    400128: pasted__pSphere4
+    400130: pasted__pSphere4 1
+    400132: polySurface1
+    400134: polySurface2
+    400136: Posts
+    400138: Posts 1
+    400140: pPlane1
+    400142: pPlane1 1
+    400144: pSphere3
+    400146: pSphere3 1
+    400148: pSphere4
+    400150: pTorus1
+    400152: pTorus1 1
+    400154: Right
+    400156: RightARm
+    400158: Rotator
+    400160: Rotator 1
+    400162: Support
+    400164: transform1
+    2300000: BackPlane
+    2300002: BLFrameHolder
+    2300004: BLFrameHolder 1
+    2300006: Camera 2
+    2300008: Camera 3
+    2300010: Frame
+    2300012: Frame 1
+    2300014: InnerLeft
+    2300016: InnerLIght
+    2300018: InnerRight
+    2300020: OuterLeft
+    2300022: OuterRight
+    2300024: pasted__Frame
+    2300026: pasted__Frame 1
+    2300028: pasted__pasted__Frame
+    2300030: pasted__pasted__Frame 1
+    2300032: pasted__pasted__Frame1
+    2300034: pasted__pasted__Frame1 1
+    2300036: pasted__pasted__pCylinder1
+    2300038: pasted__pasted__pCylinder1 1
+    2300040: pasted__pasted__pPipe1
+    2300042: pasted__pasted__pPipe1 1
+    2300044: pasted__pCylinder1
+    2300046: pasted__pCylinder1 1
+    2300048: pasted__pCylinder2
+    2300050: pasted__pCylinder2 1
+    2300052: pasted__pPipe1
+    2300054: pasted__pPipe1 1
+    2300056: pasted__pPipe2
+    2300058: pasted__pPipe2 1
+    2300060: pasted__pPipe3
+    2300062: pasted__pPipe3 1
+    2300064: pasted__pSphere4
+    2300066: pasted__pSphere4 1
+    2300068: polySurface1
+    2300070: polySurface2
+    2300072: pPlane1
+    2300074: pPlane1 1
+    2300076: pSphere3
+    2300078: pSphere3 1
+    2300080: pTorus1
+    2300082: pTorus1 1
+    2300084: Rotator
+    2300086: Rotator 1
+    2300088: Support
+    3300000: BackPlane
+    3300002: BLFrameHolder
+    3300004: BLFrameHolder 1
+    3300006: Camera 2
+    3300008: Camera 3
+    3300010: Frame
+    3300012: Frame 1
+    3300014: InnerLeft
+    3300016: InnerLIght
+    3300018: InnerRight
+    3300020: OuterLeft
+    3300022: OuterRight
+    3300024: pasted__Frame
+    3300026: pasted__Frame 1
+    3300028: pasted__pasted__Frame
+    3300030: pasted__pasted__Frame 1
+    3300032: pasted__pasted__Frame1
+    3300034: pasted__pasted__Frame1 1
+    3300036: pasted__pasted__pCylinder1
+    3300038: pasted__pasted__pCylinder1 1
+    3300040: pasted__pasted__pPipe1
+    3300042: pasted__pasted__pPipe1 1
+    3300044: pasted__pCylinder1
+    3300046: pasted__pCylinder1 1
+    3300048: pasted__pCylinder2
+    3300050: pasted__pCylinder2 1
+    3300052: pasted__pPipe1
+    3300054: pasted__pPipe1 1
+    3300056: pasted__pPipe2
+    3300058: pasted__pPipe2 1
+    3300060: pasted__pPipe3
+    3300062: pasted__pPipe3 1
+    3300064: pasted__pSphere4
+    3300066: pasted__pSphere4 1
+    3300068: polySurface1
+    3300070: polySurface2
+    3300072: pPlane1
+    3300074: pPlane1 1
+    3300076: pSphere3
+    3300078: pSphere3 1
+    3300080: pTorus1
+    3300082: pTorus1 1
+    3300084: Rotator
+    3300086: Rotator 1
+    3300088: Support
+    4300000: InnerLIght
+    4300002: polySurface1
+    4300004: polySurface2
+    4300006: Support
+    4300008: OuterRight
+    4300010: InnerRight
+    4300012: OuterLeft
+    4300014: InnerLeft
+    4300016: BackPlane
+    4300018: pasted__pasted__Frame1
+    4300020: pasted__pasted__Frame
+    4300022: pasted__Frame
+    4300024: Frame
+    4300026: Camera
+    4300028: pSphere3
+    4300030: pTorus1
+    4300032: pasted__pasted__pCylinder1
+    4300034: pasted__pCylinder1
+    4300036: BLFrameHolder
+    4300038: pasted__pCylinder2
+    4300040: pPlane1
+    4300042: pasted__pSphere4
+    4300044: pasted__pPipe1
+    4300046: Rotator
+    4300048: pasted__pasted__pPipe1
+    4300050: pasted__pPipe2
+    4300052: pasted__pPipe3
+    4300054: pasted__pasted__Frame1
+    4300056: pasted__pasted__Frame
+    4300058: pasted__Frame
+    4300060: Frame
+    4300062: Camera
+    4300064: pSphere3
+    4300066: pTorus1
+    4300068: pasted__pasted__pCylinder1
+    4300070: pasted__pCylinder1
+    4300072: BLFrameHolder
+    4300074: pasted__pCylinder2
+    4300076: pPlane1
+    4300078: pasted__pSphere4
+    4300080: pasted__pPipe1
+    4300082: Rotator
+    4300084: pasted__pasted__pPipe1
+    4300086: pasted__pPipe2
+    4300088: pasted__pPipe3
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
