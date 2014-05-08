@@ -15,7 +15,11 @@ public class OutlineFader : MonoBehaviour
 	void Start()
 	{
 		renderer.material.color = Color.white;
-		_outlineColor = renderer.material.GetColor ("_OutlineColor");
+		_outlineColor = Color.white;
+		if(renderer.material.HasProperty("_OutlineColor"))
+		   renderer.material.GetColor ("_OutlineColor");
+		else
+			Debug.Log(name);
 
 	}
 

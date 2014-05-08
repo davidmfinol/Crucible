@@ -151,7 +151,7 @@ public class MeshToGameObjectsMenu
 		DestroyChildren (transform);
 
 		// Change the shader so that it will be outlined
-		transform.renderer.sharedMaterial.shader = Shader.Find ("Outline/Interactive");
+		transform.renderer.sharedMaterial.shader = Shader.Find ("Outlined/Interactive");
 		transform.renderer.sharedMaterial.SetColor ("_OutlineColor", Color.white);
 		OutlineFader outlineFader = transform.GetComponent<OutlineFader> ();
 		if(outlineFader == null)
