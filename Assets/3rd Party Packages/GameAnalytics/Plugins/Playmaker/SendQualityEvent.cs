@@ -5,9 +5,11 @@ using System;
 namespace HutongGames.PlayMaker.Actions
 {
 	[ActionCategory("GameAnalytics")]
-	[Tooltip("Sends a quality event message to the GameAnalytics server")]
+	[Tooltip("Sends a quality event message to the GameAnalytics server.")]
+	[HelpUrl("https://hutonggames.fogbugz.com/default.asp?W1165")]
 	public class SendQualityEvent : FsmStateAction
 	{
+
 		[RequiredField]
 		[Tooltip("The event ID")]
 		public FsmString EventID;
@@ -20,6 +22,7 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void Reset()
 		{
+
 			EventID = new FsmString() { UseVariable = false };
 			Message = new FsmString() { UseVariable = true };
 			Position = new FsmVector3() { UseVariable = true };
@@ -27,15 +30,16 @@ namespace HutongGames.PlayMaker.Actions
 		
 		public override void OnEnter()
 		{
+
 			if (!Message.IsNone && !Position.IsNone)
-				GA.API.Quality.NewEvent(EventID.Value, Message.Value, Position.Value);
+					GA.API.Quality.NewEvent(EventID.Value, Message.Value, Position.Value);
 			else if (!Message.IsNone)
 				GA.API.Quality.NewEvent(EventID.Value, Message.Value);
 			else if (!Position.IsNone)
 				GA.API.Quality.NewEvent(EventID.Value, Position.Value);
 			else
 				GA.API.Quality.NewEvent(EventID.Value);
-			
+
 			Finish();
 		}
 	}
