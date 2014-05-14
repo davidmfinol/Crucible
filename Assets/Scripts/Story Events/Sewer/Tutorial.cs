@@ -95,7 +95,7 @@ public class Tutorial : MonoBehaviour
 
 		// We only need to force 2 hands on the mobile devices
 		bool hasUsed2Hands = false;
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
 		hasUsed2Hands = true;
 #endif
 
