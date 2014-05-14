@@ -262,6 +262,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
         MecanimAnimator.SetBool (MecanimHashes.Die, true);
         HorizontalSpeed = knockForce.x;
         VerticalSpeed = knockForce.y;
+		// TODO: REMOVE THIS HACK:
+#if UNITY_WEBPLAYER && !UNITY_EDITOR
+		Application.LoadLevel(GameManager.SaveData.LevelName);
+#endif
 
     }
 

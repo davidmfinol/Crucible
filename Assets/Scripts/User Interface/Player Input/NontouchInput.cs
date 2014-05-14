@@ -40,7 +40,7 @@ public class NontouchInput : MonoBehaviour
     }
 
     public void UpdateInput ()
-    {
+	{
         bool joystickCycleRight = false;
         bool joystickCycleLeft = false;
         if (Input.GetJoystickNames ().Length > 0 && Input.GetJoystickNames () [0] == "Controller (XBOX 360 For Windows)") { // FIXME: MAC??

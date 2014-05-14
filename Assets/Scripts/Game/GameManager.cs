@@ -11,11 +11,6 @@ using System.IO;
 [AddComponentMenu("Game/Game Manager")]
 public class GameManager : MonoBehaviour
 {
-    // HACK: WE'RE TRYING TO AVOID AN ERROR WITH MECANIM
-    public Transform PlayerCharacterPrefab;
-    // HACK: WE'RE TRYING TO AVOID AN ERROR WITH MECANIM
-    public Transform PlayerCharacterPrefab2;
-
     // The UIManager is rather complicated, so we're going to load it as a prefab instead of creating at runtime
     public Transform UIPrefab;
     
@@ -26,28 +21,28 @@ public class GameManager : MonoBehaviour
     private CameraScrolling _mainCamera;
     
     // Global Managers
-    private static LevelManager _currentLevel;
-    private static AIManager _aiManager;
-    private static InventoryManager _inventory;
-    private static UIManager _uiManager;
-    private static AudioManager _audioManager;
-    private static SubtitlesManager _subtitlesManager;
+    private LevelManager _currentLevel;
+    private AIManager _aiManager;
+    private InventoryManager _inventory;
+    private UIManager _uiManager;
+    private AudioManager _audioManager;
+    private SubtitlesManager _subtitlesManager;
     
     // There should always be access to the player
-    private static CharacterAnimator _player;
+    private CharacterAnimator _player;
 
     // We keep track of where we save the game here
-    private static string _gameSaveStatePath;
-    private static string _levelSaveStatePrefix;
+    private string _gameSaveStatePath;
+    private string _levelSaveStatePrefix;
 
     // We also keep track of the save data here
-    private static GameSaveState _saveData;
+    private GameSaveState _saveData;
     
     // The GameManager keeps track of the last checkpoint, so that the player can go back there after death
-    private static Transform _lastCheckPoint;
+    private Transform _lastCheckPoint;
 
     // is a cutscene currently playing?  turn it on/off appropriately.
-    private static bool _isPlayingCutscene;
+    private bool _isPlayingCutscene;
 
 
     // Set up level, player/camera, and find the Global Managers
@@ -61,6 +56,10 @@ public class GameManager : MonoBehaviour
 
         _gameSaveStatePath = Path.Combine (Application.persistentDataPath, "game_progress.xml");
         _levelSaveStatePrefix = Path.Combine (Application.persistentDataPath, "level_");
+#if UNITY_WEBPLAYER && !UNITY_EDITOR
+        _gameSaveStatePath = Path.Combine (Application.dataPath, "game_progress.xml");
+        _levelSaveStatePrefix = Path.Combine (Application.dataPath, "level_");
+#endif
 
         SetupLevel ();
 
@@ -81,31 +80,30 @@ public class GameManager : MonoBehaviour
     private void SetupLevel ()
     {
         // Destroy the previous level
-        if (GameManager._currentLevel != null)
-            Destroy (GameManager._currentLevel.gameObject);
+        if (GameManager.Level != null)
+			Destroy (GameManager.Level.gameObject);
 
         // And then find or create a new level
         GameObject levelManager = GameObject.FindGameObjectWithTag ("Level Manager");
         if (levelManager != null)
-            GameManager._currentLevel = levelManager.GetComponent<LevelManager> ();
+			GameManager._instance._currentLevel = levelManager.GetComponent<LevelManager> ();
         else
-            GameManager._currentLevel = new GameObject ("_Level Manager").AddComponent<LevelManager> ();
+			GameManager._instance._currentLevel = new GameObject ("_Level Manager").AddComponent<LevelManager> ();
 
     }
     
     private void SetupAI ()
     {
         // Destroy the previous AI
-        if (GameManager._aiManager != null)
-            Destroy (GameManager._aiManager.gameObject);
-        GameManager._aiManager = GetComponentInChildren<AIManager> ();
+        if (GameManager.AI != null)
+            Destroy (GameManager.AI.gameObject);
 
         // And then find or create a new AI Manager
         GameObject aiManager = GameObject.FindGameObjectWithTag ("AI Manager");
         if (aiManager != null)
-            GameManager._aiManager = aiManager.GetComponent<AIManager> ();
+            GameManager._instance._aiManager = aiManager.GetComponent<AIManager> ();
         else
-            GameManager._aiManager = new GameObject ("_Enemies").AddComponent<AIManager> ();
+            GameManager._instance._aiManager = new GameObject ("_Enemies").AddComponent<AIManager> ();
 
     }
     
@@ -115,7 +113,7 @@ public class GameManager : MonoBehaviour
             return;
         
         GameObject invObj = new GameObject ("_Inventory");
-        DontDestroyOnLoad (invObj);
+        // TODO: DontDestroyOnLoad (invObj);
         _inventory = invObj.AddComponent<InventoryManager> ();
 
     }
@@ -126,7 +124,7 @@ public class GameManager : MonoBehaviour
             return;
 
         Transform ui = (Transform)Instantiate (UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);
-        DontDestroyOnLoad (ui.gameObject);
+		// TODO: DontDestroyOnLoad (ui.gameObject);
         _uiManager = ui.GetComponent<UIManager> ();
 
     }
@@ -134,18 +132,18 @@ public class GameManager : MonoBehaviour
     private void SetupAudio ()
     {
         // We need to keep one instance of the audio manager
-        if (GameManager._audioManager != null)
-            Destroy (GameManager._audioManager.gameObject);
-        GameManager._audioManager = GetComponentInChildren<AudioManager> ();
+        if (GameManager.Audio != null)
+            Destroy (GameManager.Audio.gameObject);
+        GameManager._instance._audioManager = GetComponentInChildren<AudioManager> ();
 
     }
     
     private void SetupSubtitles ()
     {
         // We need to keep one instance of the audio manager
-        if (GameManager._subtitlesManager != null)
-            Destroy (GameManager._subtitlesManager.gameObject);
-        GameManager._subtitlesManager = GetComponentInChildren<SubtitlesManager> ();
+        if (GameManager.Subtitles != null)
+			Destroy (GameManager.Subtitles.gameObject);
+        GameManager._instance._subtitlesManager = GetComponentInChildren<SubtitlesManager> ();
 
     }
     
@@ -154,7 +152,7 @@ public class GameManager : MonoBehaviour
         // We don't need to recreate the Player from scene to scene
         if (_player == null) {
             GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/PlayerCharacter"), _currentLevel.OffscreenPosition, Quaternion.identity);
-            DontDestroyOnLoad(player);
+			// TODO: DontDestroyOnLoad(player);
             _player = player.GetComponent<CharacterAnimator> ();
             _player.gameObject.AddComponent<AudioListener>();
             _player.IgnoreMovement = true;
@@ -176,31 +174,32 @@ public class GameManager : MonoBehaviour
 
     public static void SpawnPlayer ()
     {
-        // Load from the last save files
+		// Load from the last save files
         LoadGameState ();
-        LoadLevelState ();
+		LoadLevelState ();
 
         // Move the player to the correct spot
-        Player.transform.position = LastCheckPoint.position;
+		Player.transform.position = LastCheckPoint.position;
 
         // Allow the player to start moving
-        _player.IgnoreMovement = false;
+		Player.IgnoreMovement = false;
 
         // Reset it's health to max
         HeartBox heart = Player.GetComponentInChildren<HeartBox> ();
         if (heart != null)
-            heart.HitPoints = heart.MaxHitPoints;
+			heart.HitPoints = heart.MaxHitPoints;
         
         // Update the animation system if necessary
         Animator animator = Player.GetComponent<Animator> ();
         if (animator != null && Player.IsDead)
-            animator.SetBool (MecanimHashes.Respawn, true);
+			animator.SetBool (MecanimHashes.Respawn, true);
 
         // Make sure the camera is looking at the player
-        MainCamera.Target = Player.transform;
+		MainCamera.Target = Player.transform;
 
         // TODO: MAKE THESE OBJECTIVES BE HANDLED IN ONE CENTRALIZED LOCATION/METHOD
         // *** load checkpoints he hasn't reached ***
+		/*
         if (Application.loadedLevelName == "OCourse") {
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint1")); //FIXME: EXTREMELY SLOW
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint2"));
@@ -216,10 +215,11 @@ public class GameManager : MonoBehaviour
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("Isolator"));
             GameManager.UI.Objectives.AddObjective (GameObject.Find ("HiggsDrive"));
 
-        }
+		}
+		*/
 
         // Enable the input
-        GameManager.UI.EnableInput ();
+		GameManager.UI.EnableInput ();
 
     }
 
@@ -233,28 +233,43 @@ public class GameManager : MonoBehaviour
     
     public static void LoadGameState ()
     {
-        _instance.LoadGameStateHelper ();
+		_instance.StartCoroutine (_instance.LoadGameStateHelper ());
 
     }
 
-    private void LoadGameStateHelper ()
-    {
+    private IEnumerator LoadGameStateHelper ()
+	{
+		// Set our first checkpoint to the default start point
+		if (_saveData == null)
+			LastCheckPoint = _currentLevel.DefaultStartPoint;
+
         // Clear out player inventory
         Inventory.Weapons.Clear ();
         Inventory.Items.Clear ();
         GameManager.UI.RefreshWeaponWheel ();
 
-        // Get the saved data
+		// Get the saved data
+#if UNITY_WEBPLAYER && !UNITY_EDITOR
+		WWW saveData = null;
+		try { 
+			saveData = new WWW (GameSaveStatePath);
+			while (!saveData.isDone && saveData.error == null)
+				yield return null;
+			if (saveData.error != null)
+				_saveData = GameSaveState.LoadFromText (saveData.text); 
+		}
+		finally {}
+#else
         _saveData = GameSaveState.Load (GameSaveStatePath);
+#endif
 
         // Do nothing if we failed to load a game save
         if (_saveData == null) {
-            LastCheckPoint = _currentLevel.DefaultStartPoint;
             _saveData = new GameSaveState ();
             Checkpoint lastCheckpoint = LastCheckPoint.GetComponent<Checkpoint> ();
             if(lastCheckpoint != null)
                 _saveData.Checkpoint = lastCheckpoint.Location;
-            return;
+			yield break;
         }
 
         // Reload the player's weapons
@@ -262,7 +277,7 @@ public class GameManager : MonoBehaviour
             string weaponName = "Prefabs/Weapons/InHand/" + weaponSave.WeaponType.ToString().Substring(7);
             GameObject createdWeapon = (GameObject)Instantiate (Resources.Load (weaponName), _currentLevel.OffscreenPosition, Quaternion.identity);
             if(createdWeapon == null) {
-                Debug.Log("Failed to load weapon: " + weaponName);
+                Debug.LogWarning("Failed to load weapon: " + weaponName);
                 continue;
             }
             Weapon newWeapon = createdWeapon.GetComponent<Weapon> ();
@@ -302,28 +317,43 @@ public class GameManager : MonoBehaviour
         // TODO: THIS CURRENTLY DOESN'T WORK BECAUSE LOAD GAME IS CALLED WHEN YOU START UP A SCENE, AND YOU THEN MOVE TO THE PREVIOUS SCENE
         // ONE SOLUTION IS TO SAVE THE SCENE BEFORE THEN, BUT THAT WOULD REQUIRE KEEPING TRACK OF THE CHECKPOINT
         //  if (gameSave.LevelName != Application.loadedLevelName)
-        //      Application.LoadLevel(gameSave.LevelName);
+		//      Application.LoadLevel(gameSave.LevelName);
+		
+		yield return null;
 
     }
 
     public static void LoadLevelState ()
     {
-        _instance.LoadLevelStateHelper (Application.loadedLevelName);
+		_instance.StartCoroutine (_instance.LoadLevelStateHelper (Application.loadedLevelName));
 
     }
 
-    private void LoadLevelStateHelper (string levelName)
+    private IEnumerator LoadLevelStateHelper (string levelName)
     {
         // Get the saved data
         string path = LevelSaveStatePrefix + levelName + ".xml";
-        LevelSaveState levelSave = LevelSaveState.Load (path);
+		LevelSaveState levelSave = null;
+#if UNITY_WEBPLAYER && !UNITY_EDITOR
+		WWW saveData = null;
+		try { 
+			saveData = new WWW (path);
+			while (!saveData.isDone && saveData.error == null)
+				yield return null;
+			if (saveData.error != null)
+				levelSave = LevelSaveState.LoadFromText (saveData.text);
+		}
+		finally {}
+#else
+		levelSave = LevelSaveState.Load (path);
+#endif
 
         // Do nothing if we couldn't load any data
         if (levelSave == null)
-            return;
+			yield break;
 
-        // Restore all the enemies in the level
-        GameManager.AI.ResetEnemies ();
+		// Restore all the enemies in the level
+		GameManager.AI.ResetEnemies ();
         foreach (EnemySaveState enemyState in levelSave.EnemyStates) {
             string enemyName = enemyState.Type.ToString().Substring(6);
             GameObject newEnemy = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/"+enemyName), enemyState.Position, enemyState.Rotation);
@@ -353,17 +383,19 @@ public class GameManager : MonoBehaviour
             newItem.WasPlaced = itemState.WasPlaced;
         }
 
+		yield return null;
+
     }
 
     public static void SaveGameState (Checkpoint.CheckpointLocation location)
     {
-        if (_saveData == null)
-            _saveData = new GameSaveState ();
+		if (_instance._saveData == null)
+            _instance._saveData = new GameSaveState ();
 
-        _saveData.LevelName = Application.loadedLevelName;
-        _saveData.Checkpoint = location;
-        _saveData.PlayerState = Inventory.SaveState ();
-        _saveData.Save (GameSaveStatePath);
+		_instance._saveData.LevelName = Application.loadedLevelName;
+		_instance._saveData.Checkpoint = location;
+		_instance._saveData.PlayerState = Inventory.SaveState ();
+		_instance._saveData.Save (GameSaveStatePath);
 
     }
     
@@ -391,77 +423,77 @@ public class GameManager : MonoBehaviour
     }
 
     public static LevelManager Level {
-        get { return _currentLevel; }
+        get { return _instance._currentLevel; }
     }
 
     public static AIManager AI {
-        get { return _aiManager; }
+		get { return _instance._aiManager; }
     }
 
     public static InventoryManager Inventory {
-        get { return _inventory; }
+		get { return _instance._inventory; }
     }
 
     public static UIManager UI {
-        get { return _uiManager; }
+		get { return _instance._uiManager; }
     }
 
     public static AudioManager Audio {
-        get { return _audioManager; }
+		get { return _instance._audioManager; }
     }
 
     public static SubtitlesManager Subtitles {
-        get { return _subtitlesManager; }
+		get { return _instance._subtitlesManager; }
     }
 
     public static bool AllManagersReady {
         get {
-            return (_currentLevel != null && _currentLevel.Ready) && (_aiManager != null && _aiManager.Ready) && 
-                (_inventory != null && _inventory.Ready) && (_uiManager != null && _uiManager.Ready) && 
-                (_audioManager != null && _audioManager.Ready) && (_subtitlesManager != null && _subtitlesManager.Ready);
+			return (GameManager.Level != null && GameManager.Level.Ready) && (GameManager.AI != null && GameManager.AI.Ready) && 
+				(GameManager.Inventory != null && GameManager.Inventory.Ready) && (GameManager.UI != null && GameManager.UI.Ready) && 
+                (Audio != null && Audio.Ready) && (Subtitles != null && Subtitles.Ready);
         }
     }
 
     public static CharacterAnimator Player {
-        get { return _player; }
-        set { _player = value; }
+        get { return _instance._player; }
+		set { _instance._player = value; }
     }
 
     public static string GameSaveStatePath {
-        get { return _gameSaveStatePath; }
+		get { return _instance._gameSaveStatePath; }
     }
 
     public static string LevelSaveStatePrefix {
-        get { return _levelSaveStatePrefix; } 
+		get { return _instance._levelSaveStatePrefix; } 
     }
 
     public static GameSaveState SaveData {
         get {
-            if (_saveData == null)
-                _saveData = new GameSaveState ();
+			if (_instance._saveData == null)
+				_instance._saveData = new GameSaveState ();
 
-            return _saveData; 
+			return _instance._saveData; 
         }
     }
 
     public static Transform LastCheckPoint {
-        get { return _lastCheckPoint; }
-        set { _lastCheckPoint = value; }
+		get { return _instance._lastCheckPoint; }
+		set { _instance._lastCheckPoint = value; }
     }
 
     public static bool IsPlayingCutscene {
-        get { return _isPlayingCutscene; }
+		get { return _instance._isPlayingCutscene; }
         set {
-            _isPlayingCutscene = value;
+			_instance._isPlayingCutscene = value;
 
-            if (_isPlayingCutscene) {
+			if (_instance._isPlayingCutscene) {
                 GameManager.UI.CraftingMenu.Close ();
                 UI.DisableInput ();
             }
             else
                 UI.EnableInput();
 
-            GameManager.UI.CraftingMenu.ShowWeaponWheel(!_isPlayingCutscene);
+			GameManager.UI.CraftingMenu.ShowWeaponWheel(!_instance._isPlayingCutscene);
         }
     }
 

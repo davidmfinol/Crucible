@@ -13,6 +13,7 @@ public class LevelSaveState
     {
         EnemyStates = null;
         ItemStates = null;
+
     }
 
     public void Save (string path)
@@ -21,6 +22,7 @@ public class LevelSaveState
         FileStream stream = new FileStream (path, FileMode.Create);
         serializer.Serialize (stream, this);
         stream.Close ();
+
     }
 
     public static LevelSaveState Load (string path)
@@ -42,7 +44,29 @@ public class LevelSaveState
         }
 
         return levelSave;
+
     }
 
+	public static LevelSaveState LoadFromText (string text)
+	{
+		LevelSaveState levelSave = null;
+		
+		XmlSerializer serializer = new XmlSerializer (typeof(LevelSaveState));
+		StringReader stream = null;
+		try { 
+			stream = new StringReader (text);
+			levelSave = serializer.Deserialize (stream) as LevelSaveState;
+		} catch {
+			// If we fail to load the file just return null
+			levelSave = null;
+		} finally {
+			// Make sure we close the stream
+			if (stream != null)
+				stream.Close ();
+		}
+		
+		return levelSave;
+
+	}
 
 }

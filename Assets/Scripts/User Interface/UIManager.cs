@@ -99,7 +99,7 @@ public class UIManager : MonoBehaviour
 		_nontouchInput = GetComponent<NontouchInput> ();
 		_craftingMenu = GetComponent<CraftingMenu> ();
 
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER 
         _touchInput.enabled = false;
 #elif (UNITY_ANDROID  || UNITY_IOS) && !UNITY_EDITOR
         _nontouchInput.enabled = false;
@@ -220,7 +220,7 @@ public class UIManager : MonoBehaviour
     
 	public void EnableInput ()
 	{
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
         if(_nontouchInput == null)
             _nontouchInput = GetComponent<NontouchInput>();
         _nontouchInput.Enable();
@@ -233,7 +233,7 @@ public class UIManager : MonoBehaviour
 
 	public void DisableInput ()
 	{
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEB 
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
         if(_nontouchInput == null)
             _nontouchInput = GetComponent<NontouchInput>();
         _nontouchInput.Disable();
