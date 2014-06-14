@@ -7,74 +7,66 @@ Properties {
 	_PlayerPos ("Player Position", Vector) = (0,0,0,0)
 	_FadeDis ("Fade Distance", Float) = 15
 }
-
-CGINCLUDE
-#include "UnityCG.cginc"
-
-uniform float _Outline;
-uniform float4 _OutlineColor;
-uniform float4 _PlayerPos;
-uniform float _FadeDis;
-
-struct appdata {
-    float4 vertex : POSITION;
-    float3 normal : NORMAL;
-};
-
-struct v2f {
-    float4 pos : POSITION;
-    float4 color : COLOR;
-};
-
-v2f vert(appdata v) {
-    // Make a copy of incoming vertex data but scaled according to normal direction (make the outline)
-    v2f o;
-    o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
-    float3 norm   = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal);
-    float2 offset = TransformViewToProjection(norm.xy);
-    o.pos.xy += offset * o.pos.z * _Outline;
-    
-    // Set the alpha of the color so that it fades based on distance to the player
-    float alpha = 0;
-    float4 objectOrigin = mul(_Object2World, float4(0.0,0.0,0.0,1.0) );
-    float4 worldPos = mul(_Object2World, v.vertex);
-    if( (objectOrigin.z >= _PlayerPos.z && worldPos.z <= _PlayerPos.z) 
-    	|| (objectOrigin.z <= _PlayerPos.z && worldPos.z >= _PlayerPos.z) ) {
-	   	float dist = distance(worldPos.xy, _PlayerPos.xy);
-	    alpha = 1.0 - (dist / _FadeDis);
-	    if (alpha < 0)
-    		alpha = 0;
-    }
-    _OutlineColor.a = alpha;
-    o.color = _OutlineColor;
-    return o;
-}
-ENDCG
- 
 SubShader {
 	Tags { "Queue" = "Transparent" }
-
-	// Note that a vertex shader is specified here but its using the one above
+	
 	Pass {
 	    Name "OUTLINE"
 	    Tags { "LightMode" = "Always" }
 	    Cull Off
 	    ZWrite Off
 	    ColorMask RGB // alpha not used
-
-	    // you can choose what kind of blending mode you want for the outline
-	    Blend SrcAlpha OneMinusSrcAlpha // Normal
+	    Blend SrcAlpha OneMinusSrcAlpha // Normal blend mode for the outline
 
 		CGPROGRAM
+		#include "UnityCG.cginc"
 		#pragma vertex vert
 		#pragma fragment frag
-
+		
+		uniform float _Outline;
+		uniform float4 _OutlineColor;
+		uniform float4 _PlayerPos;
+		uniform float _FadeDis;
+		
+		struct appdata {
+		    float4 vertex : POSITION;
+		    float3 normal : NORMAL;
+		};
+		struct v2f {
+		    float4 pos : POSITION;
+		    float4 color : COLOR;
+		};
+		
+		v2f vert(appdata v) {
+		    // Make a copy of incoming vertex data but scaled according to normal direction (make the outline)
+		    v2f o;
+		    o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		    float3 norm   = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal);
+		    float2 offset = TransformViewToProjection(norm.xy);
+		    o.pos.xy += offset * o.pos.z * _Outline;
+		    
+		    // Set the alpha of the color so that it fades based on distance to the player
+		    float alpha = 0;
+		    float4 objectOrigin = mul(_Object2World, float4(0.0,0.0,0.0,1.0) );
+		    float4 worldPos = mul(_Object2World, v.vertex);
+		    if( ( length(_PlayerPos.xyz) <= 1) ||
+		    	(objectOrigin.z >= _PlayerPos.z && _PlayerPos.z >= worldPos.z) || 
+		    	(objectOrigin.z <= _PlayerPos.z && _PlayerPos.z <= worldPos.z) ) {
+			   	float dist = distance(worldPos.xy, _PlayerPos.xy);
+			    alpha = 1.0 - (dist / _FadeDis);
+			    alpha = max(0.0, alpha);
+		    }
+		    _OutlineColor.a = alpha;
+		    o.color = _OutlineColor;
+		    return o;
+		}
+		
 		half4 frag(v2f i) :COLOR {
 			return i.color;
 		}
+		
 		ENDCG
 	}
-
 
 //	Pass {
 //	    Name "BASE"
@@ -94,6 +86,8 @@ SubShader {
 //	        Combine previous * primary DOUBLE
 //	    }
 //	}
+
+// Everything from here on out is copy-pasted from the default Unity Diffuse shader
 	Pass {
 		Name "FORWARD"
 		Tags { "LightMode" = "ForwardBase" }
