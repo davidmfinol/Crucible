@@ -53,6 +53,7 @@ public class Fader : MonoBehaviour
     {
         _isFadingIn = true;
 
+		renderer.enabled = true;
         Color alphaed = renderer.material.color;
         alphaed.a = MinAlpha;
         renderer.material.color = alphaed;
@@ -103,6 +104,7 @@ public class Fader : MonoBehaviour
             temp.a = Mathf.Max (temp.a, MinAlpha);
             renderer.material.color = temp;
         }
+		renderer.enabled = false;
         _isFadingOut = false;
 
 		if(DestroyAtFadeOut)
