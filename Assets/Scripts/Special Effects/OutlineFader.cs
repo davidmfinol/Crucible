@@ -8,25 +8,20 @@ using System.Collections;
 [AddComponentMenu("Special Effects/Outline Fader")]
 public class OutlineFader : MonoBehaviour
 {
-	// Things like ropes and ladders always want to be outlined, even if the player isn't on them
-	public bool AlwaysOutline = false;
-
 	void Start()
 	{
 		Color color = renderer.material.color;
 		color.a = 1;
 		renderer.material.color = color;
 
-		if(AlwaysOutline) {
-			renderer.material.SetVector ("_PlayerPos", Vector3.zero);
-			this.enabled = false;
-		}
-
 	}
 
 	void Update()
 	{
-		renderer.material.SetVector ("_PlayerPos", GameManager.Player.transform.position);
+		// The outline shader expects the _PlayerPos.w to indicate whether or not the object should be able to light up
+		Vector4 playerPos = GameManager.Player.transform.position;
+		playerPos.w =  1;
+		renderer.material.SetVector ("_PlayerPos", playerPos);
 
 	}
 
