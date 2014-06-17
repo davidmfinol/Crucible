@@ -155,7 +155,8 @@ public class MeshToGameObjectsMenu
 		transform.renderer.sharedMaterial.SetFloat ("_FadeDis", 15);
 		OutlineFader outlineFader = transform.GetComponent<OutlineFader> ();
 		if(outlineFader == null)
-			transform.gameObject.AddComponent<OutlineFader> ();
+			outlineFader = transform.gameObject.AddComponent<OutlineFader> ();
+		outlineFader.enabled = false;
 
     }
     
