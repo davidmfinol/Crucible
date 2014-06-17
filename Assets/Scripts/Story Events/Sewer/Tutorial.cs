@@ -17,6 +17,8 @@ public class Tutorial : MonoBehaviour
     public MysteriousRunner Runner;
     public GameObject SewerDoor;
 	public GameObject SpinningFan;
+	public GameObject Jasper;
+	public GameObject ToFadeFront;
 
     // The locations where certain effects will happen
     public Transform SneakStartPosition;
@@ -57,7 +59,9 @@ public class Tutorial : MonoBehaviour
 
 		// Disable the camera
 		GameManager.MainCamera.enabled = false;
-		GameManager.MainCamera.GetComponent<Animator> ().SetBool (Animator.StringToHash("MoveIn"), true);
+		GameManager.MainCamera.GetComponent<Animator> ().SetBool (Animator.StringToHash("IntroMoveIn"), true);
+		Jasper.GetComponent<Animator> ().SetBool (Animator.StringToHash("IntroMoveIn"), true);
+		// TOFADEFRONT
 
 		// Make the player fall down
 		GameManager.MainCamera.CinematicOverride = true;
@@ -66,7 +70,8 @@ public class Tutorial : MonoBehaviour
 
 		yield return new WaitForSeconds (7);
 
-		GameManager.MainCamera.GetComponent<Animator> ().SetBool (Animator.StringToHash("MoveIn"), false);
+		GameManager.MainCamera.GetComponent<Animator> ().SetBool (Animator.StringToHash("IntroMoveIn"), false);
+		Jasper.GetComponent<Animator> ().SetBool (Animator.StringToHash("IntroMoveIn"), false);
 
 		yield return new WaitForSeconds (3);
 
