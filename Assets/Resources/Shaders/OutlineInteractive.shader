@@ -47,14 +47,10 @@ SubShader {
 		    
 		    // Set the alpha of the color so that it fades based on distance to the player
 		    float alpha = 0;
-		    float4 objectOrigin = mul(_Object2World, float4(0.0,0.0,0.0,1.0) );
 		    float4 worldPos = mul(_Object2World, v.vertex);
-		    //if( (objectOrigin.z >= _PlayerPos.z && _PlayerPos.z >= worldPos.z) || 
-		    //	(objectOrigin.z <= _PlayerPos.z && _PlayerPos.z <= worldPos.z) ) {
-			   	float dist = distance(worldPos.xy, _PlayerPos.xy);
-			    alpha = _PlayerPos.w * (1.0 - (dist / _FadeDis));
-			    alpha = max(0.0, alpha);
-		    //}
+		   	float dist = distance(worldPos.xy, _PlayerPos.xy);
+		    alpha = _PlayerPos.w * (1.0 - (dist / _FadeDis));
+		    alpha = max(0.0, alpha);
 		    _OutlineColor.a = alpha;
 		    o.color = _OutlineColor;
 		    return o;
