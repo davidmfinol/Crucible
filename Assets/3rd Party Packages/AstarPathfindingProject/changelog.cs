@@ -1,6 +1,10 @@
 /** \page changelog Changelog
 
-- 3.5
+- 3.5.1 (2013-06-15)
+	- Added avoidance masks to local avoidance.
+		Each agent now has a layer and each agent can specify which layers it will avoid.
+
+- 3.5 (2013-06-12)
 	- Added back local avoidance!!
 		The new system uses a sampling based algorithm instead of a geometric one.
 		The API is almost exactly the same so if you used the previous system this will be a drop in replacement.
@@ -549,5 +553,7 @@
 - .x releases are quite big feature updates
 - ..x releases are the most common updates, fix bugs, add some features etc.
 - ...x releases are quickfixes, most common when there was a really bad bug which needed fixing ASAP.
+
+Dates are written according to ISO 8601.
 
  */
