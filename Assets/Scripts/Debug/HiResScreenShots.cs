@@ -1,47 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HiResScreenShots : MonoBehaviour {
-	public int resWidth = 2550; 
-	public int resHeight = 3300;
-	
-	private bool takeHiResShot = false;
-	
-	public static string ScreenShotName(int width, int height) {
-		return string.Format("{0}/screenshots/screen_{1}x{2}_{3}.png", 
+/// <summary>
+/// High resolution screenshots.
+/// </summary>
+[AddComponentMenu("Debug/Game State Debugger")]
+public class HiResScreenShots : MonoBehaviour
+{
+	// Since the camera's aspect ratio is preserved, we just define the width of our target resolution for the screenshot
+	public int ResolutionWidth = 5000;
+
+	public static string ScreenShotName(int width)
+	{
+		return string.Format("{0}/screenshots/screen_{1}x{2}.png", 
 		                     Application.dataPath, 
-		                     width, height, 
-		                     System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
-	}
-	
-	public void TakeHiResShot() {
-		takeHiResShot = true;
-	}
-	
-	void LateUpdate() {
-		takeHiResShot |= Input.GetKeyDown("k");
-		if (takeHiResShot) {
-			RenderTexture rt = new RenderTexture(resWidth, resHeight, 24);
-			camera.targetTexture = rt;
-			Texture2D screenShot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
-			camera.Render();
-			RenderTexture.active = rt;
-			screenShot.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0);
-			camera.targetTexture = null;
-			RenderTexture.active = null; // JC: added to avoid errors
-			Destroy(rt);
-			byte[] bytes = screenShot.EncodeToPNG();
-			string filename = ScreenShotName(resWidth, resHeight);
-			System.IO.File.WriteAllBytes(filename, bytes);
-			Debug.Log(string.Format("Took screenshot to: {0}", filename));
-			takeHiResShot = false;
-		}
+		                     width, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+
 	}
 
-	void Update() {
+	void Update()
+	{
 		if (Input.GetKeyDown("j")) {
-			string filename = ScreenShotName(resWidth, resHeight);
-			float supersize = resWidth / camera.pixelWidth;
+			string filename = ScreenShotName(ResolutionWidth);
+			float supersize = ResolutionWidth / camera.pixelWidth;
 			Application.CaptureScreenshot(filename, Mathf.CeilToInt(supersize));
 			Debug.Log(string.Format("Took screenshot to: {0}", filename));
 		}
