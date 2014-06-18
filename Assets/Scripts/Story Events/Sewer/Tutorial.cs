@@ -57,11 +57,18 @@ public class Tutorial : MonoBehaviour
 		GameManager.SaveData.HasShownIntroCutscene = true;
 		GameManager.IsPlayingCutscene = true;
 
-		// Disable the camera
+		// Switch the camera animation
 		GameManager.MainCamera.enabled = false;
-		GameManager.MainCamera.GetComponent<Animator> ().SetBool (Animator.StringToHash("IntroMoveIn"), true);
-		Jasper.GetComponent<Animator> ().SetBool (Animator.StringToHash("IntroMoveIn"), true);
-		// TOFADEFRONT
+		Animator cameraAnim = GameManager.MainCamera.GetComponent<Animator> ();
+		cameraAnim.enabled = true;
+		cameraAnim.SetBool (Animator.StringToHash("IntroMoveIn"), true);
+
+		// Other world effects
+		Animator JasperAnim = Jasper.GetComponent<Animator> ();
+		JasperAnim.SetBool (Animator.StringToHash("IntroMoveIn"), true);
+		Fader[] faders = ToFadeFront.GetComponentsInChildren<Fader> ();
+		foreach (Fader fader in faders)
+			fader.FadeIn();
 
 		// Make the player fall down
 		GameManager.MainCamera.CinematicOverride = true;
@@ -70,14 +77,14 @@ public class Tutorial : MonoBehaviour
 
 		yield return new WaitForSeconds (7);
 
-		GameManager.MainCamera.GetComponent<Animator> ().SetBool (Animator.StringToHash("IntroMoveIn"), false);
-		Jasper.GetComponent<Animator> ().SetBool (Animator.StringToHash("IntroMoveIn"), false);
+		// Some house-keeping for the animators
+		cameraAnim.SetBool (Animator.StringToHash("IntroMoveIn"), false);
+		JasperAnim.SetBool (Animator.StringToHash("IntroMoveIn"), false);
 
 		yield return new WaitForSeconds (3);
 
 		// Re-enable the camera
-		Animator cameraAnim = GameManager.MainCamera.GetComponent<Animator> ();
-		Destroy (cameraAnim);
+		cameraAnim.enabled = false;
 		GameManager.MainCamera.enabled = true;
 		
 		GameManager.IsPlayingCutscene = false;
