@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
     {
         // We don't need to recreate the Player from scene to scene
         if (_player == null) {
-            GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/PlayerCharacter"), _currentLevel.OffscreenPosition, Quaternion.identity);
+            GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/Olympus"), _currentLevel.OffscreenPosition, Quaternion.identity);
 			// TODO: DontDestroyOnLoad(player);
             _player = player.GetComponent<CharacterAnimator> ();
             _player.gameObject.AddComponent<AudioListener>();
