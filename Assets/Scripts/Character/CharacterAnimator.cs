@@ -10,7 +10,8 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(CharacterSettings))]
 [RequireComponent(typeof(CharacterInput))]
-//[RequireComponent(typeof(Animator))]
+// HACK: [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CameraTargetAttributes))]
 [AddComponentMenu("Character/Character Animator")]
 public abstract class CharacterAnimator : MonoBehaviour
 {
