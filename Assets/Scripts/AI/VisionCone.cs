@@ -11,55 +11,32 @@ public class VisionCone : MonoBehaviour
 	// How far away the enemy can visually see the player from
 	public float AwarenessRange = 25.0f;
 	
-	// what is the cutoff for which dot product between player & facing is invalid?
+	// TODO: what is the cutoff for which dot product between player & facing is invalid?
 	public float ViewConeCutoff = 0.65f;
-
-	// The stealth mode of the player affects vision
-	private PlayerCharacterShader _playerShader;
-
-	void Start()
-	{
-		_playerShader = GameManager.Player.GetComponent<PlayerCharacterShader> ();
-
-	}
 	
 	public bool IsSeeingPlayer (Vector3 direction)
 	{
+		// First make sure that a living player exists
 		CharacterAnimator player = GameManager.Player;
-		
 		if (player == null || player.MecanimAnimator == null || player.IsDead)
 			return false;
-		
-		GameObject playerGO = player.gameObject;
-		
-		if (playerGO == null)
-			return false;
-		
-		
-		Vector3 eyePos = transform.position;
-		
+
+		// Then make sure that the player is within range 
 		Vector3 playerPos = player.transform.position;
-		float playerHalfHeight = player.Height / 2;
-		
-		Vector3 dirToPlayer = playerPos - eyePos;
-		
-		// must be closer if player is stealth.
-		float visionRange = AwarenessRange;
-		if ((_playerShader != null && _playerShader.InShadow))
-			visionRange *= 0.3f;
-		
-		if (dirToPlayer.magnitude > visionRange)
+		if (Vector3.Distance(playerPos, transform.position) > AwarenessRange)
 			return false;
-		
-		//for (float y = playerPos.y; y == playerPos.y; y-= playerHalfHeight) {
+
+		// Finally, make sure that view to the player isn't completely blocked by obstacles
+		float playerHalfHeight = player.Height / 2;
 		for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight) {
 			Vector3 endPoint = playerPos;
 			endPoint.y = y;
-			
+
+			Vector3 eyePos = transform.position;
 			Vector3 raycastDirection = endPoint - eyePos;
 			
 			// if our facing vector DOT the ray to the player is within a certain dot product range, then it's in view
-			// (prevents seeing player almost directly above us.)
+			// TODO: (prevents seeing player almost directly above us.)
 			Vector3 normDir = direction;
 			Vector3 normToPlayer = raycastDirection.normalized;
 			float fDot = Vector3.Dot (normDir, normToPlayer);

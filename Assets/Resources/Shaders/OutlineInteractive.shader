@@ -8,8 +8,9 @@ Properties {
 	_FadeDis ("Fade Distance", Float) = 15
 }
 SubShader {
-	Tags { "Queue" = "Transparent" }
-	
+	Tags { "Queue" = "Geometry+1" }
+
+// This custom pass is what creates the outline effect
 	Pass {
 	    Name "OUTLINE"
 	    Tags { "LightMode" = "Always" }
@@ -62,25 +63,6 @@ SubShader {
 		
 		ENDCG
 	}
-
-//	Pass {
-//	    Name "BASE"
-//	    ZWrite On
-//	    ZTest LEqual
-//	    Blend SrcAlpha OneMinusSrcAlpha
-//	    Material {
-//	        Diffuse [_Color]
-//	        Ambient [_Color]
-//	    }
-//	    Lighting On
-//	    SetTexture [_MainTex] {
-//	        ConstantColor [_Color]
-//	        Combine texture * constant
-//	    }
-//	    SetTexture [_MainTex] {
-//	        Combine previous * primary DOUBLE
-//	    }
-//	}
 
 // Everything from here on out is copy-pasted from the default Unity Diffuse shader
 	Pass {
