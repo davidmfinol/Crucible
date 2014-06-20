@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 3d6783e74f307486ab32f9cbf3bf1b71
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
     100002: AnvilPark
@@ -368,6 +368,36 @@ ModelImporter:
     100724: Rope2
     100726: GroundMesh
     100728: mesh
+    100730: Lattices
+    100732: Ledge 6
+    100734: Ledge36
+    100736: LedgeLeftOnly
+    100738: LedgeRightOnly
+    100740: Mesh
+    100742: pCube109
+    100744: pCube110
+    100746: pCube111
+    100748: pCube112
+    100750: pCube113
+    100752: pCube114
+    100754: pCube115
+    100756: pCube116
+    100758: pCube117
+    100760: pCube118
+    100762: pCube119
+    100764: pCube120
+    100766: pCube121
+    100768: polySurface93
+    100770: polySurface95
+    100772: polySurface97
+    100774: transform45
+    100776: transform46
+    100778: transform47
+    100780: transform48
+    100782: transform49
+    100784: WallLedge
+    100786: Rope3
+    100788: Ledge37
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -733,6 +763,36 @@ ModelImporter:
     400724: Rope2
     400726: GroundMesh
     400728: mesh
+    400730: Lattices
+    400732: Ledge 6
+    400734: Ledge36
+    400736: LedgeLeftOnly
+    400738: LedgeRightOnly
+    400740: Mesh
+    400742: pCube109
+    400744: pCube110
+    400746: pCube111
+    400748: pCube112
+    400750: pCube113
+    400752: pCube114
+    400754: pCube115
+    400756: pCube116
+    400758: pCube117
+    400760: pCube118
+    400762: pCube119
+    400764: pCube120
+    400766: pCube121
+    400768: polySurface93
+    400770: polySurface95
+    400772: polySurface97
+    400774: transform45
+    400776: transform46
+    400778: transform47
+    400780: transform48
+    400782: transform49
+    400784: WallLedge
+    400786: Rope3
+    400788: Ledge37
     2300000: Fixture
     2300002: HarshRedLight
     2300004: HarshRedLight1
@@ -1003,6 +1063,28 @@ ModelImporter:
     2300534: Rope1
     2300536: Rope2
     2300538: GroundMesh
+    2300540: Ledge 6
+    2300542: LedgeLeftOnly
+    2300544: LedgeRightOnly
+    2300546: Mesh
+    2300548: pCube109
+    2300550: pCube110
+    2300552: pCube111
+    2300554: pCube112
+    2300556: pCube113
+    2300558: pCube114
+    2300560: pCube115
+    2300562: pCube116
+    2300564: pCube117
+    2300566: pCube118
+    2300568: pCube119
+    2300570: pCube120
+    2300572: polySurface93
+    2300574: polySurface95
+    2300576: polySurface97
+    2300578: WallLedge
+    2300580: Rope3
+    2300582: Ledge37
     3300000: Fixture
     3300002: HarshRedLight
     3300004: HarshRedLight1
@@ -1273,6 +1355,28 @@ ModelImporter:
     3300534: Rope1
     3300536: Rope2
     3300538: GroundMesh
+    3300540: Ledge 6
+    3300542: LedgeLeftOnly
+    3300544: LedgeRightOnly
+    3300546: Mesh
+    3300548: pCube109
+    3300550: pCube110
+    3300552: pCube111
+    3300554: pCube112
+    3300556: pCube113
+    3300558: pCube114
+    3300560: pCube115
+    3300562: pCube116
+    3300564: pCube117
+    3300566: pCube118
+    3300568: pCube119
+    3300570: pCube120
+    3300572: polySurface93
+    3300574: polySurface95
+    3300576: polySurface97
+    3300578: WallLedge
+    3300580: Rope3
+    3300582: Ledge37
     4300000: pCube4
     4300002: Ledge7
     4300004: Ledge8
@@ -1542,6 +1646,28 @@ ModelImporter:
     4300532: Rope2
     4300534: Rope1
     4300536: GroundMesh
+    4300538: polySurface93
+    4300540: LedgeRightOnly
+    4300542: LedgeLeftOnly
+    4300544: Mesh
+    4300546: pCube109
+    4300548: pCube110
+    4300550: pCube111
+    4300552: pCube112
+    4300554: pCube113
+    4300556: pCube114
+    4300558: pCube115
+    4300560: pCube116
+    4300562: pCube117
+    4300564: pCube118
+    4300566: pCube119
+    4300568: pCube120
+    4300570: Ledge
+    4300572: polySurface95
+    4300574: WallLedge
+    4300576: polySurface97
+    4300578: Rope3
+    4300580: Ledge37
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -1595,5 +1721,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  additionalBone: 0
   userData: 
