@@ -36,15 +36,6 @@ public class EnemyAISettings : MonoBehaviour
     // How close the enemy must be to succesfully visually inspect a sound source
     public float SoundInspectionRange;// = 1.0f;
 
-    // How far away the enemy can visually see the player from
-    public float AwarenessRange;// = 25.0f;
-    
-    // offset used to cast rays to see player.
-    public float EyeOffset;// = 1.0f;
-    
-    // what is the cutoff for which dot product between player & facing is invalid?
-    public float ViewConeCutoff;// = 0.65f;
-
     // How long before the enemy forgets that it saw the player
     public float VisionMemory;// = 3.0f;
 

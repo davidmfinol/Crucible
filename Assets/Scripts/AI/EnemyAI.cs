@@ -24,8 +24,8 @@ public class EnemyAI : MonoBehaviour
     private CharacterAnimator _animator;
     private EnemyAISettings _settings;
     private CharacterAnimator _playerAnimator;
-    private PlayerCharacterShader _playerShader;
-    private HearingRadius _personalHearingRadius;
+	private HearingRadius _personalHearingRadius;
+	private VisionCone _personalVisionCone;
     private float _timeSincePlayerSeen;
     
     // A* PathFinding
@@ -45,8 +45,8 @@ public class EnemyAI : MonoBehaviour
         // Set up the generic AI components
         _animator = GetComponent<CharacterAnimator> ();
         _settings = GetComponent<EnemyAISettings> ();
-        _playerShader = GameManager.Player.GetComponent<PlayerCharacterShader> ();
-        _personalHearingRadius = GetComponentInChildren<HearingRadius> ();
+		_personalHearingRadius = GetComponentInChildren<HearingRadius> ();
+		_personalVisionCone = GetComponentInChildren<VisionCone> ();
         _timeSincePlayerSeen = 0;
 
         // Set up Astar
@@ -544,70 +544,13 @@ public class EnemyAI : MonoBehaviour
         get { return PersonalHearingRadius != null ? PersonalHearingRadius.ObjectsHeard.Count > 0 : false; }
     }
 
-    public bool IsSeeingPlayer {
-        get {
-            CharacterAnimator player = GameManager.Player;
+	public VisionCone PersonalVisionCone {
+		get { return _personalVisionCone; }
+	}
 
-            if (player == null || player.MecanimAnimator == null || player.IsDead)
-                return false;
-           
-            GameObject playerGO = player.gameObject;
-            
-            if (playerGO == null)
-                return false;
-
-            
-            Vector3 eyePos = transform.position;
-            eyePos.y += Settings.EyeOffset;
-            
-            Vector3 playerPos = player.transform.position;
-            float playerHalfHeight = player.Height / 2;
-            
-            Vector3 dirToPlayer = playerPos - eyePos;
-            
-            // must be closer if player is stealth.
-            float visionRange = _settings.AwarenessRange;
-            if ((_playerShader != null && _playerShader.InShadow))
-                visionRange *= 0.3f;
-            
-            if (dirToPlayer.magnitude > visionRange)
-                return false;
-            
-            // abort if player on opposite side of vision
-            //if ((dirToPlayer.x * _animator.Direction.x) < 0)
-            //    return false;
-            
-            bool canSeePlayer = false;
-
-            //for (float y = playerPos.y; y == playerPos.y; y-= playerHalfHeight) {
-            for (float y = playerPos.y + playerHalfHeight; y >= playerPos.y - playerHalfHeight; y-= playerHalfHeight) {
-                Vector3 endPoint = playerPos;
-                endPoint.y = y;
-                
-                Vector3 raycastDirection = endPoint - eyePos;
-                
-                // if our facing vector DOT the ray to the player is within a certain dot product range, then it's in view
-                // (prevents seeing player almost directly above us.)
-                Vector3 normDir = _animator.Direction.normalized;
-                Vector3 normToPlayer = raycastDirection.normalized;
-                float fDot = Vector3.Dot (normDir, normToPlayer);
-                
-                Debug.DrawLine (eyePos, eyePos + normDir * 20.0f, Color.green, 0.5f, false);
-
-                // only bother to cast rays that could be considered in our view cone.
-                if (fDot >= Settings.ViewConeCutoff) {
-                    if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
-						Debug.DrawLine (eyePos, eyePos + normToPlayer * raycastDirection.magnitude, Color.red, 0.5f, false);
-                        canSeePlayer = true;
-                        break;
-                    }
-                }
-                
-            }
-            
-            return canSeePlayer;
-        }
-    }
+	public bool IsSeeingPlayer {
+		get { return _personalVisionCone != null && _personalVisionCone.IsSeeingPlayer (_animator.Direction); }
+	}
 
     // Is the player in the range that the enemy could feasibly hit him?
     public bool IsPlayerInAttackRange {
