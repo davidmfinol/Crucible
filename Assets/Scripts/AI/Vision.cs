@@ -2,11 +2,10 @@
 using System.Collections;
 
 /// <summary>
-/// Vision Cone represents the area around an enemy AI characters where they can see.
+/// Vision represents the area around an enemy AI character where it can see.
 /// </summary>
-[RequireComponent(typeof(SphereCollider))]
-[AddComponentMenu("AI/Vision Cone")]
-public class VisionCone : MonoBehaviour
+[AddComponentMenu("AI/Vision")]
+public class Vision : MonoBehaviour
 {
 	// How far away the enemy can visually see the player from
 	public float AwarenessRange = 25.0f;
@@ -43,7 +42,7 @@ public class VisionCone : MonoBehaviour
 			
 			Debug.DrawLine (eyePos, eyePos + normDir * 20.0f, Color.green, 0.5f, false);
 			
-			// only bother to cast rays that could be considered in our view cone.
+			// TODO: only bother to cast rays that could be considered in our view cone.
 			if (fDot >= ViewConeCutoff) {
 				if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
 					Debug.DrawLine (eyePos, eyePos + normToPlayer * raycastDirection.magnitude, Color.red, 0.5f, false);

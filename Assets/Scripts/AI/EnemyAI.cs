@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyAISettings _settings;
     private CharacterAnimator _playerAnimator;
 	private HearingRadius _personalHearingRadius;
-	private VisionCone _personalVisionCone;
+	private Vision _personalVision;
     private float _timeSincePlayerSeen;
     
     // A* PathFinding
@@ -46,7 +46,7 @@ public class EnemyAI : MonoBehaviour
         _animator = GetComponent<CharacterAnimator> ();
         _settings = GetComponent<EnemyAISettings> ();
 		_personalHearingRadius = GetComponentInChildren<HearingRadius> ();
-		_personalVisionCone = GetComponentInChildren<VisionCone> ();
+		_personalVision = GetComponentInChildren<Vision> ();
         _timeSincePlayerSeen = 0;
 
         // Set up Astar
@@ -544,12 +544,12 @@ public class EnemyAI : MonoBehaviour
         get { return PersonalHearingRadius != null ? PersonalHearingRadius.ObjectsHeard.Count > 0 : false; }
     }
 
-	public VisionCone PersonalVisionCone {
-		get { return _personalVisionCone; }
+	public Vision PersonalVision {
+		get { return _personalVision; }
 	}
 
 	public bool IsSeeingPlayer {
-		get { return _personalVisionCone != null && _personalVisionCone.IsSeeingPlayer (_animator.Direction); }
+		get { return _personalVision != null && _personalVision.IsSeeingPlayer (_animator.Direction); }
 	}
 
     // Is the player in the range that the enemy could feasibly hit him?

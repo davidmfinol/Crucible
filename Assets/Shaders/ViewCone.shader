@@ -1,22 +1,19 @@
-Shader "VolumetricSpotlight" {
+Shader "ViewCone" {
 Properties {
     _Color ("Main Color", Color) = (1,1,1,1)
-    _MainTex ("Texture", 2D) = "white" { }
+	_MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
 }
 SubShader {
-	Tags { "Queue" = "Transparent" }
+	Tags {"Queue"="Geometry+1020" "IgnoreProjector"="True" "RenderType"="Transparent"}
+	
+	// Everything below is a copy of the "AlphaSelfIllum" shader
     Pass {
-		
-		
-		Cull Back
         Blend SrcAlpha OneMinusSrcAlpha 
         
-		
 		CGPROGRAM
+		#include "UnityCG.cginc"
 		#pragma vertex vert
 		#pragma fragment frag
-		
-		#include "UnityCG.cginc"
 		
 		float4 _Color;
 		sampler2D _MainTex;
@@ -44,5 +41,6 @@ SubShader {
 		ENDCG
     }
 }
-Fallback off
+
+Fallback "Transparent/VertexLit"
 } 

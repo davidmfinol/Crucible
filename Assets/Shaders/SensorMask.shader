@@ -1,4 +1,4 @@
-Shader "Masked/Mask" {
+Shader "SensorMask" {
 	
 	SubShader {
 		// Render the mask after regular geometry, but before masked geometry and
