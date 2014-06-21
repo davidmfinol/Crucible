@@ -9,12 +9,11 @@ using System.Collections.Generic;
 public class HearingRadius : MonoBehaviour
 {
     private List<SoundEvent> _objectsHeard;
-    private List<SoundBarrier> _soundBarriers;
 
     void Start ()
     {
         _objectsHeard = new List<SoundEvent> ();
-        _soundBarriers = new List<SoundBarrier> ();
+
     }
     
     void OnTriggerEnter (Collider other)
@@ -25,11 +24,6 @@ public class HearingRadius : MonoBehaviour
             _objectsHeard.Add (sound);
         }
 
-        SoundBarrier barrier = other.GetComponent<SoundBarrier> ();
-        if (barrier) {
-            barrier.HeardBy.Add (this);
-            _soundBarriers.Add (barrier);
-        }
     }
 
     void OnTriggerExit (Collider other)
@@ -39,12 +33,7 @@ public class HearingRadius : MonoBehaviour
             //sound.HeardBy.Add(this);
             _objectsHeard.Remove (sound);
         }
-        
-        SoundBarrier barrier = other.GetComponent<SoundBarrier> ();
-        if (barrier) {
-            //barrier.HeardBy.Add(this);
-            _soundBarriers.Remove (barrier);
-        }
+
     }
 
     public void ForgetAllSounds ()
@@ -56,10 +45,5 @@ public class HearingRadius : MonoBehaviour
     public List<SoundEvent> ObjectsHeard {
         get { return _objectsHeard; }
         set { _objectsHeard = value; }
-    }
-
-    public List<SoundBarrier> SoundBarriers {
-        get { return _soundBarriers; }
-        set { _soundBarriers = value; }
     }
 }

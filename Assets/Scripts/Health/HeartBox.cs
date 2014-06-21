@@ -35,7 +35,7 @@ public abstract class HeartBox : MonoBehaviour
     {
     }
 
-    // TODO: figure out why OnTriggerStay causes repeated executes.
+    // NOTE: OnTriggerStay causes repeated executes.
     void OnTriggerEnter (Collider other)
     {
         HitBox attackData = other.GetComponent<HitBox> ();

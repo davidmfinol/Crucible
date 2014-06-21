@@ -13,6 +13,7 @@ public class StealthKillTrigger : MonoBehaviour
     void Start()
     {
         _ai = transform.parent.GetComponent<EnemyAI> ();
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -20,6 +21,7 @@ public class StealthKillTrigger : MonoBehaviour
         PlayerCharacterAnimator player = other.GetComponent<PlayerCharacterAnimator> ();
         if (player != null && _ai != null && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware)
             player.StealthKillable = _ai.Animator;
+
     }
 
     void OnTriggerExit(Collider other)
@@ -27,6 +29,7 @@ public class StealthKillTrigger : MonoBehaviour
         PlayerCharacterAnimator player = other.GetComponent<PlayerCharacterAnimator> ();
         if (player != null)
             player.StealthKillable = null;
+
     }
 
 }
