@@ -7,10 +7,30 @@ using System.Collections;
 [AddComponentMenu("AI/Camera Spotter AI")]
 public class CameraSpotterAI : EnemyAI
 {
+    private CameraSpotterAwareness _cameraSpotterAwareness;
+    
+    protected override void OnStart()
+    {
+        _cameraSpotterAwareness = GetComponent<CameraSpotterAwareness> ();
+        
+    }
+
+    protected override void UpdateAwareness ()
+    {
+        AwarenessLevel oldAwareness = Awareness;
+        
+        base.UpdateAwareness ();
+
+        if(oldAwareness != Awareness)
+            _cameraSpotterAwareness.ChangeAwareness (Awareness);
+        
+    }
+
     // We're not going to use astar with the camera
     public override bool UpdateAStarPath (float speedRatio, bool repathOnInvalid)
     {
         return false;
+
     }
 
     protected override void Chase ()

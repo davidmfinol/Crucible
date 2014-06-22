@@ -543,6 +543,10 @@ public class EnemyAI : MonoBehaviour
     public bool HasHeardSound {
         get { return PersonalHearingRadius != null ? PersonalHearingRadius.ObjectsHeard.Count > 0 : false; }
     }
+    
+    public bool CouldHearPlayer {
+        get { return false; } // TODO
+    }
 
 	public Vision PersonalVision {
 		get { return _personalVision; }

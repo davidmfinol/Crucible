@@ -30,7 +30,7 @@ public class HearingRadius : MonoBehaviour
     {
         SoundEvent sound = other.GetComponent<SoundEvent> ();
         if (sound) {
-            //sound.HeardBy.Add(this);
+            //sound.HeardBy.Remove(this);
             _objectsHeard.Remove (sound);
         }
 
@@ -46,4 +46,5 @@ public class HearingRadius : MonoBehaviour
         get { return _objectsHeard; }
         set { _objectsHeard = value; }
     }
+
 }
