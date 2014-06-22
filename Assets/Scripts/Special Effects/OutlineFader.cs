@@ -8,14 +8,6 @@ using System.Collections;
 [AddComponentMenu("Special Effects/Outline Fader")]
 public class OutlineFader : MonoBehaviour
 {
-	void Start()
-	{
-		Color color = renderer.material.color;
-		color.a = 1;
-		renderer.material.color = color;
-
-	}
-
 	void Update()
 	{
 		// The outline shader expects the _PlayerPos.w to indicate whether or not the object should be able to light up

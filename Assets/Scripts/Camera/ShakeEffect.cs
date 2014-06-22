@@ -46,6 +46,7 @@ public class ShakeEffect
         PickNewTarget ();
 
         OldDistanceModifier = oldDistanceModifier;
+
     }
 
     void PickNewTarget ()

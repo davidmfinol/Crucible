@@ -42,5 +42,5 @@ SubShader {
     }
 }
 
-Fallback "Transparent/VertexLit"
+Fallback "AlphaSelfIllum"
 } 

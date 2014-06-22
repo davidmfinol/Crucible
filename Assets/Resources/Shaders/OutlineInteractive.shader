@@ -8,7 +8,7 @@ Properties {
 	_FadeDis ("Fade Distance", Float) = 15
 }
 SubShader {
-	Tags { "Queue" = "Geometry+1" }
+	Tags { "Queue" = "Geometry+10" }
 
 // This custom pass is what creates the outline effect
 	Pass {

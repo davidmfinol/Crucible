@@ -18,6 +18,7 @@ public class HearingRadius : MonoBehaviour
     
     void OnTriggerEnter (Collider other)
     {
+        // Manage the list of sounds this character has heard
         SoundEvent sound = other.GetComponent<SoundEvent> ();
         if (sound) {
             sound.HeardBy.Add (this);
@@ -28,13 +29,16 @@ public class HearingRadius : MonoBehaviour
 
     void OnTriggerExit (Collider other)
     {
+        // Manage the list of sounds this character has heard
         SoundEvent sound = other.GetComponent<SoundEvent> ();
         if (sound) {
-            //sound.HeardBy.Remove(this);
+            //sound.HeardBy.Remove(this); 
             _objectsHeard.Remove (sound);
         }
 
     }
+
+
 
     public void ForgetAllSounds ()
     {
