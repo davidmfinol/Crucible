@@ -4,7 +4,7 @@ Properties {
     _MainTex ("Texture", 2D) = "white" { }
 }
 SubShader {
-	Tags { "Queue" = "Transparent" }
+	Tags { "Queue" = "Transparent+5" }
 	
     Pass {
         Blend SrcAlpha OneMinusSrcAlpha 
