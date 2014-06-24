@@ -426,6 +426,25 @@ ModelImporter:
     100840: Wall
     100842: Wall1
     100844: WallLedge 2
+    100846: pCube133
+    100848: pCylinder4
+    100850: group9
+    100852: Ledge 8
+    100854: Ledge39
+    100856: Ledge40
+    100858: pCube134
+    100860: pCube135
+    100862: pCylinder5
+    100864: WallLedge1
+    100866: pCube136
+    100868: pCube137
+    100870: pCube138
+    100872: pCube140
+    100874: Ledge41
+    100876: Nada
+    100878: LedgeLeftOnly 1
+    100880: Elevator
+    100882: Ledge42
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -849,6 +868,25 @@ ModelImporter:
     400840: Wall
     400842: Wall1
     400844: WallLedge 2
+    400846: pCube133
+    400848: pCylinder4
+    400850: group9
+    400852: Ledge 8
+    400854: Ledge39
+    400856: Ledge40
+    400858: pCube134
+    400860: pCube135
+    400862: pCylinder5
+    400864: WallLedge1
+    400866: pCube136
+    400868: pCube137
+    400870: pCube138
+    400872: pCube140
+    400874: Ledge41
+    400876: Nada
+    400878: LedgeLeftOnly 1
+    400880: Elevator
+    400882: Ledge42
     2300000: Fixture
     2300002: HarshRedLight
     2300004: HarshRedLight1
@@ -1163,6 +1201,23 @@ ModelImporter:
     2300622: Wall
     2300624: Wall1
     2300626: WallLedge 2
+    2300628: pCube133
+    2300630: pCylinder4
+    2300632: Ledge 8
+    2300634: Ledge39
+    2300636: Ledge40
+    2300638: pCube134
+    2300640: pCube135
+    2300642: pCylinder5
+    2300644: WallLedge1
+    2300646: pCube136
+    2300648: pCube137
+    2300650: pCube138
+    2300652: pCube140
+    2300654: Ledge41
+    2300656: Nada
+    2300658: LedgeLeftOnly 1
+    2300660: Ledge42
     3300000: Fixture
     3300002: HarshRedLight
     3300004: HarshRedLight1
@@ -1477,6 +1532,23 @@ ModelImporter:
     3300622: Wall
     3300624: Wall1
     3300626: WallLedge 2
+    3300628: pCube133
+    3300630: pCylinder4
+    3300632: Ledge 8
+    3300634: Ledge39
+    3300636: Ledge40
+    3300638: pCube134
+    3300640: pCube135
+    3300642: pCylinder5
+    3300644: WallLedge1
+    3300646: pCube136
+    3300648: pCube137
+    3300650: pCube138
+    3300652: pCube140
+    3300654: Ledge41
+    3300656: Nada
+    3300658: LedgeLeftOnly 1
+    3300660: Ledge42
     4300000: pCube4
     4300002: Ledge7
     4300004: Ledge8
@@ -1789,6 +1861,23 @@ ModelImporter:
     4300618: polySurface105
     4300620: Wall
     4300622: Wall1
+    4300624: pCube133
+    4300626: pCylinder4
+    4300628: Ledge40
+    4300630: pCylinder5
+    4300632: pCube134
+    4300634: Ledge39
+    4300636: Ledge
+    4300638: WallLedge1
+    4300640: pCube135
+    4300642: pCube136
+    4300644: pCube137
+    4300646: pCube138
+    4300648: pCube140
+    4300650: Nada
+    4300652: Ledge41
+    4300654: LedgeLeftOnly
+    4300656: Ledge42
     7400000: Take 001
     9500000: //RootNode
   materials:
