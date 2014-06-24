@@ -6,6 +6,7 @@ using System.Collections;
 public class EchoSphere
 {
     public Material EchoMaterial;
+    public Color EchoColor;
     public Vector3 Position;
     public int SphereIndex = 0;
     
@@ -15,7 +16,7 @@ public class EchoSphere
     
     public float FadeDelay = 0.0f;          //Time to delay before triggering fade.
     public float FadeRate = 1.0f;           //Speed of the fade away
-    public float EchoSpeed = 1.0f;          //Speed of the sphere growth.
+    public float EchoSpeed = 10.0f;          //Speed of the sphere growth.
     
     private bool _isAnimating = false;      //If true, pulse is currently running.
     private float _deltaTime = 0.0f;
@@ -37,6 +38,7 @@ public class EchoSphere
     
     public void TriggerPulse()
     {
+        Debug.Log("Sphere " + SphereIndex + " triggered at " + Time.time);
         _deltaTime = 0.0f;
         _sphereCurrentRadius = 0.0f;
         _fade = 0.0f;
@@ -86,11 +88,12 @@ public class EchoSphere
         
         float maxRadius = SphereMaxRadius;
         float maxFade = SphereMaxRadius / EchoSpeed;
-        
+
         EchoMaterial.SetVector("_EchoPosition"+SphereIndex.ToString(),Position);
         EchoMaterial.SetFloat("_EchoRadius"+SphereIndex.ToString(),_sphereCurrentRadius);
         EchoMaterial.SetFloat("_EchoFade"+SphereIndex.ToString(),_fade);
         
+        EchoMaterial.SetColor("_EchoColor",EchoColor);
         EchoMaterial.SetFloat("_EchoMaxRadius",maxRadius);
         EchoMaterial.SetFloat("_EchoMaxFade",maxFade);
         

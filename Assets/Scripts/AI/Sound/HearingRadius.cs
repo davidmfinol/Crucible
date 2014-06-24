@@ -5,10 +5,13 @@ using System.Collections.Generic;
 /// Hearing radius indicates an area in which an NPC can hear sound.
 /// </summary>
 [RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
 [AddComponentMenu("AI/Sound/Hearing Radius")]
 public class HearingRadius : MonoBehaviour
 {
-    public float PulseTime = 5;
+    public float EchoTime = 3;
+    public Color EchoColor = Color.white;
+    public float EchoSpeed = 10;
 
     private List<SoundEvent> _objectsHeard;
     private List<HeartBox> _charactersCouldHear;
@@ -17,12 +20,16 @@ public class HearingRadius : MonoBehaviour
     private SphereCollider _sphereCollider;
     private float _timeSincePulse;
 
-    void Start ()
+    void Awake()
     {
         _objectsHeard = new List<SoundEvent> ();
         _charactersCouldHear = new List<HeartBox>();
         _barriers = new List<OutlineInteractive>();
 
+    }
+
+    void Start ()
+    {
         _sphereCollider = GetComponent<SphereCollider>();
         _timeSincePulse = 0;
 
@@ -53,7 +60,7 @@ public class HearingRadius : MonoBehaviour
     {
         _timeSincePulse += Time.deltaTime;
 
-        if(_timeSincePulse < PulseTime)
+        if(_timeSincePulse < EchoTime)
             return;
 
         float radius = _sphereCollider.radius * transform.lossyScale.x;
@@ -61,6 +68,9 @@ public class HearingRadius : MonoBehaviour
         foreach (OutlineInteractive barrier in _barriers) {
             barrier.Spheres[barrier.CurrentSphere].TriggerPulse();
             barrier.Spheres[barrier.CurrentSphere].Position = transform.position;
+            barrier.Spheres[barrier.CurrentSphere].EchoColor = EchoColor;
+            barrier.Spheres[barrier.CurrentSphere].SphereMaxRadius = radius;
+            barrier.Spheres[barrier.CurrentSphere].EchoSpeed = EchoSpeed;
             
             barrier.CurrentSphere += 1;
             if(barrier.CurrentSphere >= barrier.Spheres.Count)

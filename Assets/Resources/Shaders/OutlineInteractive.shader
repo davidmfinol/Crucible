@@ -8,6 +8,7 @@ Properties {
 	_OutlineFadeDis ("Outline Fade Distance", Float) = 15
 	_PlayerPos ("Player Position", Vector) = (0,0,0,0)
 	
+	_EchoColor ("Echo Color", Color) = (1,1,1,1)
 	_EchoMaxRadius("Echo Max Radius",float) = 1.0
 	_EchoMaxFade("Echo Max Fade",float) = 1.0
 	
@@ -116,6 +117,7 @@ SubShader {
 	float4 _Color;
 	sampler2D _MainTex;
 
+	float4 _EchoColor;
 	float _EchoMaxRadius;
 	float _EchoMaxFade;
 
@@ -157,9 +159,11 @@ SubShader {
 		c1 += ApplyFade(IN,_EchoPosition2,_EchoRadius2,_EchoFade2);
 		c1 /= 3.0;
 		
-		fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-		o.Albedo = c.rgb + c.rgb * c1;
-		o.Alpha = c.a;
+		fixed4 tex = tex2D(_MainTex, IN.uv_MainTex);
+		fixed4 baseCol = tex * _Color;
+		fixed4 echoCol = tex * _EchoColor;
+		o.Albedo = baseCol.rgb + echoCol.rgb * c1;
+		o.Alpha = baseCol.a + echoCol.a;
 	}
 	ENDCG
 	
