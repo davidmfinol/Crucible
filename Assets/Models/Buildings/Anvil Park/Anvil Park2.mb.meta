@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 3d6783e74f307486ab32f9cbf3bf1b71
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
     100002: AnvilPark
@@ -445,6 +445,16 @@ ModelImporter:
     100878: LedgeLeftOnly 1
     100880: Elevator
     100882: Ledge42
+    100884: Ledge43
+    100886: Ledge44
+    100888: Ledge45
+    100890: Ledge46
+    100892: WallLedge2
+    100894: WallLedge3
+    100896: Ledge47
+    100898: Ledge48
+    100900: pCylinder6
+    100902: pCylinder7
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -887,6 +897,16 @@ ModelImporter:
     400878: LedgeLeftOnly 1
     400880: Elevator
     400882: Ledge42
+    400884: Ledge43
+    400886: Ledge44
+    400888: Ledge45
+    400890: Ledge46
+    400892: WallLedge2
+    400894: WallLedge3
+    400896: Ledge47
+    400898: Ledge48
+    400900: pCylinder6
+    400902: pCylinder7
     2300000: Fixture
     2300002: HarshRedLight
     2300004: HarshRedLight1
@@ -1218,6 +1238,16 @@ ModelImporter:
     2300656: Nada
     2300658: LedgeLeftOnly 1
     2300660: Ledge42
+    2300662: Ledge43
+    2300664: Ledge44
+    2300666: Ledge45
+    2300668: Ledge46
+    2300670: WallLedge2
+    2300672: WallLedge3
+    2300674: Ledge47
+    2300676: Ledge48
+    2300678: pCylinder6
+    2300680: pCylinder7
     3300000: Fixture
     3300002: HarshRedLight
     3300004: HarshRedLight1
@@ -1549,6 +1579,16 @@ ModelImporter:
     3300656: Nada
     3300658: LedgeLeftOnly 1
     3300660: Ledge42
+    3300662: Ledge43
+    3300664: Ledge44
+    3300666: Ledge45
+    3300668: Ledge46
+    3300670: WallLedge2
+    3300672: WallLedge3
+    3300674: Ledge47
+    3300676: Ledge48
+    3300678: pCylinder6
+    3300680: pCylinder7
     4300000: pCube4
     4300002: Ledge7
     4300004: Ledge8
@@ -1878,6 +1918,16 @@ ModelImporter:
     4300652: Ledge41
     4300654: LedgeLeftOnly
     4300656: Ledge42
+    4300658: Ledge43
+    4300660: Ledge44
+    4300662: Ledge45
+    4300664: Ledge46
+    4300666: WallLedge3
+    4300668: WallLedge2
+    4300670: pCylinder6
+    4300672: Ledge47
+    4300674: Ledge48
+    4300676: pCylinder7
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -1931,5 +1981,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  additionalBone: 0
   userData: 
