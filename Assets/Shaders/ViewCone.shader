@@ -1,11 +1,12 @@
-Shader "AlphaSelfIllum" {
+Shader "ViewCone" {
 Properties {
     _Color ("Main Color", Color) = (1,1,1,1)
-    _MainTex ("Texture", 2D) = "white" { }
+	_MainTex ("Base (RGB) Trans (A)", 2D) = "white" {}
 }
 SubShader {
-	Tags { "Queue" = "Transparent+5" }
+	Tags {"Queue"="Geometry+1020" "IgnoreProjector"="True" "RenderType"="Transparent"}
 	
+	// Everything below is a copy of the "AlphaSelfIllum" shader
     Pass {
         Blend SrcAlpha OneMinusSrcAlpha 
         
@@ -41,5 +42,5 @@ SubShader {
     }
 }
 
-Fallback off
+Fallback "AlphaSelfIllum"
 } 

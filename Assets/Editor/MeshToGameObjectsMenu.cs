@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
@@ -155,9 +155,9 @@ public class MeshToGameObjectsMenu
 			transform.renderer.sharedMaterial.shader = Shader.Find ("Outlined/Interactive");
 			transform.renderer.sharedMaterial.SetFloat ("_FadeDis", 15);
 		}
-		OutlineFader outlineFader = transform.GetComponent<OutlineFader> ();
+		OutlineInteractive outlineFader = transform.GetComponent<OutlineInteractive> ();
 		if(outlineFader == null)
-			outlineFader = transform.gameObject.AddComponent<OutlineFader> ();
+			outlineFader = transform.gameObject.AddComponent<OutlineInteractive> ();
 		outlineFader.enabled = true;
 
     }

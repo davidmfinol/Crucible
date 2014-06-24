@@ -11,8 +11,6 @@ public class OlympusAwareness : MonoBehaviour
     public Color SearchingColor = Color.yellow;
     public Color WanderingColor = Color.white;
 
-    public float ViewConeRate = 5.0f;
-
     private List<Material> _changeableMaterials;
     private Fader[] _faders;
 
