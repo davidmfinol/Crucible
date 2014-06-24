@@ -59,11 +59,12 @@ public class HearingRadius : MonoBehaviour
         float radius = _sphereCollider.radius * transform.lossyScale.x;
 
         foreach (OutlineInteractive barrier in _barriers) {
-            Spheres[CurrentSphere].TriggerPulse();
-            Spheres[CurrentSphere].Position = hit.point;
+            barrier.Spheres[barrier.CurrentSphere].TriggerPulse();
+            barrier.Spheres[barrier.CurrentSphere].Position = transform.position;
             
-            CurrentSphere += 1;
-            if(CurrentSphere >= Spheres.Count)CurrentSphere = 0;
+            barrier.CurrentSphere += 1;
+            if(barrier.CurrentSphere >= barrier.Spheres.Count)
+                barrier.CurrentSphere = 0;
         }
         
         _timeSincePulse = 0;

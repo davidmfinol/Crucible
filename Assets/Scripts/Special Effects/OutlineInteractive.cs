@@ -11,7 +11,6 @@ using System.Collections.Generic;
 public class OutlineInteractive : MonoBehaviour
 {
     public int SphereCount = 3;
-    public int CurrentSphere = 0;
     
     // Echo sphere Properties
     public float SphereMaxRadius = 20.0f;       //Final size of the echo sphere.
@@ -19,7 +18,8 @@ public class OutlineInteractive : MonoBehaviour
     public float FadeRate = 1.0f;           //Speed of the fade away
     public float EchoSpeed = 9.0f;          //Speed of the sphere growth.
     
-    private List<EchoSphere> Spheres = new List<EchoSphere>();
+    private List<EchoSphere> _spheres;
+    private int _currentSphere;
 
     void Start()
     {
@@ -35,6 +35,9 @@ public class OutlineInteractive : MonoBehaviour
             Spheres.Add(es);
         }
 
+        _spheres = new List<EchoSphere>();
+        _currentSphere = 0;
+
     }
 
 	void Update()
@@ -48,6 +51,15 @@ public class OutlineInteractive : MonoBehaviour
         foreach (EchoSphere echo in Spheres)
             echo.Update();
         
+    }
+
+    public List<EchoSphere> Spheres {
+        get { return _spheres; } 
+    }
+
+    public int CurrentSphere {
+        get { return _currentSphere; }
+        set { _currentSphere  = value; }
     }
     
 }
