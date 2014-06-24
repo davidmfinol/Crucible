@@ -47,19 +47,6 @@ public class OutlineInteractive : MonoBehaviour
         // Update the echolocation effects that may be happening on this object
         foreach (EchoSphere echo in Spheres)
             echo.Update();
-
-        // TODO:
-        if (Input.GetButtonDown("Attack")){
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray,out hit, 10000)) {
-                Spheres[CurrentSphere].TriggerPulse();
-                Spheres[CurrentSphere].Position = hit.point;
-                
-                CurrentSphere += 1;
-                if(CurrentSphere >= Spheres.Count)CurrentSphere = 0;
-            }
-        }
         
     }
     

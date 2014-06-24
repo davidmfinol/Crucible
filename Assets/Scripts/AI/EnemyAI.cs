@@ -545,7 +545,12 @@ public class EnemyAI : MonoBehaviour
     }
     
     public bool CouldHearPlayer {
-        get { return false; } // TODO
+        get { 
+            foreach (HeartBox heart in PersonalHearingRadius.CharactersCouldHear)
+                if(heart.Allegiance == TeamAllegiance.Player)
+                    return true;
+            return false; 
+        }
     }
 
 	public Vision PersonalVision {
