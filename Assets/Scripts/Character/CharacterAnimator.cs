@@ -128,6 +128,11 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
+    void OnAnimatorMove()
+    {
+        // This method is only here to prevent mecanim from overriding our motion in FixedUpdate.
+    }
+
     protected virtual void UpdateMecanimVariables ()
     {
         // Empty by default; child classes should override
