@@ -7,6 +7,7 @@ using System.Collections.Generic;
 /// It can be used by the Vision class to determine whether the NPC is seeing the player.
 /// </summary>
 [RequireComponent(typeof(MeshCollider))]
+[RequireComponent(typeof(Rigidbody))]
 [AddComponentMenu("AI/Sight/ViewCone")]
 public class ViewCone : MonoBehaviour
 {

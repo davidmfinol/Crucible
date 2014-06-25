@@ -13,6 +13,8 @@ public class HearingRadius : MonoBehaviour
     public Color EchoColor = Color.white;
     public float EchoSpeed = 10;
 
+    public bool IgnoreAbove = false;
+
     private List<SoundEvent> _objectsHeard;
     private List<HeartBox> _charactersCouldHear;
     private List<OutlineInteractive> _barriers;
@@ -39,9 +41,12 @@ public class HearingRadius : MonoBehaviour
     {
         // Manage the list of sounds this character has heard
         SoundEvent sound = other.GetComponent<SoundEvent> ();
-        if (sound) { // TODO: ONLY HEARD IN DISTANCE
+        if (sound) {
+            // NOTE: THE SIMPLICITY OF THIS SPHERECOLLIDER ALLOWS SOUNDS TO BE HEARD THROUGH WALLS
             sound.HeardBy.Add (this);
-            _objectsHeard.Add (sound);
+            // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL
+            if(!IgnoreAbove || other.transform.position.y < 70)
+                _objectsHeard.Add (sound);
         }
 
         HeartBox heart = other.GetComponent<HeartBox>();
@@ -63,13 +68,11 @@ public class HearingRadius : MonoBehaviour
         if(_timeSincePulse < EchoTime)
             return;
 
-        float radius = _sphereCollider.radius * transform.lossyScale.x;
-
         foreach (OutlineInteractive barrier in _barriers) {
             barrier.Spheres[barrier.CurrentSphere].TriggerPulse();
             barrier.Spheres[barrier.CurrentSphere].Position = transform.position;
             barrier.Spheres[barrier.CurrentSphere].EchoColor = EchoColor;
-            barrier.Spheres[barrier.CurrentSphere].SphereMaxRadius = radius;
+            barrier.Spheres[barrier.CurrentSphere].SphereMaxRadius = Radius;
             barrier.Spheres[barrier.CurrentSphere].EchoSpeed = EchoSpeed;
             
             barrier.CurrentSphere += 1;
@@ -106,6 +109,10 @@ public class HearingRadius : MonoBehaviour
     {
         _objectsHeard.Clear ();
 
+    }
+
+    public float Radius {
+        get { return _sphereCollider.radius * transform.lossyScale.x; }
     }
 
     public List<SoundEvent> ObjectsHeard {

@@ -228,8 +228,12 @@ public class CameraScrolling : MonoBehaviour
             bool isChasing = (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing);
             float enemyDistance = Vector3.Distance(enemy.transform.position, playerPos);
 
+            // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL
+            if(enemy.PersonalHearingRadius != null && enemy.PersonalHearingRadius.IgnoreAbove && GameManager.Player != null && GameManager.Player.transform.position.y > 70)
+                continue;
+
             // Track non-cameras who are not chasing, OR cameras who ARE "chasing".
-            if ((isCamera || (!isCamera && !isChasing)) &&
+            if ((isCamera || (!isCamera && !isChasing)) && 
                 (enemyDistance < EnemyFocus || (enemy.Settings.CanHear && enemy.CouldHearPlayer))) {
 
                 if (nearestEnemy == Vector3.zero) { 
