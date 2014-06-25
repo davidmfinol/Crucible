@@ -489,6 +489,21 @@ ModelImporter:
     100966: transform61
     100968: transform62
     100970: transform63
+    100972: LedgeLeftOnly 2
+    100974: LedgeRightOnly 1
+    100976: transform64
+    100978: Nada1
+    100980: polySurface124
+    100982: transform65
+    100984: Wall 1
+    100986: LedgeWall
+    100988: LedgeLeftOnly 3
+    100990: LedgeRight
+    100992: Mesh 3
+    100994: Mesh 4
+    100996: pCube139
+    100998: pCube141
+    101000: pCube142
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -975,6 +990,21 @@ ModelImporter:
     400966: transform61
     400968: transform62
     400970: transform63
+    400972: LedgeLeftOnly 2
+    400974: LedgeRightOnly 1
+    400976: transform64
+    400978: Nada1
+    400980: polySurface124
+    400982: transform65
+    400984: Wall 1
+    400986: LedgeWall
+    400988: LedgeLeftOnly 3
+    400990: LedgeRight
+    400992: Mesh 3
+    400994: Mesh 4
+    400996: pCube139
+    400998: pCube141
+    401000: pCube142
     2300000: Fixture
     2300002: HarshRedLight
     2300004: HarshRedLight1
@@ -1333,6 +1363,18 @@ ModelImporter:
     2300710: polySurface120
     2300712: polySurface121
     2300714: polySurface122
+    2300716: LedgeLeftOnly 2
+    2300718: LedgeRightOnly 1
+    2300720: polySurface124
+    2300722: Wall 1
+    2300724: LedgeWall
+    2300726: LedgeLeftOnly 3
+    2300728: LedgeRight
+    2300730: Mesh 3
+    2300732: Mesh 4
+    2300734: pCube139
+    2300736: pCube141
+    2300738: pCube142
     3300000: Fixture
     3300002: HarshRedLight
     3300004: HarshRedLight1
@@ -1691,6 +1733,18 @@ ModelImporter:
     3300710: polySurface120
     3300712: polySurface121
     3300714: polySurface122
+    3300716: LedgeLeftOnly 2
+    3300718: LedgeRightOnly 1
+    3300720: polySurface124
+    3300722: Wall 1
+    3300724: LedgeWall
+    3300726: LedgeLeftOnly 3
+    3300728: LedgeRight
+    3300730: Mesh 3
+    3300732: Mesh 4
+    3300734: pCube139
+    3300736: pCube141
+    3300738: pCube142
     4300000: pCube4
     4300002: Ledge7
     4300004: Ledge8
@@ -2047,6 +2101,18 @@ ModelImporter:
     4300706: polySurface120
     4300708: polySurface121
     4300710: polySurface122
+    4300712: LedgeLeftOnly
+    4300714: LedgeRightOnly
+    4300716: polySurface124
+    4300718: Wall
+    4300720: LedgeWall
+    4300722: LedgeRight
+    4300724: LedgeLeftOnly
+    4300726: Mesh
+    4300728: pCube139
+    4300730: pCube141
+    4300732: pCube142
+    4300734: Mesh
     7400000: Take 001
     9500000: //RootNode
   materials:
