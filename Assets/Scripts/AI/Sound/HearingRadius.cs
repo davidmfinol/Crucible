@@ -45,12 +45,12 @@ public class HearingRadius : MonoBehaviour
         }
 
         HeartBox heart = other.GetComponent<HeartBox>();
-        if (heart) {
+        if (heart && !_charactersCouldHear.Contains(heart)) {
             _charactersCouldHear.Add(heart);
         }
 
         OutlineInteractive barrier = other.GetComponent<OutlineInteractive>();
-        if(barrier) {
+        if(barrier && !_barriers.Contains(barrier)) {
             _barriers.Add(barrier);
         }
 
@@ -101,8 +101,6 @@ public class HearingRadius : MonoBehaviour
         }
 
     }
-
-
 
     public void ForgetAllSounds ()
     {

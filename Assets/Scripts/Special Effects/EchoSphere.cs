@@ -38,7 +38,6 @@ public class EchoSphere
     
     public void TriggerPulse()
     {
-        Debug.Log("Sphere " + SphereIndex + " triggered at " + Time.time);
         _deltaTime = 0.0f;
         _sphereCurrentRadius = 0.0f;
         _fade = 0.0f;

@@ -13,7 +13,7 @@ public class CameraScrolling : MonoBehaviour
 
     // How strict should the camera follow the target?  Lower values make the camera more lazy.
     public float MovementSpringiness = 4.0f;
-    public float EnemyFocusedSpringiness = 1.2f; // Same thing, but for when there is an we're also tracking
+    public float EnemyFocusedSpringiness = 1.2f; // Same thing, but for when there is an enemy we're also tracking
 
     //The range for moving the camera between you and the enemies.
     public float EnemyFocus = 50.0f;
@@ -43,6 +43,7 @@ public class CameraScrolling : MonoBehaviour
     void FixedUpdate()
     {
         if (Target == null) {
+            _enemyFocused = false;
             return;
         }
 
@@ -211,8 +212,12 @@ public class CameraScrolling : MonoBehaviour
 
     public bool GetNearestEnemy(out Vector3 nearestEnemy)
     {
-        Vector3 playerPos = GameManager.Player.transform.position;
         nearestEnemy = Vector3.zero;
+        if (CinematicOverride) {
+            return false;
+        }
+
+        Vector3 playerPos = GameManager.Player.transform.position;
 
         foreach (EnemyAI enemy in GameManager.AI.Enemies) {
             if (enemy == null || enemy.Animator == null || enemy.Animator.IsDead) {
