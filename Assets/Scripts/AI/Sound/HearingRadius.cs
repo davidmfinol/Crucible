@@ -5,46 +5,104 @@ using System.Collections.Generic;
 /// Hearing radius indicates an area in which an NPC can hear sound.
 /// </summary>
 [RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
 [AddComponentMenu("AI/Sound/Hearing Radius")]
 public class HearingRadius : MonoBehaviour
 {
+    public float EchoTime = 3;
+    public Color EchoColor = Color.white;
+    public float EchoSpeed = 10;
+
+    public bool IgnoreAbove = false;
+
     private List<SoundEvent> _objectsHeard;
-    private List<SoundBarrier> _soundBarriers;
+    private List<HeartBox> _charactersCouldHear;
+    private List<OutlineInteractive> _barriers;
+
+    private SphereCollider _sphereCollider;
+    private float _timeSincePulse;
+
+    void Awake()
+    {
+        _objectsHeard = new List<SoundEvent> ();
+        _charactersCouldHear = new List<HeartBox>();
+        _barriers = new List<OutlineInteractive>();
+
+    }
 
     void Start ()
     {
-        _objectsHeard = new List<SoundEvent> ();
-        _soundBarriers = new List<SoundBarrier> ();
+        _sphereCollider = GetComponent<SphereCollider>();
+        _timeSincePulse = 0;
+
     }
     
     void OnTriggerEnter (Collider other)
     {
+        // Manage the list of sounds this character has heard
         SoundEvent sound = other.GetComponent<SoundEvent> ();
         if (sound) {
+            // NOTE: THE SIMPLICITY OF THIS SPHERECOLLIDER ALLOWS SOUNDS TO BE HEARD THROUGH WALLS
             sound.HeardBy.Add (this);
-            _objectsHeard.Add (sound);
+            // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL
+            if(!IgnoreAbove || other.transform.position.y < 70)
+                _objectsHeard.Add (sound);
         }
 
-        SoundBarrier barrier = other.GetComponent<SoundBarrier> ();
-        if (barrier) {
-            barrier.HeardBy.Add (this);
-            _soundBarriers.Add (barrier);
+        HeartBox heart = other.GetComponent<HeartBox>();
+        if (heart && !_charactersCouldHear.Contains(heart)) {
+            _charactersCouldHear.Add(heart);
         }
+
+        OutlineInteractive barrier = other.GetComponent<OutlineInteractive>();
+        if(barrier && !_barriers.Contains(barrier)) {
+            _barriers.Add(barrier);
+        }
+
+    }
+
+    void Update()
+    {
+        _timeSincePulse += Time.deltaTime;
+
+        if(_timeSincePulse < EchoTime)
+            return;
+
+        foreach (OutlineInteractive barrier in _barriers) {
+            barrier.Spheres[barrier.CurrentSphere].TriggerPulse();
+            barrier.Spheres[barrier.CurrentSphere].Position = transform.position;
+            barrier.Spheres[barrier.CurrentSphere].EchoColor = EchoColor;
+            barrier.Spheres[barrier.CurrentSphere].SphereMaxRadius = Radius;
+            barrier.Spheres[barrier.CurrentSphere].EchoSpeed = EchoSpeed;
+            
+            barrier.CurrentSphere += 1;
+            if(barrier.CurrentSphere >= barrier.Spheres.Count)
+                barrier.CurrentSphere = 0;
+        }
+        
+        _timeSincePulse = 0;
+
     }
 
     void OnTriggerExit (Collider other)
     {
+        // Manage the list of sounds this character has heard
         SoundEvent sound = other.GetComponent<SoundEvent> ();
         if (sound) {
-            //sound.HeardBy.Add(this);
+            //sound.HeardBy.Remove(this); 
             _objectsHeard.Remove (sound);
         }
         
-        SoundBarrier barrier = other.GetComponent<SoundBarrier> ();
-        if (barrier) {
-            //barrier.HeardBy.Add(this);
-            _soundBarriers.Remove (barrier);
+        HeartBox heart = other.GetComponent<HeartBox>();
+        if (heart) {
+            _charactersCouldHear.Remove(heart);
         }
+        
+        OutlineInteractive barrier = other.GetComponent<OutlineInteractive>();
+        if(barrier) {
+            _barriers.Remove(barrier);
+        }
+
     }
 
     public void ForgetAllSounds ()
@@ -53,13 +111,16 @@ public class HearingRadius : MonoBehaviour
 
     }
 
-    public List<SoundEvent> ObjectsHeard {
-        get { return _objectsHeard; }
-        set { _objectsHeard = value; }
+    public float Radius {
+        get { return _sphereCollider.radius * transform.lossyScale.x; }
     }
 
-    public List<SoundBarrier> SoundBarriers {
-        get { return _soundBarriers; }
-        set { _soundBarriers = value; }
+    public List<SoundEvent> ObjectsHeard {
+        get { return _objectsHeard; }
     }
+
+    public List<HeartBox> CharactersCouldHear {
+        get { return _charactersCouldHear; }
+    }
+
 }

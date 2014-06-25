@@ -4,19 +4,15 @@ Properties {
     _MainTex ("Texture", 2D) = "white" { }
 }
 SubShader {
-	Tags { "Queue" = "Transparent" }
+	Tags { "Queue" = "Transparent+5" }
+	
     Pass {
-		
-		
-		Cull Back
         Blend SrcAlpha OneMinusSrcAlpha 
         
-		
 		CGPROGRAM
+		#include "UnityCG.cginc"
 		#pragma vertex vert
 		#pragma fragment frag
-		
-		#include "UnityCG.cginc"
 		
 		float4 _Color;
 		sampler2D _MainTex;
@@ -44,5 +40,6 @@ SubShader {
 		ENDCG
     }
 }
+
 Fallback off
 } 

@@ -13,11 +13,10 @@ public class CameraScrolling : MonoBehaviour
 
     // How strict should the camera follow the target?  Lower values make the camera more lazy.
     public float MovementSpringiness = 4.0f;
-    public float EnemyFocusedSpringiness = 1.2f; // Same thing, but for when there is an we're also tracking
+    public float EnemyFocusedSpringiness = 1.2f; // Same thing, but for when there is an enemy we're also tracking
 
     //The range for moving the camera between you and the enemies.
     public float EnemyFocus = 50.0f;
-    public float EnemyIgnoreRange = 15.0f;
     private bool _enemyFocused;
 
     // The object being tracked, and it's properties
@@ -32,7 +31,7 @@ public class CameraScrolling : MonoBehaviour
     // cinematic override for zooming
     private bool _cinematicOverride;
     
-    void Start ()
+    void Start()
     {
         _shakeEffect = null;
 
@@ -41,29 +40,33 @@ public class CameraScrolling : MonoBehaviour
     // You almost always want camera motion to go inside of LateUpdate (), so that the camera follows
     // the target _after_ it has moved.  Otherwise, the camera may lag one frame behind.
     // NOTE: There's a reason we're using FixedUpdate, but I don't remember the specifics
-    void FixedUpdate ()
+    void FixedUpdate()
     {
-        if (Target == null)
+        if (Target == null) {
+            _enemyFocused = false;
             return;
+        }
 
-        Vector3 goalPosition = GetGoalPosition ();
+        Vector3 goalPosition = GetGoalPosition();
         float springiness = MovementSpringiness;
-        if (_enemyFocused)
+        if (_enemyFocused) {
             springiness = EnemyFocusedSpringiness;
-        transform.position = Vector3.Lerp (transform.position, goalPosition, Time.deltaTime * springiness);
+        }
+        transform.position = Vector3.Lerp(transform.position, goalPosition, Time.deltaTime * springiness);
 
     }
 
-    public void AddShake (float lifetime, Vector3 spread, float minSpeed, float maxSpeed)
+    public void AddShake(float lifetime, Vector3 spread, float minSpeed, float maxSpeed)
     {
-        if (_shakeEffect == null)
-            _shakeEffect = new ShakeEffect (lifetime, TargetAttributes.DistanceModifier, spread, minSpeed, maxSpeed);
+        if (_shakeEffect == null) {
+            _shakeEffect = new ShakeEffect(lifetime, TargetAttributes.DistanceModifier, spread, minSpeed, maxSpeed);
+        }
 
     }
     
     // Based on the camera attributes and the target's special camera attributes, find out where the
     // camera should move to.
-    public Vector3 GetGoalPosition ()
+    public Vector3 GetGoalPosition()
     {
         // Our camera script can take attributes from the target.  If there are no attributes attached, we have
         // the following defaults.
@@ -75,33 +78,35 @@ public class CameraScrolling : MonoBehaviour
         // By default, we won't account for any target velocity or chaos in our calculations;
         float velocityLookAheadX = 0.0f;
         float velocityLookAheadY = 0.0f;
-        Vector2 maxLookAhead = new Vector2 (0.0f, 0.0f);
+        Vector2 maxLookAhead = new Vector2(0.0f, 0.0f);
 
         // If our target has special attributes, use these instead of our above defaults.
         if (TargetAttributes != null) {
             heightOffset = TargetAttributes.HeightOffset;
 
-            if (TargetAnimator != null && TargetAnimator.IsDead)
+            if (TargetAnimator != null && TargetAnimator.IsDead) {
                 distanceModifier = TargetAttributes.DeathZoom;
-            else if (_shakeEffect != null)
+            } else if (_shakeEffect != null) {
                 distanceModifier = _shakeEffect.OldDistanceModifier;
-            else if (_cinematicOverride) 
+            } else if (_cinematicOverride) { 
                 distanceModifier = 0.5f;
-            else 
+            } else { 
                 distanceModifier = TargetAttributes.DistanceModifier;
+            }
                                                                                         
             velocityLookAheadX = TargetAttributes.VelocityLookAheadX;
             velocityLookAheadY = TargetAttributes.VelocityLookAheadY;
             maxLookAhead = TargetAttributes.MaxLookAhead;
         }
 
-        Vector3 goalPosition = Target.position + new Vector3 (0, heightOffset, -Distance * distanceModifier);
+        Vector3 goalPosition = Target.position + new Vector3(0, heightOffset, -Distance * distanceModifier);
 
         Vector3 nearestEnemy = Vector3.zero;
-        _enemyFocused = GetNearestEnemy (out nearestEnemy);
-        if (_enemyFocused)
+        _enemyFocused = GetNearestEnemy(out nearestEnemy);
+        if (_enemyFocused) {
             goalPosition += (nearestEnemy - GameManager.Player.transform.position) * 0.5f 
-                + new Vector3 (0, 0, -Vector3.Distance (nearestEnemy, GameManager.Player.transform.position) * 0.25f);
+                + new Vector3(0, 0, -Vector3.Distance(nearestEnemy, GameManager.Player.transform.position) * 0.25f);
+        }
 
         // Next, we refine our goalPosition by taking into account our target's current velocity.
         // This will make the camera slightly look ahead to wherever the character is going.
@@ -111,12 +116,16 @@ public class CameraScrolling : MonoBehaviour
         Vector3 targetVelocity = Vector3.zero;
 
         // If we find a Rigidbody on the target, that means we can access a velocity!
-        if (TargetRigidbody)
+        if (TargetRigidbody) {
             targetVelocity = TargetRigidbody.velocity;
+        }
+        
 
         // If the target has a velocity, we use that velocity
-        if (TargetAnimator)
+        if (TargetAnimator) {
             targetVelocity = TargetAnimator.Velocity;
+        }
+        
 
         // Estimate what the target's position will be in velocityLookAhead seconds (position = velocity * time).
         Vector3 lookAhead = targetVelocity;
@@ -126,8 +135,8 @@ public class CameraScrolling : MonoBehaviour
         // We clamp the lookAhead vector to some sane values so that the target doesn't go offscreen.
         // This calculation could be more advanced (lengthy), taking into account the target's viewport position,
         // but this works pretty well in practice.
-        lookAhead.x = Mathf.Clamp (lookAhead.x, -maxLookAhead.x, maxLookAhead.x);
-        lookAhead.y = Mathf.Clamp (lookAhead.y, -maxLookAhead.y, maxLookAhead.y);
+        lookAhead.x = Mathf.Clamp(lookAhead.x, -maxLookAhead.x, maxLookAhead.x);
+        lookAhead.y = Mathf.Clamp(lookAhead.y, -maxLookAhead.y, maxLookAhead.y);
         // We never want to take z velocity into account as this is 2D.  Just make sure it's zero.
         lookAhead.z = 0.0f;
 
@@ -135,18 +144,22 @@ public class CameraScrolling : MonoBehaviour
         lookAhead *= distanceModifier;
 
         // Stop looking ahead if we tagged it to false
-        if (TargetAnimator != null && TargetAnimator.CurrentState.IsTag ("NoLookAhead"))
+        if (TargetAnimator != null && TargetAnimator.CurrentState.IsTag("NoLookAhead")) {
             lookAhead = Vector3.zero;
+        }
+        
 
         // Now add in our lookAhead calculation.  Our camera following is now a bit better!
         goalPosition += lookAhead;
 
         // Shake the camera if told
         if (_shakeEffect != null) {
-            if (! _shakeEffect.IsDone)
-                goalPosition += _shakeEffect.Shake (Time.deltaTime);
-            else
+            if (! _shakeEffect.IsDone) {
+                goalPosition += _shakeEffect.Shake(Time.deltaTime);
+            } else {
                 _shakeEffect = null;
+            }
+            
         }
 
         // We will also make it so that the positions beyond the level boundaries are never seen. 
@@ -159,18 +172,18 @@ public class CameraScrolling : MonoBehaviour
 
         // Get the target position in viewport space.  Viewport space is relative to the camera.
         // The bottom left is (0,0) and the upper right is (1,1)
-        Vector3 targetViewportPosition = camera.WorldToViewportPoint (Target.position);
+        Vector3 targetViewportPosition = camera.WorldToViewportPoint(Target.position);
 
         // First clamp to the right and top.  After this we will clamp to the bottom and left, so it will override this
         // clamping if it needs to.  This only occurs if the level is really small so that the camera sees more than
         // the entire level at once.
 
         // What is the world position of the very upper right corner of the camera?
-        Vector3 upperRightCameraInWorld = camera.ViewportToWorldPoint (new Vector3 (1.0f, 1.0f, targetViewportPosition.z));
+        Vector3 upperRightCameraInWorld = camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
-        clampOffset.x = Mathf.Min (GameManager.Level.Boundaries.xMax - upperRightCameraInWorld.x, 0.0f);
-        clampOffset.y = Mathf.Min ((GameManager.Level.Boundaries.yMax - upperRightCameraInWorld.y), 0.0f);
+        clampOffset.x = Mathf.Min(GameManager.Level.Boundaries.xMax - upperRightCameraInWorld.x, 0.0f);
+        clampOffset.y = Mathf.Min((GameManager.Level.Boundaries.yMax - upperRightCameraInWorld.y), 0.0f);
 
         // Now we apply our clamping to our goalPosition.  Now our camera won't go past the right and top boundaries of the level!
         goalPosition += clampOffset;
@@ -180,11 +193,11 @@ public class CameraScrolling : MonoBehaviour
         // zoomed out too far for the level size, you will see past the right or top of the level.
 
         transform.position = goalPosition;
-        Vector3 lowerLeftCameraInWorld = camera.ViewportToWorldPoint (new Vector3 (0.0f, 0.0f, targetViewportPosition.z));
+        Vector3 lowerLeftCameraInWorld = camera.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
-        clampOffset.x = Mathf.Max ((GameManager.Level.Boundaries.xMin - lowerLeftCameraInWorld.x), 0.0f);
-        clampOffset.y = Mathf.Max ((GameManager.Level.Boundaries.yMin - lowerLeftCameraInWorld.y), 0.0f);
+        clampOffset.x = Mathf.Max((GameManager.Level.Boundaries.xMin - lowerLeftCameraInWorld.x), 0.0f);
+        clampOffset.y = Mathf.Max((GameManager.Level.Boundaries.yMin - lowerLeftCameraInWorld.y), 0.0f);
 
         // Now we apply our clamping to our goalPosition once again.  Now our camera won't go past the left and bottom boundaries of the level!
         goalPosition += clampOffset;
@@ -197,48 +210,42 @@ public class CameraScrolling : MonoBehaviour
 
     }
 
-    public bool GetNearestEnemy (out Vector3 vNearestEnemy)
+    public bool GetNearestEnemy(out Vector3 nearestEnemy)
     {
-        Vector3 vPlayerPos = GameManager.Player.gameObject.transform.position;
-        
-        bool bFoundAny = false;
-        Vector3 vNearest = new Vector3 (0.0f, 0.0f, 0.0f);
+        nearestEnemy = Vector3.zero;
+        if (CinematicOverride) {
+            return false;
+        }
+
+        Vector3 playerPos = GameManager.Player.transform.position;
 
         foreach (EnemyAI enemy in GameManager.AI.Enemies) {
-            if (enemy != null && !enemy.Animator.IsDead) {                
-                bool isCamera = (enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_CameraSpotter);
-                bool isChasing = (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing);
+            if (enemy == null || enemy.Animator == null || enemy.Animator.IsDead) {
+                continue;
+            }
 
-                // track non-cameras who are not chasing, OR cameras who ARE "chasing".
-                if (((isCamera) || (!isCamera && !isChasing)) && 
-                    Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) < EnemyFocus) {// && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) >= EnemyIgnoreRange) {
+            bool isCamera = (enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_CameraSpotter);
+            bool isChasing = (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing);
+            float enemyDistance = Vector3.Distance(enemy.transform.position, playerPos);
 
-                    if (!bFoundAny) {
-                        bFoundAny = true;
-                        vNearest = enemy.transform.position;
-                        
-                    } else {
-                        // found a closer one? use it.
-                        if (Vector3.Distance (vPlayerPos, enemy.transform.position) < 
-                            Vector3.Distance (vPlayerPos, vNearest)) {
-                            vNearest = enemy.transform.position;
-                            
-                        }
-                        
-                    }
+            // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL
+            if(enemy.PersonalHearingRadius != null && enemy.PersonalHearingRadius.IgnoreAbove && GameManager.Player != null && GameManager.Player.transform.position.y > 70)
+                continue;
+
+            // Track non-cameras who are not chasing, OR cameras who ARE "chasing".
+            if ((isCamera || (!isCamera && !isChasing)) && 
+                (enemyDistance < EnemyFocus || (enemy.Settings.CanHear && enemy.CouldHearPlayer))) {
+
+                if (nearestEnemy == Vector3.zero) { 
+                    nearestEnemy = enemy.transform.position;
+                } else if (Vector3.Distance(playerPos, enemy.transform.position) < 
+                    Vector3.Distance(playerPos, nearestEnemy)) {
+                    nearestEnemy = enemy.transform.position;
                 }
             }
         }
-        
-        if (bFoundAny) {
-            vNearestEnemy = vNearest;
-            return true;
-            
-        } else {
-            vNearestEnemy = new Vector3 (0.0f, 0.0f, 0.0f);
-            return false;
-            
-        }
+
+        return nearestEnemy != Vector3.zero;
         
     }
     
@@ -247,9 +254,10 @@ public class CameraScrolling : MonoBehaviour
         set {
             // Remove audiolistener from old target
             if (_target != null && value != null && _target != value) {
-                AudioListener listener = _target.GetComponent<AudioListener> ();
-                if (listener != null)
-                    Destroy (listener);
+                AudioListener listener = _target.GetComponent<AudioListener>();
+                if (listener != null) { 
+                    Destroy(listener);
+                }
             }
 
             // Update to the new target
@@ -257,12 +265,13 @@ public class CameraScrolling : MonoBehaviour
 
             // And set it up
             if (_target != null) {
-                _cameraTargetAttributes = _target.GetComponent<CameraTargetAttributes> ();
-                _targetAnimator = _target.GetComponent<CharacterAnimator> ();
-                _targetRigidbody = _target.GetComponent<Rigidbody> ();
+                _cameraTargetAttributes = _target.GetComponent<CameraTargetAttributes>();
+                _targetAnimator = _target.GetComponent<CharacterAnimator>();
+                _targetRigidbody = _target.GetComponent<Rigidbody>();
 
-                if(_target.GetComponent<AudioListener>() == null)
-                    _target.gameObject.AddComponent<AudioListener> ();
+                if (_target.GetComponent<AudioListener>() == null) {
+                    _target.gameObject.AddComponent<AudioListener>();
+                }
             }
         }
     }

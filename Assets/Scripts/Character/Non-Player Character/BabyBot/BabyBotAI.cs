@@ -7,7 +7,7 @@ using System.Collections;
 [AddComponentMenu("AI/BabyBot AI")]
 public class BabyBotAI : EnemyAI
 {
-    BabyBotAwareness _babyBotAwareness;
+    private BabyBotAwareness _babyBotAwareness;
 
     protected override void OnStart()
     {

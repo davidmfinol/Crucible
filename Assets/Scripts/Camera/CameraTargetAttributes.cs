@@ -14,18 +14,18 @@ public class CameraTargetAttributes : MonoBehaviour
 
     // How much time in the future should the camera look ahead of this target?
     // This value will be multiplied by this target's velocity to find the look ahead distance
-    public float VelocityLookAheadX = 2.0f;
+    public float VelocityLookAheadX = 0.5f;
     public float VelocityLookAheadY = 0.15f;
 
     // What's the maximum distance we should let the camera look ahead?
-    public Vector2 MaxLookAhead = new Vector2 (3.0f, 3.0f);
+    public Vector2 MaxLookAhead = new Vector2 (10.0f, 5.0f);
 
     // Allow for dynamic zoom based off speed of the character
     public float ZoomOffset = 1.5f;
     public float MaxZoomIn = 0.9f;
-    public float MaxZoomOut = 2.0f;
-    public float ZoomInAcceleration = 0.35f;// How fast does the camera zoom in?
-    public float ZoomOutAcceleration = 0.75f;// How fast does the camera zoom out?
+    public float MaxZoomOut = 2.1f;
+    public float ZoomInAcceleration = 0.5f;// How fast does the camera zoom in?
+    public float ZoomOutAcceleration = 1.0f;// How fast does the camera zoom out?
     public float ZoomOutDelay = 2.0f; // How much time passes before we start zooming out?
     public float DeathZoom = 0.75f;  // How close to zoom on player death
 

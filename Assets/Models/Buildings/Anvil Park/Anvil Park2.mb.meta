@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 3d6783e74f307486ab32f9cbf3bf1b71
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
     100002: AnvilPark
@@ -368,6 +368,127 @@ ModelImporter:
     100724: Rope2
     100726: GroundMesh
     100728: mesh
+    100730: Lattices
+    100732: Ledge 6
+    100734: Ledge36
+    100736: LedgeLeftOnly
+    100738: LedgeRightOnly
+    100740: Mesh
+    100742: pCube109
+    100744: pCube110
+    100746: pCube111
+    100748: pCube112
+    100750: pCube113
+    100752: pCube114
+    100754: pCube115
+    100756: pCube116
+    100758: pCube117
+    100760: pCube118
+    100762: pCube119
+    100764: pCube120
+    100766: pCube121
+    100768: polySurface93
+    100770: polySurface95
+    100772: polySurface97
+    100774: transform45
+    100776: transform46
+    100778: transform47
+    100780: transform48
+    100782: transform49
+    100784: WallLedge
+    100786: Rope3
+    100788: Ledge37
+    100790: Ledge38
+    100792: pCube122
+    100794: pCube123
+    100796: pCube124
+    100798: pCube125
+    100800: pCube126
+    100802: pCube127
+    100804: pCube128
+    100806: pCube129
+    100808: pCube130
+    100810: pCube131
+    100812: pCube132
+    100814: polySurface98
+    100816: polySurface99
+    100818: transform50
+    100820: Ledge 7
+    100822: polySurface100
+    100824: polySurface101
+    100826: polySurface102
+    100828: polySurface104
+    100830: transform51
+    100832: transform52
+    100834: WallLedge 1
+    100836: polySurface105
+    100838: transform53
+    100840: Wall
+    100842: Wall1
+    100844: WallLedge 2
+    100846: pCube133
+    100848: pCylinder4
+    100850: group9
+    100852: Ledge 8
+    100854: Ledge39
+    100856: Ledge40
+    100858: pCube134
+    100860: pCube135
+    100862: pCylinder5
+    100864: WallLedge1
+    100866: pCube136
+    100868: pCube137
+    100870: pCube138
+    100872: pCube140
+    100874: Ledge41
+    100876: Nada
+    100878: LedgeLeftOnly 1
+    100880: Elevator
+    100882: Ledge42
+    100884: Ledge43
+    100886: Ledge44
+    100888: Ledge45
+    100890: Ledge46
+    100892: WallLedge2
+    100894: WallLedge3
+    100896: Ledge47
+    100898: Ledge48
+    100900: pCylinder6
+    100902: pCylinder7
+    100904: Ground1
+    100906: Mesh 1
+    100908: polySurface106
+    100910: polySurface107
+    100912: polySurface108
+    100914: polySurface109
+    100916: transform54
+    100918: transform55
+    100920: transform56
+    100922: transform57
+    100924: Mesh1
+    100926: WallLedge4
+    100928: WallLedge5
+    100930: Mesh 2
+    100932: transform58
+    100934: WallLedge 3
+    100936: polySurface110
+    100938: polySurface111
+    100940: polySurface112
+    100942: polySurface113
+    100944: polySurface114
+    100946: polySurface115
+    100948: polySurface116
+    100950: polySurface117
+    100952: polySurface118
+    100954: polySurface119
+    100956: polySurface120
+    100958: polySurface121
+    100960: polySurface122
+    100962: transform59
+    100964: transform60
+    100966: transform61
+    100968: transform62
+    100970: transform63
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -733,6 +854,127 @@ ModelImporter:
     400724: Rope2
     400726: GroundMesh
     400728: mesh
+    400730: Lattices
+    400732: Ledge 6
+    400734: Ledge36
+    400736: LedgeLeftOnly
+    400738: LedgeRightOnly
+    400740: Mesh
+    400742: pCube109
+    400744: pCube110
+    400746: pCube111
+    400748: pCube112
+    400750: pCube113
+    400752: pCube114
+    400754: pCube115
+    400756: pCube116
+    400758: pCube117
+    400760: pCube118
+    400762: pCube119
+    400764: pCube120
+    400766: pCube121
+    400768: polySurface93
+    400770: polySurface95
+    400772: polySurface97
+    400774: transform45
+    400776: transform46
+    400778: transform47
+    400780: transform48
+    400782: transform49
+    400784: WallLedge
+    400786: Rope3
+    400788: Ledge37
+    400790: Ledge38
+    400792: pCube122
+    400794: pCube123
+    400796: pCube124
+    400798: pCube125
+    400800: pCube126
+    400802: pCube127
+    400804: pCube128
+    400806: pCube129
+    400808: pCube130
+    400810: pCube131
+    400812: pCube132
+    400814: polySurface98
+    400816: polySurface99
+    400818: transform50
+    400820: Ledge 7
+    400822: polySurface100
+    400824: polySurface101
+    400826: polySurface102
+    400828: polySurface104
+    400830: transform51
+    400832: transform52
+    400834: WallLedge 1
+    400836: polySurface105
+    400838: transform53
+    400840: Wall
+    400842: Wall1
+    400844: WallLedge 2
+    400846: pCube133
+    400848: pCylinder4
+    400850: group9
+    400852: Ledge 8
+    400854: Ledge39
+    400856: Ledge40
+    400858: pCube134
+    400860: pCube135
+    400862: pCylinder5
+    400864: WallLedge1
+    400866: pCube136
+    400868: pCube137
+    400870: pCube138
+    400872: pCube140
+    400874: Ledge41
+    400876: Nada
+    400878: LedgeLeftOnly 1
+    400880: Elevator
+    400882: Ledge42
+    400884: Ledge43
+    400886: Ledge44
+    400888: Ledge45
+    400890: Ledge46
+    400892: WallLedge2
+    400894: WallLedge3
+    400896: Ledge47
+    400898: Ledge48
+    400900: pCylinder6
+    400902: pCylinder7
+    400904: Ground1
+    400906: Mesh 1
+    400908: polySurface106
+    400910: polySurface107
+    400912: polySurface108
+    400914: polySurface109
+    400916: transform54
+    400918: transform55
+    400920: transform56
+    400922: transform57
+    400924: Mesh1
+    400926: WallLedge4
+    400928: WallLedge5
+    400930: Mesh 2
+    400932: transform58
+    400934: WallLedge 3
+    400936: polySurface110
+    400938: polySurface111
+    400940: polySurface112
+    400942: polySurface113
+    400944: polySurface114
+    400946: polySurface115
+    400948: polySurface116
+    400950: polySurface117
+    400952: polySurface118
+    400954: polySurface119
+    400956: polySurface120
+    400958: polySurface121
+    400960: polySurface122
+    400962: transform59
+    400964: transform60
+    400966: transform61
+    400968: transform62
+    400970: transform63
     2300000: Fixture
     2300002: HarshRedLight
     2300004: HarshRedLight1
@@ -1003,6 +1245,94 @@ ModelImporter:
     2300534: Rope1
     2300536: Rope2
     2300538: GroundMesh
+    2300540: Ledge 6
+    2300542: LedgeLeftOnly
+    2300544: LedgeRightOnly
+    2300546: Mesh
+    2300548: pCube109
+    2300550: pCube110
+    2300552: pCube111
+    2300554: pCube112
+    2300556: pCube113
+    2300558: pCube114
+    2300560: pCube115
+    2300562: pCube116
+    2300564: pCube117
+    2300566: pCube118
+    2300568: pCube119
+    2300570: pCube120
+    2300572: polySurface93
+    2300574: polySurface95
+    2300576: polySurface97
+    2300578: WallLedge
+    2300580: Rope3
+    2300582: Ledge37
+    2300584: pCube122
+    2300586: pCube123
+    2300588: pCube124
+    2300590: pCube125
+    2300592: pCube126
+    2300594: pCube127
+    2300596: pCube128
+    2300598: pCube129
+    2300600: pCube130
+    2300602: pCube131
+    2300604: pCube132
+    2300606: polySurface98
+    2300608: polySurface99
+    2300610: Ledge 7
+    2300612: polySurface100
+    2300614: polySurface101
+    2300616: polySurface104
+    2300618: WallLedge 1
+    2300620: polySurface105
+    2300622: Wall
+    2300624: Wall1
+    2300626: WallLedge 2
+    2300628: pCube133
+    2300630: pCylinder4
+    2300632: Ledge 8
+    2300634: Ledge39
+    2300636: Ledge40
+    2300638: pCube134
+    2300640: pCube135
+    2300642: pCylinder5
+    2300644: WallLedge1
+    2300646: pCube136
+    2300648: pCube137
+    2300650: pCube138
+    2300652: pCube140
+    2300654: Ledge41
+    2300656: Nada
+    2300658: LedgeLeftOnly 1
+    2300660: Ledge42
+    2300662: Ledge43
+    2300664: Ledge44
+    2300666: Ledge45
+    2300668: Ledge46
+    2300670: WallLedge2
+    2300672: WallLedge3
+    2300674: Ledge47
+    2300676: Ledge48
+    2300678: pCylinder6
+    2300680: pCylinder7
+    2300682: Ground1
+    2300684: Mesh 1
+    2300686: polySurface108
+    2300688: Mesh1
+    2300690: WallLedge4
+    2300692: WallLedge5
+    2300694: Mesh 2
+    2300696: WallLedge 3
+    2300698: polySurface110
+    2300700: polySurface112
+    2300702: polySurface114
+    2300704: polySurface116
+    2300706: polySurface118
+    2300708: polySurface119
+    2300710: polySurface120
+    2300712: polySurface121
+    2300714: polySurface122
     3300000: Fixture
     3300002: HarshRedLight
     3300004: HarshRedLight1
@@ -1273,6 +1603,94 @@ ModelImporter:
     3300534: Rope1
     3300536: Rope2
     3300538: GroundMesh
+    3300540: Ledge 6
+    3300542: LedgeLeftOnly
+    3300544: LedgeRightOnly
+    3300546: Mesh
+    3300548: pCube109
+    3300550: pCube110
+    3300552: pCube111
+    3300554: pCube112
+    3300556: pCube113
+    3300558: pCube114
+    3300560: pCube115
+    3300562: pCube116
+    3300564: pCube117
+    3300566: pCube118
+    3300568: pCube119
+    3300570: pCube120
+    3300572: polySurface93
+    3300574: polySurface95
+    3300576: polySurface97
+    3300578: WallLedge
+    3300580: Rope3
+    3300582: Ledge37
+    3300584: pCube122
+    3300586: pCube123
+    3300588: pCube124
+    3300590: pCube125
+    3300592: pCube126
+    3300594: pCube127
+    3300596: pCube128
+    3300598: pCube129
+    3300600: pCube130
+    3300602: pCube131
+    3300604: pCube132
+    3300606: polySurface98
+    3300608: polySurface99
+    3300610: Ledge 7
+    3300612: polySurface100
+    3300614: polySurface101
+    3300616: polySurface104
+    3300618: WallLedge 1
+    3300620: polySurface105
+    3300622: Wall
+    3300624: Wall1
+    3300626: WallLedge 2
+    3300628: pCube133
+    3300630: pCylinder4
+    3300632: Ledge 8
+    3300634: Ledge39
+    3300636: Ledge40
+    3300638: pCube134
+    3300640: pCube135
+    3300642: pCylinder5
+    3300644: WallLedge1
+    3300646: pCube136
+    3300648: pCube137
+    3300650: pCube138
+    3300652: pCube140
+    3300654: Ledge41
+    3300656: Nada
+    3300658: LedgeLeftOnly 1
+    3300660: Ledge42
+    3300662: Ledge43
+    3300664: Ledge44
+    3300666: Ledge45
+    3300668: Ledge46
+    3300670: WallLedge2
+    3300672: WallLedge3
+    3300674: Ledge47
+    3300676: Ledge48
+    3300678: pCylinder6
+    3300680: pCylinder7
+    3300682: Ground1
+    3300684: Mesh 1
+    3300686: polySurface108
+    3300688: Mesh1
+    3300690: WallLedge4
+    3300692: WallLedge5
+    3300694: Mesh 2
+    3300696: WallLedge 3
+    3300698: polySurface110
+    3300700: polySurface112
+    3300702: polySurface114
+    3300704: polySurface116
+    3300706: polySurface118
+    3300708: polySurface119
+    3300710: polySurface120
+    3300712: polySurface121
+    3300714: polySurface122
     4300000: pCube4
     4300002: Ledge7
     4300004: Ledge8
@@ -1542,6 +1960,93 @@ ModelImporter:
     4300532: Rope2
     4300534: Rope1
     4300536: GroundMesh
+    4300538: polySurface93
+    4300540: LedgeRightOnly
+    4300542: LedgeLeftOnly
+    4300544: Mesh
+    4300546: pCube109
+    4300548: pCube110
+    4300550: pCube111
+    4300552: pCube112
+    4300554: pCube113
+    4300556: pCube114
+    4300558: pCube115
+    4300560: pCube116
+    4300562: pCube117
+    4300564: pCube118
+    4300566: pCube119
+    4300568: pCube120
+    4300570: Ledge
+    4300572: polySurface95
+    4300574: WallLedge
+    4300576: polySurface97
+    4300578: Rope3
+    4300580: Ledge37
+    4300582: polySurface98
+    4300584: polySurface99
+    4300586: pCube122
+    4300588: pCube123
+    4300590: pCube124
+    4300592: pCube125
+    4300594: pCube126
+    4300596: pCube127
+    4300598: pCube128
+    4300600: pCube129
+    4300602: pCube130
+    4300604: pCube131
+    4300606: pCube132
+    4300608: WallLedge
+    4300610: polySurface100
+    4300612: polySurface101
+    4300614: Ledge
+    4300616: polySurface104
+    4300618: polySurface105
+    4300620: Wall
+    4300622: Wall1
+    4300624: pCube133
+    4300626: pCylinder4
+    4300628: Ledge40
+    4300630: pCylinder5
+    4300632: pCube134
+    4300634: Ledge39
+    4300636: Ledge
+    4300638: WallLedge1
+    4300640: pCube135
+    4300642: pCube136
+    4300644: pCube137
+    4300646: pCube138
+    4300648: pCube140
+    4300650: Nada
+    4300652: Ledge41
+    4300654: LedgeLeftOnly
+    4300656: Ledge42
+    4300658: Ledge43
+    4300660: Ledge44
+    4300662: Ledge45
+    4300664: Ledge46
+    4300666: WallLedge3
+    4300668: WallLedge2
+    4300670: pCylinder6
+    4300672: Ledge47
+    4300674: Ledge48
+    4300676: pCylinder7
+    4300678: polySurface108
+    4300680: Mesh
+    4300682: Ground1
+    4300684: Mesh1
+    4300686: WallLedge4
+    4300688: WallLedge5
+    4300690: WallLedge
+    4300692: Mesh
+    4300694: polySurface110
+    4300696: polySurface112
+    4300698: polySurface114
+    4300700: polySurface116
+    4300702: polySurface118
+    4300704: polySurface119
+    4300706: polySurface120
+    4300708: polySurface121
+    4300710: polySurface122
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -1595,5 +2100,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
-  additionalBone: 0
   userData: 
