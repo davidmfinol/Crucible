@@ -71,6 +71,12 @@ public class ViewCone : MonoBehaviour
 
     private GameObject CreateMask(Collider other, GameObject prevMask)
     {
+        // Need to make sure the object we're masking still exists
+        if (other == null) {
+            Destroy(prevMask);
+            return null;
+        }
+
         // Create the mask for the first time if it doesn't exist
         MeshFilter meshFilter = null;
         Mesh mesh = null;
@@ -154,7 +160,6 @@ public class ViewCone : MonoBehaviour
         bool isObjectToRight = bottomRight.x + center.x > collider.bounds.min.x;
         bool isFacingLeft = forward.x < -0.1f;
         bool isFacingRight = forward.x > 0.1f;
-        Debug.Log(forward);
         if(isFacingLeft && (isObjectToLeft || isObjectToRight)) { // Project left
             diff = collider.bounds.min.x - 10 - (bounds.center.x + Mathf.Min(bottomLeft.x, topLeft.x));
             bottomLeft.x += diff;
