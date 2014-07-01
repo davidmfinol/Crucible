@@ -956,6 +956,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
         }
     }
 
+    public override bool IsClimbing {
+        get { return CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == ClimbingLedgeState ||
+            CurrentState.nameHash == ClimbingPipeState || CurrentState.nameHash == WallgrabbingState;
+        }
+    }
+
     public override bool IsDead {
         get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState; }
     }
