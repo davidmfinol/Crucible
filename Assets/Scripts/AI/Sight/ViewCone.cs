@@ -142,7 +142,7 @@ public class ViewCone : MonoBehaviour
         Vector3 topRight = new Vector3(bounds.extents.x, bounds.extents.y, bounds.center.z);
         Vector3 bottomRight = new Vector3(bounds.extents.x, -bounds.extents.y, bounds.center.z);
         Vector3 forward = transform.forward;
-        Quaternion rotation = Quaternion.Euler(0, 0, -90);
+        Quaternion rotation = Quaternion.Euler(0, 0, 90);
         // HACK: CAMERA VIEW CONE DOESN'T HAVE MESH FORWARD SET CORRECTLY
         if(IsCamera)
             rotation = Quaternion.Euler(90, 0, 0);
@@ -154,6 +154,7 @@ public class ViewCone : MonoBehaviour
         bool isObjectToRight = bottomRight.x + center.x > collider.bounds.min.x;
         bool isFacingLeft = forward.x < -0.1f;
         bool isFacingRight = forward.x > 0.1f;
+        Debug.Log(forward);
         if(isFacingLeft && (isObjectToLeft || isObjectToRight)) { // Project left
             diff = collider.bounds.min.x - 10 - (bounds.center.x + Mathf.Min(bottomLeft.x, topLeft.x));
             bottomLeft.x += diff;
