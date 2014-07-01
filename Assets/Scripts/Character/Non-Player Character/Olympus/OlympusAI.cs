@@ -13,6 +13,7 @@ public class OlympusAI : EnemyAI
     // Settings for how the Olympus wanders
     private float _timeLeftWandering;
     private float _timeSpentIdling;
+    private Bounds _wanderZone;
     
     // Help prevent getting stuck in certain places
     //private Vector3 _lastFrameLocation = Vector3.zero;
@@ -22,6 +23,7 @@ public class OlympusAI : EnemyAI
         _olympusAwareness = GetComponent<OlympusAwareness> ();
         _timeLeftWandering = Settings.WanderTime;
         _timeSpentIdling = 0;
+        _wanderZone = new Bounds(Vector3.zero, Vector3.zero);
         //_lastFrameLocation = transform.position;
 
     }
@@ -43,7 +45,7 @@ public class OlympusAI : EnemyAI
         
         // Likewise, make sure we update our target when we start wandering
         if (oldAwareness != AwarenessLevel.Unaware && Awareness == AwarenessLevel.Unaware) {
-            GetRandomSearchPoint ();
+            GetRandomSearchPoint (_wanderZone);
 
             OlympusAnimator oa = (OlympusAnimator)Animator;
             if (oa != null)
@@ -59,6 +61,9 @@ public class OlympusAI : EnemyAI
 
     protected override void Wander ()
     {
+        if(_wanderZone.extents == Vector3.zero && Animator.CurrentZone != null)
+            _wanderZone = Animator.CurrentZone.collider.bounds;
+
         // We make sure to limit the amount of time that we wander to allow the player to sneak up
         // It then idles for some time 
         if (_timeLeftWandering < 0) {
@@ -66,7 +71,7 @@ public class OlympusAI : EnemyAI
                 _timeSpentIdling += Time.deltaTime;
                 return;
             } else {
-                GetRandomSearchPoint ();
+                GetRandomSearchPoint (_wanderZone);
                 _timeLeftWandering = Settings.WanderTime;
                 _timeSpentIdling = 0;
             }
@@ -75,12 +80,12 @@ public class OlympusAI : EnemyAI
         
         // We need to retarget either if we lose or reach our target
         if (Target == Vector3.zero || Animator.Controller.bounds.Contains (Target))
-            GetRandomSearchPoint ();
+            GetRandomSearchPoint (_wanderZone);
         
         // We also retarget if our current path fails us
         if (!UpdateAStarPath (Settings.WanderSpeedRatio, false)) {
             //Debug.LogWarning("Astar Pathfinding failed while wandering! Choosing new target.");
-            GetRandomSearchPoint ();
+            GetRandomSearchPoint (_wanderZone);
             return;
         }
         

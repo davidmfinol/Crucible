@@ -72,10 +72,19 @@ public class Vision : MonoBehaviour
 
 	public bool CollisionBasedVision()
 	{
-		foreach(ViewCone cone in ViewCones)
-			foreach(HeartBox character in cone.CharactersSeen)
-				if(character.Allegiance == TeamAllegiance.Player)
-					return true;
+		foreach(ViewCone cone in ViewCones) {
+			foreach(HeartBox character in cone.CharactersSeen) {
+				if(character.Allegiance == TeamAllegiance.Player) {
+                    bool clear = true;
+                    foreach(Collider col in cone.Barriers.Keys) {
+                        if(col.bounds.Contains(character.transform.position))
+                           clear = false;
+                    }
+                    if(clear)
+                        return true;
+                }
+            }
+        }
 
 		return false;
 

@@ -155,12 +155,12 @@ public class ViewCone : MonoBehaviour
         bool isFacingLeft = forward.x < -0.1f;
         bool isFacingRight = forward.x > 0.1f;
         if(isFacingLeft && (isObjectToLeft || isObjectToRight)) { // Project left
-            diff = collider.bounds.min.x - (bounds.center.x + Mathf.Min(bottomLeft.x, topLeft.x));
+            diff = collider.bounds.min.x - 10 - (bounds.center.x + Mathf.Min(bottomLeft.x, topLeft.x));
             bottomLeft.x += diff;
             topLeft.x += diff;
         }
         else if(isFacingRight && (isObjectToLeft || isObjectToRight)) { // Project right
-            diff = collider.bounds.max.x - (bounds.center.x + Mathf.Max(bottomRight.x, topRight.x));
+            diff = collider.bounds.max.x + 10 - (bounds.center.x + Mathf.Max(bottomRight.x, topRight.x));
             bottomRight.x += diff;
             topRight.x += diff;
         }
@@ -172,12 +172,12 @@ public class ViewCone : MonoBehaviour
         bool isFacingDown = forward.y < -0.1f;
         bool isFacingUp = forward.y > 0.1f;
         if(isFacingDown && (isObjectBelow || isObjectAbove)) { // Project down
-            diff = collider.bounds.min.y - (bounds.center.y + Mathf.Min(bottomLeft.y, bottomRight.y));
+            diff = collider.bounds.min.y - 10 - (bounds.center.y + Mathf.Min(bottomLeft.y, bottomRight.y));
             bottomLeft.y += diff;
             bottomRight.y += diff;
         }
         else if(isFacingUp && (isObjectBelow || isObjectAbove)) { // Project up
-            diff = collider.bounds.max.y - (bounds.center.y + Mathf.Max(topLeft.y, topRight.y));
+            diff = collider.bounds.max.y + 10 - (bounds.center.y + Mathf.Max(topLeft.y, topRight.y));
             topLeft.y += diff;
             topRight.y += diff;
         }
@@ -203,14 +203,6 @@ public class ViewCone : MonoBehaviour
 
     }
 
-    private Vector3 CalculateNormal(Vector3 a, Vector3 b, bool v1 = false)
-    {
-        float dx = b.x - a.x;
-        float dy = b.y - a.y;
-        return v1 ? new Vector3(dy, -dx, 0) : new Vector3(-dy, dx, 0);
-
-    }
-
     // Makes sure we get rid of all our masks when we disappear
     void OnDisable()
     {
@@ -224,6 +216,10 @@ public class ViewCone : MonoBehaviour
     {
         OnDisable();
 
+    }
+
+    public Dictionary<Collider, GameObject> Barriers {
+        get { return _barriers; }
     }
 
 	public List<HeartBox> CharactersSeen {

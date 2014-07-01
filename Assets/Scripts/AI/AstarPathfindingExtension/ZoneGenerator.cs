@@ -742,4 +742,12 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     public ZoneNode[] Nodes {
         get { return _nodes; }
     }
+
+    /// <summary>
+    /// Gets the zones with waypoints.
+    /// </summary>
+    /// <value>The zones with waypoints.</value>
+    public Dictionary<Bounds, List<ZoneNode>> ZonesWithWaypoints {
+        get { return _zonesWithWaypoints; }
+    }
 }

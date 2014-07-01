@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Pathfinding;
 
 /// <summary>
@@ -165,9 +166,8 @@ public class EnemyAI : MonoBehaviour
 
     }
 
-    // TODO: MAKE THIS RETURN ONLY POINTS WITHIN THE BEGINNING ZONE
     // Helper method to find a new random location for the enemy to go to
-    protected virtual void GetRandomSearchPoint ()
+    protected virtual void GetRandomSearchPoint (Bounds constraints)
     {
         // Don't do anything if we're already searching for a path
         if (IsSearchingForPath)
@@ -175,19 +175,26 @@ public class EnemyAI : MonoBehaviour
         
         // Make sure we have a worthwhile graph
         ZoneGraph graph = GameManager.AI.Graph;
-        if (graph.Nodes.Length <= 0) {
+        if (graph.Nodes.Length <= 0 || graph.ZonesWithWaypoints == null || graph.ZonesWithWaypoints.Count <= 0) {
             //Debug.LogWarning("ZoneGraph not initialized while searching for a random search point!");
             return;
         }
         
-        // Find a random walkable ground node on the graph
-        int nodeNum = (int)Random.Range (0, graph.Nodes.Length);
-        ZoneNode randomNode = graph.Nodes [nodeNum];
+        // Find the zone to narrow our search
+        List<Bounds> zones = new List<Bounds>(graph.ZonesWithWaypoints.Keys);
+        Bounds zone = zones [(int) Random.Range(0, zones.Count)];
+        if(constraints.extents != Vector3.zero)
+            foreach(Bounds bounds in zones)
+                if(bounds.Equals(constraints))
+                    zone = bounds;
+
+        // Find a random node within that zone
+        List<ZoneNode> nodes = graph.ZonesWithWaypoints[zone];
+        ZoneNode randomNode = nodes [(int)Random.Range (0, nodes.Count)];
         bool isNodeGround = (randomNode.Tag & (1 << 0)) != 0;
         bool isAcceptable = randomNode.Walkable && isNodeGround;
         while (!isAcceptable) {
-            nodeNum = (int)Random.Range (0, graph.Nodes.Length);
-            randomNode = graph.Nodes [nodeNum];
+            randomNode = nodes [(int)Random.Range (0, nodes.Count)];
             isNodeGround = (randomNode.Tag & (1 << 0)) != 0;
             isAcceptable = randomNode.Walkable && isNodeGround;
         }
