@@ -28,3 +28,5 @@ ProjectSettings/EditorBuildSettings*
 *Thumbs.db
 
 Assets/Models/Items/Materials/FlareBottom.mat
+
+Assets/Prefabs/Environment/Fog.prefab.meta

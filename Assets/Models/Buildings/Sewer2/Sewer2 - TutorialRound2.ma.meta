@@ -850,6 +850,7 @@ ModelImporter:
     101688: polySurface337
     101690: polySurface338
     101692: polySurface339
+    101694: GroundBox
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1697,6 +1698,7 @@ ModelImporter:
     401688: polySurface337
     401690: polySurface338
     401692: polySurface339
+    401694: GroundBox
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -2242,6 +2244,7 @@ ModelImporter:
     2301084: polySurface337
     2301086: polySurface338
     2301088: polySurface339
+    2301090: GroundBox
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2787,6 +2790,7 @@ ModelImporter:
     3301084: polySurface337
     3301086: polySurface338
     3301088: polySurface339
+    3301090: GroundBox
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -3325,6 +3329,7 @@ ModelImporter:
     4301070: polySurface339
     4301072: polySurface337
     4301074: polySurface338
+    4301076: GroundBox
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -3335,6 +3340,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
+    motionNodeName: 
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
