@@ -40,7 +40,7 @@ public class ViewCone : MonoBehaviour
         // Then manage the list of characters that we see
 		HeartBox heart = other.GetComponent<HeartBox>();
 		if(heart != null)
-			_charactersSeen.Add(heart); // TODO: ACCOUNT FOR BARRIERS
+			_charactersSeen.Add(heart);
 
 	}
 

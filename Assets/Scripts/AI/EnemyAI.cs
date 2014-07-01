@@ -525,6 +525,8 @@ public class EnemyAI : MonoBehaviour
     void OnDestroy ()
     {
         GameManager.AI.Enemies.Remove (this);
+        Destroy(PersonalHearingRadius);
+        Destroy(PersonalVision);
 
     }
 

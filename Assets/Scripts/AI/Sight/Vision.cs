@@ -90,4 +90,12 @@ public class Vision : MonoBehaviour
 
 	}
 
+    void OnDestroy()
+    {
+        foreach (ViewCone cone in ViewCones) {
+            Destroy(cone.gameObject);
+        }
+
+    }
+
 }
