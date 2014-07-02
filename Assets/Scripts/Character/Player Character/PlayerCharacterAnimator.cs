@@ -5,7 +5,6 @@ using System.Collections.Generic;
 /// <summary>
 /// Player character defines the motion for the character that the player controls.
 /// </summary>
-[RequireComponent(typeof(PlayerCharacterShader))]
 [AddComponentMenu("Character/Player Character/Player Character Animator")]
 public class PlayerCharacterAnimator : CharacterAnimator
 {
