@@ -59,10 +59,14 @@ public class PlayerCharacterAnimator : CharacterAnimator
     // Who are we close enough to stealth-kill right now?
     private CharacterAnimator _stealthKillable;
 
+    // HACK: Couldn't get jump left-right to work using the properties, so we're doing this
+    private float _jumpDirectional;
+
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer> ();
         _itemPickedup = null;
+        _jumpDirectional = 0;
 
     }
     
@@ -109,8 +113,13 @@ public class PlayerCharacterAnimator : CharacterAnimator
     
     protected void UpdateMovementAnimations ()
     {
-        if (!MecanimAnimator.GetBool (MecanimHashes.Jump) && IsGrounded && CharInput.JumpPressed)
-            MecanimAnimator.SetBool (MecanimHashes.Jump, true);
+        if (!MecanimAnimator.GetBool(MecanimHashes.Jump) && IsGrounded && CharInput.JumpPressed) {
+            if(CharInput.JumpRight)
+                _jumpDirectional = 1;
+            else if (CharInput.JumpLeft)
+                _jumpDirectional = -1;
+            MecanimAnimator.SetBool(MecanimHashes.Jump, true);
+        }
 
         bool facingRightLadder = (ActiveHangTarget && ActiveHangTarget.transform.position.x - transform.position.x > 0.0f);
         bool facingLeftLadder = (ActiveHangTarget && transform.position.x - ActiveHangTarget.transform.position.x > 0.0f);
@@ -440,20 +449,23 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         Running (elapsedTime);
     }
-    
+
     protected void Jumping (float elapsedTime)
     {
         if (CharInput.Right || CharInput.Left)
             ApplyRunning (elapsedTime * 0.5f);
         
         if (MecanimAnimator.GetBool (MecanimHashes.Jump)) {
-            if (CharInput.JumpLeft || CharInput.JumpLeftReleased) {
+            if (CharInput.JumpLeft || CharInput.JumpLeftReleased || _jumpDirectional < 0) {
                 Direction = Vector3.left;
                 HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
-            } else if (CharInput.JumpRight || CharInput.JumpRightReleased) {
+            } else if (CharInput.JumpRight || CharInput.JumpRightReleased || _jumpDirectional > 0) {
                 Direction = Vector3.right;
                 HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
             }
+
+            // HACK: JUMPDIRECTIONAL
+            _jumpDirectional = 0;
 
             VerticalSpeed = Mathf.Sqrt (2 * Settings.JumpHeight * Settings.Gravity);
             MecanimAnimator.SetBool (MecanimHashes.Jump, false);
