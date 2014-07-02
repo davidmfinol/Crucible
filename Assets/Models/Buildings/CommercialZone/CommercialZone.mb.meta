@@ -1258,6 +1258,17 @@ ModelImporter:
     102504: MiddleCommercialBuilding:WallLedgeLeftOnly6
     102506: MiddleCommercialBuilding:WallLedgeLeftOnly7
     102508: MiddleCommercialBuilding:WallLedgeRightOnly4
+    102510: MiddleCommercialBuilding:pCube248
+    102512: pCylinder114
+    102514: pCylinder115
+    102516: pCylinder116
+    102518: pCylinder117
+    102520: pCylinder118
+    102522: polySurface297
+    102524: polySurface298
+    102526: polySurface55 1
+    102528: MiddleCommercialBuilding:pCube249
+    102530: MiddleCommercialBuilding:pSphere1
     400000: Box
     400002: Box1
     400004: Box10
@@ -2513,6 +2524,17 @@ ModelImporter:
     402504: MiddleCommercialBuilding:WallLedgeLeftOnly6
     402506: MiddleCommercialBuilding:WallLedgeLeftOnly7
     402508: MiddleCommercialBuilding:WallLedgeRightOnly4
+    402510: MiddleCommercialBuilding:pCube248
+    402512: pCylinder114
+    402514: pCylinder115
+    402516: pCylinder116
+    402518: pCylinder117
+    402520: pCylinder118
+    402522: polySurface297
+    402524: polySurface298
+    402526: polySurface55 1
+    402528: MiddleCommercialBuilding:pCube249
+    402530: MiddleCommercialBuilding:pSphere1
     2300000: Box12
     2300002: Box15
     2300004: Box3
@@ -3392,6 +3414,17 @@ ModelImporter:
     2301752: MiddleCommercialBuilding:WallLedgeLeftOnly6
     2301754: MiddleCommercialBuilding:WallLedgeLeftOnly7
     2301756: MiddleCommercialBuilding:WallLedgeRightOnly4
+    2301758: MiddleCommercialBuilding:pCube248
+    2301760: pCylinder114
+    2301762: pCylinder115
+    2301764: pCylinder116
+    2301766: pCylinder117
+    2301768: pCylinder118
+    2301770: polySurface297
+    2301772: polySurface298
+    2301774: polySurface55
+    2301776: MiddleCommercialBuilding:pCube249
+    2301778: MiddleCommercialBuilding:pSphere1
     3300000: Box12
     3300002: Box15
     3300004: Box3
@@ -4271,6 +4304,17 @@ ModelImporter:
     3301752: MiddleCommercialBuilding:WallLedgeLeftOnly6
     3301754: MiddleCommercialBuilding:WallLedgeLeftOnly7
     3301756: MiddleCommercialBuilding:WallLedgeRightOnly4
+    3301758: MiddleCommercialBuilding:pCube248
+    3301760: pCylinder114
+    3301762: pCylinder115
+    3301764: pCylinder116
+    3301766: pCylinder117
+    3301768: pCylinder118
+    3301770: polySurface297
+    3301772: polySurface298
+    3301774: polySurface55
+    3301776: MiddleCommercialBuilding:pCube249
+    3301778: MiddleCommercialBuilding:pSphere1
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -5150,6 +5194,17 @@ ModelImporter:
     4301752: MiddleCommercialBuilding:pCube245
     4301754: MiddleCommercialBuilding:pCube246
     4301756: MiddleCommercialBuilding:pCube247
+    4301758: MiddleCommercialBuilding:pCube248
+    4301760: polySurface55
+    4301762: polySurface297
+    4301764: polySurface298
+    4301766: pCylinder114
+    4301768: pCylinder115
+    4301770: pCylinder116
+    4301772: pCylinder117
+    4301774: pCylinder118
+    4301776: MiddleCommercialBuilding:pSphere1
+    4301778: MiddleCommercialBuilding:pCube249
     7400000: Take 001
     9500000: //RootNode
   materials:
