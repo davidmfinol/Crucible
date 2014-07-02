@@ -39,6 +39,7 @@ public class LevelManager : MonoBehaviour
 
         // Make sure the characters have a defined space in which they can move
         CreateBoundaries ();
+        ConfirmZone ();
 
         // Also make sure we have a start point
         if (DefaultStartPoint == null) {
@@ -92,6 +93,22 @@ public class LevelManager : MonoBehaviour
         _bottomBoundary.AddComponent (typeof(DeathTrigger)); // We die if we fall down too much
         _bottomBoundary.isStatic = true;
         _bottomBoundary.transform.parent = _createdBoundaries.transform;
+
+    }
+
+    // Makes sure there is at least one zone in the scene
+    public void ConfirmZone()
+    {
+        if(GameObject.FindGameObjectWithTag("Zone") != null)
+            return;
+
+        GameObject zone = new GameObject("_Zone");
+        zone.transform.localScale = new Vector3(1000, 1000, 1000);
+        zone.tag = "Zone";
+        BoxCollider col = zone.AddComponent<BoxCollider>();
+        zone.AddComponent<Zone>();
+        col.isTrigger = true;
+        zone.isStatic = true; // TODO: UPDATE ASTARGRAPH WITH ZONE
 
     }
 

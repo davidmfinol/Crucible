@@ -5,7 +5,6 @@ using System.Collections.Generic;
 /// <summary>
 /// Player character defines the motion for the character that the player controls.
 /// </summary>
-[RequireComponent(typeof(PlayerCharacterShader))]
 [AddComponentMenu("Character/Player Character/Player Character Animator")]
 public class PlayerCharacterAnimator : CharacterAnimator
 {
@@ -953,6 +952,12 @@ public class PlayerCharacterAnimator : CharacterAnimator
         get {
             GameObject itemObj;
             return CanPickupItem (out itemObj);
+        }
+    }
+
+    public override bool IsClimbing {
+        get { return CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == ClimbingLedgeState ||
+            CurrentState.nameHash == ClimbingPipeState || CurrentState.nameHash == WallgrabbingState;
         }
     }
 
