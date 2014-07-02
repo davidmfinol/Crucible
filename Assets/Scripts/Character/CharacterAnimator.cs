@@ -360,8 +360,14 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Do nothing by default, by child classes should override if they want some effect when hurt
 
     }
+
+	public void DoRagDoll()
+	{
+		DoRagDoll(Vector3.zero);
+
+	}
     
-    public void DoRagDoll ()
+    public void DoRagDoll (Vector3 push)
     {
         CharacterSettings.ActivateRagDoll (transform, false, true);
 
@@ -384,6 +390,10 @@ public abstract class CharacterAnimator : MonoBehaviour
         StealthKillTrigger stealthTrigger = GetComponentInChildren<StealthKillTrigger> ();
         if (stealthTrigger != null)
             Destroy (stealthTrigger);
+
+		// Apply the push
+		if(Settings.MainRigidBody != null)
+			Settings.MainRigidBody.AddForce(push);
 
         // Remove ourselves
         Destroy (this);
