@@ -112,10 +112,12 @@ public class Tutorial : MonoBehaviour
 #endif
 
         // Wait until they finally have used both hands to move on
+        bool leftSideTouched = false;
+        bool rightSideTouched = false;
 		while (!hasUsed2Hands) {
-            yield return null;
-            bool leftSideTouched = false;
-            bool rightSideTouched = false;
+
+            leftSideTouched = false;
+            rightSideTouched = false;
 
             foreach(Touch touch in Input.touches) {
                 if(touch.position.x < Screen.width / 2)
@@ -131,6 +133,9 @@ public class Tutorial : MonoBehaviour
 
             if(leftSideTouched && rightSideTouched)
 				hasUsed2Hands = true;
+            
+            yield return null;
+
         }
 
         // Remove the shown pieces
