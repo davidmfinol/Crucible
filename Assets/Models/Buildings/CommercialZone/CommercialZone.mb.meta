@@ -1258,6 +1258,105 @@ ModelImporter:
     102504: MiddleCommercialBuilding:WallLedgeLeftOnly6
     102506: MiddleCommercialBuilding:WallLedgeLeftOnly7
     102508: MiddleCommercialBuilding:WallLedgeRightOnly4
+    102510: MiddleCommercialBuilding:pCube248
+    102512: pCylinder114
+    102514: pCylinder115
+    102516: pCylinder116
+    102518: pCylinder117
+    102520: pCylinder118
+    102522: polySurface297
+    102524: polySurface298
+    102526: polySurface55 1
+    102528: MiddleCommercialBuilding:pCube249
+    102530: MiddleCommercialBuilding:pSphere1
+    102532: Box16
+    102534: Box17
+    102536: Box18
+    102538: Ledge 1
+    102540: LedgeLeftOnly10
+    102542: LedgeRightOnly 1
+    102544: LedgeRightOnly18
+    102546: WallLeftLedgeOnly1
+    102548: group
+    102550: pasted__pCube497
+    102552: pCube495
+    102554: LadderZ
+    102556: pasted__pCube498
+    102558: pasted__pCube499
+    102560: pasted__pCube500
+    102562: pasted__pCube501
+    102564: pasted__pCube502
+    102566: pasted__pCube503
+    102568: pasted__pCube504
+    102570: pasted__pCube505
+    102572: pasted__pCube506
+    102574: pasted__pCube507
+    102576: pasted__pCube508
+    102578: pasted__pCube509
+    102580: pasted__pCube510
+    102582: pasted__pCube511
+    102584: pasted__pCube512
+    102586: pasted__pCube513
+    102588: pasted__pCube514
+    102590: pasted__pCube515
+    102592: pasted__pCube516
+    102594: pasted__pCube517
+    102596: pasted__pCube518
+    102598: pasted__pCube519
+    102600: pasted__pCube520
+    102602: pasted__pCube521
+    102604: pasted__pCube522
+    102606: pasted__pCube523
+    102608: pasted__pCube524
+    102610: pCube496
+    102612: transform177
+    102614: transform178
+    102616: transform179
+    102618: transform180
+    102620: transform181
+    102622: transform182
+    102624: transform183
+    102626: transform184
+    102628: transform185
+    102630: transform186
+    102632: transform187
+    102634: transform188
+    102636: transform189
+    102638: transform190
+    102640: transform191
+    102642: Ledge226q1
+    102644: pasted__pCube525
+    102646: Nada
+    102648: Airport
+    102650: Ledge226q2
+    102652: Ledge226q3
+    102654: Ledge226q4
+    102656: Ledge226q5
+    102658: LedgeRight
+    102660: Nada39
+    102662: Nada40
+    102664: Nada41
+    102666: Nada42
+    102668: Nada43
+    102670: pCylinder119
+    102672: polySurface299
+    102674: polySurface300
+    102676: polySurface301
+    102678: transform192
+    102680: transform193
+    102682: transform194
+    102684: transform195
+    102686: WallLedge 3
+    102688: LedgeLeftOnly9Wall
+    102690: LedgeLeftOnlyWallRightOnly
+    102692: LedgeMesh1
+    102694: polySurface302
+    102696: polySurface303
+    102698: polySurface304
+    102700: polySurface305
+    102702: transform196
+    102704: WallLeftOnlyLedgeRightOnly
+    102706: WallRightOnlyLedge
     400000: Box
     400002: Box1
     400004: Box10
@@ -2513,6 +2612,105 @@ ModelImporter:
     402504: MiddleCommercialBuilding:WallLedgeLeftOnly6
     402506: MiddleCommercialBuilding:WallLedgeLeftOnly7
     402508: MiddleCommercialBuilding:WallLedgeRightOnly4
+    402510: MiddleCommercialBuilding:pCube248
+    402512: pCylinder114
+    402514: pCylinder115
+    402516: pCylinder116
+    402518: pCylinder117
+    402520: pCylinder118
+    402522: polySurface297
+    402524: polySurface298
+    402526: polySurface55 1
+    402528: MiddleCommercialBuilding:pCube249
+    402530: MiddleCommercialBuilding:pSphere1
+    402532: Box16
+    402534: Box17
+    402536: Box18
+    402538: Ledge 1
+    402540: LedgeLeftOnly10
+    402542: LedgeRightOnly 1
+    402544: LedgeRightOnly18
+    402546: WallLeftLedgeOnly1
+    402548: group
+    402550: pasted__pCube497
+    402552: pCube495
+    402554: LadderZ
+    402556: pasted__pCube498
+    402558: pasted__pCube499
+    402560: pasted__pCube500
+    402562: pasted__pCube501
+    402564: pasted__pCube502
+    402566: pasted__pCube503
+    402568: pasted__pCube504
+    402570: pasted__pCube505
+    402572: pasted__pCube506
+    402574: pasted__pCube507
+    402576: pasted__pCube508
+    402578: pasted__pCube509
+    402580: pasted__pCube510
+    402582: pasted__pCube511
+    402584: pasted__pCube512
+    402586: pasted__pCube513
+    402588: pasted__pCube514
+    402590: pasted__pCube515
+    402592: pasted__pCube516
+    402594: pasted__pCube517
+    402596: pasted__pCube518
+    402598: pasted__pCube519
+    402600: pasted__pCube520
+    402602: pasted__pCube521
+    402604: pasted__pCube522
+    402606: pasted__pCube523
+    402608: pasted__pCube524
+    402610: pCube496
+    402612: transform177
+    402614: transform178
+    402616: transform179
+    402618: transform180
+    402620: transform181
+    402622: transform182
+    402624: transform183
+    402626: transform184
+    402628: transform185
+    402630: transform186
+    402632: transform187
+    402634: transform188
+    402636: transform189
+    402638: transform190
+    402640: transform191
+    402642: Ledge226q1
+    402644: pasted__pCube525
+    402646: Nada
+    402648: Airport
+    402650: Ledge226q2
+    402652: Ledge226q3
+    402654: Ledge226q4
+    402656: Ledge226q5
+    402658: LedgeRight
+    402660: Nada39
+    402662: Nada40
+    402664: Nada41
+    402666: Nada42
+    402668: Nada43
+    402670: pCylinder119
+    402672: polySurface299
+    402674: polySurface300
+    402676: polySurface301
+    402678: transform192
+    402680: transform193
+    402682: transform194
+    402684: transform195
+    402686: WallLedge 3
+    402688: LedgeLeftOnly9Wall
+    402690: LedgeLeftOnlyWallRightOnly
+    402692: LedgeMesh1
+    402694: polySurface302
+    402696: polySurface303
+    402698: polySurface304
+    402700: polySurface305
+    402702: transform196
+    402704: WallLeftOnlyLedgeRightOnly
+    402706: WallRightOnlyLedge
     2300000: Box12
     2300002: Box15
     2300004: Box3
@@ -3392,6 +3590,64 @@ ModelImporter:
     2301752: MiddleCommercialBuilding:WallLedgeLeftOnly6
     2301754: MiddleCommercialBuilding:WallLedgeLeftOnly7
     2301756: MiddleCommercialBuilding:WallLedgeRightOnly4
+    2301758: MiddleCommercialBuilding:pCube248
+    2301760: pCylinder114
+    2301762: pCylinder115
+    2301764: pCylinder116
+    2301766: pCylinder117
+    2301768: pCylinder118
+    2301770: polySurface297
+    2301772: polySurface298
+    2301774: polySurface55
+    2301776: MiddleCommercialBuilding:pCube249
+    2301778: MiddleCommercialBuilding:pSphere1
+    2301780: Box16
+    2301782: Box17
+    2301784: Box18
+    2301786: Ledge 1
+    2301788: LedgeLeftOnly10
+    2301790: LedgeRightOnly 1
+    2301792: LedgeRightOnly18
+    2301794: WallLeftLedgeOnly1
+    2301796: pasted__pCube497
+    2301798: pCube495
+    2301800: LadderZ
+    2301802: pasted__pCube498
+    2301804: pasted__pCube499
+    2301806: pasted__pCube500
+    2301808: pasted__pCube501
+    2301810: pasted__pCube502
+    2301812: pasted__pCube503
+    2301814: pasted__pCube504
+    2301816: pasted__pCube505
+    2301818: pasted__pCube506
+    2301820: pasted__pCube507
+    2301822: pasted__pCube508
+    2301824: pasted__pCube509
+    2301826: pasted__pCube510
+    2301828: Ledge226q1
+    2301830: pasted__pCube525
+    2301832: Nada
+    2301834: Ledge226q2
+    2301836: Ledge226q3
+    2301838: Ledge226q4
+    2301840: LedgeRight
+    2301842: Nada39
+    2301844: Nada40
+    2301846: Nada41
+    2301848: Nada42
+    2301850: Nada43
+    2301852: polySurface299
+    2301854: polySurface301
+    2301856: LedgeLeftOnly9Wall
+    2301858: LedgeLeftOnlyWallRightOnly
+    2301860: LedgeMesh1
+    2301862: polySurface302
+    2301864: polySurface303
+    2301866: polySurface304
+    2301868: polySurface305
+    2301870: WallLeftOnlyLedgeRightOnly
+    2301872: WallRightOnlyLedge
     3300000: Box12
     3300002: Box15
     3300004: Box3
@@ -4271,6 +4527,64 @@ ModelImporter:
     3301752: MiddleCommercialBuilding:WallLedgeLeftOnly6
     3301754: MiddleCommercialBuilding:WallLedgeLeftOnly7
     3301756: MiddleCommercialBuilding:WallLedgeRightOnly4
+    3301758: MiddleCommercialBuilding:pCube248
+    3301760: pCylinder114
+    3301762: pCylinder115
+    3301764: pCylinder116
+    3301766: pCylinder117
+    3301768: pCylinder118
+    3301770: polySurface297
+    3301772: polySurface298
+    3301774: polySurface55
+    3301776: MiddleCommercialBuilding:pCube249
+    3301778: MiddleCommercialBuilding:pSphere1
+    3301780: Box16
+    3301782: Box17
+    3301784: Box18
+    3301786: Ledge 1
+    3301788: LedgeLeftOnly10
+    3301790: LedgeRightOnly 1
+    3301792: LedgeRightOnly18
+    3301794: WallLeftLedgeOnly1
+    3301796: pasted__pCube497
+    3301798: pCube495
+    3301800: LadderZ
+    3301802: pasted__pCube498
+    3301804: pasted__pCube499
+    3301806: pasted__pCube500
+    3301808: pasted__pCube501
+    3301810: pasted__pCube502
+    3301812: pasted__pCube503
+    3301814: pasted__pCube504
+    3301816: pasted__pCube505
+    3301818: pasted__pCube506
+    3301820: pasted__pCube507
+    3301822: pasted__pCube508
+    3301824: pasted__pCube509
+    3301826: pasted__pCube510
+    3301828: Ledge226q1
+    3301830: pasted__pCube525
+    3301832: Nada
+    3301834: Ledge226q2
+    3301836: Ledge226q3
+    3301838: Ledge226q4
+    3301840: LedgeRight
+    3301842: Nada39
+    3301844: Nada40
+    3301846: Nada41
+    3301848: Nada42
+    3301850: Nada43
+    3301852: polySurface299
+    3301854: polySurface301
+    3301856: LedgeLeftOnly9Wall
+    3301858: LedgeLeftOnlyWallRightOnly
+    3301860: LedgeMesh1
+    3301862: polySurface302
+    3301864: polySurface303
+    3301866: polySurface304
+    3301868: polySurface305
+    3301870: WallLeftOnlyLedgeRightOnly
+    3301872: WallRightOnlyLedge
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -5150,6 +5464,64 @@ ModelImporter:
     4301752: MiddleCommercialBuilding:pCube245
     4301754: MiddleCommercialBuilding:pCube246
     4301756: MiddleCommercialBuilding:pCube247
+    4301758: MiddleCommercialBuilding:pCube248
+    4301760: polySurface55
+    4301762: polySurface297
+    4301764: polySurface298
+    4301766: pCylinder114
+    4301768: pCylinder115
+    4301770: pCylinder116
+    4301772: pCylinder117
+    4301774: pCylinder118
+    4301776: MiddleCommercialBuilding:pSphere1
+    4301778: MiddleCommercialBuilding:pCube249
+    4301780: LedgeRightOnly
+    4301782: Ledge
+    4301784: Box18
+    4301786: LedgeRightOnly18
+    4301788: LedgeLeftOnly10
+    4301790: Box17
+    4301792: Box16
+    4301794: WallLeftLedgeOnly1
+    4301796: pCube495
+    4301798: pasted__pCube497
+    4301800: pasted__pCube498
+    4301802: pasted__pCube499
+    4301804: pasted__pCube500
+    4301806: pasted__pCube501
+    4301808: pasted__pCube502
+    4301810: pasted__pCube503
+    4301812: pasted__pCube504
+    4301814: pasted__pCube505
+    4301816: pasted__pCube506
+    4301818: pasted__pCube507
+    4301820: pasted__pCube508
+    4301822: pasted__pCube509
+    4301824: pasted__pCube510
+    4301826: LadderZ
+    4301828: pasted__pCube525
+    4301830: Ledge226q1
+    4301832: Nada
+    4301834: Ledge226q2
+    4301836: Ledge226q3
+    4301838: Ledge226q4
+    4301840: LedgeRight
+    4301842: polySurface299
+    4301844: Nada39
+    4301846: Nada40
+    4301848: Nada41
+    4301850: Nada42
+    4301852: Nada43
+    4301854: polySurface301
+    4301856: LedgeLeftOnly9Wall
+    4301858: LedgeLeftOnlyWallRightOnly
+    4301860: WallRightOnlyLedge
+    4301862: WallLeftOnlyLedgeRightOnly
+    4301864: polySurface302
+    4301866: polySurface303
+    4301868: polySurface304
+    4301870: polySurface305
+    4301872: LedgeMesh1
     7400000: Take 001
     9500000: //RootNode
   materials:

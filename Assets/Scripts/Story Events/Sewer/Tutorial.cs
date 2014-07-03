@@ -47,17 +47,18 @@ public class Tutorial : MonoBehaviour
 
 	public void ShowIntroCutscene()
 	{
-		if(!GameManager.SaveData.HasShownIntroCutscene)
+        if(!GameManager.SaveData.HasShownIntroCutscene) {
+            GameManager.SaveData.HasShownIntroCutscene = true;
 			StartCoroutine(PlayIntroCutscene());
+        }
 
 	}
 
 	public IEnumerator PlayIntroCutscene()
 	{
-		GameManager.SaveData.HasShownIntroCutscene = true;
-		GameManager.IsPlayingCutscene = true;
-
-		// Switch the camera animation
+        // Switch the camera animation
+        GameManager.IsPlayingCutscene = true;
+        GameManager.MainCamera.CinematicOverride = true;
 		GameManager.MainCamera.enabled = false;
 		Animator cameraAnim = GameManager.MainCamera.GetComponent<Animator> ();
 		cameraAnim.enabled = true;
@@ -71,8 +72,6 @@ public class Tutorial : MonoBehaviour
 			fader.FadeIn();
 
 		// Make the player fall down
-		GameManager.MainCamera.CinematicOverride = true;
-		GameManager.UI.DisableInput ();
 		GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.Die, true);
 
 		yield return new WaitForSeconds (7);
@@ -85,10 +84,11 @@ public class Tutorial : MonoBehaviour
 
 		// Re-enable the camera
 		cameraAnim.enabled = false;
-		GameManager.MainCamera.enabled = true;
-		
-		GameManager.IsPlayingCutscene = false;
+        GameManager.MainCamera.enabled = true;
+
+        // The cut-scene is complete, move on to the first tutorial event
 		StartCoroutine (ShowTwoHands ());
+
 	}
 
     public IEnumerator ShowTwoHands ()
@@ -112,10 +112,12 @@ public class Tutorial : MonoBehaviour
 #endif
 
         // Wait until they finally have used both hands to move on
+        bool leftSideTouched = false;
+        bool rightSideTouched = false;
 		while (!hasUsed2Hands) {
-            yield return null;
-            bool leftSideTouched = false;
-            bool rightSideTouched = false;
+
+            leftSideTouched = false;
+            rightSideTouched = false;
 
             foreach(Touch touch in Input.touches) {
                 if(touch.position.x < Screen.width / 2)
@@ -131,6 +133,9 @@ public class Tutorial : MonoBehaviour
 
             if(leftSideTouched && rightSideTouched)
 				hasUsed2Hands = true;
+            
+            yield return null;
+
         }
 
         // Remove the shown pieces
@@ -143,9 +148,9 @@ public class Tutorial : MonoBehaviour
         GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.StandingUp, true);
         yield return new WaitForSeconds(1.0f);
 
-        // Let them move around a bit
+        // Let them move again
         GameManager.MainCamera.CinematicOverride = false;
-        GameManager.UI.EnableInput ();
+        GameManager.IsPlayingCutscene = false;
 
     }
 
@@ -201,7 +206,6 @@ public class Tutorial : MonoBehaviour
 
 			StartCoroutine(SpawnOlympus());
 			GameManager.IsPlayingCutscene = true;
-			GameManager.UI.DisableInput ();
 		}
 	}
 
