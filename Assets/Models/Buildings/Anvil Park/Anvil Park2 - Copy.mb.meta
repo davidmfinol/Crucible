@@ -501,6 +501,20 @@ ModelImporter:
     100990: transform72
     100992: transform73
     100994: transform74
+    100996: curve1 3
+    100998: curve1 4
+    101000: curve1 5
+    101002: group10
+    101004: group11
+    101006: Ledge52 1
+    101008: Ledge54
+    101010: Ledge54 1
+    101012: Nadaeee
+    101014: pCylinder12
+    101016: polySurface138 1
+    101018: polySurface139 1
+    101020: polySurface140 1
+    101022: WallLedge3NoCamera
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -999,6 +1013,20 @@ ModelImporter:
     400990: transform72
     400992: transform73
     400994: transform74
+    400996: curve1 3
+    400998: curve1 4
+    401000: curve1 5
+    401002: group10
+    401004: group11
+    401006: Ledge52 1
+    401008: Ledge54
+    401010: Ledge54 1
+    401012: Nadaeee
+    401014: pCylinder12
+    401016: polySurface138 1
+    401018: polySurface139 1
+    401020: polySurface140 1
+    401022: WallLedge3NoCamera
     2300000: Fixture
     2300002: Ground
     2300004: Ground1
@@ -1339,6 +1367,16 @@ ModelImporter:
     2300674: polySurface145
     2300676: polySurface147
     2300678: polySurface148
+    2300680: Ledge52 1
+    2300682: Ledge54
+    2300684: Ledge54 1
+    2300686: Nadaeee
+    2300688: pCylinder11
+    2300690: pCylinder12
+    2300692: polySurface138 1
+    2300694: polySurface139 1
+    2300696: polySurface140 1
+    2300698: WallLedge3NoCamera
     3300000: Fixture
     3300002: Ground
     3300004: Ground1
@@ -1679,6 +1717,16 @@ ModelImporter:
     3300674: polySurface145
     3300676: polySurface147
     3300678: polySurface148
+    3300680: Ledge52 1
+    3300682: Ledge54
+    3300684: Ledge54 1
+    3300686: Nadaeee
+    3300688: pCylinder11
+    3300690: pCylinder12
+    3300692: polySurface138 1
+    3300694: polySurface139 1
+    3300696: polySurface140 1
+    3300698: WallLedge3NoCamera
     4300000: pCube4
     4300002: Ledge10
     4300004: Ledge17
@@ -2019,6 +2067,16 @@ ModelImporter:
     4300674: polySurface145
     4300676: polySurface147
     4300678: polySurface148
+    4300680: Nadaeee
+    4300682: WallLedge3NoCamera
+    4300684: pCylinder11
+    4300686: Ledge54
+    4300688: pCylinder12
+    4300690: polySurface140
+    4300692: Ledge52
+    4300694: polySurface139
+    4300696: polySurface138
+    4300698: Ledge54
     7400000: Take 001
     9500000: //RootNode
   materials:
