@@ -182,11 +182,17 @@ public class EnemyAI : MonoBehaviour
         
         // Find the zone to narrow our search
         List<Bounds> zones = new List<Bounds>(graph.ZonesWithWaypoints.Keys);
-        Bounds zone = zones [(int) Random.Range(0, zones.Count)];
+        Bounds zone = zones [0];
         if(constraints.extents != Vector3.zero)
             foreach(Bounds bounds in zones)
                 if(bounds.Equals(constraints))
                     zone = bounds;
+
+        // Make sure our zone has some nodes to search
+        if(graph.ZonesWithWaypoints[zone].Count <= 0) {
+            //Debug.LogWarning("ZoneGraph not initialized while searching for a random search point!");
+            return;
+        }
 
         // Find a random node within that zone
         List<ZoneNode> nodes = graph.ZonesWithWaypoints[zone];

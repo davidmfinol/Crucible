@@ -57,6 +57,21 @@ public class OlympusAI : EnemyAI
 			_olympusAwareness.ChangeAwareness (Awareness);
 
 		}
+
+    }
+
+    // Olympus always looks at his next target position
+    public override bool UpdateAStarPath(float speedRatio, bool repathOnInvalid)
+    {
+        if(base.UpdateAStarPath(speedRatio, repathOnInvalid)) {
+            Debug.Log("Setting look at " + Path.vectorPath[CurrentPathWaypoint]);
+            Animator.MecanimAnimator.SetLookAtPosition(Path.vectorPath[CurrentPathWaypoint]);
+            Animator.MecanimAnimator.SetLookAtWeight(1.0f);
+            return true;
+        }
+
+        return false;
+
     }
 
     protected override void Wander ()
