@@ -465,9 +465,13 @@ public class OlympusAnimator : CharacterAnimator
 
         MecanimAnimator.SetBool (MecanimHashes.StealthDeath, true);
         
-        yield return new WaitForSeconds (1.5f);
+        yield return new WaitForSeconds (1.2f);
 
-        DoRagDoll ();
+		bool isToRightOfPlayer = transform.position.x > GameManager.Player.transform.position.x;
+		Vector3 directional = isToRightOfPlayer ? Vector3.right : Vector3.left;
+		directional *= 25000;
+
+        DoRagDoll (Vector3.up * 15000 + directional);
 		DropItems();
 
     }

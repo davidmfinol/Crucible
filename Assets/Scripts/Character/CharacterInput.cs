@@ -183,11 +183,11 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool JumpUp {
-        get { return Mathf.Abs(Jump.x) <= 0.1f && JumpActive; }
+        get { return Mathf.Abs(Jump.x) <= 0.1f; }
     }
 
     public bool JumpLeft {
-        get { return Jump.x <= -0.1f && JumpActive; }
+        get { return Jump.x <= -0.1f; }
     }
 
     public bool JumpLeftPressed {
@@ -199,7 +199,7 @@ public sealed class CharacterInput : MonoBehaviour
     }
 
     public bool JumpRight {
-        get { return Jump.x >= 0.1f && JumpActive; }
+        get { return Jump.x >= 0.1f; }
     }
 
     public bool JumpRightPressed {

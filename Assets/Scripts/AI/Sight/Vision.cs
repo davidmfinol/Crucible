@@ -14,13 +14,14 @@ public class Vision : MonoBehaviour
 	public float ViewConeCutoff = 0.98f;
 
 	// We have 2 methods of determining whether the player is seen: 1) Settings and 2) Collision
-	public bool OverrideSettingsByCone = false;
+	public bool UseViewCone = false;
 
-	public ViewCone[] Cones;
+    // If we are using viewcone, list it here
+	public ViewCone[] ViewCones;
 	
 	public bool IsSeeingPlayer (Vector3 direction)
 	{
-		if(OverrideSettingsByCone)
+		if(UseViewCone)
 			return CollisionBasedVision();
 		return SettingsBasedVision(direction);
 
@@ -71,13 +72,30 @@ public class Vision : MonoBehaviour
 
 	public bool CollisionBasedVision()
 	{
-		foreach(ViewCone cone in Cones)
-			foreach(HeartBox character in cone.CharactersSeen)
-				if(character.Allegiance == TeamAllegiance.Player)
-					return true;
+		foreach(ViewCone cone in ViewCones) {
+			foreach(HeartBox character in cone.CharactersSeen) {
+				if(character.Allegiance == TeamAllegiance.Player) {
+                    bool clear = true;
+                    foreach(Collider col in cone.Barriers.Keys) {
+                        if(col.bounds.Contains(character.transform.position))
+                           clear = false;
+                    }
+                    if(clear)
+                        return true;
+                }
+            }
+        }
 
 		return false;
 
 	}
+
+    void OnDestroy()
+    {
+        foreach (ViewCone cone in ViewCones) {
+            Destroy(cone.gameObject);
+        }
+
+    }
 
 }
