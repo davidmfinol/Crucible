@@ -5,7 +5,7 @@ using System.Collections;
 /// Camera spotter audio player plays the sound effect for the camera spotter enemy type.
 /// </summary>
 [AddComponentMenu ("Audio/Camera Spotter Audio")]
-public class CameraSpotterAudioPlayer : MonoBehaviour
+public class CameraSpotterAudioPlayer : AudioPlayer
 {
     public AudioClip Moving;
     public AudioClip Still;

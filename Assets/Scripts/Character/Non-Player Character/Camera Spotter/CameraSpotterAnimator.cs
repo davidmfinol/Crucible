@@ -21,6 +21,8 @@ public class CameraSpotterAnimator : CharacterAnimator
 
     // Mecanim State Hashes
     public static readonly int ScanState = Animator.StringToHash ("Base Layer.Scan");
+
+    // Scan settings
     public float MinAngle;
     public float MaxAngle;
     public float Speed;
@@ -33,6 +35,9 @@ public class CameraSpotterAnimator : CharacterAnimator
     // find view cone so we can calculate a direction vector along it for LOS
     private Transform _pivot;
     private EnemyAI _ai;
+
+    // Camera sounds
+    private CameraSpotterAudioPlayer _sound;
     
     protected override void OnStart ()
     {
@@ -44,11 +49,14 @@ public class CameraSpotterAnimator : CharacterAnimator
         _currAngle = 0.0f;
         _timeInState = 0.0f;
 
+        _sound = GetComponentInChildren<CameraSpotterAudioPlayer>();
+
     }
     
     protected override void CreateStateMachine ()
     {
         StateMachine [ScanState] = Scan;
+
     }
     
     protected void Scan (float elapsedTime)
@@ -76,6 +84,7 @@ public class CameraSpotterAnimator : CharacterAnimator
                 _lastState = _state;
                 _state = CameraState.Paused;
                 _timeInState = 0.0f;
+                _sound.Play(_sound.Rotating, 1.0f);
 
             }
 
@@ -90,6 +99,7 @@ public class CameraSpotterAnimator : CharacterAnimator
                 _lastState = _state;
                 _state = CameraState.Paused;
                 _timeInState = 0.0f;
+                _sound.Play(_sound.Rotating, 1.0f);
                 
             }
 
@@ -107,6 +117,7 @@ public class CameraSpotterAnimator : CharacterAnimator
 
                 _lastState = CameraState.Paused;
                 _timeInState = 0.0f;
+                _sound.Play(_sound.Moving, 1.0f);
 
             }
 
@@ -126,6 +137,15 @@ public class CameraSpotterAnimator : CharacterAnimator
 
                 // constrain.
                 if (angleToPlayer >= MinAngle && angleToPlayer <= MaxAngle) {
+
+                    // Sound based off how it's following
+                    if( _currAngle == angleToPlayer && !_sound.IsPlaying(_sound.Still) ) {
+                        _sound.PlayLoop(_sound.Still, 1.0f);
+                    }
+                    else if ( _currAngle != angleToPlayer && !_sound.IsPlaying(_sound.Still) ) {
+                        _sound.PlayLoop(_sound.Moving, 1.0f);
+                    }
+
                     _currAngle = angleToPlayer;
                     UpdateDirection (angleToPlayer);
 
@@ -134,6 +154,7 @@ public class CameraSpotterAnimator : CharacterAnimator
                 // stop tracking - return to last state
             } else {
                 _state = _lastState;
+                _sound.DelayedStop();
 
             }
 

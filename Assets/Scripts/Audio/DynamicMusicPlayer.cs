@@ -2,55 +2,47 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// Dynamic music plays the background music by layering different songs based off the environment.
+/// Dynamic music plays background music by layering different songs based off the state of the game.
 /// </summary>
 [AddComponentMenu("Audio/Dynamic Music Player")]
 public class DynamicMusicPlayer : AudioPlayer
 {
-    // The rate at which songs fade in and out
-    public float Fade;
-    
     // The songs that we are going to layer
     public AudioClip[] EnemyDangerClips;
 
-    // Audio Layers
-    private AudioSource _audio1;
-    private AudioSource _audio2;
-    private AudioSource _audio3;
-    private bool _audio1FadingOut;
-    private bool _audio1FadingIn;
-    private bool _audio2FadingOut;
-    private bool _audio2FadingIn;
+    // The rate at which songs fade in and out
+    public float Fade;
+
+    // The state of the song layers
+    private bool _song1FadingIn;
+    private bool _song1FadingOut;
+    private bool _song2FadingIn;
+    private bool _song2FadingOut;
 
     // To keep track of transitions
     private int _prevSearchingLevel;
     private int _prevChasingLevel;
 
 
-    void Start ()
+    protected override void OnStart ()
     {
-        // Set up the audio
-        _audio1FadingOut = false;
-        _audio1FadingIn = false;
-        _audio2FadingOut = false;
-        _audio2FadingIn = false;
-        _audio1 = gameObject.AddComponent<AudioSource> ();
-        _audio1.dopplerLevel = 0;
-        _audio1.volume = 0.1f;
-        _audio1.panLevel = 0;
-        _audio2 = gameObject.AddComponent<AudioSource> ();
-        _audio2.dopplerLevel = 0;
-        _audio2.panLevel = 0;
-        _audio2.volume = 0.1f;
-        _audio3 = gameObject.AddComponent<AudioSource> ();
-        _audio3.dopplerLevel = 0;
-        _audio3.panLevel = 0;
-        _audio1.loop = true;
-        _audio2.loop = true;
-        _audio3.loop = true;
-        _audio1.clip = EnemyDangerClips [0];
-        _audio2.clip = EnemyDangerClips [1];
-        _audio3.clip = EnemyDangerClips [2];
+        // Set up the song layers
+        _song1FadingOut = false;
+        _song1FadingIn = false;
+        _song2FadingIn = false;
+        _song2FadingOut = false;
+        
+        // Set up the audiosource components
+        for (int i = 0; i < Audios.Length; i++) {
+            AudioSource audioSource = Audios [i];
+            audioSource.dopplerLevel = 0;
+            audioSource.volume = 0.1f;
+            audioSource.panLevel = 0;
+            audioSource.loop = true;
+            audioSource.clip = EnemyDangerClips [i];
+        }
+
+        // Start at basic sound for transitions
         _prevSearchingLevel = 0;
         _prevChasingLevel = 0;
 
@@ -65,81 +57,87 @@ public class DynamicMusicPlayer : AudioPlayer
     public void PlayDanger (int searchingLevel, int chasingLevel)
     {
         // Do nothing if the danger level hasn't changed
-//      Debug.Log (dangerLevel + " " + _audioFadingIn + _audioFadingOut);
         if (searchingLevel == _prevSearchingLevel && chasingLevel == _prevChasingLevel) {
-            if (_audio1FadingIn)
-                FadeIn (_audio1);
-            else if (_audio1FadingOut)
-                FadeOut (_audio1);
-            if (_audio2FadingIn)
-                FadeIn (_audio2);
-            else if (_audio2FadingOut)
-                FadeOut (_audio2);
+            if (_song1FadingIn)
+                FadeIn (Song1);
+            else if (_song1FadingOut)
+                FadeOut (Song1);
+            if (_song2FadingIn)
+                FadeIn (Song2);
+            else if (_song2FadingOut)
+                FadeOut (Song2);
             return;
         }
 
+        // TODO: THE CASES COVERED HERE AREN'T ALL THE POSSIBLE CASES?
+
+        // NO DANGER
         if (searchingLevel <= 0 && chasingLevel <= 0) {
-//            Debug.Log ("Fading");
-            _audio1FadingOut = true;
-            _audio2FadingOut = true;
-            _audio3.Stop ();
+            _song1FadingOut = true;
+            _song2FadingOut = true;
+            Song2.Stop ();
+
+        // ONE ENEMY STARTED SEARCHING
         } else if (searchingLevel == 1 && chasingLevel == 0) {
-            if (!_audio1FadingIn && !_audio1.isPlaying) {
-                _audio1.Play ();
+            if (!_song1FadingIn && !Song1.isPlaying) {
+                Song1.Play ();
             }
-            _audio2FadingOut = true;
-            _audio1FadingIn = true;
+            _song2FadingOut = true;
+            _song1FadingIn = true;
+
+        // ONE ENEMY STARTED CHASING
         } else if (searchingLevel == 0 && chasingLevel == 1) {
-            if (!_audio2FadingIn && !_audio2.isPlaying)
-                _audio2.Play ();
-            if (!_audio1.isPlaying)
-                _audio1.Play ();
-            _audio2.timeSamples = _audio1.timeSamples;
-            _audio2FadingIn = true;
+            if ( !_song2FadingIn && !Song2.isPlaying )
+                Song2.Play ();
+            if ( !Song1.isPlaying )
+                Song1.Play ();
+            Song2.timeSamples = Song1.timeSamples;
+            _song2FadingIn = true;
+            
+        // TWO ENEMIES STARTED SEARCHING
         } else if (searchingLevel == 2) {
-            _audio2.timeSamples = _audio1.timeSamples;
-            if (!_audio2.isPlaying)
-                _audio2.Play ();
-            //          FadeAndChange(audio2.clip, 40);
-            //          Debug.Log(audio2.timeSamples);
-            //
+            Song2.timeSamples = Song1.timeSamples;
+            if ( !Song2.isPlaying )
+                Song2.Play ();
+
+        // THREE ENEMIES STARTED SEARCHING
         } else if (searchingLevel >= 3) {
-            //FadeAndChange(audio3,
-            _audio3.timeSamples = _audio1.timeSamples;
-            _audio3.Play ();
+            Song3.timeSamples = Song1.timeSamples;
+            Song3.Play ();
         }
-        
+
+        // Keep track of transitions
         _prevSearchingLevel = searchingLevel;
         _prevChasingLevel = chasingLevel;
 
     }
 
-    public void FadeOut (AudioSource audio)
+    // This method is called on frames where an audioSource needs to fade in over time
+    public void FadeIn (AudioSource audioSource)
     {
-        _audio1FadingIn = false;
-        _audio2FadingIn = false;
-        if (audio.volume <= 0) {
-            _audio1FadingOut = false;
+        _song1FadingOut = false;
+        _song2FadingOut = false;
+        if (audioSource.volume >= 0.1f) {
+            _song1FadingIn = false;
+            _song2FadingIn = false;
+        } else
+            audioSource.volume += Fade * Time.deltaTime;
         
-            audio.Stop ();
-            audio.volume = 0.1f;
-        } else
-            audio.volume -= Fade * Time.deltaTime * .025f;
-
     }
-
-    public void FadeIn (AudioSource audio)
+    
+    // This method is called on frames where an audioSource needs to fade out over time
+    public void FadeOut (AudioSource audioSource)
     {
-        _audio1FadingOut = false;
-        _audio2FadingOut = false;
-        if (audio.volume >= 0.1f) {
-            _audio1FadingIn = false;
-            _audio2FadingIn = false;
+        _song1FadingIn = false;
+        _song2FadingIn = false;
+        if (audioSource.volume <= 0) {
+            _song1FadingOut = false;
+            audioSource.volume = 0.1f;
+            audioSource.Stop ();
         } else
-            audio.volume += Fade * Time.deltaTime;
+            audioSource.volume -= Fade * Time.deltaTime * .025f;
 
     }
-
 
     public int SearchingLevel {
         get { return GameManager.AI.EnemiesSearching; }
@@ -147,6 +145,18 @@ public class DynamicMusicPlayer : AudioPlayer
 
     public int ChasingLevel {
         get { return GameManager.AI.EnemiesChasing; }
+    }
+
+    public AudioSource Song1 {
+        get { return Audios [0]; }
+    }
+    
+    public AudioSource Song2 {
+        get { return Audios [1]; }
+    }
+    
+    public AudioSource Song3 {
+        get { return Audios [2]; }
     }
 
 }

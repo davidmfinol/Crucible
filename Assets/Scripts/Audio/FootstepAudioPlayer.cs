@@ -32,9 +32,7 @@ public class FootstepAudioPlayer : AudioPlayer
 
     public void PlayLanding ()
     {
-        audio.clip = Landing;
-        audio.loop = false;
-        audio.Play ();
+        Play(Landing, 1.0f);
 
     }
 }

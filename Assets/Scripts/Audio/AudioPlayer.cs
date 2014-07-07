@@ -13,33 +13,80 @@ public class AudioPlayer : MonoBehaviour
 	// TODO: public AudioManager.AudioTypes Type;
 	//TODO: add subtitle requirement for each sound public Subtitle[] AssociatedSubtitles;
 
-	public virtual void Play(AudioClip clip, float volume)
-	{
-		audio.clip = clip;
-		audio.volume = volume;
-		audio.loop = false;
-		audio.Play();
+    //Audiosource switching to not clip sounds
+    private AudioSource[] _audios;
+    private int _audioIndex;
+    
+    void Start ()
+    {
+        OnStart();
+        
+    }
 
-	}
+    protected virtual void OnStart()
+    {
+        // Child classes may override to do things on Start()
+    }
+    
+    public void Play (AudioClip clip, float volume)
+    {
+        Audio.clip = clip;
+        Audio.volume = volume;
+        Audio.loop = false;
+        Audio.Play ();
+        
+        AudioIndex = AudioIndex + 1;
+        
+    }
 
 	public void PlayLoop(AudioClip clip, float volume)
-	{
-		audio.clip = clip;
-		audio.volume = volume;
-		audio.loop = true;
-		audio.Play();
+    {
+        Audio.clip = clip;
+        Audio.volume = volume;
+        Audio.loop = true;
+        Audio.Play ();
+        
+        AudioIndex = AudioIndex + 1;
 
 	}
+
+    public bool IsPlaying(AudioClip clip)
+    {
+        foreach (AudioSource audioSource in Audios)
+            if (audioSource.clip == clip && audioSource.isPlaying)
+                return true;
+        return false;
+
+    }
 
 	public void DelayedStop()
 	{
-		audio.loop = false;
+        for (int i = 0; i < Audios.Length; i++)
+            Audios [i].loop = false;
 
 	}
 
 	public void Stop()
-	{
-		audio.Stop();
+    {
+        for (int i = 0; i < Audios.Length; i++)
+            Audios [i].Stop();
 
 	}
+
+    protected AudioSource[] Audios {
+        get {
+            if(_audios == null)
+                _audios = GetComponents<AudioSource> ();
+            return _audios;
+        }
+    }
+
+    protected int AudioIndex {
+        get { return _audioIndex; }
+        set { _audioIndex = value % _audios.Length; }
+    }
+
+    public AudioSource Audio {
+        get { return Audios [AudioIndex]; }
+    }
 }

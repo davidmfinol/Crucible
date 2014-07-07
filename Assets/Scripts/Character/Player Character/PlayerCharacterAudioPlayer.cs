@@ -23,28 +23,5 @@ public class PlayerCharacterAudioPlayer : AudioPlayer
 	public AudioClip SparkplugHit;
 	public AudioClip SparkplugBeep;
 
-	//Audiosource switching to not clip sounds
-    private int _currentAudio;
-    private AudioSource[] _audios;
-
-    void Start ()
-    {
-        _currentAudio = 0;
-        _audios = GetComponents<AudioSource> ();
-
-    }
-
-    public override void Play (AudioClip audio, float volume)
-    {
-        //Switches between audio sources to avoid clipping the sounds
-        _audios [_currentAudio].clip = audio;
-        _audios [_currentAudio].volume = volume;
-        _audios [_currentAudio].Play ();
-        
-        _currentAudio++;
-        _currentAudio = _currentAudio % 2;
-
-    }
-
 }
 

@@ -87,8 +87,12 @@ public class MeshToGameObjectsMenu
 
             // We only do something if we have meshes
             MeshFilter meshFilter = transform.GetComponent<MeshFilter> ();
-            if (!meshFilter)
+            if (!meshFilter) {
+                OutlineInteractive outliner = transform.GetComponent<OutlineInteractive>();
+                if(outliner)
+                    GameObject.DestroyImmediate(outliner);
                 return;
+            }
 
             // And if that mesh is named something we recognize
             string name = meshFilter.name.ToLower ();

@@ -11,27 +11,22 @@ public class WindAudioPlayer : AudioPlayer
     public float PercentCompleteToNext;
     public float MaxTimeBetweenWinds;
     public float MaxPanSpread;
-    private AudioSource[] _audios;
-    private int _currentAudio;
 
-    void Start ()
+    protected override void OnStart ()
     {
-        _audios = GetComponents<AudioSource> ();
-        foreach (AudioSource audiosource in _audios) {
-            audiosource.volume = 0.09f;
-        }
-        _currentAudio = 0;
+        foreach (AudioSource audioSource in Audios)
+            audioSource.volume = 0.09f;
         StartCoroutine (DelayedWindPlay ());
 
     }
 
     void Update ()
     {
-        foreach (AudioSource audiosource in _audios) {
-            if (audiosource.pan >= 0)
-                audiosource.pan += 0.05f * Time.deltaTime;
+        foreach (AudioSource audioSource in Audios) {
+            if (audioSource.pan >= 0)
+                audioSource.pan += 0.05f * Time.deltaTime;
             else
-                audiosource.pan -= 0.05f * Time.deltaTime;
+                audioSource.pan -= 0.05f * Time.deltaTime;
         }
 
     }
@@ -46,19 +41,18 @@ public class WindAudioPlayer : AudioPlayer
             // Then play a random wind sound
             int windex = Random.Range (0, WindNoises.Length);
             float pan = Random.Range (-MaxPanSpread, MaxPanSpread);
-            _audios [_currentAudio].clip = WindNoises [windex];
-            _audios [_currentAudio].pan = pan;
-            _audios [_currentAudio].Play ();
+            Audio.clip = WindNoises [windex];
+            Audio.pan = pan;
+            Audio.Play ();
 
             // Then wait until this wind sound is nearing completion
-            float normalizedTime = ((float)_audios [_currentAudio].timeSamples) / ((float)_audios [_currentAudio].clip.samples);
+            float normalizedTime = ((float)Audio.timeSamples) / ((float)Audio.clip.samples);
             while (normalizedTime < PercentCompleteToNext) {
-                normalizedTime = ((float)_audios [_currentAudio].timeSamples) / ((float)_audios [_currentAudio].clip.samples);
+                normalizedTime = ((float)Audio.timeSamples) / ((float)Audio.clip.samples);
                 yield return null;
             }
 
-            _currentAudio++;
-            _currentAudio = _currentAudio % 2;
+            AudioIndex = AudioIndex + 1;
         }
 
     }
