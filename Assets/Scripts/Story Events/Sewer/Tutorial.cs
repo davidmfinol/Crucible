@@ -29,7 +29,8 @@ public class Tutorial : MonoBehaviour
 	public Transform AIBarrier;
     //public Transform Olympus2Position;
 
-	private TutorialAudioPlayer _sound;
+	public TutorialAudioPlayer FanSounds;
+    public TutorialAudioPlayer DoorSounds;
 
 	private bool _stopFanStopping;
     private bool _sewerDoorOpen;
@@ -38,7 +39,6 @@ public class Tutorial : MonoBehaviour
     {
 		SewerDoor.animation.Play ("Close");
 
-		_sound = gameObject.GetComponentInChildren<TutorialAudioPlayer> ();
 		SpinningFan.animation.Play ("SpinningLoop");
 		StartCoroutine (KeepFanSpinning ());
         StartCoroutine (KeepShieldActive());
@@ -222,13 +222,13 @@ public class Tutorial : MonoBehaviour
             // see player & open? close.
             if ((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
                 SewerDoor.animation.Play ("Close");
-				_sound.Play (_sound.DoorSlam, 1.0f);
+                DoorSounds.Play (DoorSounds.DoorSlam, 1.0f);
                 _sewerDoorOpen = false;
 
                 // no longer see player & closed? open.
             } else if ((GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
                 SewerDoor.animation.Play ("Open");
-				_sound.Play (_sound.DoorOpen, 1.0f);
+                DoorSounds.Play (DoorSounds.DoorOpen, 1.0f);
                 _sewerDoorOpen = true;
 
             }
@@ -343,7 +343,7 @@ public class Tutorial : MonoBehaviour
 
 	public IEnumerator KeepFanSpinning ()
 	{
-		_sound.PlayLoop(_sound.FanSpinning, 1.0f);
+		FanSounds.PlayLoop(FanSounds.FanSpinning, 1.0f);
 
 		while(true)
 		{
@@ -369,7 +369,7 @@ public class Tutorial : MonoBehaviour
 				if(!_stopFanStopping)
 				{
 					_stopFanStopping = true;
-					_sound.Play(_sound.FanStopping, 1.0f);
+					FanSounds.Play(FanSounds.FanStopping, 1.0f);
 				}
 				break;
 
