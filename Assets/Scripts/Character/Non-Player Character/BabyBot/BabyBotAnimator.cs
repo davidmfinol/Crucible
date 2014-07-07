@@ -145,6 +145,7 @@ public class BabyBotAnimator : CharacterAnimator
 	public void PlaySnore()
 	{
 		_sound.Play(_sound.Snoring, 1.0f);
+
 	}
 
     public override EnemySaveState.EnemyType EnemyType {

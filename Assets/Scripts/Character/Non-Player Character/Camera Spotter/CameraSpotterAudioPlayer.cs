@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraSpotterAudioPlayer : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+/// <summary>
+/// Camera spotter audio player plays the sound effect for the camera spotter enemy type.
+/// </summary>
+[AddComponentMenu ("Audio/Camera Spotter Audio")]
+public class CameraSpotterAudioPlayer : MonoBehaviour
+{
+    public AudioClip Moving;
+    public AudioClip Still;
+    public AudioClip Rotating;
+    
 }
