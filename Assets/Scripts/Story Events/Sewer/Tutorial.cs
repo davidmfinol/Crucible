@@ -179,21 +179,21 @@ public class Tutorial : MonoBehaviour
     }
 
 	public void ShowSightPuzzle ()
-	{
+    {
+        // HACK: MAKE THE BABYBOT IGNORE NOW
+        EnemyAI babyBot = null;
+        foreach(EnemyAI ai in GameManager.AI.Enemies)
+            if(ai.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_BabyBot)
+                babyBot = ai;
+        babyBot.PersonalHearingRadius.IgnoreAbove = true;
+
 		if (!GameManager.SaveData.HasShownSightPuzzle){
             GameManager.SaveData.HasShownSightPuzzle = true;
-            
-            // HACK: MAKE THE BABYBOT IGNORE NOW
-            EnemyAI babyBot = null;
-            foreach(EnemyAI ai in GameManager.AI.Enemies)
-                if(ai.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_BabyBot)
-                    babyBot = ai;
-            babyBot.PersonalHearingRadius.IgnoreAbove = true;
 
 			SewerDoor.animation.Play("Open");
 			StartCoroutine("OperateDoor");
+        }
 
-		}
 	}
 
 	public void ShowSpawnOlympus ()
