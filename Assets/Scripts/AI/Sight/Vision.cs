@@ -53,13 +53,13 @@ public class Vision : MonoBehaviour
 			Vector3 normToPlayer = raycastDirection.normalized;
 			float fDot = Vector3.Dot (normDir, normToPlayer);
 			
-			Debug.DrawLine (eyePos, eyePos + normDir * 20.0f, Color.green, 0.5f, false);
+			//Debug.DrawLine (eyePos, eyePos + normDir * 20.0f, Color.green, 0.5f, false);
 			
 			// if our facing vector DOT the ray to the player is within a certain dot product range, then it's in view
 			if (fDot >= ViewConeCutoff) {
 				// only bother to cast rays that could be considered in our view cone.
 				if (!Physics.Raycast (eyePos, normToPlayer, raycastDirection.magnitude, 1 << 12)) {
-					Debug.DrawLine (eyePos, eyePos + normToPlayer * raycastDirection.magnitude, Color.red, 0.5f, false);
+					//Debug.DrawLine (eyePos, eyePos + normToPlayer * raycastDirection.magnitude, Color.red, 0.5f, false);
 					return true;
 				}
 			}

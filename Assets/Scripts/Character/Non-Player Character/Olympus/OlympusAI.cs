@@ -71,20 +71,23 @@ public class OlympusAI : EnemyAI
         if(base.UpdateAStarPath(speedRatio, repathOnInvalid)) {
             //Vector3 target = Path.vectorPath[CurrentPathWaypoint];
             Vector3 target = GetComponent<EnemyAIDebugger>().Node.transform.position;
-            if(target.y < transform.position.y + Animator.Height) {
-                Debug.Log("Setting look at " + target);
-                _headLook.target = target;
-                _headLook.enabled = true;
-            }
-            else
-                _headLook.enabled = false;
+            SetLook (target.y < transform.position.y + Animator.Height, target); // We don't look up
             return true;
 
         }
-        else {
-            _headLook.enabled = false;
-        }
+        else 
+            SetLook (false, Vector3.zero); // Can't look if we don't know where to look
         return false;
+
+    }
+
+    // A helper method to make olympus look with his vision cone at a spot
+    public void SetLook (bool shouldLook, Vector3 target) 
+    {
+        _headLook.target = target;
+        _headLook.enabled = shouldLook;
+        foreach (ViewCone cone in PersonalVision.ViewCones)
+            cone.renderer.enabled = shouldLook;
 
     }
 
@@ -97,6 +100,8 @@ public class OlympusAI : EnemyAI
         // It then idles for some time 
         if (_timeLeftWandering < 0) {
             if (_timeSpentIdling < Settings.IdleTime) {
+                SetLook (false, Vector3.zero); // Stop looking while idling
+                // TODO: TURN ON SCREENS
                 _timeSpentIdling += Time.deltaTime;
                 return;
             } else {
