@@ -12,6 +12,10 @@ public class OlympusAnimator : CharacterAnimator
     // TODO: REPLACE THIS WITH SOME KIND OF POOL OF HITBOX OBJECTS
     public GameObject MeleeEvent;
 
+    // Olympus has screens in front that we need to fade in/out based off idle state
+    public Animation ScreenAnimator;
+    public Fader[] Screens;
+
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
     public static readonly int TurnAroundState = Animator.StringToHash ("Base Layer.Turn Around");
@@ -117,6 +121,12 @@ public class OlympusAnimator : CharacterAnimator
         // Knowing direction is useful for the turnaround animation
         MecanimAnimator.SetFloat (MecanimHashes.XDirection, Direction.x);
 
+        // Olympus needs to turn off the screens when not idling
+        if( CurrentState.nameHash != IdleState) {
+            foreach(Fader screen in Screens) 
+                screen.FadeOut();
+        }
+
     }
 
     public void OnAcquireTarget ()
@@ -201,6 +211,14 @@ public class OlympusAnimator : CharacterAnimator
     {
         if (_isStealthDying)
             return;
+
+        // Turn on the screens when he begines to idle
+        if(TimeInCurrentState == 0) {
+            Debug.Log("Play animation");
+            ScreenAnimator.Play("Take 001");
+            foreach(Fader screen in Screens) 
+                screen.FadeIn();
+        }
 
         ApplyRunning (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;

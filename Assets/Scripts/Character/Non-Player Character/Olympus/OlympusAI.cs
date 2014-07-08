@@ -8,9 +8,6 @@ using System.Collections;
 [AddComponentMenu("AI/Olympus AI")]
 public class OlympusAI : EnemyAI
 {
-    // Olympus has screens in front that we need to fade in/out based off idle state
-    public Fader[] Screens;
-
     // Olympus lights up different colors based off awarenesslevel
     private OlympusAwareness _olympusAwareness;
 
@@ -105,15 +102,11 @@ public class OlympusAI : EnemyAI
             if (_timeSpentIdling < Settings.IdleTime) {
                 SetLook (false, Vector3.zero); // Stop looking while idling
                 _timeSpentIdling += Time.deltaTime;
-                foreach(Fader screen in Screens)
-                    screen.FadeIn();
                 return;
             } else {
                 GetRandomSearchPoint (_wanderZone);
                 _timeLeftWandering = Settings.WanderTime;
                 _timeSpentIdling = 0;
-                foreach(Fader screen in Screens)
-                    screen.FadeOut();
             }
         }
         _timeLeftWandering -= Time.deltaTime;
