@@ -121,9 +121,9 @@ public class OlympusAnimator : CharacterAnimator
         // Knowing direction is useful for the turnaround animation
         MecanimAnimator.SetFloat (MecanimHashes.XDirection, Direction.x);
 
-        // Olympus needs to turn off the screens when not idling
-        if( CurrentState.nameHash != IdleState) {
-            Debug.Log("Turning off screens");
+        // Olympus needs to turn off the screens when moving
+        // TODO: THINK OF A MORE EFFICIENT WAY INSTEAD OF DOING THIS EVERY FRAME
+        if( CharInput.Left || CharInput.Right) {
             foreach(Fader screen in Screens) 
                 screen.FadeOut();
         }
@@ -150,6 +150,7 @@ public class OlympusAnimator : CharacterAnimator
     {
         if (IsGrounded)
             MecanimAnimator.SetBool (MecanimHashes.Search, true);
+
     }
 
     protected void Searching (float elapsedTime)
@@ -215,9 +216,8 @@ public class OlympusAnimator : CharacterAnimator
 
         // Turn on the screens when he begines to idle
         if(TimeInCurrentState == 0) {
-            Debug.Log("Turning on screens");
             ScreenAnimator.Play("Take 001");
-            foreach(Fader screen in Screens) 
+            foreach (Fader screen in Screens)
                 screen.FadeIn();
         }
 
@@ -323,6 +323,7 @@ public class OlympusAnimator : CharacterAnimator
         
         if (CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)))
             MecanimAnimator.SetBool (MecanimHashes.GrabWall, true);
+
     }
     
     protected void Falling (float elapsedTime)
@@ -344,6 +345,7 @@ public class OlympusAnimator : CharacterAnimator
 
         if (CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)))
             MecanimAnimator.SetBool (MecanimHashes.GrabWall, true);
+
     }
     
     protected void Hanging (float elapsedTime)
@@ -460,7 +462,7 @@ public class OlympusAnimator : CharacterAnimator
         if (CharInput.JumpActive) {
             MecanimAnimator.SetBool (MecanimHashes.Jump, true);
             DropHangTarget ();
-        } 
+        }
         
     }
 
