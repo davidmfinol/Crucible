@@ -69,7 +69,8 @@ public class OlympusAI : EnemyAI
     public override bool UpdateAStarPath(float speedRatio, bool repathOnInvalid)
     {
         if(base.UpdateAStarPath(speedRatio, repathOnInvalid)) {
-            Vector3 target = Path.vectorPath[CurrentPathWaypoint];
+            //Vector3 target = Path.vectorPath[CurrentPathWaypoint];
+            Vector3 target = GetComponent<EnemyAIDebugger>().Node.transform.position;
             if(target.y < transform.position.y + Animator.Height) {
                 Debug.Log("Setting look at " + target);
                 _headLook.target = target;

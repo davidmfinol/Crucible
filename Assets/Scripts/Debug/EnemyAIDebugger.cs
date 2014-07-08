@@ -22,15 +22,17 @@ public class EnemyAIDebugger : MonoBehaviour
     void Awake ()
     {
         enabled = Debug.isDebugBuild;
+        
+        _node = ((Transform)Instantiate (HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
+        _node.transform.parent = transform;
+        _node.renderer.enabled = false;
+
     }
     
     void Start ()
     {
         _brain = GetComponent<EnemyAI> ();
         _input = GetComponent<CharacterInput> ();
-        _node = ((Transform)Instantiate (HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
-        _node.transform.parent = transform;
-        _node.renderer.enabled = false;
 
     }
     
@@ -59,6 +61,10 @@ public class EnemyAIDebugger : MonoBehaviour
         if (_brain.Path != null)
             GUI.Box (new Rect (10, 260, 300, 20), "At node " + (_brain.CurrentPathWaypoint) + " of vectorPath length " + _brain.Path.vectorPath.Count + "& path length " + _brain.Path.path.Count);
 
+    }
+
+    public GameObject Node {
+        get { return _node; }
     }
 
 }
