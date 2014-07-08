@@ -4,11 +4,15 @@ using System.Collections;
 /// <summary>
 /// Olympus AI specifies AI behaviour specific to the Olympus enemy type.
 /// </summary>
+[RequireComponent(typeof(HeadLookController))]
 [AddComponentMenu("AI/Olympus AI")]
 public class OlympusAI : EnemyAI
 {
     // Olympus lights up different colors based off awarenesslevel
     private OlympusAwareness _olympusAwareness;
+
+    // Olympus looks at where he's going
+    private HeadLookController _headLook;
     
     // Settings for how the Olympus wanders
     private float _timeLeftWandering;
@@ -21,6 +25,7 @@ public class OlympusAI : EnemyAI
     protected override void OnStart ()
     {
         _olympusAwareness = GetComponent<OlympusAwareness> ();
+        _headLook = GetComponent<HeadLookController>();
         _timeLeftWandering = Settings.WanderTime;
         _timeSpentIdling = 0;
         _wanderZone = new Bounds(Vector3.zero, Vector3.zero);
@@ -64,12 +69,20 @@ public class OlympusAI : EnemyAI
     public override bool UpdateAStarPath(float speedRatio, bool repathOnInvalid)
     {
         if(base.UpdateAStarPath(speedRatio, repathOnInvalid)) {
-           // TODO:  Debug.Log("Setting look at " + Path.vectorPath[CurrentPathWaypoint]);
-            Animator.MecanimAnimator.SetLookAtPosition(Path.vectorPath[CurrentPathWaypoint]);
-            Animator.MecanimAnimator.SetLookAtWeight(1.0f);
+            Vector3 target = Path.vectorPath[CurrentPathWaypoint];
+            if(target.y < transform.position.y + Animator.Height) {
+                Debug.Log("Setting look at " + target);
+                _headLook.target = target;
+                _headLook.enabled = true;
+            }
+            else
+                _headLook.enabled = false;
             return true;
-        }
 
+        }
+        else {
+            _headLook.enabled = false;
+        }
         return false;
 
     }
