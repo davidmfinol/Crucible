@@ -84,7 +84,7 @@ public class CameraSpotterAnimator : CharacterAnimator
                 _lastState = _state;
                 _state = CameraState.Paused;
                 _timeInState = 0.0f;
-                _sound.Play(_sound.Rotating, 1.0f);
+                _sound.Play(_sound.Rotating, 0.5f);
 
             }
 
@@ -99,7 +99,7 @@ public class CameraSpotterAnimator : CharacterAnimator
                 _lastState = _state;
                 _state = CameraState.Paused;
                 _timeInState = 0.0f;
-                _sound.Play(_sound.Rotating, 1.0f);
+                _sound.Play(_sound.Rotating, 0.5f);
                 
             }
 
@@ -117,7 +117,7 @@ public class CameraSpotterAnimator : CharacterAnimator
 
                 _lastState = CameraState.Paused;
                 _timeInState = 0.0f;
-                _sound.Play(_sound.Moving, 1.0f);
+                _sound.Play(_sound.Moving, 0.5f);
 
             }
 
@@ -139,11 +139,14 @@ public class CameraSpotterAnimator : CharacterAnimator
                 if (angleToPlayer >= MinAngle && angleToPlayer <= MaxAngle) {
 
                     // Sound based off how it's following
-                    if( _currAngle == angleToPlayer && !_sound.IsPlaying(_sound.Still) ) {
-                        _sound.PlayLoop(_sound.Still, 1.0f);
+                    bool isStayingStill = Mathf.Abs(_currAngle - angleToPlayer) < 0.5f;
+                    if(isStayingStill && !_sound.IsPlaying(_sound.Still) ) {
+                        _sound.Stop();
+                        _sound.PlayLoop(_sound.Still, 0.5f);
                     }
-                    else if ( _currAngle != angleToPlayer && !_sound.IsPlaying(_sound.Still) ) {
-                        _sound.PlayLoop(_sound.Moving, 1.0f);
+                    else if (!isStayingStill && !_sound.IsPlaying(_sound.Moving) ) {
+                        _sound.Stop();
+                        _sound.PlayLoop(_sound.Moving, 0.5f);
                     }
 
                     _currAngle = angleToPlayer;
@@ -154,7 +157,7 @@ public class CameraSpotterAnimator : CharacterAnimator
                 // stop tracking - return to last state
             } else {
                 _state = _lastState;
-                _sound.DelayedStop();
+                _sound.Stop();
 
             }
 

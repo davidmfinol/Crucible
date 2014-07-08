@@ -148,9 +148,12 @@ public class BabyBotAnimator : CharacterAnimator
 
 	}
 
+    public BabybotAudioPlayer Sound {
+        get { return _sound; }
+    }
+
     public override EnemySaveState.EnemyType EnemyType {
         get { return EnemySaveState.EnemyType.Enemy_BabyBot; }
-        
     }
 
 }

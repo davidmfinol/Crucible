@@ -186,6 +186,7 @@ public class Tutorial : MonoBehaviour
             if(ai.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_BabyBot)
                 babyBot = ai;
         babyBot.PersonalHearingRadius.IgnoreAbove = true;
+        ((BabyBotAnimator)(babyBot.Animator)).Sound.MaxDistance = 5;
 
 		if (!GameManager.SaveData.HasShownSightPuzzle){
             GameManager.SaveData.HasShownSightPuzzle = true;
