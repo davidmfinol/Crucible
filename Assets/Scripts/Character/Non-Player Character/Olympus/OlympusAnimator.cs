@@ -123,6 +123,7 @@ public class OlympusAnimator : CharacterAnimator
 
         // Olympus needs to turn off the screens when not idling
         if( CurrentState.nameHash != IdleState) {
+            Debug.Log("Turning off screens");
             foreach(Fader screen in Screens) 
                 screen.FadeOut();
         }
@@ -214,7 +215,7 @@ public class OlympusAnimator : CharacterAnimator
 
         // Turn on the screens when he begines to idle
         if(TimeInCurrentState == 0) {
-            Debug.Log("Play animation");
+            Debug.Log("Turning on screens");
             ScreenAnimator.Play("Take 001");
             foreach(Fader screen in Screens) 
                 screen.FadeIn();
