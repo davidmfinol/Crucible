@@ -134,12 +134,12 @@ public class EnemyAI : MonoBehaviour
         
         //TODO: KEEP TRACK OF ONLY ONE SOUND?
         // Pop off sounds we can identify until we find one we haven't reached yet
-        while (PersonalHearingRadius.ObjectsHeard.Count > 0 && Vector3.Distance(PersonalHearingRadius.ObjectsHeard[0].transform.position, transform.position) < Settings.SoundInspectionRange)
-            PersonalHearingRadius.ObjectsHeard.RemoveAt (0);
+        while (PersonalHearingRadius.ObjectsHeard.Count > 0 && Vector3.Distance(PersonalHearingRadius.ObjectsHeard.First.Value.transform.position, transform.position) < Settings.SoundInspectionRange)
+            PersonalHearingRadius.ObjectsHeard.RemoveFirst();
         
         // Set our target as appropriate, or return if we don't have one
         if (PersonalHearingRadius.ObjectsHeard.Count > 0)
-            UpdateAStarTarget (PersonalHearingRadius.ObjectsHeard [0].transform.position);
+            UpdateAStarTarget (PersonalHearingRadius.ObjectsHeard.First.Value.transform.position);
         else
             return;
         

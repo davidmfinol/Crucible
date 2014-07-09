@@ -15,7 +15,7 @@ public class HearingRadius : MonoBehaviour
 
     public bool IgnoreAbove = false;
 
-    private List<SoundEvent> _objectsHeard;
+    private LinkedList<SoundEvent> _objectsHeard;
     private List<HeartBox> _charactersCouldHear;
     private List<OutlineInteractive> _barriers;
 
@@ -24,7 +24,7 @@ public class HearingRadius : MonoBehaviour
 
     void Awake()
     {
-        _objectsHeard = new List<SoundEvent> ();
+        _objectsHeard = new LinkedList<SoundEvent> ();
         _charactersCouldHear = new List<HeartBox>();
         _barriers = new List<OutlineInteractive>();
 
@@ -46,7 +46,7 @@ public class HearingRadius : MonoBehaviour
             sound.HeardBy.Add (this);
             // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL
             if(!IgnoreAbove || other.transform.position.y < 70)
-                _objectsHeard.Add (sound);
+                _objectsHeard.AddFirst (sound);
         }
 
         HeartBox heart = other.GetComponent<HeartBox>();
@@ -115,7 +115,7 @@ public class HearingRadius : MonoBehaviour
         get { return _sphereCollider.radius * transform.lossyScale.x; }
     }
 
-    public List<SoundEvent> ObjectsHeard {
+    public LinkedList<SoundEvent> ObjectsHeard {
         get { return _objectsHeard; }
     }
 
