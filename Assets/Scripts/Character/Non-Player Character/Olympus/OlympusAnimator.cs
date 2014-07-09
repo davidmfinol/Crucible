@@ -168,16 +168,15 @@ public class OlympusAnimator : CharacterAnimator
 
     protected void Punch (float elapsedTime)
     {
-		_sound.Play (_sound.Idling, 0.3f);
-        // find where to place the attack event
+        _sound.Play (_sound.Attacking, 0.3f);
+        
+        // Attack in front of us
         Vector3 meleePos = transform.position;
         meleePos.x += (2.5f * Direction.x);
-        
-        // attack above us
         GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
         HitBox d = o.GetComponent<HitBox> ();
-
-        // which direction to player?
+        
+        // Make the attack push in the correct direction
         float horizontalDir = 0.0f;
         if (GameManager.Player.transform.position.x < transform.position.x)
             horizontalDir = -1.0f;
@@ -190,15 +189,15 @@ public class OlympusAnimator : CharacterAnimator
     
     protected void PunchUp (float elapsedTime)
     {
-        // find where to place the attack event
+        _sound.Play (_sound.Attacking, 0.3f);
+
+        // Attack above us
         Vector3 meleePos = transform.position;
         meleePos.y += Height * 0.5f;
-        
-        // attack in front of us
         GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
         HitBox d = o.GetComponent<HitBox> ();
         
-        // which direction to player?
+        // Make the attack push in the correct direction
         float horizontalDir = 0.0f;
         if (GameManager.Player.transform.position.x < transform.position.x)
             horizontalDir = -1.0f;

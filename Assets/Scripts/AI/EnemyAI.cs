@@ -574,7 +574,7 @@ public class EnemyAI : MonoBehaviour
 	}
 
 	public bool IsSeeingPlayer {
-		get { return _personalVision != null && _personalVision.IsSeeingPlayer (_animator.Direction); }
+		get { return _personalVision != null && _personalVision.IsSeeingPlayer (_animator.Direction) && !GameManager.Player.IsDead; }
 	}
 
     // Is the player in the range that the enemy could feasibly hit him?

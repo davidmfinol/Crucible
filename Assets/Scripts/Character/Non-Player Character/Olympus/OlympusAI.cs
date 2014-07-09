@@ -140,8 +140,23 @@ public class OlympusAI : EnemyAI
         bool isStunned = Animator.CurrentState.nameHash == OlympusAnimator.StunState;
         bool shouldAttack = IsPlayerInAttackRange && !isStunned && !Animator.IsDead;
         if (shouldAttack) {
+
+            bool isPlayerHittableHorizontally = false;
+            if(!isPlayerHittableHorizontally) {
+                Debug.Log("Attack Charge");
+                Animator.CharInput.Attack = 1;
+            }
+            else {
+                Debug.Log("Attack Release");
+                Animator.CharInput.Attack = 0;
+            }
+
             bool isPlayerAbove = GameManager.Player.transform.position.y > transform.position.y + Animator.Height * 0.5f;
-            Animator.CharInput.Attack = isPlayerAbove ? -1 : 1;
+            if(isPlayerAbove) {
+                Debug.Log("Attack Above");
+                Animator.CharInput.Attack = -1;
+            }
+
             
         }
         

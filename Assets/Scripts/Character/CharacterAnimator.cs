@@ -10,14 +10,11 @@ using System.Collections;
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(CharacterSettings))]
 [RequireComponent(typeof(CharacterInput))]
-// HACK: [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CameraTargetAttributes))]
 [AddComponentMenu("Character/Character Animator")]
 public abstract class CharacterAnimator : MonoBehaviour
 {
-    // HACK: THIS VARIABLE IS USED TO GET AROUND A MECANIM BUG
-    public Avatar CharAvatar;
-
     // Components used with movement and animation
     private CharacterController _characterController;
     private Animator _animator;
@@ -80,14 +77,6 @@ public abstract class CharacterAnimator : MonoBehaviour
         _characterSettings = GetComponent<CharacterSettings> ();
         _characterInput = GetComponent<CharacterInput> ();
         _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
-        
-        // HACK: SOMETIMES, MECANIM WILL RANDOMLY HAVE A BUG WHERE THE ANIMATOR HAS 0 LAYERS, AND THIS TRIES TO GET AROUND IT
-        while (_animator == null || _animator.layerCount < 1) {
-            Debug.LogError ("Mecanim animation layers missing for " + gameObject.name + ". Trying to recreate.");
-            DestroyImmediate (_animator);
-            _animator = gameObject.AddComponent<Animator> ();
-            _animator.avatar = CharAvatar;
-        }
 
         // Set up the mapping between the mecanim state machine and this class's interpretation of it
         _stateMachine = new Dictionary<int, ProcessState> ();
@@ -250,6 +239,21 @@ public abstract class CharacterAnimator : MonoBehaviour
 		// Move our character!
         if (!IgnoreMovement)
             _collisionFlags = _characterController.Move (currentMovementOffset);
+
+        // Lock our z-movement
+        Vector3 position = transform.position;
+        if (position.z != newZ) {
+            if (Mathf.Abs(lastPosition.y - position.y) > 0) {
+                if ( IsGrounded )
+                    position.y += Mathf.Abs(position.z);
+                else if ( IsTouchingCeiling )
+                    position.y -= Mathf.Abs(position.z);
+            }
+            else
+                position.x = lastPosition.x;
+            position.z = newZ;
+        }
+        transform.position = position;
 
         // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
