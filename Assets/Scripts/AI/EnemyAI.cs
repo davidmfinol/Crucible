@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour
     private Vector3 _target = Vector3.zero; // where the enemy wants to go
     private Path _path = null; // how it plans to get there
     private int _currentPathWaypoint = 0; // where it is on that path
-    private static bool _isSearchingForPath = false; // Is the enemy currently looking for a path?
+    private bool _isSearchingForPath = false; // Is the enemy currently looking for a path?
     private float _timeSinceRepath = 0; // how long has it been since it found a path
     private bool _hasTouchedNextNode = false; // keep track of whether we've already reached the node we're going to 
 
@@ -294,8 +294,9 @@ public class EnemyAI : MonoBehaviour
         // Normal operation requires repathing at a set rate
         bool canRepath = _animator.IsGrounded;
         bool shouldRepath = _timeSinceRepath > (_settings.RepathRate / speedRatio);
-        if (canRepath && shouldRepath)
+        if (canRepath && shouldRepath) {
             Repath ();
+        }
         
         // Stop if we've reached the end of the path
         bool isFinalNode = _currentPathWaypoint >= _path.vectorPath.Count;
