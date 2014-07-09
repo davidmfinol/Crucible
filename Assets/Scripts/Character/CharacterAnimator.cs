@@ -240,21 +240,6 @@ public abstract class CharacterAnimator : MonoBehaviour
         if (!IgnoreMovement)
             _collisionFlags = _characterController.Move (currentMovementOffset);
 
-        // Lock our z-movement
-        Vector3 position = transform.position;
-        if (position.z != newZ) {
-            if (Mathf.Abs(lastPosition.y - position.y) > 0) {
-                if ( IsGrounded )
-                    position.y += Mathf.Abs(position.z);
-                else if ( IsTouchingCeiling )
-                    position.y -= Mathf.Abs(position.z);
-            }
-            else
-                position.x = lastPosition.x;
-            position.z = newZ;
-        }
-        transform.position = position;
-
         // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
         _velocity = (transform.position - lastPosition) / Time.fixedDeltaTime;

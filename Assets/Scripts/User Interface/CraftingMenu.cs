@@ -243,6 +243,9 @@ public class CraftingMenu : MonoBehaviour
 
     public void Close ()
     {
+        if(_state == CraftingMenuState.CraftingMenu_Closed)
+            return;
+
         _state = CraftingMenuState.CraftingMenu_Closing;
         _timeInState = 0.0f;
 		//Play a sound effect

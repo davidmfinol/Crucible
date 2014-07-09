@@ -168,7 +168,7 @@ public class OlympusAnimator : CharacterAnimator
 
     protected void Punch (float elapsedTime)
     {
-        _sound.Play (_sound.Attacking, 0.3f);
+        _sound.Play (_sound.Attacking, 1.0f);
         
         // Attack in front of us
         Vector3 meleePos = transform.position;
@@ -189,7 +189,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected void PunchUp (float elapsedTime)
     {
-        _sound.Play (_sound.Attacking, 0.3f);
+        _sound.Play (_sound.Attacking, 1.0f);
 
         // Attack above us
         Vector3 meleePos = transform.position;

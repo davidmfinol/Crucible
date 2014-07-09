@@ -40,7 +40,7 @@ public class HitBox : MonoBehaviour
         KnockBackAmount = HorizontalDir * 15.0f;   // give proper direction
         KnockUpAmount = 10.0f;
         CanStun = false;
-        DestroyTime = 0.1f;
+        DestroyTime = 0.3f;
         Radius = 2.0f;
 
     }

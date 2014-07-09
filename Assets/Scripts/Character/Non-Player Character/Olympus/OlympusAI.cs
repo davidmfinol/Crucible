@@ -141,19 +141,15 @@ public class OlympusAI : EnemyAI
         bool shouldAttack = IsPlayerInAttackRange && !isStunned && !Animator.IsDead;
         if (shouldAttack) {
 
-            bool isPlayerHittableHorizontally = false;
-            if(!isPlayerHittableHorizontally) {
-                Debug.Log("Attack Charge");
+            bool isCharging = Animator.MecanimAnimator.GetBool(MecanimHashes.AttackHorizontal);
+            bool isPlayerHittableHorizontally = Mathf.Abs (transform.position.x - GameManager.Player.transform.position.x) < 10;
+            if(isCharging && isPlayerHittableHorizontally) 
+                Animator.CharInput.Attack = 0; // Release attack after charge and when close enough
+            else
                 Animator.CharInput.Attack = 1;
-            }
-            else {
-                Debug.Log("Attack Release");
-                Animator.CharInput.Attack = 0;
-            }
 
             bool isPlayerAbove = GameManager.Player.transform.position.y > transform.position.y + Animator.Height * 0.5f;
             if(isPlayerAbove) {
-                Debug.Log("Attack Above");
                 Animator.CharInput.Attack = -1;
             }
 
