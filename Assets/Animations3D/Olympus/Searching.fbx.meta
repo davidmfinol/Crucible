@@ -414,6 +414,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
+    motionNodeName: 
     animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
@@ -428,7 +429,7 @@ ModelImporter:
       lastFrame: 643
       wrapMode: 0
       orientationOffsetY: 0
-      level: -.150000006
+      level: .150000006
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -439,7 +440,7 @@ ModelImporter:
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -759,7 +760,7 @@ ModelImporter:
       lastFrame: 565
       wrapMode: 0
       orientationOffsetY: 0
-      level: -.150000006
+      level: .150000006
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -768,9 +769,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -1090,7 +1091,7 @@ ModelImporter:
       lastFrame: 604
       wrapMode: 0
       orientationOffsetY: 0
-      level: -.150000006
+      level: .150000006
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -1099,9 +1100,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
