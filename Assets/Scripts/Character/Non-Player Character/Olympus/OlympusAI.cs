@@ -8,6 +8,9 @@ using System.Collections;
 [AddComponentMenu("AI/Olympus AI")]
 public class OlympusAI : EnemyAI
 {
+    // If Olympus's next node is within MinimumLook, Olympus will look at the node after it
+    public float MinimumLook = 10.0f;
+
     // Olympus lights up different colors based off awarenesslevel
     private OlympusAwareness _olympusAwareness;
 
@@ -70,6 +73,8 @@ public class OlympusAI : EnemyAI
     {
         if(base.UpdateAStarPath(speedRatio, repathOnInvalid)) {
             Vector3 target = Path.vectorPath[CurrentPathWaypoint];
+            if (CurrentPathWaypoint < Path.vectorPath.Count - 2 && Mathf.Abs(target.x - transform.position.x) < MinimumLook)
+                target = Path.vectorPath[CurrentPathWaypoint + 1];
             SetLook (target.y < transform.position.y + Animator.Height, target); // We don't look up
             return true;
 

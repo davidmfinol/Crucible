@@ -195,6 +195,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         UpdatePlatformBegin ();
         
         // Some variables for mecanim are updated every frame
+        bool wasGrounded = IsGrounded || IsClimbing;
         UpdateMecanimVariables ();
 
         // keep track of time in current state for things like wall sliding, etc.
@@ -217,7 +218,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 
         // Keep track of where we started out this frame
         Vector3 lastPosition = transform.position;
-        bool wasGrounded = IsGrounded;
 
         // Calculate 2D movement
         Vector3 currentMovementOffset = new Vector3 (_horizontalSpeed, _verticalSpeed, 0);
@@ -243,12 +243,15 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
         _velocity = (transform.position - lastPosition) / Time.fixedDeltaTime;
-        if (wasGrounded && !IsGrounded)
-            _lastGroundHeight = transform.position.y;
 
         // We should finally make our character be able to face the correct way
         if (!IgnoreDirection)
             UpdateRotation (Time.fixedDeltaTime);
+
+        // Support for keeping track of fall distances
+        if(wasGrounded)
+            _lastGroundHeight = transform.position.y;
+        Debug.Log(LastGroundHeight);
 
         // Moving Platform support
         UpdatePlatformEnd ();

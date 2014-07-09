@@ -581,8 +581,10 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
         //if(CharInput.JumpPressed && !_hasDoubleJumped)
         //    MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
-        if (IsGrounded && (LastGroundHeight - transform.position.y) > 10.0f)
+        if (IsGrounded && (LastGroundHeight - transform.position.y) > 10.0f && !CanGrabWall && !CanClimbLadder && !CanClimbRope) {
             MecanimAnimator.SetBool (MecanimHashes.FallRoll, true);
+            MecanimAnimator.SetBool (MecanimHashes.IsGrounded, false);
+        }
 
     }
 
