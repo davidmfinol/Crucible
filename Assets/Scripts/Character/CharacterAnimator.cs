@@ -251,7 +251,6 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Support for keeping track of fall distances
         if(wasGrounded)
             _lastGroundHeight = transform.position.y;
-        Debug.Log(LastGroundHeight);
 
         // Moving Platform support
         UpdatePlatformEnd ();
@@ -309,7 +308,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     public virtual void OnControllerColliderHit (ControllerColliderHit hit)
     {
         // If we're not already on a platform, check to see if we just hit one
-        if (_activePlatform != null) {
+        if (_activePlatform == null) {
             // Support for moving platforms
             if (Mathf.Abs (hit.moveDirection.y) > 0.9 && Mathf.Abs (hit.normal.y) > 0.9)
                 _activePlatform = hit.collider.transform;
