@@ -11,6 +11,7 @@ using System.Collections.Generic;
 [AddComponentMenu("AI/Sight/ViewCone")]
 public class ViewCone : MonoBehaviour
 {
+    public Transform RootRotation;
     // HACK: CAMERA VIEW CONE DOESN'T HAVE MESH FORWARD SET CORRECTLY
     public bool IsCamera = false;
 
@@ -148,10 +149,12 @@ public class ViewCone : MonoBehaviour
         Vector3 topRight = new Vector3(bounds.extents.x, bounds.extents.y, bounds.center.z);
         Vector3 bottomRight = new Vector3(bounds.extents.x, -bounds.extents.y, bounds.center.z);
         Vector3 forward = transform.forward;
-        Quaternion rotation = Quaternion.Euler(0, 0, 90);
+        Quaternion rotation = Quaternion.identity;
         // HACK: CAMERA VIEW CONE DOESN'T HAVE MESH FORWARD SET CORRECTLY
         if(IsCamera)
             rotation = Quaternion.Euler(90, 0, 0);
+        else if (RootRotation != null)
+            rotation = Quaternion.Euler(0, 0, -RootRotation.rotation.eulerAngles.y);
         forward = rotation * forward;
         
         // Project onto horizontal axis

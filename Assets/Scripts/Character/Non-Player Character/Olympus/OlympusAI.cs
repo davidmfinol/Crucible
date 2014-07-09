@@ -69,8 +69,7 @@ public class OlympusAI : EnemyAI
     public override bool UpdateAStarPath(float speedRatio, bool repathOnInvalid)
     {
         if(base.UpdateAStarPath(speedRatio, repathOnInvalid)) {
-            //Vector3 target = Path.vectorPath[CurrentPathWaypoint];
-            Vector3 target = GetComponent<EnemyAIDebugger>().Node.transform.position;
+            Vector3 target = Path.vectorPath[CurrentPathWaypoint];
             SetLook (target.y < transform.position.y + Animator.Height, target); // We don't look up
             return true;
 
@@ -84,8 +83,8 @@ public class OlympusAI : EnemyAI
     // A helper method to make olympus look with his vision cone at a spot
     public void SetLook (bool shouldLook, Vector3 target) 
     {
-        _headLook.target = target;
         _headLook.enabled = shouldLook;
+        _headLook.target = target;
         foreach (ViewCone cone in PersonalVision.ViewCones)
             cone.renderer.enabled = shouldLook;
 
