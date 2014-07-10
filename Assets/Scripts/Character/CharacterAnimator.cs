@@ -423,7 +423,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     protected virtual void ApplyRunning (float elapsedTime)
     {
         float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
-        HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
+        HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, IgnoreXYMovement ? 0 : Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
 
     }
 
