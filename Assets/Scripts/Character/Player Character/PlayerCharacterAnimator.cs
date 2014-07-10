@@ -417,24 +417,34 @@ public class PlayerCharacterAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.DetonateMine, true);
         
     }
-         
+
+    // The player-character can roll over small obstacles
     protected void Rolling (float elapsedTime)
     {
-        if (MecanimAnimator.GetBool (MecanimHashes.ClimbLedge)) {
-            MecanimAnimator.SetBool (MecanimHashes.ClimbLedge, false);
-            Bounds ledgeBounds = ActiveHangTarget.collider.bounds; //TODO: ENSURE THIS IS NEVER NULL
-            float distanceToClimb = ledgeBounds.max.y - Controller.bounds.min.y;
-            float distanceToMove = Direction.x > 0 ?
-                ledgeBounds.max.x - Controller.bounds.center.x :
-                    Controller.bounds.center.x - ledgeBounds.min.x;
-            float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
+        // We only need to set motion settings at the beginning of the animation
+        if(!MecanimAnimator.GetBool (MecanimHashes.ClimbLedge))
+            return;
 
-            // TODO: Confirm this value
-            VerticalSpeed = distanceToClimb / animationTime;
-
-			// TODO: Confirm this value. Lolwat
-            HorizontalSpeed = distanceToMove / animationTime;
+        // We need to make sure we know what we're going to roll over.
+        if (ActiveHangTarget == null) {
+            Debug.LogWarning("Failed to have hang target while doing rolling!");
+            return;
         }
+
+        // Meta-data about the motion we need to do
+        MecanimAnimator.SetBool (MecanimHashes.ClimbLedge, false);
+        Bounds ledgeBounds = ActiveHangTarget.collider.bounds;
+        float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
+
+        // Horizontal motion
+        float distanceToMove = Direction.x > 0 ?
+            ledgeBounds.max.x - Controller.bounds.center.x :
+                ledgeBounds.min.x - Controller.bounds.center.x;
+        HorizontalSpeed = distanceToMove / animationTime;
+
+        // Vertical motion
+        float distanceToClimb = ledgeBounds.max.y - Controller.bounds.min.y;
+        VerticalSpeed = distanceToClimb / animationTime;
 
     }
 
@@ -448,6 +458,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 		//HorizontalSpeed = Direction.x * (18.0f / animationTime);
 
         Running (elapsedTime);
+
     }
 
     protected void Jumping (float elapsedTime)
@@ -726,10 +737,15 @@ public class PlayerCharacterAnimator : CharacterAnimator
         //    ApplyClimbingStrafing( CharInput.Horizontal );
         //else
         HorizontalSpeed = 0;
-        
-        float vertical = CharInput.Vertical;
-        
-        ApplyClimbingVertical (vertical);
+
+        // The vertical motion is the most important when climbing ladders
+        ApplyClimbingVertical (CharInput.Vertical);
+        if(VerticalSpeed == 0) {
+            if(InputMoveForward)
+                VerticalSpeed = Settings.LadderClimbingSpeed;
+            else if (InputMoveBackward)
+                VerticalSpeed = -Settings.LadderClimbingSpeed;
+        }
         
         if (ActiveHangTarget.DoesFaceZAxis ())
             Direction = Vector3.zero;

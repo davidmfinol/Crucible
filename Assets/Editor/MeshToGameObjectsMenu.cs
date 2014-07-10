@@ -15,8 +15,8 @@ public class MeshToGameObjectsMenu
         "ground",
         "mesh",
         "wall",
-        "ladder",
         "rope",
+        "ladder",
     });
 
     // Prefabs we load to set up the gameobjects
@@ -24,8 +24,7 @@ public class MeshToGameObjectsMenu
     static GameObject ledgePrefab;
     static GameObject wallPrefab;
     static GameObject ropePrefab;
-    static GameObject ladderXPrefab;
-    static GameObject ladderZPrefab;
+    static GameObject ladderPrefab;
 
     // We will store some gameobjects in a new gameobject
     static GameObject wallContainer;
@@ -69,9 +68,8 @@ public class MeshToGameObjectsMenu
         playerPrefab = (GameObject)Resources.Load ("Prefabs/Characters/PlayerCharacter");
         ledgePrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Ledge");
         wallPrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Wall");
-        ladderXPrefab = (GameObject)Resources.Load ("Prefabs/Platforming/LadderX");
-        ladderZPrefab = (GameObject)Resources.Load ("Prefabs/Platforming/LadderZWithoutTop");
         ropePrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Rope");
+        ladderPrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Ladder");
 
         // We're primarily focused on the root gameobject, and we know that it comes after all its children
         Transform root = selected [selected.Count - 1];
@@ -196,7 +194,7 @@ public class MeshToGameObjectsMenu
             leftLedge.GetComponent<Ledge> ().Left = true;
             leftLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower ().Contains ("obstacle"));
             BoxCollider col = leftLedge.GetComponent<BoxCollider> ();
-            col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100);
+            col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100); // NOTE: 100 is an arbitrary number that should be large enough
 
             // And put it at the right spot
             Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
@@ -213,7 +211,7 @@ public class MeshToGameObjectsMenu
             rightLedge.GetComponent<Ledge> ().Left = false;
             rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower ().Contains ("obstacle"));
             BoxCollider col = rightLedge.GetComponent<BoxCollider> ();
-            col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100);
+            col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100); // NOTE: 100 is an arbitrary number that should be large enough
             
             // And put it at the right spot
             Vector3 rightOffset = new Vector3 (ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
@@ -258,8 +256,7 @@ public class MeshToGameObjectsMenu
         // Scale the rope so that it encompasses the physical pipe and the player
         createdRopeCollider.size = rope.collider.bounds.size;
         Vector3 size = createdRopeCollider.size;
-        CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
-        size.z += charController.radius * playerPrefab.transform.localScale.z;
+        size.z *= 100; // NOTE: 100 is an arbitrary number that should be large enough
         createdRopeCollider.size = size;
         
     }
@@ -267,9 +264,9 @@ public class MeshToGameObjectsMenu
     static void CreateLadder (Transform ladder)
     {
         // Create the ladder at the correct position
-        GameObject prefab = ladder.name.Contains ("X") ? ladderXPrefab : ladderZPrefab;
-        GameObject createdLadder = GameObject.Instantiate (prefab, ladder.position, prefab.transform.rotation) as GameObject;
+        GameObject createdLadder = GameObject.Instantiate (ladderPrefab, ladder.position, ladderPrefab.transform.rotation) as GameObject;
         BoxCollider createdLadderCollider = createdLadder.GetComponent<BoxCollider> ();
+        bool facesZAxis = !ladder.name.Contains ("X");
         createdLadder.isStatic = true;
         createdLadder.transform.parent = wallContainer.transform;
         createdLadderCollider.center = ladder.collider.bounds.center - ladder.transform.position;
@@ -278,11 +275,12 @@ public class MeshToGameObjectsMenu
         createdLadderCollider.size = ladder.collider.bounds.size;
         Vector3 size = createdLadderCollider.size;
         CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
-        if (ladder.name.Contains ("X"))
-            size.x += charController.radius * playerPrefab.transform.localScale.z;
+        if (facesZAxis)
+            size.z *= 100; // NOTE: 100 is an arbitrary number that should be large enough
         else
-            size.z += charController.radius * playerPrefab.transform.localScale.z;
+            size.x += charController.radius * playerPrefab.transform.localScale.z;
         createdLadderCollider.size = size;
+        createdLadder.GetComponent<Ladder>().FacesZAxis = facesZAxis;
 
     }
 
