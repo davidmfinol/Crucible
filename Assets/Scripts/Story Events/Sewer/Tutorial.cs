@@ -22,26 +22,20 @@ public class Tutorial : MonoBehaviour
 
     // The locations where certain effects will happen
     public Transform SneakStartPosition;
-	public Transform SightPuzzlePosition;
 	public Transform RunnerPositionOlympusSpawn;
     public Transform Olympus1Position;
 	public Transform OlympusPrefab;
-	public Transform AIBarrier;
-    //public Transform Olympus2Position;
 
-	public TutorialAudioPlayer FanSounds;
+    // The sewer door and fan sounds
     public TutorialAudioPlayer DoorSounds;
-
-	private bool _stopFanStopping;
+    public TutorialAudioPlayer FanSounds;
     private bool _sewerDoorOpen;
 
     void Start ()
     {
 		SewerDoor.animation.Play ("Close");
-
 		SpinningFan.animation.Play ("SpinningLoop");
 		StartCoroutine (KeepFanSpinning ());
-        StartCoroutine (KeepShieldActive());
 
     }
 
@@ -188,6 +182,7 @@ public class Tutorial : MonoBehaviour
         babyBot.PersonalHearingRadius.IgnoreAbove = true;
         ((BabyBotAnimator)(babyBot.Animator)).Sound.MaxDistance = 5;
 
+        // Mainly just affects the door
 		if (!GameManager.SaveData.HasShownSightPuzzle){
             GameManager.SaveData.HasShownSightPuzzle = true;
 
@@ -195,7 +190,30 @@ public class Tutorial : MonoBehaviour
 			StartCoroutine("OperateDoor");
         }
 
-	}
+    }
+    
+    public IEnumerator OperateDoor ()
+    {
+        while (true) {
+            // see player & open? close.
+            if ((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
+                SewerDoor.animation.Play ("Close");
+                DoorSounds.Play (DoorSounds.DoorSlam, 1.0f);
+                _sewerDoorOpen = false;
+                
+                // no longer see player & closed? open.
+            } else if ((GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
+                SewerDoor.animation.Play ("Open");
+                DoorSounds.Play (DoorSounds.DoorOpen, 1.0f);
+                _sewerDoorOpen = true;
+                
+            }
+            
+            yield return new WaitForSeconds (0.25f);
+            
+        }
+        
+    }
 
 	public void ShowSpawnOlympus ()
 	{
@@ -210,61 +228,33 @@ public class Tutorial : MonoBehaviour
 		}
 	}
 
-    public void BeforeCamera ()
-    {
-        SewerDoor.animation.Play ("Open");
-        _sewerDoorOpen = true;
-    
-    }
-
-    public IEnumerator OperateDoor ()
-    {
-        while (true) {
-            // see player & open? close.
-            if ((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
-                SewerDoor.animation.Play ("Close");
-                DoorSounds.Play (DoorSounds.DoorSlam, 1.0f);
-                _sewerDoorOpen = false;
-
-                // no longer see player & closed? open.
-            } else if ((GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
-                SewerDoor.animation.Play ("Open");
-                DoorSounds.Play (DoorSounds.DoorOpen, 1.0f);
-                _sewerDoorOpen = true;
-
-            }
-                
-            yield return new WaitForSeconds (0.25f);
-            
-        }
-        
-    }
-
 	public IEnumerator SpawnOlympus ()
 	{
+        // Wait until the runner has walked past
 		while(Runner.WalkedUnderneath == false)
 			yield return null;
 		GameManager.MainCamera.Target = Olympus1Position.transform;
-		yield return new WaitForSeconds (0.5f);
-		
-		// spawn olympus up high and have him fall.
-		Transform newOlympus = (Transform)Instantiate (OlympusPrefab, Olympus1Position.position, Quaternion.identity);
-		GameManager.MainCamera.Target = newOlympus;
-		newOlympus.GetComponent<EnemyAISettings> ().ShouldWander = false;
-		newOlympus.GetComponent<CharacterAnimator> ().Direction = new Vector3 (-1.0f, 0.0f, 0.0f);
-		EnemyAI enemyAI = newOlympus.GetComponent<EnemyAI>();
-  		// drops 2 items.
-		newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts);
+        yield return new WaitForSeconds (0.5f);
 
-        // Olympus gives chase to the mysterious runner for a bit
-		yield return new WaitForSeconds(2.3f);
+		// Spawn olympus up high and have him fall
+		Transform newOlympus = (Transform)Instantiate (OlympusPrefab, Olympus1Position.position, Quaternion.identity);
+        newOlympus.GetComponent<EnemyAISettings> ().ShouldWander = false;
+		newOlympus.GetComponent<CharacterAnimator> ().Direction = new Vector3 (-1.0f, 0.0f, 0.0f);
+        newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts); // drops 2 items.
+
+        // Look at Olympus fall
+        GameManager.MainCamera.Target = newOlympus;
+        yield return new WaitForSeconds(0.1f);
 
         // THESE MUST BE DONE HERE, SO THAT THE START METHOD CANNOT OVERWRITE THEM.
-        enemyAI.GetComponent<CharacterInput>().UpdateInputMethod = null;
-        enemyAI.GetComponent<EnemyAISettings>().ShouldWander = false;
-        enemyAI.GetComponent<EnemyAISettings>().CanSee = false;                        
-        enemyAI.GetComponent<EnemyAISettings>().CanHear = false;
+        EnemyAI enemyAI = newOlympus.GetComponent<EnemyAI>();
+        enemyAI.Animator.CharInput.UpdateInputMethod = null;
+        enemyAI.Settings.ShouldWander = false;
+        enemyAI.Settings.CanSee = false;                        
+        enemyAI.Settings.CanHear = false;
+        yield return new WaitForSeconds(2.2f);
 
+        // Have olympus try to chase down the runner
 		CharacterInput input = newOlympus.GetComponent<CharacterInput> ();
 		input.Horizontal = -0.7f;
 		yield return new WaitForSeconds(0.90f);
@@ -272,125 +262,42 @@ public class Tutorial : MonoBehaviour
 		input.Attack = 1.0f;
 		yield return new WaitForSeconds(2.0f);
 
-		StartCoroutine(ForcePunch(input));
-
-        enemyAI.GetComponent<CharacterInput>().UpdateInputMethod = enemyAI.UpdateInput;
-        enemyAI.GetComponent<EnemyAISettings>().CanSee = true;                        
-        enemyAI.GetComponent<EnemyAISettings>().CanHear = true;
+        // Enable the olympus as normal
+        enemyAI.Animator.CharInput.UpdateInputMethod = enemyAI.UpdateInput;
+        enemyAI.Settings.CanSee = true;                        
+        enemyAI.Settings.CanHear = true;
         	
-	}
-
-	public IEnumerator ForcePunch (CharacterInput input)
-	{
-		while(true)
-		{
-			yield return new WaitForSeconds(0.5f);
-			// if he's dead or after you, stop punching randomly.
-            if((input) == null || Mathf.Abs (input.Horizontal) > 0.1f)
-                break;
-			input.Attack = 1.0f;
-		}
-	}
-
-	public IEnumerator KeepShieldActive() {
-        yield return null;
-
-		while(true) {
-            // if there are no olympuses near the holoshield, destroy it.
-
-            yield return new WaitForSeconds(0.25f);
-
-            // *** find the shield ***
-            Item shield = null;
-            
-            // if found shield, remove it and stop.
-            foreach(Item item in GameManager.Level.Items) {
-                if(item.name.Contains ("HoloShield")) {
-                    shield = item;
-                    
-                }
-                
-            }
-
-            // no more olympuses alive, destroy
-            if(GameManager.AI.OlympusesAlive == 0) {
-           
-                if(shield != null) {
-                    Destroy (shield.gameObject);
-
-                }
-
-            } else {
-                if(shield != null) {
-                    // make any Olympuses not wander who are near the shield.
-                    foreach(EnemyAI ai in GameManager.AI.Enemies) {
-                       if((ai is OlympusAI) && (Vector3.Distance(shield.transform.position, ai.transform.position) < 40.0f) ) {
-                            ai.Settings.ShouldWander = false;
-                            ai.Settings.CanSee = true;                        
-                            ai.Settings.CanHear = true;
-                            ai.Settings.VisionMemory = 999.9f;
-
-                        }
-                       
-                    }
-
-                }
-
-            }
-
-		}
-
 	}
 
 	public IEnumerator KeepFanSpinning ()
 	{
 		FanSounds.PlayLoop(FanSounds.FanSpinning, 1.0f);
-
-		while(true)
-		{
-			
-			yield return new WaitForSeconds(0.5f);
-
-			bool sparkPlugFound = false;
-
-			// spark plug still in the level?
-			foreach( Item item in GameManager.Level.Items) {
-				if( item.WeaponPrefab.GetComponent<SparkPlug>() != null) {
-					sparkPlugFound = true;
-					break;
-
-				}
-
-			}
-
-			// all spark plugs removed from level?
-			// make the fan non-lethal and enter a separate wind-down loop
-			if( !sparkPlugFound ) {
-				Destroy(SpinningFan.GetComponentInChildren<DeathTrigger>());
-				if(!_stopFanStopping)
-				{
-					_stopFanStopping = true;
-					FanSounds.Play(FanSounds.FanStopping, 1.0f);
-				}
-				break;
-
-			}
-
-        }
         
-        // close the door behind you
+        // Check every now to see if all the sparkplugs have been picked up
+        bool sparkplugPickedUp = false;
+        while (!sparkplugPickedUp)
+		{
+			yield return new WaitForSeconds(0.5f);
+            sparkplugPickedUp = true;
+			foreach (Item item in GameManager.Level.Items)
+				if (item.WeaponPrefab.GetComponent<SparkPlug>() != null) 
+					sparkplugPickedUp = false;
+        }
+
+        // If the sparkplug's gone, make the fan stop
+        Destroy(SpinningFan.GetComponentInChildren<DeathTrigger>());
+        FanSounds.Stop();
+        FanSounds.Play(FanSounds.FanStopping, 1.0f);
+        
+        // Close the door behind you
         StopCoroutine("OperateDoor");
         SewerDoor.animation.Play("Close");
 
-
-		// power down.
+		// Power down
 		while(SpinningFan.animation["SpinningLoop"].speed > 0.1f) {
 			SpinningFan.animation["SpinningLoop"].speed -= (0.5f * Time.deltaTime);
-
 			yield return null;
-
 		}
-
 		SpinningFan.animation.Stop ();
 	
 	}

@@ -9,15 +9,15 @@ public class MysteriousRunner : MonoBehaviour
 {
 	private bool _walkedUnderneath = false;
 
-	private GameObject _droppedShield;
-
     public IEnumerator ShowWallJump ()
     {
+        // Start the cutscene
         CharacterInput input = GetComponent<CharacterInput> ();
         input.UpdateInputMethod = null;
         GameManager.IsPlayingCutscene = true;
         GameManager.MainCamera.Target = transform;
 
+        // Do the walljump
         input.Horizontal = -1;
         yield return new WaitForSeconds (1.15f);
         input.Horizontal = 0;
@@ -30,6 +30,7 @@ public class MysteriousRunner : MonoBehaviour
         yield return new WaitForSeconds (1.5f);
 		input.Jump = new Vector2 (1, 1);
 
+        // End the cutscene
         GameManager.MainCamera.Target = GameManager.Player.transform;
         GameManager.IsPlayingCutscene = false;
         gameObject.SetActive (false);
@@ -38,6 +39,7 @@ public class MysteriousRunner : MonoBehaviour
 
     public IEnumerator ShowSneak (Vector3 startPosition)
     {
+        // Start the cutscene
         CharacterInput input = GetComponent<CharacterInput> ();
         input.UpdateInputMethod = null;
         GameManager.IsPlayingCutscene = true;
@@ -64,48 +66,22 @@ public class MysteriousRunner : MonoBehaviour
 		yield return new WaitForSeconds (1.5f);
 		Destroy(camAtt);
 
+        // End the cutscene
         GameManager.MainCamera.Target = GameManager.Player.transform;
         GameManager.IsPlayingCutscene = false;
         gameObject.SetActive (false);
 
     }
 
-	public IEnumerator ShowSightPuzzle (Vector3 startPosition)
-	{
-        CharacterInput input = GetComponent<CharacterInput> ();
-        input.UpdateInputMethod = null;
-        GameManager.IsPlayingCutscene = true;
-        GameManager.MainCamera.Target = transform;
-
-        transform.position = startPosition;
-		input.Horizontal = -1f;
-		yield return new WaitForSeconds (1.2f);
-		input.Horizontal = 0f;
-		input.Vertical = 1.0f;
-		yield return new WaitForSeconds (2.5f);
-		input.Vertical = -1.0f;
-        yield return new WaitForSeconds (0.3f);
-		input.Vertical = 0.0f;
-		input.Horizontal = -0.5f;
-		yield return new WaitForSeconds (2.5f);
-		GameManager.MainCamera.Target = null;
-		input.Jump = new Vector2(-1, 1);
-		yield return new WaitForSeconds (0.2f);
-		input.Jump = new Vector2(-1, 1);
-		yield return new WaitForSeconds (3.5f);
-
-        GameManager.MainCamera.Target = GameManager.Player.transform;
-        GameManager.IsPlayingCutscene = false;
-        gameObject.SetActive (false);
-	}
-
 	public IEnumerator ShowOlympusSpawn (Vector3 startPosition)
 	{
+        // Start the cutscene
 		CharacterInput input = GetComponent<CharacterInput> ();
         input.UpdateInputMethod = null;
         GameManager.IsPlayingCutscene = true;
 		GameManager.MainCamera.Target = transform;
 
+        // Walk for a bit
 		transform.position = startPosition;
 		input.Horizontal = -0.5f;
 		yield return new WaitForSeconds (2.0f);
@@ -121,12 +97,7 @@ public class MysteriousRunner : MonoBehaviour
 		yield return new WaitForSeconds (0.25f);
 		input.Attack = 1f;
 
-		Vector3 shieldPos = transform.position;
-		shieldPos += Vector3.right * 3.0f;
-		shieldPos += Vector3.down * 2.0f;
-
-		//_droppedShield = (GameObject) Instantiate(Resources.Load("Prefabs/Weapons/OnField/HoloShield"), shieldPos, Quaternion.Euler(0.0f, 270.0f, 0.0f) );
-
+        // Escape the olympus
 		yield return new WaitForSeconds (0.5f);
 		input.Attack = 0f;
 		GameManager.MainCamera.Target = null;
@@ -136,20 +107,15 @@ public class MysteriousRunner : MonoBehaviour
 		input.Horizontal = 0f;
 		yield return new WaitForSeconds (3.5f);
 
-
+        // End the cutscene
         GameManager.MainCamera.Target = GameManager.Player.transform;
         GameManager.IsPlayingCutscene = false;
 		gameObject.SetActive (false);
+
 	}
 
 	public bool WalkedUnderneath {
-		get {
-			return _walkedUnderneath;
-		}
+        get { return _walkedUnderneath; }
 	}
 
-//	public GameObject DroppedShield {
-//		get { return _droppedShield; }
-//
-//	}
 }

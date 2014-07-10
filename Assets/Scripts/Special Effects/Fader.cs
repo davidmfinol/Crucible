@@ -36,8 +36,11 @@ public class Fader : MonoBehaviour
 
     }
     
-    public void FadeIn (float time = 0)
+    public void FadeIn (float time = 0, bool dropAlpha = false)
     {
+        if (_isFadingIn)
+            return;
+
         _isFadingIn = false;
         _isStaying = false;
         _isFadingOut = false;
@@ -45,18 +48,21 @@ public class Fader : MonoBehaviour
 
         if (time > 0)
             FadeInSeconds = time;
-        StartCoroutine (DoFadeIn ());
+        StartCoroutine (DoFadeIn (dropAlpha));
 
     }
 
-    private IEnumerator DoFadeIn ()
+    private IEnumerator DoFadeIn (bool dropAlpha = false)
     {
         _isFadingIn = true;
 
-		renderer.enabled = true;
-        Color alphaed = renderer.material.color;
-        alphaed.a = MinAlpha;
-        renderer.material.color = alphaed;
+        if(dropAlpha) {
+            Color alphaed = renderer.material.color;
+            alphaed.a = MinAlpha;
+            renderer.material.color = alphaed;
+        }
+        
+        renderer.enabled = true;
         while (renderer.material.color.a < MaxAlpha) {
             yield return null;
             Color temp = renderer.material.color;
@@ -81,8 +87,11 @@ public class Fader : MonoBehaviour
 
     }
 
-    public void FadeOut (float time = 0)
+    public void FadeOut (float time = 0, bool raiseAlpha = true)
     {
+        if (_isFadingOut)
+            return;
+
         _isFadingIn = false;
         _isStaying = false;
         _isFadingOut = false;
@@ -90,13 +99,20 @@ public class Fader : MonoBehaviour
 
         if (time > 0)
             FadeOutSeconds = time;
-        StartCoroutine (DoFadeOut ());
+        StartCoroutine (DoFadeOut (raiseAlpha));
 
     }
 
-    private IEnumerator DoFadeOut ()
+    private IEnumerator DoFadeOut (bool raiseAlpha = true)
     {
         _isFadingOut = true;
+
+        if(raiseAlpha) {
+            Color alphaed = renderer.material.color;
+            alphaed.a = MaxAlpha;
+            renderer.material.color = alphaed;
+        }
+
         while (renderer.material.color.a > MinAlpha) {
             yield return null;
             Color temp = renderer.material.color;
@@ -105,8 +121,8 @@ public class Fader : MonoBehaviour
             renderer.material.color = temp;
         }
 		renderer.enabled = false;
-        _isFadingOut = false;
 
+        _isFadingOut = false;
 		if(DestroyAtFadeOut)
 			Destroy(gameObject);
 

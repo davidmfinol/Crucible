@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: Sewer2 - TutorialRound2.ma
-//Last modified: Wed, Jul 09, 2014 08:14:07 PM
+//Last modified: Thu, Jul 10, 2014 11:22:09 AM
 //Codeset: 1252
 requires maya "2014";
 requires "stereoCamera" "10.0";
@@ -22795,7 +22795,7 @@ createNode transform -n "group10" -p "polySurface211";
 	setAttr ".r" -type "double3" 90 -176.3866430595717 105.29060078371968 ;
 	setAttr ".rp" -type "double3" 59.013035117280467 46.633066567842299 -12.935159896784359 ;
 	setAttr ".sp" -type "double3" 59.013035117280467 46.633066567842299 -12.935159896784359 ;
-createNode transform -n "Ledge4";
+createNode transform -n "Box5";
 	setAttr ".t" -type "double3" -18.897905756952671 8.3787846650715316 -3.0850076861562163 ;
 	setAttr ".r" -type "double3" 90 -89.999999999999901 0 ;
 	setAttr ".s" -type "double3" 1.5278638539539948 6.7092390703866025 1.5278638539539946 ;
@@ -22803,7 +22803,7 @@ createNode transform -n "Ledge4";
 	setAttr ".rpt" -type "double3" 1.157736314594306 -2.2633137098789304 0.065512864856386133 ;
 	setAttr ".sp" -type "double3" -0.0069128870964050293 -0.07142263650894165 -0.049791619181632989 ;
 	setAttr ".spt" -type "double3" -0.0036490632246572001 -0.40776890686687023 -0.026283195995826431 ;
-createNode mesh -n "Ledge4Shape" -p "Ledge4";
+createNode mesh -n "Box5Shape" -p "Box5";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -22825,7 +22825,7 @@ createNode mesh -n "Ledge4Shape" -p "Ledge4";
 		-0.038068585 0.25052226 5.6621374e-015 0.038068585 0.25052226 5.6621374e-015 0.07613717 
 		0.25052765 2.5257574e-015 0.038068566 0.25053304 2.7755576e-016 -0.038068607 0.25053307 
 		2.7755576e-016;
-createNode mesh -n "polySurfaceShape150" -p "Ledge4";
+createNode mesh -n "polySurfaceShape150" -p "Box5";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".vir" yes;
@@ -22930,7 +22930,7 @@ createNode mesh -n "polySurfaceShape150" -p "Ledge4";
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape278" -p "Ledge4";
+createNode mesh -n "polySurfaceShape278" -p "Box5";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".vir" yes;
@@ -49449,7 +49449,7 @@ connectAttr "groupId365.id" "|polySurface211|Mesh|MeshShape.iog.og[0].gid";
 connectAttr "blinn6SG.mwc" "|polySurface211|Mesh|MeshShape.iog.og[0].gco";
 connectAttr "groupId366.id" "polySurfaceShape277.iog.og[0].gid";
 connectAttr "blinn6SG.mwc" "polySurfaceShape277.iog.og[0].gco";
-connectAttr "polySoftEdge31.out" "Ledge4Shape.i";
+connectAttr "polySoftEdge31.out" "Box5Shape.i";
 connectAttr "groupId374.id" "pPlaneShape8.iog.og[0].gid";
 connectAttr "lambert23SG.mwc" "pPlaneShape8.iog.og[0].gco";
 connectAttr "groupParts403.og" "pPlaneShape8.i";
@@ -51187,7 +51187,7 @@ connectAttr "polySurfaceShape249.iog.og[1]" "blinn6SG.dsm" -na;
 connectAttr "polySurfaceShape249.ciog.cog[0]" "blinn6SG.dsm" -na;
 connectAttr "polySurfaceShape259.iog.og[0]" "blinn6SG.dsm" -na;
 connectAttr "polySurfaceShape260.iog.og[0]" "blinn6SG.dsm" -na;
-connectAttr "Ledge4Shape.iog" "blinn6SG.dsm" -na;
+connectAttr "Box5Shape.iog" "blinn6SG.dsm" -na;
 connectAttr "polySurfaceShape280.iog.og[0]" "blinn6SG.dsm" -na;
 connectAttr "|polySurface163|polySurface185|polySurface199|Mesh|transform82|MeshShape.iog.og[0]" "blinn6SG.dsm"
 		 -na;
@@ -52114,7 +52114,7 @@ connectAttr "TopLeftPipeBrokenShape.wm" "polyChipOff32.mp";
 connectAttr "|TopLeftPipeBroken|polySurfaceShape274.o" "groupParts367.ig";
 connectAttr "groupId350.id" "groupParts367.gi";
 connectAttr "polySurfaceShape278.o" "polySoftEdge31.ip";
-connectAttr "Ledge4Shape.wm" "polySoftEdge31.mp";
+connectAttr "Box5Shape.wm" "polySoftEdge31.mp";
 connectAttr "tweak1.og[0]" "polyCut15.ip";
 connectAttr "polySurfaceShape260.wm" "polyCut15.mp";
 connectAttr "polyUnite9.out" "polyCut16.ip";

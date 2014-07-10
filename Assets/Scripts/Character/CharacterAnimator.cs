@@ -358,7 +358,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
 	}
     
-    public void DoRagDoll (Vector3 push)
+    public virtual void DoRagDoll (Vector3 push)
     {
         CharacterSettings.ActivateRagDoll (transform, false, true);
 

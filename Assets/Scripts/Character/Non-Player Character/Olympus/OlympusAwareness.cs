@@ -12,27 +12,10 @@ public class OlympusAwareness : MonoBehaviour
     public Color WanderingColor = Color.white;
 
     private List<Material> _changeableMaterials;
-    private Fader[] _faders;
 
     void Start ()
     {
         _changeableMaterials = FindChangeableMaterials ();
-        _faders = GetComponentsInChildren<Fader>();
-
-        foreach(Fader f in _faders)
-            f.FadeOut();
-
-    }
-
-    void Update() {
-        int t = (int)Time.timeSinceLevelLoad;
-
-        if (t % 5 == 0) {
-            foreach(Fader f in _faders)
-                f.FadeIn();
-
-        }
-
     }
 
     public void ChangeAwareness (EnemyAI.AwarenessLevel awareness)

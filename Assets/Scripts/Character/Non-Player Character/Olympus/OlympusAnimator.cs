@@ -531,6 +531,16 @@ public class OlympusAnimator : CharacterAnimator
 
     }
 
+    public override void DoRagDoll(Vector3 push)
+    {
+        // Olympus needs to get rid of his screens when he dies.
+        Screens = new Fader[0];
+        Destroy(ScreenAnimator.gameObject);
+
+        base.DoRagDoll(push);
+
+    }
+
     protected override void ApplyRunning (float elapsedTime)
     {
         base.ApplyRunning (elapsedTime);

@@ -89,6 +89,8 @@ public class MeshToGameObjectsMenu
                 OutlineInteractive outliner = transform.GetComponent<OutlineInteractive>();
                 if(outliner)
                     GameObject.DestroyImmediate(outliner);
+                transform.gameObject.tag = "Untagged";
+                transform.gameObject.layer = LayerMask.NameToLayer("Default");
                 return;
             }
 
