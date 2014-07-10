@@ -39,13 +39,20 @@ public class Item : MonoBehaviour
     {
         // Make sure our settings are correct
         collider.isTrigger = false;
-
-        // TODO: MAKE SURE FREEZE ROTATION AND FREEZE Z-POSITION ARE ON
-        //gameObject.layer = LayerMask.NameToLayer ("Item"); NOT DONE BECAUSE OF HOLOSHIELD OBJECT
+        rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
+        rigidbody.freezeRotation = true;
+        gameObject.layer = LayerMask.NameToLayer ("Item"); // NOTE: THIS DOESN'T WORK WITH HOLOSHIELD OBJECT
 
         // Register ourselves with the LevelManager
         GameManager.Level.Items.Add (this);
         transform.parent = GameManager.Level.ItemContainer;
+
+    }
+    
+    // Make the item have an indicator appear above it
+    void Update()
+    {
+
 
     }
     

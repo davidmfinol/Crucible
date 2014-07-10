@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -14,19 +14,19 @@ public class PlayerHeartBox : HeartBox
     private float _regenTimer = 6.0f;
     // how long at this health?  how far along in regen?
     private float _timeUntilRegen = 0.0f;
-    private PlayerCharacterAnimator _player;
+    private NewmanAnimator _player;
     private CameraScrolling _camScroll;
 
     protected override void OnStart ()
     {
-        _player = transform.root.GetComponent<PlayerCharacterAnimator> ();
+        _player = transform.root.GetComponent<NewmanAnimator> ();
         _camScroll = Camera.main.GetComponent<CameraScrolling> ();
 
     }
 
     void FixedUpdate ()
     {
-        if (Controller.CurrentState.nameHash == PlayerCharacterAnimator.DeadState && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed))
+        if (Controller.CurrentState.nameHash == NewmanAnimator.DeadState && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed))
             GameManager.SpawnPlayer ();
 
     }

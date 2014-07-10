@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Player character defines the motion for the character that the player controls.
+/// Newman Animator defines the motion for the character that the player controls.
 /// </summary>
-[AddComponentMenu("Character/Player Character/Player Character Animator")]
-public class PlayerCharacterAnimator : CharacterAnimator
+[AddComponentMenu("Character/Player Character/Newman Animator")]
+public class NewmanAnimator : CharacterAnimator
 {
     // TODO: REPLACE THIS WITH OBJECT POOLING
     public GameObject StealthKillEvent;
@@ -38,7 +38,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
     //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
 
     //The player's sound effects, yeah!
-    private PlayerCharacterAudioPlayer _sound;
+    private NewmanAudioPlayer _sound;
 
     // Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -64,7 +64,7 @@ public class PlayerCharacterAnimator : CharacterAnimator
 
     protected override void OnStart ()
     {
-        _sound = gameObject.GetComponentInChildren<PlayerCharacterAudioPlayer> ();
+        _sound = gameObject.GetComponentInChildren<NewmanAudioPlayer> ();
         _itemPickedup = null;
         _jumpDirectional = 0;
 

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -14,14 +14,14 @@ public class HideZone : MonoBehaviour
     public Fader CircleIndicator;
     public float ArrowRotationSpeed = 10;
 
-    private PlayerCharacterShader _playerStealth;
+    private NewmanShader _playerStealth;
     private Quaternion _upArrowRotation;
     private Quaternion _downArrowRotation;
 
 
     void Start ()
     {
-        _playerStealth = GameManager.Player.GetComponent<PlayerCharacterShader>();
+        _playerStealth = GameManager.Player.GetComponent<NewmanShader>();
         _upArrowRotation = Arrow.transform.rotation;
         Arrow.transform.Rotate(0, 0, 180);
         _downArrowRotation = Arrow.transform.rotation;

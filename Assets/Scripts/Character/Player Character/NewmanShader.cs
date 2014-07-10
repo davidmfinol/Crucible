@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Player character shader is responsible for managing the settings for the shader attached to the player character.
+/// Newman shader is responsible for managing the settings for the shader attached to the player character.
 /// </summary>
-[AddComponentMenu("Character/Player Character/Player Character Shader")]
-public class PlayerCharacterShader : MonoBehaviour
+[AddComponentMenu("Character/Player Character/Newman Shader")]
+public class NewmanShader : MonoBehaviour
 {
     public enum ShaderType : int
     {
@@ -29,7 +29,7 @@ public class PlayerCharacterShader : MonoBehaviour
     {
         _changeableMaterials = FindChangeableMaterials ();
 
-		_anim = GetComponent<PlayerCharacterAnimator> ();
+		_anim = GetComponent<NewmanAnimator> ();
 
 		_inShadow = false;
 

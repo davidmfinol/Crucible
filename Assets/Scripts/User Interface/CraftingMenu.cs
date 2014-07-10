@@ -210,9 +210,9 @@ public class CraftingMenu : MonoBehaviour
 
     public void TryOpen ()
     {
-        if (GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.IdleState ||
-            GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.RunningState ||
-            GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.StandingUpState) {
+        if (GameManager.Player.CurrentState.nameHash == NewmanAnimator.IdleState ||
+            GameManager.Player.CurrentState.nameHash == NewmanAnimator.RunningState ||
+            GameManager.Player.CurrentState.nameHash == NewmanAnimator.StandingUpState) {
             GameManager.UI.DisableInput ();
             GameManager.Player.StepDown ();
             Open ();
@@ -223,7 +223,7 @@ public class CraftingMenu : MonoBehaviour
 
     public void TryClose ()
     {
-        if (GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.SteppingDownState) {
+        if (GameManager.Player.CurrentState.nameHash == NewmanAnimator.SteppingDownState) {
             GameManager.UI.EnableInput ();
             GameManager.Player.StandUp ();
             Close ();

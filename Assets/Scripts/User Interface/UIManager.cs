@@ -586,7 +586,7 @@ public class UIManager : MonoBehaviour
 		} else if (_hasFlashed)
 			_flashAlpha.On = false;
 
-        bool canStealthKill = GameManager.Player is PlayerCharacterAnimator && ((PlayerCharacterAnimator)GameManager.Player).StealthKillable != null && GameManager.Inventory.CanWeaponStealthKill;
+        bool canStealthKill = GameManager.Player is NewmanAnimator && ((NewmanAnimator)GameManager.Player).StealthKillable != null && GameManager.Inventory.CanWeaponStealthKill;
         bool vignetteActive = _stealthKillVignette.IsFadingIn || _stealthKillVignette.IsStaying;
         if (canStealthKill && !vignetteActive) {
             _stealthKillVignette.FadeIn ();

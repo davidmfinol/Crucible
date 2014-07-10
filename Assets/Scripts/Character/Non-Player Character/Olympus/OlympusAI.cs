@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -162,7 +162,7 @@ public class OlympusAI : EnemyAI
         }
         
         // Stop moving while the player is knocked back
-        if (GameManager.Player.CurrentState.nameHash == PlayerCharacterAnimator.DamagedState)
+        if (GameManager.Player.CurrentState.nameHash == NewmanAnimator.DamagedState)
             Animator.CharInput.Horizontal = 0;
 
     }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -18,7 +18,7 @@ public class StealthKillTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        PlayerCharacterAnimator player = other.GetComponent<PlayerCharacterAnimator> ();
+        NewmanAnimator player = other.GetComponent<NewmanAnimator> ();
         if (player != null && _ai != null && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware)
             player.StealthKillable = _ai.Animator;
 
@@ -26,7 +26,7 @@ public class StealthKillTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        PlayerCharacterAnimator player = other.GetComponent<PlayerCharacterAnimator> ();
+        NewmanAnimator player = other.GetComponent<NewmanAnimator> ();
         if (player != null)
             player.StealthKillable = null;
 

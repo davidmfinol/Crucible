@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -16,7 +16,7 @@ public class MeetJasper : MonoBehaviour
         if (!GameManager.SaveData.ShownMeetJasper) {
             GameManager.SaveData.ShownMeetJasper = true;
 
-            PlayerCharacterAnimator anim = other.gameObject.GetComponent<PlayerCharacterAnimator> ();
+            NewmanAnimator anim = other.gameObject.GetComponent<NewmanAnimator> ();
 
             if (anim != null) {
             //    StartCoroutine (DoDialogue());

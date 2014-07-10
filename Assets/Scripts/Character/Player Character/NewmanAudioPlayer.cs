@@ -2,10 +2,10 @@
 using System.Collections;
 
 /// <summary>
-/// Player character audio player plays the sounds that the player character makes.
+/// Newman audio player plays the sounds that the player character makes.
 /// </summary>
-[AddComponentMenu ("Audio/PlayerCharacter Audio")]
-public class PlayerCharacterAudioPlayer : AudioPlayer
+[AddComponentMenu ("Audio/Newman Audio")]
+public class NewmanAudioPlayer : AudioPlayer
 {
     public AudioClip Attack;
     public AudioClip Hit;
