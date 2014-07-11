@@ -73,6 +73,39 @@ ModelImporter:
     100134: be_nada
     100136: bind_head
     100138: bind_nada
+    100140: polySurface1
+    100142: transform1
+    100144: transform2
+    100146: transform3
+    100148: anim_back01
+    100150: anim_chest01
+    100152: anim_COG01
+    100154: anim_head01
+    100156: anim_l_arm01
+    100158: anim_l_elbow_01
+    100160: anim_l_leg01
+    100162: anim_pelvis01
+    100164: anim_r_arm01
+    100166: anim_r_elbow4
+    100168: anim_r_knee01
+    100170: anim_r_knee02
+    100172: anim_r_leg01
+    100174: be_pelvis02
+    100176: bottom
+    100178: controls01
+    100180: global01
+    100182: global02
+    100184: ikso01
+    100186: jDrv_l_ankle01
+    100188: jDrv_l_foot01
+    100190: jDrv_l_toe01
+    100192: jDrv_r_ankle01
+    100194: jDrv_r_foot01
+    100196: jDrv_r_toe01
+    100198: rp_l_arm01
+    100200: rp_l_leg01
+    100202: rp_r_arm01
+    100204: rp_r_leg01
     400000: Armguard
     400002: be_head_01
     400004: be_l_ankle01
@@ -143,6 +176,39 @@ ModelImporter:
     400134: be_nada
     400136: bind_head
     400138: bind_nada
+    400140: polySurface1
+    400142: transform1
+    400144: transform2
+    400146: transform3
+    400148: anim_back01
+    400150: anim_chest01
+    400152: anim_COG01
+    400154: anim_head01
+    400156: anim_l_arm01
+    400158: anim_l_elbow_01
+    400160: anim_l_leg01
+    400162: anim_pelvis01
+    400164: anim_r_arm01
+    400166: anim_r_elbow4
+    400168: anim_r_knee01
+    400170: anim_r_knee02
+    400172: anim_r_leg01
+    400174: be_pelvis02
+    400176: bottom
+    400178: controls01
+    400180: global01
+    400182: global02
+    400184: ikso01
+    400186: jDrv_l_ankle01
+    400188: jDrv_l_foot01
+    400190: jDrv_l_toe01
+    400192: jDrv_r_ankle01
+    400194: jDrv_r_foot01
+    400196: jDrv_r_toe01
+    400198: rp_l_arm01
+    400200: rp_l_leg01
+    400202: rp_r_arm01
+    400204: rp_r_leg01
     2300000: Armguard
     2300002: Plane_001
     3300000: Armguard
