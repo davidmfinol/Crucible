@@ -227,8 +227,8 @@ ModelImporter:
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
-    bakeSimulation: 0
-    optimizeGameObjects: 0
+    bakeSimulation: 1
+    optimizeGameObjects: 1
     motionNodeName: 
     animationCompression: 3
     animationRotationError: .5
@@ -236,7 +236,225 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 426
+      lastFrame: 598
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Newman
+        weight: 0
+      - path: Newman/Plane_001
+        weight: 0
+      - path: Newman/Armguard
+        weight: 0
+      - path: Newman/Char
+        weight: 0
+      - path: global02
+        weight: 1
+      - path: global02/global01
+        weight: 1
+      - path: global02/global01/ikso01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_leg01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_leg01
+        weight: 0
+      - path: global02/global01/Skeleton
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada/be_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01/be_l_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01/be_l_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq/be_l_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01/be_l_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01/be_l_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01/be_r_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01/be_r_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq/be_r_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01/be_r_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01/be_r_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01/be_l_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01/be_r_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/be_pelvis01
+        weight: 0
+      - path: global02/global01/controls01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01/jDrv_r_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01/jDrv_l_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee02
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01/anim_chest01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_pelvis01
+        weight: 0
+      - path: global02/global01/controls01/anim_head01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_elbow_01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_elbow4
+        weight: 0
+      - path: bottom
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -258,7 +476,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human:
@@ -374,7 +592,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: bind_l_wrist01
+    - boneName: be_l_wrist01
       humanName: LeftHand
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -668,24 +886,144 @@ ModelImporter:
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: Newman
-      position: {x: 0, y: -.0213701576, z: .0296400674}
-      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+    - name: bottom
+      position: {x: 0, y: -62.0620003, z: 0}
+      rotation: {x: .5, y: -.5, z: -.5, w: .5}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: Armguard
-      position: {x: 1.34500432, y: .729984403, z: 1.03556478}
-      rotation: {x: 9.29844655e-32, y: 2.61799388e-17, z: -3.5517451e-15, w: 1}
+    - name: global02
+      position: {x: 0, y: .0646871701, z: .00211309292}
+      rotation: {x: 0, y: -0, z: 0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: Char
-      position: {x: -0, y: .0213701576, z: -.029640032}
-      rotation: {x: 9.29844655e-32, y: 2.61799388e-17, z: -3.5517451e-15, w: 1}
+    - name: global01
+      position: {x: -0, y: 1.79531288, z: -.00211309292}
+      rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: Plane_001
-      position: {x: -0, y: .0213701576, z: -.029640032}
-      rotation: {x: 9.29844655e-32, y: 2.61799388e-17, z: -3.5517451e-15, w: 1}
+    - name: controls01
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_COG01
+      position: {x: -.0187655538, y: -.583438814, z: 11.246994}
+      rotation: {x: .000458153343, y: .00065979443, z: -3.02287134e-07, w: .999999702}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_back01
+      position: {x: -0, y: .301827222, z: 5.50401744e-16}
+      rotation: {x: .081327796, y: .190556183, z: -.0158433206, w: .978173375}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_chest01
+      position: {x: -5.50670624e-16, y: .548458457, z: 0}
+      rotation: {x: .319801062, y: -.00518436497, z: -.00539804623, w: .947455168}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_pelvis01
+      position: {x: -0, y: 5.50670624e-16, z: -2.68882141e-19}
+      rotation: {x: -.313109159, y: .298175424, z: .104238808, w: .895649672}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_head01
+      position: {x: -5.50670624e-16, y: 1.22604573, z: .00211309292}
+      rotation: {x: .145513207, y: .0878807604, z: -.0128217498, w: .985362113}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_l_arm01
+      position: {x: -1.48259509, y: .981977582, z: -.00611071521}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_l_elbow_01
+      position: {x: -.688005507, y: .474287689, z: 11.5551987}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_l_leg01
+      position: {x: -.227354899, y: -1.56245399, z: -.0723113865}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: jDrv_l_toe01
+      position: {x: -.0821515769, y: -.211037397, z: .325439423}
+      rotation: {x: 0, y: .616348922, z: -0, w: .787473202}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: jDrv_l_foot01
+      position: {x: .307891369, y: .0275527388, z: 3.44169438e-17}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: jDrv_l_ankle01
+      position: {x: .0277531222, y: .183484659, z: .00156621926}
+      rotation: {x: 0, y: -.0281833354, z: -0, w: .999602795}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_r_arm01
+      position: {x: 1.48259509, y: .981977582, z: -.00611071521}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_r_elbow4
+      position: {x: .486779094, y: .196834683, z: 9.76948166}
+      rotation: {x: 6.12323426e-17, y: 1, z: -6.12323426e-17, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: -1}
+      transformModified: 1
+    - name: anim_r_knee01
+      position: {x: .641207516, y: -1.1202637, z: 12.1427441}
+      rotation: {x: 6.12323426e-17, y: 1, z: -6.12323426e-17, w: -6.12323426e-17}
+      scale: {x: 1, y: 1, z: -1}
+      transformModified: 1
+    - name: anim_r_knee02
+      position: {x: -.530534208, y: -.372434318, z: 12.4549227}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: anim_r_leg01
+      position: {x: .227354631, y: -1.56245399, z: -.0723113865}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: jDrv_r_toe01
+      position: {x: .08215186, y: -.211037397, z: .325439423}
+      rotation: {x: .787473202, y: 3.7740486e-17, z: .616348922, w: -4.82188262e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: jDrv_r_foot01
+      position: {x: -.307891369, y: -.0275528003, z: -1.6591073e-09}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: jDrv_r_ankle01
+      position: {x: -.027753057, y: -.183482811, z: -.00156653125}
+      rotation: {x: 0, y: -.0281833354, z: -0, w: .999602795}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: ikso01
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: rp_l_arm01
+      position: {x: -.698352277, y: -.318457484, z: 12.0270891}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: rp_l_leg01
+      position: {x: -.227354899, y: -1.56245399, z: 12.0636673}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: rp_r_arm01
+      position: {x: .83968854, y: -.301825762, z: 10.6651726}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: rp_r_leg01
+      position: {x: .227354631, y: -1.56245589, z: 10.7619762}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Skeleton
@@ -694,8 +1032,13 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_pelivis01
-      position: {x: 0, y: 1.79831862, z: .00211309292}
-      rotation: {x: 0, y: 0, z: .707106829, w: .707106829}
+      position: {x: 0, y: -.120041013, z: .00211309292}
+      rotation: {x: -.0954537615, y: -.130465016, z: .700989366, w: .694608808}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: be_pelvis02
+      position: {x: -0, y: 6.11367206e-32, z: 0}
+      rotation: {x: .298175395, y: .31310913, z: .104238801, w: .895649612}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_pelvis01
@@ -705,7 +1048,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_l_thingh01
       position: {x: -3.93376097e-17, y: .177160844, z: -.00211309292}
-      rotation: {x: .706878841, y: .0179547239, z: -.0406423137, w: .705937862}
+      rotation: {x: .687995791, y: -.173207492, z: .123070985, w: .693912566}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_l_knee01
@@ -715,7 +1058,7 @@ ModelImporter:
       transformModified: 1
     - name: be_l_ankle01
       position: {x: -.943446994, y: -1.7208457e-17, z: -3.67123832e-17}
-      rotation: {x: .99572438, y: .0923741907, z: 5.65628791e-18, w: 6.097053e-17}
+      rotation: {x: .94087708, y: .338002563, z: .0223604999, w: -.00216757995}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_l_ankle01
@@ -735,7 +1078,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_thingh01
       position: {x: 3.933757e-17, y: -.177160665, z: -.00211309292}
-      rotation: {x: .0406423137, y: -.705937862, z: .706878841, w: .0179547239}
+      rotation: {x: -.128464893, y: -.695729434, z: .691533744, w: -.145734414}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_knee01
@@ -745,7 +1088,7 @@ ModelImporter:
       transformModified: 1
     - name: be_r_ankle01
       position: {x: .943444908, y: -3.97430682e-07, z: 4.9437142e-07}
-      rotation: {x: .99572438, y: .0923741907, z: 1.192069e-09, w: 1.28496076e-08}
+      rotation: {x: .94591558, y: .324005455, z: .00507369405, w: -.0154417856}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_ankle01
@@ -780,7 +1123,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_l_shoulder01
       position: {x: -.142773882, y: -.430372983, z: -.0514066182}
-      rotation: {x: .0100157913, y: -.0100157913, z: .70703584, w: .70703584}
+      rotation: {x: -.0864522457, y: .0874954984, z: .698267996, w: .705189645}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_l_elbow01
@@ -865,7 +1208,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_l_thumbroot
       position: {x: .0203942899, y: 2.75335312e-16, z: .0809505358}
-      rotation: {x: .0448939651, y: .477014512, z: .0408715457, w: .876796067}
+      rotation: {x: .0404467843, y: .470396698, z: .0317388214, w: .880956113}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_l_thumbindex01
@@ -885,7 +1228,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_head
       position: {x: -.148024634, y: 2.67694811e-22, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: .99999994}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_nada
@@ -900,12 +1243,12 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_shoulder01
       position: {x: -.142774507, y: .430372983, z: -.0514066257}
-      rotation: {x: .70703584, y: .70703584, z: -.0100157913, w: .0100157913}
+      rotation: {x: .707305253, y: .695600033, z: -.0885929912, w: .0895056725}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_elbow01
       position: {x: .498597383, y: -.00250479998, z: -.00204331218}
-      rotation: {x: -.00883651432, y: .053933654, z: .0102868723, w: .998452485}
+      rotation: {x: -.00865784846, y: .0049225823, z: .00448420784, w: .999940336}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_r_wrist01
@@ -985,7 +1328,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_thumbroot
       position: {x: -.0203974862, y: 1.24502606e-07, z: -.0809509382}
-      rotation: {x: .0449052043, y: .47703442, z: .0408783592, w: .876784265}
+      rotation: {x: .0404829569, y: .470448583, z: .0317947976, w: .880924761}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_thumbindex01
@@ -996,6 +1339,26 @@ ModelImporter:
     - name: be_r_thumb01
       position: {x: .0696696118, y: 1.65887241e-06, z: -3.1328284e-06}
       rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Newman
+      position: {x: 0, y: -.0213701576, z: .0296400674}
+      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Armguard
+      position: {x: 1.34500432, y: .729984403, z: 1.03556478}
+      rotation: {x: 9.29844655e-32, y: 2.61799388e-17, z: -3.5517451e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Char
+      position: {x: -0, y: .0213701576, z: -.029640032}
+      rotation: {x: 9.29844655e-32, y: 2.61799388e-17, z: -3.5517451e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Plane_001
+      position: {x: -0, y: .0213701576, z: -.029640032}
+      rotation: {x: 9.29844655e-32, y: 2.61799388e-17, z: -3.5517451e-15, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     armTwist: .5
