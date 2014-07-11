@@ -277,22 +277,6 @@ ModelImporter:
         length: 0
         modified: 0
     - boneName: bind_l_shoulder01
-      humanName: LeftShoulder
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: bind_r_shoulder01
-      humanName: RightShoulder
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: bind_l_elbow01
       humanName: LeftUpperArm
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -300,7 +284,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: bind_r_elbow01
+    - boneName: bind_r_shoulder01
       humanName: RightUpperArm
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -308,7 +292,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: bind_l_wrist01
+    - boneName: bind_l_elbow01
       humanName: LeftLowerArm
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -316,7 +300,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: bind_r_wrist01
+    - boneName: bind_r_elbow01
       humanName: RightLowerArm
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -324,7 +308,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: be_l_hand01
+    - boneName: bind_l_wrist01
       humanName: LeftHand
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -332,7 +316,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: be_r_hand01
+    - boneName: be_r_wrist01
       humanName: RightHand
       limit:
         min: {x: 0, y: 0, z: 0}
