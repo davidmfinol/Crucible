@@ -14,9 +14,9 @@ public class Fader : MonoBehaviour
 	public bool DestroyAtFadeOut = false;
     
     /// How many seconds the fading takes.
-    public float FadeInSeconds = 5;
-    public float StaySeconds = 5;
-    public float FadeOutSeconds = 5;
+    public float FadeInSeconds = 1;
+    public float StaySeconds = -1;
+    public float FadeOutSeconds = 1;
     
     // We can set the ranges for the opacity
     public float MaxAlpha = 1;

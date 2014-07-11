@@ -34,6 +34,10 @@ public class Item : MonoBehaviour
     public int Quantity;
     public Transform WeaponPrefab;
     public bool WasPlaced;
+    public Transform IndicatorOffset;
+
+    private Fader _itemIndicator;
+    private Fader _itemSign;
 
     void Start()
     {
@@ -43,16 +47,26 @@ public class Item : MonoBehaviour
         rigidbody.freezeRotation = true;
         gameObject.layer = LayerMask.NameToLayer ("Item"); // NOTE: THIS DOESN'T WORK WITH HOLOSHIELD OBJECT
 
+        // Make the item have an indicator appear above it
+        string type = Type == ItemType.Item__Weapon ? "Weapon" : "Item";
+        GameObject indicator = Instantiate(Resources.Load("Prefabs/" + type + "Indicator")) as GameObject;
+        indicator.transform.position = IndicatorOffset == null ? transform.position + Vector3.up * 2.5f : IndicatorOffset.transform.position + Vector3.up * 2.5f;
+        indicator.transform.parent = transform;
+        _itemIndicator = indicator.AddComponent<Fader>();
+
         // Register ourselves with the LevelManager
         GameManager.Level.Items.Add (this);
         transform.parent = GameManager.Level.ItemContainer;
 
     }
     
-    // Make the item have an indicator appear above it
+    // Fade the item indicator as appropriate
     void Update()
     {
-
+        if (Vector3.Distance (transform.position, GameManager.Player.transform.position) < 15)
+            _itemIndicator.FadeIn(0.5f, false);
+        else
+            _itemIndicator.FadeOut(0.5f, false);
 
     }
     
