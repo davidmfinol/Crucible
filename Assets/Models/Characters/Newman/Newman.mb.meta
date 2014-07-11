@@ -70,6 +70,9 @@ ModelImporter:
     100128: Newman
     100130: Plane_001
     100132: Skeleton
+    100134: be_nada
+    100136: bind_head
+    100138: bind_nada
     400000: Armguard
     400002: be_head_01
     400004: be_l_ankle01
@@ -137,6 +140,9 @@ ModelImporter:
     400128: Newman
     400130: Plane_001
     400132: Skeleton
+    400134: be_nada
+    400136: bind_head
+    400138: bind_nada
     2300000: Armguard
     2300002: Plane_001
     3300000: Armguard
@@ -147,6 +153,8 @@ ModelImporter:
     7400000: Take 001
     9500000: //RootNode
     13700000: Char
+    13700002: Armguard
+    13700004: Plane_001
   materials:
     importMaterials: 1
     materialName: 0
@@ -260,15 +268,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: bind_necka01
-      humanName: Neck
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: bind_head_01
+    - boneName: bind_head
       humanName: Head
       limit:
         min: {x: 0, y: 0, z: 0}
