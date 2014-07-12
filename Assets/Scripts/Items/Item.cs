@@ -34,7 +34,10 @@ public class Item : MonoBehaviour
     public int Quantity;
     public Transform WeaponPrefab;
     public bool WasPlaced;
+
     public Transform IndicatorOffset;
+    public float IndicatorFadeSpeed = 0.5f;
+    public float IndicatorFadeDistance = 15;
 
     private Fader _itemIndicator;
     private Fader _itemSign;
@@ -51,8 +54,16 @@ public class Item : MonoBehaviour
         string type = Type == ItemType.Item__Weapon ? "Weapon" : "Item";
         GameObject indicator = Instantiate(Resources.Load("Prefabs/" + type + "Indicator")) as GameObject;
         indicator.transform.position = IndicatorOffset == null ? transform.position + Vector3.up * 2.5f : IndicatorOffset.transform.position + Vector3.up * 2.5f;
+
+        GameObject sign = Instantiate(indicator) as GameObject;
+        sign.transform.position = indicator.transform.position + Vector3.up * 0.5f + Vector3.back * 0.5f;
+        sign.transform.localScale = new Vector3(1, 1, 1);
+        sign.renderer.material.mainTexture = Type == ItemType.Item__Weapon ? WeaponPrefab.GetComponent<Weapon>().Texture : InventoryItemFactory.CreateFromType(Type, 1).GetTexture();
+
         indicator.transform.parent = transform;
+        sign.transform.parent = transform;
         _itemIndicator = indicator.AddComponent<Fader>();
+        _itemSign = sign.AddComponent<Fader>();
 
         // Register ourselves with the LevelManager
         GameManager.Level.Items.Add (this);
@@ -63,10 +74,14 @@ public class Item : MonoBehaviour
     // Fade the item indicator as appropriate
     void Update()
     {
-        if (Vector3.Distance (transform.position, GameManager.Player.transform.position) < 15)
-            _itemIndicator.FadeIn(0.5f, false);
-        else
-            _itemIndicator.FadeOut(0.5f, false);
+        if (Vector3.Distance (transform.position, GameManager.Player.transform.position) < IndicatorFadeDistance) {
+            _itemIndicator.FadeIn(IndicatorFadeSpeed, false);
+            _itemSign.FadeIn(IndicatorFadeSpeed, false);
+        }
+        else {
+            _itemIndicator.FadeOut(IndicatorFadeSpeed, false);
+            _itemSign.FadeOut(IndicatorFadeSpeed, false);
+        }
 
     }
     

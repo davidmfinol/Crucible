@@ -38,7 +38,7 @@ public class InventoryManager : MonoBehaviour
         while (GameManager.Player == null)
             yield return null;
 
-        _rightHand = CharacterSettings.SearchHierarchyForBone (GameManager.Player.transform, "hand_R");
+        _rightHand = CharacterSettings.SearchHierarchyForBone (GameManager.Player.transform, "be_r_wrist01");
 
     }
     
@@ -166,14 +166,15 @@ public class InventoryManager : MonoBehaviour
 
             // Set the new weapon
             _currentWeapon = value;
-            if (_currentWeapon == null || _rightHand == null) // TODO: WARNING ABOUT NULL RIGHT HAND
+            if (_currentWeapon == null || _rightHand == null) {
+                if(_rightHand == null)
+                    Debug.LogWarning("Player's right hand not found!");
                 return;
+            }
 
             _currentWeapon.transform.parent = _rightHand;
-            _currentWeapon.transform.localPosition = Vector3.zero;
-            _currentWeapon.transform.rotation = _rightHand.rotation;
-            _currentWeapon.transform.Rotate (_currentWeapon.Rotation);
-            _currentWeapon.transform.Translate (_currentWeapon.Translation);
+            _currentWeapon.transform.localPosition = _currentWeapon.Translation;
+            _currentWeapon.transform.localRotation =  Quaternion.Euler(_currentWeapon.Rotation);
         }
     }
 

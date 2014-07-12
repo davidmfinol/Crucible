@@ -11,11 +11,11 @@ public class SparkPlug : Weapon
     private static Texture2D _texture;
     
     public override Vector3 Rotation {
-        get { return new Vector3(90, 0, -90); }
+        get { return new Vector3(0, 0, 90); }
     }
     
     public override Vector3 Translation {
-        get { return new Vector3(-0.1f, -0.69f, 0); }
+        get { return new Vector3(0.4f, 0.1f, 0); }
     }
     
     public override bool CanStealthKill { 
