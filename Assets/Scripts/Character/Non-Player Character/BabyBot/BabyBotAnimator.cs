@@ -130,6 +130,12 @@ public class BabyBotAnimator : CharacterAnimator
         
     }
 
+    public override void OnDeath()
+    {
+        Destroy(gameObject);
+
+    }
+
     public void Giggle ()
     {
         _sound.Play (_sound.Giggle, 1.0f);

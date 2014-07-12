@@ -174,6 +174,12 @@ public class CameraSpotterAnimator : CharacterAnimator
         _pivot.rotation = Quaternion.Euler (new Vector3 (angle, 270.0f, 0.0f));
 
     }
+    
+    public override void OnDeath()
+    {
+        Destroy(gameObject);
+        
+    }
 
     public override EnemySaveState.EnemyType EnemyType {
         get { return EnemySaveState.EnemyType.Enemy_CameraSpotter; }

@@ -139,7 +139,7 @@ public class Tutorial : MonoBehaviour
         Destroy (rightThumb.gameObject);
         
         // Make the player get up
-        GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.StandingUp, true);
+        GameManager.Player.MecanimAnimator.SetBool (MecanimHashes.Respawn, true);
         yield return new WaitForSeconds(1.0f);
 
         // Let them move again

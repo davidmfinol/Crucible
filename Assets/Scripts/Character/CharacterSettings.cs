@@ -9,7 +9,7 @@
 public sealed class CharacterSettings : MonoBehaviour
 {
     // Noise player makes when running
-    public Transform FootStepNoise;
+    public Transform FootStepNoise; // TODO: OBJECT POOL
 
     // What is the name of the rooot bone? Used to zero-root based animation motion
     public string RootBoneName;     // = "hip";
@@ -60,7 +60,7 @@ public sealed class CharacterSettings : MonoBehaviour
     public float DeathFriction;  // = 12.0f;
 
 	// Mine sound event
-	public GameObject MineSoundEventPrefab;
+	public GameObject MineSoundEventPrefab; // TODO: OBJECT POOL
 
 	// When we ragdoll, this is where any initial forces are applied;
 	public Rigidbody MainRigidBody;

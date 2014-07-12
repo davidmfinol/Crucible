@@ -13,15 +13,8 @@ public class NewmanAnimator : CharacterAnimator
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
-    public static readonly int DamagedState = Animator.StringToHash ("Combat.Damaged");
-    public static readonly int DeathState = Animator.StringToHash ("Combat.Death");
-    public static readonly int DeadState = Animator.StringToHash ("Combat.Waiting For Respawn");
-    public static readonly int ReviveState = Animator.StringToHash ("Combat.Revive");
     public static readonly int RunningState = Animator.StringToHash ("Ground.Running");
     public static readonly int RollingState = Animator.StringToHash ("Ground.Rolling");
-    public static readonly int PickupState = Animator.StringToHash ("Kneeling.Pickup");
-    public static readonly int SteppingDownState = Animator.StringToHash ("Kneeling.Stepping Down");
-    public static readonly int StandingUpState = Animator.StringToHash ("Kneeling.Standing Up");
     public static readonly int StealthKillState = Animator.StringToHash ("Ground.Stealth Kill");
     public static readonly int JumpingState = Animator.StringToHash ("Air.Jumping");
     //public static readonly int DoublejumpingState = Animator.StringToHash ("Air.Doublejumping");
@@ -36,6 +29,13 @@ public class NewmanAnimator : CharacterAnimator
     public static readonly int ClimbingLadderState = Animator.StringToHash ("Climbing.ClimbingLadder");
     public static readonly int ClimbingPipeState = Animator.StringToHash ("Climbing.ClimbingPipe");
     //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
+    public static readonly int SteppingDownState = Animator.StringToHash ("Kneeling.Stepping Down");
+    public static readonly int StandingUpState = Animator.StringToHash ("Kneeling.Standing Up");
+    public static readonly int PickupState = Animator.StringToHash ("Kneeling.Pickup");
+    public static readonly int DamagedState = Animator.StringToHash ("Combat.Damaged");
+    public static readonly int DeathState = Animator.StringToHash ("Combat.Death");
+    public static readonly int DeadState = Animator.StringToHash ("Combat.Waiting For Respawn");
+    public static readonly int ReviveState = Animator.StringToHash ("Combat.Revive");
 
     //The player's sound effects, yeah!
     private NewmanAudioPlayer _sound;
@@ -175,164 +175,6 @@ public class NewmanAnimator : CharacterAnimator
         }
 
     }
-
-    public IEnumerator ShowStealthKill ()
-    {
-        GenerateStealthKillEvent ();
-        GameManager.MainCamera.CinematicOverride = true;
-
-        yield return new WaitForSeconds (4.0f);
-
-		// remove a charge from weapon.
-		GameManager.Inventory.TryRemoveAmmo (GameManager.Inventory.CurrentWeapon.Type, 1);
-
-
-
-        GameManager.MainCamera.CinematicOverride = false;
-        StealthKillable = null;
-
-    }
-
-    void GenerateStealthKillEvent ()
-    {
-        // find where to place the attack event
-        Vector3 killPos = transform.position;
-        killPos.x += (Direction.x * Settings.StealthKillRange);
-        
-        // place so enemy can die appropriately
-        // TODO: OBJECT POOLING
-        GameObject o = (GameObject)Instantiate (StealthKillEvent, killPos, Quaternion.identity);
-        HitBox d = o.GetComponent<HitBox> ();
-        d.MakePlayerStealthKill (this.gameObject);
-
-    }
-
-    void PlaceMine ()
-    {
-        if (GameManager.Inventory.CurrentWeapon == null) {
-            Debug.LogWarning ("PlaceMine() called with no weapon found");
-            return;
-        }
-        
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-        // run out of mines? remove.
-        if (weapon != null && weapon is Mine) {
-            if (weapon.Quantity > 0) {
-                weapon.ActivateAttack (0);
-                weapon.Quantity -= 1;
-                GameManager.UI.RefreshWeaponWheel ();
-
-            }
-			        
-        } else {
-            Debug.LogWarning ("PlaceMine() called with: " + weapon);
-
-        }
-
-
-    }
-
-    void DetonateMine ()
-    {
-        MecanimAnimator.SetBool (MecanimHashes.DetonateMine, false);
-
-        // detonate all mines in the scene
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-        if (weapon != null && weapon is Mine) {
-            Mine m = weapon.GetComponent<Mine> ();
-            m.DetonateMines ();
-        
-        }
-
-
-    }
-
-    void ShootGun ()
-    {
-        if (GameManager.Inventory.CurrentWeapon == null) {
-            Debug.LogWarning ("ShootGun() called with no weapon found");
-            return;
-        }
-        
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-        if (weapon != null && weapon is GravityGun) {
-            weapon.ActivateAttack ();
-            GameManager.Inventory.TryRemoveAmmo (Weapon.WeaponType.Weapon_GravityGun, 1);
-            GameManager.UI.RefreshWeaponWheel ();
-
-        } else
-            Debug.LogWarning ("ShootGun() called with: " + weapon);
-
-    }
-    
-    public override void OnDeath (Vector2 knockForce)
-    {
-        MecanimAnimator.SetBool (MecanimHashes.Die, true);
-        HorizontalSpeed = knockForce.x;
-        VerticalSpeed = knockForce.y;
-		// TODO: REMOVE THIS HACK:
-#if UNITY_WEBPLAYER && !UNITY_EDITOR
-		Application.LoadLevel(GameManager.SaveData.LevelName);
-#endif
-
-    }
-
-    public override void MakeDamaged (Vector2 knockForce)
-    {
-        MecanimAnimator.SetBool (MecanimHashes.Damaged, true);
-        HorizontalSpeed = knockForce.x;
-        VerticalSpeed = knockForce.y;
-
-    }
-
-    protected void Damaged (float elapsedTime)
-    {
-        if (MecanimAnimator.GetBool (MecanimHashes.Damaged)) {
-            MecanimAnimator.SetBool (MecanimHashes.Damaged, false);
-            GameManager.UI.EnableInput ();
-            GameManager.UI.CraftingMenu.Close ();
-            GameManager.UI.ShowMap (false);
-
-        }
-
-        ApplyGravity (elapsedTime);
-
-        if (IsGrounded) {
-            ApplyDeathFriction (elapsedTime);
-        }
-
-    }
-    
-    protected void StealthKill (float elapsedTime)
-    {
-        if (MecanimAnimator.GetBool (MecanimHashes.StealthKill))
-            MecanimAnimator.SetBool (MecanimHashes.StealthKill, false);
-
-
-        HorizontalSpeed = 0.0f;
-        VerticalSpeed = 0.0f;
-
-    }
-                                             
-    protected void Die (float elapsedTime)
-    {
-        if (IsGrounded) {
-            ApplyDeathFriction (elapsedTime);
-            VerticalSpeed = GroundVerticalSpeed;
-
-        } else
-            ApplyGravity (elapsedTime);
-
-        MecanimAnimator.SetBool (MecanimHashes.Jump, false);
-        MecanimAnimator.SetBool (MecanimHashes.Fall, false);
-        MecanimAnimator.SetBool (MecanimHashes.Die, false);
-
-    }
-
-    protected void Revive(float elapsedTime)
-    {
-        MecanimAnimator.SetBool(MecanimHashes.StandingUp, false);
-    }
     
     protected virtual void Idle (float elapsedTime)
     {
@@ -358,38 +200,6 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.Pickup, canPickup && _itemPickedup != null);
         
         }
-
-    }
-
-    public override void StepDown ()
-    {
-        MecanimAnimator.SetFloat (MecanimHashes.XDirection, Direction.x);
-        MecanimAnimator.SetBool (MecanimHashes.SteppingDown, true);
-
-    }
-
-    public override void StandUp ()
-    {
-        MecanimAnimator.SetBool (MecanimHashes.StandingUp, true);
-                
-    }
-
-    protected void SteppingDown (float elapsedTime)
-    {
-        MecanimAnimator.SetBool (MecanimHashes.SteppingDown, false);
-
-        // can't use friction because you can slide off a ledge right into the crafting animation
-        HorizontalSpeed = 0;
-        VerticalSpeed = 0;
-
-    }
-
-    protected void StandingUp (float elapsedTime)
-    {
-        MecanimAnimator.SetBool (MecanimHashes.StandingUp, false);
-
-        HorizontalSpeed = 0;
-        VerticalSpeed = 0;
 
     }
 
@@ -797,7 +607,39 @@ public class NewmanAnimator : CharacterAnimator
 //      
 //      MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpPressed);
 //      //MecanimAnimator.SetBool(MecanimHashes.ClimbLadder, CanClimbP);
-//  }
+    //  }
+    
+    public override void StepDown ()
+    {
+        MecanimAnimator.SetFloat (MecanimHashes.XDirection, Direction.x);
+        MecanimAnimator.SetBool (MecanimHashes.SteppingDown, true);
+        
+    }
+    
+    public override void StandUp ()
+    {
+        MecanimAnimator.SetBool (MecanimHashes.StandingUp, true);
+        
+    }
+    
+    protected void SteppingDown (float elapsedTime)
+    {
+        MecanimAnimator.SetBool (MecanimHashes.SteppingDown, false);
+        
+        // can't use friction because you can slide off a ledge right into the crafting animation
+        HorizontalSpeed = 0;
+        VerticalSpeed = 0;
+        
+    }
+    
+    protected void StandingUp (float elapsedTime)
+    {
+        MecanimAnimator.SetBool (MecanimHashes.StandingUp, false);
+        
+        HorizontalSpeed = 0;
+        VerticalSpeed = 0;
+        
+    }
 
     protected void Pickup (float elapsedTime)
     {
@@ -850,6 +692,20 @@ public class NewmanAnimator : CharacterAnimator
         VerticalSpeed = GroundVerticalSpeed;
     
     }
+    
+    public bool CanPickupItem (out GameObject obj)
+    {
+        RaycastHit hit;
+        float radius = Radius * 4.0f;
+        Vector3 topRight = transform.position + new Vector3 (Direction.x * Radius * 2.0f, Height * 0.5f + radius, 0);
+        if (Physics.SphereCast (topRight, radius, Vector3.down, out hit, Height + radius, 1 << 13)) {
+            obj = hit.collider.gameObject;
+            return true;
+        }
+        obj = null;
+        return false;
+        
+    }
 
     public IEnumerator AutoEquip ()
     {
@@ -859,6 +715,169 @@ public class NewmanAnimator : CharacterAnimator
         else if (GameManager.Inventory.Weapons.Count <= 3)
             GameManager.UI.RefreshWeaponWheel ();
 
+    }
+    
+    public IEnumerator ShowStealthKill ()
+    {
+        GenerateStealthKillEvent ();
+        GameManager.MainCamera.CinematicOverride = true;
+        
+        yield return new WaitForSeconds (4.0f);
+        
+        // remove a charge from weapon.
+        GameManager.Inventory.TryRemoveAmmo (GameManager.Inventory.CurrentWeapon.Type, 1);
+        
+        
+        
+        GameManager.MainCamera.CinematicOverride = false;
+        StealthKillable = null;
+        
+    }
+    
+    void GenerateStealthKillEvent ()
+    {
+        // find where to place the attack event
+        Vector3 killPos = transform.position;
+        killPos.x += (Direction.x * Settings.StealthKillRange);
+        
+        // place so enemy can die appropriately
+        // TODO: OBJECT POOLING
+        GameObject o = (GameObject)Instantiate (StealthKillEvent, killPos, Quaternion.identity);
+        HitBox d = o.GetComponent<HitBox> ();
+        d.MakePlayerStealthKill (this.gameObject);
+        
+    }
+    
+    void PlaceMine ()
+    {
+        if (GameManager.Inventory.CurrentWeapon == null) {
+            Debug.LogWarning ("PlaceMine() called with no weapon found");
+            return;
+        }
+        
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
+        // run out of mines? remove.
+        if (weapon != null && weapon is Mine) {
+            if (weapon.Quantity > 0) {
+                weapon.ActivateAttack (0);
+                weapon.Quantity -= 1;
+                GameManager.UI.RefreshWeaponWheel ();
+                
+            }
+            
+        } else {
+            Debug.LogWarning ("PlaceMine() called with: " + weapon);
+            
+        }
+        
+        
+    }
+    
+    void DetonateMine ()
+    {
+        MecanimAnimator.SetBool (MecanimHashes.DetonateMine, false);
+        
+        // detonate all mines in the scene
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
+        if (weapon != null && weapon is Mine) {
+            Mine m = weapon.GetComponent<Mine> ();
+            m.DetonateMines ();
+            
+        }
+        
+        
+    }
+    
+    void ShootGun ()
+    {
+        if (GameManager.Inventory.CurrentWeapon == null) {
+            Debug.LogWarning ("ShootGun() called with no weapon found");
+            return;
+        }
+        
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
+        if (weapon != null && weapon is GravityGun) {
+            weapon.ActivateAttack ();
+            GameManager.Inventory.TryRemoveAmmo (Weapon.WeaponType.Weapon_GravityGun, 1);
+            GameManager.UI.RefreshWeaponWheel ();
+            
+        } else
+            Debug.LogWarning ("ShootGun() called with: " + weapon);
+        
+    }
+    
+    protected void StealthKill (float elapsedTime)
+    {
+        if (MecanimAnimator.GetBool (MecanimHashes.StealthKill))
+            MecanimAnimator.SetBool (MecanimHashes.StealthKill, false);
+        
+        
+        HorizontalSpeed = 0.0f;
+        VerticalSpeed = 0.0f;
+        
+    }
+    
+    public override void MakeDamaged (Vector3 knockForce)
+    {
+        MecanimAnimator.SetBool (MecanimHashes.Damaged, true);
+        HorizontalSpeed = knockForce.x;
+        VerticalSpeed = knockForce.y;
+        
+    }
+    
+    protected void Damaged (float elapsedTime)
+    {
+        if (MecanimAnimator.GetBool (MecanimHashes.Damaged)) {
+            MecanimAnimator.SetBool (MecanimHashes.Damaged, false);
+            GameManager.UI.EnableInput ();
+            GameManager.UI.CraftingMenu.Close ();
+            GameManager.UI.ShowMap (false);
+            
+        }
+        
+        ApplyGravity (elapsedTime);
+        
+        if (IsGrounded) {
+            ApplyDeathFriction (elapsedTime);
+        }
+        
+    }
+    
+    // NOTE: WE DON'T NORMALLY USE THE DEATH ANIMATION STATES BELOW. INSTEAD, WE NORMALLY RAGDOLL
+    public override void OnDeath (Vector3 knockForce)
+    {
+        DoRagDoll (knockForce);
+        IgnoreMovement = true;
+        this.enabled = false;
+        Controller.enabled = false;
+        MecanimAnimator.enabled = false;
+
+        // TODO: REMOVE THIS HACK:
+        #if UNITY_WEBPLAYER && !UNITY_EDITOR
+        Application.LoadLevel(GameManager.SaveData.LevelName);
+        #endif
+        
+    }
+    
+    protected void Die (float elapsedTime)
+    {
+        if (IsGrounded) {
+            ApplyDeathFriction (elapsedTime);
+            VerticalSpeed = GroundVerticalSpeed;
+            
+        } else
+            ApplyGravity (elapsedTime);
+        
+        MecanimAnimator.SetBool (MecanimHashes.Jump, false);
+        MecanimAnimator.SetBool (MecanimHashes.Fall, false);
+        MecanimAnimator.SetBool (MecanimHashes.Die, false);
+        
+    }
+    
+    protected void Revive(float elapsedTime)
+    {
+        MecanimAnimator.SetBool(MecanimHashes.Respawn, false);
+        
     }
 
     public void PlayHit ()
@@ -940,30 +959,25 @@ public class NewmanAnimator : CharacterAnimator
 	public void PlaySparkplugCharge ()
 	{ 
 		_sound.Play (_sound.SparkplugCharge, 1.0f);
+
 	}
 
 	public void PlaySparkplugBleep ()
 	{
 		_sound.Play (_sound.SparkplugBeep, 1.0f);
+
 	}
 
 	public void PlaySparkplugHit ()
 	{
 		_sound.Play (_sound.SparkplugHit, 1.0f);
-	}
 
-    public bool CanPickupItem (out GameObject obj)
-    {
-        RaycastHit hit;
-        float radius = Radius * 4.0f;
-        Vector3 topRight = transform.position + new Vector3 (Direction.x * Radius * 2.0f, Height * 0.5f + radius, 0);
-        if (Physics.SphereCast (topRight, radius, Vector3.down, out hit, Height + radius, 1 << 13)) {
-            obj = hit.collider.gameObject;
-            return true;
+    }
+    
+    public override bool CanTransitionZ {
+        get {
+            return (base.CanTransitionZ && (GameManager.AI.EnemiesChasing == 0) );
         }
-        obj = null;
-        return false;
-
     }
     
     public override bool CanInputHorizontal {
@@ -992,22 +1006,16 @@ public class NewmanAnimator : CharacterAnimator
     }
 
     public override bool IsDead {
-        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState; }
+        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState || Settings.MainRigidBody.collider.enabled; }
     }
-
-    public override EnemySaveState.EnemyType EnemyType {
-        get { return EnemySaveState.EnemyType.Enemy_Olympus; }
-    }
-
+    
     public CharacterAnimator StealthKillable {
         get { return _stealthKillable; }
         set { _stealthKillable = value; } 
     }
 
-	public override bool CanTransitionZ {
-		get {
-			return (base.CanTransitionZ && (GameManager.AI.EnemiesChasing == 0) );
-		}
-	}
+    public override EnemySaveState.EnemyType EnemyType {
+        get { return EnemySaveState.EnemyType.Enemy_Olympus; }
+    }
 
 }

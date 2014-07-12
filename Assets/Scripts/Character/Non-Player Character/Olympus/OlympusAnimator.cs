@@ -129,6 +129,30 @@ public class OlympusAnimator : CharacterAnimator
         }
 
     }
+    
+    protected virtual void Idle (float elapsedTime)
+    {
+        if (_isStealthDying)
+            return;
+        
+        // Turn on the screens when he begines to idle
+        if(TimeInCurrentState == 0) {
+            ScreenAnimator.Play("Take 001");
+            foreach (Fader screen in Screens)
+                screen.FadeIn();
+        }
+        
+        ApplyRunning (elapsedTime);
+        VerticalSpeed = GroundVerticalSpeed;
+        ApplyBiDirection ();
+        
+        if (!MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded)
+            MecanimAnimator.SetBool (MecanimHashes.Fall, true);
+        
+        if (CharInput.Pickup)
+            MecanimAnimator.SetBool (MecanimHashes.TurnAround, true);
+        
+    }
 
     public void OnAcquireTarget ()
     {
@@ -163,72 +187,6 @@ public class OlympusAnimator : CharacterAnimator
 
         if (!MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded)
             MecanimAnimator.SetBool (MecanimHashes.Fall, true);
-
-    }
-
-    protected void Punch (float elapsedTime)
-    {
-        _sound.Play (_sound.Attacking, 1.0f);
-        
-        // Attack in front of us
-        Vector3 meleePos = transform.position;
-        meleePos.x += (2.5f * Direction.x);
-        GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
-        HitBox d = o.GetComponent<HitBox> ();
-        
-        // Make the attack push in the correct direction
-        float horizontalDir = 0.0f;
-        if (GameManager.Player.transform.position.x < transform.position.x)
-            horizontalDir = -1.0f;
-        else
-            horizontalDir = 1.0f;
-
-        d.MakeOlympusMelee (this.gameObject, horizontalDir);
-
-    }
-    
-    protected void PunchUp (float elapsedTime)
-    {
-        _sound.Play (_sound.Attacking, 1.0f);
-
-        // Attack above us
-        Vector3 meleePos = transform.position;
-        meleePos.y += Height * 0.5f;
-        GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
-        HitBox d = o.GetComponent<HitBox> ();
-        
-        // Make the attack push in the correct direction
-        float horizontalDir = 0.0f;
-        if (GameManager.Player.transform.position.x < transform.position.x)
-            horizontalDir = -1.0f;
-        else
-            horizontalDir = 1.0f;
-        
-        d.MakeOlympusMelee (this.gameObject, horizontalDir);
-        
-    }
-    
-    protected virtual void Idle (float elapsedTime)
-    {
-        if (_isStealthDying)
-            return;
-
-        // Turn on the screens when he begines to idle
-        if(TimeInCurrentState == 0) {
-            ScreenAnimator.Play("Take 001");
-            foreach (Fader screen in Screens)
-                screen.FadeIn();
-        }
-
-        ApplyRunning (elapsedTime);
-        VerticalSpeed = GroundVerticalSpeed;
-        ApplyBiDirection ();
-        
-        if (!MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded)
-            MecanimAnimator.SetBool (MecanimHashes.Fall, true);
-
-        if (CharInput.Pickup)
-            MecanimAnimator.SetBool (MecanimHashes.TurnAround, true);
 
     }
     
@@ -522,7 +480,7 @@ public class OlympusAnimator : CharacterAnimator
 
     }
     
-    public override void OnDeath (Vector2 knockForce)
+    public override void OnDeath (Vector3 knockForce)
     {
         MecanimAnimator.SetBool (MecanimHashes.Die, true);
         Invoke ("DoRagDoll", 2.0f);
@@ -548,6 +506,48 @@ public class OlympusAnimator : CharacterAnimator
         MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
 
     }
+    
+    protected void Punch (float elapsedTime)
+    {
+        _sound.Play (_sound.Attacking, 1.0f);
+        
+        // Attack in front of us
+        Vector3 meleePos = transform.position;
+        meleePos.x += (2.5f * Direction.x);
+        GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
+        HitBox d = o.GetComponent<HitBox> ();
+        
+        // Make the attack push in the correct direction
+        float horizontalDir = 0.0f;
+        if (GameManager.Player.transform.position.x < transform.position.x)
+            horizontalDir = -1.0f;
+        else
+            horizontalDir = 1.0f;
+        
+        d.MakeOlympusMelee (this.gameObject, horizontalDir);
+        
+    }
+    
+    protected void PunchUp (float elapsedTime)
+    {
+        _sound.Play (_sound.Attacking, 1.0f);
+        
+        // Attack above us
+        Vector3 meleePos = transform.position;
+        meleePos.y += Height * 0.5f;
+        GameObject o = (GameObject)Instantiate (MeleeEvent, meleePos, Quaternion.identity);
+        HitBox d = o.GetComponent<HitBox> ();
+        
+        // Make the attack push in the correct direction
+        float horizontalDir = 0.0f;
+        if (GameManager.Player.transform.position.x < transform.position.x)
+            horizontalDir = -1.0f;
+        else
+            horizontalDir = 1.0f;
+        
+        d.MakeOlympusMelee (this.gameObject, horizontalDir);
+        
+    }
 
     public void PlayJump ()
     {
@@ -558,6 +558,7 @@ public class OlympusAnimator : CharacterAnimator
 	public void PlayServo()
 	{
 		_sound.Play (_sound.Idling, 0.3f);
+
 	}
 
     public override bool IsLanding {

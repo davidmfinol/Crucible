@@ -26,7 +26,7 @@ public class PlayerHeartBox : HeartBox
 
     void FixedUpdate ()
     {
-        if (Controller.CurrentState.nameHash == NewmanAnimator.DeadState && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed))
+        if (GameManager.Player.IsDead && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed))
             GameManager.SpawnPlayer ();
 
     }

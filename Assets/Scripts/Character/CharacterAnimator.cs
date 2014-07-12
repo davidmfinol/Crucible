@@ -99,24 +99,6 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Child classes should override this method if they want to initialize variables on Start()
     }
 
-    public virtual void OnDeath ()
-    {
-        OnDeath (Vector2.zero);
-
-    }
-
-    public virtual void OnDeath (Vector2 knockForce)
-    {
-        Destroy (gameObject);
-
-    }
-
-    public virtual void OnStealthDeath ()
-    {
-        Destroy (gameObject);
-
-    }
-
     void OnAnimatorMove()
     {
         // This method is only here to prevent mecanim from overriding our motion in FixedUpdate.
@@ -346,22 +328,28 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    public virtual void MakeDamaged (Vector2 knockForce)
+    public virtual void MakeDamaged (Vector3 knockForce)
     {
         // Do nothing by default, by child classes should override if they want some effect when hurt
 
     }
-
-	public void DoRagDoll()
-	{
-		DoRagDoll(Vector3.zero);
-
-	}
     
-    public virtual void DoRagDoll (Vector3 push)
+    public virtual void OnStealthDeath ()
     {
-        CharacterSettings.ActivateRagDoll (transform, false, true);
-
+        OnDeath ();
+        
+    }
+    
+    public virtual void OnDeath ()
+    {
+        OnDeath (Vector2.zero);
+        
+    }
+    
+    public virtual void OnDeath (Vector3 knockForce)
+    {
+        DoRagDoll (knockForce);
+        
         // Remove components we won't need anymore
         CharacterAnimatorDebugger debug1 = GetComponent<CharacterAnimatorDebugger> ();
         if (debug1 != null)
@@ -381,41 +369,54 @@ public abstract class CharacterAnimator : MonoBehaviour
         StealthKillTrigger stealthTrigger = GetComponentInChildren<StealthKillTrigger> ();
         if (stealthTrigger != null)
             Destroy (stealthTrigger);
-
-		// Apply the push
-		if(Settings.MainRigidBody != null)
-			Settings.MainRigidBody.AddForce(push);
-
+        
         // Remove ourselves
         Destroy (this);
         Destroy (CharInput);
         Destroy (Controller);
         Destroy (MecanimAnimator);
+        
+    }
+
+	public void DoRagDoll()
+	{
+		DoRagDoll(Vector3.zero);
+
+	}
+    
+    public virtual void DoRagDoll (Vector3 push)
+    {
+        // Start the ragdoll system
+        CharacterSettings.ActivateRagDoll (transform, false, true);
+
+		// Apply the push
+		if(Settings.MainRigidBody != null)
+            Settings.MainRigidBody.AddForce(push);
 
     }
 
-    public void ActivateFloat ()
+    public IEnumerator ActivateFloat ()
     {
-        CharInput.enabled = false;
         Controller.enabled = false;
         MecanimAnimator.enabled = false;
         CharacterSettings.ActivateRagDoll (transform, false, false);
-        StartCoroutine (ReEnableCharacter ());
+        IgnoreMovement = true;
         this.enabled = false;
+        yield return new WaitForSeconds (5);
+        ReEnableCharacter ();
 
     }
 
-    public IEnumerator ReEnableCharacter ()
+    public void ReEnableCharacter ()
     {
-        yield return new WaitForSeconds (5);
         this.enabled = true;
+        IgnoreMovement = false;
         CharacterSettings.ActivateRagDoll (transform, true, true);
-        Transform root = CharacterSettings.SearchHierarchyForBone (transform, "Root");
+        Transform root = CharacterSettings.SearchHierarchyForBone (transform, Settings.RootBoneName);
         transform.position = root.transform.position;
         root.localPosition = Vector3.zero;
         MecanimAnimator.enabled = true;
         Controller.enabled = true;
-        CharInput.enabled = true;
 
     }
     

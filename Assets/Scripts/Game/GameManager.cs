@@ -189,10 +189,9 @@ public class GameManager : MonoBehaviour
         if (heart != null)
 			heart.HitPoints = heart.MaxHitPoints;
         
-        // Update the animation system if necessary
-        Animator animator = Player.GetComponent<Animator> ();
-        if (animator != null && Player.IsDead)
-			animator.SetBool (MecanimHashes.Respawn, true);
+        // Turn off ragdoll if coming back to life
+        if(Player.IsDead && Player.Settings.MainRigidBody.collider.enabled)
+            Player.ReEnableCharacter();
 
         // Make sure the camera is looking at the player
 		MainCamera.Target = Player.transform;
