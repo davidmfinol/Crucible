@@ -7,6 +7,7 @@ using System.Collections;
 public class MecanimHashes
 {
     // Used by multiple characters
+    public static readonly int IdleNum = Animator.StringToHash("IdleNum");
     public static readonly int VerticalSpeed = Animator.StringToHash("VerticalSpeed");
     public static readonly int HorizontalSpeed = Animator.StringToHash("HorizontalSpeed");
     public static readonly int XDirection = Animator.StringToHash("XDirection");
@@ -23,7 +24,6 @@ public class MecanimHashes
     public static readonly int StealthKill = Animator.StringToHash ("StealthKill");
     public static readonly int PlaceMine = Animator.StringToHash("PlaceMine");
     public static readonly int ClimbPipe = Animator.StringToHash("ClimbPipe");
-    public static readonly int RandomIdle = Animator.StringToHash("RandomIdle");
     public static readonly int ShootGun = Animator.StringToHash("ShootGun");
     public static readonly int DetonateMine = Animator.StringToHash("DetonateMine");
     public static readonly int JumpWall = Animator.StringToHash("JumpWall");

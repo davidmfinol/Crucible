@@ -13,6 +13,7 @@ public class AIManager : MonoBehaviour
     private ZoneGraph _graph;
 
     // We keep track of the enemy statuses in Update
+    private int _enemiesCouldHear;
     private int _enemiesSearching;
     private int _enemiesChasing;
 
@@ -52,13 +53,14 @@ public class AIManager : MonoBehaviour
     public void Update ()
     {
         // We're going to re-count these values each frame, so reset them
+        _enemiesCouldHear = 0;
         _enemiesSearching = 0;
         _enemiesChasing = 0;
         _olympusesAlive = 0;
 
         foreach (EnemyAI enemy in _enemies) {
             // De-activate enemies that are too far away from the player, to save on performance
-            if(GameManager.Player != null && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
+            if(enemy.Awareness == EnemyAI.AwarenessLevel.Unaware && GameManager.Player != null && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
                 if(enemy.gameObject.activeSelf)
                     enemy.gameObject.SetActive(false);
                 continue;
@@ -77,6 +79,8 @@ public class AIManager : MonoBehaviour
 
 
             // Count up the number of aware enemies
+            if (enemy.CouldHearPlayer)
+                _enemiesCouldHear++;
             if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
                 _enemiesSearching++;
             else if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
@@ -113,6 +117,10 @@ public class AIManager : MonoBehaviour
     
     public List<EnemyAI> Enemies {
         get { return _enemies; }
+    }
+
+    public int EnemiesCouldHear {
+        get { return _enemiesCouldHear; }
     }
     
     public int EnemiesSearching {

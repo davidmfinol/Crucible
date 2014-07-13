@@ -178,14 +178,12 @@ public class NewmanAnimator : CharacterAnimator
     
     protected virtual void Idle (float elapsedTime)
     {
-        //TODO: SET up different idles by modifying this variable
-        MecanimAnimator.SetFloat (MecanimHashes.RandomIdle, 0);
+        // Make the idle based off enemies could hear
+        MecanimAnimator.SetFloat (MecanimHashes.IdleNum, GameManager.AI.EnemiesCouldHear > 0 ? 1 : 0);
         
         ApplyRunning (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
-
-        MecanimAnimator.SetBool (MecanimHashes.Respawn, false);
         
         MecanimAnimator.SetBool (MecanimHashes.Fall, !MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded);
 
@@ -213,9 +211,9 @@ public class NewmanAnimator : CharacterAnimator
 
         MecanimAnimator.SetBool (MecanimHashes.ClimbLedge, 
                                 ActiveHangTarget != null && ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle &&
-            ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left)
-            || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)) &&
-            Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed) >= 0.5);
+                                ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left)
+                                  || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)) &&
+                                  Mathf.Abs (HorizontalSpeed / Settings.MaxHorizontalSpeed) >= 0.5);
 
         if ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)) {
             MecanimAnimator.SetBool (MecanimHashes.Backflip, true);
