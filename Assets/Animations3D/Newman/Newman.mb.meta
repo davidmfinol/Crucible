@@ -218,6 +218,11 @@ ModelImporter:
     4300004: Char
     7400000: Take 001
     7400002: Idle Sneak
+    7400004: Sneak
+    7400006: Jump Sneak
+    7400008: Jump Directional
+    7400010: Land Sneak
+    7400012: Land Directional
     9500000: //RootNode
     13700000: Char
     13700002: Armguard
@@ -463,7 +468,443 @@ ModelImporter:
       lastFrame: 433
       wrapMode: 0
       orientationOffsetY: 0
-      level: .800000012
+      level: .75
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Newman
+        weight: 0
+      - path: Newman/Plane_001
+        weight: 0
+      - path: Newman/Armguard
+        weight: 0
+      - path: Newman/Char
+        weight: 0
+      - path: global02
+        weight: 1
+      - path: global02/global01
+        weight: 1
+      - path: global02/global01/ikso01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_leg01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_leg01
+        weight: 0
+      - path: global02/global01/Skeleton
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada/be_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01/be_l_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01/be_l_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq/be_l_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01/be_l_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01/be_l_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01/be_r_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01/be_r_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq/be_r_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01/be_r_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01/be_r_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01/be_l_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01/be_r_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/be_pelvis01
+        weight: 0
+      - path: global02/global01/controls01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01/jDrv_r_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01/jDrv_l_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee02
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01/anim_chest01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_pelvis01
+        weight: 0
+      - path: global02/global01/controls01/anim_head01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_elbow_01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_elbow4
+        weight: 0
+      - path: bottom
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Sneak
+      takeName: Take 001
+      firstFrame: 472
+      lastFrame: 520
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: .75
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 1
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Newman
+        weight: 0
+      - path: Newman/Plane_001
+        weight: 0
+      - path: Newman/Armguard
+        weight: 0
+      - path: Newman/Char
+        weight: 0
+      - path: global02
+        weight: 1
+      - path: global02/global01
+        weight: 1
+      - path: global02/global01/ikso01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_leg01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_leg01
+        weight: 0
+      - path: global02/global01/Skeleton
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada/be_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01/be_l_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01/be_l_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq/be_l_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01/be_l_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01/be_l_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01/be_r_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01/be_r_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq/be_r_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01/be_r_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01/be_r_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01/be_l_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01/be_r_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/be_pelvis01
+        weight: 0
+      - path: global02/global01/controls01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01/jDrv_r_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01/jDrv_l_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee02
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01/anim_chest01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_pelvis01
+        weight: 0
+      - path: global02/global01/controls01/anim_head01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_elbow_01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_elbow4
+        weight: 0
+      - path: bottom
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Jump Sneak
+      takeName: Take 001
+      firstFrame: 433
+      lastFrame: 455
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: .400000006
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -474,7 +915,661 @@ ModelImporter:
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Newman
+        weight: 0
+      - path: Newman/Plane_001
+        weight: 0
+      - path: Newman/Armguard
+        weight: 0
+      - path: Newman/Char
+        weight: 0
+      - path: global02
+        weight: 1
+      - path: global02/global01
+        weight: 1
+      - path: global02/global01/ikso01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_leg01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_leg01
+        weight: 0
+      - path: global02/global01/Skeleton
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada/be_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01/be_l_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01/be_l_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq/be_l_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01/be_l_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01/be_l_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01/be_r_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01/be_r_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq/be_r_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01/be_r_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01/be_r_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01/be_l_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01/be_r_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/be_pelvis01
+        weight: 0
+      - path: global02/global01/controls01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01/jDrv_r_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01/jDrv_l_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee02
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01/anim_chest01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_pelvis01
+        weight: 0
+      - path: global02/global01/controls01/anim_head01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_elbow_01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_elbow4
+        weight: 0
+      - path: bottom
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Jump Directional
+      takeName: Take 001
+      firstFrame: 520
+      lastFrame: 543
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 1.70000005
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Newman
+        weight: 0
+      - path: Newman/Plane_001
+        weight: 0
+      - path: Newman/Armguard
+        weight: 0
+      - path: Newman/Char
+        weight: 0
+      - path: global02
+        weight: 1
+      - path: global02/global01
+        weight: 1
+      - path: global02/global01/ikso01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_leg01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_leg01
+        weight: 0
+      - path: global02/global01/Skeleton
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada/be_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01/be_l_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01/be_l_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq/be_l_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01/be_l_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01/be_l_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01/be_r_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01/be_r_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq/be_r_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01/be_r_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01/be_r_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01/be_l_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01/be_r_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/be_pelvis01
+        weight: 0
+      - path: global02/global01/controls01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01/jDrv_r_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01/jDrv_l_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee02
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01/anim_chest01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_pelvis01
+        weight: 0
+      - path: global02/global01/controls01/anim_head01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_elbow_01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_elbow4
+        weight: 0
+      - path: bottom
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Land Sneak
+      takeName: Take 001
+      firstFrame: 455
+      lastFrame: 472
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: -.25
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Newman
+        weight: 0
+      - path: Newman/Plane_001
+        weight: 0
+      - path: Newman/Armguard
+        weight: 0
+      - path: Newman/Char
+        weight: 0
+      - path: global02
+        weight: 1
+      - path: global02/global01
+        weight: 1
+      - path: global02/global01/ikso01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_arm01
+        weight: 0
+      - path: global02/global01/ikso01/rp_l_leg01
+        weight: 0
+      - path: global02/global01/ikso01/rp_r_leg01
+        weight: 0
+      - path: global02/global01/Skeleton
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_necka01/bind_head/bind_nada/be_nada
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_thumbroot/bind_l_thumbindex01/be_l_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pointerroot01/bind_l_pointerindex01/be_l_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_middlefingerroot01q/bind_l_middlefingerindexq/be_l_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_ringroot01/bind_l_ringindex01/be_l_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_l_shoulder01/bind_l_elbow01/be_l_wrist01/bind_l_wrist01/be_l_hand01/bind_l_pinkyroot01/bind_l_pinkyindex01/be_l_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_thumbroot/bind_r_thumbindex01/be_r_thumb01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pointerroot01/bind_r_pointerindex01/be_r_pointerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_middlefingerroot01q/bind_r_middlefingerindexq/be_r_middlefingerend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_ringroot01/bind_r_ringindex01/be_r_ring01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/bind_root01q/bind_back01/bind_chest01/bind_r_shoulder01/bind_r_elbow01/be_r_wrist01/bind_r_wrist01/be_r_hand01/bind_r_pinkyroot01/bind_r_pinkyindex01/be_r_pinkyend01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_l_thingh01/bind_l_knee01/be_l_ankle01/bind_l_ankle01/bind_l_foot01/be_l_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01
+        weight: 1
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/bind_r_thingh01/bind_r_knee01/be_r_ankle01/bind_r_ankle01/bind_r_foot01/be_r_toe01
+        weight: 0
+      - path: global02/global01/Skeleton/bind_pelivis01/be_pelvis02/be_pelvis01
+        weight: 0
+      - path: global02/global01/controls01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_leg01/jDrv_r_toe01/jDrv_r_foot01/jDrv_r_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_leg01/jDrv_l_toe01/jDrv_l_foot01/jDrv_l_ankle01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee02
+        weight: 0
+      - path: global02/global01/controls01/anim_r_knee01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_back01/anim_chest01
+        weight: 0
+      - path: global02/global01/controls01/anim_COG01/anim_pelvis01
+        weight: 0
+      - path: global02/global01/controls01/anim_head01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_arm01
+        weight: 0
+      - path: global02/global01/controls01/anim_l_elbow_01
+        weight: 0
+      - path: global02/global01/controls01/anim_r_elbow4
+        weight: 0
+      - path: bottom
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Land Directional
+      takeName: Take 001
+      firstFrame: 543
+      lastFrame: 567
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: -1.70000005
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

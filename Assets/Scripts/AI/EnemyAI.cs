@@ -561,7 +561,10 @@ public class EnemyAI : MonoBehaviour
     }
     
     public bool CouldHearPlayer {
-        get { 
+        get {
+            if (PersonalHearingRadius == null)
+                return false;
+
             foreach (HeartBox heart in PersonalHearingRadius.CharactersCouldHear)
                 if(heart.Allegiance == TeamAllegiance.Player)
                     return true;

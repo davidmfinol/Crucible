@@ -16,7 +16,6 @@ public class AIManager : MonoBehaviour
     private int _enemiesCouldHear;
     private int _enemiesSearching;
     private int _enemiesChasing;
-
     private int _olympusesAlive;
 
     // All managers keep track of their ready status for the game manager
@@ -133,7 +132,6 @@ public class AIManager : MonoBehaviour
 
     public int OlympusesAlive {
         get { return _olympusesAlive; }
-
     }
 
     public ZoneGraph Graph {
