@@ -27,7 +27,7 @@ public class PlayerHeartBox : HeartBox
     // NOTE: WE SHOULD ONLY HAVE ONE PLAYERHEARTBOX IN THE SCENE, SO IT SHOULD BE OK TO DO THIS CHECK HERE
     void FixedUpdate ()
     {
-        if (GameManager.Player.IsDead && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed))
+        if (GameManager.Player.IsDead && Controller.CharInput.AnyPressed)
             GameManager.SpawnPlayer ();
 
     }

@@ -353,6 +353,12 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Remove AI components we won't need anymore (if they exist)
         EnemyAI ai = GetComponent<EnemyAI> ();
         if (ai != null) {
+            CharacterAnimatorDebugger debug1 = GetComponent<CharacterAnimatorDebugger> ();
+            if (debug1 != null)
+                Destroy (debug1);
+            EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger> ();
+            if (debug2 != null)
+                Destroy (debug2);
             Destroy (ai);
             Seeker seeker = GetComponent<Seeker> ();
             if (seeker != null)
@@ -363,6 +369,12 @@ public abstract class CharacterAnimator : MonoBehaviour
             StealthKillTrigger stealthTrigger = GetComponentInChildren<StealthKillTrigger> ();
             if (stealthTrigger != null)
                 Destroy (stealthTrigger);
+
+            // Remove ourselves
+            Destroy (this);
+            Destroy (CharInput);
+            Destroy (Controller);
+            Destroy (MecanimAnimator);
         }
         
     }

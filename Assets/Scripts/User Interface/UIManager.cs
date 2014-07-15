@@ -559,9 +559,15 @@ public class UIManager : MonoBehaviour
 
 	private void UpdateVignette ()
 	{
-		_hurtVignetteAlpha.On = _playerHeartBox.HitPoints != _playerHeartBox.MaxHitPoints;
-		_searchVignetteAlpha.On = GameManager.AI.EnemiesSearching > 0 && GameManager.AI.EnemiesChasing == 0;
-		_chaseVignetteAlpha.On = GameManager.AI.EnemiesChasing > 0;
+        // Turn the vignettes on as appropriate
+        bool playerDead = GameManager.Player.IsDead;
+        _hurtVignetteAlpha.On = playerDead || _playerHeartBox.HitPoints != _playerHeartBox.MaxHitPoints;
+        _searchVignetteAlpha.On = !playerDead && GameManager.AI.EnemiesSearching > 0 && GameManager.AI.EnemiesChasing == 0;
+		_chaseVignetteAlpha.On = !playerDead && GameManager.AI.EnemiesChasing > 0;
+
+        // Don't anything extra if the player is dead
+        if(playerDead)
+            return;
 
 		// try to flash if needed
 		if ((GameManager.AI.EnemiesChasing > 0 || GameManager.AI.EnemiesSearching > 0)) {

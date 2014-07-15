@@ -73,6 +73,7 @@ public class NontouchInput : MonoBehaviour
             _input.Jump = new Vector2 (Input.GetAxis ("JumpX"), Input.GetAxis ("JumpY"));
             _input.Attack = Input.GetAxis ("Attack");
             _input.Pickup = Input.GetButton ("Pickup") || (Input.GetAxis("Vertical") < -0.1f && GameManager.Player.IsClimbing);
+            _input.Any = Input.anyKey;
         }
         
         // Cycle through weapons

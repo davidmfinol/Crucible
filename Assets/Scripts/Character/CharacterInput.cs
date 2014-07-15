@@ -19,6 +19,7 @@ public sealed class CharacterInput : MonoBehaviour
     private Vector2 _jump = Vector2.zero;
     private float _attack = 0;
     private bool _pickup = false;
+    private bool _any = false;
 
     // These variables are used to keep track of XPressed and XReleased properties
     private bool _fixedUpdateHappened = false;
@@ -34,6 +35,7 @@ public sealed class CharacterInput : MonoBehaviour
     private bool _attackLeftLast = false;
     private bool _attackRightLast = false;
     private bool _pickupLast = false;
+    private bool _anyLast = false;
     
 
     // Update the character's input, along with the XPressed and XReleased properties
@@ -53,6 +55,8 @@ public sealed class CharacterInput : MonoBehaviour
             _attackLeftLast = AttackLeft;
             _attackRightLast = AttackRight;
             _pickupLast = Pickup;
+            _anyLast = Any;
+            _any = false;
             _fixedUpdateHappened = false;
         }
 
@@ -111,6 +115,11 @@ public sealed class CharacterInput : MonoBehaviour
     public bool Pickup {
         get { return _pickup; }
         set { _pickup = value; }
+    }
+
+    public bool Any {
+        get { return _any; }
+        set { if( value) _any = true; }
     }
     
     // Helper Input Properties
@@ -252,6 +261,14 @@ public sealed class CharacterInput : MonoBehaviour
 
     public bool PickupReleased {
         get { return _pickupLast && !Pickup; }
+    }
+
+    public bool AnyPressed {
+        get { return !_anyLast && Any; }
+    }
+
+    public bool AnyReleased {
+        get { return _anyLast && !Any; }
     }
 
 }

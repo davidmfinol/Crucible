@@ -203,6 +203,7 @@ public class TouchInput : MonoBehaviour
 
         // Go through all the touches
         foreach (Touch touch in Input.touches) {
+            _input.Any = true;
             InterpretMovementSwipe (touch);
             InterpretInteractSwipe (touch);
         }

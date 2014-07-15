@@ -16,6 +16,7 @@ public class NewmanAudioPlayer : AudioPlayer
     public AudioClip ItemPickup;
     public AudioClip[] Running;
     public AudioClip Flip;
+    public AudioClip Death;
 
 	//Weapon Sounds
 	public AudioClip SparkplugCharge;

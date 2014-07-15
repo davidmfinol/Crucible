@@ -845,6 +845,7 @@ public class NewmanAnimator : CharacterAnimator
     public override void OnDeath (Vector3 knockForce)
     {
         base.OnDeath(knockForce);
+        _sound.Play(_sound.Death, 1.0f);
         GameManager.MainCamera.Target = Settings.MainRigidBody.transform;
 
         // TODO: REMOVE THIS HACK:
