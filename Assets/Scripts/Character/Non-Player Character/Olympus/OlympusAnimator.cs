@@ -104,7 +104,7 @@ public class OlympusAnimator : CharacterAnimator
             _autoClimbDir = AutoClimbDirection.AutoClimb_None;
         */
         
-        MecanimAnimator.SetBool (MecanimHashes.ClimbPipe, startClimbPipe);
+        MecanimAnimator.SetBool (MecanimHashes.ClimbRope, startClimbPipe);
         
         MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
         

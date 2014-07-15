@@ -23,7 +23,7 @@ public class MecanimHashes
     // Used only by player-character
     public static readonly int StealthKill = Animator.StringToHash ("StealthKill");
     public static readonly int PlaceMine = Animator.StringToHash("PlaceMine");
-    public static readonly int ClimbPipe = Animator.StringToHash("ClimbPipe");
+    public static readonly int ClimbRope = Animator.StringToHash("ClimbRope");
     public static readonly int ShootGun = Animator.StringToHash("ShootGun");
     public static readonly int DetonateMine = Animator.StringToHash("DetonateMine");
     public static readonly int JumpWall = Animator.StringToHash("JumpWall");

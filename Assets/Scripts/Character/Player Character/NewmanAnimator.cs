@@ -27,7 +27,7 @@ public class NewmanAnimator : CharacterAnimator
     public static readonly int HangingState = Animator.StringToHash ("Climbing.Hanging");
     public static readonly int ClimbingLedgeState = Animator.StringToHash ("Climbing.ClimbingLedge");
     public static readonly int ClimbingLadderState = Animator.StringToHash ("Climbing.ClimbingLadder");
-    public static readonly int ClimbingPipeState = Animator.StringToHash ("Climbing.ClimbingPipe");
+    public static readonly int ClimbingRopeState = Animator.StringToHash ("Climbing.ClimbingRope");
     //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
     public static readonly int SteppingDownState = Animator.StringToHash ("Kneeling.Stepping Down");
     public static readonly int StandingUpState = Animator.StringToHash ("Kneeling.Standing Up");
@@ -93,7 +93,7 @@ public class NewmanAnimator : CharacterAnimator
         StateMachine [ClimbingLedgeState] = ClimbingLedge;
         StateMachine [ClimbingLadderState] = ClimbingVertical;
         //StateMachine[ClimbingStrafeState] = ClimbingStrafe;
-        StateMachine [ClimbingPipeState] = ClimbingVertical;
+        StateMachine [ClimbingRopeState] = ClimbingVertical;
         StateMachine [SteppingDownState] = SteppingDown;
         StateMachine [StandingUpState] = StandingUp;
 
@@ -126,7 +126,6 @@ public class NewmanAnimator : CharacterAnimator
 
         bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
             (facingLeftLadder && CharInput.Left));
-        bool startClimbPipe = CanClimbRope;
 
         MecanimAnimator.SetBool (MecanimHashes.ClimbLadder, startClimbLadder);
 
@@ -137,8 +136,8 @@ public class NewmanAnimator : CharacterAnimator
         if(  (CurrentState.nameHash != ClimbingLadderState || CurrentState.nameHash != ClimbingPipeState) )
             _autoClimbDir = AutoClimbDirection.AutoClimb_None;
         */
-
-        MecanimAnimator.SetBool (MecanimHashes.ClimbPipe, startClimbPipe);
+        
+        MecanimAnimator.SetBool (MecanimHashes.ClimbRope, CanClimbRope);
 
         MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
 
@@ -297,10 +296,10 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.Fall, true);
         
         MecanimAnimator.SetBool (MecanimHashes.GrabWall, CanGrabWall);
-        
-        MecanimAnimator.SetBool (MecanimHashes.Hang, 
-            (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
-            || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up));
+
+        bool shouldHang = (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
+            || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up);
+        MecanimAnimator.SetBool (MecanimHashes.Hang, shouldHang);
 
 //        if(CharInput.JumpPressed)
 //            MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
@@ -370,9 +369,9 @@ public class NewmanAnimator : CharacterAnimator
         accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
         HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, _desiredSpeed, accelerationSmoothing);
 
-        MecanimAnimator.SetBool (MecanimHashes.Hang, 
-                                (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
-            || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up));
+        bool shouldHang = (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis () && VerticalSpeed < 0) 
+            || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis () && CharInput.Up);
+        MecanimAnimator.SetBool (MecanimHashes.Hang, shouldHang);
         
         MecanimAnimator.SetBool (MecanimHashes.Jump, false);
         MecanimAnimator.SetBool (MecanimHashes.Fall, false);
@@ -395,8 +394,15 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.Hang, true);
             VerticalSpeed = 0;
             HorizontalSpeed = 0;
-        } else 
+        } else  {
             MecanimAnimator.SetBool (MecanimHashes.Hang, false);
+        }
+
+        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.collider.bounds.Contains(transform.position);
+        if(shouldRegrabRope) {
+            AddHangTarget(PreviousHangTarget);
+            MecanimAnimator.SetBool(MecanimHashes.ClimbRope, true);
+        }
 
         //if(CharInput.JumpPressed && !_hasDoubleJumped)
         //    MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
@@ -455,8 +461,9 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.Hang, true);
             VerticalSpeed = 0;
             HorizontalSpeed = 0;
-        } else 
+        } else  {
             MecanimAnimator.SetBool (MecanimHashes.Hang, false);
+        }
     }
     
     protected void Hanging (float elapsedTime)
@@ -567,6 +574,7 @@ public class NewmanAnimator : CharacterAnimator
 
         if (CharInput.InteractionPressed) {
             MecanimAnimator.SetBool (MecanimHashes.Fall, true);
+            MecanimAnimator.SetBool (MecanimHashes.ClimbRope, false);
             DropHangTarget ();
             return;
         } else
@@ -954,11 +962,11 @@ public class NewmanAnimator : CharacterAnimator
     }
     
     public override bool CanInputHorizontal {
-        get { return !IgnoreXYMovement && CurrentState.nameHash != ClimbingPipeState; }
+        get { return !IgnoreXYMovement && CurrentState.nameHash != ClimbingRopeState; }
     }
     
     public override bool CanInputVertical {
-        get { return CanTransitionZ || CurrentState.nameHash == ClimbingPipeState|| CurrentState.nameHash == ClimbingLadderState; }
+        get { return CanTransitionZ || CurrentState.nameHash == ClimbingRopeState|| CurrentState.nameHash == ClimbingLadderState; }
     }
     
     public override bool CanInputAttack {
@@ -974,7 +982,7 @@ public class NewmanAnimator : CharacterAnimator
 
     public override bool IsClimbing {
         get { return CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == ClimbingLedgeState ||
-            CurrentState.nameHash == ClimbingPipeState || CurrentState.nameHash == WallgrabbingState;
+            CurrentState.nameHash == ClimbingRopeState || CurrentState.nameHash == WallgrabbingState;
         }
     }
 

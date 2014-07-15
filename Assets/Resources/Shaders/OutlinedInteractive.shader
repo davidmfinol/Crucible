@@ -5,7 +5,7 @@ Properties {
 	
 	_OutlineColor ("Outline Color", Color) = (1,1,1,1)
 	_OutlineWidth ("Outline Width", Range (0.0, 0.03)) = 0.005
-	_OutlineFadeDis ("Outline Fade Distance", Float) = 15
+	//_OutlineFadeDis ("Outline Fade Distance", Float) = 15
 	_PlayerPos ("Player Position", Vector) = (0,0,0,0)
 	
 	_EchoColor ("Echo Color", Color) = (1,1,1,1)
@@ -43,7 +43,7 @@ SubShader {
 		
 		uniform float _OutlineWidth;
 		uniform float4 _OutlineColor;
-		uniform float _OutlineFadeDis;
+		//uniform float _OutlineFadeDis;
 		uniform float4 _PlayerPos;
 		
 		struct appdata {
@@ -68,7 +68,7 @@ SubShader {
 		    float alpha = 0;
 		    float4 worldPos = mul(_Object2World, v.vertex);
 		   	float dist = distance(worldPos.xy, _PlayerPos.xy);
-		    alpha = _PlayerPos.w * (1.0 - (dist / _OutlineFadeDis));
+		    alpha = _PlayerPos.w * (1.0 - (dist / 20 ));//_OutlineFadeDis));
 		    alpha = max(0.0, alpha);
 		    _OutlineColor.a = alpha;
 		    o.color = _OutlineColor;

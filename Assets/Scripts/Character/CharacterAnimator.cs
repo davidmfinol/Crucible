@@ -568,7 +568,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         if (_hangQueue.Contains (hangTarget))
             return;
-        if (hangTarget is Ledge)
+        if (hangTarget is Ledge || hangTarget == _previousHangTarget)
             _hangQueue.Insert (0, hangTarget);
         else
             _hangQueue.Add (hangTarget);
