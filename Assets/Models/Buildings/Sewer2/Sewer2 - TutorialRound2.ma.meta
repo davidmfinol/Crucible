@@ -853,6 +853,7 @@ ModelImporter:
     101694: GroundBox
     101696: LadderZ
     101698: LedgeObstacle 1
+    101700: LedgeRightOnly1
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1703,6 +1704,7 @@ ModelImporter:
     401694: GroundBox
     401696: LadderZ
     401698: LedgeObstacle 1
+    401700: LedgeRightOnly1
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -2251,6 +2253,7 @@ ModelImporter:
     2301090: GroundBox
     2301092: LadderZ
     2301094: LedgeObstacle
+    2301096: LedgeRightOnly1
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2799,6 +2802,7 @@ ModelImporter:
     3301090: GroundBox
     3301092: LadderZ
     3301094: LedgeObstacle
+    3301096: LedgeRightOnly1
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -3340,6 +3344,7 @@ ModelImporter:
     4301076: GroundBox
     4301078: LadderZ
     4301080: LedgeObstacle
+    4301082: LedgeRightOnly1
     7400000: Take 001
     9500000: //RootNode
   materials:
