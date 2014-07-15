@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Tutorial audio player plays the audio for the door and fan objects in the tutorial part of the sewer.
 /// </summary>
-[AddComponentMenu ("Audio/Tutorial Audio Player")]
+[AddComponentMenu ("Audio/Area/Tutorial Audio Player")]
 public class TutorialAudioPlayer : AudioPlayer
 {
     public AudioClip DoorSlam;

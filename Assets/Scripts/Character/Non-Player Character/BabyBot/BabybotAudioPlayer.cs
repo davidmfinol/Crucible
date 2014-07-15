@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Babybot audio player plays the sound effect that a babybot character makes.
 /// </summary>
-[AddComponentMenu ("Audio/BabyBot Audio")]
+[AddComponentMenu ("Audio/Sound Effects/BabyBot Audio Player")]
 public class BabybotAudioPlayer : AudioPlayer
 {
     public AudioClip Giggle;
@@ -14,7 +14,6 @@ public class BabybotAudioPlayer : AudioPlayer
     public AudioClip FastAwake;
     public AudioClip AlmostAwake;
     public AudioClip Running;
-    public AudioClip Landing;
 	public AudioClip Snoring;
 
 }

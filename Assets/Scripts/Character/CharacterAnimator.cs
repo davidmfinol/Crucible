@@ -99,7 +99,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Child classes should override this method if they want to initialize variables on Start()
     }
 
-    void OnAnimatorMove()
+    protected virtual void OnAnimatorMove()
     {
         // This method is only here to prevent mecanim from overriding our motion in FixedUpdate.
     }
@@ -350,31 +350,20 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         DoRagDoll (knockForce);
         
-        // Remove components we won't need anymore
-        CharacterAnimatorDebugger debug1 = GetComponent<CharacterAnimatorDebugger> ();
-        if (debug1 != null)
-            Destroy (debug1);
-        EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger> ();
-        if (debug2 != null)
-            Destroy (debug2);
+        // Remove AI components we won't need anymore (if they exist)
         EnemyAI ai = GetComponent<EnemyAI> ();
-        if (ai != null)
+        if (ai != null) {
             Destroy (ai);
-        Seeker seeker = GetComponent<Seeker> ();
-        if (seeker != null)
-            Destroy (seeker);
-        HeartBox heart = GetComponentInChildren<HeartBox> ();
-        if (heart != null)
-            Destroy (heart);
-        StealthKillTrigger stealthTrigger = GetComponentInChildren<StealthKillTrigger> ();
-        if (stealthTrigger != null)
-            Destroy (stealthTrigger);
-        
-        // Remove ourselves
-        Destroy (this);
-        Destroy (CharInput);
-        Destroy (Controller);
-        Destroy (MecanimAnimator);
+            Seeker seeker = GetComponent<Seeker> ();
+            if (seeker != null)
+                Destroy (seeker);
+            HeartBox heart = GetComponentInChildren<HeartBox> ();
+            if (heart != null)
+                Destroy (heart);
+            StealthKillTrigger stealthTrigger = GetComponentInChildren<StealthKillTrigger> ();
+            if (stealthTrigger != null)
+                Destroy (stealthTrigger);
+        }
         
     }
 
@@ -386,6 +375,8 @@ public abstract class CharacterAnimator : MonoBehaviour
     
     public virtual void DoRagDoll (Vector3 push)
     {
+        DisableAnimationSystem();
+
         // Start the ragdoll system
         CharacterSettings.ActivateRagDoll (transform, false, true);
 
@@ -395,28 +386,49 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    public IEnumerator ActivateFloat ()
+    public void UndoRagdoll()
     {
-        Controller.enabled = false;
-        MecanimAnimator.enabled = false;
-        CharacterSettings.ActivateRagDoll (transform, false, false);
-        IgnoreMovement = true;
-        this.enabled = false;
-        yield return new WaitForSeconds (5);
-        ReEnableCharacter ();
+        CharacterSettings.ActivateRagDoll (transform, true, true);
+        EnableAnimationSystem();
 
     }
 
-    public void ReEnableCharacter ()
+    public void DisableAnimationSystem()
+    {
+        MecanimAnimator.enabled = false;
+        Controller.enabled = false;
+        IgnoreMovement = true;
+        this.enabled = false;
+
+    }
+
+    public void EnableAnimationSystem()
     {
         this.enabled = true;
         IgnoreMovement = false;
+        Controller.enabled = true;
+        MecanimAnimator.enabled = true;
+    }
+
+    public void DoFloat ()
+    {
+        DisableAnimationSystem();
+
+        CharacterSettings.ActivateRagDoll (transform, false, false);
+        Invoke("UndoFloat", 5.0f);
+
+    }
+
+    public void UndoFloat ()
+    {
         CharacterSettings.ActivateRagDoll (transform, true, true);
+
+        // Set the character where the rigidbody is
         Transform root = CharacterSettings.SearchHierarchyForBone (transform, Settings.RootBoneName);
         transform.position = root.transform.position;
         root.localPosition = Vector3.zero;
-        MecanimAnimator.enabled = true;
-        Controller.enabled = true;
+
+        EnableAnimationSystem();
 
     }
     
@@ -594,6 +606,10 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     public virtual void PlayLand ()
     {
+        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
+        if (IsSneaking)
+            return;
+
         Vector3 landingPosition = transform.position;
         landingPosition.y -= Height * 0.5f;
         Transform landing = (Transform)Instantiate (Settings.FootStepNoise, landingPosition, Quaternion.identity);
@@ -603,6 +619,10 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     public void PlayJumpLanding ()
     {
+        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
+        if (IsSneaking)
+            return;
+
         Vector3 landingPosition = transform.position;
         landingPosition.y -= Height * 0.5f;
         Transform landing = (Transform)Instantiate (Settings.FootStepNoise, landingPosition, Quaternion.identity);
@@ -712,23 +732,27 @@ public abstract class CharacterAnimator : MonoBehaviour
 	}
 
     public virtual bool CanInputHorizontal {
-        get { return true; }
+        get { return !IsDead; }
     }
     
     public virtual bool CanInputVertical {
-        get { return true; }
+        get { return !IsDead; }
     }
     
     public virtual bool CanInputJump {
-        get { return true; }
+        get { return !IsDead; }
     }
     
     public virtual bool CanInputAttack {
-        get { return true; }
+        get { return !IsDead; }
     }
     
     public virtual bool CanInputPickup {
-        get { return true; }
+        get { return !IsDead; }
+    }
+    
+    public virtual bool CanInputInteraction {
+        get { return !IsDead; }
     }
 
     public float HorizontalSpeed {

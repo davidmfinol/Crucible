@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Wind audio player plays wind audio.
 /// </summary>
-[AddComponentMenu("Audio/Wind Audio Player")]
+[AddComponentMenu("Audio/Area/Wind Audio Player")]
 public class WindAudioPlayer : AudioPlayer
 {
     public AudioClip[] WindNoises;

@@ -844,11 +844,8 @@ public class NewmanAnimator : CharacterAnimator
     // NOTE: WE DON'T NORMALLY USE THE DEATH ANIMATION STATES BELOW. INSTEAD, WE NORMALLY RAGDOLL
     public override void OnDeath (Vector3 knockForce)
     {
-        DoRagDoll (knockForce);
-        IgnoreMovement = true;
-        this.enabled = false;
-        Controller.enabled = false;
-        MecanimAnimator.enabled = false;
+        base.OnDeath(knockForce);
+        GameManager.MainCamera.Target = Settings.MainRigidBody.transform;
 
         // TODO: REMOVE THIS HACK:
         #if UNITY_WEBPLAYER && !UNITY_EDITOR
@@ -922,29 +919,6 @@ public class NewmanAnimator : CharacterAnimator
     {
         int runIndex = Random.Range (0, _sound.Running.Length);
         _sound.Play (_sound.Running [runIndex], Mathf.Abs (CharInput.Horizontal));
-
-    }
-
-    public override void PlayLand () //where dreams come true
-    {
-        //FIXME: Volumes of jumping up to a higher area are weird, as well as jumping off walls
-        float fallDistance = LastGroundHeight - transform.position.y;
-        if (fallDistance < 0)
-            fallDistance = 5;
-        //TODO: Actually make different sounds for different heights
-//      AudioClip landing;
-//      if(fallDistance <= 2)
-//          landing = _sound.SoftLanding;
-//      if(fallDistance > 2 && fallDistance <= 15)
-//          landing = _sound.MediumLanding;
-//      if(fallDistance > 15)
-//          landing = _sound.LoudLanding;
-
-        float fallVolume = fallDistance / 32f + 0.1f; //max volume if height is > 21
-        if (fallVolume > 1)
-            fallVolume = 1;
-        //Debug.Log ("Fall Volume" + fallVolume);
-        _sound.Play (_sound.Landing, fallVolume);
 
     }
 

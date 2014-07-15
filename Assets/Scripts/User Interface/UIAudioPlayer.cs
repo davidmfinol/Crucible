@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Player character audio player plays the sounds that the player character makes.
 /// </summary>
-[AddComponentMenu ("Audio/UI Audio")]
+[AddComponentMenu ("Audio/User Interface/UI Audio Player")]
 public class UIAudioPlayer : AudioPlayer
 {
     public AudioClip MenuUp;

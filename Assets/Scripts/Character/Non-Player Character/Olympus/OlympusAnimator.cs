@@ -20,9 +20,6 @@ public class OlympusAnimator : CharacterAnimator
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
     public static readonly int TurnAroundState = Animator.StringToHash ("Base Layer.Turn Around");
     public static readonly int AcquireTargetState = Animator.StringToHash ("Base Layer.Acquiring Target");
-    public static readonly int StunState = Animator.StringToHash ("Base Layer.Stun");
-    public static readonly int DeathState = Animator.StringToHash ("Base Layer.Death");
-    public static readonly int StealthDeathState = Animator.StringToHash ("Base Layer.Stealth Death");
     public static readonly int RunningState = Animator.StringToHash ("Ground.Running");
     public static readonly int SearchingState = Animator.StringToHash ("Ground.Searching");
     public static readonly int JumpingState = Animator.StringToHash ("Air.Jumping");
@@ -34,6 +31,9 @@ public class OlympusAnimator : CharacterAnimator
     public static readonly int ClimbingLedgeState = Animator.StringToHash ("Climbing.ClimbingLedge");
     public static readonly int ClimbingLadderState = Animator.StringToHash ("Climbing.ClimbingLadder");
     public static readonly int ClimbingPipeState = Animator.StringToHash ("Climbing.ClimbingPipe");
+    public static readonly int StunState = Animator.StringToHash ("Combat.Stun");
+    public static readonly int DeathState = Animator.StringToHash ("Combat.Death");
+    public static readonly int StealthDeathState = Animator.StringToHash ("Combat.Stealth Death");
     
     // Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -62,9 +62,6 @@ public class OlympusAnimator : CharacterAnimator
         StateMachine [IdleState] = Idle;
         StateMachine [TurnAroundState] = TurnAround;
         StateMachine [AcquireTargetState] = AcquireTarget;
-        StateMachine [StunState] = Stun;
-        StateMachine [DeathState] = Death;
-        StateMachine [StealthDeathState] = StealthDeath;
         StateMachine [RunningState] = Running;
         StateMachine [SearchingState] = Searching;
         StateMachine [JumpingState] = Jumping;
@@ -76,6 +73,9 @@ public class OlympusAnimator : CharacterAnimator
         StateMachine [ClimbingLedgeState] = ClimbingLedge;
         StateMachine [ClimbingLadderState] = ClimbingVertical;
         StateMachine [ClimbingPipeState] = ClimbingVertical;
+        StateMachine [StunState] = Stun;
+        StateMachine [DeathState] = Death;
+        StateMachine [StealthDeathState] = StealthDeath;
 
     }
     
@@ -123,7 +123,7 @@ public class OlympusAnimator : CharacterAnimator
 
         // Olympus needs to turn off the screens when moving
         // TODO: THINK OF A MORE EFFICIENT WAY INSTEAD OF DOING THIS EVERY FRAME
-        if( CharInput.Left || CharInput.Right) {
+        if(CharInput.Left || CharInput.Right) {
             foreach(Fader screen in Screens) 
                 screen.FadeOut();
         }
@@ -153,6 +153,37 @@ public class OlympusAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.TurnAround, true);
         
     }
+    
+    protected void TurnAround (float elapsedTime)
+    {
+        if (MecanimAnimator.GetBool (MecanimHashes.TurnAround)) {
+            MecanimAnimator.SetBool (MecanimHashes.TurnAround, false);
+            StartCoroutine (WaitToChangeDirection ());
+        }
+        HorizontalSpeed = 0;
+        VerticalSpeed = GroundVerticalSpeed;
+        
+    }
+    
+    public IEnumerator WaitToChangeDirection ()
+    {
+        IgnoreDirection = true;
+        
+        while (CurrentState.nameHash == TurnAroundState)
+            yield return null;
+        
+        Direction = -Direction;
+        
+        IgnoreDirection = false;
+        
+    }
+    
+    protected override void OnAnimatorMove ()
+    {
+        if (MecanimAnimator != null && CurrentState.nameHash == TurnAroundState)
+            transform.rotation *= MecanimAnimator.deltaRotation;
+        
+    }
 
     public void OnAcquireTarget ()
     {
@@ -169,26 +200,6 @@ public class OlympusAnimator : CharacterAnimator
         VerticalSpeed = GroundVerticalSpeed;
 
     }
-
-    public void StartSearch ()
-    {
-        if (IsGrounded)
-            MecanimAnimator.SetBool (MecanimHashes.Search, true);
-
-    }
-
-    protected void Searching (float elapsedTime)
-    {
-        if (MecanimAnimator.GetBool (MecanimHashes.Search)) {
-            HorizontalSpeed = 0;
-            VerticalSpeed = GroundVerticalSpeed;
-            MecanimAnimator.SetBool (MecanimHashes.Search, false);
-        }
-
-        if (!MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded)
-            MecanimAnimator.SetBool (MecanimHashes.Fall, true);
-
-    }
     
     protected void Running (float elapsedTime)
     {
@@ -201,53 +212,24 @@ public class OlympusAnimator : CharacterAnimator
 
     }
     
-    protected void Landing (float elapsedTime)
+    public void StartSearch ()
     {
-        HorizontalSpeed = 0;
-        VerticalSpeed = GroundVerticalSpeed;
-
-    }
-
-    protected void Stun (float elapsedTime)
-    {
-        HorizontalSpeed = 0;
         if (IsGrounded)
+            MecanimAnimator.SetBool (MecanimHashes.Search, true);
+        
+    }
+    
+    protected void Searching (float elapsedTime)
+    {
+        if (MecanimAnimator.GetBool (MecanimHashes.Search)) {
+            HorizontalSpeed = 0;
             VerticalSpeed = GroundVerticalSpeed;
-        else
-            ApplyGravity (elapsedTime);
-        MecanimAnimator.SetBool (MecanimHashes.Stun, false);
-
-    }
-
-    protected void TurnAround (float elapsedTime)
-    {
-        if (MecanimAnimator.GetBool (MecanimHashes.TurnAround)) {
-            MecanimAnimator.SetBool (MecanimHashes.TurnAround, false);
-            StartCoroutine (WaitToChangeDirection ());
+            MecanimAnimator.SetBool (MecanimHashes.Search, false);
         }
-        HorizontalSpeed = 0;
-        VerticalSpeed = GroundVerticalSpeed;
-
-    }
-
-    public IEnumerator WaitToChangeDirection ()
-    {
-        IgnoreDirection = true;
-
-        while (CurrentState.nameHash == TurnAroundState)
-            yield return null;
-
-        Direction = -Direction;
-
-        IgnoreDirection = false;
-
-    }
-
-    void OnAnimatorMove ()
-    {
-        if (MecanimAnimator != null && CurrentState.nameHash == TurnAroundState)
-            transform.rotation *= MecanimAnimator.deltaRotation;
-
+        
+        if (!MecanimAnimator.GetBool (MecanimHashes.Fall) && !IsGrounded)
+            MecanimAnimator.SetBool (MecanimHashes.Fall, true);
+        
     }
     
     protected void Jumping (float elapsedTime)
@@ -303,6 +285,13 @@ public class OlympusAnimator : CharacterAnimator
         if (CanGrabWall && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)))
             MecanimAnimator.SetBool (MecanimHashes.GrabWall, true);
 
+    }
+    
+    protected void Landing (float elapsedTime)
+    {
+        HorizontalSpeed = 0;
+        VerticalSpeed = GroundVerticalSpeed;
+        
     }
     
     protected void Hanging (float elapsedTime)
@@ -422,10 +411,38 @@ public class OlympusAnimator : CharacterAnimator
         }
         
     }
-
-    public void DropItems ()
+    
+    protected void Stun (float elapsedTime)
     {
-        _itemDropper.DropItems (transform.position);
+        HorizontalSpeed = 0;
+        if (IsGrounded)
+            VerticalSpeed = GroundVerticalSpeed;
+        else
+            ApplyGravity (elapsedTime);
+        MecanimAnimator.SetBool (MecanimHashes.Stun, false);
+        
+    }
+
+    protected void Death (float elapsedTime)
+    {
+        if (MecanimAnimator.GetBool (MecanimHashes.Die))
+            MecanimAnimator.SetBool (MecanimHashes.Die, false);
+
+        if (IsGrounded) {   
+            ApplyDeathFriction (elapsedTime);
+            VerticalSpeed = GroundVerticalSpeed;
+
+        } else {
+            ApplyGravity (elapsedTime);
+
+        }
+
+    }
+    
+    protected void StealthDeath (float elapsedTime)
+    {
+        if(MecanimAnimator.GetBool(MecanimHashes.StealthDeath))
+            MecanimAnimator.SetBool(MecanimHashes.StealthDeath, false);
         
     }
 
@@ -449,43 +466,30 @@ public class OlympusAnimator : CharacterAnimator
 		Vector3 directional = isToRightOfPlayer ? Vector3.right : Vector3.left;
 		directional *= 25000;
 
-        DoRagDoll (Vector3.up * 15000 + directional);
-		DropItems();
-
-    }
-
-    protected void StealthDeath (float elapsedTime)
-    {
-        if(MecanimAnimator.GetBool(MecanimHashes.StealthDeath))
-           MecanimAnimator.SetBool(MecanimHashes.StealthDeath, false);
-    }
-
-    protected void Death (float elapsedTime)
-    {
-        if (MecanimAnimator.GetBool (MecanimHashes.Die)) { 
-            Invoke ("DropItems", 5.0f);
-            MecanimAnimator.SetBool (MecanimHashes.Die, false);
-
-        }
-
-
-        if (IsGrounded) {   
-            ApplyDeathFriction (elapsedTime);
-            VerticalSpeed = GroundVerticalSpeed;
-
-        } else {
-            ApplyGravity (elapsedTime);
-
-        }
+        base.OnDeath (Vector3.up * 15000 + directional);
+        _itemDropper.DropItems (transform.position);
 
     }
     
     public override void OnDeath (Vector3 knockForce)
     {
+        StartCoroutine(ShowDeath(knockForce));
+
+    }
+
+    public IEnumerator ShowDeath(Vector3 knockForce)
+    {
         MecanimAnimator.SetBool (MecanimHashes.Die, true);
-        Invoke ("DoRagDoll", 2.0f);
         HorizontalSpeed = knockForce.x;
         VerticalSpeed = knockForce.y;
+
+        yield return new WaitForSeconds(2.0f);
+
+        base.OnDeath();
+
+        yield return new WaitForSeconds(3.0f);
+
+        _itemDropper.DropItems (transform.position);
 
     }
 
@@ -578,7 +582,7 @@ public class OlympusAnimator : CharacterAnimator
     }
     
     public override bool IsDead {
-        get { return CurrentState.nameHash == DeathState; } // || CurrentState.nameHash == StealthDeathState; }
+        get { return CurrentState.nameHash == DeathState; } //TODO: || CurrentState.nameHash == StealthDeathState; }
     }
 
     public override bool IsJumping {

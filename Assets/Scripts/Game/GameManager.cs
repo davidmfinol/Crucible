@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
         
         // Turn off ragdoll if coming back to life
         if(Player.IsDead && Player.Settings.MainRigidBody.collider.enabled)
-            Player.ReEnableCharacter();
+            Player.UndoRagdoll();
 
         // Make sure the camera is looking at the player
 		MainCamera.Target = Player.transform;

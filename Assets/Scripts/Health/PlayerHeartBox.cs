@@ -24,6 +24,7 @@ public class PlayerHeartBox : HeartBox
 
     }
 
+    // NOTE: WE SHOULD ONLY HAVE ONE PLAYERHEARTBOX IN THE SCENE, SO IT SHOULD BE OK TO DO THIS CHECK HERE
     void FixedUpdate ()
     {
         if (GameManager.Player.IsDead && (Controller.CharInput.InteractionPressed || Controller.CharInput.JumpPressed))
@@ -86,8 +87,8 @@ public class PlayerHeartBox : HeartBox
 
             // killed
         } else if (HitPoints <= 0) {
-            Controller.OnDeath (knockForce);
-			_camScroll.AddShake (1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f );
+            _camScroll.AddShake (1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f );
+            Controller.OnDeath (knockForce * 1000);
 
             // healed
         } else if (deltaHealth > 0 && HitPoints == MaxHitPoints) {

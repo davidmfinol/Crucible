@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Music player plays a random song from a set of music in the background.
 /// </summary>
-[AddComponentMenu("Audio/Music Player")]
+[AddComponentMenu("Audio/Music/Music Player")]
 public class MusicPlayer : AudioPlayer
 {
 	public AudioClip[] Music;

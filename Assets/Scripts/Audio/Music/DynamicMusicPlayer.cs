@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Dynamic music plays background music by layering different songs based off the state of the game.
 /// </summary>
-[AddComponentMenu("Audio/Dynamic Music Player")]
+[AddComponentMenu("Audio/Music/Dynamic Music Player")]
 public class DynamicMusicPlayer : AudioPlayer
 {
     // The songs that we are going to layer

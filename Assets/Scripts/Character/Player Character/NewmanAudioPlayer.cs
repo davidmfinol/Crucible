@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Newman audio player plays the sounds that the player character makes.
 /// </summary>
-[AddComponentMenu ("Audio/Newman Audio")]
+[AddComponentMenu ("Audio/Sound Effects/Newman Audio Player")]
 public class NewmanAudioPlayer : AudioPlayer
 {
     public AudioClip Attack;
@@ -16,7 +16,6 @@ public class NewmanAudioPlayer : AudioPlayer
     public AudioClip ItemPickup;
     public AudioClip[] Running;
     public AudioClip Flip;
-    public AudioClip Landing;
 
 	//Weapon Sounds
 	public AudioClip SparkplugCharge;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Subtitles manager is responsible for keeping track of and displaying subtitles on the screen.
 /// </summary>
-[AddComponentMenu("Audio/Subtitles Manager")]
+[AddComponentMenu("Audio/Dialogue/Subtitles Manager")]
 public class SubtitlesManager : MonoBehaviour
 {
     public Queue<Subtitle> subtitleQueue;

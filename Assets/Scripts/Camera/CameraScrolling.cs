@@ -58,7 +58,7 @@ public class CameraScrolling : MonoBehaviour
 
     public void AddShake(float lifetime, Vector3 spread, float minSpeed, float maxSpeed)
     {
-        if (_shakeEffect == null) {
+        if (_shakeEffect == null && TargetAttributes != null) {
             _shakeEffect = new ShakeEffect(lifetime, TargetAttributes.DistanceModifier, spread, minSpeed, maxSpeed);
         }
 

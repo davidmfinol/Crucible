@@ -31,7 +31,7 @@ public class EnemyHeartBox : HeartBox
         else if (LastHit.CanStun)
             Controller.MecanimAnimator.SetBool ("Stun", true);
         else if (LastHit.DoesFloat)
-            StartCoroutine(Controller.ActivateFloat ());
+            Controller.DoFloat ();
         else {
             Vector2 dirToPlayer = new Vector2 (transform.position.x - LastHit.transform.position.x, transform.position.y - LastHit.transform.position.y);
 

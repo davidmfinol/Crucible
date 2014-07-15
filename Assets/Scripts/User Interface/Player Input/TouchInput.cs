@@ -294,7 +294,7 @@ public class TouchInput : MonoBehaviour
             _input.Pickup = true;
         else if (GameManager.Player.CanInputAttack && IsAttackRight (deg)) 
             _input.Attack = 1;
-        else if (IsInteraction (deg))
+        else if (GameManager.Player.CanInputInteraction && IsInteraction (deg))
             _input.Interaction = true;
 
         DisplayParticles (deg);
