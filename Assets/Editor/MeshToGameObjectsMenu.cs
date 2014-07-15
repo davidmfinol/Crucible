@@ -65,7 +65,7 @@ public class MeshToGameObjectsMenu
     static void MeshToGameObjects ()
     {
         // Load up the assets we need
-        playerPrefab = (GameObject)Resources.Load ("Prefabs/Characters/PlayerCharacter");
+        playerPrefab = (GameObject)Resources.Load ("Prefabs/Characters/Newman");
         ledgePrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Ledge");
         wallPrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Wall");
         ropePrefab = (GameObject)Resources.Load ("Prefabs/Platforming/Rope");
