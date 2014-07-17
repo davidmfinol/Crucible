@@ -38,6 +38,8 @@ public class Item : MonoBehaviour
     public Transform IndicatorOffset;
     public float IndicatorFadeSpeed = 0.5f;
     public float IndicatorFadeDistance = 15;
+    public float IndicatorFadeDistance2 = 3;
+    private float _midFadeDistance;
 
     private Fader _itemIndicator;
     private Fader _itemSign;
@@ -53,15 +55,16 @@ public class Item : MonoBehaviour
         // Make the item have an indicator appear above it
         string type = Type == ItemType.Item__Weapon ? "Weapon" : "Item";
         GameObject indicator = Instantiate(Resources.Load("Prefabs/" + type + "Indicator")) as GameObject;
-        indicator.transform.position = IndicatorOffset == null ? transform.position + Vector3.up * 2.5f : IndicatorOffset.transform.position + Vector3.up * 2.5f;
+        indicator.transform.position = IndicatorOffset == null ? transform.position + Vector3.up * 4.5f : IndicatorOffset.transform.position + Vector3.up * 4.5f;
 
         GameObject sign = Instantiate(indicator) as GameObject;
-        sign.transform.position = indicator.transform.position + Vector3.up * 0.5f + Vector3.back * 0.5f;
-        sign.transform.localScale = new Vector3(1, 1, 1);
+        sign.transform.position = indicator.transform.position + Vector3.up * 0.75f + Vector3.back * 0.01f;
+        sign.transform.localScale = new Vector3(2, 2, 2);
         sign.renderer.material.mainTexture = Type == ItemType.Item__Weapon ? WeaponPrefab.GetComponent<Weapon>().Texture : InventoryItemFactory.CreateFromType(Type, 1).GetTexture();
 
         indicator.transform.parent = transform;
         sign.transform.parent = transform;
+        _midFadeDistance = (IndicatorFadeDistance + IndicatorFadeDistance2) * 0.5f;
         _itemIndicator = indicator.AddComponent<Fader>();
         _itemSign = sign.AddComponent<Fader>();
 
@@ -74,9 +77,17 @@ public class Item : MonoBehaviour
     // Fade the item indicator as appropriate
     void Update()
     {
-        if (Vector3.Distance (transform.position, GameManager.Player.transform.position) < IndicatorFadeDistance) {
-            _itemIndicator.FadeIn(IndicatorFadeSpeed, false);
-            _itemSign.FadeIn(IndicatorFadeSpeed, false);
+        float dist = Vector3.Distance(transform.position, GameManager.Player.transform.position);
+        if (dist < IndicatorFadeDistance) {
+            if(dist > _midFadeDistance) {
+                _itemIndicator.FadeIn(IndicatorFadeSpeed, false);
+                _itemSign.FadeIn(IndicatorFadeSpeed, false);
+            }
+            else {
+                Color currColor = _itemIndicator.renderer.material.color;
+                float alpha = 0.3f + 0.7f * ((dist - IndicatorFadeDistance2) / _midFadeDistance);
+                _itemIndicator.renderer.material.color = new Color (currColor.r, currColor.g, currColor.b, Mathf.Max(alpha, 0.3f));
+            }
         }
         else {
             _itemIndicator.FadeOut(IndicatorFadeSpeed, false);
