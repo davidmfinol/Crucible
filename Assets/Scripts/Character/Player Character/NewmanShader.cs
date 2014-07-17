@@ -44,7 +44,7 @@ public class NewmanShader : MonoBehaviour
         List<Material> changeableMaterials = new List<Material>();
         foreach (SkinnedMeshRenderer render in GetComponentsInChildren<SkinnedMeshRenderer>()) {
             if (render.gameObject.CompareTag("Changeable Material")) {
-                changeableMaterials.Add(render.material);
+                changeableMaterials.AddRange(render.materials);
             }
         }
         return changeableMaterials;
