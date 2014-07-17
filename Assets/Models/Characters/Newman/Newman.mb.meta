@@ -1922,22 +1922,6 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: bind_l_foot01
-      humanName: LeftToes
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
-    - boneName: bind_r_foot01
-      humanName: RightToes
-      limit:
-        min: {x: 0, y: 0, z: 0}
-        max: {x: 0, y: 0, z: 0}
-        value: {x: 0, y: 0, z: 0}
-        length: 0
-        modified: 0
     - boneName: bind_l_thumbroot
       humanName: Left Thumb Proximal
       limit:
@@ -2434,7 +2418,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_l_elbow01
       position: {x: -.498597324, y: .0025044845, z: .00204331265}
-      rotation: {x: -.00879687257, y: .063730143, z: .0127912303, w: .997846425}
+      rotation: {x: -.0088930456, y: .0545553416, z: .00952387881, w: .998425782}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_l_wrist01
@@ -2459,7 +2443,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_l_middlefingerindexq
       position: {x: -.122561648, y: -.00489738118, z: -2.58126855e-17}
-      rotation: {x: 0, y: 0, z: .115278132, w: .99333328}
+      rotation: {x: -1.5231717e-09, y: 2.88754798e-08, z: .0587838031, w: .99827075}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_l_middlefingerend01
@@ -2469,12 +2453,12 @@ ModelImporter:
       transformModified: 1
     - name: bind_l_pinkyroot01
       position: {x: -.0669621453, y: .00236174115, z: -.0721411929}
-      rotation: {x: .0133640748, y: -.11981339, z: .052872289, w: .991297483}
+      rotation: {x: .0128948754, y: -.0251415335, z: .0158876553, w: .999474466}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_l_pinkyindex01
       position: {x: -.101745836, y: 0, z: -2.58126855e-17}
-      rotation: {x: 0, y: 0, z: .115278132, w: .99333328}
+      rotation: {x: 6.58606325e-09, y: -1.63997882e-08, z: .0378275812, w: .999284267}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_l_pinkyend01
@@ -2499,12 +2483,12 @@ ModelImporter:
       transformModified: 1
     - name: bind_l_ringroot01
       position: {x: -.0771782547, y: .00187329063, z: -.0287880227}
-      rotation: {x: .00815769285, y: -.0389864855, z: -.0132080493, w: .999119163}
+      rotation: {x: .00820799172, y: -.0351770818, z: -.0131768519, w: .999260545}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_l_ringindex01
       position: {x: -.101745836, y: 0, z: -2.58126855e-17}
-      rotation: {x: 0, y: 0, z: .115278132, w: .99333328}
+      rotation: {x: -1.22463391e-08, y: 8.3861087e-09, z: .0378268212, w: .999284327}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_l_ring01
@@ -2514,7 +2498,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_l_thumbroot
       position: {x: .0203942899, y: 2.75335312e-16, z: .0809505358}
-      rotation: {x: .12479943, y: .48603487, z: .185104251, w: .844944775}
+      rotation: {x: .0609382018, y: .447774112, z: .047742337, w: .89078933}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_l_thumbindex01
@@ -2554,7 +2538,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_elbow01
       position: {x: .498597383, y: -.00250479998, z: -.00204331218}
-      rotation: {x: -.00879702438, y: .0636882707, z: .0127808312, w: .997849226}
+      rotation: {x: -.00882990286, y: .0538863465, z: .0103811808, w: .998454154}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_r_wrist01
@@ -2574,12 +2558,12 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_middlefingerroot01q
       position: {x: .0810660273, y: -.00110733591, z: -.0208411347}
-      rotation: {x: .00803445745, y: -.0482802726, z: -.0132833738, w: .998713195}
+      rotation: {x: .00777734956, y: -.032896731, z: -.0163366385, w: .999294996}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_middlefingerindexq
       position: {x: .122559428, y: .00489180023, z: 5.75760666e-08}
-      rotation: {x: 0, y: 0, z: .115278132, w: .99333328}
+      rotation: {x: -6.93513968e-10, y: -3.59382767e-07, z: .0587446503, w: .998273075}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_r_middlefingerend01
@@ -2589,12 +2573,12 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_pinkyroot01
       position: {x: .0669631884, y: -.00235616392, z: .0721413866}
-      rotation: {x: .0218118299, y: -.279951721, z: .0499832109, w: .958463848}
+      rotation: {x: .0238334015, y: -.0215715617, z: .000128329062, w: .999483228}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_pinkyindex01
       position: {x: .10174641, y: -2.1016902e-07, z: 9.87435271e-08}
-      rotation: {x: 0, y: 0, z: .115278132, w: .99333328}
+      rotation: {x: 4.76962441e-07, y: 3.49747688e-06, z: .0378189869, w: .999284625}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_r_pinkyend01
@@ -2604,7 +2588,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_pointerroot01
       position: {x: .0825524777, y: -.000476824905, z: -.0594134927}
-      rotation: {x: -.00431509782, y: .264761865, z: .0429851711, w: .963345647}
+      rotation: {x: -.00886535458, y: .121913843, z: .0119969817, w: .992428601}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_pointerindex01
@@ -2619,12 +2603,12 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_ringroot01
       position: {x: .0771770775, y: -.00186765415, z: .0287880972}
-      rotation: {x: .00663890084, y: -.149808988, z: -.0140330158, w: .988593102}
+      rotation: {x: .00828205142, y: -.0295397528, z: -.0131308064, w: .999443114}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_ringindex01
       position: {x: .101746902, y: -1.37667656e-16, z: -9.28397554e-08}
-      rotation: {x: 0, y: 0, z: .115278132, w: .99333328}
+      rotation: {x: -4.80546873e-08, y: 2.2706709e-07, z: .0378334858, w: .999284029}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: be_r_ring01
@@ -2634,7 +2618,7 @@ ModelImporter:
       transformModified: 1
     - name: bind_r_thumbroot
       position: {x: -.0203974862, y: 1.24502606e-07, z: -.0809509382}
-      rotation: {x: .0671149641, y: .70591104, z: .212918013, w: .672198713}
+      rotation: {x: -.0160318743, y: .475555748, z: .0446365811, w: .878406167}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: bind_r_thumbindex01

@@ -10,6 +10,7 @@ public class NewmanAnimator : CharacterAnimator
 {
     // TODO: REPLACE THIS WITH OBJECT POOLING
     public GameObject StealthKillEvent;
+    public float IdleChangeSpeed = 2;
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
@@ -178,7 +179,15 @@ public class NewmanAnimator : CharacterAnimator
     protected virtual void Idle (float elapsedTime)
     {
         // Make the idle based off enemies could hear
-        MecanimAnimator.SetFloat (MecanimHashes.IdleNum, GameManager.AI.EnemiesCouldHear > 0 ? 1 : 0);
+        float idleNum = MecanimAnimator.GetFloat(MecanimHashes.IdleNum);
+        float targetIdle = GameManager.AI.EnemiesCouldHear > 0 ? 1 : 0;
+        // Press shift to crouch
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR || UNITY_STANDALONE_OSX
+        if(Input.GetButton ("Shift"))
+            targetIdle = 1;
+#endif
+        idleNum = Mathf.Lerp(idleNum, targetIdle, Time.deltaTime * IdleChangeSpeed);
+        MecanimAnimator.SetFloat (MecanimHashes.IdleNum, idleNum);
         
         ApplyRunning (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;
