@@ -99,6 +99,18 @@ public class NewmanAnimator : CharacterAnimator
         StateMachine [StandingUpState] = StandingUp;
 
     }
+
+    protected override void OnFixedUpdate()
+    {
+        // HACK: SOME STATES JUST MESS UP WITH ROOT MOTION NO MATTER WHAT
+        if (Settings.RootTransform != null) {
+            if (CurrentState.nameHash == FallRollState) // || 
+           // TODO:     CurrentState.nameHash == JumpingState || 
+             //   CurrentState.nameHash == LandingState )
+                Settings.RootTransform.localPosition = Vector3.zero; // TODO: WALL GRAB AND MULTIPLE ROOT TRANSFORMS
+        }
+
+    }
     
     protected override void UpdateMecanimVariables ()
     {
@@ -863,7 +875,7 @@ public class NewmanAnimator : CharacterAnimator
     {
         base.OnDeath(knockForce);
         _sound.Play(_sound.Death, 1.0f);
-        GameManager.MainCamera.Target = Settings.MainRigidBody.transform;
+        GameManager.MainCamera.Target = Settings.RootRigidBody.transform;
 
         // TODO: REMOVE THIS HACK:
         #if UNITY_WEBPLAYER && !UNITY_EDITOR
@@ -996,7 +1008,7 @@ public class NewmanAnimator : CharacterAnimator
     }
 
     public override bool IsDead {
-        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState || Settings.MainRigidBody.collider.enabled; }
+        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState || Settings.RootRigidBody.collider.enabled; }
     }
     
     public CharacterAnimator StealthKillable {

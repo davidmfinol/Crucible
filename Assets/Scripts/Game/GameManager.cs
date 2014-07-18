@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
 			heart.HitPoints = heart.MaxHitPoints;
         
         // Turn off ragdoll if coming back to life
-        if(Player.IsDead && Player.Settings.MainRigidBody.collider.enabled)
+        if(Player.IsDead && Player.Settings.RootRigidBody.collider.enabled)
             Player.UndoRagdoll();
 
         // Make sure the camera is looking at the player

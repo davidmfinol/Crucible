@@ -11,9 +11,6 @@ public sealed class CharacterSettings : MonoBehaviour
     // Noise player makes when running
     public Transform FootStepNoise; // TODO: OBJECT POOL
 
-    // What is the name of the rooot bone? Used to zero-root based animation motion
-    public string RootBoneName;     // = "hip";
-
     // How fast the character runs
     public float MaxHorizontalSpeed;   // = 16.0f;
 
@@ -62,8 +59,11 @@ public sealed class CharacterSettings : MonoBehaviour
 	// Mine sound event
 	public GameObject MineSoundEventPrefab; // TODO: OBJECT POOL
 
-	// When we ragdoll, this is where any initial forces are applied;
-	public Rigidbody MainRigidBody;
+    // This is where we offset all the animations from (typically same as RootRigidbody)
+    public Transform RootTransform;
+
+    // When we ragdoll, this is where any initial forces are applied (typically same as RootTransform)
+	public Rigidbody RootRigidBody;
     
 
     // Helper Method to find a bone attached to a character

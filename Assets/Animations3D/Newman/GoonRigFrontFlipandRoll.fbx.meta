@@ -934,7 +934,7 @@ ModelImporter:
     4300104: Proxy_Head_Base
     7400000: Take 001
     7400002: Roll
-    7400004: Take 0010
+    7400004: Front Flip
     9500000: //RootNode
     13700000: Proxy_Chest
     13700002: Proxy_Head_Default
@@ -2747,7 +2747,7 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Take 0010
+      name: Front Flip
       takeName: Take 001
       firstFrame: 52
       lastFrame: 87
@@ -2758,11 +2758,11 @@ ModelImporter:
       loop: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0

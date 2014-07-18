@@ -37,8 +37,8 @@ public class BabyBotAnimator : CharacterAnimator
     protected override void OnUpdate ()
     {
         // HACK: WE'RE FORCING THE ATTACK ANIMATION TO GET RIGHT ON THE PLAYER
-        if (Root != null && CurrentState.nameHash == AttackState)
-            Root.localPosition = Vector3.zero;
+        if (Settings.RootTransform != null && CurrentState.nameHash == AttackState)
+            Settings.RootTransform.localPosition = Vector3.zero;
     }
 
     protected override void UpdateMecanimVariables ()
@@ -105,11 +105,10 @@ public class BabyBotAnimator : CharacterAnimator
         IgnoreDirection = true;
         
         // Parent ourselves to the player
-        Transform selfRoot = CharacterSettings.SearchHierarchyForBone (transform, Settings.RootBoneName);
         transform.parent = GameManager.Player.transform;
         Vector3 move = transform.localPosition;
         transform.localPosition = Vector3.zero;
-        selfRoot.position = selfRoot.position + move;
+        Settings.RootTransform.position = Settings.RootTransform.position + move;
         
     }
     

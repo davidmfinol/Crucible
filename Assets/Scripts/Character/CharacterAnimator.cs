@@ -20,7 +20,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     private Animator _animator;
     private CharacterSettings _characterSettings;
     private CharacterInput _characterInput;
-    private Transform _root;
 
     // This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
     public delegate void ProcessState (float elapsedTime);
@@ -76,7 +75,6 @@ public abstract class CharacterAnimator : MonoBehaviour
         _animator = GetComponent<Animator> ();
         _characterSettings = GetComponent<CharacterSettings> ();
         _characterInput = GetComponent<CharacterInput> ();
-        _root = CharacterSettings.SearchHierarchyForBone (transform, _characterSettings.RootBoneName);
 
         // Set up the mapping between the mecanim state machine and this class's interpretation of it
         _stateMachine = new Dictionary<int, ProcessState> ();
@@ -393,8 +391,8 @@ public abstract class CharacterAnimator : MonoBehaviour
         CharacterSettings.ActivateRagDoll (transform, false, true);
 
 		// Apply the push
-		if(Settings.MainRigidBody != null)
-            Settings.MainRigidBody.AddForce(push);
+		if(Settings.RootRigidBody != null)
+            Settings.RootRigidBody.AddForce(push);
 
     }
 
@@ -436,9 +434,8 @@ public abstract class CharacterAnimator : MonoBehaviour
         CharacterSettings.ActivateRagDoll (transform, true, true);
 
         // Set the character where the rigidbody is
-        Transform root = CharacterSettings.SearchHierarchyForBone (transform, Settings.RootBoneName);
-        transform.position = root.transform.position;
-        root.localPosition = Vector3.zero;
+        transform.position = Settings.RootTransform.position;
+        Settings.RootTransform.localPosition = Vector3.zero;
 
         EnableAnimationSystem();
 
@@ -662,10 +659,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     public CharacterController Controller {
         get { return _characterController; }
-    }
-
-    public Transform Root {
-        get { return _root; }
     }
 
     public float Height {
