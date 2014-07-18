@@ -30,7 +30,7 @@ public class OlympusAnimator : CharacterAnimator
     public static readonly int HangingState = Animator.StringToHash ("Climbing.Hanging");
     public static readonly int ClimbingLedgeState = Animator.StringToHash ("Climbing.ClimbingLedge");
     public static readonly int ClimbingLadderState = Animator.StringToHash ("Climbing.ClimbingLadder");
-    public static readonly int ClimbingPipeState = Animator.StringToHash ("Climbing.ClimbingPipe");
+    public static readonly int ClimbingRopeState = Animator.StringToHash ("Climbing.ClimbingRope");
     public static readonly int StunState = Animator.StringToHash ("Combat.Stun");
     public static readonly int DeathState = Animator.StringToHash ("Combat.Death");
     public static readonly int StealthDeathState = Animator.StringToHash ("Combat.Stealth Death");
@@ -72,7 +72,7 @@ public class OlympusAnimator : CharacterAnimator
         StateMachine [HangingState] = Hanging;
         StateMachine [ClimbingLedgeState] = ClimbingLedge;
         StateMachine [ClimbingLadderState] = ClimbingVertical;
-        StateMachine [ClimbingPipeState] = ClimbingVertical;
+        StateMachine [ClimbingRopeState] = ClimbingVertical;
         StateMachine [StunState] = Stun;
         StateMachine [DeathState] = Death;
         StateMachine [StealthDeathState] = StealthDeath;
@@ -92,7 +92,6 @@ public class OlympusAnimator : CharacterAnimator
         
         bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
             (facingLeftLadder && CharInput.Left));
-        bool startClimbPipe = CanClimbRope;
         
         MecanimAnimator.SetBool (MecanimHashes.ClimbLadder, startClimbLadder);
         
@@ -104,7 +103,7 @@ public class OlympusAnimator : CharacterAnimator
             _autoClimbDir = AutoClimbDirection.AutoClimb_None;
         */
         
-        MecanimAnimator.SetBool (MecanimHashes.ClimbRope, startClimbPipe);
+        MecanimAnimator.SetBool (MecanimHashes.ClimbRope, CanClimbRope);
         
         MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
         
