@@ -106,6 +106,13 @@ ModelImporter:
     100200: rp_l_leg01
     100202: rp_r_arm01
     100204: rp_r_leg01
+    100206: pPlane1
+    100208: MSweep:pCube1
+    100210: MSweep:pCylinder5
+    100212: MSweep:pCylinder6
+    100214: MSweep:pCylinder7
+    100216: MSweep:polySurface8
+    100218: MSweep:polySurface9
     400000: Armguard
     400002: be_head_01
     400004: be_l_ankle01
@@ -209,13 +216,41 @@ ModelImporter:
     400200: rp_l_leg01
     400202: rp_r_arm01
     400204: rp_r_leg01
+    400206: pPlane1
+    400208: MSweep:pCube1
+    400210: MSweep:pCylinder5
+    400212: MSweep:pCylinder6
+    400214: MSweep:pCylinder7
+    400216: MSweep:polySurface8
+    400218: MSweep:polySurface9
     2300000: Armguard
     2300002: Plane_001
+    2300004: pPlane1
+    2300006: MSweep:pCube1
+    2300008: MSweep:pCylinder5
+    2300010: MSweep:pCylinder6
+    2300012: MSweep:pCylinder7
+    2300014: MSweep:polySurface8
+    2300016: MSweep:polySurface9
     3300000: Armguard
     3300002: Plane_001
+    3300004: pPlane1
+    3300006: MSweep:pCube1
+    3300008: MSweep:pCylinder5
+    3300010: MSweep:pCylinder6
+    3300012: MSweep:pCylinder7
+    3300014: MSweep:polySurface8
+    3300016: MSweep:polySurface9
     4300000: Plane_001
     4300002: Armguard
     4300004: Char
+    4300006: pPlane1
+    4300008: MSweep:pCube1
+    4300010: MSweep:pCylinder5
+    4300012: MSweep:polySurface8
+    4300014: MSweep:polySurface9
+    4300016: MSweep:pCylinder6
+    4300018: MSweep:pCylinder7
     7400000: Take 001
     7400002: Idle Sneak
     7400004: Sneak
