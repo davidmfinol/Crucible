@@ -1512,6 +1512,44 @@ ModelImporter:
     103012: transform202
     103014: transform203
     103016: WaypointlessMesh1
+    103018: group2
+    103020: polySurface338
+    103022: polySurface339
+    103024: transform204
+    103026: wall
+    103028: wall1
+    103030: wall2
+    103032: wall3
+    103034: wall4
+    103036: wall5
+    103038: box 1
+    103040: LedgeLeftOnly 3
+    103042: LedgeRightHandSide
+    103044: Mesh 1
+    103046: polySurface340
+    103048: transform205
+    103050: transform206
+    103052: transform207
+    103054: transform208
+    103056: WallLedgeLeftOnly 1
+    103058: box 2
+    103060: box1
+    103062: box 3
+    103064: ledgeRightOnly
+    103066: transform209
+    103068: LedgeLeftOnly11
+    103070: box2
+    103072: LedgeLeftOnly12
+    103074: LedgeRightOnly19
+    103076: group3
+    103078: Box 1
+    103080: LedgeWallLeftOnly
+    103082: LedgeWallRight
+    103084: polySurface341
+    103086: polySurface343
+    103088: polySurface346
+    103090: transform210
+    103092: transform211
     400000: Airport
     400002: Box
     400004: Box1
@@ -3021,6 +3059,44 @@ ModelImporter:
     403012: transform202
     403014: transform203
     403016: WaypointlessMesh1
+    403018: group2
+    403020: polySurface338
+    403022: polySurface339
+    403024: transform204
+    403026: wall
+    403028: wall1
+    403030: wall2
+    403032: wall3
+    403034: wall4
+    403036: wall5
+    403038: box 1
+    403040: LedgeLeftOnly 3
+    403042: LedgeRightHandSide
+    403044: Mesh 1
+    403046: polySurface340
+    403048: transform205
+    403050: transform206
+    403052: transform207
+    403054: transform208
+    403056: WallLedgeLeftOnly 1
+    403058: box 2
+    403060: box1
+    403062: box 3
+    403064: ledgeRightOnly
+    403066: transform209
+    403068: LedgeLeftOnly11
+    403070: box2
+    403072: LedgeLeftOnly12
+    403074: LedgeRightOnly19
+    403076: group3
+    403078: Box 1
+    403080: LedgeWallLeftOnly
+    403082: LedgeWallRight
+    403084: polySurface341
+    403086: polySurface343
+    403088: polySurface346
+    403090: transform210
+    403092: transform211
     2300000: Box15
     2300002: Box16
     2300004: Box17
@@ -4098,6 +4174,31 @@ ModelImporter:
     2302148: polySurface334
     2302150: polySurface335
     2302152: polySurface337
+    2302154: polySurface338
+    2302156: polySurface339
+    2302158: wall
+    2302160: wall1
+    2302162: wall2
+    2302164: wall3
+    2302166: wall4
+    2302168: wall5
+    2302170: box 1
+    2302172: LedgeLeftOnly 3
+    2302174: LedgeRightHandSide
+    2302176: Mesh 1
+    2302178: WallLedgeLeftOnly 1
+    2302180: box 2
+    2302182: box1
+    2302184: box 3
+    2302186: ledgeRightOnly
+    2302188: LedgeLeftOnly11
+    2302190: LedgeLeftOnly12
+    2302192: LedgeRightOnly19
+    2302194: Box 1
+    2302196: LedgeWallLeftOnly
+    2302198: LedgeWallRight
+    2302200: polySurface343
+    2302202: polySurface346
     3300000: Box15
     3300002: Box16
     3300004: Box17
@@ -5175,6 +5276,31 @@ ModelImporter:
     3302148: polySurface334
     3302150: polySurface335
     3302152: polySurface337
+    3302154: polySurface338
+    3302156: polySurface339
+    3302158: wall
+    3302160: wall1
+    3302162: wall2
+    3302164: wall3
+    3302166: wall4
+    3302168: wall5
+    3302170: box 1
+    3302172: LedgeLeftOnly 3
+    3302174: LedgeRightHandSide
+    3302176: Mesh 1
+    3302178: WallLedgeLeftOnly 1
+    3302180: box 2
+    3302182: box1
+    3302184: box 3
+    3302186: ledgeRightOnly
+    3302188: LedgeLeftOnly11
+    3302190: LedgeLeftOnly12
+    3302192: LedgeRightOnly19
+    3302194: Box 1
+    3302196: LedgeWallLeftOnly
+    3302198: LedgeWallRight
+    3302200: polySurface343
+    3302202: polySurface346
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -6252,6 +6378,29 @@ ModelImporter:
     4302148: polySurface332
     4302150: polySurface333
     4302152: polySurface334
+    4302154: polySurface338
+    4302156: polySurface339
+    4302158: wall
+    4302160: wall1
+    4302162: wall2
+    4302164: wall3
+    4302166: wall4
+    4302168: wall5
+    4302170: WallLedgeLeftOnly
+    4302172: Mesh
+    4302174: box
+    4302176: LedgeRightHandSide
+    4302178: box1
+    4302180: box
+    4302182: ledgeRightOnly
+    4302184: LedgeLeftOnly11
+    4302186: LedgeLeftOnly12
+    4302188: LedgeRightOnly19
+    4302190: LedgeWallLeftOnly
+    4302192: LedgeWallRight
+    4302194: polySurface346
+    4302196: Box
+    4302198: polySurface343
     7400000: Take 001
     9500000: //RootNode
   materials:
