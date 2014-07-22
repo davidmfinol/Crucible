@@ -113,6 +113,7 @@ ModelImporter:
     100214: MSweep1:polySurface7
     100216: MSweep1:polySurface8
     100218: MSweep1:polySurface9
+    100220: Camo:pCube1
     400000: anim_back01
     400002: anim_chest01
     400004: anim_COG01
@@ -223,6 +224,7 @@ ModelImporter:
     400214: MSweep1:polySurface7
     400216: MSweep1:polySurface8
     400218: MSweep1:polySurface9
+    400220: Camo:pCube1
     2300000: Armguard
     2300002: pCube3
     2300004: Plane_001
@@ -234,6 +236,7 @@ ModelImporter:
     2300016: MSweep1:pCylinder7
     2300018: MSweep1:polySurface8
     2300020: MSweep1:polySurface9
+    2300022: Camo:pCube1
     3300000: Armguard
     3300002: pCube3
     3300004: Plane_001
@@ -245,6 +248,7 @@ ModelImporter:
     3300016: MSweep1:pCylinder7
     3300018: MSweep1:polySurface8
     3300020: MSweep1:polySurface9
+    3300022: Camo:pCube1
     4300000: Plane_001
     4300002: Armguard
     4300004: Char
@@ -257,6 +261,7 @@ ModelImporter:
     4300018: MSweep1:pCylinder6
     4300020: MSweep1:pCylinder5
     4300022: MSweep1:pCube1
+    4300024: Camo:pCube1
     7400000: Take 001
     7400002: Idle Sneak
     7400004: Sneak
