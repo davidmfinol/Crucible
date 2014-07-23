@@ -62,12 +62,23 @@ public class NewmanAnimator : CharacterAnimator
 
     // HACK: Couldn't get jump left-right to work using the properties, so we're doing this
     private float _jumpDirectional;
+    
+    // HACK: SOME ANIMATIONS JUST MESS UP ROOT MOTION. WE TRY TO AVOID THE ANIMATION PROBLEM HERE
+    private Transform _global02Trans;
+    private Transform _global01Trans;
+    private Transform _skeletonTrans;
+    private Transform _bindpelivis01Trans;
 
     protected override void OnStart ()
     {
         _sound = gameObject.GetComponentInChildren<NewmanAudioPlayer> ();
         _itemPickedup = null;
         _jumpDirectional = 0;
+        // HACK: ROOT MOTION ANIMATIONS
+        _global02Trans = CharacterSettings.SearchHierarchyForBone(transform, "global02");
+        _global01Trans = CharacterSettings.SearchHierarchyForBone(_global02Trans, "global01");
+        _skeletonTrans = CharacterSettings.SearchHierarchyForBone(_global01Trans, "Skeleton");
+        _bindpelivis01Trans = CharacterSettings.SearchHierarchyForBone(_skeletonTrans, "bind_pelivis01");
 
     }
     
@@ -100,15 +111,13 @@ public class NewmanAnimator : CharacterAnimator
 
     }
 
-    protected override void OnFixedUpdate()
+    protected override void OnUpdate()
     {
-        // HACK: SOME STATES JUST MESS UP WITH ROOT MOTION NO MATTER WHAT
-        if (Settings.RootTransform != null) {
-            if (CurrentState.nameHash == FallRollState) // || 
-           // TODO:     CurrentState.nameHash == JumpingState || 
-             //   CurrentState.nameHash == LandingState )
-                Settings.RootTransform.localPosition = Vector3.zero; // TODO: WALL GRAB AND MULTIPLE ROOT TRANSFORMS
-        }
+        // HACK: SOME ANIMATIONS JUST MESS UP WITH ROOT MOTION NO MATTER WHAT, SO THIS SHOULD CLEAR THEM
+        _global02Trans.localPosition = new Vector3(0, _global02Trans.localPosition.y, 0);
+        _global01Trans.localPosition = new Vector3(0, _global01Trans.localPosition.y, 0);
+        _skeletonTrans.localPosition = new Vector3(0, _skeletonTrans.localPosition.y, 0);
+        _bindpelivis01Trans.localPosition = new Vector3(0, _bindpelivis01Trans.localPosition.y, 0);
 
     }
     
@@ -1008,7 +1017,7 @@ public class NewmanAnimator : CharacterAnimator
     }
 
     public override bool IsDead {
-        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState || Settings.RootRigidBody.collider.enabled; }
+        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState || (Settings.RootRigidBody != null && Settings.RootRigidBody.collider.enabled); }
     }
     
     public CharacterAnimator StealthKillable {
