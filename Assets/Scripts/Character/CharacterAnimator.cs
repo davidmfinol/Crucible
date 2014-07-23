@@ -90,7 +90,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    protected abstract void CreateStateMachine ();// Must be overwritten by child classes to set up _stateMachine
+    protected abstract void CreateStateMachine ();// MUST be overwritten by child classes to set up _stateMachine
 
     protected virtual void OnStart ()
     {
@@ -99,7 +99,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     protected virtual void OnAnimatorMove()
     {
-        // This method is only here to prevent mecanim from overriding our motion in FixedUpdate.
+        // We mainly have this method just to make sure Mecanim doesn't override our motion
+        // Child classes may override
     }
 
     protected virtual void UpdateMecanimVariables ()
@@ -109,6 +110,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     
     void Update ()
     {
+        // Clear out the root-based motion by default
+        foreach (Transform rootClear in Settings.RootMotionTransforms)
+            rootClear.localPosition = new Vector3(0, rootClear.localPosition.y, 0);
+
         // Handle all the z-zone stuff in one location
         UpdateZones ();
 

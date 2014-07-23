@@ -10,6 +10,9 @@ public sealed class CharacterSettings : MonoBehaviour
 {
     // Noise player makes when running
     public Transform FootStepNoise; // TODO: OBJECT POOL
+    
+    // We will zero out x-z motion on these transform to ensure that there's no root-based motion
+    public Transform[] RootMotionTransforms;
 
     // How fast the character runs
     public float MaxHorizontalSpeed;   // = 16.0f;
@@ -64,7 +67,6 @@ public sealed class CharacterSettings : MonoBehaviour
 
     // When we ragdoll, this is where any initial forces are applied (typically same as RootTransform)
 	public Rigidbody RootRigidBody;
-    
 
     // Helper Method to find a bone attached to a character
     public static Transform SearchHierarchyForBone (Transform current, string name)

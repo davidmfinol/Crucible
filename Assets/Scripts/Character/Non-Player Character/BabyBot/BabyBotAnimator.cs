@@ -34,13 +34,6 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
-    protected override void OnUpdate ()
-    {
-        // HACK: WE'RE FORCING THE ATTACK ANIMATION TO GET RIGHT ON THE PLAYER
-        if (Settings.RootTransform != null && CurrentState.nameHash == AttackState)
-            Settings.RootTransform.localPosition = Vector3.zero;
-    }
-
     protected override void UpdateMecanimVariables ()
     {
         MecanimAnimator.SetBool (MecanimHashes.Jump, CharInput.JumpActive);
