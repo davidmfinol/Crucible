@@ -114,6 +114,7 @@ ModelImporter:
     100216: MSweep1:polySurface8
     100218: MSweep1:polySurface9
     100220: Camo:pCube1
+    100222: CamoRNfosterParent1
     400000: anim_back01
     400002: anim_chest01
     400004: anim_COG01
@@ -225,6 +226,7 @@ ModelImporter:
     400216: MSweep1:polySurface8
     400218: MSweep1:polySurface9
     400220: Camo:pCube1
+    400222: CamoRNfosterParent1
     2300000: Armguard
     2300002: pCube3
     2300004: Plane_001
