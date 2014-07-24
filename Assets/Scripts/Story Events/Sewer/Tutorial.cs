@@ -240,7 +240,6 @@ public class Tutorial : MonoBehaviour
 		Transform newOlympus = (Transform)Instantiate (OlympusPrefab, Olympus1Position.position, Quaternion.identity);
         newOlympus.GetComponent<EnemyAISettings> ().ShouldWander = false;
 		newOlympus.GetComponent<CharacterAnimator> ().Direction = new Vector3 (-1.0f, 0.0f, 0.0f);
-        newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts); // drops 2 items.
 
         // Look at Olympus fall
         GameManager.MainCamera.Target = newOlympus;
