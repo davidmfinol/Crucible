@@ -130,19 +130,19 @@ public class BabyBotAnimator : CharacterAnimator
 
     public void Giggle ()
     {
-        _sound.Play (_sound.Giggle, 1.0f);
+        _sound.Play (_sound.Giggle, _sound.GiggleVolume);
 
     }
 
-    public void PlayLeap ()
+    public void PlayJump ()
     {
-        _sound.Play (_sound.Jump, 1.0f);
+        _sound.Play (_sound.Jump, _sound.JumpVolume);
 
     }
 
 	public void PlaySnore()
 	{
-		_sound.Play(_sound.Snoring, 1.0f);
+		_sound.Play(_sound.Snoring, _sound.SnoringVolume);
 
 	}
 

@@ -10,11 +10,12 @@ using System.Collections;
 public class RagdollAudioPlayer : AudioPlayer
 {
     public AudioClip Hit;
+    public float HitVolume = 1.0f;
 
     void OnCollisionEnter (Collision collision)
     {
         if (collision.relativeVelocity.magnitude > 10)
-            Play(Hit, 1.0f);
+            Play(Hit, HitVolume);
         
     }
 

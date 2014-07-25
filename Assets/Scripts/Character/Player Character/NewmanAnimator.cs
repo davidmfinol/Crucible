@@ -282,11 +282,7 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool(MecanimHashes.FallRoll, false);
         }
 
-        // TODO: ONANIMATORMOVE
-        //float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo (0).length;
-        //HorizontalSpeed = Direction.x * (18.0f / animationTime);
-
-        Running(elapsedTime);
+        HorizontalSpeed = MecanimAnimator.deltaPosition.z;
 
     }
 
@@ -325,6 +321,12 @@ public class NewmanAnimator : CharacterAnimator
         bool shouldHang = (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up);
         MecanimAnimator.SetBool(MecanimHashes.Hang, shouldHang);
+        
+        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.collider.bounds.Contains(transform.position);
+        if (shouldRegrabRope) {
+            AddHangTarget(PreviousHangTarget);
+            MecanimAnimator.SetBool(MecanimHashes.ClimbRope, true);
+        }
 
 //        if(CharInput.JumpPressed)
 //            MecanimAnimator.SetBool(MecanimHashes.DoubleJump, true);
@@ -425,12 +427,6 @@ public class NewmanAnimator : CharacterAnimator
             HorizontalSpeed = 0;
         } else {
             MecanimAnimator.SetBool(MecanimHashes.Hang, false);
-        }
-
-        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.collider.bounds.Contains(transform.position);
-        if (shouldRegrabRope) {
-            AddHangTarget(PreviousHangTarget);
-            MecanimAnimator.SetBool(MecanimHashes.ClimbRope, true);
         }
 
         //if(CharInput.JumpPressed && !_hasDoubleJumped)
@@ -895,7 +891,7 @@ public class NewmanAnimator : CharacterAnimator
     public override void OnDeath(Vector3 knockForce)
     {
         base.OnDeath(knockForce);
-        _sound.Play(_sound.Death, 1.0f);
+        _sound.Play(_sound.Death, _sound.DeathVolume);
         GameManager.MainCamera.Target = Settings.RootRigidBody.transform;
 
         // TODO: REMOVE THIS HACK:
@@ -935,6 +931,86 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
 
     }
+    
+    public void PlayRun()
+    {
+        int runIndex = Random.Range(0, _sound.Running.Length);
+        _sound.Play(_sound.Running [runIndex], Mathf.Abs(CharInput.Horizontal));
+        
+    }
+    
+    public void CreateFootstep ()
+    {
+        if (IsSneaking)
+            return;
+        
+        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
+        Vector3 footStepPosition = transform.position;
+        footStepPosition.y -= Height * 0.5f;
+        GameObject footstep = new GameObject("Newman Footstep");
+        footstep.transform.position = footStepPosition;
+        footstep.AddComponent<SoundEvent>();
+        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
+        int footIndex = Random.Range(0, _sound.Footsteps.Length);
+        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Footsteps[footIndex], _sound.FootstepsVolume);
+        
+    }
+    
+    public void PlayJump()
+    {
+        _sound.Play(_sound.Jump, _sound.JumpVolume);
+        
+    }
+    
+    public void PlayBackflip()
+    {
+        _sound.Play(_sound.Backflip, _sound.BackflipVolume);
+        
+    }
+    
+    public void PlayWallGrab()
+    {
+        _sound.Play(_sound.WallGrab, _sound.WallGrabVolume);
+        
+    }
+
+    public void PlayWallJump()
+    {
+        _sound.Play(_sound.WallJump, _sound.WallJumpVolume); 
+
+    }
+    
+    public void PlayLand () // Where dreams come true
+    {
+        if (IsSneaking)
+            return;
+        
+        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
+        Vector3 footStepPosition = transform.position;
+        footStepPosition.y -= Height * 0.5f;
+        GameObject footstep = new GameObject("Newman Landing Footstep");
+        footstep.transform.position = footStepPosition;
+        footstep.AddComponent<SoundEvent>();
+        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
+        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Landing, _sound.LandingVolume);
+        
+    }
+
+    public void PlayRolling()
+    {
+        if (IsSneaking)
+            return;
+        
+        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
+        Vector3 footStepPosition = transform.position;
+        footStepPosition.y -= Height * 0.5f;
+        GameObject footstep = new GameObject("Newman Landing Rolling");
+        footstep.transform.position = footStepPosition;
+        footstep.AddComponent<SoundEvent>();
+        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
+        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Rolling, _sound.RollingVolume);
+
+    }
 
     public void PlayHit()
     {
@@ -951,42 +1027,6 @@ public class NewmanAnimator : CharacterAnimator
     public void PlayCrafting()
     {
         _sound.Play(_sound.Craft, 1.0f);
-
-    }
-
-    public void PlayBackflip()
-    {
-        _sound.Play(_sound.Flip, 1.0f);
-
-    }
-
-    public void PlayJump()
-    {
-        //TODO: Move this wallkick sound to new wall kick animation and event
-        if (CurrentState.nameHash == WalljumpingState) {
-            _sound.Play(_sound.WallKick, 0.6f);
-        } else {
-            _sound.Play(_sound.Jump, 0.6f);
-        }
-
-    }
-
-    public void PlayWallHit()
-    {
-        _sound.Play(_sound.WallHit, 1.0f);
-
-    }
-
-    public void PlayRun()
-    {
-        int runIndex = Random.Range(0, _sound.Running.Length);
-        _sound.Play(_sound.Running [runIndex], Mathf.Abs(CharInput.Horizontal));
-
-    }
-
-    public void PlayAttack()
-    {
-        _sound.Play(_sound.Attack, 1.0f);
 
     }
 

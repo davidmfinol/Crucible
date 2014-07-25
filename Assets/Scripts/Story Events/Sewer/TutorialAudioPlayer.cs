@@ -8,9 +8,18 @@ using System.Collections;
 public class TutorialAudioPlayer : AudioPlayer
 {
     public AudioClip DoorSlam;
+    public float DoorSlamVolume = 1.0f;
+
     public AudioClip DoorOpen;
+    public float DoorOpenVolume = 1.0f;
+
     public AudioClip OlympusFalling;
-	public AudioClip FanSpinning;
-	public AudioClip FanStopping;
+    public float OlympusFallingVolume = 1.0f;
+
+    public AudioClip FanSpinning;
+    public float FanSpinningVolume = 1.0f;
+
+    public AudioClip FanStopping;
+    public float FanStoppingVolume = 1.0f;
 
 }

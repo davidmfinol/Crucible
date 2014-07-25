@@ -512,7 +512,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected void Punch (float elapsedTime)
     {
-        _sound.Play (_sound.Attacking, 1.0f);
+        _sound.Play (_sound.Attacking, _sound.AttackingVolume);
         
         // Attack in front of us
         Vector3 meleePos = transform.position;
@@ -533,7 +533,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected void PunchUp (float elapsedTime)
     {
-        _sound.Play (_sound.Attacking, 1.0f);
+        _sound.Play (_sound.Attacking, _sound.AttackingVolume);
         
         // Attack above us
         Vector3 meleePos = transform.position;
@@ -551,16 +551,46 @@ public class OlympusAnimator : CharacterAnimator
         d.MakeOlympusMelee (this.gameObject, horizontalDir);
         
     }
+    
+    public void CreateFootstep ()
+    {
+        if (IsSneaking)
+            return;
+        
+        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
+        Vector3 footStepPosition = transform.position;
+        footStepPosition.y -= Height * 0.5f;
+        GameObject footstep = new GameObject("Olympus Footstep");
+        footstep.transform.position = footStepPosition;
+        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
+        int footIndex = Random.Range(0, _sound.Footsteps.Length);
+        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Footsteps[footIndex], _sound.FootstepsVolume);
+        
+    }
 
     public void PlayJump ()
     {
-        _sound.Play (_sound.Jumping, 1.0f);
+        _sound.Play (_sound.Jumping, _sound.JumpingVolume);
 
+    }
+    
+    public void PlayLand () // Where dreams come true
+    {
+        if (IsSneaking)
+            return;
+        
+        Vector3 footStepPosition = transform.position;
+        footStepPosition.y -= Height * 0.5f;
+        GameObject footstep = new GameObject("Olympus Landing Footstep");
+        footstep.transform.position = footStepPosition;
+        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
+        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Landing, _sound.LandingVolume);
+        
     }
 
 	public void PlayServo()
 	{
-		_sound.Play (_sound.Idling, 0.3f);
+		_sound.Play (_sound.Idling, _sound.IdlingVolume);
 
 	}
 

@@ -27,9 +27,12 @@ public class OutlinePulse : MonoBehaviour
 			_changeableMaterials.Add(renderer.material);
 		}
 
-        _targetColor = _changeableMaterials[0].GetColor("_OutlineColor");
-        if(PulseToWhite)
+        if(PulseToWhite) {
             _targetColor = Color.white;
+        }
+        else {
+            _targetColor = _changeableMaterials[0].GetColor("_OutlineColor");
+        }
 
 		if (StartOn)
 			_on = true;
