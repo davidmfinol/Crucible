@@ -690,8 +690,8 @@ public class NewmanAnimator : CharacterAnimator
         if (MecanimAnimator.GetBool(MecanimHashes.Pickup)) {
             MecanimAnimator.SetBool(MecanimHashes.Pickup, false);
 
-            // remove hte item from the minimap
-            GameManager.UI.Map.RemoveMapPoint(_itemPickedup.transform.position.x.ToString());
+            // remove the item from the minimap
+            // TODO: GameManager.UI.Map.RemoveMapPoint(_itemPickedup.transform.position.x.ToString());
 
             // *** picking up weapon? ***
             if (_itemPickedup.WeaponPrefab != null) {

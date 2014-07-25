@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -14,7 +14,7 @@ public class Tutorial : MonoBehaviour
     public Transform RightThumbPrint;
 
     // Scripted characters in the scene
-    public MysteriousRunner Runner;
+    public NewmanHologram Runner;
     public GameObject SewerDoor;
 	public GameObject SpinningFan;
 	public GameObject Jasper;

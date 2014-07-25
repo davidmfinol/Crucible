@@ -11,9 +11,11 @@ public class OutlinePulse : MonoBehaviour
 	// Normally, we want to use the changeable materials tag to find the materials we want,
 	// but we may have another use for the tag and are willing to just use the material on the root object
 	public bool SearchForChangeableMaterials = true;
+    public bool PulseToWhite = true;
 	public bool StartOn = true;
 
     private List<Material> _changeableMaterials;
+    private Color _targetColor;
 	private bool _on;
 
     void Start()
@@ -24,6 +26,10 @@ public class OutlinePulse : MonoBehaviour
 			_changeableMaterials = new List<Material>();
 			_changeableMaterials.Add(renderer.material);
 		}
+
+        _targetColor = _changeableMaterials[0].GetColor("_OutlineColor");
+        if(PulseToWhite)
+            _targetColor = Color.white;
 
 		if (StartOn)
 			_on = true;
@@ -43,10 +49,10 @@ public class OutlinePulse : MonoBehaviour
         float alpha = Mathf.Cos (time);
 		if(!_on)
 			alpha = 0;
-        Color itemPickupColor = new Color (1.0f, 1.0f, 1.0f, alpha);
+        Color targetColor = new Color (_targetColor.r, _targetColor.g, _targetColor.b, alpha);
     
         foreach (Material mat in _changeableMaterials)
-            mat.SetColor ("_OutlineColor", itemPickupColor);
+            mat.SetColor ("_OutlineColor", targetColor);
 
     }
     
