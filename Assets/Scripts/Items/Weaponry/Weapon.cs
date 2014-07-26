@@ -10,11 +10,13 @@ public abstract class Weapon : MonoBehaviour
     public enum WeaponType : int
     {
         Weapon_None = 0,
-        Weapon_PipeWeapon = 1,
-        Weapon_HandMINE = 2,
-        Weapon_GravityGun = 3,
-		Weapon_SparkPlug = 4,
-		Weapon_HoloShield = 5
+        Weapon_SparkPlug = 1,
+        Weapon_GravityGun = 2,
+        Weapon_Camo = 3,
+        Weapon_VETO = 4,
+        Weapon_HandMINE = 5,
+		Weapon_ASharp = 6,
+        Weapon_MSweep = 7
         
     };
 

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class InventoryItem
 {
-
     public Item.ItemType Type;
     public int Quantity;
     public int MaxQuantity;
@@ -56,34 +55,34 @@ public static class InventoryItemFactory
                 newItem.MaxQuantity = 5;
                 newItem.Name = "Tesla Pack";
                 newItem.Caption = "One of the first inventions that put the city of Tesla 101 on the map as a leader for engineers and dreamers.  As a structural supercapacitor, it’s superior energy storage was a milestone for portable electronics and made the Tesla Pack an energy standard. ";
-                newItem.TexturePath = "Textures/User Interface/Item Icons/BatteryPackIcon";
+                newItem.TexturePath = "Textures/Item Icons/BatteryPackIcon";
                 newItem.CraftingCode = "TP";
                 newItem.PrefabName = "Prefabs/Items/TeslaPack";
                 break;
 
-            case Item.ItemType.Item_KamiTech : 
+            case Item.ItemType.Item_KamiTech: 
                 newItem.MaxQuantity = 5;
                 newItem.Name = "KamiTech";
                 newItem.Caption = "Modular and interchangeable standard of electronics developed by KamiTech, Inc under its CEO and founder, Dr. Toyukami.  Built under the philosophy of allowing the sum to be greater than its parts and providing more power and control to the user.";
-                newItem.TexturePath = "Textures/User Interface/Item Icons/IsolatorIcon";
+                newItem.TexturePath = "Textures/Item Icons/IsolatorIcon";
                 newItem.CraftingCode = "KT";
                 newItem.PrefabName = "Prefabs/Items/KamiTech";
                 break;
 
-            case Item.ItemType.Item_GravCtrl : 
+            case Item.ItemType.Item_GravCtrl: 
                 newItem.MaxQuantity = 5;
                 newItem.Name = "Grav-Ctrl";
                 newItem.Caption = "By directionally manipulating the attractions of an object, Grav-Ctrl is able to mimic the imaginations of anti-gravity.  Though intended for engineering and architectural stabilization, Grav-Ctrl became a favorite device by younger Tesla citizens for pranks and urban parkouring.";
-                newItem.TexturePath = "Textures/User Interface/Item Icons/BindingIcon";
+                newItem.TexturePath = "Textures/Item Icons/BindingIcon";
                 newItem.CraftingCode = "GC";
                 newItem.PrefabName = "Prefabs/Items/Grav-Ctrl";
                 break;
 
-            case Item.ItemType.Item_EltroidKit : 
+            case Item.ItemType.Item_EltroidKit: 
                 newItem.MaxQuantity = 5;
                 newItem.Name = "Eltroid Kit";
                 newItem.Caption = "By providing mechanisms, structural components, and control components that are designed to be an extension of KamiTech’s products, the open source project expanded KamiTech’s capabilities to work better with mechanical elements.  ";
-                newItem.TexturePath = "Textures/User Interface/Item Icons/GunPartsIcon";
+                newItem.TexturePath = "Textures/Item Icons/GunPartsIcon";
                 newItem.CraftingCode = "EK";
                 newItem.PrefabName = "Prefabs/Items/EltroidKit";
                 break;
@@ -134,7 +133,6 @@ public static class InventoryItemFactory
 
         foreach (string s in _ingredients.Values) {
             sResult += s;
-
         }
 
         // gun parts + higgs drive + isolator = gravity gun
@@ -159,10 +157,10 @@ public static class InventoryItemFactory
             res.WeaponTexture = "MINEIcon";
             return res;
 
-        } else {
-            return null;
-
         }
+
+
+        return null;
     
     }
     

@@ -68,7 +68,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     protected AutoClimbDirection _autoClimbDir;
     */
 
-
     void Start ()
     {
         _characterController = GetComponent<CharacterController> ();
@@ -604,47 +603,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    // Useful animation events
-    public void CreateFootstep ()
-    {
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
-        if (IsSneaking)
-            return;
-
-        Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height * 0.5f;
-        Transform footstep = (Transform)Instantiate (Settings.FootStepNoise, footStepPosition, Quaternion.identity);
-        footstep.GetComponent<FootstepAudioPlayer> ().PlayRandomFootstep ();
-
-    }
-
-    public virtual void PlayLand ()
-    {
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
-        if (IsSneaking)
-            return;
-
-        Vector3 landingPosition = transform.position;
-        landingPosition.y -= Height * 0.5f;
-        Transform landing = (Transform)Instantiate (Settings.FootStepNoise, landingPosition, Quaternion.identity);
-        landing.GetComponent<FootstepAudioPlayer> ().PlayLanding ();
-
-    }
-
-    public void PlayJumpLanding ()
-    {
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
-        if (IsSneaking)
-            return;
-
-        Vector3 landingPosition = transform.position;
-        landingPosition.y -= Height * 0.5f;
-        Transform landing = (Transform)Instantiate (Settings.FootStepNoise, landingPosition, Quaternion.identity);
-        landing.GetComponent<FootstepAudioPlayer> ().PlayLanding ();
-
-    }
-    
-
     // Movement/Animation Properties
     public AnimatorStateInfo CurrentState {
         get { 
@@ -808,10 +766,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     public virtual bool IsSneaking {
-		// give us a little tolerance here, since values of 8.0000001 don't count as sneaking.
-		// (it takes a while to lerp down from running to 8.0)
-		get { return Mathf.Abs (HorizontalSpeed) < 0.51f * Settings.MaxHorizontalSpeed; }
-
+		get { return Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
     }
 
     public virtual bool IsTurningAround {

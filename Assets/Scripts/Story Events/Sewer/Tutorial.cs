@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -14,7 +14,7 @@ public class Tutorial : MonoBehaviour
     public Transform RightThumbPrint;
 
     // Scripted characters in the scene
-    public MysteriousRunner Runner;
+    public NewmanHologram Runner;
     public GameObject SewerDoor;
 	public GameObject SpinningFan;
 	public GameObject Jasper;
@@ -198,13 +198,13 @@ public class Tutorial : MonoBehaviour
             // see player & open? close.
             if ((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
                 SewerDoor.animation.Play ("Close");
-                DoorSounds.Play (DoorSounds.DoorSlam, 1.0f);
+                DoorSounds.Play (DoorSounds.DoorSlam, DoorSounds.DoorSlamVolume);
                 _sewerDoorOpen = false;
                 
                 // no longer see player & closed? open.
             } else if ((GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
                 SewerDoor.animation.Play ("Open");
-                DoorSounds.Play (DoorSounds.DoorOpen, 1.0f);
+                DoorSounds.Play (DoorSounds.DoorOpen, DoorSounds.DoorOpenVolume);
                 _sewerDoorOpen = true;
                 
             }
@@ -270,7 +270,7 @@ public class Tutorial : MonoBehaviour
 
 	public IEnumerator KeepFanSpinning ()
 	{
-		FanSounds.PlayLoop(FanSounds.FanSpinning, 1.0f);
+		FanSounds.PlayLoop(FanSounds.FanSpinning, FanSounds.FanSpinningVolume);
         
         // Check every now to see if all the sparkplugs have been picked up
         bool sparkplugPickedUp = false;
@@ -286,7 +286,7 @@ public class Tutorial : MonoBehaviour
         // If the sparkplug's gone, make the fan stop
         Destroy(SpinningFan.GetComponentInChildren<DeathTrigger>());
         FanSounds.Stop();
-        FanSounds.Play(FanSounds.FanStopping, 1.0f);
+        FanSounds.Play(FanSounds.FanStopping, FanSounds.FanStoppingVolume);
         
         // Close the door behind you
         StopCoroutine("OperateDoor");

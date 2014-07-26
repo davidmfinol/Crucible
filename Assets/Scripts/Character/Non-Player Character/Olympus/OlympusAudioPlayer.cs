@@ -8,11 +8,30 @@ using System.Collections;
 public class OlympusAudioPlayer : AudioPlayer
 {
     public AudioClip Idling;
+    public float IdlingVolume = 1.0f;
+
     public AudioClip Noticing;
+    public float NoticingVolume = 1.0f;
+
     public AudioClip Searching;
+    public float SearchingVolume = 1.0f;
+
     public AudioClip FinishedSearching;
+    public float FinishedSearchingVolume = 1.0f;
+
     public AudioClip Chasing;
+    public float ChasingVolume = 1.0f;
+    
+    public AudioClip[] Footsteps;
+    public float FootstepsVolume = 1.0f;
+
     public AudioClip Jumping;
+    public float JumpingVolume = 1.0f;
+    
+    public AudioClip Landing;
+    public float LandingVolume = 1.0f;
+
     public AudioClip Attacking;
+    public float AttackingVolume = 1.0f;
 
 }

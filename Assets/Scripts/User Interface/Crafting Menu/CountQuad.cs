@@ -9,26 +9,21 @@ public class CountQuad : MonoBehaviour
 
 public static class CountQuadFactory
 {
+
+    // TODO: MAKE THIS FAR MORE EFFICIENT BY CACHING
     public static Texture2D GetTextureForCount (int count)
     {
-        string textureName = "";
+        if (0 > count || count > 5) {
+            Debug.LogWarning ("Count value out of range: " + count);
+            return null;
+        }
 
-        if (count == 0)
-            textureName = "Textures/User Interface/Item Icons/Count0";
-        else if (count == 1)
-			textureName = "Textures/User Interface/Item Icons/Count1";
-        else if (count == 2)
-			textureName = "Textures/User Interface/Item Icons/Count2";
-        else if (count == 3)
-			textureName = "Textures/User Interface/Item Icons/Count3";
-        else if (count == 4)
-			textureName = "Textures/User Interface/Item Icons/Count4";
-        else if (count == 5)
-			textureName = "Textures/User Interface/Item Icons/Count5";
-        else
-            Debug.Log ("Failed to find count texture for count " + count);
+        string textureName = "Textures/User Interface/Crafting Menu/Count" + string.Format("{0,1:D}", count);
+        Texture2D tex = Resources.Load<Texture2D> (textureName);
+        if(tex == null)
+            Debug.LogWarning ("Failed to load texture at: " + textureName);
 
-        return Resources.Load<Texture2D> (textureName);
+        return tex;
 
     }
 

@@ -8,12 +8,12 @@ using System.Collections;
 public class BabybotAudioPlayer : AudioPlayer
 {
     public AudioClip Giggle;
+    public float GiggleVolume = 1.0f;
+
     public AudioClip Jump;
-    public AudioClip SlowAwake;
-    public AudioClip SlowAwake2;
-    public AudioClip FastAwake;
-    public AudioClip AlmostAwake;
-    public AudioClip Running;
+    public float JumpVolume = 1.0f;
+
 	public AudioClip Snoring;
+    public float SnoringVolume = 1.0f;
 
 }
