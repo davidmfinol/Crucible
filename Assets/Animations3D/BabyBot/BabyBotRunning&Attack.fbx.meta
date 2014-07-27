@@ -1,102 +1,104 @@
 fileFormatVersion: 2
-guid: 8dd868d77204f44d5abf23751530738e
+guid: a752ce8a0749e4981bb68e28eace1614
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: BabyBotMon:pCube1
-    100004: BabyBotMon:pCube11
-    100006: BabyBotMon:pCube12
-    100008: BabyBotMon:pCube17
-    100010: BabyBotMon:pCube18
-    100012: BabyBotMon:pCube19
-    100014: BabyBotMon:pCube20
-    100016: BabyBotMon:pCube21
-    100018: BabyBotMon:pCylinder1
-    100020: BabyBotMon:pCylinder15
-    100022: BabyBotMon:pCylinder16
-    100024: BabyBotMon:pCylinder17
-    100026: BabyBotMon:pCylinder18
-    100028: BabyBotMon:pCylinder19
-    100030: BabyBotMon:pCylinder20
-    100032: BabyBotMon:pCylinder21
-    100034: BabyBotMon:pCylinder22
-    100036: BabyBotMon:pCylinder23
-    100038: BabyBotMon:polySurface25
-    100040: BabyBotMon:polySurface26
-    100042: Head
-    100044: Head 1
-    100046: LeftElbow
-    100048: LeftFoot
-    100050: LeftHand
-    100052: LeftKnee
-    100054: LeftLeg
-    100056: LeftShoulder
-    100058: LegoPiece1
-    100060: LegoPiece2
-    100062: Neck
-    100064: RElbow
-    100066: RFoot
-    100068: RightElbow
-    100070: RightFoot
-    100072: RightHand
-    100074: RightHand 1
-    100076: RightKnee
-    100078: RightLeg
-    100080: RightShoulder
-    100082: RKnee
-    100084: Root
-    100086: RShin
-    100088: Torso
-    100090: Torso 1
-    100092: TorsoGlowRing
-    400000: //RootNode
-    400002: BabyBotMon:pCube1
-    400004: BabyBotMon:pCube11
-    400006: BabyBotMon:pCube12
-    400008: BabyBotMon:pCube17
-    400010: BabyBotMon:pCube18
-    400012: BabyBotMon:pCube19
-    400014: BabyBotMon:pCube20
-    400016: BabyBotMon:pCube21
-    400018: BabyBotMon:pCylinder1
-    400020: BabyBotMon:pCylinder15
-    400022: BabyBotMon:pCylinder16
-    400024: BabyBotMon:pCylinder17
-    400026: BabyBotMon:pCylinder18
-    400028: BabyBotMon:pCylinder19
-    400030: BabyBotMon:pCylinder20
-    400032: BabyBotMon:pCylinder21
-    400034: BabyBotMon:pCylinder22
-    400036: BabyBotMon:pCylinder23
-    400038: BabyBotMon:polySurface25
-    400040: BabyBotMon:polySurface26
-    400042: Head
-    400044: Head 1
-    400046: LeftElbow
-    400048: LeftFoot
-    400050: LeftHand
-    400052: LeftKnee
-    400054: LeftLeg
-    400056: LeftShoulder
-    400058: LegoPiece1
-    400060: LegoPiece2
-    400062: Neck
-    400064: RElbow
-    400066: RFoot
-    400068: RightElbow
-    400070: RightFoot
-    400072: RightHand
-    400074: RightHand 1
-    400076: RightKnee
-    400078: RightLeg
-    400080: RightShoulder
-    400082: RKnee
-    400084: Root
-    400086: RShin
-    400088: Torso
-    400090: Torso 1
-    400092: TorsoGlowRing
+    100000: BabyBotMon:pCube1
+    100002: BabyBotMon:pCube11
+    100004: BabyBotMon:pCube12
+    100006: BabyBotMon:pCube17
+    100008: BabyBotMon:pCube18
+    100010: BabyBotMon:pCube19
+    100012: BabyBotMon:pCube20
+    100014: BabyBotMon:pCube21
+    100016: BabyBotMon:pCylinder1
+    100018: BabyBotMon:pCylinder15
+    100020: BabyBotMon:pCylinder16
+    100022: BabyBotMon:pCylinder17
+    100024: BabyBotMon:pCylinder18
+    100026: BabyBotMon:pCylinder19
+    100028: BabyBotMon:pCylinder20
+    100030: BabyBotMon:pCylinder21
+    100032: BabyBotMon:pCylinder22
+    100034: BabyBotMon:pCylinder23
+    100036: BabyBotMon:polySurface25
+    100038: BabyBotMon:polySurface26
+    100040: BabyBotMon:transform16
+    100042: //RootNode
+    100044: Head
+    100046: Head 1
+    100048: LeftElbow
+    100050: LeftFoot
+    100052: LeftHand
+    100054: LeftKnee
+    100056: LeftLeg
+    100058: LeftShoulder
+    100060: LegoPiece1
+    100062: LegoPiece2
+    100064: Neck
+    100066: RElbow
+    100068: RFoot
+    100070: RightElbow
+    100072: RightFoot
+    100074: RightHand
+    100076: RightHand 1
+    100078: RightKnee
+    100080: RightLeg
+    100082: RightShoulder
+    100084: RKnee
+    100086: Root
+    100088: RShin
+    100090: Torso
+    100092: Torso 1
+    100094: TorsoGlowRing
+    400000: BabyBotMon:pCube1
+    400002: BabyBotMon:pCube11
+    400004: BabyBotMon:pCube12
+    400006: BabyBotMon:pCube17
+    400008: BabyBotMon:pCube18
+    400010: BabyBotMon:pCube19
+    400012: BabyBotMon:pCube20
+    400014: BabyBotMon:pCube21
+    400016: BabyBotMon:pCylinder1
+    400018: BabyBotMon:pCylinder15
+    400020: BabyBotMon:pCylinder16
+    400022: BabyBotMon:pCylinder17
+    400024: BabyBotMon:pCylinder18
+    400026: BabyBotMon:pCylinder19
+    400028: BabyBotMon:pCylinder20
+    400030: BabyBotMon:pCylinder21
+    400032: BabyBotMon:pCylinder22
+    400034: BabyBotMon:pCylinder23
+    400036: BabyBotMon:polySurface25
+    400038: BabyBotMon:polySurface26
+    400040: BabyBotMon:transform16
+    400042: //RootNode
+    400044: Head
+    400046: Head 1
+    400048: LeftElbow
+    400050: LeftFoot
+    400052: LeftHand
+    400054: LeftKnee
+    400056: LeftLeg
+    400058: LeftShoulder
+    400060: LegoPiece1
+    400062: LegoPiece2
+    400064: Neck
+    400066: RElbow
+    400068: RFoot
+    400070: RightElbow
+    400072: RightFoot
+    400074: RightHand
+    400076: RightHand 1
+    400078: RightKnee
+    400080: RightLeg
+    400082: RightShoulder
+    400084: RKnee
+    400086: Root
+    400088: RShin
+    400090: Torso
+    400092: Torso 1
+    400094: TorsoGlowRing
     2300000: BabyBotMon:pCube1
     2300002: BabyBotMon:pCube11
     2300004: BabyBotMon:pCube12
@@ -185,9 +187,8 @@ ModelImporter:
     4300054: BabyBotMon:pCylinder1
     4300056: BabyBotMon:pCylinder21
     7400000: Take 001
-    7400002: Idle
-    7400004: Awake
-    7400006: Awake Fast
+    7400002: Run
+    7400004: Attack
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -206,10 +207,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Run
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 127
+      firstFrame: 1
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -217,260 +218,6 @@ ModelImporter:
       loop: 0
       loopTime: 1
       loopBlend: 1
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 1
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: .0704761893
-        functionName: PlaySnore
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/LeftLeg
-        weight: 1
-      - path: Root/LeftLeg/BabyBotMon:pCylinder21
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee
-        weight: 1
-      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCube18
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCylinder1
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee/LeftFoot
-        weight: 1
-      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19
-        weight: 1
-      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder19
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder20
-        weight: 1
-      - path: Root/RightLeg
-        weight: 1
-      - path: Root/RightLeg/BabyBotMon:pCylinder15
-        weight: 0
-      - path: Root/RightLeg/RightKnee
-        weight: 1
-      - path: Root/RightLeg/RightKnee/RightFoot
-        weight: 1
-      - path: Root/RightLeg/RightKnee/RightFoot/RFoot
-        weight: 1
-      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece1
-        weight: 0
-      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece2
-        weight: 0
-      - path: Root/RightLeg/RightKnee/RKnee
-        weight: 0
-      - path: Root/RightLeg/RightKnee/RShin
-        weight: 0
-      - path: Root/Torso
-        weight: 1
-      - path: Root/Torso/BabyBotMon:pCube11
-        weight: 0
-      - path: Root/Torso/BabyBotMon:pCube12
-        weight: 0
-      - path: Root/Torso/BabyBotMon:pCube20
-        weight: 0
-      - path: Root/Torso/BabyBotMon:pCube21
-        weight: 0
-      - path: Root/Torso/LeftShoulder
-        weight: 1
-      - path: Root/Torso/LeftShoulder/BabyBotMon:pCylinder22
-        weight: 0
-      - path: Root/Torso/LeftShoulder/LeftElbow
-        weight: 1
-      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCube17
-        weight: 0
-      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCylinder23
-        weight: 0
-      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand
-        weight: 1
-      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand/BabyBotMon:pCube1
-        weight: 0
-      - path: Root/Torso/Neck
-        weight: 1
-      - path: Root/Torso/Neck/BabyBotMon:pCylinder18
-        weight: 0
-      - path: Root/Torso/Neck/Head
-        weight: 1
-      - path: Root/Torso/Neck/Head/Head 1
-        weight: 1
-      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface25
-        weight: 0
-      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface26
-        weight: 0
-      - path: Root/Torso/RightShoulder
-        weight: 1
-      - path: Root/Torso/RightShoulder/BabyBotMon:pCylinder16
-        weight: 0
-      - path: Root/Torso/RightShoulder/RightElbow
-        weight: 1
-      - path: Root/Torso/RightShoulder/RightElbow/BabyBotMon:pCylinder17
-        weight: 0
-      - path: Root/Torso/RightShoulder/RightElbow/RElbow
-        weight: 0
-      - path: Root/Torso/RightShoulder/RightElbow/RightHand
-        weight: 1
-      - path: Root/Torso/RightShoulder/RightElbow/RightHand/RightHand 1
-        weight: 0
-      - path: Root/Torso/Torso 1
-        weight: 0
-      - path: Root/Torso/TorsoGlowRing
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: Awake
-      takeName: Take 001
-      firstFrame: 128
-      lastFrame: 177
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 1
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: .174531177
-        functionName: Awaken
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Root
-        weight: 1
-      - path: Root/LeftLeg
-        weight: 1
-      - path: Root/LeftLeg/BabyBotMon:pCylinder21
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee
-        weight: 1
-      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCube18
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCylinder1
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee/LeftFoot
-        weight: 1
-      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19
-        weight: 1
-      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder19
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder20
-        weight: 1
-      - path: Root/RightLeg
-        weight: 1
-      - path: Root/RightLeg/BabyBotMon:pCylinder15
-        weight: 0
-      - path: Root/RightLeg/RightKnee
-        weight: 1
-      - path: Root/RightLeg/RightKnee/RightFoot
-        weight: 1
-      - path: Root/RightLeg/RightKnee/RightFoot/RFoot
-        weight: 1
-      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece1
-        weight: 0
-      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece2
-        weight: 0
-      - path: Root/RightLeg/RightKnee/RKnee
-        weight: 0
-      - path: Root/RightLeg/RightKnee/RShin
-        weight: 0
-      - path: Root/Torso
-        weight: 1
-      - path: Root/Torso/BabyBotMon:pCube11
-        weight: 0
-      - path: Root/Torso/BabyBotMon:pCube12
-        weight: 0
-      - path: Root/Torso/BabyBotMon:pCube20
-        weight: 0
-      - path: Root/Torso/BabyBotMon:pCube21
-        weight: 0
-      - path: Root/Torso/LeftShoulder
-        weight: 1
-      - path: Root/Torso/LeftShoulder/BabyBotMon:pCylinder22
-        weight: 0
-      - path: Root/Torso/LeftShoulder/LeftElbow
-        weight: 1
-      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCube17
-        weight: 0
-      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCylinder23
-        weight: 0
-      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand
-        weight: 1
-      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand/BabyBotMon:pCube1
-        weight: 0
-      - path: Root/Torso/Neck
-        weight: 1
-      - path: Root/Torso/Neck/BabyBotMon:pCylinder18
-        weight: 0
-      - path: Root/Torso/Neck/Head
-        weight: 1
-      - path: Root/Torso/Neck/Head/Head 1
-        weight: 1
-      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface25
-        weight: 0
-      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface26
-        weight: 0
-      - path: Root/Torso/RightShoulder
-        weight: 1
-      - path: Root/Torso/RightShoulder/BabyBotMon:pCylinder16
-        weight: 0
-      - path: Root/Torso/RightShoulder/RightElbow
-        weight: 1
-      - path: Root/Torso/RightShoulder/RightElbow/BabyBotMon:pCylinder17
-        weight: 0
-      - path: Root/Torso/RightShoulder/RightElbow/RElbow
-        weight: 0
-      - path: Root/Torso/RightShoulder/RightElbow/RightHand
-        weight: 1
-      - path: Root/Torso/RightShoulder/RightElbow/RightHand/RightHand 1
-        weight: 0
-      - path: Root/Torso/Torso 1
-        weight: 0
-      - path: Root/Torso/TorsoGlowRing
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: Awake Fast
-      takeName: Take 001
-      firstFrame: 143
-      lastFrame: 160
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
@@ -502,9 +249,9 @@ ModelImporter:
       - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19
         weight: 1
       - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder19
-        weight: 0
-      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder20
         weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder20
+        weight: 0
       - path: Root/RightLeg
         weight: 1
       - path: Root/RightLeg/BabyBotMon:pCylinder15
@@ -516,7 +263,7 @@ ModelImporter:
       - path: Root/RightLeg/RightKnee/RightFoot/RFoot
         weight: 1
       - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece1
-        weight: 0
+        weight: 1
       - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece2
         weight: 0
       - path: Root/RightLeg/RightKnee/RKnee
@@ -558,6 +305,144 @@ ModelImporter:
       - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface25
         weight: 0
       - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface26
+        weight: 0
+      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:transform16
+        weight: 0
+      - path: Root/Torso/RightShoulder
+        weight: 1
+      - path: Root/Torso/RightShoulder/BabyBotMon:pCylinder16
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow
+        weight: 1
+      - path: Root/Torso/RightShoulder/RightElbow/BabyBotMon:pCylinder17
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow/RElbow
+        weight: 0
+      - path: Root/Torso/RightShoulder/RightElbow/RightHand
+        weight: 1
+      - path: Root/Torso/RightShoulder/RightElbow/RightHand/RightHand 1
+        weight: 0
+      - path: Root/Torso/Torso 1
+        weight: 0
+      - path: Root/Torso/TorsoGlowRing
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 49
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: .975833654
+        functionName: SelfDestruct
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .379556507
+        functionName: Giggle
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/LeftLeg
+        weight: 1
+      - path: Root/LeftLeg/BabyBotMon:pCylinder21
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCube18
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee/BabyBotMon:pCylinder1
+        weight: 0
+      - path: Root/LeftLeg/LeftKnee/LeftFoot
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder19
+        weight: 1
+      - path: Root/LeftLeg/LeftKnee/LeftFoot/BabyBotMon:pCube19/BabyBotMon:pCylinder20
+        weight: 0
+      - path: Root/RightLeg
+        weight: 1
+      - path: Root/RightLeg/BabyBotMon:pCylinder15
+        weight: 0
+      - path: Root/RightLeg/RightKnee
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece1
+        weight: 1
+      - path: Root/RightLeg/RightKnee/RightFoot/RFoot/LegoPiece2
+        weight: 0
+      - path: Root/RightLeg/RightKnee/RKnee
+        weight: 0
+      - path: Root/RightLeg/RightKnee/RShin
+        weight: 0
+      - path: Root/Torso
+        weight: 1
+      - path: Root/Torso/BabyBotMon:pCube11
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube12
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube20
+        weight: 0
+      - path: Root/Torso/BabyBotMon:pCube21
+        weight: 0
+      - path: Root/Torso/LeftShoulder
+        weight: 1
+      - path: Root/Torso/LeftShoulder/BabyBotMon:pCylinder22
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow
+        weight: 1
+      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCube17
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow/BabyBotMon:pCylinder23
+        weight: 0
+      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand
+        weight: 1
+      - path: Root/Torso/LeftShoulder/LeftElbow/LeftHand/BabyBotMon:pCube1
+        weight: 0
+      - path: Root/Torso/Neck
+        weight: 1
+      - path: Root/Torso/Neck/BabyBotMon:pCylinder18
+        weight: 0
+      - path: Root/Torso/Neck/Head
+        weight: 1
+      - path: Root/Torso/Neck/Head/Head 1
+        weight: 1
+      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface25
+        weight: 0
+      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:polySurface26
+        weight: 0
+      - path: Root/Torso/Neck/Head/Head 1/BabyBotMon:transform16
         weight: 0
       - path: Root/Torso/RightShoulder
         weight: 1
@@ -644,7 +529,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: BabyBotMon:pCylinder20
+    - boneName: BabyBotMon:pCube19
       humanName: LeftFoot
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -732,20 +617,36 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
+    - boneName: BabyBotMon:pCylinder19
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: LegoPiece1
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
     skeleton:
-    - name: BabyBotGettingUp(Clone)
+    - name: BabyBotRunning&Attack3(Clone)
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Root
-      position: {x: 0, y: .0810824782, z: 0}
-      rotation: {x: .5, y: -.5, z: -.5, w: .5}
+      position: {x: -3.37604433e-09, y: .0720062777, z: 0}
+      rotation: {x: .542048395, y: -.454074472, z: -.542048514, w: .454074234}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LeftLeg
       position: {x: .00349684083, y: .00197771983, z: .0100508947}
-      rotation: {x: .940524042, y: -.0534170307, z: .0120409736, w: -.335285246}
+      rotation: {x: .994757771, y: -3.96356925e-17, z: .102259293, w: -5.61931914e-17}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCylinder21
@@ -755,7 +656,7 @@ ModelImporter:
       transformModified: 1
     - name: LeftKnee
       position: {x: .030787291, y: -.00944518019, z: -3.56031293e-08}
-      rotation: {x: -.0130403088, y: -.105557211, z: -.0521549694, w: .992959023}
+      rotation: {x: -5.18300289e-26, y: -.182331398, z: -1.40592878e-17, w: .983237147}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCube18
@@ -785,12 +686,12 @@ ModelImporter:
       transformModified: 1
     - name: BabyBotMon:pCylinder20
       position: {x: .000427098974, y: -.00753938127, z: .00967623573}
-      rotation: {x: -.6606704, y: -.0597749725, z: .0252232719, w: .747867227}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: RightLeg
       position: {x: .00349687063, y: .00197771774, z: -.0100509049}
-      rotation: {x: .0290231314, y: -.573538959, z: .810507298, w: -.115276597}
+      rotation: {x: 5.46497717e-17, y: .994757771, z: -5.46497717e-17, w: -.102259293}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCylinder15
@@ -800,7 +701,7 @@ ModelImporter:
       transformModified: 1
     - name: RightKnee
       position: {x: -.03078725, y: .00944516715, z: 1.22124532e-17}
-      rotation: {x: .00620705774, y: -.0395606942, z: -.0644543543, w: .997116864}
+      rotation: {x: -1.18362453e-25, y: -.182331398, z: -6.68375567e-17, w: .983237147}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: RightFoot
@@ -810,7 +711,7 @@ ModelImporter:
       transformModified: 1
     - name: RFoot
       position: {x: .00326893525, y: -.00281077507, z: .00976574793}
-      rotation: {x: -.23429665, y: -.143220782, z: -.625250101, w: .730517089}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LegoPiece1
@@ -834,8 +735,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Torso
-      position: {x: -.0575482398, y: -.00888962764, z: -2.7755574e-18}
-      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      position: {x: -.0575482398, y: -.00888962764, z: 0}
+      rotation: {x: .0352921821, y: -.704140186, z: .0360269584, w: .708267808}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCube11
@@ -860,7 +761,7 @@ ModelImporter:
       transformModified: 1
     - name: LeftShoulder
       position: {x: .0286038946, y: -2.58331512e-09, z: 1.86152089e-08}
-      rotation: {x: .999956548, y: 1.38294336e-08, z: -.00932335202, w: -4.21468478e-08}
+      rotation: {x: -.810025454, y: -.0205704514, z: .00105358404, w: .586032867}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCylinder22
@@ -869,8 +770,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LeftElbow
-      position: {x: .0326901004, y: 5.55111479e-18, z: -4.44089183e-17}
-      rotation: {x: 3.5558817e-10, y: -.0277507696, z: -4.76614126e-09, w: .999614894}
+      position: {x: .0326901004, y: 0, z: 0}
+      rotation: {x: .0190382563, y: -.0149184782, z: -.000146637016, w: .99970752}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCube17
@@ -884,8 +785,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LeftHand
-      position: {x: .0422246978, y: 1.3322676e-17, z: -3.5527136e-17}
-      rotation: {x: .687202156, y: .166593418, z: .166593388, w: -.687201977}
+      position: {x: .0422246978, y: 0, z: 0}
+      rotation: {x: .893866241, y: .128779322, z: .128779218, w: .409676611}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCube1
@@ -895,7 +796,7 @@ ModelImporter:
       transformModified: 1
     - name: Neck
       position: {x: -.000720267883, y: .00888962764, z: .019973997}
-      rotation: {x: -.197977886, y: .7586146, z: -.161823183, w: .5992679}
+      rotation: {x: -.1656923, y: .481711715, z: .416952997, w: .752761662}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCylinder18
@@ -904,7 +805,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Head
-      position: {x: -.0193865262, y: -2.15233678e-18, z: 1.73472344e-20}
+      position: {x: -.0193865262, y: 0, z: 0}
       rotation: {x: -.5, y: .5, z: .5, w: .5}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
@@ -923,9 +824,14 @@ ModelImporter:
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
+    - name: BabyBotMon:transform16
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
     - name: RightShoulder
       position: {x: -.0286038574, y: 6.661338e-18, z: 0}
-      rotation: {x: 0, y: -.0107049085, z: 1.38294318e-08, w: .99994272}
+      rotation: {x: -.0387069769, y: .00635072542, z: -.0158712007, w: .99910444}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCylinder16
@@ -934,8 +840,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: RightElbow
-      position: {x: -.0326901227, y: 6.661338e-18, z: -1.3322676e-17}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      position: {x: -.0326901227, y: 0, z: 0}
+      rotation: {x: -.0420373417, y: -.00693128817, z: -.00868818536, w: .999054253}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BabyBotMon:pCylinder17
@@ -949,8 +855,8 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: RightHand
-      position: {x: -.0422247462, y: 1.11022296e-17, z: -1.3322676e-17}
-      rotation: {x: .55490756, y: .438266665, z: .438266695, w: -.55490756}
+      position: {x: -.0422247462, y: 0, z: 0}
+      rotation: {x: .415900111, y: .425974578, z: .425974667, w: -.681262314}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: RightHand 1

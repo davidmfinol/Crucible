@@ -14,7 +14,7 @@ public class Tutorial : MonoBehaviour
     public Transform RightThumbPrint;
 
     // Scripted characters in the scene
-    public NewmanHologram Runner;
+    public NewmanHologram Hologram;
     public GameObject SewerDoor;
 	public GameObject SpinningFan;
 	public GameObject Jasper;
@@ -153,8 +153,8 @@ public class Tutorial : MonoBehaviour
         if (!GameManager.SaveData.HasShownWallJump) {
             GameManager.SaveData.HasShownWallJump = true;
 
-            Runner.gameObject.SetActive (true);
-            Runner.StartCoroutine (Runner.ShowWallJump ());
+            Hologram.gameObject.SetActive (true);
+            Hologram.StartCoroutine (Hologram.ShowWallJump ());
 
         }
 
@@ -165,8 +165,8 @@ public class Tutorial : MonoBehaviour
         if (!GameManager.SaveData.HasShownSneak) {
             GameManager.SaveData.HasShownSneak = true;
             
-            Runner.gameObject.SetActive (true);
-            Runner.StartCoroutine (Runner.ShowSneak (SneakStartPosition.position));
+            Hologram.gameObject.SetActive (true);
+            Hologram.StartCoroutine (Hologram.ShowSneak (SneakStartPosition.position));
             
         }
 
@@ -220,8 +220,8 @@ public class Tutorial : MonoBehaviour
 		if (!GameManager.SaveData.HasShownOlympusSpawn){
 			GameManager.SaveData.HasShownOlympusSpawn = true;
 
-			Runner.gameObject.SetActive (true);
-			Runner.StartCoroutine (Runner.ShowOlympusSpawn (RunnerPositionOlympusSpawn.position));
+			Hologram.gameObject.SetActive (true);
+			Hologram.StartCoroutine (Hologram.ShowOlympusSpawn (RunnerPositionOlympusSpawn.position));
 
 			StartCoroutine(SpawnOlympus());
 			GameManager.IsPlayingCutscene = true;
@@ -231,7 +231,7 @@ public class Tutorial : MonoBehaviour
 	public IEnumerator SpawnOlympus ()
 	{
         // Wait until the runner has walked past
-		while(Runner.WalkedUnderneath == false)
+		while(Hologram.WalkedUnderneath == false)
 			yield return null;
 		GameManager.MainCamera.Target = Olympus1Position.transform;
         yield return new WaitForSeconds (0.5f);

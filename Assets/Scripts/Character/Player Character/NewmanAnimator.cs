@@ -941,7 +941,7 @@ public class NewmanAnimator : CharacterAnimator
     
     public void CreateFootstep ()
     {
-        if (IsSneaking)
+        if (IsSneaking || _sound == null || _sound.Footsteps == null || _sound.Footsteps.Length <= 0)
             return;
         
         // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)

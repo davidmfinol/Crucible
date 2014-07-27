@@ -273,7 +273,7 @@ public class GameManager : MonoBehaviour
 
         // Reload the player's weapons
         foreach (WeaponSaveState weaponSave in _saveData.PlayerState.WeaponsHeld) {
-            string weaponName = "Prefabs/Weapons/InHand/" + weaponSave.WeaponType.ToString().Substring(7);
+            string weaponName = "Prefabs/Items/Weapons/InHand/" + weaponSave.WeaponType.ToString().Substring(7);
             GameObject createdWeapon = (GameObject)Instantiate (Resources.Load (weaponName), _currentLevel.OffscreenPosition, Quaternion.identity);
             if(createdWeapon == null) {
                 Debug.LogWarning("Failed to load weapon: " + weaponName);
