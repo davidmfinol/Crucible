@@ -911,7 +911,7 @@ ModelImporter:
     4300094: Arm_Left_PV_CTRL
     4300096: Hand_Left_IK_CTRL
     4300098: Proxy_Head_Base
-    7400000: Take 001
+    7400000: Pickup
     9500000: //RootNode
     13700000: Proxy_Chest
     13700002: Proxy_Head_Default
@@ -960,6 +960,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
+    motionNodeName: 
     animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
@@ -968,7 +969,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Pickup
       takeName: Take 001
       firstFrame: 1
       lastFrame: 38

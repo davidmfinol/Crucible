@@ -282,8 +282,8 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool(MecanimHashes.FallRoll, false);
         }
 
-        HorizontalSpeed = MecanimAnimator.deltaPosition.z;
-
+        // NOTE: This "root-based suggestion" works under the assumption that everything happens in FixedUpdate()
+        HorizontalSpeed = -Direction.x * MecanimAnimator.deltaPosition.x / Time.fixedDeltaTime;
     }
 
     protected void Jumping(float elapsedTime)

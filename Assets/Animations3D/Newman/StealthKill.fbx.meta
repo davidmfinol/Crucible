@@ -976,6 +976,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
+    motionNodeName: 
     animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
@@ -2079,7 +2080,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Thumb_Base_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger1_Base_Right
       humanName: Right Thumb Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2087,7 +2088,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Thumb_Mid_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger1_Mid_Right
       humanName: Right Thumb Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2095,7 +2096,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Thumb_Tip_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger1_Tip_Right
       humanName: Right Thumb Distal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2103,7 +2104,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger4_Base_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger2_Base_Right
       humanName: Right Index Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2111,7 +2112,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger4_Mid_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger2_Mid_Right
       humanName: Right Index Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2119,7 +2120,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger4_Tip_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger2_Tip_Right
       humanName: Right Index Distal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2127,7 +2128,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger3_Mid_Right
+    - boneName: goonRig_Beta_v_0_7_3:Thumb_Mid_Right
       humanName: Right Middle Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2135,7 +2136,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger3_Tip_Right
+    - boneName: goonRig_Beta_v_0_7_3:Thumb_Tip_Right
       humanName: Right Middle Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2143,7 +2144,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger3_TipEnd_Right
+    - boneName: goonRig_Beta_v_0_7_3:Thumb_TipEnd_Right
       humanName: Right Middle Distal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2151,7 +2152,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger2_Base_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger3_Base_Right
       humanName: Right Ring Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2159,7 +2160,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger2_Mid_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger3_Mid_Right
       humanName: Right Ring Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2167,7 +2168,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger2_Tip_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger3_Tip_Right
       humanName: Right Ring Distal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2175,7 +2176,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger1_Base_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger4_Base_Right
       humanName: Right Little Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2183,7 +2184,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger1_Mid_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger4_Mid_Right
       humanName: Right Little Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2191,7 +2192,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: goonRig_Beta_v_0_7_3:Finger1_Tip_Right
+    - boneName: goonRig_Beta_v_0_7_3:Finger4_Tip_Right
       humanName: Right Little Distal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -2208,7 +2209,7 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: NewmanSneakAttack2(702-900)(Clone)
+    - name: StealthKill(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
@@ -2453,116 +2454,6 @@ ModelImporter:
       rotation: {x: -.486741424, y: -.512916028, z: .486741424, w: .512916028}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Hand_Left
-      position: {x: -.120886058, y: .259461313, z: -.00263235974}
-      rotation: {x: -5.46666379e-05, y: .00580940815, z: -.00940944348, w: .999938846}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger1_Base_Left
-      position: {x: -.0207219366, y: .00079876557, z: .00634249812}
-      rotation: {x: 5.46523261e-05, y: -.0058078873, z: .00940944441, w: .999938905}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger1_Mid_Left
-      position: {x: -.00924476702, y: 0, z: 1.44328988e-17}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger1_Tip_Left
-      position: {x: -.00797911454, y: 0, z: -5.551115e-19}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger1_TipEnd_Left
-      position: {x: -.00781402923, y: 0, z: -1.110223e-18}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger2_Base_Left
-      position: {x: -.0212742873, y: .00100451603, z: .00143827184}
-      rotation: {x: 5.46523261e-05, y: -.0058078873, z: .00940944441, w: .999938905}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger2_Mid_Left
-      position: {x: -.00974002294, y: 0, z: 3.330669e-18}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger2_Tip_Left
-      position: {x: -.00792408641, y: 3.5527136e-17, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger2_TipEnd_Left
-      position: {x: -.00803414267, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger3_Base_Left
-      position: {x: -.0212186854, y: .0010055626, z: -.0033488737}
-      rotation: {x: 5.46523261e-05, y: -.0058078873, z: .00940944441, w: .999938905}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger3_Mid_Left
-      position: {x: -.00858442672, y: 0, z: 7.77156121e-18}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger3_Tip_Left
-      position: {x: -.00737380236, y: 0, z: -1.110223e-18}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger3_TipEnd_Left
-      position: {x: -.00715368893, y: 0, z: -1.110223e-18}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger4_Base_Left
-      position: {x: -.0195012856, y: .000821740308, z: -.0082454253}
-      rotation: {x: 5.46523261e-05, y: -.0058078873, z: .00940944441, w: .999938905}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger4_Mid_Left
-      position: {x: -.00833238102, y: -3.5527136e-17, z: 6.661338e-18}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger4_Tip_Left
-      position: {x: -.00608678162, y: -7.1054272e-17, z: 2.220446e-18}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Finger4_TipEnd_Left
-      position: {x: -.00604998972, y: -3.5527136e-17, z: -2.220446e-18}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Thumb_Base_Left
-      position: {x: -.00540006626, y: -.00197511143, z: .00718669221}
-      rotation: {x: .70035243, y: .34943068, z: -.0644188002, w: .619075835}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Thumb_Mid_Left
-      position: {x: -.00889867544, y: 8.881784e-18, z: 7.1054272e-17}
-      rotation: {x: -.00731662568, y: -.00621158816, z: .0172835831, w: .999804556}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Thumb_Tip_Left
-      position: {x: -.00893560424, y: -8.881784e-18, z: -1.06581408e-16}
-      rotation: {x: .0113929436, y: .0040060021, z: -.0270789675, w: .999560356}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Thumb_TipEnd_Left
-      position: {x: -.0077402168, y: 2.6645352e-17, z: 7.1054272e-17}
-      rotation: {x: .00868178625, y: .00017711574, z: -.0203958284, w: .99975431}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:camHandLeft
-      position: {x: -.0468156002, y: -.0698042661, z: .101170033}
-      rotation: {x: .241781726, y: -.760417759, z: -.171797708, w: .577747345}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_Hand_Right
       position: {x: .120895498, y: .259462357, z: -.00263230805}
       rotation: {x: .999938905, y: .00940944348, z: .0058078873, w: 5.4669752e-05}
@@ -2695,13 +2586,8 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_LowerLeg_LeftBall
       position: {x: -.0763417631, y: -4.440892e-18, z: 2.220446e-18}
-      rotation: {x: -.706874967, y: -.0181063339, z: -.0181063339, w: .706874967}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_UpperLeg_LeftBall
-      position: {x: -.0125897247, y: -.00395636586, z: -.000843570044}
-      rotation: {x: .000198180773, y: -.000198180773, z: .707106769, w: .707106769}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -.706874907, y: -.0181062836, z: -.0181063451, w: .706874967}
+      scale: {x: .999999702, y: .999999702, z: .999999881}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_UpperLeg_Right
       position: {x: .012589708, y: -.00395638775, z: -.000843356131}
@@ -2720,13 +2606,8 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_LowerLeg_RightBall
       position: {x: -.0763416961, y: 0, z: 0}
-      rotation: {x: -.706864536, y: -.0185072459, z: -.0185072459, w: .706864536}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_UpperLeg_RightBall
-      position: {x: .012589708, y: -.00395638775, z: -.000843356131}
-      rotation: {x: 8.36743709e-07, y: -6.25814664e-07, z: .707106829, w: .707106829}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -.706864595, y: -.0185072403, z: -.0185072757, w: .706864595}
+      scale: {x: .999999821, y: .999999523, z: .999999583}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_Waist_Offset
       position: {x: 3.330669e-18, y: .0130258286, z: .000224583244}
@@ -2780,13 +2661,8 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_LowerArm_LeftBall
       position: {x: -.0486801416, y: 3.5527136e-17, z: 0}
-      rotation: {x: 0, y: .0110913226, z: -0, w: .999938488}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_UpperArm_LeftBall
-      position: {x: -0, y: 0, z: 5.551115e-19}
-      rotation: {x: 0, y: -.0052852626, z: -0, w: .999986053}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -6.3565784e-14, y: .0110913226, z: -4.15973142e-16, w: .999938548}
+      scale: {x: 1.00000024, y: 1, z: .999999702}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:BLEND_UpperArm_Left
       position: {x: -0, y: 0, z: 5.551115e-19}
@@ -2833,6 +2709,11 @@ ModelImporter:
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_UpperArm_LeftBall
+      position: {x: -0, y: 0, z: 5.551115e-19}
+      rotation: {x: -6.35671325e-14, y: -.00528526353, z: -4.6888561e-17, w: .999986053}
+      scale: {x: 1, y: 1, z: 1.00000024}
+      transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_Clavicle_Right
       position: {x: .00830043014, y: .0312276334, z: -.00434390828}
       rotation: {x: 0, y: -0, z: -0, w: 1}
@@ -2860,13 +2741,8 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_LowerArm_RightBall
       position: {x: .0486801192, y: 2.4513723e-14, z: 2.77895529e-09}
-      rotation: {x: 0, y: -.0110913394, z: -0, w: .999938488}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_UpperArm_RightBall
-      position: {x: 4.440892e-18, y: -3.5527136e-17, z: 1.6653345e-18}
-      rotation: {x: 0, y: .00528832339, z: -0, w: .999986053}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -6.36887258e-14, y: -.0110913422, z: -4.72530194e-16, w: .999938548}
+      scale: {x: .999999881, y: 1, z: .999999881}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:BLEND_UpperArm_Right
       position: {x: 4.440892e-18, y: -3.5527136e-17, z: 1.6653345e-18}
@@ -2913,6 +2789,11 @@ ModelImporter:
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_UpperArm_RightBall
+      position: {x: 4.440892e-18, y: -3.5527136e-17, z: 1.6653345e-18}
+      rotation: {x: -6.35630803e-14, y: .00528832432, z: -7.19009105e-16, w: .999986053}
+      scale: {x: .999999762, y: 1, z: 1}
+      transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_NeckOffset
       position: {x: 6.97625865e-07, y: .0325020403, z: -.00221096771}
       rotation: {x: .500078559, y: -.500078559, z: -.499921441, w: .499921441}
@@ -2925,28 +2806,8 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_Head
       position: {x: -.0244895481, y: 2.77555756e-17, z: 3.74650587e-16}
-      rotation: {x: -2.21071514e-05, y: -4.70065501e-13, z: .997521043, w: .0703692213}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Eye_Left
-      position: {x: .00705971383, y: -.0133909481, z: .00595702231}
-      rotation: {x: .821092904, y: .561355412, z: .0458041355, w: -.0926741958}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_EyeEnd_Left
-      position: {x: -.0116005167, y: 3.5527136e-17, z: 3.86374774e-17}
-      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_Eye_Right
-      position: {x: .00705963466, y: -.0133871874, z: -.00596357323}
-      rotation: {x: .821092725, y: .56135571, z: .0458041206, w: -.0926742181}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:AUTO_EyeEnd_Right
-      position: {x: -.0116005167, y: 3.5527136e-17, z: 3.86374774e-17}
-      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 2.97976364e-08, y: -9.36495239e-12, z: -1, w: 2.98070013e-08}
+      scale: {x: 1.00000024, y: 1.00000012, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_HeadEnd
       position: {x: .0234817956, y: -7.40920314e-06, z: -1.58013037e-07}
@@ -2960,8 +2821,8 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_Jaw
       position: {x: -1.14079847e-13, y: 2.36255446e-14, z: 2.53130846e-16}
-      rotation: {x: .860293031, y: .509799898, z: 3.12162379e-17, w: 5.26777565e-17}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -.86029309, y: -.509799898, z: -3.0549117e-08, w: 1.35561216e-08}
+      scale: {x: .999999881, y: .999999642, z: .999999583}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:AUTO_JawEnd
       position: {x: -.0134749822, y: 0, z: 2.81243229e-15}
@@ -3021,6 +2882,26 @@ ModelImporter:
     - name: goonRig_Beta_v_0_7_3:camFace
       position: {x: .00599831995, y: -.159535512, z: -4.94219385e-05}
       rotation: {x: .00011107207, y: .00011107207, z: -.707106769, w: .707106769}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Eye_Right
+      position: {x: .00705963466, y: -.0133871874, z: -.00596357323}
+      rotation: {x: -.707615554, y: -.706597686, z: -.000110745023, w: .000110857087}
+      scale: {x: .999999642, y: 1.00000012, z: .999999642}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_EyeEnd_Right
+      position: {x: -.0116005167, y: 3.5527136e-17, z: 3.86374774e-17}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Eye_Left
+      position: {x: .00705971383, y: -.0133909481, z: .00595702231}
+      rotation: {x: -.707615852, y: -.706597388, z: -.000110800509, w: .00011092081}
+      scale: {x: .999999821, y: 1, z: .999999762}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_EyeEnd_Left
+      position: {x: -.0116005167, y: 3.5527136e-17, z: 3.86374774e-17}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:BLEND_UpperLeg_Left
@@ -3112,6 +2993,16 @@ ModelImporter:
       position: {x: -.0763970092, y: -.000101477643, z: 1.1573323e-17}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_UpperLeg_RightBall
+      position: {x: .012589708, y: -.00395638775, z: -.000843356131}
+      rotation: {x: 8.36744164e-07, y: -6.25815119e-07, z: .707106829, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_UpperLeg_LeftBall
+      position: {x: -.0125897247, y: -.00395636586, z: -.000843570044}
+      rotation: {x: .000198180773, y: -.000198180787, z: .707106769, w: .707106769}
+      scale: {x: 1, y: 1, z: 1.00000024}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:BLEND_Foot_Left
       position: {x: -.0125897331, y: .0205857027, z: -.00500732195}
@@ -3211,6 +3102,116 @@ ModelImporter:
     - name: goonRig_Beta_v_0_7_3:IK_ToeEnd_Right
       position: {x: -9.99200696e-17, y: -.000211059989, z: .024272101}
       rotation: {x: -.486741424, y: -.512916028, z: .486741424, w: .512916028}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Hand_Left
+      position: {x: -.120886058, y: .259461313, z: -.00263235974}
+      rotation: {x: -5.46809461e-05, y: .00581092993, z: -.00940944254, w: .999938846}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:camHandLeft
+      position: {x: -.0468156002, y: -.0698042661, z: .101170033}
+      rotation: {x: .241781726, y: -.760417759, z: -.171797708, w: .577747345}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Thumb_Base_Left
+      position: {x: -.00540006626, y: -.00197511143, z: .00718669221}
+      rotation: {x: .70035243, y: .34943071, z: -.0644187927, w: .619075894}
+      scale: {x: .999999881, y: .99999994, z: 1.00000012}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Thumb_Mid_Left
+      position: {x: -.00889867544, y: 8.881784e-18, z: 7.1054272e-17}
+      rotation: {x: -.00731666014, y: -.00621160073, z: .0172835104, w: .999804556}
+      scale: {x: 1, y: .99999994, z: .999999881}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Thumb_Tip_Left
+      position: {x: -.00893560424, y: -8.881784e-18, z: -1.06581408e-16}
+      rotation: {x: .0113930413, y: .0040060305, z: -.0270789247, w: .999560356}
+      scale: {x: 1, y: 1.00000012, z: .999999762}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Thumb_TipEnd_Left
+      position: {x: -.0077402168, y: 2.6645352e-17, z: 7.1054272e-17}
+      rotation: {x: .00868176948, y: .000177112583, z: -.0203959234, w: .99975431}
+      scale: {x: 1, y: 1.00000036, z: 1.00000036}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger4_Base_Left
+      position: {x: -.0195012856, y: .000821740308, z: -.0082454253}
+      rotation: {x: 5.46523188e-05, y: -.00580788776, z: .00940944348, w: .999938905}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger4_Mid_Left
+      position: {x: -.00833238102, y: -3.5527136e-17, z: 6.661338e-18}
+      rotation: {x: -1.20064429e-12, y: 1.72803993e-10, z: -3.70425496e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger4_Tip_Left
+      position: {x: -.00608678162, y: -7.1054272e-17, z: 2.220446e-18}
+      rotation: {x: -1.20064429e-12, y: 1.72803993e-10, z: -3.70425496e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger4_TipEnd_Left
+      position: {x: -.00604998972, y: -3.5527136e-17, z: -2.220446e-18}
+      rotation: {x: -1.73240925e-13, y: -2.92857294e-10, z: 5.60865632e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger3_Base_Left
+      position: {x: -.0212186854, y: .0010055626, z: -.0033488737}
+      rotation: {x: 5.46523188e-05, y: -.00580788776, z: .00940944348, w: .999938905}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger3_Mid_Left
+      position: {x: -.00858442672, y: 0, z: 7.77156121e-18}
+      rotation: {x: -1.20060439e-12, y: 1.72803993e-10, z: -3.70422026e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger3_Tip_Left
+      position: {x: -.00737380236, y: 0, z: -1.110223e-18}
+      rotation: {x: -1.20060439e-12, y: 1.72803993e-10, z: -3.70422026e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger3_TipEnd_Left
+      position: {x: -.00715368893, y: 0, z: -1.110223e-18}
+      rotation: {x: -1.73200972e-13, y: -2.92857294e-10, z: 5.60869073e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger2_Base_Left
+      position: {x: -.0212742873, y: .00100451603, z: .00143827184}
+      rotation: {x: 5.46523188e-05, y: -.00580788776, z: .00940944348, w: .999938905}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger2_Mid_Left
+      position: {x: -.00974002294, y: 0, z: 3.330669e-18}
+      rotation: {x: -1.20059052e-12, y: 1.72803993e-10, z: -3.70420972e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger2_Tip_Left
+      position: {x: -.00792408641, y: 3.5527136e-17, z: 0}
+      rotation: {x: -1.20059052e-12, y: 1.72803993e-10, z: -3.70420972e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger2_TipEnd_Left
+      position: {x: -.00803414267, y: 0, z: 0}
+      rotation: {x: -1.73187108e-13, y: -2.92857294e-10, z: 5.60870128e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger1_Base_Left
+      position: {x: -.0207219366, y: .00079876557, z: .00634249812}
+      rotation: {x: 5.46523188e-05, y: -.00580788776, z: .00940944348, w: .999938905}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger1_Mid_Left
+      position: {x: -.00924476702, y: 0, z: 1.44328988e-17}
+      rotation: {x: -1.20059897e-12, y: 1.72803993e-10, z: -3.70421499e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger1_Tip_Left
+      position: {x: -.00797911454, y: 0, z: -5.551115e-19}
+      rotation: {x: -1.20059897e-12, y: 1.72803993e-10, z: -3.70421499e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:AUTO_Finger1_TipEnd_Left
+      position: {x: -.00781402923, y: 0, z: -1.110223e-18}
+      rotation: {x: -1.73195564e-13, y: -2.92857294e-10, z: 5.60869573e-10, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Control_Group
@@ -3879,83 +3880,23 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Hip
-      position: {x: -.0163049884, y: .431164026, z: .131814092}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:UpperLeg_Left
-      position: {x: -.0125897247, y: -.00395636586, z: -.000843570044}
-      rotation: {x: .500002444, y: .499997586, z: .500002444, w: .499997586}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:LowerLeg_Left
-      position: {x: -.0763417631, y: -1.27675642e-17, z: 1.22124532e-17}
-      rotation: {x: .999657691, y: .0261640511, z: 1.60337733e-18, w: 6.12113455e-17}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:LegEnd_Left
-      position: {x: -.0763969198, y: -.000101454039, z: -4.04787305e-15}
-      rotation: {x: 0, y: 0, z: 1.36609474e-17, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Foot_Left
-      position: {x: 4.34794885e-08, y: 1.12193987e-09, z: -2.19569155e-11}
-      rotation: {x: .486744314, y: .512913227, z: -.486744314, w: .512913227}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Toe_Left
-      position: {x: -9.38138421e-17, y: -.0143901836, z: .0222907085}
-      rotation: {x: -1.9117658e-16, y: 3.2318502e-11, z: 6.4490531e-11, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:ToeEnd_Left
-      position: {x: 1.41553433e-16, y: -.000211062084, z: .0242721532}
-      rotation: {x: -.486741424, y: -.512915969, z: .486741424, w: .512915969}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:UpperLeg_Right
-      position: {x: .012589708, y: -.00395638775, z: -.000843356131}
-      rotation: {x: .500000536, y: .499999493, z: .500000536, w: .499999493}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:LowerLeg_Right
-      position: {x: -.0763416961, y: 8.60422851e-18, z: -6.43929336e-17}
-      rotation: {x: .999657452, y: .0261731986, z: -1.60247746e-18, w: -6.12113653e-17}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:LegEnd_Right
-      position: {x: -.0763970092, y: -.000101477643, z: -5.75361969e-14}
-      rotation: {x: 1.96374103e-14, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Foot_Right
-      position: {x: 2.68293254e-09, y: 7.86245721e-11, z: -2.71620504e-11}
-      rotation: {x: .486741602, y: .51291585, z: -.486741602, w: .51291585}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Toe_Right
-      position: {x: -9.32587312e-17, y: -.0145517336, z: .0222907197}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:ToeEnd_Right
-      position: {x: -1.21014313e-16, y: -.000211059974, z: .024272101}
-      rotation: {x: -.486741424, y: -.512916028, z: .486741424, w: .512916028}
+      position: {x: -.0163049884, y: .431163996, z: .131814092}
+      rotation: {x: 0, y: -1.11022302e-16, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Waist
       position: {x: -0, y: .0130258286, z: .000224583244}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      rotation: {x: 1.66533454e-16, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Ribs
       position: {x: -1.99840136e-17, y: .0226829071, z: -.000224583244}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      rotation: {x: 2.77555756e-17, y: 8.32667268e-17, z: 2.77555756e-17, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Chest
       position: {x: -4.21884744e-17, y: .0208862424, z: -.000898332975}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      rotation: {x: -1.79023463e-13, y: -2.49800181e-16, z: -8.32667268e-17, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:ChestEnd
@@ -3965,7 +3906,7 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Clavicle_Left
       position: {x: -.008300432, y: .0312275402, z: -.0043439134}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      rotation: {x: -6.40100765e-14, y: 6.12323426e-17, z: 6.12323426e-17, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:UpperArm_SCL_Left_Offset
@@ -3975,13 +3916,13 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:UpperArm_Left
       position: {x: -6.661338e-18, y: -5.55111479e-18, z: 7.77156121e-18}
-      rotation: {x: 0, y: -1.71069756e-14, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 1.79259141e-13, y: -1.39696432e-09, z: -2.28354238e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1.00000012}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:LowerArm_Left
       position: {x: -.0486801416, y: -3.55271347e-16, z: -1.67976745e-15}
-      rotation: {x: 0, y: .0110913226, z: -0, w: .999938488}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -1.01930001e-20, y: .0110913245, z: -1.02997971e-22, w: .999938548}
+      scale: {x: 1.00000012, y: 1, z: .99999994}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:ArmEnd_Left
       position: {x: -.0456051007, y: 4.26880756e-16, z: -1.50324197e-15}
@@ -4095,7 +4036,7 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Clavicle_Right
       position: {x: .00830043014, y: .0312276334, z: -.00434390828}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
+      rotation: {x: -6.40100765e-14, y: 6.12323426e-17, z: 6.12323426e-17, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:UpperArm_SCL_Offset_Right
@@ -4105,147 +4046,142 @@ ModelImporter:
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:UpperArm_Right
       position: {x: -0, y: -1.34505742e-13, z: -1.91106571e-13}
-      rotation: {x: 0, y: 2.22871888e-10, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 3.61683882e-13, y: 9.31309474e-10, z: -7.43060606e-16, w: 1}
+      scale: {x: .99999994, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:LowerArm_Right
       position: {x: .0486801229, y: 0, z: 2.95143167e-07}
-      rotation: {x: 0, y: -.0110913394, z: -0, w: .999938488}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 3.61942545e-13, y: -.0110913422, z: -4.63226056e-15, w: .999938548}
+      scale: {x: .999999881, y: 1, z: .999999881}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:ArmEnd_Right
       position: {x: .045605354, y: 3.5527136e-17, z: 4.84993166e-07}
-      rotation: {x: 0, y: .0116092227, z: -0, w: .999932647}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -4.64234762e-20, y: .0116092237, z: 1.60703563e-22, w: .999932647}
+      scale: {x: 1.00000024, y: 1, z: .99999994}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Hand_Right
       position: {x: 4.51891447e-06, y: -9.01358476e-07, z: -1.44296791e-07}
-      rotation: {x: .998310626, y: .0569308549, z: .0115953395, w: .000661058002}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: .989619792, y: .143240124, z: .0114943767, w: .0016630718}
+      scale: {x: .999999881, y: 1, z: 1.00000012}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger1_Base_Right
-      position: {x: .0207217745, y: -.000798787631, z: -.00634249905}
-      rotation: {x: .0313167311, y: -.0541010611, z: .201891661, w: .977410913}
-      scale: {x: 1, y: 1, z: 1}
+    - name: goonRig_Beta_v_0_7_3:Finger4_Base_Right
+      position: {x: .0195014514, y: -.000821756083, z: .00824542716}
+      rotation: {x: -.00372118619, y: .308251888, z: .150226861, w: .939360917}
+      scale: {x: 1.00000012, y: .999999881, z: .999999642}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger1_Mid_Right
-      position: {x: .00924520008, y: -8.88178367e-17, z: 7.40796296e-15}
-      rotation: {x: -2.52365311e-07, y: 5.91229536e-08, z: .0146230431, w: .999893069}
-      scale: {x: 1, y: 1, z: 1}
+    - name: goonRig_Beta_v_0_7_3:Finger4_Mid_Right
+      position: {x: .0083324993, y: 1.24344979e-16, z: 6.7146288e-15}
+      rotation: {x: 1.05272422e-08, y: -1.5044338e-10, z: -1.21000254e-09, w: 1}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000036}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger1_Tip_Right
-      position: {x: .00797909964, y: 1.7763568e-17, z: 5.09814393e-15}
-      rotation: {x: -1.22529357e-07, y: 3.18363305e-07, z: .0146210352, w: .999893129}
-      scale: {x: 1, y: 1, z: 1}
+    - name: goonRig_Beta_v_0_7_3:Finger4_Tip_Right
+      position: {x: .00608679978, y: 1.06581408e-16, z: 3.92574868e-15}
+      rotation: {x: 1.48988661e-08, y: -1.50444754e-10, z: -2.17545953e-10, w: 1}
+      scale: {x: .999999642, y: 1.00000012, z: .999999881}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger1_TipEnd_Right
-      position: {x: .00781410001, y: 8.881784e-18, z: -2.30870879e-15}
-      rotation: {x: 1.82131857e-16, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger2_Base_Right
-      position: {x: .0212746095, y: -.00100442057, z: -.00143826858}
-      rotation: {x: .0313165933, y: -.0541013256, z: .201892123, w: .977410853}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger2_Mid_Right
-      position: {x: .00973999966, y: -3.5527136e-17, z: 7.85052582e-15}
-      rotation: {x: -2.31159291e-07, y: -4.11501361e-07, z: .0146235228, w: .999893129}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger2_Tip_Right
-      position: {x: .00792410038, y: -1.7763568e-17, z: 5.02584077e-15}
-      rotation: {x: 1.1868903e-07, y: 1.86398907e-07, z: .0146208974, w: .999893188}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger2_TipEnd_Right
-      position: {x: .00803409982, y: -2.6645352e-17, z: -2.32841522e-15}
-      rotation: {x: 1.82131843e-16, y: -0, z: -0, w: 1}
+    - name: goonRig_Beta_v_0_7_3:Finger4_TipEnd_Right
+      position: {x: .00604999997, y: 9.76996256e-17, z: -1.74305013e-15}
+      rotation: {x: 2.78761352e-08, y: 3.15209303e-10, z: -1.31002334e-10, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Finger3_Base_Right
       position: {x: .0212190077, y: -.00100546703, z: .00334887439}
-      rotation: {x: -.00313820527, y: -.00488735177, z: .556041121, w: .831134558}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -.00372229936, y: .308250993, z: .150225341, w: .939361334}
+      scale: {x: 1.00000012, y: .999999881, z: .999999642}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Finger3_Mid_Right
       position: {x: .00858439971, y: -5.3290704e-17, z: 6.87228027e-15}
-      rotation: {x: .062923871, y: -.0959960818, z: -.395900369, w: .911091805}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 1.05272422e-08, y: -1.50446156e-10, z: -1.21000254e-09, w: 1}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000036}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Finger3_Tip_Right
       position: {x: .00737380004, y: 0, z: 4.70512487e-15}
-      rotation: {x: -1.2786276e-08, y: -5.46542822e-07, z: .0146184033, w: .999893129}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 1.48988661e-08, y: -1.50447529e-10, z: -2.17545953e-10, w: 1}
+      scale: {x: .999999642, y: 1.00000012, z: .999999881}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Finger3_TipEnd_Right
       position: {x: .00715369964, y: -3.5527136e-17, z: -2.13273833e-15}
-      rotation: {x: 1.82131857e-16, y: -0, z: -0, w: 1}
+      rotation: {x: 2.78761352e-08, y: 3.15207915e-10, z: -1.31002334e-10, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger4_Base_Right
-      position: {x: .0195014514, y: -.000821756083, z: .00824542716}
-      rotation: {x: .0313167796, y: -.0541010015, z: .201891452, w: .977411032}
+    - name: goonRig_Beta_v_0_7_3:Finger2_Base_Right
+      position: {x: .0212746095, y: -.00100442057, z: -.00143826858}
+      rotation: {x: -.00372110214, y: .30825156, z: .150226802, w: .939360976}
+      scale: {x: 1.00000012, y: .999999881, z: .999999642}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Finger2_Mid_Right
+      position: {x: .00973999966, y: -3.5527136e-17, z: 7.85052582e-15}
+      rotation: {x: 1.05272422e-08, y: -1.50446156e-10, z: -1.21000254e-09, w: 1}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000036}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Finger2_Tip_Right
+      position: {x: .00792410038, y: -1.7763568e-17, z: 5.02584077e-15}
+      rotation: {x: 1.48988661e-08, y: -1.50446836e-10, z: -2.17545953e-10, w: 1}
+      scale: {x: .999999642, y: 1.00000012, z: .999999881}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Finger2_TipEnd_Right
+      position: {x: .00803409982, y: -2.6645352e-17, z: -2.32841522e-15}
+      rotation: {x: 2.78761352e-08, y: 3.15207915e-10, z: -1.31002334e-10, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger4_Mid_Right
-      position: {x: .0083324993, y: 1.24344979e-16, z: 6.7146288e-15}
-      rotation: {x: 1.11057199e-08, y: 7.7275547e-07, z: .0146234063, w: .999893069}
-      scale: {x: 1, y: 1, z: 1}
+    - name: goonRig_Beta_v_0_7_3:Finger1_Base_Right
+      position: {x: .0207217745, y: -.000798787631, z: -.00634249905}
+      rotation: {x: -.00642731832, y: .658520043, z: .0467171445, w: .751084268}
+      scale: {x: 1.00000012, y: .999999881, z: .999999642}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger4_Tip_Right
-      position: {x: .00608679978, y: 1.06581408e-16, z: 3.92574868e-15}
-      rotation: {x: 2.39978561e-07, y: -1.17916784e-06, z: .0146183735, w: .999893129}
-      scale: {x: 1, y: 1, z: 1}
+    - name: goonRig_Beta_v_0_7_3:Finger1_Mid_Right
+      position: {x: .00924520008, y: -8.88178367e-17, z: 7.40796296e-15}
+      rotation: {x: 1.05272422e-08, y: -1.50446156e-10, z: -1.21000254e-09, w: 1}
+      scale: {x: 1.00000012, y: 1.00000012, z: 1.00000036}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Finger4_TipEnd_Right
-      position: {x: .00604999997, y: 9.76996256e-17, z: -1.74305013e-15}
-      rotation: {x: 1.82111528e-16, y: -0, z: -0, w: 1}
+    - name: goonRig_Beta_v_0_7_3:Finger1_Tip_Right
+      position: {x: .00797909964, y: 1.7763568e-17, z: 5.09814393e-15}
+      rotation: {x: 1.48988661e-08, y: -1.50447529e-10, z: -2.17545953e-10, w: 1}
+      scale: {x: .999999642, y: 1.00000012, z: .999999881}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Finger1_TipEnd_Right
+      position: {x: .00781410001, y: 8.881784e-18, z: -2.30870879e-15}
+      rotation: {x: 2.78761352e-08, y: 3.15207915e-10, z: -1.31002334e-10, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Thumb_Base_Right
       position: {x: .00527420407, y: .00197925512, z: -.0071899998}
-      rotation: {x: -.338112861, y: .69559139, z: -.627741754, w: -.0881625935}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -.349457622, y: .700351655, z: -.619060993, w: -.0644241646}
+      scale: {x: .999999881, y: .999999821, z: .99999994}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Thumb_Mid_Right
       position: {x: -.00889825821, y: -2.54907196e-15, z: -4.5119463e-15}
-      rotation: {x: .00923395064, y: .000360862236, z: .0279270895, w: .99956727}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: .00702126464, y: .0154330088, z: -.00598785328, w: .999838352}
+      scale: {x: 1.00000036, y: 1.00000024, z: 1.00000024}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Thumb_Tip_Right
       position: {x: -.00893544592, y: -2.54019019e-15, z: -2.44249071e-16}
-      rotation: {x: -.0124731017, y: -6.64410982e-05, z: .0302388333, w: .999464929}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -.0113832038, y: -.00399286579, z: -.0270584337, w: .999561071}
+      scale: {x: .999999583, y: .999999881, z: .999999881}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Thumb_TipEnd_Right
       position: {x: -.00774040679, y: -2.2737367e-15, z: 2.91100469e-15}
-      rotation: {x: -.000200674214, y: .00868920889, z: .999753833, w: .0204146225}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: .000200656126, y: -.00868926384, z: -.999753892, w: -.0204145052}
+      scale: {x: .999999702, y: .999999642, z: .999999762}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Neck
       position: {x: 6.97625865e-07, y: .0325020403, z: -.00221096771}
-      rotation: {x: .500078559, y: -.500078559, z: -.499921501, w: .499921501}
+      rotation: {x: -.500078917, y: .500078917, z: .499921143, w: -.499921143}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Head
       position: {x: -.0244895481, y: -1.183586e-12, z: 6.8963125e-16}
-      rotation: {x: -2.21071514e-05, y: -4.70065501e-13, z: .997521043, w: .0703692213}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -1.68712018e-06, y: 2.11120521e-09, z: -.999986649, w: -.00517371343}
+      scale: {x: 1.00000048, y: 1.00000048, z: 1.00000048}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Eye_Left
-      position: {x: .00705971383, y: -.0133909481, z: .00595702231}
-      rotation: {x: .821092904, y: .561355412, z: .0458041355, w: -.0926741958}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:EyeEnd_Left
-      position: {x: -.0116005167, y: 1.16118671e-12, z: -2.91755715e-13}
-      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+    - name: goonRig_Beta_v_0_7_3:HeadEnd
+      position: {x: .0234817956, y: -7.40920177e-06, z: -1.58013037e-07}
+      rotation: {x: .497406512, y: .502580166, z: -.497406512, w: .502580166}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Eye_Right
       position: {x: .00705963466, y: -.0133871874, z: -.00596357323}
-      rotation: {x: .821092725, y: .56135571, z: .0458041206, w: -.0926742181}
+      rotation: {x: .660002768, y: .751263142, z: .000117718868, w: -.000103340026}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:EyeEnd_Right
@@ -4253,59 +4189,124 @@ ModelImporter:
       rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:HeadEnd
-      position: {x: .0234817956, y: -7.40920177e-06, z: -1.58013037e-07}
-      rotation: {x: .497406512, y: .502580166, z: -.497406512, w: .502580166}
+    - name: goonRig_Beta_v_0_7_3:Upper_Teeth_Bone
+      position: {x: -.00742169283, y: -.0100299995, z: -2.45422984e-06}
+      rotation: {x: .703438997, y: .710755706, z: .000109792534, w: -.00011333287}
+      scale: {x: 1, y: .99999994, z: .999999821}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Upper_Teeth_Bone_End
+      position: {x: -.00849776156, y: 0, z: 1.88633989e-18}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Jaw
       position: {x: -.00755788945, y: -.00480401842, z: -7.67997335e-07}
-      rotation: {x: .860293031, y: .509799838, z: -6.78860843e-08, w: -1.14553686e-07}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: .857646108, y: .514240324, z: 7.82786665e-05, w: -.000137007984}
+      scale: {x: .999999642, y: 1.00000012, z: .999999642}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:JawEnd
       position: {x: -.0134749822, y: 6.62163629e-13, z: 3.2973379e-15}
-      rotation: {x: -.175249472, y: -.685045719, z: -.175249472, w: .685045719}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Lower_Teeth_Bone
-      position: {x: -.00662861438, y: -.00121999998, z: 1.68623251e-06}
-      rotation: {x: 3.89300003e-05, y: .000152179055, z: -.247836083, w: .968801975}
-      scale: {x: 1, y: 1, z: 1}
-      transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Lower_Teeth_Bone_End
-      position: {x: -.00849776156, y: 3.5527136e-17, z: 1.88064786e-18}
-      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -.175249457, y: -.685045719, z: -.175249457, w: .685045719}
+      scale: {x: 1.00000036, y: 1.00000024, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Tongue_Base
       position: {x: -.00297967833, y: -.00282336352, z: 4.38764715e-07}
-      rotation: {x: 2.75036728e-05, y: .000154653026, z: -.319205493, w: .94768554}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 2.74850627e-05, y: .000154586611, z: -.319205493, w: .947685599}
+      scale: {x: .999999821, y: 1, z: 1.00000024}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Tongue_Mid
       position: {x: -.00498900935, y: 5.06261693e-16, z: 6.1626763e-18}
-      rotation: {x: 0, y: 0, z: .0990147516, w: .995085955}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 2.9230991e-09, y: 7.64759491e-08, z: .0990147367, w: .995086014}
+      scale: {x: .99999994, y: .999999881, z: 1}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Tongue_Tip
       position: {x: -.00277180714, y: 2.9087842e-16, z: 1.92164049e-17}
-      rotation: {x: 0, y: 0, z: .0620082468, w: .998075664}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 1.59925839e-09, y: -4.87223861e-09, z: .0620082878, w: .998075724}
+      scale: {x: .99999994, y: 1, z: .99999994}
       transformModified: 1
     - name: goonRig_Beta_v_0_7_3:Tongue_End
       position: {x: -.00428553624, y: -3.5527136e-17, z: 9.4023087e-19}
       rotation: {x: -.0612859763, y: -.704445899, z: -.0612859763, w: .704445899}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Upper_Teeth_Bone
-      position: {x: -.00742169283, y: -.0100299995, z: -2.45422984e-06}
-      rotation: {x: .707106769, y: .707106769, z: .00011107207, w: -.00011107207}
+    - name: goonRig_Beta_v_0_7_3:Lower_Teeth_Bone
+      position: {x: -.00662861438, y: -.00121999998, z: 1.68623251e-06}
+      rotation: {x: -4.09477953e-13, y: 1.0475432e-13, z: -.247840166, w: .968800962}
+      scale: {x: 1.00000012, y: .999999881, z: 1.00000012}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Lower_Teeth_Bone_End
+      position: {x: -.00849776156, y: 3.5527136e-17, z: 1.88064786e-18}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    - name: goonRig_Beta_v_0_7_3:Upper_Teeth_Bone_End
-      position: {x: -.00849776156, y: 0, z: 1.88633989e-18}
+    - name: goonRig_Beta_v_0_7_3:Eye_Left
+      position: {x: .00705971383, y: -.0133909481, z: .00595702231}
+      rotation: {x: .707586348, y: .706626952, z: .000108893051, w: -.000113731025}
+      scale: {x: .999999821, y: .999999821, z: .999999821}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:EyeEnd_Left
+      position: {x: -.0116005167, y: 1.16118671e-12, z: -2.91755715e-13}
       rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:UpperLeg_Left
+      position: {x: -.0125897247, y: -.00395636586, z: -.000843570044}
+      rotation: {x: .500002444, y: .499997586, z: .500002384, w: .499997586}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:LowerLeg_Left
+      position: {x: -.0763417631, y: -1.27675642e-17, z: 1.22124532e-17}
+      rotation: {x: -.99965775, y: -.026164012, z: 4.54731008e-08, w: -1.41109933e-08}
+      scale: {x: 1.00000012, y: .999999881, z: .999999881}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:LegEnd_Left
+      position: {x: -.0763969198, y: -.000101454039, z: -4.04787305e-15}
+      rotation: {x: 0, y: 0, z: 1.36609474e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Foot_Left
+      position: {x: 4.34794885e-08, y: 1.12193987e-09, z: -2.19569155e-11}
+      rotation: {x: -.486744344, y: -.512913167, z: .486744344, w: -.512913227}
+      scale: {x: 1, y: 1.00000024, z: 1.00000012}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Toe_Left
+      position: {x: -9.38138421e-17, y: -.0143901836, z: .0222907085}
+      rotation: {x: -2.79725167e-08, y: -6.64615733e-17, z: 1.83183263e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:ToeEnd_Left
+      position: {x: 1.41553433e-16, y: -.000211062084, z: .0242721532}
+      rotation: {x: -.486741424, y: -.512915969, z: .486741424, w: .512915969}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:UpperLeg_Right
+      position: {x: .012589708, y: -.00395638775, z: -.000843356131}
+      rotation: {x: .500000536, y: .499999493, z: .500000477, w: .499999493}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:LowerLeg_Right
+      position: {x: -.0763416961, y: 8.60422851e-18, z: -6.43929336e-17}
+      rotation: {x: -.999657452, y: -.0261732358, z: 7.69812714e-10, w: 7.90233712e-10}
+      scale: {x: .99999994, y: .999999881, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:LegEnd_Right
+      position: {x: -.0763970092, y: -.000101477643, z: -5.75361969e-14}
+      rotation: {x: 1.96374103e-14, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Foot_Right
+      position: {x: 2.68293254e-09, y: 7.86245721e-11, z: -2.71620504e-11}
+      rotation: {x: -.486741602, y: -.51291585, z: .486741602, w: -.51291585}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:Toe_Right
+      position: {x: -9.32587312e-17, y: -.0145517336, z: .0222907197}
+      rotation: {x: 1.26533894e-08, y: 4.47035013e-08, z: -1.49011203e-08, w: -1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: goonRig_Beta_v_0_7_3:ToeEnd_Right
+      position: {x: -1.21014313e-16, y: -.000211059974, z: .024272101}
+      rotation: {x: -.486741424, y: -.512916028, z: .486741424, w: .512916028}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     armTwist: .5

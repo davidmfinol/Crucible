@@ -370,7 +370,7 @@ public class GameManager : MonoBehaviour
         foreach (ItemSaveState itemState in levelSave.ItemStates) {
             string itemName = "Prefabs/Items/" + itemState.ItemType.ToString().Substring(5);
             if (itemState.ItemType == Item.ItemType.Item__Weapon)
-                itemName = "Prefabs/Weapons/OnField/" + itemState.WeaponType.ToString().Substring(7);
+                itemName = "Prefabs/Items/Weapons/OnField/" + itemState.WeaponType.ToString().Substring(7);
             GameObject createdItem = (GameObject)Instantiate (Resources.Load (itemName), itemState.Position, itemState.Rotation);
             if(createdItem == null) {
                 Debug.LogWarning("Failed to load item: " + itemName);
