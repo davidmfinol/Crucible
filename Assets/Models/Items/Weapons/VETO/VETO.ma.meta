@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 342f7334df6694b97971ccce7373adf3
+guid: 0e632596bbbda44229bb717b8472d11e
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -17,6 +17,7 @@ ModelImporter:
     100022: transform3
     100024: transform4
     100026: //RootNode
+    100028: group1
     400000: pCube1
     400002: pCube2
     400004: pCylinder1
@@ -31,6 +32,7 @@ ModelImporter:
     400022: transform3
     400024: transform4
     400026: //RootNode
+    400028: group1
     2300000: pCube2
     2300002: pCylinder1
     2300004: pCylinder2
