@@ -1680,7 +1680,7 @@ ModelImporter:
       curves: []
       events:
       - time: .407894731
-        functionName: PlayJumpLanding
+        functionName: PlayLand
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
