@@ -1871,7 +1871,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: .00999999978
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -2102,432 +2102,432 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Hip
-      position: {x: -0, y: .177181393, z: -.000267248513}
+      position: {x: -0, y: .00177181384, z: -2.67248515e-06}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpperLeg_Left
-      position: {x: -.0125897247, y: -.00395636586, z: -.000843570044}
+      position: {x: -.000125897248, y: -3.95636562e-05, z: -8.43570069e-06}
       rotation: {x: .500002384, y: .499997556, z: .500002384, w: .499997556}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LowerLeg_Left
-      position: {x: -.0763417631, y: -2.87270198e-17, z: 1.3322676e-17}
+      position: {x: -.000763417629, y: -2.87270185e-19, z: 1.33226756e-19}
       rotation: {x: .999657631, y: .0261640493, z: 2.54990666e-16, w: 5.45794315e-17}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LegEnd_Left
-      position: {x: -.0763969198, y: -.000101454039, z: -4.04787305e-15}
+      position: {x: -.000763969205, y: -1.01454032e-06, z: -4.04787285e-17}
       rotation: {x: 0, y: 0, z: 1.71303927e-17, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Foot_Left
-      position: {x: 4.34794885e-08, y: 1.12193976e-09, z: 5.39519297e-12}
+      position: {x: 4.34794867e-10, y: 1.12193978e-11, z: 5.39519296e-14}
       rotation: {x: .486744285, y: .512913167, z: -.486744285, w: .512913167}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Toe_Left
-      position: {x: -1.04360964e-16, y: -.0143901836, z: .0222907085}
+      position: {x: -1.04360963e-18, y: -.000143901838, z: .000222907081}
       rotation: {x: -1.91176567e-16, y: 3.23184986e-11, z: 6.4490524e-11, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: ToeEnd_Left
-      position: {x: 1.33226755e-16, y: -.000211062186, z: .0242721532}
+      position: {x: 1.33226754e-18, y: -2.11062184e-06, z: .000242721522}
       rotation: {x: -.486741394, y: -.512915909, z: .486741394, w: .512915909}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpperLeg_Right
-      position: {x: .012589708, y: -.00395638775, z: -.000843356131}
+      position: {x: .000125897073, y: -3.95638781e-05, z: -8.43356156e-06}
       rotation: {x: .500000477, y: .499999464, z: .500000477, w: .499999464}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LowerLeg_Right
-      position: {x: -.0763416961, y: -2.85882421e-17, z: -3.5527136e-17}
+      position: {x: -.000763416931, y: -2.85882408e-19, z: -3.55271359e-19}
       rotation: {x: .999657273, y: .026173193, z: -3.14126999e-17, w: -6.04308576e-17}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LegEnd_Right
-      position: {x: -.0763970092, y: -.000101477643, z: -5.75472965e-14}
+      position: {x: -.000763970078, y: -1.01477644e-06, z: -5.75472967e-16}
       rotation: {x: 1.94623167e-14, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Foot_Right
-      position: {x: 2.68315081e-09, y: 7.1619391e-11, z: -2.73873077e-11}
+      position: {x: 2.68315075e-11, y: 7.16193869e-13, z: -2.73873074e-13}
       rotation: {x: .486741513, y: .51291573, z: -.486741513, w: .51291573}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Toe_Right
-      position: {x: -8.88178367e-17, y: -.0145517336, z: .0222907197}
+      position: {x: -8.88178358e-19, y: -.000145517333, z: .000222907198}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: ToeEnd_Right
-      position: {x: -1.32116533e-16, y: -.000211060062, z: .024272101}
+      position: {x: -1.32116533e-18, y: -2.11060046e-06, z: .000242720998}
       rotation: {x: -.486741334, y: -.512915909, z: .486741334, w: .512915909}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Waist
-      position: {x: 3.330669e-18, y: .0130258286, z: .000224583244}
+      position: {x: 3.33066891e-20, y: .000130258282, z: 2.24583232e-06}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Ribs
-      position: {x: -1.99840136e-17, y: .0226829071, z: -.000224583244}
+      position: {x: -1.99840128e-19, y: .00022682907, z: -2.24583232e-06}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Chest
-      position: {x: -4.16333634e-17, y: .0208862424, z: -.000898332975}
+      position: {x: -4.16333625e-19, y: .000208862417, z: -8.98332928e-06}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: ChestEnd
-      position: {x: 6.97625865e-07, y: .0325020403, z: -.00221096771}
+      position: {x: 6.97625868e-09, y: .000325020403, z: -2.21096761e-05}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Clavicle_Left
-      position: {x: -.008300432, y: .0312275402, z: -.0043439134}
+      position: {x: -8.30043209e-05, y: .000312275399, z: -4.34391332e-05}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpperArm_SCL_Left_Offset
-      position: {x: -.0183108225, y: -.00554093625, z: .00286216429}
+      position: {x: -.000183108219, y: -5.54093604e-05, z: 2.86216418e-05}
       rotation: {x: 0, y: -.00528526166, z: -0, w: .999985993}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpperArm_Left
-      position: {x: -0, y: 7.1054272e-17, z: -8.3266725e-19}
+      position: {x: -0, y: 7.10542718e-19, z: -8.32667227e-21}
       rotation: {x: 0, y: -1.71043718e-14, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LowerArm_Left
-      position: {x: -.0486801416, y: -3.55271347e-16, z: -1.66616717e-15}
+      position: {x: -.000486801408, y: -3.55271343e-18, z: -1.66616708e-17}
       rotation: {x: 0, y: .0110913217, z: -0, w: .999938428}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: ArmEnd_Left
-      position: {x: -.0456051007, y: 3.55271347e-16, z: -1.50213172e-15}
+      position: {x: -.000456050999, y: 3.55271343e-18, z: -1.5021317e-17}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Hand_Left
-      position: {x: 4.64734239e-06, y: -1.65135839e-06, z: 1.93569051e-07}
+      position: {x: 4.64734242e-08, y: -1.65135834e-08, z: 1.9356905e-09}
       rotation: {x: -3.6935992e-09, y: 3.92542518e-07, z: -.00940960087, w: .999955595}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger1_Base_Left
-      position: {x: -.0207219366, y: .00079876557, z: .00634249812}
+      position: {x: -.00020721936, y: 7.98765541e-06, z: 6.34249809e-05}
       rotation: {x: 5.46523224e-05, y: -.00580788683, z: .00940944348, w: .999938846}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger1_Mid_Left
-      position: {x: -.00924476702, y: 7.1054272e-17, z: 1.55431224e-17}
+      position: {x: -9.24476699e-05, y: 7.10542718e-19, z: 1.55431218e-19}
       rotation: {x: 0, y: 5.86146758e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger1_Tip_Left
-      position: {x: -.00797911454, y: -3.5527136e-17, z: -5.551115e-19}
+      position: {x: -7.97911416e-05, y: -3.55271359e-19, z: -5.55111498e-21}
       rotation: {x: 0, y: 5.86146758e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger1_TipEnd_Left
-      position: {x: -.00781402923, y: 3.5527136e-17, z: -5.551115e-19}
+      position: {x: -7.81402923e-05, y: 3.55271359e-19, z: -5.55111498e-21}
       rotation: {x: 0, y: 5.86146758e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger2_Base_Left
-      position: {x: -.0212742873, y: .00100451603, z: .00143827184}
+      position: {x: -.000212742874, y: 1.00451598e-05, z: 1.43827183e-05}
       rotation: {x: 5.46523224e-05, y: -.00580788683, z: .00940944348, w: .999938846}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger2_Mid_Left
-      position: {x: -.00974002294, y: 7.1054272e-17, z: 2.91433535e-18}
+      position: {x: -9.74002251e-05, y: 7.10542718e-19, z: 2.91433534e-20}
       rotation: {x: 0, y: 4.99452936e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger2_Tip_Left
-      position: {x: -.00792408641, y: 3.5527136e-17, z: -1.38777875e-19}
+      position: {x: -7.92408609e-05, y: 3.55271359e-19, z: -1.38777875e-21}
       rotation: {x: 0, y: 4.99452936e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger2_TipEnd_Left
-      position: {x: -.00803414267, y: -3.5527136e-17, z: 1.38794819e-19}
+      position: {x: -8.03414223e-05, y: -3.55271359e-19, z: 1.38794818e-21}
       rotation: {x: 0, y: 4.99452936e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger3_Base_Left
-      position: {x: -.0212186854, y: .0010055626, z: -.0033488737}
+      position: {x: -.000212186846, y: 1.00556263e-05, z: -3.34887372e-05}
       rotation: {x: 5.46523224e-05, y: -.00580788683, z: .00940944348, w: .999938846}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger3_Mid_Left
-      position: {x: -.00858442672, y: 1.06581408e-16, z: 8.881784e-18}
+      position: {x: -8.58442654e-05, y: 1.06581405e-18, z: 8.88178397e-20}
       rotation: {x: 0, y: 4.12759114e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger3_Tip_Left
-      position: {x: -.00737380236, y: 3.5527136e-17, z: -3.330669e-18}
+      position: {x: -7.37380251e-05, y: 3.55271359e-19, z: -3.33066891e-20}
       rotation: {x: 0, y: 4.12759114e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger3_TipEnd_Left
-      position: {x: -.00715368893, y: -3.5527136e-17, z: 1.110223e-18}
+      position: {x: -7.15368878e-05, y: -3.55271359e-19, z: 1.110223e-20}
       rotation: {x: 0, y: 4.12759114e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger4_Base_Left
-      position: {x: -.0195012856, y: .000821740308, z: -.0082454253}
+      position: {x: -.00019501285, y: 8.21740286e-06, z: -8.24542512e-05}
       rotation: {x: 5.46523224e-05, y: -.00580788683, z: .00940944348, w: .999938846}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger4_Mid_Left
-      position: {x: -.00833238102, y: 7.1054272e-17, z: 2.220446e-18}
+      position: {x: -8.33238082e-05, y: 7.10542718e-19, z: 2.22044599e-20}
       rotation: {x: 0, y: 3.25938257e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger4_Tip_Left
-      position: {x: -.00608678162, y: -3.5527136e-17, z: 6.66134213e-18}
+      position: {x: -6.08678165e-05, y: -3.55271359e-19, z: 6.6613417e-20}
       rotation: {x: 0, y: 3.25938257e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger4_TipEnd_Left
-      position: {x: -.00604998972, y: 7.1054272e-17, z: -8.881784e-18}
+      position: {x: -6.04998968e-05, y: 7.10542718e-19, z: -8.88178397e-20}
       rotation: {x: 0, y: 3.25938257e-18, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Thumb_Base_Left
-      position: {x: -.00540002296, y: -.0019751105, z: .00718654506}
+      position: {x: -5.40002293e-05, y: -1.97511054e-05, z: 7.18654483e-05}
       rotation: {x: .700352132, y: .349432558, z: -.0644209534, w: .619074762}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Thumb_Mid_Left
-      position: {x: -.00889867544, y: 1.01252339e-15, z: -1.88293815e-15}
+      position: {x: -8.89867515e-05, y: 1.01252333e-17, z: -1.88293803e-17}
       rotation: {x: -.00731758308, y: -.00621158676, z: .0172858443, w: .999804378}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Thumb_Tip_Left
-      position: {x: -.00893560424, y: 1.03028694e-15, z: -1.70530253e-15}
+      position: {x: -8.93560427e-05, y: 1.03028695e-17, z: -1.70530248e-17}
       rotation: {x: .0113929426, y: .00400600163, z: -.0270789657, w: .999560297}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Thumb_TipEnd_Left
-      position: {x: -.0077402168, y: 8.6153304e-16, z: -1.70530253e-15}
+      position: {x: -7.74021682e-05, y: 8.6153301e-18, z: -1.70530248e-17}
       rotation: {x: .00868178438, y: .000177115682, z: -.0203958247, w: .999754131}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Clavicle_Right
-      position: {x: .00830043014, y: .0312276334, z: -.00434390828}
+      position: {x: 8.30042991e-05, y: .00031227633, z: -4.34390822e-05}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpperArm_SCL_Offset_Right
-      position: {x: .0183108691, y: -.00554072764, z: .00286215986}
+      position: {x: .000183108685, y: -5.54072758e-05, z: 2.86215982e-05}
       rotation: {x: -4.25553933e-13, y: .00528832246, z: 1.78485004e-15, w: .999985874}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: UpperArm_Right
-      position: {x: -0, y: -1.34505742e-13, z: -1.91142092e-13}
+      position: {x: -0, y: -1.3450574e-15, z: -1.9114209e-15}
       rotation: {x: 0, y: 2.22871874e-10, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: LowerArm_Right
-      position: {x: .0486801229, y: 0, z: 2.95143167e-07}
+      position: {x: .000486801233, y: 0, z: 2.95143154e-09}
       rotation: {x: 0, y: -.0110913385, z: -0, w: .999938428}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: ArmEnd_Right
-      position: {x: .045605354, y: 3.5527136e-17, z: 4.84993166e-07}
+      position: {x: .000456053531, y: 3.55271359e-19, z: 4.84993157e-09}
       rotation: {x: 0, y: .0116092209, z: -0, w: .999932468}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Hand_Right
-      position: {x: 4.51891447e-06, y: -9.01358476e-07, z: -1.44296791e-07}
+      position: {x: 4.51891431e-08, y: -9.01358455e-09, z: -1.44296786e-09}
       rotation: {x: .989619732, y: .143239975, z: .0114943739, w: .00166313269}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger1_Base_Right
-      position: {x: .0207217745, y: -.000798787631, z: -.00634249905}
+      position: {x: .000207217745, y: -7.98787642e-06, z: -6.34249882e-05}
       rotation: {x: -.00642729737, y: .658519566, z: .0467170738, w: .751084566}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger1_Mid_Right
-      position: {x: .00924520008, y: -1.06581408e-16, z: -1.49880098e-17}
+      position: {x: 9.24519991e-05, y: -1.06581405e-18, z: -1.49880099e-19}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger1_Tip_Right
-      position: {x: .00797909964, y: 3.5527136e-17, z: -1.22124532e-17}
+      position: {x: 7.97909961e-05, y: 3.55271359e-19, z: -1.22124532e-19}
       rotation: {x: 1.04015639e-16, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger1_TipEnd_Right
-      position: {x: .00781410001, y: 7.1054272e-17, z: -1.11022296e-17}
+      position: {x: 7.81409981e-05, y: 7.10542718e-19, z: -1.11022295e-19}
       rotation: {x: 1.82131817e-16, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger2_Base_Right
-      position: {x: .0212746095, y: -.00100442057, z: -.00143826858}
+      position: {x: .00021274609, y: -1.00442057e-05, z: -1.43826855e-05}
       rotation: {x: -.00372194033, y: .308251202, z: .150225505, w: .939361274}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger2_Mid_Right
-      position: {x: .00973999966, y: -1.06581408e-16, z: 2.91433535e-18}
+      position: {x: 9.73999922e-05, y: -1.06581405e-18, z: 2.91433534e-20}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger2_Tip_Right
-      position: {x: .00792410038, y: 3.5527136e-17, z: 3.19189105e-18}
+      position: {x: 7.92409992e-05, y: 3.55271359e-19, z: 3.19189094e-20}
       rotation: {x: 1.04015639e-16, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger2_TipEnd_Right
-      position: {x: .00803409982, y: 3.5527136e-17, z: 3.6082247e-18}
+      position: {x: 8.0340993e-05, y: 3.55271359e-19, z: 3.60822452e-20}
       rotation: {x: 1.82131817e-16, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger3_Base_Right
-      position: {x: .0212190077, y: -.00100546703, z: .00334887439}
+      position: {x: .000212190076, y: -1.00546704e-05, z: 3.34887445e-05}
       rotation: {x: -.00372165209, y: .308251262, z: .150225833, w: .939361155}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger3_Mid_Right
-      position: {x: .00858439971, y: -7.1054272e-17, z: -1.3322676e-17}
+      position: {x: 8.58439962e-05, y: -7.10542718e-19, z: -1.33226756e-19}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger3_Tip_Right
-      position: {x: .00737380004, y: 3.5527136e-17, z: -9.99200679e-18}
+      position: {x: 7.3737996e-05, y: 3.55271359e-19, z: -9.9920064e-20}
       rotation: {x: 1.04015639e-16, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger3_TipEnd_Right
-      position: {x: .00715369964, y: 3.5527136e-17, z: -1.11022296e-17}
+      position: {x: 7.1536997e-05, y: 3.55271359e-19, z: -1.11022295e-19}
       rotation: {x: 1.82131817e-16, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger4_Base_Right
-      position: {x: .0195014514, y: -.000821756083, z: .00824542716}
+      position: {x: .000195014509, y: -8.21756021e-06, z: 8.24542731e-05}
       rotation: {x: -.00372222555, y: .308251083, z: .150225192, w: .939361274}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger4_Mid_Right
-      position: {x: .0083324993, y: 1.77635673e-16, z: 3.77475832e-17}
+      position: {x: 8.33249942e-05, y: 1.77635672e-18, z: 3.77475833e-19}
       rotation: {x: 0, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger4_Tip_Right
-      position: {x: .00608679978, y: 1.06581408e-16, z: 2.6645352e-17}
+      position: {x: 6.08679948e-05, y: 1.06581405e-18, z: 2.66453513e-19}
       rotation: {x: 1.5820839e-16, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Finger4_TipEnd_Right
-      position: {x: .00604999997, y: 1.06581408e-16, z: 1.7763568e-17}
+      position: {x: 6.04999987e-05, y: 1.06581405e-18, z: 1.77635679e-19}
       rotation: {x: 1.82111488e-16, y: -0, z: -0, w: .99999994}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Thumb_Base_Right
-      position: {x: .00527420407, y: .00197925512, z: -.0071899998}
+      position: {x: 5.2742038e-05, y: 1.9792551e-05, z: -7.18999945e-05}
       rotation: {x: -.349457651, y: .700351536, z: -.619060934, w: -.064424105}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Thumb_Mid_Right
-      position: {x: -.00889825821, y: -2.52242664e-15, z: -4.54747341e-15}
+      position: {x: -8.89825824e-05, y: -2.52242656e-17, z: -4.54747339e-17}
       rotation: {x: .00702130049, y: .0154335536, z: -.00598753523, w: .999838293}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Thumb_Tip_Right
-      position: {x: -.00893544592, y: -2.47801776e-15, z: -4.22772906e-15}
+      position: {x: -8.93544566e-05, y: -2.47801772e-17, z: -4.22772904e-17}
       rotation: {x: -.0113831917, y: -.0039928453, z: -.0270583592, w: .999561012}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Thumb_TipEnd_Right
-      position: {x: -.00774040679, y: -2.14939163e-15, z: -4.12114775e-15}
+      position: {x: -7.74040673e-05, y: -2.1493916e-17, z: -4.12114781e-17}
       rotation: {x: -.0002006742, y: .00868920796, z: .999753773, w: .0204146206}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Neck
-      position: {x: 6.97625865e-07, y: .0325020403, z: -.00221096771}
+      position: {x: 6.97625868e-09, y: .000325020403, z: -2.21096761e-05}
       rotation: {x: -.50007844, y: .50007844, z: .499921411, w: -.499921411}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Head
-      position: {x: -.0244895481, y: -1.18359315e-12, z: 6.91192173e-16}
+      position: {x: -.000244895462, y: -1.1835931e-14, z: 6.91192161e-18}
       rotation: {x: 3.95084085e-14, y: -3.79840841e-17, z: .99999994, w: -6.1232336e-17}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Eye_Left
-      position: {x: .00705971383, y: -.0133909481, z: .00595702231}
+      position: {x: 7.05971397e-05, y: -.000133909474, z: 5.95702222e-05}
       rotation: {x: .711232722, y: .702956557, z: .000110162786, w: -.000111501991}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: EyeEnd_Left
-      position: {x: -.0116005167, y: 5.96678252e-13, z: 3.53068115e-17}
+      position: {x: -.000116005162, y: 5.96678257e-15, z: 3.53068112e-19}
       rotation: {x: -0, y: -.707106709, z: 0, w: .707106709}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Eye_Right
-      position: {x: .00705963466, y: -.0133871874, z: -.00596357323}
+      position: {x: 7.05963466e-05, y: -.000133871872, z: -5.96357313e-05}
       rotation: {x: .711232364, y: .702956855, z: .000110162728, w: -.000111502035}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: EyeEnd_Right
-      position: {x: -.0116005167, y: 5.96642744e-13, z: 3.75272554e-17}
+      position: {x: -.000116005162, y: 5.96642724e-15, z: 3.75272534e-19}
       rotation: {x: -0, y: -.707106709, z: 0, w: .707106709}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: HeadEnd
-      position: {x: .0234817956, y: -7.40920177e-06, z: -1.58013037e-07}
+      position: {x: .000234817955, y: -7.40920143e-08, z: -1.58013036e-09}
       rotation: {x: .497406423, y: .502580047, z: -.497406423, w: .502580047}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Jaw
-      position: {x: -.00755788945, y: -.00480401842, z: -7.67997335e-07}
+      position: {x: -7.55788933e-05, y: -4.80401832e-05, z: -7.6799731e-09}
       rotation: {x: .860293031, y: .509799838, z: -6.78860843e-08, w: -1.14553686e-07}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: JawEnd
-      position: {x: -.0134749822, y: 6.621903e-13, z: 3.2688075e-15}
+      position: {x: -.000134749818, y: 6.62190283e-15, z: 3.26880735e-17}
       rotation: {x: -.175249457, y: -.68504566, z: -.175249457, w: .68504566}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Lower_Teeth_Bone
-      position: {x: -.00662861438, y: -.00121999998, z: 1.68623251e-06}
+      position: {x: -6.62861421e-05, y: -1.21999992e-05, z: 1.68623249e-08}
       rotation: {x: 3.89299967e-05, y: .00015217904, z: -.247836068, w: .968801916}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Lower_Teeth_Bone_End
-      position: {x: -.00849776156, y: 3.5527136e-17, z: 1.88064786e-18}
+      position: {x: -8.49776116e-05, y: 3.55271359e-19, z: 1.88064779e-20}
       rotation: {x: -0, y: -.707106709, z: 0, w: .707106709}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Tongue_Base
-      position: {x: -.00297967833, y: -.00282336352, z: 4.38764715e-07}
+      position: {x: -2.97967836e-05, y: -2.8233635e-05, z: 4.38764713e-09}
       rotation: {x: 2.75036709e-05, y: .000154653011, z: -.319205463, w: .94768548}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Tongue_Mid
-      position: {x: -.00498900935, y: -2.55795374e-15, z: 4.23715369e-18}
+      position: {x: -4.98900918e-05, y: -2.55795364e-17, z: 4.23715352e-20}
       rotation: {x: 3.18952512e-25, y: 1.12131108e-16, z: .0990147442, w: .995085895}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Tongue_Tip
-      position: {x: -.00277180714, y: -1.38555828e-15, z: 1.21912029e-17}
+      position: {x: -2.77180716e-05, y: -1.38555821e-17, z: 1.21912024e-19}
       rotation: {x: -1.11604035e-25, y: 1.09909659e-16, z: .0620082431, w: .998075604}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Tongue_End
-      position: {x: -.00428553624, y: -3.5527136e-17, z: 9.4023087e-19}
+      position: {x: -4.28553612e-05, y: -3.55271359e-19, z: 9.40230838e-21}
       rotation: {x: -.0612859763, y: -.704445899, z: -.0612859763, w: .704445899}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Upper_Teeth_Bone
-      position: {x: -.00742169283, y: -.0100299995, z: -2.45422984e-06}
+      position: {x: -7.42169286e-05, y: -.000100299992, z: -2.45422971e-08}
       rotation: {x: .707106769, y: .707106769, z: .00011107207, w: -.00011107207}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Upper_Teeth_Bone_End
-      position: {x: -.00849776156, y: 0, z: 1.88633989e-18}
+      position: {x: -8.49776116e-05, y: 0, z: 1.88633983e-20}
       rotation: {x: -0, y: -.707106709, z: 0, w: .707106709}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
