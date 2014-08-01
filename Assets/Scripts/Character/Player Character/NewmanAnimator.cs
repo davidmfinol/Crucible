@@ -22,7 +22,7 @@ public class NewmanAnimator : CharacterAnimator
     public static readonly int FallingState = Animator.StringToHash("Air.Falling");
     public static readonly int BackflipState = Animator.StringToHash("Air.Backflip");
     public static readonly int LandingState = Animator.StringToHash("Landing.Landing");
-    public static readonly int FallRollState = Animator.StringToHash("Landing.Rolling");
+    public static readonly int LandRollState = Animator.StringToHash("Landing.Rolling");
     public static readonly int WallgrabbingState = Animator.StringToHash("Wall.Wallgrabbing");
     public static readonly int WalljumpingState = Animator.StringToHash("Wall.Walljumping");
     public static readonly int HangingState = Animator.StringToHash("Climbing.Hanging");
@@ -87,7 +87,7 @@ public class NewmanAnimator : CharacterAnimator
         StateMachine [FallingState] = Falling;
         StateMachine [LandingState] = Running;
         StateMachine [BackflipState] = Backflip;
-        StateMachine [FallRollState] = FallRolling;
+        StateMachine [LandRollState] = FallRolling;
         StateMachine [WallgrabbingState] = Wallgrabbing;
         StateMachine [WalljumpingState] = Walljumping;
         StateMachine [HangingState] = Hanging;
@@ -996,7 +996,7 @@ public class NewmanAnimator : CharacterAnimator
         
     }
 
-    public void PlayRolling()
+    public void PlayLandRoll()
     {
         if (IsSneaking)
             return;
@@ -1008,7 +1008,7 @@ public class NewmanAnimator : CharacterAnimator
         footstep.transform.position = footStepPosition;
         footstep.AddComponent<SoundEvent>();
         AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Rolling, _sound.RollingVolume);
+        footAudio.GetComponent<AudioPlayer> ().Play (_sound.LandRoll, _sound.LandRollingVolume);
 
     }
 

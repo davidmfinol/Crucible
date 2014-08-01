@@ -28,8 +28,8 @@ public class NewmanAudioPlayer : AudioPlayer
     public AudioClip Landing;
     public float LandingVolume = 1.0f;
     
-    public AudioClip Rolling;
-    public float RollingVolume = 1.0f;
+    public AudioClip LandRoll;
+    public float LandRollingVolume = 1.0f;
 
     public AudioClip Hit;
     public float HitVolume = 1.0f;
