@@ -13,8 +13,8 @@ public class OlympusAnimator : CharacterAnimator
     public GameObject MeleeEvent;
 
     // Olympus has screens in front that we need to fade in/out based off idle state
-    public Animation ScreenAnimator;
-    public Fader[] Screens;
+    public Animation IdleScreenAnimation;
+    public Fader[] IdleScreens;
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
@@ -123,7 +123,7 @@ public class OlympusAnimator : CharacterAnimator
         // Olympus needs to turn off the screens when moving
         // TODO: THINK OF A MORE EFFICIENT WAY INSTEAD OF DOING THIS EVERY FRAME
         if(CharInput.Left || CharInput.Right) {
-            foreach(Fader screen in Screens) 
+            foreach(Fader screen in IdleScreens) 
                 screen.FadeOut();
         }
 
@@ -136,8 +136,8 @@ public class OlympusAnimator : CharacterAnimator
         
         // Turn on the screens when he begines to idle
         if(TimeInCurrentState == 0) {
-            ScreenAnimator.Play("Take 001");
-            foreach (Fader screen in Screens)
+            IdleScreenAnimation.Play("Take 001");
+            foreach (Fader screen in IdleScreens)
                 screen.FadeIn();
         }
         
@@ -495,8 +495,8 @@ public class OlympusAnimator : CharacterAnimator
     public override void DoRagDoll(Vector3 push)
     {
         // Olympus needs to get rid of his screens when he dies.
-        Screens = new Fader[0];
-        Destroy(ScreenAnimator.gameObject);
+        IdleScreens = new Fader[0];
+        Destroy(IdleScreenAnimation.gameObject);
 
         base.DoRagDoll(push);
 

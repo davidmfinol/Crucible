@@ -922,7 +922,7 @@ ModelImporter:
     4300100: Arm_Left_PV_CTRL
     4300102: Hand_Left_IK_CTRL
     4300104: Proxy_Head_Base
-    7400000: Take 001
+    7400000: Damage
     9500000: //RootNode
     13700000: Proxy_Chest
     13700002: Proxy_Head_Default
@@ -980,7 +980,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Damage
       takeName: Take 001
       firstFrame: 1
       lastFrame: 47

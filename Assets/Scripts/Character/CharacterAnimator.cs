@@ -303,13 +303,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 
             // Calculate push direction from move direction
             Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
-            /*
-            Vector3 force;
-            if (hit.moveDirection.y < -0.3)
-                force = new Vector3(0, -0.5f, 0) * Gravity * 10;
-            else
-                force = hit.controller.velocity * 10;
-             * */
 
             // Pushing! Yeah!
             body.velocity = pushDir * 2 * HorizontalSpeed;
@@ -783,11 +776,11 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public bool CanClimbLadder {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Ladder; } //&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
+        get { return ActiveHangTarget != null && ActiveHangTarget is Ladder; }
     }
 
     public bool CanClimbRope {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Rope; } //&& ActiveHangTarget.transform.position.z == DesiredZ; }
+        get { return ActiveHangTarget != null && ActiveHangTarget is Rope; }
     }
 
     public bool CanHangOffObjectHorizontally {

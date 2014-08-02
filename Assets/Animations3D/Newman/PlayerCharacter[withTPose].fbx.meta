@@ -138,39 +138,13 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Default Take
-      takeName: Default Take
-      firstFrame: 0
-      lastFrame: 59
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
       name: AttackingFirst
       takeName: AttackingFirst
       firstFrame: 0
       lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -179,9 +153,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -217,7 +191,7 @@ ModelImporter:
       lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -226,9 +200,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -264,7 +238,7 @@ ModelImporter:
       lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -273,9 +247,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -320,7 +294,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -346,7 +320,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -363,7 +337,7 @@ ModelImporter:
       lastFrame: 36
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -372,9 +346,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -398,7 +372,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -424,7 +398,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -450,7 +424,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -476,7 +450,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 1
@@ -502,7 +476,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -528,7 +502,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -545,7 +519,7 @@ ModelImporter:
       lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -554,9 +528,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -571,7 +545,7 @@ ModelImporter:
       lastFrame: 99
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -580,9 +554,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -606,7 +580,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -632,7 +606,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -717,7 +691,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -750,7 +724,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
@@ -774,7 +748,7 @@ ModelImporter:
       lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
-      level: .75999999
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -888,7 +862,7 @@ ModelImporter:
       lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -897,9 +871,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -942,7 +916,7 @@ ModelImporter:
       lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
-      level: .75999999
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -1042,7 +1016,7 @@ ModelImporter:
       lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -1051,9 +1025,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -1143,120 +1117,13 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: DetonateMine
-      takeName: AttackingSecond
-      firstFrame: 0
-      lastFrame: 15
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: .923023224
-        functionName: DetonateMine
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armguard
-        weight: 0
-      - path: Char
-        weight: 0
-      - path: metarig
-        weight: 1
-      - path: metarig/foot_IK_L
-        weight: 0
-      - path: metarig/foot_IK_L/knee_L
-        weight: 0
-      - path: metarig/foot_IK_R
-        weight: 0
-      - path: metarig/foot_IK_R/knee_R
-        weight: 0
-      - path: metarig/hip
-        weight: 1
-      - path: metarig/hip/spine
-        weight: 1
-      - path: metarig/hip/spine/chest
-        weight: 1
-      - path: metarig/hip/spine/chest/neck
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
-        weight: 1
-      - path: metarig/hip/thigh_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L/foot_L
-        weight: 1
-      - path: metarig/hip/thigh_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R/foot_R
-        weight: 1
-      - path: Plane_001
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
       name: Dead
       takeName: Death
       firstFrame: 35
       lastFrame: 35.0999985
       wrapMode: 0
       orientationOffsetY: 0
-      level: -.100000001
+      level: .819999993
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -1265,9 +1132,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -1362,10 +1229,10 @@ ModelImporter:
       loopTime: 1
       loopBlend: 1
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 1
@@ -1465,528 +1332,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armguard
-        weight: 0
-      - path: Char
-        weight: 0
-      - path: metarig
-        weight: 1
-      - path: metarig/foot_IK_L
-        weight: 0
-      - path: metarig/foot_IK_L/knee_L
-        weight: 0
-      - path: metarig/foot_IK_R
-        weight: 0
-      - path: metarig/foot_IK_R/knee_R
-        weight: 0
-      - path: metarig/hip
-        weight: 1
-      - path: metarig/hip/spine
-        weight: 1
-      - path: metarig/hip/spine/chest
-        weight: 1
-      - path: metarig/hip/spine/chest/neck
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
-        weight: 1
-      - path: metarig/hip/thigh_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L/foot_L
-        weight: 1
-      - path: metarig/hip/thigh_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R/foot_R
-        weight: 1
-      - path: Plane_001
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: LandingFixed
-      takeName: Landing
-      firstFrame: 0
-      lastFrame: 34
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: .75
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 0
       keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 1
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: .12105263
-        functionName: PlayLand
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armguard
-        weight: 0
-      - path: Char
-        weight: 0
-      - path: metarig
-        weight: 1
-      - path: metarig/foot_IK_L
-        weight: 0
-      - path: metarig/foot_IK_L/knee_L
-        weight: 0
-      - path: metarig/foot_IK_R
-        weight: 0
-      - path: metarig/foot_IK_R/knee_R
-        weight: 0
-      - path: metarig/hip
-        weight: 1
-      - path: metarig/hip/spine
-        weight: 1
-      - path: metarig/hip/spine/chest
-        weight: 1
-      - path: metarig/hip/spine/chest/neck
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
-        weight: 1
-      - path: metarig/hip/thigh_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L/foot_L
-        weight: 1
-      - path: metarig/hip/thigh_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R/foot_R
-        weight: 1
-      - path: Plane_001
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: JumpLandingFixed
-      takeName: JumpLanding
-      firstFrame: 0
-      lastFrame: 26
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: .75
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 1
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: .407894731
-        functionName: PlayLand
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armguard
-        weight: 0
-      - path: Char
-        weight: 0
-      - path: metarig
-        weight: 1
-      - path: metarig/foot_IK_L
-        weight: 0
-      - path: metarig/foot_IK_L/knee_L
-        weight: 0
-      - path: metarig/foot_IK_R
-        weight: 0
-      - path: metarig/foot_IK_R/knee_R
-        weight: 0
-      - path: metarig/hip
-        weight: 1
-      - path: metarig/hip/spine
-        weight: 1
-      - path: metarig/hip/spine/chest
-        weight: 1
-      - path: metarig/hip/spine/chest/neck
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
-        weight: 1
-      - path: metarig/hip/thigh_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L/foot_L
-        weight: 1
-      - path: metarig/hip/thigh_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R/foot_R
-        weight: 1
-      - path: Plane_001
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: TakeHit
-      takeName: Hanging
-      firstFrame: 0
-      lastFrame: 18
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 0
-        functionName: PlayHit
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armguard
-        weight: 0
-      - path: Char
-        weight: 0
-      - path: metarig
-        weight: 1
-      - path: metarig/foot_IK_L
-        weight: 0
-      - path: metarig/foot_IK_L/knee_L
-        weight: 0
-      - path: metarig/foot_IK_R
-        weight: 0
-      - path: metarig/foot_IK_R/knee_R
-        weight: 0
-      - path: metarig/hip
-        weight: 1
-      - path: metarig/hip/spine
-        weight: 1
-      - path: metarig/hip/spine/chest
-        weight: 1
-      - path: metarig/hip/spine/chest/neck
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
-        weight: 1
-      - path: metarig/hip/thigh_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L/foot_L
-        weight: 1
-      - path: metarig/hip/thigh_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R/foot_R
-        weight: 1
-      - path: Plane_001
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: ClimbingRight
-      takeName: Default Take
-      firstFrame: 0
-      lastFrame: 59
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Armguard
-        weight: 0
-      - path: Char
-        weight: 0
-      - path: metarig
-        weight: 1
-      - path: metarig/foot_IK_L
-        weight: 0
-      - path: metarig/foot_IK_L/knee_L
-        weight: 0
-      - path: metarig/foot_IK_R
-        weight: 0
-      - path: metarig/foot_IK_R/knee_R
-        weight: 0
-      - path: metarig/hip
-        weight: 1
-      - path: metarig/hip/spine
-        weight: 1
-      - path: metarig/hip/spine/chest
-        weight: 1
-      - path: metarig/hip/spine/chest/neck
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_index_01_L/f_index_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/f_pinky_01_L/f_pinky_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_L/forearm_L/hand_L/thumb_02_L/thumb_03_L
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_index_01_R/f_index_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/f_pinky_01_R/f_pinky_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R
-        weight: 1
-      - path: metarig/hip/spine/chest/upper_arm_R/forearm_R/hand_R/thumb_02_R/thumb_03_R
-        weight: 1
-      - path: metarig/hip/thigh_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L
-        weight: 1
-      - path: metarig/hip/thigh_L/shin_L/foot_L
-        weight: 1
-      - path: metarig/hip/thigh_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R
-        weight: 1
-      - path: metarig/hip/thigh_R/shin_R/foot_R
-        weight: 1
-      - path: Plane_001
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: ClimbingRight
-      takeName: Default Take
-      firstFrame: 0
-      lastFrame: 59
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0

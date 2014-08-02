@@ -67,7 +67,7 @@ public class NewmanShader : MonoBehaviour
         
     }
     
-    public void Update()
+    void Update()
     {
         // shader transitions
         if (GameManager.AI.EnemiesChasing > 0) {
