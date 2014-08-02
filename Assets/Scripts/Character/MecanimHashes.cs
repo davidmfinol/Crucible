@@ -33,7 +33,7 @@ public class MecanimHashes
     public static readonly int Pickup = Animator.StringToHash("Pickup");
     public static readonly int SteppingDown = Animator.StringToHash ("SteppingDown");
     public static readonly int StandingUp = Animator.StringToHash ("StandingUp");
-    public static readonly int FallRoll = Animator.StringToHash ("FallRoll");
+    public static readonly int LandRoll = Animator.StringToHash ("LandRoll");
 
     // Used only by Olympus
     public static readonly int AttackHorizontal = Animator.StringToHash ("AttackHorizontal");

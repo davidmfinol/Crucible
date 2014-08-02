@@ -56,18 +56,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     private List<Zone> _zones = new List<Zone> (); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 
-    /*
-    // Auto-climb code for ladders and pipes
-    protected enum AutoClimbDirection : int
-    {
-        AutoClimb_None = 0,
-        AutoClimb_Up,
-        AutoClimb_Down
-    };
-    
-    protected AutoClimbDirection _autoClimbDir;
-    */
-
     void Start ()
     {
         _characterController = GetComponent<CharacterController> ();
@@ -445,6 +433,16 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
     
+    public virtual void StepDown ()
+    {
+        // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
+    }
+    
+    public virtual void StandUp ()
+    {
+        // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
+    }
+    
     // Helper methods for motion
     protected virtual void ApplyRunning (float elapsedTime)
     {
@@ -452,21 +450,65 @@ public abstract class CharacterAnimator : MonoBehaviour
         HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, IgnoreXYMovement ? 0 : Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
 
     }
+    
+    protected virtual void ApplyBiDirection ()
+    {
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+        else if (CharInput.Right && !CharInput.Left)
+            Direction = Vector3.right;
+        
+    }
+    
+    protected virtual void ApplyTriDirection ()
+    {
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+        else if (CharInput.Right && !CharInput.Left)
+            Direction = Vector3.right;
+        else if (CharInput.Up)
+            Direction = Vector3.zero;
+        
+    }
+    
+    protected virtual void ApplyClimbingVertical (float vertical)
+    {
+        if (vertical > 0.0f) 
+            VerticalSpeed = Settings.LadderClimbingSpeed;
+        else if (vertical < 0.0f)
+            VerticalSpeed = -Settings.LadderClimbingSpeed;
+        else
+            VerticalSpeed = 0.0f;
+        
+    }
+    
+    protected virtual void ApplyClimbingStrafing (float horizontal)
+    {
+        // Determine the horizontal bounds of the object(s) we are climbing
+        bool insideLeft = false;
+        bool insideRight = false;
+        foreach (HangableObject obj in HangQueue) {
+            insideLeft = insideLeft || transform.position.x - Controller.collider.bounds.extents.x >
+                obj.transform.position.x - obj.collider.bounds.extents.x;
+            insideRight = insideRight || transform.position.x + Controller.collider.bounds.extents.x <
+                obj.transform.position.x + obj.collider.bounds.extents.x;
+        }
+        
+        // Determine horizontal movement
+        if (horizontal < 0.0f)
+            HorizontalSpeed = -Settings.LadderStrafingSpeed;
+        else if (horizontal > 0.0f)
+            HorizontalSpeed = Settings.LadderStrafingSpeed;
+        else
+            HorizontalSpeed = 0.0f;
+        
+    }
 
     protected virtual void ApplyGravity (float elapsedTime)
     {
         VerticalSpeed -= Settings.Gravity * elapsedTime;
         VerticalSpeed = Mathf.Max (-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
 
-    }
-
-    public virtual void StepDown ()
-    {
-        // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
-    }
-
-    public virtual void StandUp ()
-    {
     }
 
     protected void ApplyDeathFriction (float elapsedTime)
@@ -484,83 +526,6 @@ public abstract class CharacterAnimator : MonoBehaviour
                 HorizontalSpeed = 0.0f;
             
         }
-
-    }
-    
-    protected virtual void ApplyBiDirection ()
-    {
-        if (CharInput.Left && !CharInput.Right)
-            Direction = Vector3.left;
-        else if (CharInput.Right && !CharInput.Left)
-            Direction = Vector3.right;
-
-    }
-
-    protected virtual void ApplyTriDirection ()
-    {
-        if (CharInput.Left && !CharInput.Right)
-            Direction = Vector3.left;
-        else if (CharInput.Right && !CharInput.Left)
-            Direction = Vector3.right;
-        else if (CharInput.Up)
-            Direction = Vector3.zero;
-
-    }
-
-    protected virtual void ApplyClimbingVertical (float vertical)
-    {
-        if (vertical > 0.0f) 
-            VerticalSpeed = Settings.LadderClimbingSpeed;
-        else if (vertical < 0.0f)
-            VerticalSpeed = -Settings.LadderClimbingSpeed;
-        else
-            VerticalSpeed = 0.0f;
-
-    }
-
-    /*
-    protected float UpdateAutoClimbDirection()
-    {
-        // start or stop auto-climbing
-        if (CharInput.Up && _autoClimbDir == AutoClimbDirection.AutoClimb_None)
-            _autoClimbDir = AutoClimbDirection.AutoClimb_Up;
-        else if (CharInput.Down && _autoClimbDir == AutoClimbDirection.AutoClimb_None)
-            _autoClimbDir = AutoClimbDirection.AutoClimb_Down;
-        //else if ((CharInput.Down && _autoClimbDir = AutoClimbDirection.AutoClimb_Up) || (CharInput.Up && _autoClimbDir = AutoClimbDirection.AutoClimb_Down))
-        //  _autoClimbDir = AutoClimbDirection.AutoClimb_None;
-        
-        // always give a speed based on the auto-climb direction
-        float vertical;
-        if(_autoClimbDir == AutoClimbDirection.AutoClimb_Up)
-            vertical = 1.0f;
-        else if(_autoClimbDir == AutoClimbDirection.AutoClimb_Down)
-            vertical = -1.0f;
-        else
-            vertical = 0.0f;
-        
-        return vertical;
-    }
-    */
-
-    protected virtual void ApplyClimbingStrafing (float horizontal)
-    {
-        // Determine the horizontal bounds of the object(s) we are climbing
-        bool insideLeft = false;
-        bool insideRight = false;
-        foreach (HangableObject obj in HangQueue) {
-            insideLeft = insideLeft || transform.position.x - Controller.collider.bounds.extents.x >
-                obj.transform.position.x - obj.collider.bounds.extents.x;
-            insideRight = insideRight || transform.position.x + Controller.collider.bounds.extents.x <
-                obj.transform.position.x + obj.collider.bounds.extents.x;
-        }
-
-        // Determine horizontal movement
-        if (horizontal < 0.0f)
-            HorizontalSpeed = -Settings.LadderStrafingSpeed;
-        else if (horizontal > 0.0f)
-            HorizontalSpeed = Settings.LadderStrafingSpeed;
-        else
-            HorizontalSpeed = 0.0f;
 
     }
 
