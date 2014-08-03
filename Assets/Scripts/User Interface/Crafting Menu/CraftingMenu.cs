@@ -410,7 +410,7 @@ public class CraftingMenu : MonoBehaviour
 		_sound.Play(_sound.CraftingZipper,1.0f);
         if (_craftResult.IsWeapon) {
             // crafting a MINE????
-            if (_craftResult.WeaponType == Weapon.WeaponType.Weapon_HandMINE) {
+            if (_craftResult.WeaponType == Weapon.WeaponType.Weapon_MINE) {
                 Weapon w = MINEPrefab.GetComponent<Weapon> ();
                 
                 // try add to an existing weapon

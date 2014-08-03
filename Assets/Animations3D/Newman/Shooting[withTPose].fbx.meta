@@ -161,7 +161,7 @@ ModelImporter:
       curves: []
       events:
       - time: .55861479
-        functionName: ShootGun
+        functionName: ActivateWeapon
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

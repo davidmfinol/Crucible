@@ -20,13 +20,13 @@ public class GravityGun : Weapon
         hitbox.transform.position = hitbox.transform.position + offset;
 
     }
-
-    public override Vector3 Rotation {
-        get { return new Vector3 (0, 270, 90); }
-    }
     
     public override Vector3 Translation {
         get { return new Vector3 (0.38f, 0.25f, -0.05f); }
+    }
+
+    public override Vector3 Rotation {
+        get { return new Vector3 (0, 270, 90); }
     }
     
     public override WeaponType Type {

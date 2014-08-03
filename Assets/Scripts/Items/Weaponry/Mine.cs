@@ -21,10 +21,7 @@ public class Mine : Weapon
 
     public override void ActivateAttack (float attackID)
     {
-        if (attackID == 0)
-            PlaceMine ();
-        else 
-            PlaceMine ();
+        PlaceMine ();
 
     }
     
@@ -95,16 +92,16 @@ public class Mine : Weapon
 
     }
     
-    public override Vector3 Rotation {
-        get { return Vector3.zero; }
-    }
-    
     public override Vector3 Translation {
         get { return new Vector3 (-0.21f, 0, 0.7f); }
     }
     
+    public override Vector3 Rotation {
+        get { return Vector3.zero; }
+    }
+    
     public override WeaponType Type {
-        get { return WeaponType.Weapon_HandMINE; }
+        get { return WeaponType.Weapon_MINE; }
     }
 
     public override string Title {
@@ -112,13 +109,13 @@ public class Mine : Weapon
     }
     
     public override string Description {
-        get { return "An explosive weapon that can be placed by swiping and detonated by tapping."; }
+        get { return "The Massive Interconnected Network of Explosives is the go-to offensive weapon against the Cogs.  It was developed after the turn of the Cogs, ingeniously devised using the tools of the KamiTech product, Eltroid Kit, plus the potentially explosive effects of the Crav-Ctrl.  The downside is that the noise typically spells the end of the survivor, as more Cogs come to inspect the cause of the explosion."; }
     }
     
     public override Texture2D Texture {
         get {
             if (_texture == null)
-                _texture = Resources.Load <Texture2D> ("Textures/User Interface/Item Icons/MINEIcon");
+                _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/MINEIcon");
             return _texture;
         }
     }

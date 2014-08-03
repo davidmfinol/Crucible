@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -150,7 +150,7 @@ public static class InventoryItemFactory
         } else if ((sResult != "") && (!sResult.Contains("GP")) && (!sResult.Contains("HD")) && (!sResult.Contains("IS"))) {
             CraftResult res = new CraftResult();
             res.IsWeapon = true;
-            res.WeaponType = Weapon.WeaponType.Weapon_HandMINE;
+            res.WeaponType = Weapon.WeaponType.Weapon_MINE;
             res.WeaponQty = 3;
             res.WeaponName = "M.I.N.E.";
             res.WeaponDescr = "Massive Interconnected Network of Explosives.";

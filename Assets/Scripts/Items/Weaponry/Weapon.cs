@@ -14,7 +14,7 @@ public abstract class Weapon : MonoBehaviour
         Weapon_GravityGun = 2,
         Weapon_Camo = 3,
         Weapon_VETO = 4,
-        Weapon_HandMINE = 5,
+        Weapon_MINE = 5,
 		Weapon_ASharp = 6,
         Weapon_MSweep = 7
         
@@ -40,14 +40,13 @@ public abstract class Weapon : MonoBehaviour
         
     }
 
+    // How the weapon should be translated to be in hand
+    public virtual Vector3 Translation {
+        get { return Vector3.zero; }
+    }
 
     // How the weapon should be rotated while in hand
     public virtual Vector3 Rotation {
-        get { return Vector3.zero; }
-    }
-    
-    // How the weapon should be translated to be in hand
-    public virtual Vector3 Translation {
         get { return Vector3.zero; }
     }
 

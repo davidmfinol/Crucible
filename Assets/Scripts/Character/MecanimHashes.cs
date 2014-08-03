@@ -29,6 +29,7 @@ public class MecanimHashes
     public static readonly int Pickup = Animator.StringToHash("Pickup");
     public static readonly int StealthKill = Animator.StringToHash ("StealthKill");
     public static readonly int ShootGun = Animator.StringToHash("ShootGun");
+    public static readonly int ActivateCamo = Animator.StringToHash("ActivateCamo");
     public static readonly int PlaceMine = Animator.StringToHash("PlaceMine");
     public static readonly int Damaged = Animator.StringToHash("Damaged");
     public static readonly int Respawn = Animator.StringToHash("Respawn");

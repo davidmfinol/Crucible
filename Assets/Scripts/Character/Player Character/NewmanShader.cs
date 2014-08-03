@@ -11,7 +11,8 @@ public class NewmanShader : MonoBehaviour
     {
         Shader_Default = 0,
         Shader_Sneak,
-        Shader_Shadow
+        Shader_Shadow,
+        Shader_Camo
     }
     ;
 
@@ -110,6 +111,10 @@ public class NewmanShader : MonoBehaviour
         } else if (_currShader == ShaderType.Shader_Shadow) {
             newColor = Color.Lerp(srcColor, new Color(1.0f, 1.0f, 1.0f, 0.0f), rate);
             newOutlineColor = Color.Lerp(srcOutlineColor, new Color(1.0f, 1.0f, 1.0f, 0.3f), rate);
+            
+        } else if (_currShader == ShaderType.Shader_Camo) {
+            newColor = Color.Lerp(srcColor, Color.clear, rate);
+            newOutlineColor = Color.Lerp(srcOutlineColor, Color.white, rate);
 
             // default shader if none else.
         } else {

@@ -101,12 +101,12 @@ public class NewmanAnimator : CharacterAnimator
             _wallJumpCount = 0;
         }
 
-        UpdateMovementAnimations();
+        UpdateBaseAnimations();
         UpdateWeaponsAnimations();
 
     }
     
-    protected void UpdateMovementAnimations()
+    protected void UpdateBaseAnimations()
     {
         // HACK: JUMPDIRECTIONAL
         if (!MecanimAnimator.GetBool(MecanimHashes.Jump) && IsGrounded && CharInput.JumpPressed) {
@@ -138,6 +138,7 @@ public class NewmanAnimator : CharacterAnimator
 
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
+        // The stealthkill state is a special weapon/base-layer combat state
         if (CurrentState.nameHash != StealthKillState && currentWeapon.CanStealthKill && 
             CharInput.AttackPressed && StealthKillable != null) {
             MecanimAnimator.SetBool(MecanimHashes.StealthKill, true);
@@ -145,11 +146,26 @@ public class NewmanAnimator : CharacterAnimator
 
         }
 
-        // TODO: DON'T USE CURRRENTWEAPON IS TYPE, INSTEAD USE THINGS LIKE CURRENTWEAPON.ISGUN OR CURRENTWEAPON.ISMINE
+        // Enable weapon usage when not in the stealthkill state
         if (CurrentState.nameHash != StealthKillState) {
-            MecanimAnimator.SetBool(MecanimHashes.ShootGun, CharInput.AttackActive && currentWeapon is GravityGun); 
-            MecanimAnimator.SetBool(MecanimHashes.PlaceMine, (CharInput.AttackRightPressed || CharInput.AttackLeftPressed) && currentWeapon is Mine);
+            MecanimAnimator.SetBool(MecanimHashes.ShootGun, CharInput.AttackPressed && currentWeapon.Type == Weapon.WeaponType.Weapon_GravityGun); 
+            MecanimAnimator.SetBool(MecanimHashes.ActivateCamo, CharInput.AttackPressed && currentWeapon.Type == Weapon.WeaponType.Weapon_Camo);
+            MecanimAnimator.SetBool(MecanimHashes.PlaceMine, CharInput.AttackPressed && currentWeapon.Type == Weapon.WeaponType.Weapon_MINE);
         }
+
+    }
+
+    public void ActivateWeapon()
+    {
+        Weapon weapon = GameManager.Inventory.CurrentWeapon;
+        if (weapon == null) {
+            Debug.LogWarning("ActivateWeapon() called with no weapon found");
+            return;
+        }
+
+        weapon.ActivateAttack();
+        GameManager.Inventory.TryRemoveAmmo(weapon.Type, 1);
+        GameManager.UI.RefreshWeaponWheel();
 
     }
 
@@ -751,50 +767,6 @@ public class NewmanAnimator : CharacterAnimator
         
     }
     
-    void PlaceMine()
-    {
-        if (GameManager.Inventory.CurrentWeapon == null) {
-            Debug.LogWarning("PlaceMine() called with no weapon found");
-            return;
-        }
-        
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-        // run out of mines? remove.
-        if (weapon != null && weapon is Mine) {
-            if (weapon.Quantity > 0) {
-                weapon.ActivateAttack(0);
-                weapon.Quantity -= 1;
-                GameManager.UI.RefreshWeaponWheel();
-                
-            }
-            
-        } else {
-            Debug.LogWarning("PlaceMine() called with: " + weapon);
-            
-        }
-        
-        
-    }
-    
-    void ShootGun()
-    {
-        if (GameManager.Inventory.CurrentWeapon == null) {
-            Debug.LogWarning("ShootGun() called with no weapon found");
-            return;
-        }
-        
-        Weapon weapon = GameManager.Inventory.CurrentWeapon;
-        if (weapon != null && weapon is GravityGun) {
-            weapon.ActivateAttack();
-            GameManager.Inventory.TryRemoveAmmo(Weapon.WeaponType.Weapon_GravityGun, 1);
-            GameManager.UI.RefreshWeaponWheel();
-            
-        } else {
-            Debug.LogWarning("ShootGun() called with: " + weapon);
-        }
-        
-    }
-
     // StealthKillState = Animator.StringToHash("Combat.Stealth Kill");
     protected void StealthKill(float elapsedTime)
     {
