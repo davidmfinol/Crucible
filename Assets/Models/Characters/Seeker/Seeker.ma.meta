@@ -1,0 +1,417 @@
+fileFormatVersion: 2
+guid: 22d07ab4ae66e4226b56687c77e3012f
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: ambientLight1
+    100002: CenterJoint
+    100004: FirstLeg
+    100006: FirstLeg 1
+    100008: FirstLeg 2
+    100010: FirstLeg 3
+    100012: FirstLeg 4
+    100014: FirstLeg 5
+    100016: GCtrl
+    100018: group4
+    100020: group5
+    100022: group6
+    100024: group7
+    100026: group8
+    100028: group9
+    100030: ikHandle1
+    100032: ikHandle2
+    100034: ikHandle3
+    100036: ikHandle4
+    100038: ikHandle5
+    100040: ikHandle6
+    100042: joint1
+    100044: joint2
+    100046: joint2 1
+    100048: joint2 2
+    100050: joint2 3
+    100052: joint2 4
+    100054: joint2 5
+    100056: joint3
+    100058: joint3 1
+    100060: joint3 2
+    100062: joint3 3
+    100064: joint3 4
+    100066: joint3 5
+    100068: joint4
+    100070: joint4 1
+    100072: joint4 2
+    100074: joint4 3
+    100076: joint4 4
+    100078: joint4 5
+    100080: joint5
+    100082: joint6
+    100084: joint7
+    100086: joint8
+    100088: joint9
+    100090: Leg1
+    100092: Leg1 1
+    100094: Leg2
+    100096: Leg2 1
+    100098: Leg3
+    100100: Leg3 1
+    100102: Leg4
+    100104: Leg5
+    100106: Leg6
+    100108: Leg7
+    100110: Leg8
+    100112: Leg9
+    100114: pCube10
+    100116: pCube6
+    100118: pCube7
+    100120: pCube8
+    100122: pCube9
+    100124: pCylinder1
+    100126: pCylinder2
+    100128: pointLight1
+    100130: pointLight2
+    100132: pointLight3
+    100134: polySurface1
+    100136: polySurface10
+    100138: polySurface11
+    100140: polySurface12
+    100142: polySurface13
+    100144: polySurface14
+    100146: polySurface15
+    100148: polySurface3
+    100150: polySurface4
+    100152: polySurface5
+    100154: polySurface6
+    100156: polySurface7
+    100158: polySurface8
+    100160: polySurface9
+    100162: SecondLeg
+    100164: SecondLeg 1
+    100166: SecondLeg 2
+    100168: SecondLeg 3
+    100170: SecondLeg 4
+    100172: SecondLeg 5
+    100174: SecondLegGlow
+    100176: SecondLegGlow 1
+    100178: SecondLegGlow 2
+    100180: SecondLegGlow 3
+    100182: SecondLegGlow 4
+    100184: SecondLegGlow 5
+    100186: //RootNode
+    100188: SpiderIKs
+    100190: ThirdLeg
+    100192: ThirdLeg 1
+    100194: ThirdLeg 2
+    100196: ThirdLeg 3
+    100198: ThirdLeg 4
+    100200: ThirdLeg 5
+    100202: ThirdLegGlow
+    100204: ThirdLegGlow 1
+    100206: ThirdLegGlow 2
+    100208: ThirdLegGlow 3
+    100210: ThirdLegGlow 4
+    100212: ThirdLegGlow 5
+    100214: transform1
+    100216: transform10
+    100218: transform2
+    100220: transform3
+    100222: transform4
+    100224: transform5
+    100226: transform6
+    100228: transform7
+    100230: transform8
+    100232: transform9
+    400000: ambientLight1
+    400002: CenterJoint
+    400004: FirstLeg
+    400006: FirstLeg 1
+    400008: FirstLeg 2
+    400010: FirstLeg 3
+    400012: FirstLeg 4
+    400014: FirstLeg 5
+    400016: GCtrl
+    400018: group4
+    400020: group5
+    400022: group6
+    400024: group7
+    400026: group8
+    400028: group9
+    400030: ikHandle1
+    400032: ikHandle2
+    400034: ikHandle3
+    400036: ikHandle4
+    400038: ikHandle5
+    400040: ikHandle6
+    400042: joint1
+    400044: joint2
+    400046: joint2 1
+    400048: joint2 2
+    400050: joint2 3
+    400052: joint2 4
+    400054: joint2 5
+    400056: joint3
+    400058: joint3 1
+    400060: joint3 2
+    400062: joint3 3
+    400064: joint3 4
+    400066: joint3 5
+    400068: joint4
+    400070: joint4 1
+    400072: joint4 2
+    400074: joint4 3
+    400076: joint4 4
+    400078: joint4 5
+    400080: joint5
+    400082: joint6
+    400084: joint7
+    400086: joint8
+    400088: joint9
+    400090: Leg1
+    400092: Leg1 1
+    400094: Leg2
+    400096: Leg2 1
+    400098: Leg3
+    400100: Leg3 1
+    400102: Leg4
+    400104: Leg5
+    400106: Leg6
+    400108: Leg7
+    400110: Leg8
+    400112: Leg9
+    400114: pCube10
+    400116: pCube6
+    400118: pCube7
+    400120: pCube8
+    400122: pCube9
+    400124: pCylinder1
+    400126: pCylinder2
+    400128: pointLight1
+    400130: pointLight2
+    400132: pointLight3
+    400134: polySurface1
+    400136: polySurface10
+    400138: polySurface11
+    400140: polySurface12
+    400142: polySurface13
+    400144: polySurface14
+    400146: polySurface15
+    400148: polySurface3
+    400150: polySurface4
+    400152: polySurface5
+    400154: polySurface6
+    400156: polySurface7
+    400158: polySurface8
+    400160: polySurface9
+    400162: SecondLeg
+    400164: SecondLeg 1
+    400166: SecondLeg 2
+    400168: SecondLeg 3
+    400170: SecondLeg 4
+    400172: SecondLeg 5
+    400174: SecondLegGlow
+    400176: SecondLegGlow 1
+    400178: SecondLegGlow 2
+    400180: SecondLegGlow 3
+    400182: SecondLegGlow 4
+    400184: SecondLegGlow 5
+    400186: //RootNode
+    400188: SpiderIKs
+    400190: ThirdLeg
+    400192: ThirdLeg 1
+    400194: ThirdLeg 2
+    400196: ThirdLeg 3
+    400198: ThirdLeg 4
+    400200: ThirdLeg 5
+    400202: ThirdLegGlow
+    400204: ThirdLegGlow 1
+    400206: ThirdLegGlow 2
+    400208: ThirdLegGlow 3
+    400210: ThirdLegGlow 4
+    400212: ThirdLegGlow 5
+    400214: transform1
+    400216: transform10
+    400218: transform2
+    400220: transform3
+    400222: transform4
+    400224: transform5
+    400226: transform6
+    400228: transform7
+    400230: transform8
+    400232: transform9
+    2300000: FirstLeg
+    2300002: FirstLeg 1
+    2300004: FirstLeg 2
+    2300006: FirstLeg 3
+    2300008: FirstLeg 4
+    2300010: FirstLeg 5
+    2300012: pCube10
+    2300014: pCube9
+    2300016: pCylinder2
+    2300018: polySurface11
+    2300020: polySurface12
+    2300022: polySurface13
+    2300024: polySurface14
+    2300026: polySurface15
+    2300028: polySurface6
+    2300030: polySurface8
+    2300032: polySurface9
+    2300034: SecondLeg
+    2300036: SecondLeg 1
+    2300038: SecondLeg 2
+    2300040: SecondLeg 3
+    2300042: SecondLeg 4
+    2300044: SecondLeg 5
+    2300046: SecondLegGlow
+    2300048: SecondLegGlow 1
+    2300050: SecondLegGlow 2
+    2300052: SecondLegGlow 3
+    2300054: SecondLegGlow 4
+    2300056: SecondLegGlow 5
+    2300058: ThirdLeg
+    2300060: ThirdLeg 1
+    2300062: ThirdLeg 2
+    2300064: ThirdLeg 3
+    2300066: ThirdLeg 4
+    2300068: ThirdLeg 5
+    2300070: ThirdLegGlow
+    2300072: ThirdLegGlow 1
+    2300074: ThirdLegGlow 2
+    2300076: ThirdLegGlow 3
+    2300078: ThirdLegGlow 4
+    2300080: ThirdLegGlow 5
+    3300000: FirstLeg
+    3300002: FirstLeg 1
+    3300004: FirstLeg 2
+    3300006: FirstLeg 3
+    3300008: FirstLeg 4
+    3300010: FirstLeg 5
+    3300012: pCube10
+    3300014: pCube9
+    3300016: pCylinder2
+    3300018: polySurface11
+    3300020: polySurface12
+    3300022: polySurface13
+    3300024: polySurface14
+    3300026: polySurface15
+    3300028: polySurface6
+    3300030: polySurface8
+    3300032: polySurface9
+    3300034: SecondLeg
+    3300036: SecondLeg 1
+    3300038: SecondLeg 2
+    3300040: SecondLeg 3
+    3300042: SecondLeg 4
+    3300044: SecondLeg 5
+    3300046: SecondLegGlow
+    3300048: SecondLegGlow 1
+    3300050: SecondLegGlow 2
+    3300052: SecondLegGlow 3
+    3300054: SecondLegGlow 4
+    3300056: SecondLegGlow 5
+    3300058: ThirdLeg
+    3300060: ThirdLeg 1
+    3300062: ThirdLeg 2
+    3300064: ThirdLeg 3
+    3300066: ThirdLeg 4
+    3300068: ThirdLeg 5
+    3300070: ThirdLegGlow
+    3300072: ThirdLegGlow 1
+    3300074: ThirdLegGlow 2
+    3300076: ThirdLegGlow 3
+    3300078: ThirdLegGlow 4
+    3300080: ThirdLegGlow 5
+    4300000: FirstLeg
+    4300002: SecondLeg
+    4300004: SecondLegGlow
+    4300006: ThirdLeg
+    4300008: ThirdLegGlow
+    4300010: FirstLeg
+    4300012: SecondLeg
+    4300014: SecondLegGlow
+    4300016: ThirdLeg
+    4300018: ThirdLegGlow
+    4300020: FirstLeg
+    4300022: SecondLeg
+    4300024: SecondLegGlow
+    4300026: ThirdLeg
+    4300028: ThirdLegGlow
+    4300030: FirstLeg
+    4300032: SecondLeg
+    4300034: SecondLegGlow
+    4300036: ThirdLeg
+    4300038: ThirdLegGlow
+    4300040: FirstLeg
+    4300042: SecondLeg
+    4300044: SecondLegGlow
+    4300046: ThirdLeg
+    4300048: ThirdLegGlow
+    4300050: pCylinder2
+    4300052: pCube10
+    4300054: pCube9
+    4300056: polySurface6
+    4300058: polySurface13
+    4300060: polySurface15
+    4300062: polySurface14
+    4300064: polySurface8
+    4300066: polySurface9
+    4300068: polySurface11
+    4300070: polySurface12
+    4300072: FirstLeg
+    4300074: SecondLeg
+    4300076: SecondLegGlow
+    4300078: ThirdLeg
+    4300080: ThirdLegGlow
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
