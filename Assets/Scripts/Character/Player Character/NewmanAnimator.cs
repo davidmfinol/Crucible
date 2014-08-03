@@ -216,9 +216,9 @@ public class NewmanAnimator : CharacterAnimator
         // You could start rolling over small obstacles in your way
         MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, 
                                 ActiveHangTarget != null && ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle &&
-            ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left)
-            || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)) &&
-            Mathf.Abs(HorizontalSpeed / Settings.MaxHorizontalSpeed) >= 0.5); // TODO: USE A VARIABLE INSTEAD OF 0.5F HARDCODE
+                                ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left)
+                                || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)) &&
+                                Mathf.Abs(HorizontalSpeed / Settings.MaxHorizontalSpeed) >= 0.5); // TODO: USE A VARIABLE SET TO 0.66 INSTEAD OF 0.5F HARDCODE
 
         // You can only do a backflip if you're running
         if ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)) {
