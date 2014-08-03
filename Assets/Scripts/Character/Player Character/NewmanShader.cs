@@ -24,6 +24,9 @@ public class NewmanShader : MonoBehaviour
     // currently hidden
     private bool _inShadow = false;
 
+    // how much longer the camo will be active
+    private float _camoTime = 0;
+
     // current shader that we need to LERP our color info to.
     private ShaderType _currShader;
     
@@ -67,28 +70,31 @@ public class NewmanShader : MonoBehaviour
         }
         
     }
+
+    public void ActivateCamo()
+    {
+        _camoTime = 5;
+
+    }
     
     void Update()
     {
-        // shader transitions
-        if (GameManager.AI.EnemiesChasing > 0) {
-            if (_currShader != ShaderType.Shader_Default) {
-                _currShader = ShaderType.Shader_Default;
-            }
-            
-        } else if (_inShadow) { 
-            if (_currShader != ShaderType.Shader_Shadow) {
-                _currShader = ShaderType.Shader_Shadow;
-            }
-            
-        } else if (_anim.IsGrounded && _anim.IsSneaking) {
-            if (_currShader != ShaderType.Shader_Sneak) {
-                _currShader = ShaderType.Shader_Sneak;
-            }
-            
-        } else if (_currShader != ShaderType.Shader_Default) {
+        _camoTime-= Time.deltaTime;
+
+        if (_camoTime > 0)
+                _currShader = ShaderType.Shader_Camo;
+
+        else if (GameManager.AI.EnemiesChasing > 0)
             _currShader = ShaderType.Shader_Default;
-        }
+
+        else if (_inShadow)
+            _currShader = ShaderType.Shader_Shadow;
+
+        else if (_anim.IsGrounded && _anim.IsSneaking) 
+            _currShader = ShaderType.Shader_Sneak;
+
+        else
+            _currShader = ShaderType.Shader_Default;
         
         ModulateColors();
         

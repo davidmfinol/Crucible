@@ -135,7 +135,7 @@ SubShader {
 		fixed4 baseCol = tex * _Color;
 		fixed4 echoCol = tex * _EchoColor;
 		o.Albedo = baseCol.rgb + echoCol.rgb * c1;
-		o.Alpha = (baseCol.a + echoCol.a);
+		o.Alpha = baseCol.a + echoCol.a;
 	}
 	ENDCG
 	

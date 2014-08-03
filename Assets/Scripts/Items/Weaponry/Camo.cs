@@ -11,7 +11,8 @@ public class Camo : Weapon
 
     public override void ActivateAttack(float attackID)
     {
-        // TODO: base.ActivateAttack(attackID);
+        GameManager.Player.GetComponent<NewmanShader>().ActivateCamo(); // TODO: CACHE THIS
+
     }
 
     public override Vector3 Translation {
