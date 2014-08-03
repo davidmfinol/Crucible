@@ -56,19 +56,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     private List<Zone> _zones = new List<Zone> (); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 
-    /*
-    // Auto-climb code for ladders and pipes
-    protected enum AutoClimbDirection : int
-    {
-        AutoClimb_None = 0,
-        AutoClimb_Up,
-        AutoClimb_Down
-    };
-    
-    protected AutoClimbDirection _autoClimbDir;
-    */
-
-
     void Start ()
     {
         _characterController = GetComponent<CharacterController> ();
@@ -90,7 +77,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    protected abstract void CreateStateMachine ();// Must be overwritten by child classes to set up _stateMachine
+    protected abstract void CreateStateMachine ();// MUST be overwritten by child classes to set up _stateMachine
 
     protected virtual void OnStart ()
     {
@@ -99,7 +86,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     protected virtual void OnAnimatorMove()
     {
-        // This method is only here to prevent mecanim from overriding our motion in FixedUpdate.
+        // We mainly have this method just to make sure Mecanim doesn't override our motion
+        // Child classes may override
     }
 
     protected virtual void UpdateMecanimVariables ()
@@ -109,6 +97,10 @@ public abstract class CharacterAnimator : MonoBehaviour
     
     void Update ()
     {
+        // Clear out the root-based motion by default
+        foreach (Transform rootClear in Settings.RootMotionTransforms)
+            rootClear.localPosition = new Vector3(0, rootClear.localPosition.y, 0);
+
         // Handle all the z-zone stuff in one location
         UpdateZones ();
 
@@ -311,13 +303,6 @@ public abstract class CharacterAnimator : MonoBehaviour
 
             // Calculate push direction from move direction
             Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
-            /*
-            Vector3 force;
-            if (hit.moveDirection.y < -0.3)
-                force = new Vector3(0, -0.5f, 0) * Gravity * 10;
-            else
-                force = hit.controller.velocity * 10;
-             * */
 
             // Pushing! Yeah!
             body.velocity = pushDir * 2 * HorizontalSpeed;
@@ -441,6 +426,16 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
     
+    public virtual void StepDown ()
+    {
+        // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
+    }
+    
+    public virtual void StandUp ()
+    {
+        // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
+    }
+    
     // Helper methods for motion
     protected virtual void ApplyRunning (float elapsedTime)
     {
@@ -448,21 +443,65 @@ public abstract class CharacterAnimator : MonoBehaviour
         HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, IgnoreXYMovement ? 0 : Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
 
     }
+    
+    protected virtual void ApplyBiDirection ()
+    {
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+        else if (CharInput.Right && !CharInput.Left)
+            Direction = Vector3.right;
+        
+    }
+    
+    protected virtual void ApplyTriDirection ()
+    {
+        if (CharInput.Left && !CharInput.Right)
+            Direction = Vector3.left;
+        else if (CharInput.Right && !CharInput.Left)
+            Direction = Vector3.right;
+        else if (CharInput.Up)
+            Direction = Vector3.zero;
+        
+    }
+    
+    protected virtual void ApplyClimbingVertical (float vertical)
+    {
+        if (vertical > 0.0f) 
+            VerticalSpeed = Settings.LadderClimbingSpeed;
+        else if (vertical < 0.0f)
+            VerticalSpeed = -Settings.LadderClimbingSpeed;
+        else
+            VerticalSpeed = 0.0f;
+        
+    }
+    
+    protected virtual void ApplyClimbingStrafing (float horizontal)
+    {
+        // Determine the horizontal bounds of the object(s) we are climbing
+        bool insideLeft = false;
+        bool insideRight = false;
+        foreach (HangableObject obj in HangQueue) {
+            insideLeft = insideLeft || transform.position.x - Controller.collider.bounds.extents.x >
+                obj.transform.position.x - obj.collider.bounds.extents.x;
+            insideRight = insideRight || transform.position.x + Controller.collider.bounds.extents.x <
+                obj.transform.position.x + obj.collider.bounds.extents.x;
+        }
+        
+        // Determine horizontal movement
+        if (horizontal < 0.0f)
+            HorizontalSpeed = -Settings.LadderStrafingSpeed;
+        else if (horizontal > 0.0f)
+            HorizontalSpeed = Settings.LadderStrafingSpeed;
+        else
+            HorizontalSpeed = 0.0f;
+        
+    }
 
     protected virtual void ApplyGravity (float elapsedTime)
     {
         VerticalSpeed -= Settings.Gravity * elapsedTime;
         VerticalSpeed = Mathf.Max (-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
 
-    }
-
-    public virtual void StepDown ()
-    {
-        // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
-    }
-
-    public virtual void StandUp ()
-    {
     }
 
     protected void ApplyDeathFriction (float elapsedTime)
@@ -480,83 +519,6 @@ public abstract class CharacterAnimator : MonoBehaviour
                 HorizontalSpeed = 0.0f;
             
         }
-
-    }
-    
-    protected virtual void ApplyBiDirection ()
-    {
-        if (CharInput.Left && !CharInput.Right)
-            Direction = Vector3.left;
-        else if (CharInput.Right && !CharInput.Left)
-            Direction = Vector3.right;
-
-    }
-
-    protected virtual void ApplyTriDirection ()
-    {
-        if (CharInput.Left && !CharInput.Right)
-            Direction = Vector3.left;
-        else if (CharInput.Right && !CharInput.Left)
-            Direction = Vector3.right;
-        else if (CharInput.Up)
-            Direction = Vector3.zero;
-
-    }
-
-    protected virtual void ApplyClimbingVertical (float vertical)
-    {
-        if (vertical > 0.0f) 
-            VerticalSpeed = Settings.LadderClimbingSpeed;
-        else if (vertical < 0.0f)
-            VerticalSpeed = -Settings.LadderClimbingSpeed;
-        else
-            VerticalSpeed = 0.0f;
-
-    }
-
-    /*
-    protected float UpdateAutoClimbDirection()
-    {
-        // start or stop auto-climbing
-        if (CharInput.Up && _autoClimbDir == AutoClimbDirection.AutoClimb_None)
-            _autoClimbDir = AutoClimbDirection.AutoClimb_Up;
-        else if (CharInput.Down && _autoClimbDir == AutoClimbDirection.AutoClimb_None)
-            _autoClimbDir = AutoClimbDirection.AutoClimb_Down;
-        //else if ((CharInput.Down && _autoClimbDir = AutoClimbDirection.AutoClimb_Up) || (CharInput.Up && _autoClimbDir = AutoClimbDirection.AutoClimb_Down))
-        //  _autoClimbDir = AutoClimbDirection.AutoClimb_None;
-        
-        // always give a speed based on the auto-climb direction
-        float vertical;
-        if(_autoClimbDir == AutoClimbDirection.AutoClimb_Up)
-            vertical = 1.0f;
-        else if(_autoClimbDir == AutoClimbDirection.AutoClimb_Down)
-            vertical = -1.0f;
-        else
-            vertical = 0.0f;
-        
-        return vertical;
-    }
-    */
-
-    protected virtual void ApplyClimbingStrafing (float horizontal)
-    {
-        // Determine the horizontal bounds of the object(s) we are climbing
-        bool insideLeft = false;
-        bool insideRight = false;
-        foreach (HangableObject obj in HangQueue) {
-            insideLeft = insideLeft || transform.position.x - Controller.collider.bounds.extents.x >
-                obj.transform.position.x - obj.collider.bounds.extents.x;
-            insideRight = insideRight || transform.position.x + Controller.collider.bounds.extents.x <
-                obj.transform.position.x + obj.collider.bounds.extents.x;
-        }
-
-        // Determine horizontal movement
-        if (horizontal < 0.0f)
-            HorizontalSpeed = -Settings.LadderStrafingSpeed;
-        else if (horizontal > 0.0f)
-            HorizontalSpeed = Settings.LadderStrafingSpeed;
-        else
-            HorizontalSpeed = 0.0f;
 
     }
 
@@ -598,47 +560,6 @@ public abstract class CharacterAnimator : MonoBehaviour
             _activePlatform = null;
 
     }
-
-    // Useful animation events
-    public void CreateFootstep ()
-    {
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
-        if (IsSneaking)
-            return;
-
-        Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height * 0.5f;
-        Transform footstep = (Transform)Instantiate (Settings.FootStepNoise, footStepPosition, Quaternion.identity);
-        footstep.GetComponent<FootstepAudioPlayer> ().PlayRandomFootstep ();
-
-    }
-
-    public virtual void PlayLand ()
-    {
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
-        if (IsSneaking)
-            return;
-
-        Vector3 landingPosition = transform.position;
-        landingPosition.y -= Height * 0.5f;
-        Transform landing = (Transform)Instantiate (Settings.FootStepNoise, landingPosition, Quaternion.identity);
-        landing.GetComponent<FootstepAudioPlayer> ().PlayLanding ();
-
-    }
-
-    public void PlayJumpLanding ()
-    {
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS
-        if (IsSneaking)
-            return;
-
-        Vector3 landingPosition = transform.position;
-        landingPosition.y -= Height * 0.5f;
-        Transform landing = (Transform)Instantiate (Settings.FootStepNoise, landingPosition, Quaternion.identity);
-        landing.GetComponent<FootstepAudioPlayer> ().PlayLanding ();
-
-    }
-    
 
     // Movement/Animation Properties
     public AnimatorStateInfo CurrentState {
@@ -803,10 +724,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     public virtual bool IsSneaking {
-		// give us a little tolerance here, since values of 8.0000001 don't count as sneaking.
-		// (it takes a while to lerp down from running to 8.0)
-		get { return Mathf.Abs (HorizontalSpeed) < 0.51f * Settings.MaxHorizontalSpeed; }
-
+		get { return Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
     }
 
     public virtual bool IsTurningAround {
@@ -858,11 +776,11 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public bool CanClimbLadder {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Ladder; } //&& (ActiveHangTarget.DoesFaceZAxis() || PreviousHangTarget != ActiveHangTarget) ; }
+        get { return ActiveHangTarget != null && ActiveHangTarget is Ladder; }
     }
 
     public bool CanClimbRope {
-        get { return ActiveHangTarget != null && ActiveHangTarget is Rope; } //&& ActiveHangTarget.transform.position.z == DesiredZ; }
+        get { return ActiveHangTarget != null && ActiveHangTarget is Rope; }
     }
 
     public bool CanHangOffObjectHorizontally {

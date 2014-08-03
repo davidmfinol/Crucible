@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -14,7 +14,7 @@ public class Tutorial : MonoBehaviour
     public Transform RightThumbPrint;
 
     // Scripted characters in the scene
-    public MysteriousRunner Runner;
+    public NewmanHologram Hologram;
     public GameObject SewerDoor;
 	public GameObject SpinningFan;
 	public GameObject Jasper;
@@ -153,8 +153,8 @@ public class Tutorial : MonoBehaviour
         if (!GameManager.SaveData.HasShownWallJump) {
             GameManager.SaveData.HasShownWallJump = true;
 
-            Runner.gameObject.SetActive (true);
-            Runner.StartCoroutine (Runner.ShowWallJump ());
+            Hologram.gameObject.SetActive (true);
+            Hologram.StartCoroutine (Hologram.ShowWallJump ());
 
         }
 
@@ -165,8 +165,8 @@ public class Tutorial : MonoBehaviour
         if (!GameManager.SaveData.HasShownSneak) {
             GameManager.SaveData.HasShownSneak = true;
             
-            Runner.gameObject.SetActive (true);
-            Runner.StartCoroutine (Runner.ShowSneak (SneakStartPosition.position));
+            Hologram.gameObject.SetActive (true);
+            Hologram.StartCoroutine (Hologram.ShowSneak (SneakStartPosition.position));
             
         }
 
@@ -198,13 +198,13 @@ public class Tutorial : MonoBehaviour
             // see player & open? close.
             if ((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
                 SewerDoor.animation.Play ("Close");
-                DoorSounds.Play (DoorSounds.DoorSlam, 1.0f);
+                DoorSounds.Play (DoorSounds.DoorSlam, DoorSounds.DoorSlamVolume);
                 _sewerDoorOpen = false;
                 
                 // no longer see player & closed? open.
             } else if ((GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
                 SewerDoor.animation.Play ("Open");
-                DoorSounds.Play (DoorSounds.DoorOpen, 1.0f);
+                DoorSounds.Play (DoorSounds.DoorOpen, DoorSounds.DoorOpenVolume);
                 _sewerDoorOpen = true;
                 
             }
@@ -220,8 +220,8 @@ public class Tutorial : MonoBehaviour
 		if (!GameManager.SaveData.HasShownOlympusSpawn){
 			GameManager.SaveData.HasShownOlympusSpawn = true;
 
-			Runner.gameObject.SetActive (true);
-			Runner.StartCoroutine (Runner.ShowOlympusSpawn (RunnerPositionOlympusSpawn.position));
+			Hologram.gameObject.SetActive (true);
+			Hologram.StartCoroutine (Hologram.ShowOlympusSpawn (RunnerPositionOlympusSpawn.position));
 
 			StartCoroutine(SpawnOlympus());
 			GameManager.IsPlayingCutscene = true;
@@ -231,7 +231,7 @@ public class Tutorial : MonoBehaviour
 	public IEnumerator SpawnOlympus ()
 	{
         // Wait until the runner has walked past
-		while(Runner.WalkedUnderneath == false)
+		while(Hologram.WalkedUnderneath == false)
 			yield return null;
 		GameManager.MainCamera.Target = Olympus1Position.transform;
         yield return new WaitForSeconds (0.5f);
@@ -240,7 +240,6 @@ public class Tutorial : MonoBehaviour
 		Transform newOlympus = (Transform)Instantiate (OlympusPrefab, Olympus1Position.position, Quaternion.identity);
         newOlympus.GetComponent<EnemyAISettings> ().ShouldWander = false;
 		newOlympus.GetComponent<CharacterAnimator> ().Direction = new Vector3 (-1.0f, 0.0f, 0.0f);
-        newOlympus.GetComponent<ItemDropper> ().AddItem (Item.ItemType.Item_ComputerParts); // drops 2 items.
 
         // Look at Olympus fall
         GameManager.MainCamera.Target = newOlympus;
@@ -271,7 +270,7 @@ public class Tutorial : MonoBehaviour
 
 	public IEnumerator KeepFanSpinning ()
 	{
-		FanSounds.PlayLoop(FanSounds.FanSpinning, 1.0f);
+		FanSounds.PlayLoop(FanSounds.FanSpinning, FanSounds.FanSpinningVolume);
         
         // Check every now to see if all the sparkplugs have been picked up
         bool sparkplugPickedUp = false;
@@ -287,7 +286,7 @@ public class Tutorial : MonoBehaviour
         // If the sparkplug's gone, make the fan stop
         Destroy(SpinningFan.GetComponentInChildren<DeathTrigger>());
         FanSounds.Stop();
-        FanSounds.Play(FanSounds.FanStopping, 1.0f);
+        FanSounds.Play(FanSounds.FanStopping, FanSounds.FanStoppingVolume);
         
         // Close the door behind you
         StopCoroutine("OperateDoor");

@@ -34,13 +34,6 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
-    protected override void OnUpdate ()
-    {
-        // HACK: WE'RE FORCING THE ATTACK ANIMATION TO GET RIGHT ON THE PLAYER
-        if (Settings.RootTransform != null && CurrentState.nameHash == AttackState)
-            Settings.RootTransform.localPosition = Vector3.zero;
-    }
-
     protected override void UpdateMecanimVariables ()
     {
         MecanimAnimator.SetBool (MecanimHashes.Jump, CharInput.JumpActive);
@@ -137,19 +130,19 @@ public class BabyBotAnimator : CharacterAnimator
 
     public void Giggle ()
     {
-        _sound.Play (_sound.Giggle, 1.0f);
+        _sound.Play (_sound.Giggle, _sound.GiggleVolume);
 
     }
 
-    public void PlayLeap ()
+    public void PlayJump ()
     {
-        _sound.Play (_sound.Jump, 1.0f);
+        _sound.Play (_sound.Jump, _sound.JumpVolume);
 
     }
 
 	public void PlaySnore()
 	{
-		_sound.Play(_sound.Snoring, 1.0f);
+		_sound.Play(_sound.Snoring, _sound.SnoringVolume);
 
 	}
 

@@ -13,8 +13,8 @@ public class OlympusAnimator : CharacterAnimator
     public GameObject MeleeEvent;
 
     // Olympus has screens in front that we need to fade in/out based off idle state
-    public Animation ScreenAnimator;
-    public Fader[] Screens;
+    public Animation IdleScreenAnimation;
+    public Fader[] IdleScreens;
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
@@ -123,7 +123,7 @@ public class OlympusAnimator : CharacterAnimator
         // Olympus needs to turn off the screens when moving
         // TODO: THINK OF A MORE EFFICIENT WAY INSTEAD OF DOING THIS EVERY FRAME
         if(CharInput.Left || CharInput.Right) {
-            foreach(Fader screen in Screens) 
+            foreach(Fader screen in IdleScreens) 
                 screen.FadeOut();
         }
 
@@ -136,8 +136,8 @@ public class OlympusAnimator : CharacterAnimator
         
         // Turn on the screens when he begines to idle
         if(TimeInCurrentState == 0) {
-            ScreenAnimator.Play("Take 001");
-            foreach (Fader screen in Screens)
+            IdleScreenAnimation.Play("Take 001");
+            foreach (Fader screen in IdleScreens)
                 screen.FadeIn();
         }
         
@@ -495,8 +495,8 @@ public class OlympusAnimator : CharacterAnimator
     public override void DoRagDoll(Vector3 push)
     {
         // Olympus needs to get rid of his screens when he dies.
-        Screens = new Fader[0];
-        Destroy(ScreenAnimator.gameObject);
+        IdleScreens = new Fader[0];
+        Destroy(IdleScreenAnimation.gameObject);
 
         base.DoRagDoll(push);
 
@@ -512,7 +512,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected void Punch (float elapsedTime)
     {
-        _sound.Play (_sound.Attacking, 1.0f);
+        _sound.Play (_sound.Attacking, _sound.AttackingVolume);
         
         // Attack in front of us
         Vector3 meleePos = transform.position;
@@ -533,7 +533,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected void PunchUp (float elapsedTime)
     {
-        _sound.Play (_sound.Attacking, 1.0f);
+        _sound.Play (_sound.Attacking, _sound.AttackingVolume);
         
         // Attack above us
         Vector3 meleePos = transform.position;
@@ -551,16 +551,46 @@ public class OlympusAnimator : CharacterAnimator
         d.MakeOlympusMelee (this.gameObject, horizontalDir);
         
     }
+    
+    public void CreateFootstep ()
+    {
+        if (IsSneaking)
+            return;
+        
+        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
+        Vector3 footStepPosition = transform.position;
+        footStepPosition.y -= Height * 0.5f;
+        GameObject footstep = new GameObject("Olympus Footstep");
+        footstep.transform.position = footStepPosition;
+        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
+        int footIndex = Random.Range(0, _sound.Footsteps.Length);
+        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Footsteps[footIndex], _sound.FootstepsVolume);
+        
+    }
 
     public void PlayJump ()
     {
-        _sound.Play (_sound.Jumping, 1.0f);
+        _sound.Play (_sound.Jumping, _sound.JumpingVolume);
 
+    }
+    
+    public void PlayLand () // Where dreams come true
+    {
+        if (IsSneaking)
+            return;
+        
+        Vector3 footStepPosition = transform.position;
+        footStepPosition.y -= Height * 0.5f;
+        GameObject footstep = new GameObject("Olympus Landing Footstep");
+        footstep.transform.position = footStepPosition;
+        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
+        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Landing, _sound.LandingVolume);
+        
     }
 
 	public void PlayServo()
 	{
-		_sound.Play (_sound.Idling, 0.3f);
+		_sound.Play (_sound.Idling, _sound.IdlingVolume);
 
 	}
 

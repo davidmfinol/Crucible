@@ -7,7 +7,6 @@ using System.Collections;
 [AddComponentMenu("Items/Weaponry/Spark Plug")]
 public class SparkPlug : Weapon
 {
-
     private static Texture2D _texture;
     
     public override Vector3 Rotation {
@@ -31,13 +30,13 @@ public class SparkPlug : Weapon
     }
     
     public override string Description {
-        get { return "An electronic weapon that can short-circuit robots."; }
+        get { return "Devised as renewable units using the Tesla Packs, they are cost effective replacements for standard electrical wiring.  Notoriously used as makeshift weapons in a society predominantly free of deadly weapons.  Later used against the Cogs during the turn by sneaking up on them."; }
     }
     
     public override Texture2D Texture {
         get { 
             if (_texture == null)
-                _texture = Resources.Load <Texture2D> ("Textures/User Interface/Item Icons/BindingIcon");
+                _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/SparkPlugIcon");
             return _texture;
         }
     }

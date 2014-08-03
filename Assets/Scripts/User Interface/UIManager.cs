@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
 	public GameObject HintQuadPrefab;
 
 	// map
-	public GameObject MapQuadPrefab;
+	// TODO: public GameObject MapQuadPrefab;
 
 	// how long can you go between mousedown then mouseup and have it still change weapons?
 	public const float WeaponClickPeriod = 1.0f;
@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
 	private float _objectiveReachedTime;
 
 	// map
-	private MapQuad _mapQuad;
+	// TODO: private MapQuad _mapQuad;
 
 	// the hint quad, used to show messages to the player
 	private GameObject _hintQuad;
@@ -190,13 +190,13 @@ public class UIManager : MonoBehaviour
         _objectiveQuad.transform.parent = transform;
 
 		// load map
-		GameObject mapQuad = (GameObject)Instantiate (MapQuadPrefab, _uiCamera.ViewportToWorldPoint (new Vector3 (0.5f, 0.5f, 7.0f)), Quaternion.identity);
-		_mapQuad = mapQuad.GetComponent<MapQuad> ();
+		/* TODO: GameObject mapQuad = (GameObject)Instantiate (MapQuadPrefab, _uiCamera.ViewportToWorldPoint (new Vector3 (0.5f, 0.5f, 7.0f)), Quaternion.identity);
+        _mapQuad = mapQuad.GetComponent<MapQuad> ();
         _mapQuad.transform.parent = transform;
-		_mapQuad.gameObject.SetActive (false);
+		_mapQuad.gameObject.SetActive (false);*/
 
 		// *** add all game objects to map ***
-		_mapQuad.renderer.material.mainTexture = Resources.Load<Texture2D> ("Textures/User Interface/Maps/Commercial Zone Map");
+		// TODO: _mapQuad.renderer.material.mainTexture = Resources.Load<Texture2D> ("Textures/User Interface/Maps/Commercial Zone Map");
 		//   _mapQuad.renderer.material.color = new Color (_mapQuad.renderer.material.color.r, 
 		//                                                 _mapQuad.renderer.material.color.g, 
 		//                                                 _mapQuad.renderer.material.color.b, 
@@ -247,8 +247,10 @@ public class UIManager : MonoBehaviour
 	void Update ()
 	{
 		if (Input.GetMouseButtonDown (0))
+            /* TODO:
 		if (GameManager.UI.MapShown ())
 			GameManager.UI.ShowMap (false);
+   */         
 		
 		UpdateVignette ();
 
@@ -267,7 +269,7 @@ public class UIManager : MonoBehaviour
 
 		UpdateObjectiveArrow ();
 
-		_mapQuad.GetComponent<MapQuad> ().UpdateMapPoint (GameManager.Player.gameObject, "Player");
+		// TODO: _mapQuad.GetComponent<MapQuad> ().UpdateMapPoint (GameManager.Player.gameObject, "Player");
         
 		UpdateHint ();
 
@@ -287,10 +289,12 @@ public class UIManager : MonoBehaviour
 
 			// see if left-click on the objectives region
 		} else if (Input.GetMouseButtonDown (0)) {
+            /* TODO: 
 			if (Vector3.Distance (new Vector3 (0.0f, 1.0f * Screen.height, 0.0f), Input.mousePosition) <= Screen.width / 6.0f) {
 				ShowMap (!MapShown ());
 
 			}
+   */         
 
 			// *** or began swipe with finger? ***
 		} else {
@@ -538,14 +542,9 @@ public class UIManager : MonoBehaviour
 
 	}
 
-	public bool MapShown ()
-	{
-		return _mapQuad.gameObject.activeSelf;
-
-	}
-
 	public void ShowMap (bool show)
 	{
+        /* TODO: 
 		if (Application.loadedLevelName != "Commercial Zone")
 			return;
 
@@ -554,6 +553,7 @@ public class UIManager : MonoBehaviour
 			_mapQuad.Reload ();
 
 		_mapQuad.gameObject.SetActive (show);
+  */      
 
 	}
 
@@ -714,9 +714,11 @@ public class UIManager : MonoBehaviour
         get { return _playerObjectives; }
     }
 
+    /* TODO: 
 	public MapQuad Map {
 		get { return _mapQuad; }
 	}
+ */   
 
 	public Camera UICamera {
 		get { return _uiCamera; }

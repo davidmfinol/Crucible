@@ -13,20 +13,10 @@ public class Item : MonoBehaviour
     public enum ItemType : int
     {
         Item__Weapon = 0,
-        Item_BatteryPack = 1,
-        Item_ComputerParts = 2,
-        Item_Engine = 3,
-        Item_Fuel = 4,
-        Item_Propellant = 5,
-        Item_Binding = 6,
-        Item_GunParts = 7,
-        Item_HiggsDrive = 8,
-        Item_Isolator = 9,
-        Item_Magnet = 10,
-        Item_Transmitter = 11,
-        Item_Visualizer = 12,
-		Item_HoloShield = 13,
-
+        Item_TeslaPack = 1,
+        Item_KamiTech = 2,
+        Item_GravCtrl = 3,
+        Item_EltroidKit = 4
     };
 
 

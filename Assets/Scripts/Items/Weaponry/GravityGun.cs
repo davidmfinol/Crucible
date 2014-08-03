@@ -22,11 +22,11 @@ public class GravityGun : Weapon
     }
 
     public override Vector3 Rotation {
-        get { return new Vector3 (0, 90, 180); }
+        get { return new Vector3 (0, 270, 90); }
     }
     
     public override Vector3 Translation {
-        get { return new Vector3 (0.25f, 0, -0.4f); }
+        get { return new Vector3 (0.38f, 0.25f, -0.05f); }
     }
     
     public override WeaponType Type {
@@ -38,13 +38,13 @@ public class GravityGun : Weapon
     }
     
     public override string Description {
-        get { return "Temporarily levitates an enemy, stunning it."; }
+        get { return "Non-lethal and painless device given to police enforcement to handle those disturbing the peace.  "; }
     }
 
     public override Texture2D Texture {
         get { 
             if (_texture == null)
-                _texture = Resources.Load <Texture2D> ("Textures/User Interface/Item Icons/GravityGunIcon");
+                _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/GravityGunIcon");
             return _texture;
         }
     }
