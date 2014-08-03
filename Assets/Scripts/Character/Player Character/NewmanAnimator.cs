@@ -913,6 +913,7 @@ public class NewmanAnimator : CharacterAnimator
         Vector3 footStepPosition = transform.position;
         footStepPosition.y -= Height * 0.5f;
         GameObject footstep = new GameObject("Newman Footstep");
+        footstep.layer = LayerMask.NameToLayer("SoundStealth");
         footstep.transform.position = footStepPosition;
         footstep.AddComponent<SoundEvent>();
         AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
