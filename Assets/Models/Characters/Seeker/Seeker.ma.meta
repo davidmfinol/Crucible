@@ -122,6 +122,11 @@ ModelImporter:
     100232: transform9
     100234: left
     100236: pCube11
+    100238: GlobalCTRL
+    100240: pCube12
+    100242: pCube13
+    100244: pCube14
+    100246: pCube15
     400000: ambientLight1
     400002: CenterJoint
     400004: FirstLeg
@@ -241,6 +246,11 @@ ModelImporter:
     400232: transform9
     400234: left
     400236: pCube11
+    400238: GlobalCTRL
+    400240: pCube12
+    400242: pCube13
+    400244: pCube14
+    400246: pCube15
     2300000: FirstLeg
     2300002: FirstLeg 1
     2300004: FirstLeg 2
@@ -283,6 +293,10 @@ ModelImporter:
     2300078: ThirdLegGlow 4
     2300080: ThirdLegGlow 5
     2300082: pCube11
+    2300084: pCube12
+    2300086: pCube13
+    2300088: pCube14
+    2300090: pCube15
     3300000: FirstLeg
     3300002: FirstLeg 1
     3300004: FirstLeg 2
@@ -325,6 +339,10 @@ ModelImporter:
     3300078: ThirdLegGlow 4
     3300080: ThirdLegGlow 5
     3300082: pCube11
+    3300084: pCube12
+    3300086: pCube13
+    3300088: pCube14
+    3300090: pCube15
     4300000: FirstLeg
     4300002: SecondLeg
     4300004: SecondLegGlow
@@ -367,6 +385,10 @@ ModelImporter:
     4300078: ThirdLeg
     4300080: ThirdLegGlow
     4300082: pCube11
+    4300084: pCube12
+    4300086: pCube13
+    4300088: pCube14
+    4300090: pCube15
     7400000: Take 001
     9500000: //RootNode
   materials:

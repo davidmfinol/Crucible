@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: Seeker.ma
-//Last modified: Mon, Aug 04, 2014 12:38:35 AM
+//Last modified: Mon, Aug 04, 2014 01:49:40 AM
 //Codeset: 1252
 requires maya "2014";
 currentUnit -l centimeter -a degree -t film;
@@ -12,19 +12,19 @@ fileInfo "osv" "Microsoft Windows 8 Business Edition, 64-bit  (Build 9200)\n";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -155.00903069796439 5.2554662701068668 133.67257821468459 ;
-	setAttr ".r" -type "double3" 352.19999999999823 -96.799999999998818 360 ;
+	setAttr ".t" -type "double3" -478.22178887614996 29.208833725679629 -11.468817943320708 ;
+	setAttr ".r" -type "double3" -4.2000000000014692 257.99999999998056 0 ;
 	setAttr ".rpt" -type "double3" -4.9723106631371393e-016 -1.6437828104727047e-017 
 		-4.5404656593647106e-016 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
 	setAttr ".pze" yes;
 	setAttr ".fl" 34.999999999999979;
-	setAttr ".coi" 162.15332779030786;
+	setAttr ".coi" 494.84923470759543;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" 4.513915991998692 -16.751265433087049 152.69453796034682 ;
+	setAttr ".tp" -type "double3" 4.5139141724545553 -7.0330320743064405 91.13982329220832 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	setAttr ".v" no;
@@ -312,13 +312,83 @@ createNode mesh -n "pCylinderShape1" -p "transform1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode joint -n "CenterJoint";
+createNode transform -n "pointLight1";
+	setAttr ".t" -type "double3" 33.409034544898688 18.252945756478443 -41.086993529693842 ;
+createNode pointLight -n "pointLightShape1" -p "pointLight1";
+	setAttr -k off ".v";
+createNode transform -n "pointLight2";
+	setAttr ".t" -type "double3" -43.630512709613754 21.239791425719257 -37.227963811922663 ;
+createNode pointLight -n "pointLightShape2" -p "pointLight2";
+	setAttr -k off ".v";
+	setAttr ".in" 0.64220184087753296;
+	setAttr ".us" no;
+createNode transform -n "ambientLight1";
+	setAttr ".t" -type "double3" -76.681672452315439 30.718433866343563 -18.163864447363352 ;
+createNode ambientLight -n "ambientLightShape1" -p "ambientLight1";
+	setAttr -k off ".v";
+	setAttr ".urs" no;
+createNode transform -n "pointLight3";
+createNode pointLight -n "pointLightShape3" -p "pointLight3";
+	setAttr -k off ".v";
+	setAttr ".in" 0.18348623812198639;
+	setAttr ".us" no;
+createNode transform -n "left";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" -178.76470413103365 4.1985148227697033 99.755589716621401 ;
+	setAttr ".r" -type "double3" 0 -89.999999999999986 0 ;
+createNode camera -n "leftShape" -p "left";
+	setAttr -k off ".v";
+	setAttr ".rnd" no;
+	setAttr ".coi" 149.18138270695147;
+	setAttr ".ow" 62.633350068911398;
+	setAttr ".imn" -type "string" "left1";
+	setAttr ".den" -type "string" "left1_depth";
+	setAttr ".man" -type "string" "left1_mask";
+	setAttr ".hc" -type "string" "viewSet -ls %camera";
+	setAttr ".o" yes;
+createNode transform -n "pCube11";
+	setAttr ".t" -type "double3" 1.2390009296763083 -14.159491719587177 -95.59068137540163 ;
+	setAttr ".s" -type "double3" 2.1866943064599491 1 4.3560243056753496 ;
+createNode mesh -n "pCubeShape11" -p "pCube11";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode transform -n "GlobalCTRL";
+	setAttr ".rp" -type "double3" 4.5139159919986902 -2.1273374580453179 -0.070248678358501293 ;
+	setAttr ".rpt" -type "double3" 0 4.4408920985006262e-014 2.631228568361621e-014 ;
+	setAttr ".sp" -type "double3" 4.5139159919986902 -2.1273374580453179 -0.070248678358501293 ;
+createNode nurbsCurve -n "GlobalCTRLShape" -p "GlobalCTRL";
+	setAttr -k off ".v";
+	setAttr ".ove" yes;
+	setAttr ".ovc" 14;
+	setAttr ".cc" -type "nurbsCurve" 
+		3 8 2 no 3
+		13 -2 -1 0 1 2 3 4 5 6 7 8 9 10
+		11
+		20.277402569603339 -2.1273374580453179 -15.833735255963127
+		4.5139159919986866 -2.1273374580453179 -22.363185186693222
+		-11.249570585605946 -2.1273374580453179 -15.833735255963138
+		-17.779020516336033 -2.1273374580453179 -0.070248678358507732
+		-11.24957058560595 -2.1273374580453179 15.693237899246132
+		4.5139159919986831 -2.1273374580453179 22.222687829976227
+		20.277402569603318 -2.1273374580453179 15.693237899246139
+		26.806852500333413 -2.1273374580453179 -0.070248678358489358
+		20.277402569603339 -2.1273374580453179 -15.833735255963127
+		4.5139159919986866 -2.1273374580453179 -22.363185186693222
+		-11.249570585605946 -2.1273374580453179 -15.833735255963138
+		;
+createNode joint -n "CenterJoint" -p "GlobalCTRL";
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".radi" 0.5;
 createNode joint -n "joint1" -p "CenterJoint";
 	setAttr ".t" -type "double3" -3.5906202183529081 4.1275347534920073 -7.0219701110419805 ;
-	setAttr ".r" -type "double3" -98.584626999873237 -10.230331524762379 -1.392076519047666 ;
+	setAttr ".r" -type "double3" -0.07431826257557303 -0.0030591133915164647 0.012337933311710328 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 20.234372929068488 26.619119853549144 -0.27090021416311605 ;
@@ -331,7 +401,7 @@ createNode transform -n "FirstLeg" -p "joint1";
 	setAttr ".rpt" -type "double3" 12.800562293040878 0.030751146854854028 15.246352339136156 ;
 	setAttr ".sp" -type "double3" -11.412757194893594 0.012362781761843245 -3.7114416401331183 ;
 	setAttr ".spt" -type "double3" -1.2761762857748644 -5.204170427930419e-018 1.3680485403603202 ;
-createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint1|FirstLeg";
+createNode mesh -n "FirstLegShape" -p "|GlobalCTRL|CenterJoint|joint1|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -340,7 +410,7 @@ createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint1|FirstLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode mesh -n "polySurfaceShape25" -p "|CenterJoint|joint1|FirstLeg";
+createNode mesh -n "polySurfaceShape25" -p "|GlobalCTRL|CenterJoint|joint1|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".vir" yes;
@@ -417,16 +487,16 @@ createNode mesh -n "polySurfaceShape25" -p "|CenterJoint|joint1|FirstLeg";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode joint -n "joint2" -p "joint1";
 	setAttr ".t" -type "double3" -0.16865029389538755 0.33427999921045881 -13.115438251413272 ;
-	setAttr ".r" -type "double3" 2.2673027248884225 -3.3469673267258999 71.109182187726475 ;
+	setAttr ".r" -type "double3" -0.0038827698683982967 0.011236559273667549 -0.28566804078694147 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" -92.823032896644719 19.619418342798699 -91.914421109396002 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "SecondLeg" -p "|CenterJoint|joint1|joint2";
+createNode transform -n "SecondLeg" -p "|GlobalCTRL|CenterJoint|joint1|joint2";
 	setAttr ".t" -type "double3" 6.203635659615589 -0.18981021653243249 -0.23603106211538449 ;
 	setAttr ".r" -type "double3" -0.22193086160837708 -1.9481915475481517 87.186680131203886 ;
 	setAttr ".s" -type "double3" 1.3289262649210838 1.3289262649210851 1.3289262649210831 ;
-createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint1|joint2|SecondLeg";
+createNode mesh -n "SecondLegShape" -p "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -436,12 +506,12 @@ createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint1|joint2|SecondLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "SecondLegGlow" -p "|CenterJoint|joint1|joint2|SecondLeg";
+createNode transform -n "SecondLegGlow" -p "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg";
 	setAttr ".t" -type "double3" -3.5527136788005009e-015 -8.8817841970012523e-016 
 		-8.8817841970012523e-016 ;
 	setAttr ".r" -type "double3" 0 3.1805546814635176e-015 0 ;
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 1 ;
-createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow";
+createNode mesh -n "SecondLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -450,24 +520,24 @@ createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint1|joint2|SecondLeg
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode joint -n "joint3" -p "|CenterJoint|joint1|joint2";
+createNode joint -n "joint3" -p "|GlobalCTRL|CenterJoint|joint1|joint2";
 	setAttr ".t" -type "double3" 13.69402549008842 0.15251700313569927 -0.35278007081190399 ;
-	setAttr ".r" -type "double3" 34.682355099011012 1.7676810681793147 0.65779625623892135 ;
+	setAttr ".r" -type "double3" -0.23517048151878084 -0.0059293401262853441 -0.0037685857945855892 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 46.327758954573859 -86.984571870005965 -77.615155518416401 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode joint -n "joint4" -p "|CenterJoint|joint1|joint2|joint3";
+createNode joint -n "joint4" -p "|GlobalCTRL|CenterJoint|joint1|joint2|joint3";
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" -1.192708005548819e-014 -2.3854160110976392e-015 -3.1805546814635176e-015 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "ThirdLeg" -p "|CenterJoint|joint1|joint2|joint3";
+createNode transform -n "ThirdLeg" -p "|GlobalCTRL|CenterJoint|joint1|joint2|joint3";
 	setAttr ".t" -type "double3" 0.23943707694212743 -0.26753079240580391 -4.1971711707354675 ;
 	setAttr ".r" -type "double3" 89.049718670789488 8.8613820983789449 90.869450214160622 ;
 	setAttr ".s" -type "double3" 1.0909373213741782 1.0909373213741786 1.0909373213741778 ;
-createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint1|joint2|joint3|ThirdLeg";
+createNode mesh -n "ThirdLegShape" -p "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -477,11 +547,11 @@ createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint1|joint2|joint3|ThirdLe
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "ThirdLegGlow" -p "|CenterJoint|joint1|joint2|joint3|ThirdLeg";
+createNode transform -n "ThirdLegGlow" -p "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg";
 	setAttr ".t" -type "double3" 0 3.3306690738754696e-016 4.4408920985006262e-016 ;
 	setAttr ".r" -type "double3" 0 0 -7.9513867036587919e-016 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 1 ;
-createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow";
+createNode mesh -n "ThirdLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -490,12 +560,12 @@ createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint1|joint2|joint3|Thi
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode ikEffector -n "effector1" -p "|CenterJoint|joint1|joint2|joint3";
+createNode ikEffector -n "effector1" -p "|GlobalCTRL|CenterJoint|joint1|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode joint -n "joint5" -p "CenterJoint";
 	setAttr ".t" -type "double3" 7.8484055254285652 4.1275347534920073 0.42039077933320174 ;
-	setAttr ".r" -type "double3" -78.836158927855294 49.732570232344912 -4.1576101297964492 ;
+	setAttr ".r" -type "double3" -0.073830756015499849 -0.0031051111830069471 0.012377118384692602 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 16.262868906244961 266.61072250352095 4.1000305369357104 ;
@@ -508,7 +578,7 @@ createNode transform -n "FirstLeg" -p "joint5";
 	setAttr ".rpt" -type "double3" 12.800562293040878 0.030751146854854028 15.246352339136156 ;
 	setAttr ".sp" -type "double3" -11.412757194893594 0.012362781761843245 -3.7114416401331183 ;
 	setAttr ".spt" -type "double3" -1.2761762857748644 -5.204170427930419e-018 1.3680485403603202 ;
-createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint5|FirstLeg";
+createNode mesh -n "FirstLegShape" -p "|GlobalCTRL|CenterJoint|joint5|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -517,7 +587,7 @@ createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint5|FirstLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode mesh -n "polySurfaceShape24" -p "|CenterJoint|joint5|FirstLeg";
+createNode mesh -n "polySurfaceShape24" -p "|GlobalCTRL|CenterJoint|joint5|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".vir" yes;
@@ -594,16 +664,16 @@ createNode mesh -n "polySurfaceShape24" -p "|CenterJoint|joint5|FirstLeg";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode joint -n "joint2" -p "joint5";
 	setAttr ".t" -type "double3" -0.16865029389538755 0.33427999921045881 -13.115438251413272 ;
-	setAttr ".r" -type "double3" 2.2672977326341925 -3.346967380001868 71.109182265658873 ;
+	setAttr ".r" -type "double3" -0.0038897265869547604 0.011256691700532674 -0.28617986925674171 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" -92.823032896644719 19.619418342798681 -91.914421109395974 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "SecondLeg" -p "|CenterJoint|joint5|joint2";
+createNode transform -n "SecondLeg" -p "|GlobalCTRL|CenterJoint|joint5|joint2";
 	setAttr ".t" -type "double3" 6.203635659615589 -0.18981021653243249 -0.23603106211538449 ;
 	setAttr ".r" -type "double3" -0.22193086160837708 -1.9481915475481517 87.186680131203886 ;
 	setAttr ".s" -type "double3" 1.3289262649210838 1.3289262649210851 1.3289262649210831 ;
-createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint5|joint2|SecondLeg";
+createNode mesh -n "SecondLegShape" -p "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -613,12 +683,12 @@ createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint5|joint2|SecondLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "SecondLegGlow" -p "|CenterJoint|joint5|joint2|SecondLeg";
+createNode transform -n "SecondLegGlow" -p "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg";
 	setAttr ".t" -type "double3" -3.5527136788005009e-015 -8.8817841970012523e-016 
 		-8.8817841970012523e-016 ;
 	setAttr ".r" -type "double3" 0 3.1805546814635176e-015 0 ;
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 1 ;
-createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint5|joint2|SecondLeg|SecondLegGlow";
+createNode mesh -n "SecondLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg|SecondLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -638,7 +708,7 @@ createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint5|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape23" -p "|CenterJoint|joint5|joint2|SecondLeg";
+createNode mesh -n "polySurfaceShape23" -p "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -681,23 +751,23 @@ createNode mesh -n "polySurfaceShape23" -p "|CenterJoint|joint5|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode joint -n "joint3" -p "|CenterJoint|joint5|joint2";
+createNode joint -n "joint3" -p "|GlobalCTRL|CenterJoint|joint5|joint2";
 	setAttr ".t" -type "double3" 13.69402549008842 0.15251700313569927 -0.35278007081190399 ;
-	setAttr ".r" -type "double3" 34.682355116889724 1.7676799091336206 0.65779808815799556 ;
+	setAttr ".r" -type "double3" -0.23559183403468195 -0.0059399636635749393 -0.0037753379307196972 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 46.32775895457339 -86.984571870006022 -77.615155518416174 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode joint -n "joint4" -p "|CenterJoint|joint5|joint2|joint3";
+createNode joint -n "joint4" -p "|GlobalCTRL|CenterJoint|joint5|joint2|joint3";
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "ThirdLeg" -p "|CenterJoint|joint5|joint2|joint3";
+createNode transform -n "ThirdLeg" -p "|GlobalCTRL|CenterJoint|joint5|joint2|joint3";
 	setAttr ".t" -type "double3" 0.23943707694212743 -0.26753079240580391 -4.1971711707354675 ;
 	setAttr ".r" -type "double3" 89.049718670789488 8.8613820983789449 90.869450214160622 ;
 	setAttr ".s" -type "double3" 1.0909373213741782 1.0909373213741786 1.0909373213741778 ;
-createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint5|joint2|joint3|ThirdLeg";
+createNode mesh -n "ThirdLegShape" -p "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -706,11 +776,11 @@ createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint5|joint2|joint3|ThirdLe
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "ThirdLegGlow" -p "|CenterJoint|joint5|joint2|joint3|ThirdLeg";
+createNode transform -n "ThirdLegGlow" -p "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg";
 	setAttr ".t" -type "double3" 0 3.3306690738754696e-016 4.4408920985006262e-016 ;
 	setAttr ".r" -type "double3" 0 0 -7.9513867036587919e-016 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 1 ;
-createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegGlow";
+createNode mesh -n "ThirdLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -730,7 +800,7 @@ createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint5|joint2|joint3|Thi
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape22" -p "|CenterJoint|joint5|joint2|joint3|ThirdLeg";
+createNode mesh -n "polySurfaceShape22" -p "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -773,16 +843,16 @@ createNode mesh -n "polySurfaceShape22" -p "|CenterJoint|joint5|joint2|joint3|Th
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode ikEffector -n "effector1" -p "|CenterJoint|joint5|joint2|joint3";
+createNode ikEffector -n "effector1" -p "|GlobalCTRL|CenterJoint|joint5|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".hd" yes;
-createNode ikEffector -n "effector5" -p "|CenterJoint|joint5|joint2|joint3";
+createNode ikEffector -n "effector5" -p "|GlobalCTRL|CenterJoint|joint5|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode joint -n "joint6" -p "CenterJoint";
 	setAttr ".t" -type "double3" 3.551556461964112 4.1275347534920073 7.0247153717724888 ;
-	setAttr ".r" -type "double3" 63.86710542344106 114.99527930618964 25.051755211941185 ;
+	setAttr ".r" -type "double3" 4.9211812065353193 -0.18896888742218682 -0.11288353669028456 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 20.234372929068467 206.61911985354914 0.2709002141631125 ;
@@ -795,7 +865,7 @@ createNode transform -n "FirstLeg" -p "joint6";
 	setAttr ".rpt" -type "double3" 12.800562293040878 0.030751146854854028 15.246352339136156 ;
 	setAttr ".sp" -type "double3" -11.412757194893594 0.012362781761843245 -3.7114416401331183 ;
 	setAttr ".spt" -type "double3" -1.2761762857748644 -5.204170427930419e-018 1.3680485403603202 ;
-createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint6|FirstLeg";
+createNode mesh -n "FirstLegShape" -p "|GlobalCTRL|CenterJoint|joint6|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -805,7 +875,7 @@ createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint6|FirstLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode mesh -n "polySurfaceShape18" -p "|CenterJoint|joint6|FirstLeg";
+createNode mesh -n "polySurfaceShape18" -p "|GlobalCTRL|CenterJoint|joint6|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".vir" yes;
@@ -882,16 +952,16 @@ createNode mesh -n "polySurfaceShape18" -p "|CenterJoint|joint6|FirstLeg";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode joint -n "joint2" -p "joint6";
 	setAttr ".t" -type "double3" -0.16865029389538755 0.33427999921045881 -13.115438251413272 ;
-	setAttr ".r" -type "double3" -0.27174596090811554 0.78642044226621921 -19.993236497533765 ;
+	setAttr ".r" -type "double3" -0.078422752437673077 0.22695187611867551 -5.7698176305336029 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" -92.823032896644719 19.619418342798681 -91.914421109395974 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "SecondLeg" -p "|CenterJoint|joint6|joint2";
+createNode transform -n "SecondLeg" -p "|GlobalCTRL|CenterJoint|joint6|joint2";
 	setAttr ".t" -type "double3" 6.203635659615589 -0.18981021653243249 -0.23603106211538449 ;
 	setAttr ".r" -type "double3" -0.22193086160837708 -1.9481915475481517 87.186680131203886 ;
 	setAttr ".s" -type "double3" 1.3289262649210838 1.3289262649210851 1.3289262649210831 ;
-createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint6|joint2|SecondLeg";
+createNode mesh -n "SecondLegShape" -p "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -901,12 +971,12 @@ createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint6|joint2|SecondLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "SecondLegGlow" -p "|CenterJoint|joint6|joint2|SecondLeg";
+createNode transform -n "SecondLegGlow" -p "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg";
 	setAttr ".t" -type "double3" -3.5527136788005009e-015 -8.8817841970012523e-016 
 		-8.8817841970012523e-016 ;
 	setAttr ".r" -type "double3" 0 3.1805546814635176e-015 0 ;
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 1 ;
-createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint6|joint2|SecondLeg|SecondLegGlow";
+createNode mesh -n "SecondLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg|SecondLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -927,7 +997,7 @@ createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint6|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape16" -p "|CenterJoint|joint6|joint2|SecondLeg";
+createNode mesh -n "polySurfaceShape16" -p "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -970,23 +1040,23 @@ createNode mesh -n "polySurfaceShape16" -p "|CenterJoint|joint6|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode joint -n "joint3" -p "|CenterJoint|joint6|joint2";
+createNode joint -n "joint3" -p "|GlobalCTRL|CenterJoint|joint6|joint2";
 	setAttr ".t" -type "double3" 13.69402549008842 0.15251700313569927 -0.35278007081190399 ;
-	setAttr ".r" -type "double3" -16.459030703230209 -0.41498061558644461 -0.26375448525791251 ;
+	setAttr ".r" -type "double3" -4.7498865701261463 -0.11975862299411645 -0.076116504667022772 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 46.327758954573426 -86.984571870005993 -77.615155518416202 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode joint -n "joint4" -p "|CenterJoint|joint6|joint2|joint3";
+createNode joint -n "joint4" -p "|GlobalCTRL|CenterJoint|joint6|joint2|joint3";
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "ThirdLeg" -p "|CenterJoint|joint6|joint2|joint3";
+createNode transform -n "ThirdLeg" -p "|GlobalCTRL|CenterJoint|joint6|joint2|joint3";
 	setAttr ".t" -type "double3" 0.23943707694212743 -0.26753079240580391 -4.1971711707354675 ;
 	setAttr ".r" -type "double3" 89.049718670789488 8.8613820983789449 90.869450214160622 ;
 	setAttr ".s" -type "double3" 1.0909373213741782 1.0909373213741786 1.0909373213741778 ;
-createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint6|joint2|joint3|ThirdLeg";
+createNode mesh -n "ThirdLegShape" -p "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -996,11 +1066,11 @@ createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint6|joint2|joint3|ThirdLe
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "ThirdLegGlow" -p "|CenterJoint|joint6|joint2|joint3|ThirdLeg";
+createNode transform -n "ThirdLegGlow" -p "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg";
 	setAttr ".t" -type "double3" 0 3.3306690738754696e-016 4.4408920985006262e-016 ;
 	setAttr ".r" -type "double3" 0 0 -7.9513867036587919e-016 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 1 ;
-createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegGlow";
+createNode mesh -n "ThirdLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1021,7 +1091,7 @@ createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint6|joint2|joint3|Thi
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape17" -p "|CenterJoint|joint6|joint2|joint3|ThirdLeg";
+createNode mesh -n "polySurfaceShape17" -p "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -1064,16 +1134,16 @@ createNode mesh -n "polySurfaceShape17" -p "|CenterJoint|joint6|joint2|joint3|Th
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode ikEffector -n "effector1" -p "|CenterJoint|joint6|joint2|joint3";
+createNode ikEffector -n "effector1" -p "|GlobalCTRL|CenterJoint|joint6|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".hd" yes;
-createNode ikEffector -n "effector4" -p "|CenterJoint|joint6|joint2|joint3";
+createNode ikEffector -n "effector4" -p "|GlobalCTRL|CenterJoint|joint6|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode joint -n "joint7" -p "CenterJoint";
 	setAttr ".t" -type "double3" -4.3163809416588519 4.1275347534920073 6.6056972228045447 ;
-	setAttr ".r" -type "double3" -97.320063983927412 -70.521163115027903 136.81375586903633 ;
+	setAttr ".r" -type "double3" -0.074267124875491392 -0.0030591592535615894 0.012333868067885488 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 20.515326315055784 146.6197136414952 0.29003044439435055 ;
@@ -1086,7 +1156,7 @@ createNode transform -n "FirstLeg" -p "joint7";
 	setAttr ".rpt" -type "double3" 12.800562293040878 0.030751146854854028 15.246352339136156 ;
 	setAttr ".sp" -type "double3" -11.412757194893594 0.012362781761843245 -3.7114416401331183 ;
 	setAttr ".spt" -type "double3" -1.2761762857748644 -5.204170427930419e-018 1.3680485403603202 ;
-createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint7|FirstLeg";
+createNode mesh -n "FirstLegShape" -p "|GlobalCTRL|CenterJoint|joint7|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1096,7 +1166,7 @@ createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint7|FirstLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode mesh -n "polySurfaceShape15" -p "|CenterJoint|joint7|FirstLeg";
+createNode mesh -n "polySurfaceShape15" -p "|GlobalCTRL|CenterJoint|joint7|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".vir" yes;
@@ -1173,16 +1243,16 @@ createNode mesh -n "polySurfaceShape15" -p "|CenterJoint|joint7|FirstLeg";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode joint -n "joint2" -p "joint7";
 	setAttr ".t" -type "double3" -0.16865029389538755 0.33427999921045881 -13.115438251413272 ;
-	setAttr ".r" -type "double3" -0.30435383072522626 0.88078613335960942 -22.392303813035603 ;
+	setAttr ".r" -type "double3" -0.0038834657885170767 0.011238573234816116 -0.28571924189944697 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" -92.823032896644719 19.619418342798689 -91.914421109395974 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "SecondLeg" -p "|CenterJoint|joint7|joint2";
+createNode transform -n "SecondLeg" -p "|GlobalCTRL|CenterJoint|joint7|joint2";
 	setAttr ".t" -type "double3" 6.203635659615589 -0.18981021653243249 -0.23603106211538449 ;
 	setAttr ".r" -type "double3" -0.22193086160837708 -1.9481915475481517 87.186680131203886 ;
 	setAttr ".s" -type "double3" 1.3289262649210838 1.3289262649210851 1.3289262649210831 ;
-createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint7|joint2|SecondLeg";
+createNode mesh -n "SecondLegShape" -p "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1191,12 +1261,12 @@ createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint7|joint2|SecondLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "SecondLegGlow" -p "|CenterJoint|joint7|joint2|SecondLeg";
+createNode transform -n "SecondLegGlow" -p "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg";
 	setAttr ".t" -type "double3" -3.5527136788005009e-015 -8.8817841970012523e-016 
 		-8.8817841970012523e-016 ;
 	setAttr ".r" -type "double3" 0 3.1805546814635176e-015 0 ;
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 1 ;
-createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint7|joint2|SecondLeg|SecondLegGlow";
+createNode mesh -n "SecondLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg|SecondLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1216,7 +1286,7 @@ createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint7|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape13" -p "|CenterJoint|joint7|joint2|SecondLeg";
+createNode mesh -n "polySurfaceShape13" -p "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -1259,23 +1329,23 @@ createNode mesh -n "polySurfaceShape13" -p "|CenterJoint|joint7|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode joint -n "joint3" -p "|CenterJoint|joint7|joint2";
+createNode joint -n "joint3" -p "|GlobalCTRL|CenterJoint|joint7|joint2";
 	setAttr ".t" -type "double3" 13.69402549008842 0.15251700313569927 -0.35278007081190399 ;
-	setAttr ".r" -type "double3" -18.434014723942983 -0.46477577664219089 -0.29540342638744504 ;
+	setAttr ".r" -type "double3" -0.23521263180709856 -0.0059304028591344446 -0.0037692612491612085 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 46.327758954573703 -86.984571870005993 -77.615155518416358 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode joint -n "joint4" -p "|CenterJoint|joint7|joint2|joint3";
+createNode joint -n "joint4" -p "|GlobalCTRL|CenterJoint|joint7|joint2|joint3";
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "ThirdLeg" -p "|CenterJoint|joint7|joint2|joint3";
+createNode transform -n "ThirdLeg" -p "|GlobalCTRL|CenterJoint|joint7|joint2|joint3";
 	setAttr ".t" -type "double3" 0.23943707694212743 -0.26753079240580391 -4.1971711707354675 ;
 	setAttr ".r" -type "double3" 89.049718670789488 8.8613820983789449 90.869450214160622 ;
 	setAttr ".s" -type "double3" 1.0909373213741782 1.0909373213741786 1.0909373213741778 ;
-createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint7|joint2|joint3|ThirdLeg";
+createNode mesh -n "ThirdLegShape" -p "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1284,11 +1354,11 @@ createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint7|joint2|joint3|ThirdLe
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "ThirdLegGlow" -p "|CenterJoint|joint7|joint2|joint3|ThirdLeg";
+createNode transform -n "ThirdLegGlow" -p "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg";
 	setAttr ".t" -type "double3" 0 3.3306690738754696e-016 4.4408920985006262e-016 ;
 	setAttr ".r" -type "double3" 0 0 -7.9513867036587919e-016 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 1 ;
-createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegGlow";
+createNode mesh -n "ThirdLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1308,7 +1378,7 @@ createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint7|joint2|joint3|Thi
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape14" -p "|CenterJoint|joint7|joint2|joint3|ThirdLeg";
+createNode mesh -n "polySurfaceShape14" -p "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -1351,16 +1421,16 @@ createNode mesh -n "polySurfaceShape14" -p "|CenterJoint|joint7|joint2|joint3|Th
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode ikEffector -n "effector1" -p "|CenterJoint|joint7|joint2|joint3";
+createNode ikEffector -n "effector1" -p "|GlobalCTRL|CenterJoint|joint7|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".hd" yes;
-createNode ikEffector -n "effector3" -p "|CenterJoint|joint7|joint2|joint3";
+createNode ikEffector -n "effector3" -p "|GlobalCTRL|CenterJoint|joint7|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode joint -n "joint8" -p "CenterJoint";
 	setAttr ".t" -type "double3" -7.88746928181736 4.1275347534920073 -0.41764551860269 ;
-	setAttr ".r" -type "double3" -80.643341720326049 -41.180294093162793 4.0352960213020364 ;
+	setAttr ".r" -type "double3" -0.074060138760364158 -0.0030531579243857658 0.012304010192436753 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 16.262868906244996 86.610722503520961 -4.1000305369357131 ;
@@ -1373,7 +1443,7 @@ createNode transform -n "FirstLeg" -p "joint8";
 	setAttr ".rpt" -type "double3" 12.800562293040878 0.030751146854854028 15.246352339136156 ;
 	setAttr ".sp" -type "double3" -11.412757194893594 0.012362781761843245 -3.7114416401331183 ;
 	setAttr ".spt" -type "double3" -1.2761762857748644 -5.204170427930419e-018 1.3680485403603202 ;
-createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint8|FirstLeg";
+createNode mesh -n "FirstLegShape" -p "|GlobalCTRL|CenterJoint|joint8|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1382,7 +1452,7 @@ createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint8|FirstLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode mesh -n "polySurfaceShape26" -p "|CenterJoint|joint8|FirstLeg";
+createNode mesh -n "polySurfaceShape26" -p "|GlobalCTRL|CenterJoint|joint8|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".vir" yes;
@@ -1459,16 +1529,16 @@ createNode mesh -n "polySurfaceShape26" -p "|CenterJoint|joint8|FirstLeg";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode joint -n "joint2" -p "joint8";
 	setAttr ".t" -type "double3" -0.16865029389538755 0.33427999921045881 -13.115438251413272 ;
-	setAttr ".r" -type "double3" 2.2673027248954192 -3.3469673267239637 71.109182187735939 ;
+	setAttr ".r" -type "double3" -0.0038861832675795363 0.01124643749553597 -0.28591917569567077 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" -92.823032896644719 19.619418342798689 -91.914421109395974 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "SecondLeg" -p "|CenterJoint|joint8|joint2";
+createNode transform -n "SecondLeg" -p "|GlobalCTRL|CenterJoint|joint8|joint2";
 	setAttr ".t" -type "double3" 6.203635659615589 -0.18981021653243249 -0.23603106211538449 ;
 	setAttr ".r" -type "double3" -0.22193086160837708 -1.9481915475481517 87.186680131203886 ;
 	setAttr ".s" -type "double3" 1.3289262649210838 1.3289262649210851 1.3289262649210831 ;
-createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint8|joint2|SecondLeg";
+createNode mesh -n "SecondLegShape" -p "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1477,12 +1547,12 @@ createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint8|joint2|SecondLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "SecondLegGlow" -p "|CenterJoint|joint8|joint2|SecondLeg";
+createNode transform -n "SecondLegGlow" -p "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg";
 	setAttr ".t" -type "double3" -3.5527136788005009e-015 -8.8817841970012523e-016 
 		-8.8817841970012523e-016 ;
 	setAttr ".r" -type "double3" 0 3.1805546814635176e-015 0 ;
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 1 ;
-createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint8|joint2|SecondLeg|SecondLegGlow";
+createNode mesh -n "SecondLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg|SecondLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1502,7 +1572,7 @@ createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint8|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape27" -p "|CenterJoint|joint8|joint2|SecondLeg";
+createNode mesh -n "polySurfaceShape27" -p "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -1545,23 +1615,23 @@ createNode mesh -n "polySurfaceShape27" -p "|CenterJoint|joint8|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode joint -n "joint3" -p "|CenterJoint|joint8|joint2";
+createNode joint -n "joint3" -p "|GlobalCTRL|CenterJoint|joint8|joint2";
 	setAttr ".t" -type "double3" 13.69402549008842 0.15251700313569927 -0.35278007081190399 ;
-	setAttr ".r" -type "double3" 34.682355099007374 1.7676810681817441 0.6577962562330415 ;
+	setAttr ".r" -type "double3" -0.23537722329237742 -0.0059345526949973739 -0.0037718988128950834 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 46.327758954573703 -86.984571870005993 -77.615155518416358 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode joint -n "joint4" -p "|CenterJoint|joint8|joint2|joint3";
+createNode joint -n "joint4" -p "|GlobalCTRL|CenterJoint|joint8|joint2|joint3";
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "ThirdLeg" -p "|CenterJoint|joint8|joint2|joint3";
+createNode transform -n "ThirdLeg" -p "|GlobalCTRL|CenterJoint|joint8|joint2|joint3";
 	setAttr ".t" -type "double3" 0.23943707694212743 -0.26753079240580391 -4.1971711707354675 ;
 	setAttr ".r" -type "double3" 89.049718670789488 8.8613820983789449 90.869450214160622 ;
 	setAttr ".s" -type "double3" 1.0909373213741782 1.0909373213741786 1.0909373213741778 ;
-createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint8|joint2|joint3|ThirdLeg";
+createNode mesh -n "ThirdLegShape" -p "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1570,11 +1640,11 @@ createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint8|joint2|joint3|ThirdLe
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "ThirdLegGlow" -p "|CenterJoint|joint8|joint2|joint3|ThirdLeg";
+createNode transform -n "ThirdLegGlow" -p "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg";
 	setAttr ".t" -type "double3" 0 3.3306690738754696e-016 4.4408920985006262e-016 ;
 	setAttr ".r" -type "double3" 0 0 -7.9513867036587919e-016 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 1 ;
-createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegGlow";
+createNode mesh -n "ThirdLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1594,7 +1664,7 @@ createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint8|joint2|joint3|Thi
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape28" -p "|CenterJoint|joint8|joint2|joint3|ThirdLeg";
+createNode mesh -n "polySurfaceShape28" -p "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -1637,11 +1707,11 @@ createNode mesh -n "polySurfaceShape28" -p "|CenterJoint|joint8|joint2|joint3|Th
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode ikEffector -n "effector1" -p "|CenterJoint|joint8|joint2|joint3";
+createNode ikEffector -n "effector1" -p "|GlobalCTRL|CenterJoint|joint8|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".hd" yes;
-createNode ikEffector -n "effector2" -p "|CenterJoint|joint8|joint2|joint3";
+createNode ikEffector -n "effector2" -p "|GlobalCTRL|CenterJoint|joint8|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode transform -n "pCylinder2" -p "CenterJoint";
@@ -1959,7 +2029,7 @@ createNode mesh -n "polySurfaceShape5" -p "transform8";
 	setAttr ".cdvm[0]"  0 1 1;
 createNode joint -n "joint9" -p "CenterJoint";
 	setAttr ".t" -type "double3" 4.2773171852700527 4.1275347534920073 -6.6029519620740382 ;
-	setAttr ".r" -type "double3" -97.653884347881927 15.943168809393514 1.323910916787737 ;
+	setAttr ".r" -type "double3" -0.073814369867219218 -0.0031111143474914574 0.012383888326937613 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 20.515326315055805 -33.38028635850479 -0.29003044439436348 ;
@@ -1972,7 +2042,7 @@ createNode transform -n "FirstLeg" -p "joint9";
 	setAttr ".rpt" -type "double3" 12.800562293040878 0.030751146854854028 15.246352339136156 ;
 	setAttr ".sp" -type "double3" -11.412757194893594 0.012362781761843245 -3.7114416401331183 ;
 	setAttr ".spt" -type "double3" -1.2761762857748644 -5.204170427930419e-018 1.3680485403603202 ;
-createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint9|FirstLeg";
+createNode mesh -n "FirstLegShape" -p "|GlobalCTRL|CenterJoint|joint9|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -1981,7 +2051,7 @@ createNode mesh -n "FirstLegShape" -p "|CenterJoint|joint9|FirstLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode mesh -n "polySurfaceShape19" -p "|CenterJoint|joint9|FirstLeg";
+createNode mesh -n "polySurfaceShape19" -p "|GlobalCTRL|CenterJoint|joint9|FirstLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".vir" yes;
@@ -2058,16 +2128,16 @@ createNode mesh -n "polySurfaceShape19" -p "|CenterJoint|joint9|FirstLeg";
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode joint -n "joint2" -p "joint9";
 	setAttr ".t" -type "double3" -0.16865029389538755 0.33427999921045881 -13.115438251413272 ;
-	setAttr ".r" -type "double3" 2.2672977326387329 -3.3469673800048958 71.10918226564101 ;
+	setAttr ".r" -type "double3" -0.0038894215088375057 0.011255808818347089 -0.28615742366480784 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" -92.823032896644719 19.619418342798681 -91.914421109395974 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "SecondLeg" -p "|CenterJoint|joint9|joint2";
+createNode transform -n "SecondLeg" -p "|GlobalCTRL|CenterJoint|joint9|joint2";
 	setAttr ".t" -type "double3" 6.203635659615589 -0.18981021653243249 -0.23603106211538449 ;
 	setAttr ".r" -type "double3" -0.22193086160837708 -1.9481915475481517 87.186680131203886 ;
 	setAttr ".s" -type "double3" 1.3289262649210838 1.3289262649210851 1.3289262649210831 ;
-createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint9|joint2|SecondLeg";
+createNode mesh -n "SecondLegShape" -p "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -2077,12 +2147,12 @@ createNode mesh -n "SecondLegShape" -p "|CenterJoint|joint9|joint2|SecondLeg";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "SecondLegGlow" -p "|CenterJoint|joint9|joint2|SecondLeg";
+createNode transform -n "SecondLegGlow" -p "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg";
 	setAttr ".t" -type "double3" -3.5527136788005009e-015 -8.8817841970012523e-016 
 		-8.8817841970012523e-016 ;
 	setAttr ".r" -type "double3" 0 3.1805546814635176e-015 0 ;
 	setAttr ".s" -type "double3" 0.99999999999999989 0.99999999999999989 1 ;
-createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint9|joint2|SecondLeg|SecondLegGlow";
+createNode mesh -n "SecondLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg|SecondLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -2103,7 +2173,7 @@ createNode mesh -n "SecondLegGlowShape" -p "|CenterJoint|joint9|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape20" -p "|CenterJoint|joint9|joint2|SecondLeg";
+createNode mesh -n "polySurfaceShape20" -p "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -2146,23 +2216,23 @@ createNode mesh -n "polySurfaceShape20" -p "|CenterJoint|joint9|joint2|SecondLeg
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode joint -n "joint3" -p "|CenterJoint|joint9|joint2";
+createNode joint -n "joint3" -p "|GlobalCTRL|CenterJoint|joint9|joint2";
 	setAttr ".t" -type "double3" 13.69402549008842 0.15251700313569927 -0.35278007081190399 ;
-	setAttr ".r" -type "double3" 34.682355116894882 1.7676799091312396 0.65779808816270002 ;
+	setAttr ".r" -type "double3" -0.2355733561515819 -0.005939497781747397 -0.0037750418243065334 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".jo" -type "double3" 46.327758954573603 -86.984571870006022 -77.615155518416387 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode joint -n "joint4" -p "|CenterJoint|joint9|joint2|joint3";
+createNode joint -n "joint4" -p "|GlobalCTRL|CenterJoint|joint9|joint2|joint3";
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".mnrl" -type "double3" -360 -360 -360 ;
 	setAttr ".mxrl" -type "double3" 360 360 360 ;
 	setAttr ".radi" 0.86417967249108762;
-createNode transform -n "ThirdLeg" -p "|CenterJoint|joint9|joint2|joint3";
+createNode transform -n "ThirdLeg" -p "|GlobalCTRL|CenterJoint|joint9|joint2|joint3";
 	setAttr ".t" -type "double3" 0.23943707694212743 -0.26753079240580391 -4.1971711707354675 ;
 	setAttr ".r" -type "double3" 89.049718670789488 8.8613820983789449 90.869450214160622 ;
 	setAttr ".s" -type "double3" 1.0909373213741782 1.0909373213741786 1.0909373213741778 ;
-createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint9|joint2|joint3|ThirdLeg";
+createNode mesh -n "ThirdLegShape" -p "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -2171,11 +2241,11 @@ createNode mesh -n "ThirdLegShape" -p "|CenterJoint|joint9|joint2|joint3|ThirdLe
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "ThirdLegGlow" -p "|CenterJoint|joint9|joint2|joint3|ThirdLeg";
+createNode transform -n "ThirdLegGlow" -p "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg";
 	setAttr ".t" -type "double3" 0 3.3306690738754696e-016 4.4408920985006262e-016 ;
 	setAttr ".r" -type "double3" 0 0 -7.9513867036587919e-016 ;
 	setAttr ".s" -type "double3" 1 0.99999999999999989 1 ;
-createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegGlow";
+createNode mesh -n "ThirdLegGlowShape" -p "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegGlow";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -2195,7 +2265,7 @@ createNode mesh -n "ThirdLegGlowShape" -p "|CenterJoint|joint9|joint2|joint3|Thi
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode mesh -n "polySurfaceShape21" -p "|CenterJoint|joint9|joint2|joint3|ThirdLeg";
+createNode mesh -n "polySurfaceShape21" -p "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg";
 	setAttr -k off ".v";
 	setAttr ".io" yes;
 	setAttr ".iog[0].og[0].gcl" -type "componentList" 1 "f[0:8]";
@@ -2238,11 +2308,11 @@ createNode mesh -n "polySurfaceShape21" -p "|CenterJoint|joint9|joint2|joint3|Th
 	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
 	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
-createNode ikEffector -n "effector1" -p "|CenterJoint|joint9|joint2|joint3";
+createNode ikEffector -n "effector1" -p "|GlobalCTRL|CenterJoint|joint9|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".t" -type "double3" 0.24058386490586825 -0.68317758151917118 -13.938234120488769 ;
 	setAttr ".hd" yes;
-createNode ikEffector -n "effector6" -p "|CenterJoint|joint9|joint2|joint3";
+createNode ikEffector -n "effector6" -p "|GlobalCTRL|CenterJoint|joint9|joint2|joint3";
 	setAttr ".v" no;
 	setAttr ".hd" yes;
 createNode parentConstraint -n "CenterJoint_parentConstraint1" -p "CenterJoint";
@@ -2260,16 +2330,16 @@ createNode parentConstraint -n "CenterJoint_parentConstraint1" -p "CenterJoint";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
 	setAttr ".tg[0].tot" -type "double3" 0.019531878194397834 -9.2423233588036968 -0.0013726303652539934 ;
-	setAttr ".lr" -type "double3" 70.117461809937893 0 0 ;
 	setAttr ".rst" -type "double3" 4.5334478701930889 7.2503263523657955 -0.071621308723755342 ;
 	setAttr -k on ".w0";
-createNode transform -n "SpiderIKs";
+createNode transform -n "SpiderIKs" -p "GlobalCTRL";
+	setAttr ".t" -type "double3" -3.5527136788005009e-015 0 -9.9475983006414026e-014 ;
 	setAttr ".rp" -type "double3" 4.5139141723105745 3.49046240167824 -0.07022764780960955 ;
 	setAttr ".sp" -type "double3" 4.5139141723105745 3.49046240167824 -0.07022764780960955 ;
 createNode transform -n "Leg1" -p "SpiderIKs";
 	setAttr ".rp" -type "double3" 4.5139159919986911 7.2241070495874755 -0.070248678358501335 ;
 	setAttr ".sp" -type "double3" 4.5139159919986911 7.2241070495874755 -0.070248678358501335 ;
-createNode ikHandle -n "ikHandle1" -p "|SpiderIKs|Leg1";
+createNode ikHandle -n "ikHandle1" -p "|GlobalCTRL|SpiderIKs|Leg1";
 	setAttr ".rp" -type "double3" -10.288330907523724 -8.0955733328913375 -26.405147401132581 ;
 	setAttr ".sp" -type "double3" -10.288332455604174 -8.0955920148258702 -26.40513575377555 ;
 	setAttr ".pv" -type "double3" -0.65465471070444758 1.7564880412026831 -1.3667146123461282 ;
@@ -2295,7 +2365,7 @@ createNode transform -n "Leg2" -p "SpiderIKs";
 	setAttr ".r" -type "double3" 0 59.999999999999993 0 ;
 	setAttr ".rp" -type "double3" 4.5139159919986911 7.2241070495874755 -0.070248678358501335 ;
 	setAttr ".sp" -type "double3" 4.5139159919986911 7.2241070495874755 -0.070248678358501335 ;
-createNode ikHandle -n "ikHandle2" -p "|SpiderIKs|Leg2";
+createNode ikHandle -n "ikHandle2" -p "|GlobalCTRL|SpiderIKs|Leg2";
 	setAttr ".r" -type "double3" 0 -59.999999999999993 0 ;
 	setAttr ".pv" -type "double3" -0.65465471914733997 1.7564880432173535 -1.3667146057127602 ;
 	setAttr ".roc" yes;
@@ -2320,7 +2390,7 @@ createNode transform -n "Leg3" -p "SpiderIKs";
 	setAttr ".r" -type "double3" 0 119.99999999999999 0 ;
 	setAttr ".rp" -type "double3" 4.5139159919986911 7.2241070495874755 -0.070248678358501335 ;
 	setAttr ".sp" -type "double3" 4.5139159919986911 7.2241070495874755 -0.070248678358501335 ;
-createNode ikHandle -n "ikHandle3" -p "|SpiderIKs|Leg3";
+createNode ikHandle -n "ikHandle3" -p "|GlobalCTRL|SpiderIKs|Leg3";
 	setAttr ".r" -type "double3" 0 240.00000000000003 0 ;
 	setAttr ".pv" -type "double3" -0.65465471914733508 1.7564880432173466 -1.3667146057127693 ;
 	setAttr ".roc" yes;
@@ -2417,19 +2487,22 @@ createNode pointConstraint -n "ikHandle6_pointConstraint1" -p "ikHandle6";
 	setAttr ".o" -type "double3" 9.0456529910909467e-007 1.5684202843146977e-006 1.5553703178738942e-006 ;
 	setAttr ".rst" -type "double3" -10.288243568263161 -8.0955204190810051 -26.405032535068191 ;
 	setAttr -k on ".w0";
-createNode transform -n "GCtrl";
+createNode transform -n "GCtrl" -p "GlobalCTRL";
 	setAttr ".rp" -type "double3" 4.5139159919986911 16.492649711169491 -0.070248678358501349 ;
-	setAttr ".rpt" -type "double3" 0 -1.3145040611561853e-013 -4.9737991503207013e-014 ;
+	setAttr ".rpt" -type "double3" 0 -8.4762058483178748e-014 5.595524044110789e-014 ;
 	setAttr ".sp" -type "double3" 4.5139159919986911 16.492649711169491 -0.070248678358501349 ;
 createNode nurbsCurve -n "GCtrlShape" -p "GCtrl";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
 	setAttr ".ovc" 14;
 	setAttr ".tw" yes;
-createNode transform -n "Leg2";
+createNode transform -n "Leg2" -p "GlobalCTRL";
+	addAttr -ci true -k true -sn "blendPoint1" -ln "blendPoint1" -dv 1 -smn 0 -smx 
+		1 -at "double";
 	setAttr ".rp" -type "double3" 34.721569899971513 -8.0955326394032401 0.27809156898982934 ;
 	setAttr ".sp" -type "double3" 34.721569899971513 -8.0955326394032401 0.27809156898982934 ;
-createNode nurbsCurve -n "LegShape2" -p "|Leg2";
+	setAttr -k on ".blendPoint1";
+createNode nurbsCurve -n "LegShape2" -p "|GlobalCTRL|Leg2";
 	setAttr -k off ".v";
 	setAttr ".cc" -type "nurbsCurve" 
 		1 4 0 no 3
@@ -2441,10 +2514,30 @@ createNode nurbsCurve -n "LegShape2" -p "|Leg2";
 		31.131451730186967 -8.0955326394032401 -3.312026600794717
 		38.311688069756059 -8.0955326394032401 -3.312026600794717
 		;
-createNode transform -n "Leg3";
+createNode pointConstraint -n "Leg2_pointConstraint1" -p "|GlobalCTRL|Leg2";
+	addAttr -ci true -k true -sn "w0" -ln "pCube14W0" -dv 1 -min 0 -at "double";
+	setAttr -k on ".nds";
+	setAttr -k off ".v";
+	setAttr -k off ".tx";
+	setAttr -k off ".ty";
+	setAttr -k off ".tz";
+	setAttr -k off ".rx";
+	setAttr -k off ".ry";
+	setAttr -k off ".rz";
+	setAttr -k off ".sx";
+	setAttr -k off ".sy";
+	setAttr -k off ".sz";
+	setAttr ".erp" yes;
+	setAttr ".o" -type "double3" 1.7768937183859634e-006 -1.5510761119941208e-006 -9.845603443636719e-009 ;
+	setAttr ".rst" -type "double3" 0 0.08892007905772914 27.856765904233605 ;
+	setAttr -k on ".w0";
+createNode transform -n "Leg3" -p "GlobalCTRL";
+	addAttr -ci true -k true -sn "blendPoint1" -ln "blendPoint1" -dv 1 -smn 0 -smx 
+		1 -at "double";
 	setAttr ".rp" -type "double3" 19.919428929658245 -8.0955219875012894 -26.056688377832497 ;
 	setAttr ".sp" -type "double3" 19.919428929658245 -8.0955219875012894 -26.056688377832497 ;
-createNode nurbsCurve -n "LegShape3" -p "|Leg3";
+	setAttr -k on ".blendPoint1";
+createNode nurbsCurve -n "LegShape3" -p "|GlobalCTRL|Leg3";
 	setAttr -k off ".v";
 	setAttr ".cc" -type "nurbsCurve" 
 		1 4 0 no 3
@@ -2456,9 +2549,29 @@ createNode nurbsCurve -n "LegShape3" -p "|Leg3";
 		16.3293107598737 -8.0955219875012894 -29.646806547617039
 		23.509547099442791 -8.0955219875012894 -29.646806547617039
 		;
-createNode transform -n "Leg7";
+createNode pointConstraint -n "Leg3_pointConstraint1" -p "|GlobalCTRL|Leg3";
+	addAttr -ci true -k true -sn "w0" -ln "pCube13W0" -dv 1 -min 0 -at "double";
+	setAttr -k on ".nds";
+	setAttr -k off ".v";
+	setAttr -k off ".tx";
+	setAttr -k off ".ty";
+	setAttr -k off ".tz";
+	setAttr -k off ".rx";
+	setAttr -k off ".ry";
+	setAttr -k off ".rz";
+	setAttr -k off ".sx";
+	setAttr -k off ".sy";
+	setAttr -k off ".sz";
+	setAttr ".erp" yes;
+	setAttr ".o" -type "double3" 0.44262701595171206 -0.22844043953231719 -0.23411885640302188 ;
+	setAttr ".rst" -type "double3" 0.5460927794134669 0.92202560685878865 40.883186247095495 ;
+	setAttr -k on ".w0";
+createNode transform -n "Leg7" -p "GlobalCTRL";
+	addAttr -ci true -k true -sn "blendPoint1" -ln "blendPoint1" -dv 1 -smn 0 -smx 
+		1 -at "double";
 	setAttr ".rp" -type "double3" -10.288339406781116 -8.0956200656300847 -26.405133396327024 ;
 	setAttr ".sp" -type "double3" -10.288339406781116 -8.0956200656300847 -26.405133396327024 ;
+	setAttr -k on ".blendPoint1";
 createNode nurbsCurve -n "LegShape7" -p "Leg7";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
@@ -2473,9 +2586,29 @@ createNode nurbsCurve -n "LegShape7" -p "Leg7";
 		-13.87845757656566 -8.0956200656300847 -29.99525156611157
 		-6.6982212369965701 -8.0956200656300847 -29.99525156611157
 		;
-createNode transform -n "Leg8";
+createNode pointConstraint -n "Leg7_pointConstraint1" -p "Leg7";
+	addAttr -ci true -k true -sn "w0" -ln "pCube12W0" -dv 1 -min 0 -at "double";
+	setAttr -k on ".nds";
+	setAttr -k off ".v";
+	setAttr -k off ".tx";
+	setAttr -k off ".ty";
+	setAttr -k off ".tz";
+	setAttr -k off ".rx";
+	setAttr -k off ".ry";
+	setAttr -k off ".rz";
+	setAttr -k off ".sx";
+	setAttr -k off ".sy";
+	setAttr -k off ".sz";
+	setAttr ".erp" yes;
+	setAttr ".o" -type "double3" -0.48508896728450468 -0.22084759302618551 -0.13721538184631044 ;
+	setAttr ".rst" -type "double3" 0.51030279115705746 1.2382225701081637 41.655702111920775 ;
+	setAttr -k on ".w0";
+createNode transform -n "Leg8" -p "GlobalCTRL";
+	addAttr -ci true -k true -sn "blendPoint1" -ln "blendPoint1" -dv 1 -smn 0 -smx 
+		1 -at "double";
 	setAttr ".rp" -type "double3" -25.693823964979124 -8.0955695615709917 -0.4185443589077949 ;
 	setAttr ".sp" -type "double3" -25.693823964979124 -8.0955695615709917 -0.4185443589077949 ;
+	setAttr -k on ".blendPoint1";
 createNode nurbsCurve -n "LegShape8" -p "Leg8";
 	setAttr -k off ".v";
 	setAttr ".ove" yes;
@@ -2490,7 +2623,24 @@ createNode nurbsCurve -n "LegShape8" -p "Leg8";
 		-29.28394213476367 -8.0955695615709917 -4.0086625286923407
 		-22.103705795194575 -8.0955695615709917 -4.0086625286923407
 		;
-createNode transform -n "Leg9";
+createNode pointConstraint -n "Leg8_pointConstraint1" -p "Leg8";
+	addAttr -ci true -k true -sn "w0" -ln "pCube15W0" -dv 1 -min 0 -at "double";
+	setAttr -k on ".nds";
+	setAttr -k off ".v";
+	setAttr -k off ".tx";
+	setAttr -k off ".ty";
+	setAttr -k off ".tz";
+	setAttr -k off ".rx";
+	setAttr -k off ".ry";
+	setAttr -k off ".rz";
+	setAttr -k off ".sx";
+	setAttr -k off ".sy";
+	setAttr -k off ".sz";
+	setAttr ".erp" yes;
+	setAttr ".o" -type "double3" -0.42709998402418847 0.10758659169114715 0.29847453408000391 ;
+	setAttr ".rst" -type "double3" 0 0.08892007905772914 27.856765904233605 ;
+	setAttr -k on ".w0";
+createNode transform -n "Leg9" -p "GlobalCTRL";
 	setAttr ".rp" -type "double3" -10.891627370577003 -8.0956116484357992 25.916312829569723 ;
 	setAttr ".sp" -type "double3" -10.891627370577003 -8.0956116484357992 25.916312829569723 ;
 createNode nurbsCurve -n "LegShape9" -p "Leg9";
@@ -2507,10 +2657,10 @@ createNode nurbsCurve -n "LegShape9" -p "Leg9";
 		-14.481745540361548 -8.0956116484357992 22.326194659785177
 		-7.3015092007924594 -8.0956116484357992 22.326194659785177
 		;
-createNode transform -n "Leg1";
+createNode transform -n "Leg1" -p "GlobalCTRL";
 	setAttr ".rp" -type "double3" 18.458701916282951 -7.1868066769675103 24.707834044605271 ;
 	setAttr ".sp" -type "double3" 18.458701916282951 -7.1868066769675103 24.707834044605271 ;
-createNode nurbsCurve -n "LegShape1" -p "|Leg1";
+createNode nurbsCurve -n "LegShape1" -p "|GlobalCTRL|Leg1";
 	setAttr -k off ".v";
 	setAttr ".cc" -type "nurbsCurve" 
 		1 4 0 no 3
@@ -2522,44 +2672,10 @@ createNode nurbsCurve -n "LegShape1" -p "|Leg1";
 		14.868583746498407 -7.1868066769675094 21.117715874820725
 		22.048820086067497 -7.1868066769675094 21.117715874820725
 		;
-createNode transform -n "pointLight1";
-	setAttr ".t" -type "double3" 33.409034544898688 18.252945756478443 -41.086993529693842 ;
-createNode pointLight -n "pointLightShape1" -p "pointLight1";
-	setAttr -k off ".v";
-createNode transform -n "pointLight2";
-	setAttr ".t" -type "double3" -43.630512709613754 21.239791425719257 -37.227963811922663 ;
-createNode pointLight -n "pointLightShape2" -p "pointLight2";
-	setAttr -k off ".v";
-	setAttr ".in" 0.64220184087753296;
-	setAttr ".us" no;
-createNode transform -n "ambientLight1";
-	setAttr ".t" -type "double3" -76.681672452315439 30.718433866343563 -18.163864447363352 ;
-createNode ambientLight -n "ambientLightShape1" -p "ambientLight1";
-	setAttr -k off ".v";
-	setAttr ".urs" no;
-createNode transform -n "pointLight3";
-createNode pointLight -n "pointLightShape3" -p "pointLight3";
-	setAttr -k off ".v";
-	setAttr ".in" 0.18348623812198639;
-	setAttr ".us" no;
-createNode transform -n "left";
+createNode transform -n "pCube12";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -178.76470413103365 4.1985148227697033 99.755589716621401 ;
-	setAttr ".r" -type "double3" 0 -89.999999999999986 0 ;
-createNode camera -n "leftShape" -p "left";
-	setAttr -k off ".v";
-	setAttr ".rnd" no;
-	setAttr ".coi" 149.18138270695147;
-	setAttr ".ow" 62.633350068911398;
-	setAttr ".imn" -type "string" "left1";
-	setAttr ".den" -type "string" "left1_depth";
-	setAttr ".man" -type "string" "left1_mask";
-	setAttr ".hc" -type "string" "viewSet -ls %camera";
-	setAttr ".o" yes;
-createNode transform -n "pCube11";
-	setAttr ".t" -type "double3" 1.2390009296763083 -14.159491719587177 -95.59068137540163 ;
-	setAttr ".s" -type "double3" 2.1866943064599491 1 4.3560243056753496 ;
-createNode mesh -n "pCubeShape11" -p "pCube11";
+	setAttr ".t" -type "double3" -9.2929476483395543 -7.9717303402694482 15.387784097440061 ;
+createNode mesh -n "pCubeShape12" -p "pCube12";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -2568,10 +2684,114 @@ createNode mesh -n "pCubeShape11" -p "pCube11";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-	setAttr -s 8 ".pt[0:7]" -type "float3"  0 -44.015003 19.109308 0 
-		-44.015003 19.109308 -3.5527137e-015 -3.7015171 19.109308 -3.5527137e-015 -3.7015171 
-		19.109308 -3.5527137e-015 -3.7015171 0 -3.5527137e-015 -3.7015171 0 0 -44.015003 
-		0 0 -44.015003 0;
+createNode transform -n "pCube13";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" 20.022894693120001 -7.9717303402694482 15.060616725666019 ;
+createNode mesh -n "pCubeShape13" -p "pCube13";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 14 ".uvst[0].uvsp[0:13]" -type "float2" 0.375 0 0.625 0 0.375
+		 0.25 0.625 0.25 0.375 0.5 0.625 0.5 0.375 0.75 0.625 0.75 0.375 1 0.625 1 0.875 0
+		 0.875 0.25 0.125 0 0.125 0.25;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 8 ".vt[0:7]"  -1.90286815 -1.86336529 1.8319273 1.90286815 -1.86336529 1.8319273
+		 -1.90286815 1.86336529 1.8319273 1.90286815 1.86336529 1.8319273 -1.90286815 1.86336529 -1.8319273
+		 1.90286815 1.86336529 -1.8319273 -1.90286815 -1.86336529 -1.8319273 1.90286815 -1.86336529 -1.8319273;
+	setAttr -s 12 ".ed[0:11]"  0 1 0 2 3 0 4 5 0 6 7 0 0 2 0 1 3 0 2 4 0
+		 3 5 0 4 6 0 5 7 0 6 0 0 7 1 0;
+	setAttr -s 6 -ch 24 ".fc[0:5]" -type "polyFaces" 
+		f 4 0 5 -2 -5
+		mu 0 4 0 1 3 2
+		f 4 1 7 -3 -7
+		mu 0 4 2 3 5 4
+		f 4 2 9 -4 -9
+		mu 0 4 4 5 7 6
+		f 4 3 11 -1 -11
+		mu 0 4 6 7 9 8
+		f 4 -12 -10 -8 -6
+		mu 0 4 1 10 11 3
+		f 4 10 4 6 8
+		mu 0 4 12 0 2 13;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube14";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" 34.721568123077795 -8.0066110092693954 28.134857483069041 ;
+createNode mesh -n "pCubeShape14" -p "pCube14";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 14 ".uvst[0].uvsp[0:13]" -type "float2" 0.375 0 0.625 0 0.375
+		 0.25 0.625 0.25 0.375 0.5 0.625 0.5 0.375 0.75 0.625 0.75 0.375 1 0.625 1 0.875 0
+		 0.875 0.25 0.125 0 0.125 0.25;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 8 ".vt[0:7]"  -1.90286815 -1.86336529 1.8319273 1.90286815 -1.86336529 1.8319273
+		 -1.90286815 1.86336529 1.8319273 1.90286815 1.86336529 1.8319273 -1.90286815 1.86336529 -1.8319273
+		 1.90286815 1.86336529 -1.8319273 -1.90286815 -1.86336529 -1.8319273 1.90286815 -1.86336529 -1.8319273;
+	setAttr -s 12 ".ed[0:11]"  0 1 0 2 3 0 4 5 0 6 7 0 0 2 0 1 3 0 2 4 0
+		 3 5 0 4 6 0 5 7 0 6 0 0 7 1 0;
+	setAttr -s 6 -ch 24 ".fc[0:5]" -type "polyFaces" 
+		f 4 0 5 -2 -5
+		mu 0 4 0 1 3 2
+		f 4 1 7 -3 -7
+		mu 0 4 2 3 5 4
+		f 4 2 9 -4 -9
+		mu 0 4 4 5 7 6
+		f 4 3 11 -1 -11
+		mu 0 4 6 7 9 8
+		f 4 -12 -10 -8 -6
+		mu 0 4 1 10 11 3
+		f 4 10 4 6 8
+		mu 0 4 12 0 2 13;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
+createNode transform -n "pCube15";
+	setAttr ".v" no;
+	setAttr ".t" -type "double3" -25.266723980954936 -8.1142360742044062 27.139747011245809 ;
+createNode mesh -n "pCubeShape15" -p "pCube15";
+	setAttr -k off ".v";
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 14 ".uvst[0].uvsp[0:13]" -type "float2" 0.375 0 0.625 0 0.375
+		 0.25 0.625 0.25 0.375 0.5 0.625 0.5 0.375 0.75 0.625 0.75 0.375 1 0.625 1 0.875 0
+		 0.875 0.25 0.125 0 0.125 0.25;
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+	setAttr -s 8 ".vt[0:7]"  -1.90286815 -1.86336529 1.8319273 1.90286815 -1.86336529 1.8319273
+		 -1.90286815 1.86336529 1.8319273 1.90286815 1.86336529 1.8319273 -1.90286815 1.86336529 -1.8319273
+		 1.90286815 1.86336529 -1.8319273 -1.90286815 -1.86336529 -1.8319273 1.90286815 -1.86336529 -1.8319273;
+	setAttr -s 12 ".ed[0:11]"  0 1 0 2 3 0 4 5 0 6 7 0 0 2 0 1 3 0 2 4 0
+		 3 5 0 4 6 0 5 7 0 6 0 0 7 1 0;
+	setAttr -s 6 -ch 24 ".fc[0:5]" -type "polyFaces" 
+		f 4 0 5 -2 -5
+		mu 0 4 0 1 3 2
+		f 4 1 7 -3 -7
+		mu 0 4 2 3 5 4
+		f 4 2 9 -4 -9
+		mu 0 4 4 5 7 6
+		f 4 3 11 -1 -11
+		mu 0 4 6 7 9 8
+		f 4 -12 -10 -8 -6
+		mu 0 4 1 10 11 3
+		f 4 10 4 6 8
+		mu 0 4 12 0 2 13;
+	setAttr ".cd" -type "dataPolyComponent" Index_Data Edge 0 ;
+	setAttr ".cvd" -type "dataPolyComponent" Index_Data Vertex 0 ;
+	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
 	setAttr -s 8 ".lnk";
 	setAttr -s 8 ".slnk";
@@ -2614,18 +2834,18 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 1\n                -showAssets 1\n                -showContainedOnly 1\n                -showPublishedAsConnected 0\n                -showContainerContents 1\n                -ignoreDagHierarchy 0\n                -expandConnections 0\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 0\n                -highlightActive 1\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"defaultSetFilter\" \n                -showSetMembers 1\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n"
 		+ "                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 0\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\toutlinerPanel -edit -l (localizedPanelLabel(\"Outliner\")) -mbv $menusOkayInPanels  $panelName;\n\t\t$editorName = $panelName;\n        outlinerEditor -e \n            -docTag \"isolOutln_fromSeln\" \n            -showShapes 0\n            -showReferenceNodes 1\n            -showReferenceMembers 1\n            -showAttributes 0\n            -showConnected 0\n            -showAnimCurvesOnly 0\n            -showMuteInfo 0\n            -organizeByLayer 1\n            -showAnimLayerWeight 1\n            -autoExpandLayers 1\n"
 		+ "            -autoExpand 0\n            -showDagOnly 1\n            -showAssets 1\n            -showContainedOnly 1\n            -showPublishedAsConnected 0\n            -showContainerContents 1\n            -ignoreDagHierarchy 0\n            -expandConnections 0\n            -showUpstreamCurves 1\n            -showUnitlessCurves 1\n            -showCompounds 1\n            -showLeafs 1\n            -showNumericAttrsOnly 0\n            -highlightActive 1\n            -autoSelectNewObjects 0\n            -doNotSelectNewObjects 0\n            -dropIsParent 1\n            -transmitFilters 0\n            -setFilter \"defaultSetFilter\" \n            -showSetMembers 1\n            -allowMultiSelection 1\n            -alwaysToggleSelect 0\n            -directSelect 0\n            -displayMode \"DAG\" \n            -expandObjects 0\n            -setsIgnoreFilters 1\n            -containersIgnoreFilters 0\n            -editAttrName 0\n            -showAttrValues 0\n            -highlightSecondary 0\n            -showUVAttrsOnly 0\n            -showTextureNodesOnly 0\n"
-		+ "            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"graphEditor\" -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n"
-		+ "                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n"
-		+ "                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n"
-		+ "                -showUpstreamCurves 1\n                -clipTime \"on\" \n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n"
-		+ "                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n"
-		+ "                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -clipTime \"on\" \n                -stackedCurves 0\n"
-		+ "                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\tscriptedPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dopeSheetPanel\" (localizedPanelLabel(\"Dope Sheet\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dopeSheetPanel\" -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n"
-		+ "                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n"
-		+ "                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n"
-		+ "                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n"
-		+ "                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n"
-		+ "                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"clipEditorPanel\" (localizedPanelLabel(\"Trax Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"clipEditorPanel\" -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels `;\n"
+		+ "            -attrAlphaOrder \"default\" \n            -animLayerFilterOptions \"allAffecting\" \n            -sortOrder \"none\" \n            -longNames 0\n            -niceNames 1\n            -showNamespace 1\n            -showPinIcons 0\n            -mapMotionTrails 0\n            $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\toutlinerPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"graphEditor\" (localizedPanelLabel(\"Graph Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"graphEditor\" -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n"
+		+ "                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n"
+		+ "                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n"
+		+ "                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n                -clipTime \"on\" \n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Graph Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n"
+		+ "                -autoExpand 1\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 1\n                -showCompounds 0\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 1\n                -doNotSelectNewObjects 0\n                -dropIsParent 1\n                -transmitFilters 1\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n"
+		+ "                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 1\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"GraphEd\");\n            animCurveEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 1\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -showResults \"off\" \n                -showBufferCurves \"off\" \n                -smoothness \"fine\" \n                -resultSamples 1\n                -resultScreenSamples 0\n                -resultUpdate \"delayed\" \n                -showUpstreamCurves 1\n"
+		+ "                -clipTime \"on\" \n                -stackedCurves 0\n                -stackedCurvesMin -1\n                -stackedCurvesMax 1\n                -stackedCurvesSpace 0.2\n                -displayNormalized 0\n                -preSelectionHighlight 0\n                -constrainDrag 0\n                -classicMode 1\n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\tif ($useSceneConfig) {\n\t\tscriptedPanel -e -to $panelName;\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dopeSheetPanel\" (localizedPanelLabel(\"Dope Sheet\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dopeSheetPanel\" -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n"
+		+ "                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n"
+		+ "                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n"
+		+ "                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dope Sheet\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = ($panelName+\"OutlineEd\");\n            outlinerEditor -e \n                -showShapes 1\n                -showReferenceNodes 0\n                -showReferenceMembers 0\n                -showAttributes 1\n                -showConnected 1\n                -showAnimCurvesOnly 1\n                -showMuteInfo 0\n                -organizeByLayer 1\n                -showAnimLayerWeight 1\n                -autoExpandLayers 1\n                -autoExpand 0\n                -showDagOnly 0\n                -showAssets 1\n                -showContainedOnly 0\n                -showPublishedAsConnected 0\n                -showContainerContents 0\n                -ignoreDagHierarchy 0\n                -expandConnections 1\n"
+		+ "                -showUpstreamCurves 1\n                -showUnitlessCurves 0\n                -showCompounds 1\n                -showLeafs 1\n                -showNumericAttrsOnly 1\n                -highlightActive 0\n                -autoSelectNewObjects 0\n                -doNotSelectNewObjects 1\n                -dropIsParent 1\n                -transmitFilters 0\n                -setFilter \"0\" \n                -showSetMembers 0\n                -allowMultiSelection 1\n                -alwaysToggleSelect 0\n                -directSelect 0\n                -displayMode \"DAG\" \n                -expandObjects 0\n                -setsIgnoreFilters 1\n                -containersIgnoreFilters 0\n                -editAttrName 0\n                -showAttrValues 0\n                -highlightSecondary 0\n                -showUVAttrsOnly 0\n                -showTextureNodesOnly 0\n                -attrAlphaOrder \"default\" \n                -animLayerFilterOptions \"allAffecting\" \n                -sortOrder \"none\" \n                -longNames 0\n"
+		+ "                -niceNames 1\n                -showNamespace 1\n                -showPinIcons 0\n                -mapMotionTrails 1\n                $editorName;\n\n\t\t\t$editorName = ($panelName+\"DopeSheetEd\");\n            dopeSheetEditor -e \n                -displayKeys 1\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"integer\" \n                -snapValue \"none\" \n                -outliner \"dopeSheetPanel1OutlineEd\" \n                -showSummary 1\n                -showScene 0\n                -hierarchyBelow 0\n                -showTicks 1\n                -selectionWindow 0 0 0 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"clipEditorPanel\" (localizedPanelLabel(\"Trax Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"clipEditorPanel\" -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels `;\n"
 		+ "\t\t\t$editorName = clipEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 0 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Trax Editor\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = clipEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 0 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n"
 		+ "\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"sequenceEditorPanel\" (localizedPanelLabel(\"Camera Sequencer\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"sequenceEditorPanel\" -l (localizedPanelLabel(\"Camera Sequencer\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = sequenceEditorNameFromPanel($panelName);\n            clipEditor -e \n                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 1 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Camera Sequencer\")) -mbv $menusOkayInPanels  $panelName;\n\n\t\t\t$editorName = sequenceEditorNameFromPanel($panelName);\n            clipEditor -e \n"
 		+ "                -displayKeys 0\n                -displayTangents 0\n                -displayActiveKeys 0\n                -displayActiveKeyTangents 0\n                -displayInfinities 0\n                -autoFit 0\n                -snapTime \"none\" \n                -snapValue \"none\" \n                -manageSequencer 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"hyperGraphPanel\" (localizedPanelLabel(\"Hypergraph Hierarchy\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"hyperGraphPanel\" -l (localizedPanelLabel(\"Hypergraph Hierarchy\")) -mbv $menusOkayInPanels `;\n\n\t\t\t$editorName = ($panelName+\"HyperGraphEd\");\n            hyperGraph -e \n                -graphLayoutStyle \"hierarchicalLayout\" \n                -orientation \"horiz\" \n                -mergeConnections 0\n                -zoom 1\n                -animateTransition 0\n                -showRelationships 1\n"
@@ -2639,20 +2859,13 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\tblendShapePanel -unParent -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels ;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tblendShapePanel -edit -l (localizedPanelLabel(\"Blend Shape\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynRelEdPanel\" (localizedPanelLabel(\"Dynamic Relationships\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynRelEdPanel\" -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Dynamic Relationships\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"relationshipPanel\" (localizedPanelLabel(\"Relationship Editor\")) `;\n"
 		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"relationshipPanel\" -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Relationship Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"referenceEditorPanel\" (localizedPanelLabel(\"Reference Editor\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"referenceEditorPanel\" -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Reference Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"componentEditorPanel\" (localizedPanelLabel(\"Component Editor\")) `;\n"
 		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"componentEditorPanel\" -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Component Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"dynPaintScriptedPanelType\" (localizedPanelLabel(\"Paint Effects\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"dynPaintScriptedPanelType\" -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Paint Effects\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"scriptEditorPanel\" (localizedPanelLabel(\"Script Editor\")) `;\n"
-		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"scriptEditorPanel\" -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\t$panelName = `sceneUIReplacement -getNextScriptedPanel \"Stereo\" (localizedPanelLabel(\"Stereo\")) `;\n\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"Stereo\" -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels `;\nstring $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n                -camera \"persp\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n"
-		+ "                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 1\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 16384\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n                -fogColor 0.5 0.5 0.5 1 \n                -maxConstantTransparency 1\n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n"
-		+ "                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -fluids 1\n                -hairSystems 1\n"
-		+ "                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Stereo\")) -mbv $menusOkayInPanels  $panelName;\nstring $editorName = ($panelName+\"Editor\");\n            stereoCameraView -e \n"
-		+ "                -camera \"persp\" \n                -useInteractiveMode 0\n                -displayLights \"default\" \n                -displayAppearance \"wireframe\" \n                -activeOnly 0\n                -ignorePanZoom 0\n                -wireframeOnShaded 0\n                -headsUpDisplay 1\n                -selectionHiliteDisplay 1\n                -useDefaultMaterial 0\n                -bufferMode \"double\" \n                -twoSidedLighting 1\n                -backfaceCulling 0\n                -xray 0\n                -jointXray 0\n                -activeComponentsXray 0\n                -displayTextures 0\n                -smoothWireframe 0\n                -lineWidth 1\n                -textureAnisotropic 0\n                -textureHilight 1\n                -textureSampling 2\n                -textureDisplay \"modulate\" \n                -textureMaxSize 16384\n                -fogging 0\n                -fogSource \"fragment\" \n                -fogMode \"linear\" \n                -fogStart 0\n                -fogEnd 100\n                -fogDensity 0.1\n"
-		+ "                -fogColor 0.5 0.5 0.5 1 \n                -maxConstantTransparency 1\n                -objectFilterShowInHUD 1\n                -isFiltered 0\n                -colorResolution 4 4 \n                -bumpResolution 4 4 \n                -textureCompression 0\n                -transparencyAlgorithm \"frontAndBackCull\" \n                -transpInShadows 0\n                -cullingOverride \"none\" \n                -lowQualityLighting 0\n                -maximumNumHardwareLights 0\n                -occlusionCulling 0\n                -shadingModel 0\n                -useBaseRenderer 0\n                -useReducedRenderer 0\n                -smallObjectCulling 0\n                -smallObjectThreshold -1 \n                -interactiveDisableShadows 0\n                -interactiveBackFaceCull 0\n                -sortTransparent 1\n                -nurbsCurves 1\n                -nurbsSurfaces 1\n                -polymeshes 1\n                -subdivSurfaces 1\n                -planes 1\n                -lights 1\n                -cameras 1\n"
-		+ "                -controlVertices 1\n                -hulls 1\n                -grid 1\n                -imagePlane 1\n                -joints 1\n                -ikHandles 1\n                -deformers 1\n                -dynamics 1\n                -fluids 1\n                -hairSystems 1\n                -follicles 1\n                -nCloths 1\n                -nParticles 1\n                -nRigids 1\n                -dynamicConstraints 1\n                -locators 1\n                -manipulators 1\n                -pluginShapes 1\n                -dimensions 1\n                -handles 1\n                -pivots 1\n                -textures 1\n                -strokes 1\n                -motionTrails 1\n                -clipGhosts 1\n                -greasePencils 1\n                -shadows 0\n                -displayMode \"centerEye\" \n                -viewColor 0 0 0 1 \n                -useCustomBackground 1\n                $editorName;\n            stereoCameraView -e -viewSelected 0 $editorName;\n            stereoCameraView -e \n"
-		+ "                -pluginObjects \"gpuCacheDisplayFilter\" 1 \n                $editorName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-defaultImage \"\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
+		+ "\tif (\"\" == $panelName) {\n\t\tif ($useSceneConfig) {\n\t\t\t$panelName = `scriptedPanel -unParent  -type \"scriptEditorPanel\" -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels `;\n\t\t}\n\t} else {\n\t\t$label = `panel -q -label $panelName`;\n\t\tscriptedPanel -edit -l (localizedPanelLabel(\"Script Editor\")) -mbv $menusOkayInPanels  $panelName;\n\t\tif (!$useSceneConfig) {\n\t\t\tpanel -e -l $label $panelName;\n\t\t}\n\t}\n\n\n\tif ($useSceneConfig) {\n        string $configName = `getPanel -cwl (localizedPanelLabel(\"Current Layout\"))`;\n        if (\"\" != $configName) {\n\t\t\tpanelConfiguration -edit -label (localizedPanelLabel(\"Current Layout\")) \n\t\t\t\t-defaultImage \"\"\n\t\t\t\t-image \"\"\n\t\t\t\t-sc false\n\t\t\t\t-configString \"global string $gMainPane; paneLayout -e -cn \\\"single\\\" -ps 1 100 100 $gMainPane;\"\n\t\t\t\t-removeAllPanels\n\t\t\t\t-ap false\n\t\t\t\t\t(localizedPanelLabel(\"Persp View\")) \n\t\t\t\t\t\"modelPanel\"\n"
 		+ "\t\t\t\t\t\"$panelName = `modelPanel -unParent -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels `;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 0\\n    -headsUpDisplay 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 1\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 1\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 16384\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -maxConstantTransparency 1\\n    -rendererName \\\"base_OpenGL_Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 0\\n    -imagePlane 1\\n    -joints 0\\n    -ikHandles 0\\n    -deformers 1\\n    -dynamics 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
 		+ "\t\t\t\t\t\"modelPanel -edit -l (localizedPanelLabel(\\\"Persp View\\\")) -mbv $menusOkayInPanels  $panelName;\\n$editorName = $panelName;\\nmodelEditor -e \\n    -cam `findStartUpCamera persp` \\n    -useInteractiveMode 0\\n    -displayLights \\\"default\\\" \\n    -displayAppearance \\\"smoothShaded\\\" \\n    -activeOnly 0\\n    -ignorePanZoom 0\\n    -wireframeOnShaded 0\\n    -headsUpDisplay 1\\n    -selectionHiliteDisplay 1\\n    -useDefaultMaterial 0\\n    -bufferMode \\\"double\\\" \\n    -twoSidedLighting 1\\n    -backfaceCulling 0\\n    -xray 0\\n    -jointXray 1\\n    -activeComponentsXray 0\\n    -displayTextures 1\\n    -smoothWireframe 0\\n    -lineWidth 1\\n    -textureAnisotropic 0\\n    -textureHilight 1\\n    -textureSampling 2\\n    -textureDisplay \\\"modulate\\\" \\n    -textureMaxSize 16384\\n    -fogging 0\\n    -fogSource \\\"fragment\\\" \\n    -fogMode \\\"linear\\\" \\n    -fogStart 0\\n    -fogEnd 100\\n    -fogDensity 0.1\\n    -fogColor 0.5 0.5 0.5 1 \\n    -maxConstantTransparency 1\\n    -rendererName \\\"base_OpenGL_Renderer\\\" \\n    -objectFilterShowInHUD 1\\n    -isFiltered 0\\n    -colorResolution 256 256 \\n    -bumpResolution 512 512 \\n    -textureCompression 0\\n    -transparencyAlgorithm \\\"frontAndBackCull\\\" \\n    -transpInShadows 0\\n    -cullingOverride \\\"none\\\" \\n    -lowQualityLighting 0\\n    -maximumNumHardwareLights 1\\n    -occlusionCulling 0\\n    -shadingModel 0\\n    -useBaseRenderer 0\\n    -useReducedRenderer 0\\n    -smallObjectCulling 0\\n    -smallObjectThreshold -1 \\n    -interactiveDisableShadows 0\\n    -interactiveBackFaceCull 0\\n    -sortTransparent 1\\n    -nurbsCurves 1\\n    -nurbsSurfaces 1\\n    -polymeshes 1\\n    -subdivSurfaces 1\\n    -planes 1\\n    -lights 1\\n    -cameras 1\\n    -controlVertices 1\\n    -hulls 1\\n    -grid 0\\n    -imagePlane 1\\n    -joints 0\\n    -ikHandles 0\\n    -deformers 1\\n    -dynamics 1\\n    -fluids 1\\n    -hairSystems 1\\n    -follicles 1\\n    -nCloths 1\\n    -nParticles 1\\n    -nRigids 1\\n    -dynamicConstraints 1\\n    -locators 1\\n    -manipulators 1\\n    -pluginShapes 1\\n    -dimensions 1\\n    -handles 1\\n    -pivots 1\\n    -textures 1\\n    -strokes 1\\n    -motionTrails 1\\n    -clipGhosts 1\\n    -greasePencils 1\\n    -shadows 0\\n    $editorName;\\nmodelEditor -e -viewSelected 0 $editorName;\\nmodelEditor -e \\n    -pluginObjects \\\"gpuCacheDisplayFilter\\\" 1 \\n    $editorName\"\n"
 		+ "\t\t\t\t$configName;\n\n            setNamedPanelLayout (localizedPanelLabel(\"Current Layout\"));\n        }\n\n        panelHistory -e -clear mainPanelHistory;\n        setFocus `paneLayout -q -p1 $gMainPane`;\n        sceneUIReplacement -deleteRemaining;\n        sceneUIReplacement -clear;\n\t}\n\n\ngrid -spacing 5 -size 12 -divisions 5 -displayAxes yes -displayGridLines yes -displayDivisionLines yes -displayPerspectiveLabels no -displayOrthographicLabels no -displayAxesBold yes -perspectiveLabelPosition axis -orthographicLabelPosition edge;\nviewManip -drawCompass 0 -compassAngle 0 -frontParameters \"\" -homeParameters \"\" -selectionLockParameters \"\";\n}\n");
 	setAttr ".st" 3;
 createNode script -n "sceneConfigurationScriptNode";
-	setAttr ".b" -type "string" "playbackOptions -min 114 -max 270 -ast 114 -aet 400 ";
+	setAttr ".b" -type "string" "playbackOptions -min 0 -max 400 -ast 0 -aet 400 ";
 	setAttr ".st" 6;
 createNode polyCube -n "polyCube1";
 	setAttr ".w" 11.335173276508655;
@@ -4315,809 +4528,1017 @@ createNode polyTweakUV -n "polyTweakUV32";
 createNode animCurveTL -n "GCtrl_translateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  1 0 114 0 271 0 280 -1.5485277597731617
-		 291 -1.0693499316816779 296 -0.60954676540496777 298 0.45161612114771166 299 1.0913817068337834
-		 313 0 327 0;
-	setAttr -s 10 ".kit[0:9]"  2 16 16 16 16 16 16 16 
-		16 16;
-	setAttr -s 10 ".kot[0:9]"  2 16 16 16 16 16 16 16 
-		16 16;
+	setAttr -s 13 ".ktv[0:12]"  1 0 114 0 142 -0.010434254043047986 155 0
+		 165 0 174 -1.5485277597731617 185 -1.0693499316816779 190 -0.60954676540496777 192 0.45161612114771166
+		 193 1.0913817068337834 207 0 221 0 266 0;
+	setAttr -s 13 ".kit[0:12]"  2 16 16 16 16 16 16 16 
+		16 16 16 16 16;
+	setAttr -s 13 ".kot[0:12]"  2 16 16 16 16 16 16 16 
+		16 16 16 16 16;
 createNode animCurveTL -n "GCtrl_translateY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 21 ".ktv[0:20]"  1 0 114 0 118 -1.2144706328662513 124 -14.932534963572373
-		 129 -23.591283691622749 134 -33.243915144256405 271 0 280 3.7448462213948943 291 13.839498691660062
-		 296 -6.3312319469686145 298 -6.8146407971387228 299 -8.3325795043371489 313 0 315 10.712297738732929
-		 318 19.905070420474299 324 -1.3738998740651951 327 -0.0020503681646175664 341 96.681234772611319
-		 358 0 364 -7.4770990823037877 372 0;
-	setAttr -s 21 ".kit[0:20]"  2 16 16 16 16 16 16 16 
-		16 16 16 16 16 16 16 1 1 16 1 16 16;
-	setAttr -s 21 ".kot[0:20]"  2 16 16 16 16 16 16 16 
-		16 16 16 16 16 16 16 1 1 16 1 16 16;
-	setAttr -s 21 ".ktl[18:20]" no yes yes;
-	setAttr -s 21 ".kix[15:20]"  0.010491547174751759 0.0028532824944704771 
+	setAttr -s 24 ".ktv[0:23]"  1 0 114 0 115 0 128 -3.7404255763036431
+		 131 8.0323856518258285 135 16.682457889912381 142 -2.5224377701237461 149 4.8460780571426163
+		 155 0 165 0 174 3.7448462213948943 185 13.839498691660062 190 -6.3312319469686145
+		 192 -6.8146407971387228 193 -8.3325795043371489 207 0 209 10.712297738732929 212 19.905070420474299
+		 218 -1.3738998740651951 221 -0.0020503681646175664 235 96.681234772611319 252 0 258 -7.4770990823037877
+		 266 0;
+	setAttr -s 24 ".kit[0:23]"  2 16 16 18 16 18 18 16 
+		16 16 16 16 16 16 16 16 16 16 1 1 16 1 16 16;
+	setAttr -s 24 ".kot[0:23]"  2 16 16 18 16 18 18 16 
+		16 16 16 16 16 16 16 16 16 16 1 1 16 1 16 16;
+	setAttr -s 24 ".ktl[21:23]" no yes yes;
+	setAttr -s 24 ".kix[18:23]"  0.010491547174751759 0.0028532824944704771 
 		1 0.0043161273933947086 1 1;
-	setAttr -s 21 ".kiy[15:20]"  -0.99994498491287231 0.99999600648880005 
+	setAttr -s 24 ".kiy[18:23]"  -0.99994498491287231 0.99999600648880005 
 		0 -0.99999070167541504 0 0;
-	setAttr -s 21 ".kox[15:20]"  0.010491545312106609 0.0028532815631479025 
+	setAttr -s 24 ".kox[18:23]"  0.010491545312106609 0.0028532815631479025 
 		1 0.0065761231817305088 1 1;
-	setAttr -s 21 ".koy[15:20]"  -0.99994498491287231 0.99999594688415527 
+	setAttr -s 24 ".koy[18:23]"  -0.99994498491287231 0.99999594688415527 
 		0 -0.99997836351394653 0 0;
 createNode animCurveTL -n "GCtrl_translateZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 19 ".ktv[0:18]"  1 0 50 50 100 100 114 100 118 118.41548223187471
-		 124 145.6750214142742 129 149.2351188032298 134 151.46734100803195 271 100 272 0
-		 280 -10.392353241838649 291 -14.839428988537684 293 -11.764498988177261 296 0.25204847666637065
-		 298 13.823941670053941 299 7.0679485577770231 302 2.6778112527928064 313 0 327 0;
-	setAttr -s 19 ".kit[0:18]"  2 2 2 16 16 16 16 16 
-		16 16 16 16 16 16 16 16 16 16 16;
-	setAttr -s 19 ".kot[0:18]"  2 2 2 16 16 16 16 16 
-		16 16 16 16 16 16 1 16 16 16 16;
-	setAttr -s 19 ".ktl[14:18]" no yes yes yes yes;
-	setAttr -s 19 ".kox[14:18]"  0.0029130878392606974 0.014951144345104694 
-		0.082252629101276398 1 1;
-	setAttr -s 19 ".koy[14:18]"  -0.99999576807022095 -0.99988824129104614 
-		-0.99661153554916382 0 0;
+	setAttr -s 23 ".ktv[0:22]"  1 0 50 50 100 100 114 100 115 0 128 27.966489817441364
+		 131 32.581552166218657 135 17.223561256302091 142 -15.20423799807768 149 -5.9249770920140463
+		 155 0 165 0 166 0 174 -10.392353241838649 185 -14.839428988537684 187 -11.764498988177261
+		 190 0.25204847666637065 192 13.823941670053941 193 7.0679485577770231 196 2.6778112527928064
+		 207 0 221 0 266 0;
+	setAttr -s 23 ".kit[0:22]"  2 2 2 16 16 18 16 18 
+		18 16 16 16 16 16 16 16 16 16 16 16 16 16 16;
+	setAttr -s 23 ".kot[0:22]"  2 2 2 16 16 18 16 18 
+		18 16 16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 23 ".ktl[17:22]" no yes yes yes yes yes;
+	setAttr -s 23 ".kox[17:22]"  0.0029130878392606974 0.014951229095458984 
+		0.08225250244140625 1 1 1;
+	setAttr -s 23 ".koy[17:22]"  -0.99999576807022095 -0.99988824129104614 
+		-0.99661153554916382 0 0 0;
 createNode animCurveTU -n "GCtrl_visibility";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  1 1 114 1 271 1 327 1;
-	setAttr -s 4 ".kit[0:3]"  2 9 9 9;
-	setAttr -s 4 ".kot[0:3]"  2 5 5 5;
+	setAttr -s 6 ".ktv[0:5]"  1 1 114 1 155 1 165 1 221 1 266 1;
+	setAttr -s 6 ".kit[0:5]"  2 9 9 9 9 9;
+	setAttr -s 6 ".kot[0:5]"  2 5 5 5 5 5;
 createNode animCurveTA -n "GCtrl_rotateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  1 0 114 0 124 61.381081164027421 134 90
-		 271 0 290 0 293 30.089690048387439 295 36.054467257246905 298 0 327 0;
-	setAttr -s 10 ".kit[0:9]"  2 16 16 16 16 16 16 16 
-		16 16;
-	setAttr -s 10 ".kot[0:9]"  2 16 16 16 16 16 16 16 
-		16 16;
+	setAttr -s 12 ".ktv[0:11]"  1 0 114 0 128 53.04040362567342 142 -2.3367327356433991
+		 155 0 165 0 184 0 187 30.089690048387439 189 36.054467257246905 192 0 221 0 266 0;
+	setAttr -s 12 ".kit[0:11]"  2 16 18 16 16 16 16 16 
+		16 16 16 16;
+	setAttr -s 12 ".kot[0:11]"  2 16 18 16 16 16 16 16 
+		16 16 16 16;
 createNode animCurveTA -n "GCtrl_rotateY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  1 0 114 0 271 0 290 0 327 0;
-	setAttr -s 5 ".kit[0:4]"  2 16 16 16 16;
-	setAttr -s 5 ".kot[0:4]"  2 16 16 16 16;
+	setAttr -s 7 ".ktv[0:6]"  1 0 114 0 155 0 165 0 184 0 221 0 266 0;
+	setAttr -s 7 ".kit[0:6]"  2 16 16 16 16 16 16;
+	setAttr -s 7 ".kot[0:6]"  2 16 16 16 16 16 16;
 createNode animCurveTA -n "GCtrl_rotateZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  1 0 114 0 271 0 290 0 327 0;
-	setAttr -s 5 ".kit[0:4]"  2 16 16 16 16;
-	setAttr -s 5 ".kot[0:4]"  2 16 16 16 16;
+	setAttr -s 7 ".ktv[0:6]"  1 0 114 0 155 0 165 0 184 0 221 0 266 0;
+	setAttr -s 7 ".kit[0:6]"  2 16 16 16 16 16 16;
+	setAttr -s 7 ".kot[0:6]"  2 16 16 16 16 16 16;
 createNode animCurveTU -n "GCtrl_scaleX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  1 1 114 1 271 1 327 1;
-	setAttr -s 4 ".kit[0:3]"  2 16 16 16;
-	setAttr -s 4 ".kot[0:3]"  2 16 16 16;
+	setAttr -s 6 ".ktv[0:5]"  1 1 114 1 155 1 165 1 221 1 266 1;
+	setAttr -s 6 ".kit[0:5]"  2 16 16 16 16 16;
+	setAttr -s 6 ".kot[0:5]"  2 16 16 16 16 16;
 createNode animCurveTU -n "GCtrl_scaleY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  1 1 114 1 271 1 327 1;
-	setAttr -s 4 ".kit[0:3]"  2 16 16 16;
-	setAttr -s 4 ".kot[0:3]"  2 16 16 16;
+	setAttr -s 6 ".ktv[0:5]"  1 1 114 1 155 1 165 1 221 1 266 1;
+	setAttr -s 6 ".kit[0:5]"  2 16 16 16 16 16;
+	setAttr -s 6 ".kot[0:5]"  2 16 16 16 16 16;
 createNode animCurveTU -n "GCtrl_scaleZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  1 1 114 1 271 1 327 1;
-	setAttr -s 4 ".kit[0:3]"  2 16 16 16;
-	setAttr -s 4 ".kot[0:3]"  2 16 16 16;
+	setAttr -s 6 ".ktv[0:5]"  1 1 114 1 155 1 165 1 221 1 266 1;
+	setAttr -s 6 ".kit[0:5]"  2 16 16 16 16 16;
+	setAttr -s 6 ".kot[0:5]"  2 16 16 16 16 16;
 createNode animCurveTU -n "Leg7_visibility";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 14 ".ktv[0:13]"  1 1 4 1 12 1 27 1 38 1 53 1 64 1 79 1 90 1
-		 114 1 271 1 314 1 347 1 349 1;
-	setAttr -s 14 ".kit[9:13]"  9 9 9 9 9;
-	setAttr -s 14 ".kot[9:13]"  5 5 5 5 5;
+	setAttr -s 16 ".ktv[0:15]"  1 1 4 1 12 1 27 1 38 1 53 1 64 1 79 1 90 1
+		 114 1 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 16 ".kit[9:15]"  9 9 9 9 9 9 9;
+	setAttr -s 16 ".kot[9:15]"  5 5 5 5 5 5 5;
 createNode animCurveTL -n "Leg7_translateX";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 21 ".ktv[0:20]"  1 0 4 0 12 0 15 0.39796441692226381 27 0
+	setAttr -s 25 ".ktv[0:24]"  1 0 4 0 12 0 15 0.39796441692226381 27 0
 		 38 0 41 0.39796441692226381 53 0.39796441692226381 64 0.39796441692226381 79 0.39796441692226381
-		 90 0.39796441692226381 114 0.39796441692226381 271 0.39796441692226381 272 0 314 0
-		 322 10.480834669119206 335 10.480834669119206 338 -11.72477385167549 347 -6.3247829322505336
-		 349 -4.8771330475456889 357 0;
-	setAttr -s 21 ".kit[11:20]"  16 16 16 16 16 1 16 16 
-		16 16;
-	setAttr -s 21 ".kot[11:20]"  16 16 16 16 16 1 16 16 
-		16 16;
-	setAttr -s 21 ".kix[16:20]"  1 1 0.066783688962459564 0.065735973417758942 
-		1;
-	setAttr -s 21 ".kiy[16:20]"  0 0 0.99776750802993774 0.99783706665039063 
-		0;
-	setAttr -s 21 ".kox[16:20]"  1 1 0.066783688962459564 0.065735973417758942 
-		1;
-	setAttr -s 21 ".koy[16:20]"  0 0 0.99776750802993774 0.99783706665039063 
-		0;
+		 90 0.39796441692226381 114 0.39796441692226381 115 0 149 1.3426143337217127 155 0
+		 165 0 166 0 208 0 216 10.480834669119206 229 10.480834669119206 232 -11.72477385167549
+		 241 -6.3247829322505336 243 -4.8771330475456889 251 0 266 0;
+	setAttr -s 25 ".kit[0:24]"  2 2 2 2 2 2 2 2 
+		2 2 2 16 16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 25 ".kot[0:24]"  2 2 2 2 2 2 2 2 
+		2 2 2 16 16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 25 ".kix[19:24]"  1 1 0.06678355485200882 0.065735816955566406 
+		1 1;
+	setAttr -s 25 ".kiy[19:24]"  0 0 0.99776750802993774 0.99783706665039063 
+		0 0;
+	setAttr -s 25 ".kox[19:24]"  1 1 0.06678355485200882 0.065735816955566406 
+		1 1;
+	setAttr -s 25 ".koy[19:24]"  0 0 0.99776750802993774 0.99783706665039063 
+		0 0;
 createNode animCurveTL -n "Leg7_translateY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 28 ".ktv[0:27]"  1 0 4 15 12 15 15 0 27 0 30 15 38 15 41 0
-		 53 0 56 15 64 15 67 0 79 0 82 15 90 15 93 0 114 0 271 0 314 0 318 4 322 0 335 0 338 96.544601692886715
-		 342 99.089022921641458 347 100.54117232364537 349 100.54117232364537 354 33.94433752264338
-		 357 0;
-	setAttr -s 28 ".kit[16:27]"  16 16 16 16 16 1 16 16 
-		16 16 16 16;
-	setAttr -s 28 ".kot[16:27]"  16 16 16 16 16 1 16 16 
-		16 16 16 16;
-	setAttr -s 28 ".kix[21:27]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 28 ".kiy[21:27]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
-	setAttr -s 28 ".kox[21:27]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 28 ".koy[21:27]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
+	setAttr -s 36 ".ktv[0:35]"  1 0 4 15 12 15 15 0 27 0 30 15 38 15 41 0
+		 53 0 56 15 64 15 67 0 79 0 82 15 90 15 93 0 114 0 122 3.3989657181646109 127 0 128 0.26908616469355806
+		 142 -5.9469722633169351 143 -11.873543273440468 149 3.4754942986899753 155 0 165 0
+		 208 0 212 4 216 0 229 0 232 96.544601692886715 236 99.089022921641458 241 100.54117232364537
+		 243 100.54117232364537 248 33.94433752264338 251 0 266 0;
+	setAttr -s 36 ".kit[0:35]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 16 1 16 16 16 16 16 16 16;
+	setAttr -s 36 ".kot[0:35]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 16 1 16 16 16 16 16 16 16;
+	setAttr -s 36 ".kix[28:35]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 36 ".kiy[28:35]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
+	setAttr -s 36 ".kox[28:35]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 36 ".koy[28:35]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
 createNode animCurveTL -n "Leg7_translateZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 26 ".ktv[0:25]"  1 0 4 6 12 20 15 26 27 26 30 35 38 46 41 52
-		 53 52 56 58 64 72 67 78 79 78 82 86 90 98 93 100 114 100 271 100 272 0 314 0 322 16.451441259190506
-		 335 16.451441259190506 338 -12.041659631450514 347 -6.4957230115005524 349 -5.0089474815632125
-		 357 0;
-	setAttr -s 26 ".kit[9:25]"  16 2 2 2 2 2 2 16 
-		16 16 16 16 1 16 16 16 16;
-	setAttr -s 26 ".kot[9:25]"  16 2 2 2 2 2 2 16 
-		16 16 16 16 1 16 16 16 16;
-	setAttr -s 26 ".kix[21:25]"  1 1 0.065033756196498871 0.064013257622718811 
-		1;
-	setAttr -s 26 ".kiy[21:25]"  0 0 0.99788302183151245 0.99794906377792358 
-		0;
-	setAttr -s 26 ".kox[21:25]"  1 1 0.065033756196498871 0.064013257622718811 
-		1;
-	setAttr -s 26 ".koy[21:25]"  0 0 0.99788302183151245 0.99794906377792358 
-		0;
+	setAttr -s 33 ".ktv[0:32]"  1 0 4 6 12 20 15 26 27 26 30 35 38 46 41 52
+		 53 52 56 58 64 72 67 78 79 78 82 86 90 98 93 100 114 100 115 0 128 41.655702111920775
+		 142 -2.6119487855640493 143 -3.1298114759073035 149 -4.5497492267735833 155 0 165 0
+		 166 0 208 0 216 16.451441259190506 229 16.451441259190506 232 -12.041659631450514
+		 241 -6.4957230115005524 243 -5.0089474815632125 251 0 266 0;
+	setAttr -s 33 ".kit[0:32]"  2 2 2 2 2 2 2 2 
+		2 16 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 1 16 16 16 16 16;
+	setAttr -s 33 ".kot[0:32]"  2 2 2 2 2 2 2 2 
+		2 16 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 1 16 16 16 16 16;
+	setAttr -s 33 ".kix[27:32]"  1 1 0.065033629536628723 0.064013116061687469 
+		1 1;
+	setAttr -s 33 ".kiy[27:32]"  0 0 0.99788308143615723 0.99794906377792358 
+		0 0;
+	setAttr -s 33 ".kox[27:32]"  1 1 0.065033629536628723 0.064013116061687469 
+		1 1;
+	setAttr -s 33 ".koy[27:32]"  0 0 0.99788308143615723 0.99794906377792358 
+		0 0;
 createNode animCurveTA -n "Leg7_rotateX";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 14 ".ktv[0:13]"  1 0 4 0 12 0 27 0 38 0 53 0 64 0 79 0 90 0
-		 114 0 271 0 314 0 347 0 349 0;
-	setAttr -s 14 ".kit[9:13]"  16 16 16 16 16;
-	setAttr -s 14 ".kot[9:13]"  16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  1 0 4 0 12 0 27 0 38 0 53 0 64 0 79 0 90 0
+		 114 0 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 16 ".kit[9:15]"  16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[9:15]"  16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg7_rotateY";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 14 ".ktv[0:13]"  1 0 4 0 12 0 27 0 38 0 53 0 64 0 79 0 90 0
-		 114 0 271 0 314 0 347 0 349 0;
-	setAttr -s 14 ".kit[9:13]"  16 16 16 16 16;
-	setAttr -s 14 ".kot[9:13]"  16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  1 0 4 0 12 0 27 0 38 0 53 0 64 0 79 0 90 0
+		 114 0 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 16 ".kit[9:15]"  16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[9:15]"  16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg7_rotateZ";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 14 ".ktv[0:13]"  1 0 4 0 12 0 27 0 38 0 53 0 64 0 79 0 90 0
-		 114 0 271 0 314 0 347 0 349 0;
-	setAttr -s 14 ".kit[9:13]"  16 16 16 16 16;
-	setAttr -s 14 ".kot[9:13]"  16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  1 0 4 0 12 0 27 0 38 0 53 0 64 0 79 0 90 0
+		 114 0 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 16 ".kit[9:15]"  16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[9:15]"  16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg7_scaleX";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 14 ".ktv[0:13]"  1 1 4 1 12 1 27 1 38 1 53 1 64 1 79 1 90 1
-		 114 1 271 1 314 1 347 1 349 1;
-	setAttr -s 14 ".kit[9:13]"  16 16 16 16 16;
-	setAttr -s 14 ".kot[9:13]"  16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  1 1 4 1 12 1 27 1 38 1 53 1 64 1 79 1 90 1
+		 114 1 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 16 ".kit[9:15]"  16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[9:15]"  16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg7_scaleY";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 14 ".ktv[0:13]"  1 1 4 1 12 1 27 1 38 1 53 1 64 1 79 1 90 1
-		 114 1 271 1 314 1 347 1 349 1;
-	setAttr -s 14 ".kit[9:13]"  16 16 16 16 16;
-	setAttr -s 14 ".kot[9:13]"  16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  1 1 4 1 12 1 27 1 38 1 53 1 64 1 79 1 90 1
+		 114 1 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 16 ".kit[9:15]"  16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[9:15]"  16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg7_scaleZ";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 14 ".ktv[0:13]"  1 1 4 1 12 1 27 1 38 1 53 1 64 1 79 1 90 1
-		 114 1 271 1 314 1 347 1 349 1;
-	setAttr -s 14 ".kit[9:13]"  16 16 16 16 16;
-	setAttr -s 14 ".kot[9:13]"  16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  1 1 4 1 12 1 27 1 38 1 53 1 64 1 79 1 90 1
+		 114 1 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 16 ".kit[9:15]"  16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[9:15]"  16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg1_visibility";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  21 1 47 1 58 1 72 1 84 1 99 1 114 1 271 1
-		 288 1 292 1 314 1 347 1 349 1;
-	setAttr -s 13 ".kit[6:12]"  9 9 9 9 9 9 9;
-	setAttr -s 13 ".kot[6:12]"  5 5 5 5 5 5 5;
+	setAttr -s 16 ".ktv[0:15]"  21 1 47 1 58 1 72 1 84 1 99 1 114 1 129 1
+		 155 1 165 1 182 1 186 1 208 1 241 1 243 1 266 1;
+	setAttr -s 16 ".kit[6:15]"  9 9 9 9 9 9 9 9 
+		9 9;
+	setAttr -s 16 ".kot[6:15]"  5 5 5 5 5 5 5 5 
+		5 5;
 createNode animCurveTL -n "Leg1_translateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 18 ".ktv[0:17]"  21 0 47 0 58 0 72 0 84 0 99 0 114 0 271 0
-		 281 -0.64315862185424066 288 -0.19328634351532031 292 0 314 0 322 -7.3878983098191746
-		 335 -7.3878983098191746 338 12.857680191221743 347 6.9359151187512236 349 5.3483861171252318
-		 357 0;
-	setAttr -s 18 ".kit[0:17]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16 1 16 16 16 16;
-	setAttr -s 18 ".kot[0:17]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16 1 16 16 16 16;
-	setAttr -s 18 ".kix[13:17]"  1 1 0.060922186821699142 0.059965722262859344 
-		1;
-	setAttr -s 18 ".kiy[13:17]"  0 0 -0.9981425404548645 -0.99820041656494141 
-		0;
-	setAttr -s 18 ".kox[13:17]"  1 1 0.060922186821699142 0.059965722262859344 
-		1;
-	setAttr -s 18 ".koy[13:17]"  0 0 -0.9981425404548645 -0.99820041656494141 
-		0;
+	setAttr -s 21 ".ktv[0:20]"  21 0 47 0 58 0 72 0 84 0 99 0 114 0 129 0
+		 155 0 165 0 175 -0.64315862185424066 182 -0.19328634351532031 186 0 208 0 216 -7.3878983098191746
+		 229 -7.3878983098191746 232 12.857680191221743 241 6.9359151187512236 243 5.3483861171252318
+		 251 0 266 0;
+	setAttr -s 21 ".kit[0:20]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 21 ".kot[0:20]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 21 ".kix[15:20]"  1 1 0.060922060161828995 0.0599655881524086 
+		1 1;
+	setAttr -s 21 ".kiy[15:20]"  0 0 -0.9981425404548645 -0.99820041656494141 
+		0 0;
+	setAttr -s 21 ".kox[15:20]"  1 1 0.060922060161828995 0.0599655881524086 
+		1 1;
+	setAttr -s 21 ".koy[15:20]"  0 0 -0.9981425404548645 -0.99820041656494141 
+		0 0;
 createNode animCurveTL -n "Leg1_translateY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 31 ".ktv[0:30]"  21 0 24 15 32 15 35 0 47 0 50 15 58 15 61 0
-		 72 0 76 15 84 15 87 0 99 0 102 15 110 15 114 0 271 0 281 36.386538556838985 288 35.155447545790039
-		 292 38.671477522516625 295 0 314 0 318 4 322 0 335 0 338 96.544601692886715 342 99.089022921641458
-		 347 100.54117232364537 349 100.54117232364537 354 33.94433752264338 357 0;
-	setAttr -s 31 ".kit[16:30]"  16 16 16 16 16 16 16 16 
-		1 16 16 16 16 16 16;
-	setAttr -s 31 ".kot[16:30]"  16 16 16 16 16 16 16 16 
-		1 16 16 16 16 16 16;
-	setAttr -s 31 ".kix[24:30]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 31 ".kiy[24:30]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
-	setAttr -s 31 ".kox[24:30]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 31 ".koy[24:30]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
+	setAttr -s 34 ".ktv[0:33]"  21 0 24 15 32 15 35 0 47 0 50 15 58 15 61 0
+		 72 0 76 15 84 15 87 0 99 0 102 15 110 15 114 0 129 0 155 0 165 0 175 36.386538556838985
+		 182 35.155447545790039 186 38.671477522516625 189 0 208 0 212 4 216 0 229 0 232 96.544601692886715
+		 236 99.089022921641458 241 100.54117232364537 243 100.54117232364537 248 33.94433752264338
+		 251 0 266 0;
+	setAttr -s 34 ".kit[0:33]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 1 16 16 16 16 16 16 16;
+	setAttr -s 34 ".kot[0:33]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 1 16 16 16 16 16 16 16;
+	setAttr -s 34 ".kix[26:33]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 34 ".kiy[26:33]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
+	setAttr -s 34 ".kox[26:33]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 34 ".koy[26:33]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
 createNode animCurveTL -n "Leg1_translateZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 28 ".ktv[0:27]"  21 0 24 23 32 34 35 37 47 37 50 49 58 60
-		 61 63 72 63 76 75 84 86 87 89 99 89 102 100 114 100 271 100 272 0 281 -7.7983607969469304
-		 288 -10.838400076429528 292 -11.390860692019439 295 0 314 0 322 -14.625447443507415
-		 335 -14.625447443507415 338 12.200102521338032 347 6.581193051125565 349 5.0748547708798037
-		 357 0;
-	setAttr -s 28 ".kit[15:27]"  16 16 16 16 16 16 16 16 
-		1 16 16 16 16;
-	setAttr -s 28 ".kot[15:27]"  16 16 16 16 16 16 16 16 
-		1 16 16 16 16;
-	setAttr -s 28 ".kix[23:27]"  1 1 0.064192667603492737 0.063185259699821472 
-		1;
-	setAttr -s 28 ".kiy[23:27]"  0 0 -0.99793756008148193 -0.9980018138885498 
-		0;
-	setAttr -s 28 ".kox[23:27]"  1 1 0.064192667603492737 0.063185259699821472 
-		1;
-	setAttr -s 28 ".koy[23:27]"  0 0 -0.99793756008148193 -0.9980018138885498 
-		0;
+	setAttr -s 32 ".ktv[0:31]"  21 0 24 23 32 34 35 37 47 37 50 49 58 60
+		 61 63 72 63 76 75 84 86 87 89 99 89 102 100 114 100 115 0 129 0 155 0 165 0 166 0
+		 175 -7.7983607969469304 182 -10.838400076429528 186 -11.390860692019439 189 0 208 0
+		 216 -14.625447443507415 229 -14.625447443507415 232 12.200102521338032 241 6.581193051125565
+		 243 5.0748547708798037 251 0 266 0;
+	setAttr -s 32 ".kit[0:31]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 16 
+		16 1 16 16 16 16 16;
+	setAttr -s 32 ".kot[0:31]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 16 
+		16 1 16 16 16 16 16;
+	setAttr -s 32 ".kix[26:31]"  1 1 0.064192533493041992 0.063185118138790131 
+		1 1;
+	setAttr -s 32 ".kiy[26:31]"  0 0 -0.99793756008148193 -0.99800187349319458 
+		0 0;
+	setAttr -s 32 ".kox[26:31]"  1 1 0.064192533493041992 0.063185118138790131 
+		1 1;
+	setAttr -s 32 ".koy[26:31]"  0 0 -0.99793756008148193 -0.99800187349319458 
+		0 0;
 createNode animCurveTA -n "Leg1_rotateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  21 0 47 0 58 0 72 0 84 0 99 0 114 0 271 0
-		 288 0 292 0 314 0 347 0 349 0;
-	setAttr -s 13 ".kit[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
-	setAttr -s 13 ".kot[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  21 0 47 0 58 0 72 0 84 0 99 0 114 0 129 0
+		 155 0 165 0 182 0 186 0 208 0 241 0 243 0 266 0;
+	setAttr -s 16 ".kit[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg1_rotateY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  21 0 47 0 58 0 72 0 84 0 99 0 114 0 271 0
-		 288 0 292 0 314 0 347 0 349 0;
-	setAttr -s 13 ".kit[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
-	setAttr -s 13 ".kot[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  21 0 47 0 58 0 72 0 84 0 99 0 114 0 129 0
+		 155 0 165 0 182 0 186 0 208 0 241 0 243 0 266 0;
+	setAttr -s 16 ".kit[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg1_rotateZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  21 0 47 0 58 0 72 0 84 0 99 0 114 0 271 0
-		 288 0 292 0 314 0 347 0 349 0;
-	setAttr -s 13 ".kit[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
-	setAttr -s 13 ".kot[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  21 0 47 0 58 0 72 0 84 0 99 0 114 0 129 0
+		 155 0 165 0 182 0 186 0 208 0 241 0 243 0 266 0;
+	setAttr -s 16 ".kit[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg1_scaleX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  21 1 47 1 58 1 72 1 84 1 99 1 114 1 271 1
-		 288 1 292 1 314 1 347 1 349 1;
-	setAttr -s 13 ".kit[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
-	setAttr -s 13 ".kot[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  21 1 47 1 58 1 72 1 84 1 99 1 114 1 129 1
+		 155 1 165 1 182 1 186 1 208 1 241 1 243 1 266 1;
+	setAttr -s 16 ".kit[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg1_scaleY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  21 1 47 1 58 1 72 1 84 1 99 1 114 1 271 1
-		 288 1 292 1 314 1 347 1 349 1;
-	setAttr -s 13 ".kit[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
-	setAttr -s 13 ".kot[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  21 1 47 1 58 1 72 1 84 1 99 1 114 1 129 1
+		 155 1 165 1 182 1 186 1 208 1 241 1 243 1 266 1;
+	setAttr -s 16 ".kit[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg1_scaleZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 13 ".ktv[0:12]"  21 1 47 1 58 1 72 1 84 1 99 1 114 1 271 1
-		 288 1 292 1 314 1 347 1 349 1;
-	setAttr -s 13 ".kit[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
-	setAttr -s 13 ".kot[0:12]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16;
+	setAttr -s 16 ".ktv[0:15]"  21 1 47 1 58 1 72 1 84 1 99 1 114 1 129 1
+		 155 1 165 1 182 1 186 1 208 1 241 1 243 1 266 1;
+	setAttr -s 16 ".kit[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
+	setAttr -s 16 ".kot[0:15]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg3_visibility";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  9 1 35 1 46 1 61 1 72 1 87 1 98 1 114 1
-		 271 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[7:11]"  9 9 9 9 9;
-	setAttr -s 12 ".kot[7:11]"  5 5 5 5 5;
+	setAttr -s 14 ".ktv[0:13]"  9 1 35 1 46 1 61 1 72 1 87 1 98 1 114 1
+		 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 14 ".kit[7:13]"  9 9 9 9 9 9 9;
+	setAttr -s 14 ".kot[7:13]"  5 5 5 5 5 5 5;
 createNode animCurveTL -n "Leg3_translateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 16 ".ktv[0:15]"  9 0 35 0 46 0 61 0 72 0 87 0 98 0 114 0
-		 271 0 314 0 322 -9.0864531567881706 335 -9.0864531567881706 338 9.6650162831379305
-		 347 5.2136724171254532 349 4.0203394036243205 357 0;
-	setAttr -s 16 ".kit[0:15]"  2 2 2 2 2 2 2 16 
-		16 16 16 1 16 16 16 16;
-	setAttr -s 16 ".kot[0:15]"  2 2 2 2 2 2 2 16 
-		16 16 16 1 16 16 16 16;
-	setAttr -s 16 ".kix[11:15]"  1 1 0.080931201577186584 0.079664133489131927 
-		1;
-	setAttr -s 16 ".kiy[11:15]"  0 0 -0.99671965837478638 -0.99682170152664185 
-		0;
-	setAttr -s 16 ".kox[11:15]"  1 1 0.080931201577186584 0.079664133489131927 
-		1;
-	setAttr -s 16 ".koy[11:15]"  0 0 -0.99671965837478638 -0.99682170152664185 
-		0;
+	setAttr -s 19 ".ktv[0:18]"  9 0 35 0 46 0 61 0 72 0 87 0 98 0 114 0
+		 149 1.3426143337217127 155 0 165 0 208 0 216 -9.0864531567881706 229 -9.0864531567881706
+		 232 9.6650162831379305 241 5.2136724171254532 243 4.0203394036243205 251 0 266 0;
+	setAttr -s 19 ".kit[0:18]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 19 ".kot[0:18]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 19 ".kix[13:18]"  1 1 0.080931037664413452 0.079663962125778198 
+		1 1;
+	setAttr -s 19 ".kiy[13:18]"  0 0 -0.99671971797943115 -0.9968218207359314 
+		0 0;
+	setAttr -s 19 ".kox[13:18]"  1 1 0.080931037664413452 0.079663962125778198 
+		1 1;
+	setAttr -s 19 ".koy[13:18]"  0 0 -0.99671971797943115 -0.9968218207359314 
+		0 0;
 createNode animCurveTL -n "Leg3_translateY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 28 ".ktv[0:27]"  9 0 12 15 20 28 23 0 35 0 38 15 46 15 49 0
-		 61 0 64 15 72 15 75 0 87 0 90 15 98 15 101 0 114 0 271 0 314 0 318 4 322 0 335 0
-		 338 96.544601692886715 342 99.089022921641458 347 100.54117232364537 349 100.54117232364537
-		 354 33.94433752264338 357 0;
-	setAttr -s 28 ".kit[16:27]"  16 16 16 16 16 1 16 16 
-		16 16 16 16;
-	setAttr -s 28 ".kot[16:27]"  16 16 16 16 16 1 16 16 
-		16 16 16 16;
-	setAttr -s 28 ".kix[21:27]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 28 ".kiy[21:27]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
-	setAttr -s 28 ".kox[21:27]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 28 ".koy[21:27]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
+	setAttr -s 35 ".ktv[0:34]"  9 0 12 15 20 28 23 0 35 0 38 15 46 15 49 0
+		 61 0 64 15 72 15 75 0 87 0 90 15 98 15 101 0 114 0 122 3.3989657181646109 127 0 128 0.26139524005863102
+		 142 -11.14552500245258 149 3.8078503013853053 155 0 165 0 208 0 212 4 216 0 229 0
+		 232 96.544601692886715 236 99.089022921641458 241 100.54117232364537 243 100.54117232364537
+		 248 33.94433752264338 251 0 266 0;
+	setAttr -s 35 ".kit[0:34]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 1 16 16 16 16 16 16 16;
+	setAttr -s 35 ".kot[0:34]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 1 16 16 16 16 16 16 16;
+	setAttr -s 35 ".kix[27:34]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 35 ".kiy[27:34]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
+	setAttr -s 35 ".kox[27:34]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 35 ".koy[27:34]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
 createNode animCurveTL -n "Leg3_translateZ";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 26 ".ktv[0:25]"  9 0 12 15.174229880167973 20 22.83707576683527
+	setAttr -s 32 ".ktv[0:31]"  9 0 12 15.174229880167973 20 22.83707576683527
 		 23 34 35 34 38 40 46 54 49 60 61 60 64 66 72 80 75 86 87 86 90 92 98 100 101 100
-		 114 100 271 100 272 0 314 0 322 17.186265308865348 335 17.186265308865348 338 -12.509052931001801
-		 347 -6.7478524940003624 349 -5.2033682349061516 357 0;
-	setAttr -s 26 ".kit[16:25]"  16 16 16 16 16 1 16 16 
-		16 16;
-	setAttr -s 26 ".kot[16:25]"  16 16 16 16 16 1 16 16 
-		16 16;
-	setAttr -s 26 ".kix[21:25]"  1 1 0.062613524496555328 0.061630699783563614 
-		1;
-	setAttr -s 26 ".kiy[21:25]"  0 0 0.99803781509399414 0.99809896945953369 
-		0;
-	setAttr -s 26 ".kox[21:25]"  1 1 0.062613524496555328 0.061630699783563614 
-		1;
-	setAttr -s 26 ".koy[21:25]"  0 0 0.99803781509399414 0.99809896945953369 
-		0;
+		 114 100 115 0 128 40.883186247095495 142 -3.7677190799346398 149 -4.5683333079636901
+		 155 0 165 0 166 0 208 0 216 17.186265308865348 229 17.186265308865348 232 -12.509052931001801
+		 241 -6.7478524940003624 243 -5.2033682349061516 251 0 266 0;
+	setAttr -s 32 ".kit[16:31]"  16 16 16 16 16 16 16 16 
+		16 16 1 16 16 16 16 16;
+	setAttr -s 32 ".kot[16:31]"  16 16 16 16 16 16 16 16 
+		16 16 1 16 16 16 16 16;
+	setAttr -s 32 ".kix[26:31]"  1 1 0.062613397836685181 0.061630569398403168 
+		1 1;
+	setAttr -s 32 ".kiy[26:31]"  0 0 0.99803787469863892 0.99809908866882324 
+		0 0;
+	setAttr -s 32 ".kox[26:31]"  1 1 0.062613397836685181 0.061630569398403168 
+		1 1;
+	setAttr -s 32 ".koy[26:31]"  0 0 0.99803787469863892 0.99809908866882324 
+		0 0;
 createNode animCurveTA -n "Leg3_rotateX";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  9 0 35 0 46 0 61 0 72 0 87 0 98 0 114 0
-		 271 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  9 0 35 0 46 0 61 0 72 0 87 0 98 0 114 0
+		 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 14 ".kit[7:13]"  16 16 16 16 16 16 16;
+	setAttr -s 14 ".kot[7:13]"  16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg3_rotateY";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  9 0 35 0 46 0 61 0 72 0 87 0 98 0 114 0
-		 271 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  9 0 35 0 46 0 61 0 72 0 87 0 98 0 114 0
+		 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 14 ".kit[7:13]"  16 16 16 16 16 16 16;
+	setAttr -s 14 ".kot[7:13]"  16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg3_rotateZ";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  9 0 35 0 46 0 61 0 72 0 87 0 98 0 114 0
-		 271 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  9 0 35 0 46 0 61 0 72 0 87 0 98 0 114 0
+		 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 14 ".kit[7:13]"  16 16 16 16 16 16 16;
+	setAttr -s 14 ".kot[7:13]"  16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg3_scaleX";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  9 1 35 1 46 1 61 1 72 1 87 1 98 1 114 1
-		 271 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  9 1 35 1 46 1 61 1 72 1 87 1 98 1 114 1
+		 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 14 ".kit[7:13]"  16 16 16 16 16 16 16;
+	setAttr -s 14 ".kot[7:13]"  16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg3_scaleY";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  9 1 35 1 46 1 61 1 72 1 87 1 98 1 114 1
-		 271 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  9 1 35 1 46 1 61 1 72 1 87 1 98 1 114 1
+		 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 14 ".kit[7:13]"  16 16 16 16 16 16 16;
+	setAttr -s 14 ".kot[7:13]"  16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg3_scaleZ";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  9 1 35 1 46 1 61 1 72 1 87 1 98 1 114 1
-		 271 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  9 1 35 1 46 1 61 1 72 1 87 1 98 1 114 1
+		 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 14 ".kit[7:13]"  16 16 16 16 16 16 16;
+	setAttr -s 14 ".kot[7:13]"  16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg8_visibility";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  13 1 39 1 65 1 76 1 91 1 102 1 114 1 271 1
-		 291 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[6:11]"  9 9 9 9 9 9;
-	setAttr -s 12 ".kot[6:11]"  5 5 5 5 5 5;
+	setAttr -s 15 ".ktv[0:14]"  13 1 39 1 65 1 76 1 91 1 102 1 114 1 125 1
+		 143 1 165 1 185 1 208 1 241 1 243 1 266 1;
+	setAttr -s 15 ".kit[6:14]"  9 9 9 9 9 9 9 9 
+		9;
+	setAttr -s 15 ".kot[6:14]"  5 5 5 5 5 5 5 5 
+		5;
 createNode animCurveTL -n "Leg8_translateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 19 ".ktv[0:18]"  13 0 39 0 65 0 76 0 91 0 102 0 114 0 271 0
-		 279 0 287 -7.282849732438061 291 -3.0754513368645107 296 0 314 0 322 16.666863239087441
-		 335 16.666863239087441 338 -15.685846098863159 347 -8.4615339228757129 349 -6.5248132354081614
-		 357 0;
-	setAttr -s 19 ".kit[0:18]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16 16 1 16 16 16 16;
-	setAttr -s 19 ".kot[0:18]"  2 2 2 2 2 2 16 16 
-		16 16 16 16 16 16 1 16 16 16 16;
-	setAttr -s 19 ".kix[14:18]"  1 1 0.04996832087635994 0.049182891845703125 
-		1;
-	setAttr -s 19 ".kiy[14:18]"  0 0 0.99875080585479736 0.99878978729248047 
-		0;
-	setAttr -s 19 ".kox[14:18]"  1 1 0.04996832087635994 0.049182891845703125 
-		1;
-	setAttr -s 19 ".koy[14:18]"  0 0 0.99875080585479736 0.99878978729248047 
-		0;
+	setAttr -s 23 ".ktv[0:22]"  13 0 39 0 65 0 76 0 91 0 102 0 114 0 125 0
+		 146 0.46107324378650105 151 0 165 0 173 0 181 -7.282849732438061 185 -3.0754513368645107
+		 190 0 208 0 216 16.666863239087441 229 16.666863239087441 232 -15.685846098863159
+		 241 -8.4615339228757129 243 -6.5248132354081614 251 0 266 0;
+	setAttr -s 23 ".kit[0:22]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 23 ".kot[0:22]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 23 ".kix[17:22]"  1 1 0.049968216568231583 0.049182780086994171 
+		1 1;
+	setAttr -s 23 ".kiy[17:22]"  0 0 0.99875080585479736 0.99878978729248047 
+		0 0;
+	setAttr -s 23 ".kox[17:22]"  1 1 0.049968216568231583 0.049182780086994171 
+		1 1;
+	setAttr -s 23 ".koy[17:22]"  0 0 0.99875080585479736 0.99878978729248047 
+		0 0;
 createNode animCurveTL -n "Leg8_translateY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 33 ".ktv[0:32]"  13 0 16 15 24 15 27 0 39 0 42 15 50 15 53 0
-		 65 0 68 15 76 15 79 0 91 0 94 15 102 15 105 0 114 0 271 0 279 0 287 19.056675175013929
-		 291 26.01224007361013 294 12.96940227317041 296 0 314 0 318 4 322 0 335 0 338 96.544601692886715
-		 342 99.089022921641458 347 100.54117232364537 349 100.54117232364537 354 33.94433752264338
-		 357 0;
-	setAttr -s 33 ".kit[16:32]"  16 16 16 16 16 16 16 16 
-		16 16 1 16 16 16 16 16 16;
-	setAttr -s 33 ".kot[16:32]"  16 16 16 16 16 16 16 16 
-		16 16 1 16 16 16 16 16 16;
-	setAttr -s 33 ".kix[26:32]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 33 ".kiy[26:32]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
-	setAttr -s 33 ".kox[26:32]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 33 ".koy[26:32]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
+	setAttr -s 41 ".ktv[0:40]"  13 0 16 15 24 15 27 0 39 0 42 15 50 15 53 0
+		 65 0 68 15 76 15 79 0 91 0 94 15 102 15 105 0 114 0 125 0 128 0.08892007905772914
+		 137 20.493716581135608 141 0.42991466316382976 143 -0.18952632337561393 146 3.944480173409298
+		 151 0 165 0 173 0 181 19.056675175013929 185 26.01224007361013 188 12.96940227317041
+		 190 0 208 0 212 4 216 0 229 0 232 96.544601692886715 236 99.089022921641458 241 100.54117232364537
+		 243 100.54117232364537 248 33.94433752264338 251 0 266 0;
+	setAttr -s 41 ".kit[0:40]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 16 16 16 16 16 16 1 16 16 16 16 16 16 16;
+	setAttr -s 41 ".kot[0:40]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 16 16 16 16 16 16 1 16 16 16 16 16 16 16;
+	setAttr -s 41 ".kix[33:40]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 41 ".kiy[33:40]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
+	setAttr -s 41 ".kox[33:40]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 41 ".koy[33:40]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
 createNode animCurveTL -n "Leg8_translateZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 25 ".ktv[0:24]"  13 0 16 16 24 26 27 29 39 29 42 44 50 52
-		 53 55 65 55 68 68 76 78 79 81 91 81 94 94 102 100 114 100 271 100 272 0 279 0 287 -3.2033912415215866
-		 291 -5.0433948108394233 296 0 314 0 347 0 349 0;
-	setAttr -s 25 ".kit[3:24]"  16 2 2 2 2 2 2 2 
-		2 2 2 2 16 16 16 16 16 16 16 16 16 16;
-	setAttr -s 25 ".kot[3:24]"  16 2 2 2 2 2 2 2 
-		2 2 2 2 16 16 16 16 16 16 16 16 16 16;
+	setAttr -s 34 ".ktv[0:33]"  13 0 16 16 24 26 27 29 39 29 42 44 50 52
+		 53 55 65 55 68 68 76 78 79 81 91 81 94 94 102 100 114 100 115 0 125 0 128 27.856765904233605
+		 137 -4.4730638773457576 141 -26.529942332728975 143 -27.403851499116634 146 -15.385755727969739
+		 151 0 165 0 166 0 173 0 181 -3.2033912415215866 185 -5.0433948108394233 190 0 208 0
+		 241 0 243 0 266 0;
+	setAttr -s 34 ".kit[0:33]"  2 2 2 16 2 2 2 2 
+		2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 16 
+		16 16 16 16 16 16 16 16 16;
+	setAttr -s 34 ".kot[0:33]"  2 2 2 16 2 2 2 2 
+		2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 16 
+		16 16 16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg8_rotateX";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  13 0 39 0 65 0 76 0 91 0 102 0 114 0 271 0
-		 291 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[6:11]"  16 16 16 16 16 16;
-	setAttr -s 12 ".kot[6:11]"  16 16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  13 0 39 0 65 0 76 0 91 0 102 0 114 0 125 0
+		 165 0 185 0 208 0 241 0 243 0 266 0;
+	setAttr -s 14 ".kit[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
+	setAttr -s 14 ".kot[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
 createNode animCurveTA -n "Leg8_rotateY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  13 0 39 0 65 0 76 0 91 0 102 0 114 0 271 0
-		 291 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[6:11]"  16 16 16 16 16 16;
-	setAttr -s 12 ".kot[6:11]"  16 16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  13 0 39 0 65 0 76 0 91 0 102 0 114 0 125 0
+		 165 0 185 0 208 0 241 0 243 0 266 0;
+	setAttr -s 14 ".kit[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
+	setAttr -s 14 ".kot[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
 createNode animCurveTA -n "Leg8_rotateZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  13 0 39 0 65 0 76 0 91 0 102 0 114 0 271 0
-		 291 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[6:11]"  16 16 16 16 16 16;
-	setAttr -s 12 ".kot[6:11]"  16 16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  13 0 39 0 65 0 76 0 91 0 102 0 114 0 125 0
+		 165 0 185 0 208 0 241 0 243 0 266 0;
+	setAttr -s 14 ".kit[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
+	setAttr -s 14 ".kot[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
 createNode animCurveTU -n "Leg8_scaleX";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  13 1 39 1 65 1 76 1 91 1 102 1 114 1 271 1
-		 291 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[6:11]"  16 16 16 16 16 16;
-	setAttr -s 12 ".kot[6:11]"  16 16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  13 1 39 1 65 1 76 1 91 1 102 1 114 1 125 1
+		 165 1 185 1 208 1 241 1 243 1 266 1;
+	setAttr -s 14 ".kit[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
+	setAttr -s 14 ".kot[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
 createNode animCurveTU -n "Leg8_scaleY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  13 1 39 1 65 1 76 1 91 1 102 1 114 1 271 1
-		 291 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[6:11]"  16 16 16 16 16 16;
-	setAttr -s 12 ".kot[6:11]"  16 16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  13 1 39 1 65 1 76 1 91 1 102 1 114 1 125 1
+		 165 1 185 1 208 1 241 1 243 1 266 1;
+	setAttr -s 14 ".kit[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
+	setAttr -s 14 ".kot[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
 createNode animCurveTU -n "Leg8_scaleZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  13 1 39 1 65 1 76 1 91 1 102 1 114 1 271 1
-		 291 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[6:11]"  16 16 16 16 16 16;
-	setAttr -s 12 ".kot[6:11]"  16 16 16 16 16 16;
+	setAttr -s 14 ".ktv[0:13]"  13 1 39 1 65 1 76 1 91 1 102 1 114 1 125 1
+		 165 1 185 1 208 1 241 1 243 1 266 1;
+	setAttr -s 14 ".kit[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
+	setAttr -s 14 ".kot[0:13]"  2 2 2 2 2 2 16 16 
+		16 16 16 16 16 16;
 createNode animCurveTU -n "Leg9_visibility";
 	setAttr ".tan" 2;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  17 1 28 1 43 1 54 1 69 1 72 1 95 1 114 1
-		 271 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[7:11]"  9 9 9 9 9;
-	setAttr -s 12 ".kot[7:11]"  5 5 5 5 5;
+	setAttr -s 15 ".ktv[0:14]"  17 1 28 1 43 1 54 1 69 1 72 1 95 1 114 1
+		 129 1 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 15 ".kit[7:14]"  9 9 9 9 9 9 9 9;
+	setAttr -s 15 ".kot[7:14]"  5 5 5 5 5 5 5 5;
 createNode animCurveTL -n "Leg9_translateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 18 ".ktv[0:17]"  17 0 28 0 43 0 54 0 69 0 72 0 95 0 114 0
-		 271 0 287 0.75663080071316813 291 0 314 0 322 7.3802367878752912 335 7.3802367878752912
-		 338 -3.1688577977501318 347 -1.7094007925001433 349 -1.3181440814094185 357 0;
-	setAttr -s 18 ".kit[0:17]"  2 2 2 2 2 2 2 16 
-		16 16 16 16 16 1 16 16 16 16;
-	setAttr -s 18 ".kot[0:17]"  2 2 2 2 2 2 2 16 
-		16 16 16 16 16 1 16 16 16 16;
-	setAttr -s 18 ".kix[13:17]"  1 1 0.24039043486118317 0.23681668937206268 
-		1;
-	setAttr -s 18 ".kiy[13:17]"  0 0 0.97067618370056152 0.97155433893203735 
-		0;
-	setAttr -s 18 ".kox[13:17]"  1 1 0.24039043486118317 0.23681668937206268 
-		1;
-	setAttr -s 18 ".koy[13:17]"  0 0 0.97067618370056152 0.97155433893203735 
-		0;
+	setAttr -s 21 ".ktv[0:20]"  17 0 28 0 43 0 54 0 69 0 72 0 95 0 114 0
+		 129 0 155 0 165 0 181 0.75663080071316813 185 0 208 0 216 7.3802367878752912 229 7.3802367878752912
+		 232 -3.1688577977501318 241 -1.7094007925001433 243 -1.3181440814094185 251 0 266 0;
+	setAttr -s 21 ".kit[0:20]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 21 ".kot[0:20]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 21 ".kix[15:20]"  1 1 0.24038997292518616 0.2368161529302597 
+		1 1;
+	setAttr -s 21 ".kiy[15:20]"  0 0 0.97067636251449585 0.97155439853668213 
+		0 0;
+	setAttr -s 21 ".kox[15:20]"  1 1 0.24038997292518616 0.2368161529302597 
+		1 1;
+	setAttr -s 21 ".koy[15:20]"  0 0 0.97067636251449585 0.97155439853668213 
+		0 0;
 createNode animCurveTL -n "Leg9_translateY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 31 ".ktv[0:30]"  17 0 20 15 28 15 31 0 43 0 46 15 54 15 57 0
-		 69 0 72 15 80 15 83 0 95 0 98 15 106 15 109 0 114 0 271 0 287 31.633142776352813
-		 291 45.287838899738958 293 0 314 0 318 4 322 0 335 0 338 96.544601692886715 342 99.089022921641458
-		 347 100.54117232364537 349 100.54117232364537 354 33.94433752264338 357 0;
-	setAttr -s 31 ".kit[16:30]"  16 16 16 16 16 16 16 16 
-		1 16 16 16 16 16 16;
-	setAttr -s 31 ".kot[16:30]"  16 16 16 16 16 16 16 16 
-		1 16 16 16 16 16 16;
-	setAttr -s 31 ".kix[24:30]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 31 ".kiy[24:30]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
-	setAttr -s 31 ".kox[24:30]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 31 ".koy[24:30]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
+	setAttr -s 34 ".ktv[0:33]"  17 0 20 15 28 15 31 0 43 0 46 15 54 15 57 0
+		 69 0 72 15 80 15 83 0 95 0 98 15 106 15 109 0 114 0 129 0 155 0 165 0 181 31.633142776352813
+		 185 45.287838899738958 187 0 208 0 212 4 216 0 229 0 232 96.544601692886715 236 99.089022921641458
+		 241 100.54117232364537 243 100.54117232364537 248 33.94433752264338 251 0 266 0;
+	setAttr -s 34 ".kit[0:33]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 1 16 16 16 16 16 16 16;
+	setAttr -s 34 ".kot[0:33]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 1 16 16 16 16 16 16 16;
+	setAttr -s 34 ".kix[26:33]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 34 ".kiy[26:33]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
+	setAttr -s 34 ".kox[26:33]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 34 ".koy[26:33]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
 createNode animCurveTL -n "Leg9_translateZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 27 ".ktv[0:26]"  17 0 20 19 28 31 31 33 43 33 46 45 54 56
-		 57 59 69 59 72 71 80 82 83 85 95 83 98 97 106 100 114 100 271 100 272 0 287 -16.023743543340231
-		 291 0 314 0 322 -14.012403704343853 335 -14.012403704343853 338 15.869682173106586
-		 347 8.5607019989013864 349 6.6012831654606927 357 0;
-	setAttr -s 27 ".kit[14:26]"  16 16 16 16 16 16 16 16 
-		1 16 16 16 16;
-	setAttr -s 27 ".kot[14:26]"  16 16 16 16 16 16 16 16 
-		1 16 16 16 16;
-	setAttr -s 27 ".kix[22:26]"  1 1 0.049390904605388641 0.048614505678415298 
-		1;
-	setAttr -s 27 ".kiy[22:26]"  0 0 -0.99877959489822388 -0.9988175630569458 
-		0;
-	setAttr -s 27 ".kox[22:26]"  1 1 0.049390904605388641 0.048614505678415298 
-		1;
-	setAttr -s 27 ".koy[22:26]"  0 0 -0.99877959489822388 -0.9988175630569458 
-		0;
+	setAttr -s 31 ".ktv[0:30]"  17 0 20 19 28 31 31 33 43 33 46 45 54 56
+		 57 59 69 59 72 71 80 82 83 85 95 83 98 97 106 100 114 100 115 0 129 0 155 0 165 0
+		 166 0 181 -16.023743543340231 185 0 208 0 216 -14.012403704343853 229 -14.012403704343853
+		 232 15.869682173106586 241 8.5607019989013864 243 6.6012831654606927 251 0 266 0;
+	setAttr -s 31 ".kit[0:30]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 16 16 
+		1 16 16 16 16 16;
+	setAttr -s 31 ".kot[0:30]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 16 16 
+		1 16 16 16 16 16;
+	setAttr -s 31 ".kix[25:30]"  1 1 0.049390800297260284 0.048614401370286942 
+		1 1;
+	setAttr -s 31 ".kiy[25:30]"  0 0 -0.99877959489822388 -0.99881768226623535 
+		0 0;
+	setAttr -s 31 ".kox[25:30]"  1 1 0.049390800297260284 0.048614401370286942 
+		1 1;
+	setAttr -s 31 ".koy[25:30]"  0 0 -0.99877959489822388 -0.99881768226623535 
+		0 0;
 createNode animCurveTA -n "Leg9_rotateX";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  17 0 28 0 43 0 54 0 69 0 72 0 95 0 114 0
-		 271 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 15 ".ktv[0:14]"  17 0 28 0 43 0 54 0 69 0 72 0 95 0 114 0
+		 129 0 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 15 ".kit[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
+	setAttr -s 15 ".kot[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg9_rotateY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  17 0 28 0 43 0 54 0 69 0 72 0 95 0 114 0
-		 271 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 15 ".ktv[0:14]"  17 0 28 0 43 0 54 0 69 0 72 0 95 0 114 0
+		 129 0 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 15 ".kit[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
+	setAttr -s 15 ".kot[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
 createNode animCurveTA -n "Leg9_rotateZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  17 0 28 0 43 0 54 0 69 0 72 0 95 0 114 0
-		 271 0 314 0 347 0 349 0;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 15 ".ktv[0:14]"  17 0 28 0 43 0 54 0 69 0 72 0 95 0 114 0
+		 129 0 155 0 165 0 208 0 241 0 243 0 266 0;
+	setAttr -s 15 ".kit[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
+	setAttr -s 15 ".kot[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg9_scaleX";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  17 1 28 1 43 1 54 1 69 1 72 1 95 1 114 1
-		 271 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 15 ".ktv[0:14]"  17 1 28 1 43 1 54 1 69 1 72 1 95 1 114 1
+		 129 1 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 15 ".kit[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
+	setAttr -s 15 ".kot[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg9_scaleY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  17 1 28 1 43 1 54 1 69 1 72 1 95 1 114 1
-		 271 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 15 ".ktv[0:14]"  17 1 28 1 43 1 54 1 69 1 72 1 95 1 114 1
+		 129 1 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 15 ".kit[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
+	setAttr -s 15 ".kot[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg9_scaleZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 12 ".ktv[0:11]"  17 1 28 1 43 1 54 1 69 1 72 1 95 1 114 1
-		 271 1 314 1 347 1 349 1;
-	setAttr -s 12 ".kit[7:11]"  16 16 16 16 16;
-	setAttr -s 12 ".kot[7:11]"  16 16 16 16 16;
+	setAttr -s 15 ".ktv[0:14]"  17 1 28 1 43 1 54 1 69 1 72 1 95 1 114 1
+		 129 1 155 1 165 1 208 1 241 1 243 1 266 1;
+	setAttr -s 15 ".kit[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
+	setAttr -s 15 ".kot[0:14]"  2 2 2 2 2 2 2 16 
+		16 16 16 16 16 16 16;
 createNode animCurveTU -n "Leg2_scaleZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  5 1 31 1 57 1 83 1 114 1 271 1 288 1 314 1
-		 347 1 349 1;
-	setAttr -s 10 ".kit[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
-	setAttr -s 10 ".kot[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
+	setAttr -s 13 ".ktv[0:12]"  5 1 31 1 57 1 83 1 114 1 125 1 151 1 165 1
+		 182 1 208 1 241 1 243 1 266 1;
+	setAttr -s 13 ".kit[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
+	setAttr -s 13 ".kot[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
 createNode animCurveTU -n "Leg2_visibility";
-	setAttr ".tan" 2;
+	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  5 1 31 1 57 1 83 1 114 1 271 1 288 1 314 1
-		 347 1 349 1;
-	setAttr -s 10 ".kit[4:9]"  9 9 9 9 9 9;
-	setAttr -s 10 ".kot[4:9]"  5 5 5 5 5 5;
+	setAttr -s 14 ".ktv[0:13]"  5 1 31 1 57 1 83 1 114 1 125 1 143 1 151 1
+		 165 1 182 1 208 1 241 1 243 1 266 1;
+	setAttr -s 14 ".kit[0:13]"  2 2 2 2 9 9 9 9 
+		9 9 9 9 9 9;
+	setAttr -s 14 ".kot[0:13]"  2 2 2 2 5 5 5 5 
+		5 5 5 5 5 5;
 createNode animCurveTL -n "Leg2_translateZ";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 29 ".ktv[0:28]"  5 0 8 8 16 18 19 21 31 21 34 34 42 44 45 47
-		 57 47 60 60 68 70 71 73 83 73 86 86 94 96 97 100 114 100 271 100 272 0 288 3.0172730278460449
-		 291 -3.7608888316394697 294 0 314 0 322 0.090383748219085902 335 0.090383748219085902
-		 338 0.31847285379726442 347 0.17179620652505928 349 0.13247458001608708 357 0;
-	setAttr -s 29 ".kit[3:28]"  16 2 2 2 2 2 2 2 
-		2 2 2 2 2 16 16 16 16 16 16 16 16 1 16 16 16 
-		16;
-	setAttr -s 29 ".kot[3:28]"  16 2 2 2 2 2 2 2 
-		2 2 2 2 2 16 16 16 16 16 16 16 16 1 16 16 16 
-		16;
-	setAttr -s 29 ".kix[24:28]"  1 1 0.92660748958587646 0.92450028657913208 
-		1;
-	setAttr -s 29 ".kiy[24:28]"  0 0 -0.37603014707565308 -0.38118124008178711 
-		0;
-	setAttr -s 29 ".kox[24:28]"  1 1 0.92660748958587646 0.92450028657913208 
-		1;
-	setAttr -s 29 ".koy[24:28]"  0 0 -0.37603014707565308 -0.38118124008178711 
-		0;
+	setAttr -s 38 ".ktv[0:37]"  5 0 8 8 16 18 19 21 31 21 34 34 42 44 45 47
+		 57 47 60 60 68 70 71 73 83 73 86 86 94 96 97 100 114 100 115 0 125 0 128 27.856765904233605
+		 137 -4.4730638773457576 141 -26.529942332728975 143 -28.790040001148775 146 -21.364506906510496
+		 151 0 165 0 166 0 182 3.0172730278460449 185 -3.7608888316394697 188 0 208 0 216 0.090383748219085902
+		 229 0.090383748219085902 232 0.31847285379726442 241 0.17179620652505928 243 0.13247458001608708
+		 251 0 266 0;
+	setAttr -s 38 ".kit[0:37]"  2 2 2 16 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 38 ".kot[0:37]"  2 2 2 16 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 38 ".kix[32:37]"  1 1 0.92660719156265259 0.9244999885559082 
+		1 1;
+	setAttr -s 38 ".kiy[32:37]"  0 0 -0.37603080272674561 -0.38118201494216919 
+		0 0;
+	setAttr -s 38 ".kox[32:37]"  1 1 0.92660719156265259 0.9244999885559082 
+		1 1;
+	setAttr -s 38 ".koy[32:37]"  0 0 -0.37603080272674561 -0.38118201494216919 
+		0 0;
 createNode animCurveTU -n "Leg2_scaleY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  5 1 31 1 57 1 83 1 114 1 271 1 288 1 314 1
-		 347 1 349 1;
-	setAttr -s 10 ".kit[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
-	setAttr -s 10 ".kot[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
+	setAttr -s 13 ".ktv[0:12]"  5 1 31 1 57 1 83 1 114 1 125 1 151 1 165 1
+		 182 1 208 1 241 1 243 1 266 1;
+	setAttr -s 13 ".kit[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
+	setAttr -s 13 ".kot[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
 createNode animCurveTL -n "Leg2_translateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 17 ".ktv[0:16]"  5 0 31 0 57 0 83 0 114 0 271 0 281 5.646818981289087
-		 288 -1.4368568003777247 291 3.0792747151976165 294 0 314 0 322 -18.733704310202263
-		 335 -18.733704310202263 338 15.207343281156149 347 8.2034115494506086 349 6.3257712067304528
-		 357 0;
-	setAttr -s 17 ".kit[0:16]"  2 2 2 2 16 16 16 16 
-		16 16 16 16 1 16 16 16 16;
-	setAttr -s 17 ".kot[0:16]"  2 2 2 2 16 16 16 16 
-		16 16 16 16 1 16 16 16 16;
-	setAttr -s 17 ".kix[12:16]"  1 1 0.051536470651626587 0.050726525485515594 
-		1;
-	setAttr -s 17 ".kiy[12:16]"  0 0 -0.99867111444473267 -0.99871259927749634 
-		0;
-	setAttr -s 17 ".kox[12:16]"  1 1 0.051536470651626587 0.050726525485515594 
-		1;
-	setAttr -s 17 ".koy[12:16]"  0 0 -0.99867111444473267 -0.99871259927749634 
-		0;
+	setAttr -s 21 ".ktv[0:20]"  5 0 31 0 57 0 83 0 114 0 125 0 146 0.46107324378650105
+		 151 0 165 0 175 5.646818981289087 182 -1.4368568003777247 185 3.0792747151976165
+		 188 0 208 0 216 -18.733704310202263 229 -18.733704310202263 232 15.207343281156149
+		 241 8.2034115494506086 243 6.3257712067304528 251 0 266 0;
+	setAttr -s 21 ".kit[0:20]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 21 ".kot[0:20]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16 16 16 1 16 16 16 16 16;
+	setAttr -s 21 ".kix[15:20]"  1 1 0.05153636634349823 0.050726410001516342 
+		1 1;
+	setAttr -s 21 ".kiy[15:20]"  0 0 -0.99867111444473267 -0.99871259927749634 
+		0 0;
+	setAttr -s 21 ".kox[15:20]"  1 1 0.05153636634349823 0.050726410001516342 
+		1 1;
+	setAttr -s 21 ".koy[15:20]"  0 0 -0.99867111444473267 -0.99871259927749634 
+		0 0;
 createNode animCurveTU -n "Leg2_scaleX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  5 1 31 1 57 1 83 1 114 1 271 1 288 1 314 1
-		 347 1 349 1;
-	setAttr -s 10 ".kit[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
-	setAttr -s 10 ".kot[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
+	setAttr -s 13 ".ktv[0:12]"  5 1 31 1 57 1 83 1 114 1 125 1 151 1 165 1
+		 182 1 208 1 241 1 243 1 266 1;
+	setAttr -s 13 ".kit[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
+	setAttr -s 13 ".kot[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
 createNode animCurveTL -n "Leg2_translateY";
-	setAttr ".tan" 2;
+	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 33 ".ktv[0:32]"  5 0 8 15 16 15 19 0 31 0 34 15 42 15 45 0
-		 57 0 60 15 68 17 71 0 83 0 86 15 94 15 97 0 114 0 271 0 276 0 281 13.515591710564665
-		 288 10.783121869808742 291 18.967289267621268 294 0 314 0 318 4 322 0 335 0 338 96.544601692886715
-		 342 99.089022921641458 347 100.54117232364537 349 100.54117232364537 354 33.94433752264338
-		 357 0;
-	setAttr -s 33 ".kit[16:32]"  16 16 16 16 16 16 16 16 
-		16 16 1 16 16 16 16 16 16;
-	setAttr -s 33 ".kot[16:32]"  16 16 16 16 16 16 16 16 
-		16 16 1 16 16 16 16 16 16;
-	setAttr -s 33 ".kix[26:32]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 33 ".kiy[26:32]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
-	setAttr -s 33 ".kox[26:32]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
-		1;
-	setAttr -s 33 ".koy[26:32]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
-		0;
+	setAttr -s 41 ".ktv[0:40]"  5 0 8 15 16 15 19 0 31 0 34 15 42 15 45 0
+		 57 0 60 15 68 17 71 0 83 0 86 15 94 15 97 0 114 0 125 0 128 0.08892007905772914 137 20.493716581135608
+		 141 0.42991466316382976 143 0.55095454018480261 146 4.4158721382183863 151 0 165 0
+		 170 0 175 13.515591710564665 182 10.783121869808742 185 18.967289267621268 188 0
+		 208 0 212 4 216 0 229 0 232 96.544601692886715 236 99.089022921641458 241 100.54117232364537
+		 243 100.54117232364537 248 33.94433752264338 251 0 266 0;
+	setAttr -s 41 ".kit[0:40]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 16 16 16 16 16 16 1 16 16 16 16 16 16 16;
+	setAttr -s 41 ".kot[0:40]"  2 2 2 2 2 2 2 2 
+		2 2 2 2 2 2 2 2 16 16 16 16 16 16 16 16 16 
+		16 16 16 16 16 16 16 16 1 16 16 16 16 16 16 16;
+	setAttr -s 41 ".kix[33:40]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 41 ".kiy[33:40]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
+	setAttr -s 41 ".kox[33:40]"  1 1 0.093420110642910004 1 1 0.0033153700642287731 
+		1 1;
+	setAttr -s 41 ".koy[33:40]"  0 0 0.99562680721282959 0 0 -0.99999451637268066 
+		0 0;
 createNode animCurveTA -n "Leg2_rotateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  5 0 31 0 57 0 83 0 114 0 271 0 288 0 314 0
-		 347 0 349 0;
-	setAttr -s 10 ".kit[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
-	setAttr -s 10 ".kot[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
+	setAttr -s 13 ".ktv[0:12]"  5 0 31 0 57 0 83 0 114 0 125 0 151 0 165 0
+		 182 0 208 0 241 0 243 0 266 0;
+	setAttr -s 13 ".kit[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
+	setAttr -s 13 ".kot[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
 createNode animCurveTA -n "Leg2_rotateZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  5 0 31 0 57 0 83 0 114 0 271 0 288 0 314 0
-		 347 0 349 0;
-	setAttr -s 10 ".kit[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
-	setAttr -s 10 ".kot[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
+	setAttr -s 13 ".ktv[0:12]"  5 0 31 0 57 0 83 0 114 0 125 0 151 0 165 0
+		 182 0 208 0 241 0 243 0 266 0;
+	setAttr -s 13 ".kit[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
+	setAttr -s 13 ".kot[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
 createNode animCurveTA -n "Leg2_rotateY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 10 ".ktv[0:9]"  5 0 31 0 57 0 83 0 114 0 271 0 288 0 314 0
-		 347 0 349 0;
-	setAttr -s 10 ".kit[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
-	setAttr -s 10 ".kot[0:9]"  2 2 2 2 16 16 16 16 
-		16 16;
+	setAttr -s 13 ".ktv[0:12]"  5 0 31 0 57 0 83 0 114 0 125 0 151 0 165 0
+		 182 0 208 0 241 0 243 0 266 0;
+	setAttr -s 13 ".kit[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
+	setAttr -s 13 ".kot[0:12]"  2 2 2 2 16 16 16 16 
+		16 16 16 16 16;
 createNode animCurveTU -n "pointLight3_visibility";
 	setAttr ".tan" 9;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  114 1 271 1 314 1;
-	setAttr -s 3 ".kot[0:2]"  5 5 5;
+	setAttr -s 4 ".ktv[0:3]"  114 1 165 1 208 1 266 1;
+	setAttr -s 4 ".kot[0:3]"  5 5 5 5;
 createNode animCurveTL -n "pointLight3_translateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  114 16.429712905404557 271 16.429712905404557
-		 272 0 314 0;
+	setAttr -s 6 ".ktv[0:5]"  114 16.429712905404557 115 0 165 0 166 0
+		 208 0 266 0;
 createNode animCurveTL -n "pointLight3_translateY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  114 -6.1279921100001573 271 -6.1279921100001573
-		 272 0 314 0;
+	setAttr -s 6 ".ktv[0:5]"  114 -6.1279921100001573 115 0 165 0 166 0
+		 208 0 266 0;
 createNode animCurveTL -n "pointLight3_translateZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  114 105.0605776541162 271 105.0605776541162
-		 272 0 314 0;
+	setAttr -s 6 ".ktv[0:5]"  114 105.0605776541162 115 0 165 0 166 0
+		 208 0 266 0;
 createNode animCurveTA -n "pointLight3_rotateX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  114 0 271 0 314 0;
+	setAttr -s 4 ".ktv[0:3]"  114 0 165 0 208 0 266 0;
 createNode animCurveTA -n "pointLight3_rotateY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  114 0 271 0 314 0;
+	setAttr -s 4 ".ktv[0:3]"  114 0 165 0 208 0 266 0;
 createNode animCurveTA -n "pointLight3_rotateZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  114 0 271 0 314 0;
+	setAttr -s 4 ".ktv[0:3]"  114 0 165 0 208 0 266 0;
 createNode animCurveTU -n "pointLight3_scaleX";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  114 1 271 1 314 1;
+	setAttr -s 4 ".ktv[0:3]"  114 1 165 1 208 1 266 1;
 createNode animCurveTU -n "pointLight3_scaleY";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  114 1 271 1 314 1;
+	setAttr -s 4 ".ktv[0:3]"  114 1 165 1 208 1 266 1;
 createNode animCurveTU -n "pointLight3_scaleZ";
 	setAttr ".tan" 16;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  114 1 271 1 314 1;
+	setAttr -s 4 ".ktv[0:3]"  114 1 165 1 208 1 266 1;
+createNode displayLayer -n "Corner";
+	setAttr ".v" no;
+	setAttr ".do" 5;
+createNode animCurveTL -n "GlobalCTRL_translateX";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 6 ".ktv[0:5]"  115 0 128 0 142 0 155 0 159 0 266 0;
+	setAttr -s 6 ".kit[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kot[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kix[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".kiy[1:5]"  0 0 0 0 0;
+	setAttr -s 6 ".kox[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".koy[1:5]"  0 0 0 0 0;
+createNode animCurveTL -n "GlobalCTRL_translateY";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 7 ".ktv[0:6]"  115 0 128 0 142 -34.038504190451029 155 -34.038504190451029
+		 159 -34.038504190451029 160 0 266 0;
+	setAttr -s 7 ".kit[1:6]"  1 1 16 16 16 16;
+	setAttr -s 7 ".kot[1:6]"  1 1 16 16 16 16;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
+createNode animCurveTL -n "GlobalCTRL_translateZ";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 7 ".ktv[0:6]"  115 0 128 0 142 33.467792105640747 155 33.467792105640747
+		 159 33.467792105640747 160 0 266 0;
+	setAttr -s 7 ".kit[1:6]"  1 1 16 16 16 16;
+	setAttr -s 7 ".kot[1:6]"  1 1 16 16 16 16;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
+createNode animCurveTU -n "GlobalCTRL_visibility";
+	setAttr ".tan" 5;
+	setAttr ".wgt" no;
+	setAttr -s 6 ".ktv[0:5]"  115 1 128 1 142 1 155 1 159 1 266 1;
+	setAttr -s 6 ".kit[0:5]"  9 1 1 9 9 9;
+	setAttr -s 6 ".kix[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".kiy[1:5]"  0 0 0 0 0;
+createNode animCurveTA -n "GlobalCTRL_rotateX";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 7 ".ktv[0:6]"  115 0 128 0 142 90 155 90 159 90 160 0 266 0;
+	setAttr -s 7 ".kit[1:6]"  1 1 16 16 16 16;
+	setAttr -s 7 ".kot[1:6]"  1 1 16 16 16 16;
+	setAttr -s 7 ".kix[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".kiy[1:6]"  0 0 0 0 0 0;
+	setAttr -s 7 ".kox[1:6]"  1 1 1 1 1 1;
+	setAttr -s 7 ".koy[1:6]"  0 0 0 0 0 0;
+createNode animCurveTA -n "GlobalCTRL_rotateY";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 6 ".ktv[0:5]"  115 0 128 0 142 0 155 0 159 0 266 0;
+	setAttr -s 6 ".kit[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kot[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kix[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".kiy[1:5]"  0 0 0 0 0;
+	setAttr -s 6 ".kox[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".koy[1:5]"  0 0 0 0 0;
+createNode animCurveTA -n "GlobalCTRL_rotateZ";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 6 ".ktv[0:5]"  115 0 128 0 142 0 155 0 159 0 266 0;
+	setAttr -s 6 ".kit[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kot[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kix[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".kiy[1:5]"  0 0 0 0 0;
+	setAttr -s 6 ".kox[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".koy[1:5]"  0 0 0 0 0;
+createNode animCurveTU -n "GlobalCTRL_scaleX";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 6 ".ktv[0:5]"  115 1 128 1 142 1 155 1 159 1 266 1;
+	setAttr -s 6 ".kit[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kot[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kix[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".kiy[1:5]"  0 0 0 0 0;
+	setAttr -s 6 ".kox[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".koy[1:5]"  0 0 0 0 0;
+createNode animCurveTU -n "GlobalCTRL_scaleY";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 6 ".ktv[0:5]"  115 1 128 1 142 1 155 1 159 1 266 1;
+	setAttr -s 6 ".kit[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kot[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kix[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".kiy[1:5]"  0 0 0 0 0;
+	setAttr -s 6 ".kox[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".koy[1:5]"  0 0 0 0 0;
+createNode animCurveTU -n "GlobalCTRL_scaleZ";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 6 ".ktv[0:5]"  115 1 128 1 142 1 155 1 159 1 266 1;
+	setAttr -s 6 ".kit[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kot[1:5]"  1 1 16 16 16;
+	setAttr -s 6 ".kix[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".kiy[1:5]"  0 0 0 0 0;
+	setAttr -s 6 ".kox[1:5]"  1 1 1 1 1;
+	setAttr -s 6 ".koy[1:5]"  0 0 0 0 0;
+createNode animCurveTU -n "Leg7_blendPoint1";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 5 ".ktv[0:4]"  127 0 128 1 142 1 143 0 266 0;
+createNode animCurveTU -n "Leg3_blendPoint1";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 5 ".ktv[0:4]"  127 0 128 1 142 1 143 0 266 0;
+createNode pairBlend -n "pairBlend2";
+	setAttr ".rm" 2;
+createNode pairBlend -n "pairBlend1";
+	setAttr ".rm" 2;
+createNode polyCube -n "polyCube4";
+	setAttr ".w" 3.8057362649364137;
+	setAttr ".h" 3.7267307014977149;
+	setAttr ".d" 3.6638546489051791;
+	setAttr ".cuv" 4;
+createNode pairBlend -n "pairBlend3";
+	setAttr ".rm" 2;
+createNode pairBlend -n "pairBlend4";
+	setAttr ".rm" 2;
+createNode animCurveTU -n "Leg8_blendPoint1";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 5 ".ktv[0:4]"  127 0 128 1 142 1 143 0 266 0;
+createNode animCurveTU -n "Leg2_blendPoint1";
+	setAttr ".tan" 16;
+	setAttr ".wgt" no;
+	setAttr -s 5 ".ktv[0:4]"  127 0 128 1 142 1 143 0 266 0;
+createNode polyExtrudeFace -n "polyExtrudeFace9";
+	setAttr ".ics" -type "componentList" 1 "f[0]";
+	setAttr ".ix" -type "matrix" 2.1866943064599491 0 0 0 0 1 0 0 0 0 4.3560243056753496 0
+		 1.2390009296763083 -14.159491719587177 -95.59068137540163 1;
+	setAttr ".ws" yes;
+	setAttr ".pvt" -type "float3" 1.2390009 -38.01775 27.3603 ;
+	setAttr ".rs" 49975;
+	setAttr ".lt" -type "double3" 0 -36.576979170629365 133.73136052339987 ;
+	setAttr ".c[0]"  0 1 1;
+	setAttr ".cbn" -type "double3" -59.771483580429269 -67.939883412702414 27.360299746625557 ;
+	setAttr ".cbx" -type "double3" 62.249485439781886 -8.095619382245868 27.360299746625557 ;
+createNode polyTweak -n "polyTweak17";
+	setAttr ".uopa" yes;
+	setAttr -s 8 ".tk[0:7]" -type "float3"  0 -44.015003204 -3.82028437
+		 0 -44.015003204 -3.82028437 -3.5527137e-015 -3.70151711 -3.82028437 -3.5527137e-015
+		 -3.70151711 -3.82028437 -3.5527137e-015 -3.70151711 0 -3.5527137e-015 -3.70151711
+		 0 0 -44.015003204 0 0 -44.015003204 0;
 createNode polyCube -n "polyCube3";
 	setAttr ".w" 55.801566703383571;
 	setAttr ".h" 19.530777997979353;
 	setAttr ".d" 64.091573058601426;
 	setAttr ".cuv" 4;
-createNode displayLayer -n "Corner";
-	setAttr ".dt" 2;
-	setAttr ".do" 5;
 select -ne :time1;
-	setAttr ".o" 126;
-	setAttr ".unw" 126;
+	setAttr ".o" 303;
+	setAttr ".unw" 303;
 select -ne :renderPartition;
 	setAttr -s 8 ".st";
 select -ne :initialShadingGroup;
-	setAttr -s 13 ".dsm";
+	setAttr -s 17 ".dsm";
 	setAttr ".ro" yes;
 	setAttr -s 12 ".gn";
 select -ne :initialParticleSE;
@@ -5149,6 +5570,7 @@ select -ne :defaultHardwareRenderGlobals;
 	setAttr ".fn" -type "string" "im";
 	setAttr ".res" -type "string" "ntsc_4d 646 485 1.333";
 select -ne :ikSystem;
+	setAttr -s 4 ".sol";
 connectAttr "groupParts5.og" "polySurfaceShape3.i";
 connectAttr "groupId7.id" "polySurfaceShape3.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "polySurfaceShape3.iog.og[0].gco";
@@ -5174,6 +5596,28 @@ connectAttr "groupId1.id" "pCylinderShape1.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "pCylinderShape1.iog.og[0].gco";
 connectAttr "groupParts1.og" "pCylinderShape1.i";
 connectAttr "groupId2.id" "pCylinderShape1.ciog.cog[0].cgid";
+connectAttr "pointLight3_visibility.o" "pointLight3.v";
+connectAttr "pointLight3_translateX.o" "pointLight3.tx";
+connectAttr "pointLight3_translateY.o" "pointLight3.ty";
+connectAttr "pointLight3_translateZ.o" "pointLight3.tz";
+connectAttr "pointLight3_rotateX.o" "pointLight3.rx";
+connectAttr "pointLight3_rotateY.o" "pointLight3.ry";
+connectAttr "pointLight3_rotateZ.o" "pointLight3.rz";
+connectAttr "pointLight3_scaleX.o" "pointLight3.sx";
+connectAttr "pointLight3_scaleY.o" "pointLight3.sy";
+connectAttr "pointLight3_scaleZ.o" "pointLight3.sz";
+connectAttr "Corner.di" "pCube11.do";
+connectAttr "polyExtrudeFace9.out" "pCubeShape11.i";
+connectAttr "GlobalCTRL_translateX.o" "GlobalCTRL.tx";
+connectAttr "GlobalCTRL_translateY.o" "GlobalCTRL.ty";
+connectAttr "GlobalCTRL_translateZ.o" "GlobalCTRL.tz";
+connectAttr "GlobalCTRL_rotateX.o" "GlobalCTRL.rx";
+connectAttr "GlobalCTRL_rotateY.o" "GlobalCTRL.ry";
+connectAttr "GlobalCTRL_rotateZ.o" "GlobalCTRL.rz";
+connectAttr "GlobalCTRL_scaleX.o" "GlobalCTRL.sx";
+connectAttr "GlobalCTRL_scaleY.o" "GlobalCTRL.sy";
+connectAttr "GlobalCTRL_scaleZ.o" "GlobalCTRL.sz";
+connectAttr "GlobalCTRL_visibility.o" "GlobalCTRL.v";
 connectAttr "CenterJoint_parentConstraint1.ctx" "CenterJoint.tx";
 connectAttr "CenterJoint_parentConstraint1.cty" "CenterJoint.ty";
 connectAttr "CenterJoint_parentConstraint1.ctz" "CenterJoint.tz";
@@ -5181,151 +5625,178 @@ connectAttr "CenterJoint_parentConstraint1.crx" "CenterJoint.rx";
 connectAttr "CenterJoint_parentConstraint1.cry" "CenterJoint.ry";
 connectAttr "CenterJoint_parentConstraint1.crz" "CenterJoint.rz";
 connectAttr "CenterJoint.s" "joint1.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint1|FirstLeg.do";
-connectAttr "polyTweakUV3.out" "|CenterJoint|joint1|FirstLeg|FirstLegShape.i";
-connectAttr "polyTweakUV3.uvtk[0]" "|CenterJoint|joint1|FirstLeg|FirstLegShape.uvst[0].uvtw"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint1|FirstLeg.do";
+connectAttr "polyTweakUV3.out" "|GlobalCTRL|CenterJoint|joint1|FirstLeg|FirstLegShape.i"
 		;
-connectAttr "joint1.s" "|CenterJoint|joint1|joint2.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint1|joint2|SecondLeg.do";
-connectAttr "polyTweakUV14.out" "|CenterJoint|joint1|joint2|SecondLeg|SecondLegShape.i"
+connectAttr "polyTweakUV3.uvtk[0]" "|GlobalCTRL|CenterJoint|joint1|FirstLeg|FirstLegShape.uvst[0].uvtw"
 		;
-connectAttr "polyTweakUV14.uvtk[0]" "|CenterJoint|joint1|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
+connectAttr "joint1.s" "|GlobalCTRL|CenterJoint|joint1|joint2.is";
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg.do"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow.do"
+connectAttr "polyTweakUV14.out" "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegShape.i"
 		;
-connectAttr "polyTweakUV15.out" "|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.i"
+connectAttr "polyTweakUV14.uvtk[0]" "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
 		;
-connectAttr "polyTweakUV15.uvtk[0]" "|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.uvst[0].uvtw"
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow.do"
 		;
-connectAttr "|CenterJoint|joint1|joint2.s" "|CenterJoint|joint1|joint2|joint3.is"
+connectAttr "polyTweakUV15.out" "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.i"
 		;
-connectAttr "|CenterJoint|joint1|joint2|joint3.s" "|CenterJoint|joint1|joint2|joint3|joint4.is"
+connectAttr "polyTweakUV15.uvtk[0]" "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.uvst[0].uvtw"
 		;
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint1|joint2|joint3|ThirdLeg.do";
-connectAttr "polyTweakUV7.out" "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2.s" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3.is"
 		;
-connectAttr "polyTweakUV7.uvtk[0]" "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|joint3.s" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|joint4.is"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg.do"
 		;
-connectAttr "polyTweakUV8.out" "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.i"
+connectAttr "polyTweakUV7.out" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegShape.i"
 		;
-connectAttr "polyTweakUV8.uvtk[0]" "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.uvst[0].uvtw"
+connectAttr "polyTweakUV7.uvtk[0]" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
 		;
-connectAttr "|CenterJoint|joint1|joint2|joint3|joint4.tx" "|CenterJoint|joint1|joint2|joint3|effector1.tx"
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
 		;
-connectAttr "|CenterJoint|joint1|joint2|joint3|joint4.ty" "|CenterJoint|joint1|joint2|joint3|effector1.ty"
+connectAttr "polyTweakUV8.out" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.i"
 		;
-connectAttr "|CenterJoint|joint1|joint2|joint3|joint4.tz" "|CenterJoint|joint1|joint2|joint3|effector1.tz"
+connectAttr "polyTweakUV8.uvtk[0]" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.uvst[0].uvtw"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|joint4.tx" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|effector1.tx"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|joint4.ty" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|effector1.ty"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|joint4.tz" "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|effector1.tz"
 		;
 connectAttr "CenterJoint.s" "joint5.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint5|FirstLeg.do";
-connectAttr "polyTweakUV5.out" "|CenterJoint|joint5|FirstLeg|FirstLegShape.i";
-connectAttr "polyTweakUV5.uvtk[0]" "|CenterJoint|joint5|FirstLeg|FirstLegShape.uvst[0].uvtw"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint5|FirstLeg.do";
+connectAttr "polyTweakUV5.out" "|GlobalCTRL|CenterJoint|joint5|FirstLeg|FirstLegShape.i"
 		;
-connectAttr "joint5.s" "|CenterJoint|joint5|joint2.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint5|joint2|SecondLeg.do";
-connectAttr "polyTweakUV19.out" "|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.i"
+connectAttr "polyTweakUV5.uvtk[0]" "|GlobalCTRL|CenterJoint|joint5|FirstLeg|FirstLegShape.uvst[0].uvtw"
 		;
-connectAttr "polyTweakUV19.uvtk[0]" "|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
+connectAttr "joint5.s" "|GlobalCTRL|CenterJoint|joint5|joint2.is";
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg.do"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint5|joint2|SecondLeg|SecondLegGlow.do"
+connectAttr "polyTweakUV19.out" "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.i"
 		;
-connectAttr "|CenterJoint|joint5|joint2.s" "|CenterJoint|joint5|joint2|joint3.is"
+connectAttr "polyTweakUV19.uvtk[0]" "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
 		;
-connectAttr "|CenterJoint|joint5|joint2|joint3.s" "|CenterJoint|joint5|joint2|joint3|joint4.is"
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg|SecondLegGlow.do"
 		;
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint5|joint2|joint3|ThirdLeg.do";
-connectAttr "polyTweakUV10.out" "|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2.s" "|GlobalCTRL|CenterJoint|joint5|joint2|joint3.is"
 		;
-connectAttr "polyTweakUV10.uvtk[0]" "|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|joint3.s" "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|joint4.is"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg.do"
 		;
-connectAttr "|CenterJoint|joint5|joint2|joint3|joint4.tx" "effector5.tx";
-connectAttr "|CenterJoint|joint5|joint2|joint3|joint4.ty" "effector5.ty";
-connectAttr "|CenterJoint|joint5|joint2|joint3|joint4.tz" "effector5.tz";
+connectAttr "polyTweakUV10.out" "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+		;
+connectAttr "polyTweakUV10.uvtk[0]" "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+		;
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|joint4.tx" "effector5.tx"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|joint4.ty" "effector5.ty"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|joint4.tz" "effector5.tz"
+		;
 connectAttr "CenterJoint.s" "joint6.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint6|FirstLeg.do";
-connectAttr "polyTweakUV6.out" "|CenterJoint|joint6|FirstLeg|FirstLegShape.i";
-connectAttr "polyTweakUV6.uvtk[0]" "|CenterJoint|joint6|FirstLeg|FirstLegShape.uvst[0].uvtw"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint6|FirstLeg.do";
+connectAttr "polyTweakUV6.out" "|GlobalCTRL|CenterJoint|joint6|FirstLeg|FirstLegShape.i"
 		;
-connectAttr "joint6.s" "|CenterJoint|joint6|joint2.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint6|joint2|SecondLeg.do";
-connectAttr "polyTweakUV18.out" "|CenterJoint|joint6|joint2|SecondLeg|SecondLegShape.i"
+connectAttr "polyTweakUV6.uvtk[0]" "|GlobalCTRL|CenterJoint|joint6|FirstLeg|FirstLegShape.uvst[0].uvtw"
 		;
-connectAttr "polyTweakUV18.uvtk[0]" "|CenterJoint|joint6|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
+connectAttr "joint6.s" "|GlobalCTRL|CenterJoint|joint6|joint2.is";
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg.do"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint6|joint2|SecondLeg|SecondLegGlow.do"
+connectAttr "polyTweakUV18.out" "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg|SecondLegShape.i"
 		;
-connectAttr "|CenterJoint|joint6|joint2.s" "|CenterJoint|joint6|joint2|joint3.is"
+connectAttr "polyTweakUV18.uvtk[0]" "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
 		;
-connectAttr "|CenterJoint|joint6|joint2|joint3.s" "|CenterJoint|joint6|joint2|joint3|joint4.is"
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg|SecondLegGlow.do"
 		;
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint6|joint2|joint3|ThirdLeg.do";
-connectAttr "polyTweakUV11.out" "|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2.s" "|GlobalCTRL|CenterJoint|joint6|joint2|joint3.is"
 		;
-connectAttr "polyTweakUV11.uvtk[0]" "|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|joint3.s" "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|joint4.is"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg.do"
 		;
-connectAttr "|CenterJoint|joint6|joint2|joint3|joint4.tx" "effector4.tx";
-connectAttr "|CenterJoint|joint6|joint2|joint3|joint4.ty" "effector4.ty";
-connectAttr "|CenterJoint|joint6|joint2|joint3|joint4.tz" "effector4.tz";
+connectAttr "polyTweakUV11.out" "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+		;
+connectAttr "polyTweakUV11.uvtk[0]" "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+		;
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|joint4.tx" "effector4.tx"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|joint4.ty" "effector4.ty"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|joint4.tz" "effector4.tz"
+		;
 connectAttr "CenterJoint.s" "joint7.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint7|FirstLeg.do";
-connectAttr "polyTweakUV1.out" "|CenterJoint|joint7|FirstLeg|FirstLegShape.i";
-connectAttr "polyTweakUV1.uvtk[0]" "|CenterJoint|joint7|FirstLeg|FirstLegShape.uvst[0].uvtw"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint7|FirstLeg.do";
+connectAttr "polyTweakUV1.out" "|GlobalCTRL|CenterJoint|joint7|FirstLeg|FirstLegShape.i"
 		;
-connectAttr "joint7.s" "|CenterJoint|joint7|joint2.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint7|joint2|SecondLeg.do";
-connectAttr "polyTweakUV17.out" "|CenterJoint|joint7|joint2|SecondLeg|SecondLegShape.i"
+connectAttr "polyTweakUV1.uvtk[0]" "|GlobalCTRL|CenterJoint|joint7|FirstLeg|FirstLegShape.uvst[0].uvtw"
 		;
-connectAttr "polyTweakUV17.uvtk[0]" "|CenterJoint|joint7|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
+connectAttr "joint7.s" "|GlobalCTRL|CenterJoint|joint7|joint2.is";
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg.do"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint7|joint2|SecondLeg|SecondLegGlow.do"
+connectAttr "polyTweakUV17.out" "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg|SecondLegShape.i"
 		;
-connectAttr "|CenterJoint|joint7|joint2.s" "|CenterJoint|joint7|joint2|joint3.is"
+connectAttr "polyTweakUV17.uvtk[0]" "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
 		;
-connectAttr "|CenterJoint|joint7|joint2|joint3.s" "|CenterJoint|joint7|joint2|joint3|joint4.is"
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg|SecondLegGlow.do"
 		;
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint7|joint2|joint3|ThirdLeg.do";
-connectAttr "polyTweakUV12.out" "|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2.s" "|GlobalCTRL|CenterJoint|joint7|joint2|joint3.is"
 		;
-connectAttr "polyTweakUV12.uvtk[0]" "|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|joint3.s" "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|joint4.is"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg.do"
 		;
-connectAttr "|CenterJoint|joint7|joint2|joint3|joint4.tx" "effector3.tx";
-connectAttr "|CenterJoint|joint7|joint2|joint3|joint4.ty" "effector3.ty";
-connectAttr "|CenterJoint|joint7|joint2|joint3|joint4.tz" "effector3.tz";
+connectAttr "polyTweakUV12.out" "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+		;
+connectAttr "polyTweakUV12.uvtk[0]" "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+		;
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|joint4.tx" "effector3.tx"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|joint4.ty" "effector3.ty"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|joint4.tz" "effector3.tz"
+		;
 connectAttr "CenterJoint.s" "joint8.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint8|FirstLeg.do";
-connectAttr "polyTweakUV2.out" "|CenterJoint|joint8|FirstLeg|FirstLegShape.i";
-connectAttr "polyTweakUV2.uvtk[0]" "|CenterJoint|joint8|FirstLeg|FirstLegShape.uvst[0].uvtw"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint8|FirstLeg.do";
+connectAttr "polyTweakUV2.out" "|GlobalCTRL|CenterJoint|joint8|FirstLeg|FirstLegShape.i"
 		;
-connectAttr "joint8.s" "|CenterJoint|joint8|joint2.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint8|joint2|SecondLeg.do";
-connectAttr "polyTweakUV16.out" "|CenterJoint|joint8|joint2|SecondLeg|SecondLegShape.i"
+connectAttr "polyTweakUV2.uvtk[0]" "|GlobalCTRL|CenterJoint|joint8|FirstLeg|FirstLegShape.uvst[0].uvtw"
 		;
-connectAttr "polyTweakUV16.uvtk[0]" "|CenterJoint|joint8|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
+connectAttr "joint8.s" "|GlobalCTRL|CenterJoint|joint8|joint2.is";
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg.do"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint8|joint2|SecondLeg|SecondLegGlow.do"
+connectAttr "polyTweakUV16.out" "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg|SecondLegShape.i"
 		;
-connectAttr "|CenterJoint|joint8|joint2.s" "|CenterJoint|joint8|joint2|joint3.is"
+connectAttr "polyTweakUV16.uvtk[0]" "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
 		;
-connectAttr "|CenterJoint|joint8|joint2|joint3.s" "|CenterJoint|joint8|joint2|joint3|joint4.is"
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg|SecondLegGlow.do"
 		;
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint8|joint2|joint3|ThirdLeg.do";
-connectAttr "polyTweakUV13.out" "|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2.s" "|GlobalCTRL|CenterJoint|joint8|joint2|joint3.is"
 		;
-connectAttr "polyTweakUV13.uvtk[0]" "|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|joint3.s" "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|joint4.is"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg.do"
 		;
-connectAttr "|CenterJoint|joint8|joint2|joint3|joint4.tx" "effector2.tx";
-connectAttr "|CenterJoint|joint8|joint2|joint3|joint4.ty" "effector2.ty";
-connectAttr "|CenterJoint|joint8|joint2|joint3|joint4.tz" "effector2.tz";
+connectAttr "polyTweakUV13.out" "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+		;
+connectAttr "polyTweakUV13.uvtk[0]" "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+		;
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|joint4.tx" "effector2.tx"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|joint4.ty" "effector2.ty"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|joint4.tz" "effector2.tz"
+		;
 connectAttr "SeekrPlygns.di" "pCylinder2.do";
 connectAttr "polyTweakUV26.out" "pCylinderShape2.i";
 connectAttr "polyTweakUV26.uvtk[0]" "pCylinderShape2.uvst[0].uvtw";
@@ -5374,32 +5845,38 @@ connectAttr "polyChipOff6.out" "polySurfaceShape5.i";
 connectAttr "groupId11.id" "polySurfaceShape5.iog.og[0].gid";
 connectAttr ":initialShadingGroup.mwc" "polySurfaceShape5.iog.og[0].gco";
 connectAttr "CenterJoint.s" "joint9.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint9|FirstLeg.do";
-connectAttr "polyTweakUV4.out" "|CenterJoint|joint9|FirstLeg|FirstLegShape.i";
-connectAttr "polyTweakUV4.uvtk[0]" "|CenterJoint|joint9|FirstLeg|FirstLegShape.uvst[0].uvtw"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint9|FirstLeg.do";
+connectAttr "polyTweakUV4.out" "|GlobalCTRL|CenterJoint|joint9|FirstLeg|FirstLegShape.i"
 		;
-connectAttr "joint9.s" "|CenterJoint|joint9|joint2.is";
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint9|joint2|SecondLeg.do";
-connectAttr "polyTweakUV20.out" "|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.i"
+connectAttr "polyTweakUV4.uvtk[0]" "|GlobalCTRL|CenterJoint|joint9|FirstLeg|FirstLegShape.uvst[0].uvtw"
 		;
-connectAttr "polyTweakUV20.uvtk[0]" "|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
+connectAttr "joint9.s" "|GlobalCTRL|CenterJoint|joint9|joint2.is";
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg.do"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint9|joint2|SecondLeg|SecondLegGlow.do"
+connectAttr "polyTweakUV20.out" "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.i"
 		;
-connectAttr "|CenterJoint|joint9|joint2.s" "|CenterJoint|joint9|joint2|joint3.is"
+connectAttr "polyTweakUV20.uvtk[0]" "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.uvst[0].uvtw"
 		;
-connectAttr "|CenterJoint|joint9|joint2|joint3.s" "|CenterJoint|joint9|joint2|joint3|joint4.is"
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg|SecondLegGlow.do"
 		;
-connectAttr "SeekrPlygns.di" "|CenterJoint|joint9|joint2|joint3|ThirdLeg.do";
-connectAttr "polyTweakUV9.out" "|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2.s" "|GlobalCTRL|CenterJoint|joint9|joint2|joint3.is"
 		;
-connectAttr "polyTweakUV9.uvtk[0]" "|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|joint3.s" "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|joint4.is"
 		;
-connectAttr "RedGlowLayer.di" "|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+connectAttr "SeekrPlygns.di" "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg.do"
 		;
-connectAttr "|CenterJoint|joint9|joint2|joint3|joint4.tx" "effector6.tx";
-connectAttr "|CenterJoint|joint9|joint2|joint3|joint4.ty" "effector6.ty";
-connectAttr "|CenterJoint|joint9|joint2|joint3|joint4.tz" "effector6.tz";
+connectAttr "polyTweakUV9.out" "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegShape.i"
+		;
+connectAttr "polyTweakUV9.uvtk[0]" "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegShape.uvst[0].uvtw"
+		;
+connectAttr "RedGlowLayer.di" "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegGlow.do"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|joint4.tx" "effector6.tx"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|joint4.ty" "effector6.ty"
+		;
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|joint4.tz" "effector6.tz"
+		;
 connectAttr "CenterJoint.ro" "CenterJoint_parentConstraint1.cro";
 connectAttr "CenterJoint.pim" "CenterJoint_parentConstraint1.cpim";
 connectAttr "CenterJoint.rp" "CenterJoint_parentConstraint1.crp";
@@ -5415,7 +5892,8 @@ connectAttr "GCtrl.pm" "CenterJoint_parentConstraint1.tg[0].tpm";
 connectAttr "CenterJoint_parentConstraint1.w0" "CenterJoint_parentConstraint1.tg[0].tw"
 		;
 connectAttr "joint1.msg" "ikHandle1.hsj";
-connectAttr "|CenterJoint|joint1|joint2|joint3|effector1.hp" "ikHandle1.hee";
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|effector1.hp" "ikHandle1.hee"
+		;
 connectAttr "ikRPsolver.msg" "ikHandle1.hsv";
 connectAttr "ikHandle1_pointConstraint1.ctx" "ikHandle1.tx";
 connectAttr "ikHandle1_pointConstraint1.cty" "ikHandle1.ty";
@@ -5468,10 +5946,10 @@ connectAttr "ikHandle4_pointConstraint1.ctz" "ikHandle4.tz";
 connectAttr "ikHandle4.pim" "ikHandle4_pointConstraint1.cpim";
 connectAttr "ikHandle4.rp" "ikHandle4_pointConstraint1.crp";
 connectAttr "ikHandle4.rpt" "ikHandle4_pointConstraint1.crt";
-connectAttr "|Leg1.t" "ikHandle4_pointConstraint1.tg[0].tt";
-connectAttr "|Leg1.rp" "ikHandle4_pointConstraint1.tg[0].trp";
-connectAttr "|Leg1.rpt" "ikHandle4_pointConstraint1.tg[0].trt";
-connectAttr "|Leg1.pm" "ikHandle4_pointConstraint1.tg[0].tpm";
+connectAttr "|GlobalCTRL|Leg1.t" "ikHandle4_pointConstraint1.tg[0].tt";
+connectAttr "|GlobalCTRL|Leg1.rp" "ikHandle4_pointConstraint1.tg[0].trp";
+connectAttr "|GlobalCTRL|Leg1.rpt" "ikHandle4_pointConstraint1.tg[0].trt";
+connectAttr "|GlobalCTRL|Leg1.pm" "ikHandle4_pointConstraint1.tg[0].tpm";
 connectAttr "ikHandle4_pointConstraint1.w0" "ikHandle4_pointConstraint1.tg[0].tw"
 		;
 connectAttr "joint5.msg" "ikHandle5.hsj";
@@ -5483,10 +5961,10 @@ connectAttr "ikHandle5_pointConstraint1.ctz" "ikHandle5.tz";
 connectAttr "ikHandle5.pim" "ikHandle5_pointConstraint1.cpim";
 connectAttr "ikHandle5.rp" "ikHandle5_pointConstraint1.crp";
 connectAttr "ikHandle5.rpt" "ikHandle5_pointConstraint1.crt";
-connectAttr "|Leg2.t" "ikHandle5_pointConstraint1.tg[0].tt";
-connectAttr "|Leg2.rp" "ikHandle5_pointConstraint1.tg[0].trp";
-connectAttr "|Leg2.rpt" "ikHandle5_pointConstraint1.tg[0].trt";
-connectAttr "|Leg2.pm" "ikHandle5_pointConstraint1.tg[0].tpm";
+connectAttr "|GlobalCTRL|Leg2.t" "ikHandle5_pointConstraint1.tg[0].tt";
+connectAttr "|GlobalCTRL|Leg2.rp" "ikHandle5_pointConstraint1.tg[0].trp";
+connectAttr "|GlobalCTRL|Leg2.rpt" "ikHandle5_pointConstraint1.tg[0].trt";
+connectAttr "|GlobalCTRL|Leg2.pm" "ikHandle5_pointConstraint1.tg[0].tpm";
 connectAttr "ikHandle5_pointConstraint1.w0" "ikHandle5_pointConstraint1.tg[0].tw"
 		;
 connectAttr "joint9.msg" "ikHandle6.hsj";
@@ -5498,10 +5976,10 @@ connectAttr "ikHandle6_pointConstraint1.ctz" "ikHandle6.tz";
 connectAttr "ikHandle6.pim" "ikHandle6_pointConstraint1.cpim";
 connectAttr "ikHandle6.rp" "ikHandle6_pointConstraint1.crp";
 connectAttr "ikHandle6.rpt" "ikHandle6_pointConstraint1.crt";
-connectAttr "|Leg3.t" "ikHandle6_pointConstraint1.tg[0].tt";
-connectAttr "|Leg3.rp" "ikHandle6_pointConstraint1.tg[0].trp";
-connectAttr "|Leg3.rpt" "ikHandle6_pointConstraint1.tg[0].trt";
-connectAttr "|Leg3.pm" "ikHandle6_pointConstraint1.tg[0].tpm";
+connectAttr "|GlobalCTRL|Leg3.t" "ikHandle6_pointConstraint1.tg[0].tt";
+connectAttr "|GlobalCTRL|Leg3.rp" "ikHandle6_pointConstraint1.tg[0].trp";
+connectAttr "|GlobalCTRL|Leg3.rpt" "ikHandle6_pointConstraint1.tg[0].trt";
+connectAttr "|GlobalCTRL|Leg3.pm" "ikHandle6_pointConstraint1.tg[0].tpm";
 connectAttr "ikHandle6_pointConstraint1.w0" "ikHandle6_pointConstraint1.tg[0].tw"
 		;
 connectAttr "GCtrl_translateX.o" "GCtrl.tx";
@@ -5515,29 +5993,47 @@ connectAttr "GCtrl_scaleY.o" "GCtrl.sy";
 connectAttr "GCtrl_scaleZ.o" "GCtrl.sz";
 connectAttr "GCtrl_visibility.o" "GCtrl.v";
 connectAttr "transformGeometry7.og" "GCtrlShape.cr";
-connectAttr "Leg2_translateX.o" "|Leg2.tx";
-connectAttr "Leg2_translateY.o" "|Leg2.ty";
-connectAttr "Leg2_translateZ.o" "|Leg2.tz";
-connectAttr "Leg2_visibility.o" "|Leg2.v";
-connectAttr "Leg2_rotateX.o" "|Leg2.rx";
-connectAttr "Leg2_rotateY.o" "|Leg2.ry";
-connectAttr "Leg2_rotateZ.o" "|Leg2.rz";
-connectAttr "Leg2_scaleX.o" "|Leg2.sx";
-connectAttr "Leg2_scaleY.o" "|Leg2.sy";
-connectAttr "Leg2_scaleZ.o" "|Leg2.sz";
-connectAttr "Leg3_translateX.o" "|Leg3.tx";
-connectAttr "Leg3_translateY.o" "|Leg3.ty";
-connectAttr "Leg3_translateZ.o" "|Leg3.tz";
-connectAttr "Leg3_visibility.o" "|Leg3.v";
-connectAttr "Leg3_rotateX.o" "|Leg3.rx";
-connectAttr "Leg3_rotateY.o" "|Leg3.ry";
-connectAttr "Leg3_rotateZ.o" "|Leg3.rz";
-connectAttr "Leg3_scaleX.o" "|Leg3.sx";
-connectAttr "Leg3_scaleY.o" "|Leg3.sy";
-connectAttr "Leg3_scaleZ.o" "|Leg3.sz";
-connectAttr "Leg7_translateX.o" "Leg7.tx";
-connectAttr "Leg7_translateY.o" "Leg7.ty";
-connectAttr "Leg7_translateZ.o" "Leg7.tz";
+connectAttr "pairBlend4.otx" "|GlobalCTRL|Leg2.tx";
+connectAttr "pairBlend4.oty" "|GlobalCTRL|Leg2.ty";
+connectAttr "pairBlend4.otz" "|GlobalCTRL|Leg2.tz";
+connectAttr "Leg2_visibility.o" "|GlobalCTRL|Leg2.v";
+connectAttr "Leg2_rotateX.o" "|GlobalCTRL|Leg2.rx";
+connectAttr "Leg2_rotateY.o" "|GlobalCTRL|Leg2.ry";
+connectAttr "Leg2_rotateZ.o" "|GlobalCTRL|Leg2.rz";
+connectAttr "Leg2_scaleX.o" "|GlobalCTRL|Leg2.sx";
+connectAttr "Leg2_scaleY.o" "|GlobalCTRL|Leg2.sy";
+connectAttr "Leg2_scaleZ.o" "|GlobalCTRL|Leg2.sz";
+connectAttr "Leg2_blendPoint1.o" "|GlobalCTRL|Leg2.blendPoint1";
+connectAttr "|GlobalCTRL|Leg2.pim" "Leg2_pointConstraint1.cpim";
+connectAttr "|GlobalCTRL|Leg2.rp" "Leg2_pointConstraint1.crp";
+connectAttr "|GlobalCTRL|Leg2.rpt" "Leg2_pointConstraint1.crt";
+connectAttr "pCube14.t" "Leg2_pointConstraint1.tg[0].tt";
+connectAttr "pCube14.rp" "Leg2_pointConstraint1.tg[0].trp";
+connectAttr "pCube14.rpt" "Leg2_pointConstraint1.tg[0].trt";
+connectAttr "pCube14.pm" "Leg2_pointConstraint1.tg[0].tpm";
+connectAttr "Leg2_pointConstraint1.w0" "Leg2_pointConstraint1.tg[0].tw";
+connectAttr "pairBlend2.otx" "|GlobalCTRL|Leg3.tx";
+connectAttr "pairBlend2.oty" "|GlobalCTRL|Leg3.ty";
+connectAttr "pairBlend2.otz" "|GlobalCTRL|Leg3.tz";
+connectAttr "Leg3_visibility.o" "|GlobalCTRL|Leg3.v";
+connectAttr "Leg3_rotateX.o" "|GlobalCTRL|Leg3.rx";
+connectAttr "Leg3_rotateY.o" "|GlobalCTRL|Leg3.ry";
+connectAttr "Leg3_rotateZ.o" "|GlobalCTRL|Leg3.rz";
+connectAttr "Leg3_scaleX.o" "|GlobalCTRL|Leg3.sx";
+connectAttr "Leg3_scaleY.o" "|GlobalCTRL|Leg3.sy";
+connectAttr "Leg3_scaleZ.o" "|GlobalCTRL|Leg3.sz";
+connectAttr "Leg3_blendPoint1.o" "|GlobalCTRL|Leg3.blendPoint1";
+connectAttr "|GlobalCTRL|Leg3.pim" "Leg3_pointConstraint1.cpim";
+connectAttr "|GlobalCTRL|Leg3.rp" "Leg3_pointConstraint1.crp";
+connectAttr "|GlobalCTRL|Leg3.rpt" "Leg3_pointConstraint1.crt";
+connectAttr "pCube13.t" "Leg3_pointConstraint1.tg[0].tt";
+connectAttr "pCube13.rp" "Leg3_pointConstraint1.tg[0].trp";
+connectAttr "pCube13.rpt" "Leg3_pointConstraint1.tg[0].trt";
+connectAttr "pCube13.pm" "Leg3_pointConstraint1.tg[0].tpm";
+connectAttr "Leg3_pointConstraint1.w0" "Leg3_pointConstraint1.tg[0].tw";
+connectAttr "pairBlend1.otx" "Leg7.tx";
+connectAttr "pairBlend1.oty" "Leg7.ty";
+connectAttr "pairBlend1.otz" "Leg7.tz";
 connectAttr "Leg7_visibility.o" "Leg7.v";
 connectAttr "Leg7_rotateX.o" "Leg7.rx";
 connectAttr "Leg7_rotateY.o" "Leg7.ry";
@@ -5545,9 +6041,18 @@ connectAttr "Leg7_rotateZ.o" "Leg7.rz";
 connectAttr "Leg7_scaleX.o" "Leg7.sx";
 connectAttr "Leg7_scaleY.o" "Leg7.sy";
 connectAttr "Leg7_scaleZ.o" "Leg7.sz";
-connectAttr "Leg8_translateX.o" "Leg8.tx";
-connectAttr "Leg8_translateY.o" "Leg8.ty";
-connectAttr "Leg8_translateZ.o" "Leg8.tz";
+connectAttr "Leg7_blendPoint1.o" "Leg7.blendPoint1";
+connectAttr "Leg7.pim" "Leg7_pointConstraint1.cpim";
+connectAttr "Leg7.rp" "Leg7_pointConstraint1.crp";
+connectAttr "Leg7.rpt" "Leg7_pointConstraint1.crt";
+connectAttr "pCube12.t" "Leg7_pointConstraint1.tg[0].tt";
+connectAttr "pCube12.rp" "Leg7_pointConstraint1.tg[0].trp";
+connectAttr "pCube12.rpt" "Leg7_pointConstraint1.tg[0].trt";
+connectAttr "pCube12.pm" "Leg7_pointConstraint1.tg[0].tpm";
+connectAttr "Leg7_pointConstraint1.w0" "Leg7_pointConstraint1.tg[0].tw";
+connectAttr "pairBlend3.otx" "Leg8.tx";
+connectAttr "pairBlend3.oty" "Leg8.ty";
+connectAttr "pairBlend3.otz" "Leg8.tz";
 connectAttr "Leg8_visibility.o" "Leg8.v";
 connectAttr "Leg8_rotateX.o" "Leg8.rx";
 connectAttr "Leg8_rotateY.o" "Leg8.ry";
@@ -5555,6 +6060,15 @@ connectAttr "Leg8_rotateZ.o" "Leg8.rz";
 connectAttr "Leg8_scaleX.o" "Leg8.sx";
 connectAttr "Leg8_scaleY.o" "Leg8.sy";
 connectAttr "Leg8_scaleZ.o" "Leg8.sz";
+connectAttr "Leg8_blendPoint1.o" "Leg8.blendPoint1";
+connectAttr "Leg8.pim" "Leg8_pointConstraint1.cpim";
+connectAttr "Leg8.rp" "Leg8_pointConstraint1.crp";
+connectAttr "Leg8.rpt" "Leg8_pointConstraint1.crt";
+connectAttr "pCube15.t" "Leg8_pointConstraint1.tg[0].tt";
+connectAttr "pCube15.rp" "Leg8_pointConstraint1.tg[0].trp";
+connectAttr "pCube15.rpt" "Leg8_pointConstraint1.tg[0].trt";
+connectAttr "pCube15.pm" "Leg8_pointConstraint1.tg[0].tpm";
+connectAttr "Leg8_pointConstraint1.w0" "Leg8_pointConstraint1.tg[0].tw";
 connectAttr "Leg9_translateX.o" "Leg9.tx";
 connectAttr "Leg9_translateY.o" "Leg9.ty";
 connectAttr "Leg9_translateZ.o" "Leg9.tz";
@@ -5565,28 +6079,17 @@ connectAttr "Leg9_rotateZ.o" "Leg9.rz";
 connectAttr "Leg9_scaleX.o" "Leg9.sx";
 connectAttr "Leg9_scaleY.o" "Leg9.sy";
 connectAttr "Leg9_scaleZ.o" "Leg9.sz";
-connectAttr "Leg1_translateX.o" "|Leg1.tx";
-connectAttr "Leg1_translateY.o" "|Leg1.ty";
-connectAttr "Leg1_translateZ.o" "|Leg1.tz";
-connectAttr "Leg1_visibility.o" "|Leg1.v";
-connectAttr "Leg1_rotateX.o" "|Leg1.rx";
-connectAttr "Leg1_rotateY.o" "|Leg1.ry";
-connectAttr "Leg1_rotateZ.o" "|Leg1.rz";
-connectAttr "Leg1_scaleX.o" "|Leg1.sx";
-connectAttr "Leg1_scaleY.o" "|Leg1.sy";
-connectAttr "Leg1_scaleZ.o" "|Leg1.sz";
-connectAttr "pointLight3_visibility.o" "pointLight3.v";
-connectAttr "pointLight3_translateX.o" "pointLight3.tx";
-connectAttr "pointLight3_translateY.o" "pointLight3.ty";
-connectAttr "pointLight3_translateZ.o" "pointLight3.tz";
-connectAttr "pointLight3_rotateX.o" "pointLight3.rx";
-connectAttr "pointLight3_rotateY.o" "pointLight3.ry";
-connectAttr "pointLight3_rotateZ.o" "pointLight3.rz";
-connectAttr "pointLight3_scaleX.o" "pointLight3.sx";
-connectAttr "pointLight3_scaleY.o" "pointLight3.sy";
-connectAttr "pointLight3_scaleZ.o" "pointLight3.sz";
-connectAttr "Corner.di" "pCube11.do";
-connectAttr "polyCube3.out" "pCubeShape11.i";
+connectAttr "Leg1_translateX.o" "|GlobalCTRL|Leg1.tx";
+connectAttr "Leg1_translateY.o" "|GlobalCTRL|Leg1.ty";
+connectAttr "Leg1_translateZ.o" "|GlobalCTRL|Leg1.tz";
+connectAttr "Leg1_visibility.o" "|GlobalCTRL|Leg1.v";
+connectAttr "Leg1_rotateX.o" "|GlobalCTRL|Leg1.rx";
+connectAttr "Leg1_rotateY.o" "|GlobalCTRL|Leg1.ry";
+connectAttr "Leg1_rotateZ.o" "|GlobalCTRL|Leg1.rz";
+connectAttr "Leg1_scaleX.o" "|GlobalCTRL|Leg1.sx";
+connectAttr "Leg1_scaleY.o" "|GlobalCTRL|Leg1.sy";
+connectAttr "Leg1_scaleZ.o" "|GlobalCTRL|Leg1.sz";
+connectAttr "polyCube4.out" "pCubeShape12.i";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "lambert2SG.message" ":defaultLightSet.message";
@@ -5737,29 +6240,29 @@ connectAttr "polySurfaceShape10.iog" "lambert2SG.dsm" -na;
 connectAttr "polySurfaceShape12.iog.og[2]" "lambert2SG.dsm" -na;
 connectAttr "polySurfaceShape29.iog.og[0]" "lambert2SG.dsm" -na;
 connectAttr "polySurfaceShape1.iog.og[2]" "lambert2SG.dsm" -na;
-connectAttr "|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint5|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint9|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint8|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegGlow|ThirdLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint7|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint6|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg|SecondLegGlow|SecondLegGlowShape.iog" "lambert2SG.dsm"
 		 -na;
 connectAttr "polySurfaceShape34.iog" "lambert2SG.dsm" -na;
 connectAttr "polySurfaceShape33.iog" "lambert2SG.dsm" -na;
@@ -5773,43 +6276,50 @@ connectAttr "polySurfaceShape5.wm" "polyChipOff6.mp";
 connectAttr "groupParts20.og" "polyTweak15.ip";
 connectAttr "polySurfaceShape5.o" "polySeparate6.ip";
 connectAttr "polySurfaceShape13.o" "polyAutoProj1.ip";
-connectAttr "|CenterJoint|joint7|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj1.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj1.mp"
 		;
 connectAttr "polySurfaceShape14.o" "polyAutoProj2.ip";
-connectAttr "|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj2.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj2.mp"
 		;
 connectAttr "polySurfaceShape15.o" "polyAutoProj3.ip";
-connectAttr "|CenterJoint|joint7|FirstLeg|FirstLegShape.wm" "polyAutoProj3.mp";
+connectAttr "|GlobalCTRL|CenterJoint|joint7|FirstLeg|FirstLegShape.wm" "polyAutoProj3.mp"
+		;
 connectAttr "polySurfaceShape16.o" "polyAutoProj4.ip";
-connectAttr "|CenterJoint|joint6|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj4.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj4.mp"
 		;
 connectAttr "polySurfaceShape17.o" "polyAutoProj5.ip";
-connectAttr "|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj5.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj5.mp"
 		;
 connectAttr "polySurfaceShape18.o" "polyAutoProj6.ip";
-connectAttr "|CenterJoint|joint6|FirstLeg|FirstLegShape.wm" "polyAutoProj6.mp";
+connectAttr "|GlobalCTRL|CenterJoint|joint6|FirstLeg|FirstLegShape.wm" "polyAutoProj6.mp"
+		;
 connectAttr "polySurfaceShape19.o" "polyAutoProj7.ip";
-connectAttr "|CenterJoint|joint9|FirstLeg|FirstLegShape.wm" "polyAutoProj7.mp";
+connectAttr "|GlobalCTRL|CenterJoint|joint9|FirstLeg|FirstLegShape.wm" "polyAutoProj7.mp"
+		;
 connectAttr "polySurfaceShape20.o" "polyAutoProj8.ip";
-connectAttr "|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj8.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj8.mp"
 		;
 connectAttr "polySurfaceShape21.o" "polyAutoProj9.ip";
-connectAttr "|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj9.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj9.mp"
 		;
 connectAttr "polySurfaceShape22.o" "polyAutoProj10.ip";
-connectAttr "|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj10.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj10.mp"
 		;
 connectAttr "polySurfaceShape23.o" "polyAutoProj11.ip";
-connectAttr "|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj11.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj11.mp"
 		;
 connectAttr "polySurfaceShape24.o" "polyAutoProj12.ip";
-connectAttr "|CenterJoint|joint5|FirstLeg|FirstLegShape.wm" "polyAutoProj12.mp";
+connectAttr "|GlobalCTRL|CenterJoint|joint5|FirstLeg|FirstLegShape.wm" "polyAutoProj12.mp"
+		;
 connectAttr "polySurfaceShape25.o" "polyAutoProj13.ip";
-connectAttr "|CenterJoint|joint1|FirstLeg|FirstLegShape.wm" "polyAutoProj13.mp";
+connectAttr "|GlobalCTRL|CenterJoint|joint1|FirstLeg|FirstLegShape.wm" "polyAutoProj13.mp"
+		;
 connectAttr "polySurfaceShape26.o" "polyAutoProj14.ip";
-connectAttr "|CenterJoint|joint8|FirstLeg|FirstLegShape.wm" "polyAutoProj14.mp";
+connectAttr "|GlobalCTRL|CenterJoint|joint8|FirstLeg|FirstLegShape.wm" "polyAutoProj14.mp"
+		;
 connectAttr "polyAutoProj3.out" "polyAutoProj15.ip";
-connectAttr "|CenterJoint|joint7|FirstLeg|FirstLegShape.wm" "polyAutoProj15.mp";
+connectAttr "|GlobalCTRL|CenterJoint|joint7|FirstLeg|FirstLegShape.wm" "polyAutoProj15.mp"
+		;
 connectAttr "polyAutoProj15.out" "polyTweakUV1.ip";
 connectAttr "polyAutoProj14.out" "polyTweakUV2.ip";
 connectAttr "polyAutoProj13.out" "polyTweakUV3.ip";
@@ -5817,22 +6327,22 @@ connectAttr "polyAutoProj7.out" "polyTweakUV4.ip";
 connectAttr "polyAutoProj12.out" "polyTweakUV5.ip";
 connectAttr "polyAutoProj6.out" "polyTweakUV6.ip";
 connectAttr "polyAutoProj8.out" "polyAutoProj16.ip";
-connectAttr "|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj16.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj16.mp"
 		;
 connectAttr "polyAutoProj11.out" "polyAutoProj17.ip";
-connectAttr "|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj17.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj17.mp"
 		;
 connectAttr "polySurfaceShape27.o" "polyAutoProj18.ip";
-connectAttr "|CenterJoint|joint8|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj18.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj18.mp"
 		;
 connectAttr "polySeparate4.out[0]" "polyAutoProj19.ip";
-connectAttr "|CenterJoint|joint1|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj19.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegShape.wm" "polyAutoProj19.mp"
 		;
 connectAttr "polySeparate5.out[0]" "polyAutoProj20.ip";
-connectAttr "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj20.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj20.mp"
 		;
 connectAttr "polySurfaceShape28.o" "polyAutoProj21.ip";
-connectAttr "|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj21.mp"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegShape.wm" "polyAutoProj21.mp"
 		;
 connectAttr "polyAutoProj20.out" "polyTweakUV7.ip";
 connectAttr "polySeparate5.out[1]" "polyTweakUV8.ip";
@@ -5940,37 +6450,43 @@ connectAttr "polySurfaceShape1.o" "polySeparate8.ip";
 connectAttr "layerManager.dli[4]" "RedGlowLayer.id";
 connectAttr "file1.oc" "SeekrBlinnMaterial.c";
 connectAttr "SeekrBlinnMaterial.oc" "blinn2SG.ss";
-connectAttr "|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint9|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint9|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm" -na;
+connectAttr "|GlobalCTRL|CenterJoint|joint9|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm"
+		 -na;
 connectAttr "polySurfaceShape30.iog" "blinn2SG.dsm" -na;
-connectAttr "|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint8|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint8|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm" -na;
-connectAttr "|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint8|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint7|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint7|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm" -na;
-connectAttr "|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint6|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint7|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint6|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm" -na;
-connectAttr "|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint5|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm" -na;
-connectAttr "|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint6|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint1|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
 		 -na;
-connectAttr "|CenterJoint|joint1|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm" -na;
+connectAttr "|GlobalCTRL|CenterJoint|joint5|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
+		 -na;
+connectAttr "|GlobalCTRL|CenterJoint|joint5|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm"
+		 -na;
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|joint3|ThirdLeg|ThirdLegShape.iog" "blinn2SG.dsm"
+		 -na;
+connectAttr "|GlobalCTRL|CenterJoint|joint1|joint2|SecondLeg|SecondLegShape.iog" "blinn2SG.dsm"
+		 -na;
+connectAttr "|GlobalCTRL|CenterJoint|joint1|FirstLeg|FirstLegShape.iog" "blinn2SG.dsm"
+		 -na;
 connectAttr "blinn2SG.msg" "materialInfo5.sg";
 connectAttr "SeekrBlinnMaterial.msg" "materialInfo5.m";
 connectAttr "file1.msg" "materialInfo5.t" -na;
@@ -6026,6 +6542,37 @@ connectAttr "place2dTexture2.o" "file2.uv";
 connectAttr "place2dTexture2.ofs" "file2.fs";
 connectAttr "polyMapCut2.out" "polyTweakUV32.ip";
 connectAttr "layerManager.dli[5]" "Corner.id";
+connectAttr "Leg3_translateX.o" "pairBlend2.itx1";
+connectAttr "Leg3_translateY.o" "pairBlend2.ity1";
+connectAttr "Leg3_translateZ.o" "pairBlend2.itz1";
+connectAttr "|GlobalCTRL|Leg3.blendPoint1" "pairBlend2.w";
+connectAttr "Leg3_pointConstraint1.ctx" "pairBlend2.itx2";
+connectAttr "Leg3_pointConstraint1.cty" "pairBlend2.ity2";
+connectAttr "Leg3_pointConstraint1.ctz" "pairBlend2.itz2";
+connectAttr "Leg7_translateX.o" "pairBlend1.itx1";
+connectAttr "Leg7_translateY.o" "pairBlend1.ity1";
+connectAttr "Leg7_translateZ.o" "pairBlend1.itz1";
+connectAttr "Leg7.blendPoint1" "pairBlend1.w";
+connectAttr "Leg7_pointConstraint1.ctx" "pairBlend1.itx2";
+connectAttr "Leg7_pointConstraint1.cty" "pairBlend1.ity2";
+connectAttr "Leg7_pointConstraint1.ctz" "pairBlend1.itz2";
+connectAttr "Leg8_translateX.o" "pairBlend3.itx1";
+connectAttr "Leg8_translateY.o" "pairBlend3.ity1";
+connectAttr "Leg8_translateZ.o" "pairBlend3.itz1";
+connectAttr "Leg8.blendPoint1" "pairBlend3.w";
+connectAttr "Leg8_pointConstraint1.ctx" "pairBlend3.itx2";
+connectAttr "Leg8_pointConstraint1.cty" "pairBlend3.ity2";
+connectAttr "Leg8_pointConstraint1.ctz" "pairBlend3.itz2";
+connectAttr "Leg2_translateX.o" "pairBlend4.itx1";
+connectAttr "Leg2_translateY.o" "pairBlend4.ity1";
+connectAttr "Leg2_translateZ.o" "pairBlend4.itz1";
+connectAttr "|GlobalCTRL|Leg2.blendPoint1" "pairBlend4.w";
+connectAttr "Leg2_pointConstraint1.ctx" "pairBlend4.itx2";
+connectAttr "Leg2_pointConstraint1.cty" "pairBlend4.ity2";
+connectAttr "Leg2_pointConstraint1.ctz" "pairBlend4.itz2";
+connectAttr "polyTweak17.out" "polyExtrudeFace9.ip";
+connectAttr "pCubeShape11.wm" "polyExtrudeFace9.mp";
+connectAttr "polyCube3.out" "polyTweak17.ip";
 connectAttr "lambert2SG.pa" ":renderPartition.st" -na;
 connectAttr "lambert3SG.pa" ":renderPartition.st" -na;
 connectAttr "blinn1SG.pa" ":renderPartition.st" -na;
@@ -6045,6 +6592,10 @@ connectAttr "polySurfaceShape9.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape7.iog.og[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape7.ciog.cog[0]" ":initialShadingGroup.dsm" -na;
 connectAttr "pCubeShape11.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape12.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape13.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape14.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "pCubeShape15.iog" ":initialShadingGroup.dsm" -na;
 connectAttr "groupId1.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId2.msg" ":initialShadingGroup.gn" -na;
 connectAttr "groupId5.msg" ":initialShadingGroup.gn" -na;
