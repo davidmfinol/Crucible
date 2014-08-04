@@ -51,6 +51,11 @@ public class NewmanShader : MonoBehaviour
                 changeableMaterials.AddRange(render.materials);
             }
         }
+        foreach (MeshRenderer render in GetComponentsInChildren<MeshRenderer>()) {
+            if (render.gameObject.CompareTag("Changeable Material")) {
+                changeableMaterials.AddRange(render.materials);
+            }
+        }
         return changeableMaterials;
 
     }

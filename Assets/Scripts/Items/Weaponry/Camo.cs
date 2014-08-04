@@ -11,16 +11,16 @@ public class Camo : Weapon
 
     public override void ActivateAttack(float attackID)
     {
-        GameManager.Player.GetComponent<NewmanShader>().ActivateCamo(); // TODO: CACHE THIS
+        GameManager.PlayerShader.ActivateCamo();
 
     }
 
     public override Vector3 Translation {
-        get { return Vector3.zero; }
+        get { return new Vector3(-0.172f, -0.082f, 0.004f); }
     }
 
     public override Vector3 Rotation {
-        get { return Vector3.zero; }
+        get { return new Vector3(47f, 275f, 120f); }
     }
 
     public override WeaponType Type {

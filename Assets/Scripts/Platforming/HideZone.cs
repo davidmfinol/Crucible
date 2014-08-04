@@ -13,15 +13,12 @@ public class HideZone : MonoBehaviour
     public AlphaPulse Arrow;
     public Fader CircleIndicator;
     public float ArrowRotationSpeed = 10;
-
-    private NewmanShader _playerStealth;
     private Quaternion _upArrowRotation;
     private Quaternion _downArrowRotation;
 
 
     void Start ()
     {
-        _playerStealth = GameManager.Player.GetComponent<NewmanShader>();
         _upArrowRotation = Arrow.transform.rotation;
         Arrow.transform.Rotate(0, 0, 180);
         _downArrowRotation = Arrow.transform.rotation;
@@ -53,7 +50,7 @@ public class HideZone : MonoBehaviour
             return;
         
         Arrow.On = GameManager.Player.CanTransitionZ;
-        Arrow.transform.rotation = Quaternion.Lerp (Arrow.transform.rotation, _playerStealth.InShadow ? _downArrowRotation : _upArrowRotation, Time.deltaTime * ArrowRotationSpeed);
+        Arrow.transform.rotation = Quaternion.Lerp (Arrow.transform.rotation, GameManage.PlayerShader.InShadow ? _downArrowRotation : _upArrowRotation, Time.deltaTime * ArrowRotationSpeed);
 
     }
 

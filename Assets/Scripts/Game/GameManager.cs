@@ -28,8 +28,9 @@ public class GameManager : MonoBehaviour
     private AudioManager _audioManager;
     private SubtitlesManager _subtitlesManager;
     
-    // There should always be access to the player
+    // There should always be access to the player and its shader
     private CharacterAnimator _player;
+    private NewmanShader _playerShader;
 
     // We keep track of where we save the game here
     private string _gameSaveStatePath;
@@ -156,6 +157,7 @@ public class GameManager : MonoBehaviour
             _player = player.GetComponent<CharacterAnimator> ();
             _player.gameObject.AddComponent<AudioListener>();
             _player.IgnoreMovement = true;
+            _playerShader = player.GetComponent<NewmanShader>();
         }
         
         // Must delay player spawn to make sure all components are ready
@@ -249,7 +251,8 @@ public class GameManager : MonoBehaviour
 
 		// Get the saved data
 #if UNITY_WEBPLAYER && !UNITY_EDITOR
-		WWW saveData = null;
+		// TODO: FIX THIS
+        WWW saveData = null;
 		try { 
 			saveData = new WWW (GameSaveStatePath);
 			while (!saveData.isDone && saveData.error == null)
@@ -456,6 +459,11 @@ public class GameManager : MonoBehaviour
     public static CharacterAnimator Player {
         get { return _instance._player; }
 		set { _instance._player = value; }
+    }
+    
+    public static CharacterAnimator PlayerShader {
+        get { return _instance._playerShader; }
+        set { _instance._playerShader = value; }
     }
 
     public static string GameSaveStatePath {
