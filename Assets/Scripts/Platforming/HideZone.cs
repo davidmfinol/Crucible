@@ -50,7 +50,7 @@ public class HideZone : MonoBehaviour
             return;
         
         Arrow.On = GameManager.Player.CanTransitionZ;
-        Arrow.transform.rotation = Quaternion.Lerp (Arrow.transform.rotation, GameManage.PlayerShader.InShadow ? _downArrowRotation : _upArrowRotation, Time.deltaTime * ArrowRotationSpeed);
+        Arrow.transform.rotation = Quaternion.Lerp (Arrow.transform.rotation, GameManager.PlayerShader.IsInShadow ? _downArrowRotation : _upArrowRotation, Time.deltaTime * ArrowRotationSpeed);
 
     }
 

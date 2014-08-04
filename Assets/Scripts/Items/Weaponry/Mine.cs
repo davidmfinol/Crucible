@@ -8,96 +8,23 @@ using System.Collections.Generic;
 [AddComponentMenu("Items/Weaponry/Mine")]
 public class Mine : Weapon
 {
-    public Transform mineObject;
-    public Transform explosion1;
-    public Transform explosion2;
-    public string IdleAnimationName = "Idle";
-    public string AttackAnimationName = "Attack";
-    private bool _minesCurrentlyExploding = false;
-    private float _mineLastPlacedTime;
-    // mines found in scene for detonation
-    private Object[] _foundMines;
+    public Transform OnFieldMine;
+    public Transform Explosion1;
+    public Transform Explosion2;
+
     private static Texture2D _texture;
 
     public override void ActivateAttack (float attackID)
     {
-        PlaceMine ();
-
-    }
-    
-    public void PlaceMine ()
-    {
-        // Don't place a mine if we've placed one within a past second, or if they're already exploding
-        if (Time.time - _mineLastPlacedTime < 1 || _minesCurrentlyExploding)
-            return;
-                
-        // Create the new mine
+        // Create the new mine on the field
         Vector3 minePos = new Vector3 (transform.position.x, transform.position.y, transform.position.z);// + 1.5f);
-        Transform mineCopy = (Transform)Instantiate (mineObject, minePos, Quaternion.identity);
+        Transform mineCopy = (Transform)Instantiate (OnFieldMine, minePos, Quaternion.identity);
         mineCopy.animation ["MineAboutToExplode"].speed = 2.0f;
-
-        Item i = mineCopy.GetComponent<Item> ();
-        i.WasPlaced = true; // flag as placed so we can detonate it.
-        _mineLastPlacedTime = Time.time;
-
-    }
-    
-    public void DetonateMines ()
-    {
-        // store mines found in scene
-        _foundMines = GameObject.FindObjectsOfType (typeof(Item)); // FIXME: SLOW
-
-        foreach (Object o in _foundMines) {
-            Item i = (Item)o;
-            GameObject obj = i.gameObject;
-
-            if (i.WeaponPrefab != null && (i.WeaponPrefab.GetComponent<Mine> () != null) && i.WasPlaced) {
-                obj.animation.CrossFade ("MineAboutToExplode");
-
-            }
-
-        }
-
-        // Time it takes to animate mine before exploding
-        StartCoroutine (AnimateExplosions (0.44f));
-
-    }
-    
-    // Waits until animation is over to explode mines.
-    public IEnumerator AnimateExplosions (float waitTime)
-    {
-        _minesCurrentlyExploding = true;
-
-        yield return new WaitForSeconds (waitTime);
-
-        foreach (Object o in _foundMines) {
-            Item i = (Item)o;
-            GameObject obj = i.gameObject;
-
-            if (i.WeaponPrefab != null && (i.WeaponPrefab.GetComponent<Mine> () != null) && i.WasPlaced) {
-                Instantiate (explosion1, obj.transform.position, Quaternion.identity);
-                // TODO: SET UP HITBOX
-                Instantiate (explosion2, obj.transform.position, Quaternion.identity);      
-
-                // spawn the sound event.
-                // TODO: Instantiate (GameManager.Player.Settings.MineSoundEventPrefab, obj.transform.position, Quaternion.identity);
-
-                Destroy ((GameObject)obj);
-                
-            }
-            
-        }
-
-        _minesCurrentlyExploding = false;
 
     }
     
     public override Vector3 Translation {
-        get { return new Vector3 (-0.21f, 0, 0.7f); }
-    }
-    
-    public override Vector3 Rotation {
-        get { return Vector3.zero; }
+        get { return new Vector3 (0.15f, 0.33f, 0.45f); }
     }
     
     public override WeaponType Type {

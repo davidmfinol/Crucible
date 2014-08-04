@@ -159,13 +159,12 @@ public class NewmanAnimator : CharacterAnimator
     {
         Weapon weapon = GameManager.Inventory.CurrentWeapon;
         if (weapon == null) {
-            Debug.LogWarning("ActivateWeapon() called with no weapon found");
+            Debug.LogWarning("ActivateWeapon() called with no weapon found!");
             return;
         }
 
         weapon.ActivateAttack();
         GameManager.Inventory.TryRemoveAmmo(weapon.Type, 1);
-        GameManager.UI.RefreshWeaponWheel();
 
     }
 

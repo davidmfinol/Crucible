@@ -111,6 +111,7 @@ public class InventoryManager : MonoBehaviour
                 Weapons [weaponIndex].Quantity = Mathf.Max (Weapons [weaponIndex].Quantity, 0);
 
                 if (Weapons [weaponIndex].Quantity == 0) {
+                    Destroy(Weapons [weaponIndex].gameObject);
                     Weapons.RemoveAt (weaponIndex);
                     GameManager.Inventory.CurrentWeapon = null;
                     GameManager.UI.CycleToNextWeapon ();

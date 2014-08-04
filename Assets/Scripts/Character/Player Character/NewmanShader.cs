@@ -124,8 +124,13 @@ public class NewmanShader : MonoBehaviour
             newOutlineColor = Color.Lerp(srcOutlineColor, new Color(1.0f, 1.0f, 1.0f, 0.3f), rate);
             
         } else if (_currShader == ShaderType.Shader_Camo) {
-            newColor = Color.Lerp(srcColor, Color.clear, rate);
-            newOutlineColor = Color.Lerp(srcOutlineColor, Color.white, rate);
+            newColor = Color.Lerp(srcColor, new Color(0f, 0f, 0f, 0f), rate);
+            newOutlineColor = Color.Lerp(srcOutlineColor, new Color(0f, 0f, 0f, 0.1f), rate);
+
+            if((_camoTime < 1.0f && _camoTime > 0.75f) || (_camoTime < 0.5f && _camoTime > 0.25f)) {
+                newColor = Color.Lerp(srcColor, new Color(1.0f, 1.0f, 1.0f, 0.0f), rate);
+                newOutlineColor = Color.Lerp(srcOutlineColor, new Color(1.0f, 1.0f, 1.0f, 0.3f), rate);
+            }
 
             // default shader if none else.
         } else {
@@ -141,8 +146,12 @@ public class NewmanShader : MonoBehaviour
         }
                 
     }
+
+    public bool IsCamoActive {
+        get { return _camoTime > 0; }
+    }
     
-    public bool InShadow {
+    public bool IsInShadow {
         get { return _inShadow; }
     }
     

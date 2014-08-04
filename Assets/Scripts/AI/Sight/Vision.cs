@@ -21,6 +21,9 @@ public class Vision : MonoBehaviour
 	
 	public bool IsSeeingPlayer (Vector3 direction)
 	{
+        if (GameManager.PlayerShader.IsCamoActive)
+            return false;
+
 		if(UseViewCone)
 			return CollisionBasedVision();
 		return SettingsBasedVision(direction);

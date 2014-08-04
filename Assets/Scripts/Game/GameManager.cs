@@ -461,7 +461,7 @@ public class GameManager : MonoBehaviour
 		set { _instance._player = value; }
     }
     
-    public static CharacterAnimator PlayerShader {
+    public static NewmanShader PlayerShader {
         get { return _instance._playerShader; }
         set { _instance._playerShader = value; }
     }
