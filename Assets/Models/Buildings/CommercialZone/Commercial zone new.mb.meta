@@ -1843,6 +1843,7 @@ ModelImporter:
     103674: WallRightOnlyLedge
     103676: WaypointlessMesh
     103678: WaypointlessMesh1
+    103680: box 3
     400000: Airport
     400002: Box
     400004: box
@@ -3683,6 +3684,7 @@ ModelImporter:
     403674: WallRightOnlyLedge
     403676: WaypointlessMesh
     403678: WaypointlessMesh1
+    403680: box 3
     2300000: box
     2300002: Box 1
     2300004: box 1
@@ -4837,6 +4839,7 @@ ModelImporter:
     2302302: WallRightLedgeOnly
     2302304: WallRightOnlyLedge
     2302306: WaypointlessMesh
+    2302308: box 3
     3300000: box
     3300002: Box 1
     3300004: box 1
@@ -5991,6 +5994,7 @@ ModelImporter:
     3302302: WallRightLedgeOnly
     3302304: WallRightOnlyLedge
     3302306: WaypointlessMesh
+    3302308: box 3
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -7145,6 +7149,7 @@ ModelImporter:
     4302302: pCylinder173
     4302304: pCylinder174
     4302306: pCube841
+    4302308: box
     7400000: Take 001
     9500000: //RootNode
   materials:
