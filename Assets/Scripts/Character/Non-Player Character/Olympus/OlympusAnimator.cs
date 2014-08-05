@@ -428,7 +428,7 @@ public class OlympusAnimator : CharacterAnimator
             MecanimAnimator.SetBool (MecanimHashes.Die, false);
 
         if (IsGrounded) {   
-            ApplyDeathFriction (elapsedTime);
+            ApplyFriction (elapsedTime);
             VerticalSpeed = GroundVerticalSpeed;
 
         } else {

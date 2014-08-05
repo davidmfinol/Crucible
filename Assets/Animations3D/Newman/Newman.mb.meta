@@ -968,13 +968,13 @@ ModelImporter:
       lastFrame: 543
       wrapMode: 0
       orientationOffsetY: 0
-      level: 1.70000005
+      level: 0
       cycleOffset: 0
       loop: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
@@ -1192,7 +1192,7 @@ ModelImporter:
       lastFrame: 472
       wrapMode: 0
       orientationOffsetY: 0
-      level: -.25
+      level: .400000006
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -1203,7 +1203,7 @@ ModelImporter:
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
@@ -1416,13 +1416,13 @@ ModelImporter:
       lastFrame: 567
       wrapMode: 0
       orientationOffsetY: 0
-      level: -1.70000005
+      level: .100000001
       cycleOffset: 0
       loop: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0

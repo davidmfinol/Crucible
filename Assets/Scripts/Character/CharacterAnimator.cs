@@ -444,6 +444,24 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
     
+    protected virtual void ApplyFriction (float elapsedTime)
+    {
+        if (HorizontalSpeed > 0.0f) {
+            HorizontalSpeed -= Settings.Friction * elapsedTime;
+            
+            if (HorizontalSpeed < 0.1f)
+                HorizontalSpeed = 0.0f;
+            
+        } else if (HorizontalSpeed < 0.0f) {
+            HorizontalSpeed += Settings.Friction * elapsedTime;
+            
+            if (HorizontalSpeed > -0.1f)
+                HorizontalSpeed = 0.0f;
+            
+        }
+        
+    }
+    
     protected virtual void ApplyBiDirection ()
     {
         if (CharInput.Left && !CharInput.Right)
@@ -501,24 +519,6 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         VerticalSpeed -= Settings.Gravity * elapsedTime;
         VerticalSpeed = Mathf.Max (-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
-
-    }
-
-    protected void ApplyDeathFriction (float elapsedTime)
-    {
-        if (HorizontalSpeed > 0.0f) {
-            HorizontalSpeed -= Settings.DeathFriction * elapsedTime;
-            
-            if (HorizontalSpeed < 0.1f)
-                HorizontalSpeed = 0.0f;
-            
-        } else if (HorizontalSpeed < 0.0f) {
-            HorizontalSpeed += Settings.DeathFriction * elapsedTime;
-            
-            if (HorizontalSpeed > -0.1f)
-                HorizontalSpeed = 0.0f;
-            
-        }
 
     }
 
@@ -724,7 +724,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     public virtual bool IsSneaking {
-		get { return Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
+		get { return Mathf.Abs (HorizontalSpeed) < 0.75f * Settings.MaxHorizontalSpeed; }
     }
 
     public virtual bool IsTurningAround {

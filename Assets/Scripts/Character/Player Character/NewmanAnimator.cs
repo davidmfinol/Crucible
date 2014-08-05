@@ -10,6 +10,8 @@ public class NewmanAnimator : CharacterAnimator
 {
     // TODO: REPLACE THIS WITH OBJECT POOLING
     public GameObject StealthKillEvent;
+    // How close do we need to be to initiate a stealth kill?
+    public float StealthKillRange;  // = 3.0f;
     public float IdleChangeSpeed = 2;
 
     // Mecanim State Hashes
@@ -108,16 +110,6 @@ public class NewmanAnimator : CharacterAnimator
     
     protected void UpdateBaseAnimations()
     {
-        // HACK: JUMPDIRECTIONAL
-        if (!MecanimAnimator.GetBool(MecanimHashes.Jump) && IsGrounded && CharInput.JumpPressed) {
-            if (CharInput.JumpRight) {
-                _jumpDirectional = 1;
-            } else if (CharInput.JumpLeft) {
-                _jumpDirectional = -1;
-            }
-            MecanimAnimator.SetBool(MecanimHashes.Jump, true);
-        }
-
         bool facingRightLadder = (ActiveHangTarget && ActiveHangTarget.transform.position.x - transform.position.x > 0.0f);
         bool facingLeftLadder = (ActiveHangTarget && transform.position.x - ActiveHangTarget.transform.position.x > 0.0f);
         bool startClimbLadder = CanClimbLadder && ((facingRightLadder && CharInput.Right) ||
@@ -168,6 +160,30 @@ public class NewmanAnimator : CharacterAnimator
 
     }
 
+    // States from which you can jump should call this method to set up the jump
+    private void AllowJump()
+    {
+        if (!MecanimAnimator.GetBool(MecanimHashes.Jump) && IsGrounded && CharInput.JumpPressed) {
+            if (CharInput.JumpLeft) {
+                Direction = Vector3.left;
+                float jumpSpeedRatio = -1.0f;
+                if (IsSneaking)
+                    jumpSpeedRatio*= 0.74f;
+                HorizontalSpeed = jumpSpeedRatio * Settings.MaxHorizontalSpeed;
+            }
+            else if (CharInput.JumpRight) {
+                Direction = Vector3.right;
+                float jumpSpeedRatio = 1.0f;
+                if (IsSneaking)
+                    jumpSpeedRatio*= 0.74f;
+                HorizontalSpeed = jumpSpeedRatio * Settings.MaxHorizontalSpeed;
+            }
+            MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+            MecanimAnimator.SetBool(MecanimHashes.Jump, true);
+        }
+
+    }
+
     // IdleState = Animator.StringToHash("Base Layer.Idle");
     protected virtual void Idle(float elapsedTime)
     {
@@ -203,6 +219,9 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool(MecanimHashes.Pickup, canPickup && _itemPickedup != null);
         }
 
+        // You can jump
+        AllowJump();
+
     }
 
     // RunningState = Animator.StringToHash("Ground.Running");
@@ -232,8 +251,10 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, 
                                 ActiveHangTarget != null && ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle &&
                                 ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left)
-                                || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)) &&
-                                Mathf.Abs(HorizontalSpeed / Settings.MaxHorizontalSpeed) >= 0.5); // TODO: USE A VARIABLE SET TO 0.66 INSTEAD OF 0.5F HARDCODE
+                                || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)) );
+
+        // You can do a jump
+        AllowJump();
 
         // You can only do a backflip if you're running
         if ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)) {
@@ -269,13 +290,11 @@ public class NewmanAnimator : CharacterAnimator
             ledgeBounds.max.x - Controller.bounds.center.x :
                 ledgeBounds.min.x - Controller.bounds.center.x;
         HorizontalSpeed = distanceToMove / animationTime;
+        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
 
         // Vertical motion
         float distanceToClimb = ledgeBounds.max.y - Controller.bounds.min.y;
         VerticalSpeed = distanceToClimb / animationTime;
-
-        //Update Mecanim variables
-        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
         MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
 
     }
@@ -283,7 +302,7 @@ public class NewmanAnimator : CharacterAnimator
     // BackflipState = Animator.StringToHash("Air.Backflip");
     protected void Backflip(float elapsedTime)
     {
-        // We determine our speed on the first frame of the action
+        // We determine our target speed on the first frame of the action
         if (MecanimAnimator.GetBool(MecanimHashes.Backflip)) {
             MecanimAnimator.SetBool(MecanimHashes.Backflip, false);
             _desiredDirectionX = -Direction.x;
@@ -294,7 +313,7 @@ public class NewmanAnimator : CharacterAnimator
             ApplyGravity(elapsedTime);
         }
 
-        // Determine horizontal speed frame by frame
+        // Adjust horizontal speed frame by frame
         float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
         if (TimeInCurrentState > 0.15f) {
             Vector3 newDir = new Vector3(Mathf.Lerp(Direction.x, _desiredDirectionX, accelerationSmoothing), 0, 0);
@@ -312,7 +331,7 @@ public class NewmanAnimator : CharacterAnimator
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up);
         MecanimAnimator.SetBool(MecanimHashes.Hang, shouldHang);
 
-        // Update Mecanim variables
+        // Make sure we don't enter the other Air states
         MecanimAnimator.SetBool(MecanimHashes.Jump, false);
         MecanimAnimator.SetBool(MecanimHashes.Fall, false);
         
@@ -325,12 +344,15 @@ public class NewmanAnimator : CharacterAnimator
         if (CharInput.Right || CharInput.Left) {
             ApplyRunning(elapsedTime * 0.5f);
         }
+
+        // Vertical Motion
         ApplyGravity(elapsedTime);
-        
         MecanimAnimator.SetBool(MecanimHashes.Fall, false);
-        
+
+        // You can grab onto the walls while falling
         MecanimAnimator.SetBool(MecanimHashes.GrabWall, CanGrabWall);
-        
+
+        // You can regrab the hangable object you last let go of
         if (!(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
             (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up)) {
@@ -349,35 +371,24 @@ public class NewmanAnimator : CharacterAnimator
     // LongJumpingState = Animator.StringToHash("Jumping.LongJumping");
     protected void Jumping(float elapsedTime)
     {
+        // We only determine vertical speed (Horizontal Speed is maintained throughout the jump)
         if (MecanimAnimator.GetBool(MecanimHashes.Jump)) {
-            if (CharInput.JumpLeft || CharInput.JumpLeftReleased || _jumpDirectional < 0) {
-                Direction = Vector3.left;
-                HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
-            } else if (CharInput.JumpRight || CharInput.JumpRightReleased || _jumpDirectional > 0) {
-                Direction = Vector3.right;
-                HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
-            }
-
-            // HACK: JUMPDIRECTIONAL
-            _jumpDirectional = 0;
-
             VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
             MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
             MecanimAnimator.SetBool(MecanimHashes.Jump, false);
         } else {
             ApplyGravity(elapsedTime);
         }
-        
-        if (transform.position.y < LastGroundHeight - 1) {
-            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-        }
-        
+
+        // You can grab onto walls while jumping
         MecanimAnimator.SetBool(MecanimHashes.GrabWall, CanGrabWall);
 
+        // You can hang off most object while jumping
         bool shouldHang = (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up);
         MecanimAnimator.SetBool(MecanimHashes.Hang, shouldHang);
-        
+
+        // You can re-grab ropes you just let go of
         bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.collider.bounds.Contains(transform.position);
         if (shouldRegrabRope) {
             AddHangTarget(PreviousHangTarget);
@@ -392,6 +403,8 @@ public class NewmanAnimator : CharacterAnimator
     {
         // TODO?: NOTE: This "root-based suggestion" works under the assumption that everything happens in FixedUpdate()
         //HorizontalSpeed = -Direction.x * MecanimAnimator.deltaPosition.x / Time.fixedDeltaTime;
+        // We slowly slow down while landing
+        ApplyFriction(elapsedTime);
 
     }
 
@@ -756,7 +769,7 @@ public class NewmanAnimator : CharacterAnimator
     {
         // find where to place the attack event
         Vector3 killPos = transform.position;
-        killPos.x += (Direction.x * Settings.StealthKillRange);
+        killPos.x += (Direction.x * StealthKillRange);
         
         // place so enemy can die appropriately
         // TODO: OBJECT POOLING
@@ -801,7 +814,7 @@ public class NewmanAnimator : CharacterAnimator
         ApplyGravity(elapsedTime);
         
         if (IsGrounded) {
-            ApplyDeathFriction(elapsedTime);
+            ApplyFriction(elapsedTime);
         }
         
     }
@@ -825,7 +838,7 @@ public class NewmanAnimator : CharacterAnimator
     protected void Die(float elapsedTime)
     {
         if (IsGrounded) {
-            ApplyDeathFriction(elapsedTime);
+            ApplyFriction(elapsedTime);
             VerticalSpeed = GroundVerticalSpeed;
             
         } else {
@@ -850,6 +863,13 @@ public class NewmanAnimator : CharacterAnimator
         float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
         float currentSpeed = MecanimAnimator.GetFloat(MecanimHashes.HorizontalSpeed) * Direction.x * Settings.MaxHorizontalSpeed;
         HorizontalSpeed = Mathf.Lerp (currentSpeed, IgnoreXYMovement ? 0 : Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
+        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+
+    }
+
+    protected override void ApplyFriction(float elapsedTime)
+    {
+        base.ApplyFriction(elapsedTime);
         MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
 
     }

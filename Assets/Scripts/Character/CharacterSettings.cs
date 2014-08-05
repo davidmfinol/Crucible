@@ -50,11 +50,8 @@ public sealed class CharacterSettings : MonoBehaviour
     // You must be moving at least this fast vertically to grab onto a wall
     public float MinWallGrabSpeed;  // = -30.0f;
 
-    // how close do we need to be to initiate a stealth kill?
-    public float StealthKillRange;  // = 3.0f;
-
-    // how much friction is applied to the character as it slides across the ground on death
-    public float DeathFriction;  // = 12.0f;
+    // How much friction is applied to the character as it slides across the ground
+    public float Friction;  // = 12.0f;
 
     // This is where we offset all the animations from (typically same as RootRigidbody)
     public Transform RootTransform;
