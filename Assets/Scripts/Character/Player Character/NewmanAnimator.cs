@@ -24,13 +24,13 @@ public class NewmanAnimator : CharacterAnimator
     public static readonly int LongJumpingState = Animator.StringToHash("Jumping.LongJumping");
     public static readonly int LandingState = Animator.StringToHash("Landing.Landing");
     public static readonly int LandRollState = Animator.StringToHash("Landing.Rolling");
-    public static readonly int WallgrabbingState = Animator.StringToHash("Wall.Wallgrabbing");
-    public static readonly int WalljumpingState = Animator.StringToHash("Wall.Walljumping");
     public static readonly int HangingState = Animator.StringToHash("Climbing.Hanging");
     public static readonly int ClimbingLedgeState = Animator.StringToHash("Climbing.ClimbingLedge");
     public static readonly int ClimbingLadderState = Animator.StringToHash("Climbing.ClimbingLadder");
     public static readonly int ClimbingRopeState = Animator.StringToHash("Climbing.ClimbingRope");
     //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
+    public static readonly int WallgrabbingState = Animator.StringToHash("Wall.Wallgrabbing");
+    public static readonly int WalljumpingState = Animator.StringToHash("Wall.Walljumping");
     public static readonly int SteppingDownState = Animator.StringToHash("Kneeling.Stepping Down");
     public static readonly int StandingUpState = Animator.StringToHash("Kneeling.Standing Up");
     public static readonly int PickupState = Animator.StringToHash("Kneeling.Pickup");
@@ -166,16 +166,16 @@ public class NewmanAnimator : CharacterAnimator
         if (!MecanimAnimator.GetBool(MecanimHashes.Jump) && IsGrounded && CharInput.JumpPressed) {
             if (CharInput.JumpLeft) {
                 Direction = Vector3.left;
-                float jumpSpeedRatio = -1.0f;
+                float jumpSpeedRatio = -1.1f;
                 if (IsSneaking)
-                    jumpSpeedRatio*= 0.74f;
+                    jumpSpeedRatio = -0.74f;
                 HorizontalSpeed = jumpSpeedRatio * Settings.MaxHorizontalSpeed;
             }
             else if (CharInput.JumpRight) {
                 Direction = Vector3.right;
-                float jumpSpeedRatio = 1.0f;
+                float jumpSpeedRatio = 1.1f;
                 if (IsSneaking)
-                    jumpSpeedRatio*= 0.74f;
+                    jumpSpeedRatio = 0.74f;
                 HorizontalSpeed = jumpSpeedRatio * Settings.MaxHorizontalSpeed;
             }
             MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
@@ -373,7 +373,10 @@ public class NewmanAnimator : CharacterAnimator
     {
         // We only determine vertical speed (Horizontal Speed is maintained throughout the jump)
         if (MecanimAnimator.GetBool(MecanimHashes.Jump)) {
-            VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
+            float jumpHeight = Settings.JumpHeight;
+            if(!IsSneaking)
+                jumpHeight *= 1.5f;
+            VerticalSpeed = Mathf.Sqrt(2 * jumpHeight * Settings.Gravity);
             MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
             MecanimAnimator.SetBool(MecanimHashes.Jump, false);
         } else {
@@ -408,13 +411,198 @@ public class NewmanAnimator : CharacterAnimator
 
     }
 
+    // HangingState = Animator.StringToHash("Climbing.Hanging");
+    protected void Hanging(float elapsedTime)
+    {
+        // We need to make sure we have something to hold onto 
+        if (ActiveHangTarget == null) {
+            DropHangTarget();
+            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+            return;
+        }
+
+        // We determine all our motion on the first frame
+        if (MecanimAnimator.GetBool(MecanimHashes.Hang)) {
+            if (ActiveHangTarget.DoesFaceZAxis()) {
+                HorizontalSpeed = 0.0f;
+                Direction = Vector3.zero;
+            } else {
+                HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
+                if (IsHangTargetToRight) {
+                    Direction = Vector3.right;
+                } else {
+                    Direction = Vector3.left;
+                }
+            }
+            VerticalSpeed = 0;
+            MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+            MecanimAnimator.SetBool(MecanimHashes.Hang, false);
+        }
+
+        // Stay on whatever we're hanging on, if we still have it
+        ActivePlatform = ActiveHangTarget.transform;
+        MecanimAnimator.SetBool(MecanimHashes.Fall, false);
+
+        // You can press up/forward on ledges to climb up
+        if (ActiveHangTarget is Ledge && (CharInput.Up || InputMoveForward)) {
+            _ledge = ActiveHangTarget as Ledge;
+            MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, true);
+
+        // You can jump off whatever you're hanging 
+        } else if (CharInput.JumpPressed) {
+            DropHangTarget();
+            if (CharInput.JumpLeft) {
+                Direction = Vector3.left;
+                HorizontalSpeed = -0.74f * Settings.MaxHorizontalSpeed;
+            }
+            else if (CharInput.JumpRight) {
+                Direction = Vector3.right;
+                HorizontalSpeed = 0.74f * Settings.MaxHorizontalSpeed;
+            }
+            MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+            MecanimAnimator.SetBool(MecanimHashes.Jump, true);
+
+        // You can also just let go
+        } else if (CharInput.Down || CharInput.Pickup) {
+            DropHangTarget();
+            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+        }
+
+    }
+
+    // ClimbingLedgeState = Animator.StringToHash("Climbing.ClimbingLedge");
+    protected void ClimbingLedge(float elapsedTime)
+    {
+        // Make sure we actually have a ledge to climb up
+        if (_ledge == null) {
+            Debug.LogWarning("Player Character's Ledge Not Found!");
+            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+            return;
+        }
+
+        // The motion for climbing ledges is somewhat complicated...
+        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
+            || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
+            || CurrentState.normalizedTime > 0.9) {
+            MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, false);
+            VerticalSpeed = GroundVerticalSpeed;
+        } else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2) {
+            VerticalSpeed = 0;
+        } else {
+            if (_ledge.DoesFaceZAxis()) {
+                HorizontalSpeed = 0.0f;
+                VerticalSpeed = Settings.LedgeClimbingSpeed;
+            } else if (_ledge.DoesFaceXAxis()) {
+                HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
+                VerticalSpeed = Settings.LedgeClimbingSpeed;
+            }
+        }
+        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        MecanimAnimator.SetBool(MecanimHashes.Fall, false);
+
+    }
+
+    // ClimbingLadderState = Animator.StringToHash("Climbing.ClimbingLadder");
+    // ClimbingRopeState = Animator.StringToHash("Climbing.ClimbingRope");
+    protected void ClimbingVertical(float elapsedTime)
+    {
+        // Make sure we have something to climb on
+        if (ActiveHangTarget == null) {
+            DropHangTarget();
+            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+            return;
+        }
+
+        // Horizontal motion
+        //if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
+        //    ApplyClimbingStrafing( CharInput.Horizontal );
+        //else
+        HorizontalSpeed = 0;
+        MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+        
+        // Make sure we're facing the correct direction
+        if (ActiveHangTarget.DoesFaceZAxis()) {
+            Direction = Vector3.zero;
+        } else {
+            bool ladderToRight = ActiveHangTarget.transform.position.x - transform.position.x > 0.0f;
+            if (ladderToRight) {
+                Direction = Vector3.right;
+            } else {
+                Direction = Vector3.left;
+            }
+        }
+
+        // The vertical motion is the most important when climbing
+        ApplyClimbingVertical(CharInput.Vertical);
+        if (VerticalSpeed == 0) {
+            if (InputMoveForward) {
+                VerticalSpeed = Settings.LadderClimbingSpeed;
+            } else if (InputMoveBackward) {
+                VerticalSpeed = -Settings.LadderClimbingSpeed;
+            }
+            MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        }
+
+        // You can let go of what you're climbing with the interaction button
+        if (CharInput.InteractionPressed) {
+            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+            MecanimAnimator.SetBool(MecanimHashes.ClimbRope, false);
+            DropHangTarget();
+            return;
+        } else {
+            MecanimAnimator.SetBool(MecanimHashes.Fall, false);
+        }
+
+        // You can jump off ropes and ladders
+        if (CharInput.JumpPressed) {
+            DropHangTarget();
+            if (CharInput.JumpLeft) {
+                Direction = Vector3.left;
+                HorizontalSpeed = -0.74f * Settings.MaxHorizontalSpeed;
+            }
+            else if (CharInput.JumpRight) {
+                Direction = Vector3.right;
+                HorizontalSpeed = 0.74f * Settings.MaxHorizontalSpeed;
+            }
+            MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
+            MecanimAnimator.SetBool(MecanimHashes.Jump, true);
+        }
+
+    }
+
+    //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
+//  protected void ClimbingStrafe(float elapsedTime)
+//  {
+//      if(ActiveHangTarget == null)
+//      {
+//          DropHangTarget();
+//          MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+//          return;
+//      }
+//
+//      MecanimAnimator.SetBool (MecanimHashes.Fall, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
+//  
+//      ApplyClimbingStrafing(CharInput.Horizontal);
+//      
+//      if(HorizontalSpeed != 0)
+//          ApplyClimbingVertical(vertical);
+//      else
+//          VerticalSpeed = 0.0f;
+//
+//      if(ActiveHangTarget.DoesFaceZAxis())
+//          Direction = Vector3.zero;
+//      
+//      MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpPressed);
+    //  }
+    
     // WallgrabbingState = Animator.StringToHash("Wall.Wallgrabbing");
     protected void Wallgrabbing(float elapsedTime)
     {
         // We don't move horizontally
         HorizontalSpeed = 0;
         MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, 0);
-
+        
         // But we do want to start moving down the wall
         /*
         if (_wallJumpCount > 0)
@@ -424,7 +612,7 @@ public class NewmanAnimator : CharacterAnimator
             */
         VerticalSpeed = 0;
         MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
-
+        
         // You can either let go of or jump off of the wall
         if (CharInput.PickupPressed) {
             MecanimAnimator.SetBool(MecanimHashes.Fall, true);
@@ -435,9 +623,9 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool(MecanimHashes.GrabWall, false);
             DropHangTarget();
         }
-
+        
     }
-
+    
     // WalljumpingState = Animator.StringToHash("Wall.Walljumping");
     protected void Walljumping(float elapsedTime)
     {
@@ -456,7 +644,7 @@ public class NewmanAnimator : CharacterAnimator
         if (transform.position.y >= LastGroundHeight - 1) {
             MecanimAnimator.SetBool(MecanimHashes.Fall, false);
         }
-
+        
         if (CanGrabWall) {
             MecanimAnimator.SetBool(MecanimHashes.GrabWall, true);
         }
@@ -472,169 +660,8 @@ public class NewmanAnimator : CharacterAnimator
         } else {
             MecanimAnimator.SetBool(MecanimHashes.Hang, false);
         }
-
-    }
-
-    // HangingState = Animator.StringToHash("Climbing.Hanging");
-    protected void Hanging(float elapsedTime)
-    {
-        VerticalSpeed = 0;
-        if (MecanimAnimator.GetBool(MecanimHashes.Hang)) {
-            
-            if (ActiveHangTarget == null) {
-                MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-                return;
-            }
-            
-            if (ActiveHangTarget.DoesFaceZAxis()) {
-                HorizontalSpeed = 0.0f;
-                Direction = Vector3.zero;
-            } else {
-                HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
-                if (IsHangTargetToRight) {
-                    Direction = Vector3.right;
-                } else {
-                    Direction = Vector3.left;
-                }
-            }
-            
-            MecanimAnimator.SetBool(MecanimHashes.Hang, false);
-        }
         
-        if (ActiveHangTarget != null) {
-            ActivePlatform = ActiveHangTarget.transform;
-        }
-
-        MecanimAnimator.SetBool(MecanimHashes.Fall, false);
-        
-        if (ActiveHangTarget == null) {
-            DropHangTarget();
-            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-        } else if (ActiveHangTarget is Ledge && (CharInput.Up || InputMoveForward)) {
-            _ledge = ActiveHangTarget as Ledge;
-            MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, true);
-        } else if (CharInput.JumpPressed) {
-            DropHangTarget();
-            MecanimAnimator.SetBool(MecanimHashes.Jump, true);
-        } else if (CharInput.Down || CharInput.Pickup) {
-            DropHangTarget();
-            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-        }
-
     }
-
-    // ClimbingLedgeState = Animator.StringToHash("Climbing.ClimbingLedge");
-    protected void ClimbingLedge(float elapsedTime)
-    {
-        if (_ledge == null) {
-            Debug.LogWarning("Player Character's Ledge Not Found!");
-            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-            return;
-        }
-
-        MecanimAnimator.SetBool(MecanimHashes.Fall, false);
-
-        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
-            || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
-            || CurrentState.normalizedTime > 0.9) {
-            MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, false);
-            VerticalSpeed = GroundVerticalSpeed;
-        } else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2) {
-            VerticalSpeed = 0;
-        } else {
-            if (_ledge.DoesFaceZAxis()) {
-                HorizontalSpeed = 0.0f;
-                VerticalSpeed = Settings.LedgeClimbingSpeed;
-            } else if (_ledge.DoesFaceXAxis()) {
-                HorizontalSpeed = Direction.x * Settings.LedgeClimbingSpeed;
-                VerticalSpeed = Settings.LedgeClimbingSpeed;
-            }
-        }
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
-
-    }
-
-    // ClimbingLadderState = Animator.StringToHash("Climbing.ClimbingLadder");
-    // ClimbingRopeState = Animator.StringToHash("Climbing.ClimbingRope");
-    protected void ClimbingVertical(float elapsedTime)
-    {
-        if (ActiveHangTarget == null) {
-            DropHangTarget();
-            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-            return;
-        }
-        
-        //if(VerticalSpeed != 0 && ActiveHangTarget.DoesFaceZAxis())
-        //    ApplyClimbingStrafing( CharInput.Horizontal );
-        //else
-        HorizontalSpeed = 0;
-
-        // The vertical motion is the most important when climbing ladders
-        ApplyClimbingVertical(CharInput.Vertical);
-        if (VerticalSpeed == 0) {
-            if (InputMoveForward) {
-                VerticalSpeed = Settings.LadderClimbingSpeed;
-            } else if (InputMoveBackward) {
-                VerticalSpeed = -Settings.LadderClimbingSpeed;
-            }
-            MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
-        }
-        
-        if (ActiveHangTarget.DoesFaceZAxis()) {
-            Direction = Vector3.zero;
-        } else {
-            bool ladderToRight = ActiveHangTarget.transform.position.x - transform.position.x > 0.0f;
-            if (ladderToRight) {
-                Direction = Vector3.right;
-            } else {
-                Direction = Vector3.left;
-            }
-        }
-
-        if (CharInput.InteractionPressed) {
-            MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-            MecanimAnimator.SetBool(MecanimHashes.ClimbRope, false);
-            DropHangTarget();
-            return;
-        } else {
-            MecanimAnimator.SetBool(MecanimHashes.Fall, false);
-        }
-
-        if (CharInput.JumpPressed) {
-            MecanimAnimator.SetBool(MecanimHashes.Jump, true);
-            DropHangTarget();
-        } 
-
-    }
-
-    //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
-//  protected void ClimbingStrafe(float elapsedTime)
-//  {
-//      if(ActiveHangTarget == null)
-//      {
-//          DropHangTarget();
-//          MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-//          return;
-//      }
-//
-//      MecanimAnimator.SetBool (MecanimHashes.Fall, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
-//
-//      // always give a speed based on the auto-climb direction
-//      float vertical = UpdateAutoClimbDirection ();
-//  
-//      ApplyClimbingStrafing(CharInput.Horizontal);
-//      
-//      if(HorizontalSpeed != 0)
-//          ApplyClimbingVertical(vertical);
-//      else
-//          VerticalSpeed = 0.0f;
-//
-//      if(ActiveHangTarget.DoesFaceZAxis())
-//          Direction = Vector3.zero;
-//      
-//      MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpPressed);
-//      //MecanimAnimator.SetBool(MecanimHashes.ClimbLadder, CanClimbP);
-    //  }
     
     public override void StepDown()
     {
