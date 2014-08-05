@@ -183,6 +183,33 @@ ModelImporter:
     100354: polySurface47
     100356: transform62
     100358: transform63
+    100360: box 1
+    100362: polySurface48
+    100364: polySurface49
+    100366: polySurface50
+    100368: polySurface51
+    100370: polySurface52
+    100372: polySurface53
+    100374: polySurface54
+    100376: polySurface55
+    100378: transform64
+    100380: transform65
+    100382: transform66
+    100384: pCube72
+    100386: pCube73
+    100388: pCube74
+    100390: pCube75
+    100392: pCube76
+    100394: pCube77
+    100396: pCube78
+    100398: pCube79
+    100400: pCube80
+    100402: pCube81
+    100404: polySurface56
+    100406: polySurface57
+    100408: transform67
+    100410: pCube82
+    100412: pCube83
     400000: group2
     400002: pCube1
     400004: pCube10
@@ -363,6 +390,33 @@ ModelImporter:
     400354: polySurface47
     400356: transform62
     400358: transform63
+    400360: box 1
+    400362: polySurface48
+    400364: polySurface49
+    400366: polySurface50
+    400368: polySurface51
+    400370: polySurface52
+    400372: polySurface53
+    400374: polySurface54
+    400376: polySurface55
+    400378: transform64
+    400380: transform65
+    400382: transform66
+    400384: pCube72
+    400386: pCube73
+    400388: pCube74
+    400390: pCube75
+    400392: pCube76
+    400394: pCube77
+    400396: pCube78
+    400398: pCube79
+    400400: pCube80
+    400402: pCube81
+    400404: polySurface56
+    400406: polySurface57
+    400408: transform67
+    400410: pCube82
+    400412: pCube83
     2300000: pCube1
     2300002: pCube11
     2300004: pCube12
@@ -439,6 +493,25 @@ ModelImporter:
     2300146: WallBoxLedge
     2300148: pCube71
     2300150: polySurface47
+    2300152: box 1
+    2300154: polySurface51
+    2300156: polySurface52
+    2300158: polySurface54
+    2300160: polySurface55
+    2300162: pCube72
+    2300164: pCube73
+    2300166: pCube74
+    2300168: pCube75
+    2300170: pCube76
+    2300172: pCube77
+    2300174: pCube78
+    2300176: pCube79
+    2300178: pCube80
+    2300180: pCube81
+    2300182: polySurface56
+    2300184: polySurface57
+    2300186: pCube82
+    2300188: pCube83
     3300000: pCube1
     3300002: pCube11
     3300004: pCube12
@@ -515,6 +588,25 @@ ModelImporter:
     3300146: WallBoxLedge
     3300148: pCube71
     3300150: polySurface47
+    3300152: box 1
+    3300154: polySurface51
+    3300156: polySurface52
+    3300158: polySurface54
+    3300160: polySurface55
+    3300162: pCube72
+    3300164: pCube73
+    3300166: pCube74
+    3300168: pCube75
+    3300170: pCube76
+    3300172: pCube77
+    3300174: pCube78
+    3300176: pCube79
+    3300178: pCube80
+    3300180: pCube81
+    3300182: polySurface56
+    3300184: polySurface57
+    3300186: pCube82
+    3300188: pCube83
     4300000: pCube1
     4300002: pCube2
     4300004: pCube3
@@ -591,6 +683,25 @@ ModelImporter:
     4300146: WallBoxLedge
     4300148: pCube71
     4300150: polySurface47
+    4300152: polySurface55
+    4300154: box
+    4300156: polySurface54
+    4300158: polySurface51
+    4300160: polySurface52
+    4300162: pCube72
+    4300164: pCube73
+    4300166: pCube74
+    4300168: pCube75
+    4300170: pCube76
+    4300172: pCube77
+    4300174: pCube78
+    4300176: pCube79
+    4300178: pCube80
+    4300180: pCube81
+    4300182: polySurface56
+    4300184: polySurface57
+    4300186: pCube82
+    4300188: pCube83
     9500000: //RootNode
   materials:
     importMaterials: 1
