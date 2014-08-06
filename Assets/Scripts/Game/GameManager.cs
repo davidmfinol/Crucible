@@ -185,6 +185,8 @@ public class GameManager : MonoBehaviour
 
         // Allow the player to start moving
 		Player.IgnoreMovement = false;
+        Player.HorizontalSpeed = 0;
+        Player.VerticalSpeed = 0;
 
         // Reset it's health to max
         HeartBox heart = Player.GetComponentInChildren<HeartBox> ();
