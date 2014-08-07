@@ -41,7 +41,7 @@ public class GravityGun : Weapon
         get { return "Non-lethal and painless device given to police enforcement to handle those disturbing the peace.  "; }
     }
 
-    public override Texture2D Texture {
+    public override Texture2D IconTexture {
         get { 
             if (_texture == null)
                 _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/GravityGunIcon");

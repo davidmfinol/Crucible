@@ -53,6 +53,7 @@ public class TouchInput : MonoBehaviour
     private Vector2 _actionStartPos;
     private float _actionMin;
     private Vector2 _lastActionPos;
+    private float _speedForInstantAction;
     
     // Where we store the input
     private CharacterInput _input;
@@ -64,13 +65,14 @@ public class TouchInput : MonoBehaviour
         _moveStartPos = Vector2.zero;
         _moveMin = Screen.width / 32.0f;
         _lastMovePos = Vector2.zero;
-        _distanceForMaxSpeed = Screen.width / 3.0f;
+        _distanceForMaxSpeed = Screen.width / 4.0f;
 
         // Set up action variables
         _actionID = -1;
         _actionStartPos = Vector2.zero;
         _actionMin = Screen.width / 32.0f;
         _lastActionPos = Vector2.zero;
+        _speedForInstantAction = _distanceForMaxSpeed / Time.deltaTime;
 
         // Gonna store the input here
         _input = GameManager.Player.GetComponent<CharacterInput> ();
@@ -111,7 +113,6 @@ public class TouchInput : MonoBehaviour
         _glowOff = (Transform)Instantiate (GlowOffPrefab, GlowOffPrefab.position, GlowOffPrefab.rotation);
         Transform particles = (Transform)Instantiate (ParticlePrefab, ParticlePrefab.position, ParticlePrefab.rotation);
         _particles = particles.GetComponent<ParticleSystem> ();
-
 
         // Organize them away
         _blueCircle.parent = transform;
@@ -191,7 +192,7 @@ public class TouchInput : MonoBehaviour
     }
 
     // The input class will call this method while touch input is enabled
-    public void UpdateInput ()
+    public void UpdateInput (float elapsedTime)
     {   
         // Reset inputs
         _input.Horizontal = 0;
@@ -264,7 +265,8 @@ public class TouchInput : MonoBehaviour
             // Update the touch as appropriate
         } else if (touch.fingerId == _actionID) {
             _lastActionPos = touch.position;
-            if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended)
+            float touchSpeed = touch.deltaPosition.magnitude / touch.deltaTime;
+            if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended || touchSpeed > _speedForInstantAction)
                 InterpretInteraction ();// Interpret action on release
         }
 
@@ -277,18 +279,12 @@ public class TouchInput : MonoBehaviour
 
         float deg = CalculateActionDegree ();
 
-        if (GameManager.Player.CanInputJump && IsJumpRight (deg)) {
+        if (GameManager.Player.CanInputJump && IsJumpRight (deg))
             _input.Jump = new Vector2 (1, 1);
-			_moveStartPos = _lastMovePos;
-		}
-        else if (GameManager.Player.CanInputJump && IsJumpUp (deg)) {
+        else if (GameManager.Player.CanInputJump && IsJumpUp (deg))
 			_input.Jump = new Vector2 (0, 1);
-			_moveStartPos = _lastMovePos;
-		}
-        else if (GameManager.Player.CanInputJump && IsJumpLeft (deg)) {
+        else if (GameManager.Player.CanInputJump && IsJumpLeft (deg))
 			_input.Jump = new Vector2 (-1, 1);
-			_moveStartPos = _lastMovePos;
-		}
         else if (GameManager.Player.CanInputAttack && IsAttackLeft (deg))
             _input.Attack = -1;
         else if (GameManager.Player.CanInputPickup && IsPickup (deg))
@@ -380,10 +376,18 @@ public class TouchInput : MonoBehaviour
                     _moveButton.position = new Vector3 (currentPos.x, startPos.y, currentPos.z);
             }
 
-            // Have certain effects to really show off player sneaking
+            // Have certain effects to show the player's noise status
             if (GameManager.Player.IsSneaking) {
                 _horizontalSlider.renderer.material.color = Color.white;
                 _verticalSlider.renderer.material.color = Color.white;
+
+                // Yellow indicates we're getting close to making noise
+                if(Mathf.Abs(GameManager.Player.HorizontalSpeed) > GameManager.Player.Settings.MaxHorizontalSpeed * 0.5f) {
+                    _horizontalSlider.renderer.material.color = Color.yellow;
+                    _verticalSlider.renderer.material.color = Color.yellow;
+                }
+
+            // Red with radio waves indicates making noise
             } else {
                 _horizontalSlider.renderer.material.color = Color.red;
                 _verticalSlider.renderer.material.color = Color.red;
@@ -514,17 +518,17 @@ public class TouchInput : MonoBehaviour
 
     public bool IsJumpRight (float deg)
     {
-        return deg > 15.0f && deg <= 80.0f;
+        return deg > 15.0f && deg <= 75.0f;
     }
 
     public bool IsJumpUp (float deg)
     {
-        return deg > 80.0f && deg <= 100.0f;
+        return deg > 75.0f && deg <= 105.0f;
     }
 
     public bool IsJumpLeft (float deg)
     {
-        return deg > 100.0f && deg <= 165.0f;
+        return deg > 105.0f && deg <= 165.0f;
     }
 
     public bool IsAttackLeft (float deg)

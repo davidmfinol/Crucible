@@ -155,14 +155,17 @@ public class MeshToGameObjectsMenu
 		DestroyChildren (transform);
 
 		// Change the shader so that it will be outlined as appropriate
+        /*
 		if ( !transform.renderer.sharedMaterial.shader.name.Contains("Interactive") ) {
 			transform.renderer.sharedMaterial.shader = Shader.Find ("Outlined/Interactive");
 			transform.renderer.sharedMaterial.SetFloat ("_FadeDis", 15);
-		}
+        }
+        */
+        transform.renderer.sharedMaterial.shader = Shader.Find ("Diffuse");
 		OutlineInteractive outlineFader = transform.GetComponent<OutlineInteractive> ();
 		if(outlineFader == null)
 			outlineFader = transform.gameObject.AddComponent<OutlineInteractive> ();
-		outlineFader.enabled = true;
+		outlineFader.enabled = false;
 
     }
     

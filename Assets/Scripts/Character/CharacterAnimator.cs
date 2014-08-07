@@ -437,7 +437,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     // Helper methods for motion
-    protected virtual void ApplyRunning (float elapsedTime)
+    protected virtual void ApplyMovingHorizontal (float elapsedTime)
     {
         float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
         HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, IgnoreXYMovement ? 0 : Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
@@ -724,7 +724,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     public virtual bool IsSneaking {
-		get { return Mathf.Abs (HorizontalSpeed) < 0.75f * Settings.MaxHorizontalSpeed; }
+		get { return Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
     }
 
     public virtual bool IsTurningAround {

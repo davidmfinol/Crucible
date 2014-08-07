@@ -69,7 +69,7 @@ public abstract class Weapon : MonoBehaviour
         get;
     }
     
-    public abstract Texture2D Texture {
+    public abstract Texture2D IconTexture {
         get;
     }
     

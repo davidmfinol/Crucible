@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -50,7 +50,7 @@ public class Item : MonoBehaviour
         GameObject sign = Instantiate(indicator) as GameObject;
         sign.transform.position = indicator.transform.position + Vector3.up * 0.75f + Vector3.back * 0.01f;
         sign.transform.localScale = new Vector3(2, 2, 2);
-        sign.renderer.material.mainTexture = Type == ItemType.Item__Weapon ? WeaponPrefab.GetComponent<Weapon>().Texture : InventoryItemFactory.CreateFromType(Type, 1).GetTexture();
+        sign.renderer.material.mainTexture = Type == ItemType.Item__Weapon ? WeaponPrefab.GetComponent<Weapon>().IconTexture : InventoryItemFactory.CreateFromType(Type, 1).GetTexture();
 
         indicator.transform.parent = transform;
         sign.transform.parent = transform;

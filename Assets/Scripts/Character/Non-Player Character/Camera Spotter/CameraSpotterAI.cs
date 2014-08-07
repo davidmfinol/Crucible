@@ -15,11 +15,11 @@ public class CameraSpotterAI : EnemyAI
         
     }
 
-    protected override void UpdateAwareness ()
+    protected override void UpdateAwareness (float elapsedTime)
     {
         AwarenessLevel oldAwareness = Awareness;
         
-        base.UpdateAwareness ();
+        base.UpdateAwareness (elapsedTime);
 
         if(oldAwareness != Awareness)
             _cameraSpotterAwareness.ChangeAwareness (Awareness);
@@ -27,13 +27,13 @@ public class CameraSpotterAI : EnemyAI
     }
 
     // We're not going to use astar with the camera
-    public override bool UpdateAStarPath (float speedRatio, bool repathOnInvalid)
+    public override bool UpdateAStarPath (float elapsedTime, float speedRatio, bool repathOnInvalid)
     {
         return false;
 
     }
 
-    protected override void Chase ()
+    protected override void Chase (float elapsedTime)
     {
         // We don't chase as a static camera
     }

@@ -39,7 +39,7 @@ public class NontouchInput : MonoBehaviour
 
     }
 
-    public void UpdateInput ()
+    public void UpdateInput (float elapsedTime)
 	{
         bool joystickCycleRight = false;
         bool joystickCycleLeft = false;

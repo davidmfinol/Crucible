@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -35,7 +35,7 @@ public class Camo : Weapon
         get { return "By gathering visual information about your environment, the Invisibility Cloak camouflages the user based on the direction of combatants.  The tag on the device says “Caution: Doesn’t keep the user from making noise!”"; }
     }
     
-    public override Texture2D Texture {
+    public override Texture2D IconTexture {
         get {
             if (_texture == null)
                 _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/CamoIcon");

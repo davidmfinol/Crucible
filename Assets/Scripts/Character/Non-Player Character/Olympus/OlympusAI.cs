@@ -36,11 +36,11 @@ public class OlympusAI : EnemyAI
 
     }
 
-    protected override void UpdateAwareness ()
+    protected override void UpdateAwareness (float elapsedTime)
     {
         AwarenessLevel oldAwareness = Awareness;
 
-        base.UpdateAwareness ();
+        base.UpdateAwareness (elapsedTime);
         
         // Make sure we update our target when we start chasing
         if (oldAwareness != AwarenessLevel.Chasing && Awareness == AwarenessLevel.Chasing) {
@@ -69,9 +69,9 @@ public class OlympusAI : EnemyAI
     }
 
     // Olympus always looks at his next target position
-    public override bool UpdateAStarPath(float speedRatio, bool repathOnInvalid)
+    public override bool UpdateAStarPath(float elapsedTime, float speedRatio, bool repathOnInvalid)
     {
-        if(base.UpdateAStarPath(speedRatio, repathOnInvalid)) {
+        if(base.UpdateAStarPath(elapsedTime, speedRatio, repathOnInvalid)) {
             Vector3 target = Path.vectorPath[CurrentPathWaypoint];
             if (CurrentPathWaypoint < Path.vectorPath.Count - 2 && Mathf.Abs(target.x - transform.position.x) < MinimumLook)
                 target = Path.vectorPath[CurrentPathWaypoint + 1];
@@ -95,7 +95,7 @@ public class OlympusAI : EnemyAI
 
     }
 
-    protected override void Wander ()
+    protected override void Wander (float elapsedTime)
     {
         if(_wanderZone.extents == Vector3.zero && Animator.CurrentZone != null)
             _wanderZone = Animator.CurrentZone.collider.bounds;
@@ -120,7 +120,7 @@ public class OlympusAI : EnemyAI
             GetRandomSearchPoint (_wanderZone);
         
         // We also retarget if our current path fails us
-        if (!UpdateAStarPath (Settings.WanderSpeedRatio, false)) {
+        if (!UpdateAStarPath (elapsedTime, Settings.WanderSpeedRatio, false)) {
             //Debug.LogWarning("Astar Pathfinding failed while wandering! Choosing new target.");
             GetRandomSearchPoint (_wanderZone);
             return;
@@ -131,10 +131,10 @@ public class OlympusAI : EnemyAI
 
     }
 
-    protected override void Chase ()
+    protected override void Chase (float elapsedTime)
     {
         // We honor the parent implementation, but will also add onto it
-        base.Chase ();
+        base.Chase (elapsedTime);
 
         // Don't jump at the player
         bool isLastNode = Path != null && (CurrentPathWaypoint >= Path.vectorPath.Count - 1);

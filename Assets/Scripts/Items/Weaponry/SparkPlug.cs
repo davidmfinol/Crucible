@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -33,7 +33,7 @@ public class SparkPlug : Weapon
         get { return "Devised as renewable units using the Tesla Packs, they are cost effective replacements for standard electrical wiring.  Notoriously used as makeshift weapons in a society predominantly free of deadly weapons.  Later used against the Cogs during the turn by sneaking up on them."; }
     }
     
-    public override Texture2D Texture {
+    public override Texture2D IconTexture {
         get { 
             if (_texture == null)
                 _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/SparkPlugIcon");

@@ -55,7 +55,7 @@ public class BabyBotAnimator : CharacterAnimator
     {
         // Babybot does all its movement midair
         if (CharInput.Left || CharInput.Right)
-            ApplyRunning (elapsedTime);
+            ApplyMovingHorizontal (elapsedTime);
 
         // Start moving up at the beginning 
         if (TimeInCurrentState == 0) {

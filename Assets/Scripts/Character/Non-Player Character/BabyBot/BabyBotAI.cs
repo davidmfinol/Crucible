@@ -15,11 +15,11 @@ public class BabyBotAI : EnemyAI
 
     }
 
-    protected override void UpdateAwareness ()
+    protected override void UpdateAwareness (float elapsedTime)
     {
         AwarenessLevel oldAwareness = Awareness;
 
-        base.UpdateAwareness ();
+        base.UpdateAwareness (elapsedTime);
 
         Settings.CanSee = Awareness != AwarenessLevel.Unaware;
 
@@ -34,12 +34,12 @@ public class BabyBotAI : EnemyAI
     }
 
     // It may be un-realistic, but babybot will just go after you even just off hearing
-    protected override void Search ()
+    protected override void Search (float elapsedTime)
     {
-        Chase ();
+        Chase (elapsedTime);
     }
 
-    protected override void Chase ()
+    protected override void Chase (float elapsedTime)
     {
         NavigateToAstarTarget (Settings.ChaseSpeedRatio);
         Animator.CharInput.Attack = IsPlayerInAttackRange && !Animator.IsDead ? 1 : 0;

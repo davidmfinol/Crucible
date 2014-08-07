@@ -9,7 +9,7 @@ using System.Collections;
 public sealed class CharacterInput : MonoBehaviour
 {
     // We need a way to set a method that will update the input for the character
-    public delegate void UpdateInput ();
+    public delegate void UpdateInput (float elapsedTime);
     private UpdateInput _updateInputMethod;
 
     // Keep track of what the character has input into the game
@@ -61,7 +61,7 @@ public sealed class CharacterInput : MonoBehaviour
         }
 
         if (_updateInputMethod != null)
-            _updateInputMethod ();
+            _updateInputMethod (Time.deltaTime);
 
     }
 

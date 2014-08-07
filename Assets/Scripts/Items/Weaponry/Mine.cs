@@ -39,7 +39,7 @@ public class Mine : Weapon
         get { return "The Massive Interconnected Network of Explosives is the go-to offensive weapon against the Cogs.  It was developed after the turn of the Cogs, ingeniously devised using the tools of the KamiTech product, Eltroid Kit, plus the potentially explosive effects of the Crav-Ctrl.  The downside is that the noise typically spells the end of the survivor, as more Cogs come to inspect the cause of the explosion."; }
     }
     
-    public override Texture2D Texture {
+    public override Texture2D IconTexture {
         get {
             if (_texture == null)
                 _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/MINEIcon");

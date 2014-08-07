@@ -73,7 +73,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     // The CharacterAnimator calls this method, so we will do all of the AI processing within it
-    public virtual void UpdateInput ()
+    public virtual void UpdateInput (float elapsedTime)
     {
         // By default, have the enemy do nothing
         Animator.CharInput.Horizontal = 0;
@@ -83,23 +83,23 @@ public class EnemyAI : MonoBehaviour
         Animator.CharInput.Pickup = false;
 
         // Based off the awareness level of the enemy, it'll do 1 of 3 things
-        UpdateAwareness ();
+        UpdateAwareness (elapsedTime);
         switch (Awareness) {
-        case AwarenessLevel.Unaware:
-            if (Settings.ShouldWander) 
-                Wander ();
-            break;
-        case AwarenessLevel.Searching:
-            Search ();
-            break;
-        case AwarenessLevel.Chasing:
-            Chase ();
-            break;
+            case AwarenessLevel.Unaware:
+                if (Settings.ShouldWander) 
+                    Wander (elapsedTime);
+                break;
+            case AwarenessLevel.Searching:
+                Search (elapsedTime);
+                break;
+            case AwarenessLevel.Chasing:
+                Chase (elapsedTime);
+                break;
         }
 
     }
     
-    protected virtual void UpdateAwareness ()
+    protected virtual void UpdateAwareness (float elapsedTime)
     {
         // Check vision first
         if (Settings.CanSee && IsSeeingPlayer) {
@@ -115,18 +115,18 @@ public class EnemyAI : MonoBehaviour
         else if (_timeSincePlayerSeen <= 0.0f) 
             Awareness = AwarenessLevel.Unaware;
         else
-            _timeSincePlayerSeen -= Time.deltaTime;
+            _timeSincePlayerSeen -= elapsedTime;
 
     }
 
     // Have the enemy wander around the map
-    protected virtual void Wander ()
+    protected virtual void Wander (float elapsedTime)
     {
         // Child classes should have their own implementation
     }
 
     // Enemy is kind of aware of player, but not really
-    protected virtual void Search ()
+    protected virtual void Search (float elapsedTime)
     {
         // Stop searching if we can't hear
         if (!Settings.CanHear || PersonalHearingRadius == null)
@@ -144,7 +144,7 @@ public class EnemyAI : MonoBehaviour
             return;
         
         // If no valid path, abort
-        if (!UpdateAStarPath (Settings.SearchSpeedRatio))
+        if (!UpdateAStarPath (elapsedTime, Settings.SearchSpeedRatio))
             return;
         
         // Finally, go check out our random target point.
@@ -153,10 +153,10 @@ public class EnemyAI : MonoBehaviour
     }
 
     // The enemy actively hunts the player down!
-    protected virtual void Chase ()
+    protected virtual void Chase (float elapsedTime)
     {
         // Use astar while we have a valid path, but keep going even when we don't
-        bool validPath = UpdateAStarPath ();
+        bool validPath = UpdateAStarPath (elapsedTime);
         if (validPath) {
             NavigateToAstarTarget (Settings.ChaseSpeedRatio);
         } else {
@@ -279,10 +279,10 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Make sure that AI's interpretation of the AStar path is up to date and accurate
-    public virtual bool UpdateAStarPath (float speedRatio = 1.0f, bool repathOnInvalid = true)
+    public virtual bool UpdateAStarPath (float elapsedTime, float speedRatio = 1.0f, bool repathOnInvalid = true)
     {
         // Keep time of track between repaths
-        _timeSinceRepath += Time.deltaTime;
+        _timeSinceRepath += elapsedTime;
 
         // First make sure we actually have a path
         if (_path == null || _path.error) {

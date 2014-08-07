@@ -141,7 +141,7 @@ public class OlympusAnimator : CharacterAnimator
                 screen.FadeIn();
         }
         
-        ApplyRunning (elapsedTime);
+        ApplyMovingHorizontal (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
         
@@ -202,7 +202,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected void Running (float elapsedTime)
     {
-        ApplyRunning (elapsedTime);
+        ApplyMovingHorizontal (elapsedTime);
         VerticalSpeed = GroundVerticalSpeed;
         ApplyBiDirection ();
         
@@ -234,7 +234,7 @@ public class OlympusAnimator : CharacterAnimator
     protected void Jumping (float elapsedTime)
     {
         if (Mathf.Abs (CharInput.Horizontal) > 0.1)
-            ApplyRunning (elapsedTime);
+            ApplyMovingHorizontal (elapsedTime);
         
         if (MecanimAnimator.GetBool (MecanimHashes.Jump)) {
             if (CharInput.JumpLeft || CharInput.JumpLeftReleased) {
@@ -267,7 +267,7 @@ public class OlympusAnimator : CharacterAnimator
     protected void Falling (float elapsedTime)
     {
         if (CharInput.Right || CharInput.Left) // maintain horizontal momentum, but slow down if does input
-            ApplyRunning (elapsedTime);
+            ApplyMovingHorizontal (elapsedTime);
         ApplyGravity (elapsedTime);
         
         MecanimAnimator.SetBool (MecanimHashes.Fall, false);
@@ -502,9 +502,9 @@ public class OlympusAnimator : CharacterAnimator
 
     }
 
-    protected override void ApplyRunning (float elapsedTime)
+    protected override void ApplyMovingHorizontal (float elapsedTime)
     {
-        base.ApplyRunning (elapsedTime);
+        base.ApplyMovingHorizontal (elapsedTime);
         
         MecanimAnimator.SetFloat (MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
 
