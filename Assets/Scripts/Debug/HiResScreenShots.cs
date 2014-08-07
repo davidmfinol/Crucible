@@ -13,7 +13,7 @@ public class HiResScreenShots : MonoBehaviour
 	public static string ScreenShotName(int width)
 	{
 		return string.Format("{0}/screenshots/screen_{1}x{2}.png", 
-		                     Application.dataPath, 
+		                     Application.persistentDataPath, 
 		                     width, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
 
 	}
