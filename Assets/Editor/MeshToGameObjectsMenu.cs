@@ -28,6 +28,7 @@ public class MeshToGameObjectsMenu
 
     // We will store some gameobjects in a new gameobject
     static GameObject wallContainer;
+    static List<BoxCollider> createdLadderColliders;
 
     // All the transforms that the user has selected to be transformed
     static List<Transform> selected;
@@ -76,8 +77,7 @@ public class MeshToGameObjectsMenu
 
         // Store all the walls, ropes, and ladders in one location
         GameObject prevWalls = GameObject.Find (root.name + " - Walls, Ropes, and Ladders");
-        if (prevWalls != null)
-            GameObject.DestroyImmediate (prevWalls);
+        createdLadderColliders = new List<BoxCollider>();
         wallContainer = new GameObject (root.name + " - Walls, Ropes, and Ladders");
 
         // Go through each transform and set up the gameobjects
@@ -126,8 +126,9 @@ public class MeshToGameObjectsMenu
         root.gameObject.isStatic = true;
         wallContainer.isStatic = true;
 
-        // Combine the object into 1 mesh for optimization (not needed because of static batching?)
-        // CombineChildren.Combine(root.gameObject, root.name + " Combined Mesh");
+        // Cleanup the previous wall group
+        if (prevWalls != null)
+            GameObject.DestroyImmediate (prevWalls);
 
     }
 
@@ -207,6 +208,18 @@ public class MeshToGameObjectsMenu
             leftLedge.transform.position = topLeft;
             leftLedge.isStatic = true;
             leftLedge.transform.parent = ledge.transform;
+            
+            // Make sure the ledge can be accessed from any overlapping ladders
+            foreach (Collider ladderCol in createdLadderColliders) {
+                if(ladderCol.bounds.Intersects(col.bounds)) {
+                    Bounds bounds = col.bounds;
+                    Vector3 min = bounds.min;
+                    min.x = Mathf.Min (ladderCol.bounds.min.x, bounds.min.x);
+                    bounds.min = min;
+                    col.center = bounds.center - leftLedge.transform.position;
+                    col.size = bounds.size;
+                }
+            }
         }
         // Set up the right ledge
         if (createRightLedge) {
@@ -224,6 +237,19 @@ public class MeshToGameObjectsMenu
             rightLedge.transform.position = topRight;
             rightLedge.isStatic = true;
             rightLedge.transform.parent = ledge.transform;
+
+            // Make sure the ledge can be accessed from any overlapping ladders
+            foreach (Collider ladderCol in createdLadderColliders) {
+                if(ladderCol.bounds.Intersects(col.bounds)) {
+                    Bounds bounds = col.bounds;
+                    Vector3 max = bounds.max;
+                    max.x = Mathf.Max (ladderCol.bounds.max.x, bounds.max.x);
+                    bounds.max = max;
+                    col.center = bounds.center - rightLedge.transform.position;
+                    col.size = bounds.size;
+                }
+            }
+
         }
 
         // Restore the rotation
@@ -236,7 +262,7 @@ public class MeshToGameObjectsMenu
         // Create the wall at the correct position
         GameObject createdWall = GameObject.Instantiate (wallPrefab, wall.position, Quaternion.identity) as GameObject;
         BoxCollider createdWallCollider = createdWall.GetComponent<BoxCollider> ();
-        createdWall.isStatic = true;
+        createdWall.isStatic = true; 
         createdWall.transform.parent = wallContainer.transform;
         createdWallCollider.center = wall.collider.bounds.center - wall.transform.position;
         
@@ -286,6 +312,31 @@ public class MeshToGameObjectsMenu
             size.x += charController.radius * playerPrefab.transform.localScale.z;
         createdLadderCollider.size = size;
         createdLadder.GetComponent<Ladder>().FacesZAxis = facesZAxis;
+
+        // Make sure any overlapping ledges can be accessed from the ladder
+        Collider[] nearbyColliders = Physics.OverlapSphere( createdLadder.transform.position, Mathf.Max(size.x, size.y) );
+        foreach(Collider nearbyCol in nearbyColliders) {
+            Ledge ledge = nearbyCol.GetComponent<Ledge>();
+            if(ledge != null) {
+                Bounds ledgeColBounds = nearbyCol.bounds;
+                if(ledgeColBounds.Intersects(createdLadderCollider.bounds)) {
+                    if(ledge.Left) { 
+                        Vector3 min = ledgeColBounds.min;
+                        min.x = Mathf.Min (ledgeColBounds.min.x, createdLadderCollider.bounds.min.x);
+                        ledgeColBounds.min = min;
+                    }
+                    else {
+                        Vector3 max = ledgeColBounds.max;
+                        max.x = Mathf.Max (ledgeColBounds.max.x, createdLadderCollider.bounds.max.x);
+                        ledgeColBounds.max = max;
+                    }
+                    BoxCollider boxCol = nearbyCol as BoxCollider;
+                    boxCol.center = ledgeColBounds.center - ledge.transform.position;
+                    boxCol.size = ledgeColBounds.size;
+                }
+            }
+        }
+        createdLadderColliders.Add(createdLadderCollider);
 
     }
 

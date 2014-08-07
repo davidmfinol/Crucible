@@ -65,14 +65,14 @@ public class TouchInput : MonoBehaviour
         _moveStartPos = Vector2.zero;
         _moveMin = Screen.width / 32.0f;
         _lastMovePos = Vector2.zero;
-        _distanceForMaxSpeed = Screen.width / 4.0f;
+        _distanceForMaxSpeed = Screen.width / 5.0f;
 
         // Set up action variables
         _actionID = -1;
         _actionStartPos = Vector2.zero;
         _actionMin = Screen.width / 32.0f;
         _lastActionPos = Vector2.zero;
-        _speedForInstantAction = _distanceForMaxSpeed / Time.deltaTime;
+        _speedForInstantAction = _distanceForMaxSpeed;
 
         // Gonna store the input here
         _input = GameManager.Player.GetComponent<CharacterInput> ();
