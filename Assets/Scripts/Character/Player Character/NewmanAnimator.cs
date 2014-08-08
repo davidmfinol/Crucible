@@ -612,8 +612,8 @@ public class NewmanAnimator : CharacterAnimator
             _ledge = ActiveHangTarget as Ledge;
             MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, true);
 
-        // You can let go of what you're climbing with the interaction button
-        } else if (CharInput.InteractionPressed) {
+        // You can let go of what you're climbing with the pickup button
+        } else if (CharInput.PickupPressed) {
             MecanimAnimator.SetBool(MecanimHashes.Fall, true);
             MecanimAnimator.SetBool(MecanimHashes.ClimbRope, false);
             DropHangTarget();
@@ -626,17 +626,14 @@ public class NewmanAnimator : CharacterAnimator
 
     }
 
-    //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
+    //ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
 //  protected void ClimbingStrafe(float elapsedTime)
 //  {
-//      if(ActiveHangTarget == null)
-//      {
+//      if(ActiveHangTarget == null) {
 //          DropHangTarget();
 //          MecanimAnimator.SetBool(MecanimHashes.Fall, true);
 //          return;
 //      }
-//
-//      MecanimAnimator.SetBool (MecanimHashes.Fall, (_autoClimbDir == AutoClimbDirection.AutoClimb_None) && CharInput.InteractionPressed);
 //  
 //      ApplyClimbingStrafing(CharInput.Horizontal);
 //      
@@ -649,7 +646,8 @@ public class NewmanAnimator : CharacterAnimator
 //          Direction = Vector3.zero;
 //      
 //      MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpPressed);
-    //  }
+//
+//  }
     
     // WallgrabbingState = Animator.StringToHash("Wall.Wallgrabbing");
     protected void Wallgrabbing(float elapsedTime)
@@ -668,12 +666,14 @@ public class NewmanAnimator : CharacterAnimator
         VerticalSpeed = 0;
         MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
         
-        // You can either let go of or jump off of the wall
+        // You can let go of the wall
         if (CharInput.PickupPressed) {
             MecanimAnimator.SetBool(MecanimHashes.Fall, true);
             MecanimAnimator.SetBool(MecanimHashes.GrabWall, false);
             DropHangTarget();
-        } else if (CharInput.InteractionPressed || (CharInput.JumpPressed && (InputJumpBackward || CharInput.JumpUp))) {
+
+        // But the expectation is that you will jump off
+        } else if ( CharInput.JumpPressed ) {
             MecanimAnimator.SetBool(MecanimHashes.JumpWall, true);
             MecanimAnimator.SetBool(MecanimHashes.GrabWall, false);
             DropHangTarget();
@@ -1113,7 +1113,7 @@ public class NewmanAnimator : CharacterAnimator
     public override bool CanInputPickup {
         get {
             GameObject itemObj;
-            return CurrentState.nameHash == WallgrabbingState || CanPickupItem(out itemObj);
+            return CurrentState.nameHash == WallgrabbingState || StateMachine[CurrentState.nameHash] == ClimbingVertical || CanPickupItem(out itemObj);
         }
     }
 
