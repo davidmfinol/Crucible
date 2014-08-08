@@ -855,6 +855,19 @@ ModelImporter:
     101698: LedgeObstacle 1
     101700: LedgeRightOnly1
     101702: LedgeRightOnly2
+    101704: group13
+    101706: ObstacleBox
+    101708: ObstacleBox 1
+    101710: polySurface341
+    101712: polySurface343
+    101714: polySurface344
+    101716: polySurface345
+    101718: polySurface346
+    101720: polySurface347
+    101722: transform150
+    101724: transform151
+    101726: transform152
+    101728: transform153
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1707,6 +1720,19 @@ ModelImporter:
     401698: LedgeObstacle 1
     401700: LedgeRightOnly1
     401702: LedgeRightOnly2
+    401704: group13
+    401706: ObstacleBox
+    401708: ObstacleBox 1
+    401710: polySurface341
+    401712: polySurface343
+    401714: polySurface344
+    401716: polySurface345
+    401718: polySurface346
+    401720: polySurface347
+    401722: transform150
+    401724: transform151
+    401726: transform152
+    401728: transform153
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -2257,6 +2283,13 @@ ModelImporter:
     2301094: LedgeObstacle
     2301096: LedgeRightOnly1
     2301098: LedgeRightOnly2
+    2301100: ObstacleBox
+    2301102: ObstacleBox 1
+    2301104: polySurface343
+    2301106: polySurface344
+    2301108: polySurface345
+    2301110: polySurface346
+    2301112: polySurface347
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2807,6 +2840,13 @@ ModelImporter:
     3301094: LedgeObstacle
     3301096: LedgeRightOnly1
     3301098: LedgeRightOnly2
+    3301100: ObstacleBox
+    3301102: ObstacleBox 1
+    3301104: polySurface343
+    3301106: polySurface344
+    3301108: polySurface345
+    3301110: polySurface346
+    3301112: polySurface347
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -3350,6 +3390,13 @@ ModelImporter:
     4301080: LedgeObstacle
     4301082: LedgeRightOnly1
     4301084: LedgeRightOnly2
+    4301086: polySurface344
+    4301088: polySurface346
+    4301090: polySurface347
+    4301092: ObstacleBox
+    4301094: polySurface343
+    4301096: ObstacleBox
+    4301098: polySurface345
     7400000: Take 001
     9500000: //RootNode
   materials:
