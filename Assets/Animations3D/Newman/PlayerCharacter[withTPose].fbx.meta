@@ -93,7 +93,7 @@ ModelImporter:
     7400020: HangingStrafe
     7400022: HanginLoop
     7400024: HanginLoopasdf
-    7400026: Idle_001
+    7400026: Idle
     7400028: Idle2
     7400030: JumpFall
     7400032: Jumping
@@ -144,7 +144,7 @@ ModelImporter:
       lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -191,7 +191,7 @@ ModelImporter:
       lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -238,7 +238,7 @@ ModelImporter:
       lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -337,7 +337,7 @@ ModelImporter:
       lastFrame: 36
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -513,7 +513,7 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Idle_001
+      name: Idle
       takeName: Idle_001
       firstFrame: 0
       lastFrame: 99
@@ -682,7 +682,7 @@ ModelImporter:
       lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -715,7 +715,7 @@ ModelImporter:
       lastFrame: 34
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -748,7 +748,7 @@ ModelImporter:
       lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -916,7 +916,7 @@ ModelImporter:
       lastFrame: 38
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 1
@@ -1016,7 +1016,7 @@ ModelImporter:
       lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 0
@@ -1123,7 +1123,7 @@ ModelImporter:
       lastFrame: 35.0999985
       wrapMode: 0
       orientationOffsetY: 0
-      level: .819999993
+      level: .75999999
       cycleOffset: 0
       loop: 0
       loopTime: 1
