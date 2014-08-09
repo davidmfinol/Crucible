@@ -1112,8 +1112,8 @@ public class NewmanAnimator : CharacterAnimator
     
     public override bool CanInputPickup {
         get {
-            GameObject itemObj;
-            return CurrentState.nameHash == WallgrabbingState || StateMachine[CurrentState.nameHash] == ClimbingVertical || CanPickupItem(out itemObj);
+            GameObject itemObj; // TODO: FASTER DETERMINATION (CACHE PER FRAME?)
+            return StateMachine[CurrentState.nameHash] == ClimbingVertical || CurrentState.nameHash == WallgrabbingState || CurrentState.nameHash == HangingState || CanPickupItem(out itemObj);
         }
     }
 

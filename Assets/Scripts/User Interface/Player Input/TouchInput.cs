@@ -23,6 +23,9 @@ public class TouchInput : MonoBehaviour
     public Transform ItemPickupSignPrefab;
     public Transform DotPrefab;
 
+    // How many inches the player swipes to reach maximum running speed
+    public float InchesForMaxSpeed;
+
     // GUI elements for the left-hand side
     private Transform _horizontalSlider;
     private Transform _verticalSlider;
@@ -53,7 +56,7 @@ public class TouchInput : MonoBehaviour
     private Vector2 _actionStartPos;
     private float _actionMin;
     private Vector2 _lastActionPos;
-    private float _speedForInstantAction;
+    // TODO: private float _speedForInstantAction;
     
     // Where we store the input
     private CharacterInput _input;
@@ -65,14 +68,20 @@ public class TouchInput : MonoBehaviour
         _moveStartPos = Vector2.zero;
         _moveMin = Screen.width / 32.0f;
         _lastMovePos = Vector2.zero;
-        _distanceForMaxSpeed = Screen.width / 5.0f;
+        float dpi = Screen.dpi;
+        if(dpi <= 0) {
+            Debug.LogWarning("Failed to find Screen DPI!");
+            dpi = 160; // TODO: THIS DEFAULT DOESN'T SEEM TO BE ACCURATE
+        }
+        _distanceForMaxSpeed = InchesForMaxSpeed * dpi;
+        Debug.Log("DPI: " + dpi + ", distance: " + _distanceForMaxSpeed);
 
         // Set up action variables
         _actionID = -1;
         _actionStartPos = Vector2.zero;
         _actionMin = Screen.width / 32.0f;
         _lastActionPos = Vector2.zero;
-        _speedForInstantAction = _distanceForMaxSpeed * 10.0f; // TODO: DETERMINE A GOOD VALUE FOR THIS
+        //_speedForInstantAction = _distanceForMaxSpeed * 10.0f; // TODO: DETERMINE A GOOD VALUE FOR THIS
 
         // Gonna store the input here
         _input = GameManager.Player.GetComponent<CharacterInput> ();
@@ -265,8 +274,8 @@ public class TouchInput : MonoBehaviour
             // Update the touch as appropriate
         } else if (touch.fingerId == _actionID) {
             _lastActionPos = touch.position;
-            float touchSpeed = touch.deltaPosition.magnitude / touch.deltaTime;
-            if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended || touchSpeed > _speedForInstantAction)
+            // TODO: float touchSpeed = touch.deltaPosition.magnitude / touch.deltaTime;
+            if (touch.phase == TouchPhase.Canceled || touch.phase == TouchPhase.Ended /* TODO: || touchSpeed > _speedForInstantAction*/)
                 InterpretInteraction ();// Interpret action on release
         }
 
