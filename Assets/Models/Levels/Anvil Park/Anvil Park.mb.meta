@@ -1,1708 +1,1964 @@
 fileFormatVersion: 2
-guid: 788f192689b9f419e8a80725cfe839ee
+guid: 083d5c4bee7c12045aa0d0476bb688c8
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
-    100002: group1
-    100004: group2
-    100006: group3
-    100008: group5
-    100010: group6
-    100012: group7
-    100014: group8
-    100016: Ledge
-    100018: Ledge1
-    100020: Ledge10
-    100022: Ledge11
-    100024: Ledge12
-    100026: Ledge13
-    100028: Ledge14
-    100030: Ledge15
-    100032: Ledge16
-    100034: Ledge17
-    100036: Ledge18
-    100038: Ledge19
-    100040: Ledge2
-    100042: Ledge20
-    100044: Ledge21
-    100046: Ledge22
-    100048: Ledge3
-    100050: Ledge4
-    100052: Ledge5
-    100054: Ledge6
-    100056: Ledge7
-    100058: Ledge8
-    100060: Ledge9
-    100062: pCube100
-    100064: pCube16
-    100066: pCube17
-    100068: pCube20
-    100070: pCube21
-    100072: pCube26
-    100074: pCube27
-    100076: pCube28
-    100078: pCube29
-    100080: pCube30
-    100082: pCube31
-    100084: pCube32
-    100086: pCube33
-    100088: pCube34
-    100090: pCube35
-    100092: pCube36
-    100094: pCube37
-    100096: pCube38
-    100098: pCube39
-    100100: pCube4
-    100102: pCube40
-    100104: pCube41
-    100106: pCube42
-    100108: pCube43
-    100110: pCube44
-    100112: pCube45
-    100114: pCube46
-    100116: pCube47
-    100118: pCube48
-    100120: pCube49
-    100122: pCube5
-    100124: pCube50
-    100126: pCube51
-    100128: pCube52
-    100130: pCube53
-    100132: pCube54
-    100134: pCube55
-    100136: pCube56
-    100138: pCube57
-    100140: pCube58
-    100142: pCube59
-    100144: pCube6
-    100146: pCube60
-    100148: pCube61
-    100150: pCube62
-    100152: pCube63
-    100154: pCube64
-    100156: pCube65
-    100158: pCube66
-    100160: pCube67
-    100162: pCube68
-    100164: pCube69
-    100166: pCube7
-    100168: pCube70
-    100170: pCube71
-    100172: pCube71 1
-    100174: pCube71 2
-    100176: pCube71 3
-    100178: pCube72
-    100180: pCube72 1
-    100182: pCube72 2
-    100184: pCube72 3
-    100186: pCube72 4
-    100188: pCube72 5
-    100190: pCube73
-    100192: pCube73 1
-    100194: pCube73 2
-    100196: pCube73 3
-    100198: pCube74
-    100200: pCube74 1
-    100202: pCube74 2
-    100204: pCube74 3
-    100206: pCube74 4
-    100208: pCube74 5
-    100210: pCube75
-    100212: pCube75 1
-    100214: pCube75 2
-    100216: pCube75 3
-    100218: pCube76
-    100220: pCube76 1
-    100222: pCube76 2
-    100224: pCube76 3
-    100226: pCube76 4
-    100228: pCube76 5
-    100230: pCube77
-    100232: pCube77 1
-    100234: pCube77 2
-    100236: pCube77 3
-    100238: pCube78
-    100240: pCube78 1
-    100242: pCube78 2
-    100244: pCube78 3
-    100246: pCube78 4
-    100248: pCube78 5
-    100250: pCube79
-    100252: pCube79 1
-    100254: pCube79 2
-    100256: pCube79 3
-    100258: pCube8
-    100260: pCube80
-    100262: pCube80 1
-    100264: pCube80 2
-    100266: pCube80 3
-    100268: pCube80 4
-    100270: pCube80 5
-    100272: pCube81
-    100274: pCube81 1
-    100276: pCube81 2
-    100278: pCube81 3
-    100280: pCube82
-    100282: pCube82 1
-    100284: pCube82 2
-    100286: pCube82 3
-    100288: pCube82 4
-    100290: pCube82 5
-    100292: pCube83
-    100294: pCube83 1
-    100296: pCube83 2
-    100298: pCube83 3
-    100300: pCube84
-    100302: pCube84 1
-    100304: pCube84 2
-    100306: pCube84 3
-    100308: pCube84 4
-    100310: pCube84 5
-    100312: pCube85
-    100314: pCube85 1
-    100316: pCube85 2
-    100318: pCube85 3
-    100320: pCube86
-    100322: pCube86 1
-    100324: pCube86 2
-    100326: pCube86 3
-    100328: pCube86 4
-    100330: pCube86 5
-    100332: pCube87
-    100334: pCube87 1
-    100336: pCube87 2
-    100338: pCube88
-    100340: pCube88 1
-    100342: pCube88 2
-    100344: pCube89
-    100346: pCube89 1
-    100348: pCube89 2
-    100350: pCube90
-    100352: pCube90 1
-    100354: pCube90 2
-    100356: pCube91
-    100358: pCube91 1
-    100360: pCube91 2
-    100362: pCube92
-    100364: pCube92 1
-    100366: pCube92 2
-    100368: pCube93
-    100370: pCube93 1
-    100372: pCube93 2
-    100374: pCube94
-    100376: pCube94 1
-    100378: pCube94 2
-    100380: pCube97
-    100382: pCube98
-    100384: pCube99
-    100386: pCylinder1
-    100388: pCylinder2
-    100390: pCylinder3
-    100392: polySurface1
-    100394: polySurface10
-    100396: polySurface13
-    100398: polySurface16
-    100400: polySurface19
-    100402: polySurface2
-    100404: polySurface20
-    100406: polySurface21
-    100408: polySurface22
-    100410: polySurface24
-    100412: polySurface26
-    100414: polySurface28
-    100416: polySurface3
-    100418: polySurface30
-    100420: polySurface32
-    100422: polySurface4
-    100424: polySurface5
-    100426: polySurface7
-    100428: polySurface8
-    100430: polySurface8 1
-    100432: polySurface8 2
-    100434: polySurface8 3
-    100436: pPlane1
-    100438: transform1
-    100440: transform10
-    100442: transform11
-    100444: transform12
-    100446: transform13
-    100448: transform14
-    100450: transform15
-    100452: transform16
-    100454: transform17
-    100456: transform18
-    100458: transform19
-    100460: transform2
-    100462: transform20
-    100464: transform21
-    100466: transform3
-    100468: transform4
-    100470: transform5
-    100472: transform6
-    100474: transform7
-    100476: transform8
-    100478: transform9
-    100480: Ledge23
-    100482: Ledge24
-    100484: Fixture
-    100486: Light
-    100488: LowLight
-    100490: pCube101
-    100492: transform22
-    100494: group9
-    100496: pCube102
-    100498: pCube103
-    100500: pCube104
-    100502: Ledge 1
-    100504: Ledge25
-    100506: Ledge26
-    100508: polySurface37
-    100510: transform23
-    100512: transform24
-    100514: Ledge 2
-    100516: Ledge 3
-    100518: polySurface39
-    100520: polySurface41
-    100522: transform25
-    100524: transform26
-    100526: ElevatorAnvilPark
-    100528: Lattice
-    100530: Lattice2
-    100532: Lattice3
-    100534: Lattice4
-    100536: Lattice5
-    100538: Ledge27
-    100540: Ledge28
-    100542: polySurface42
-    100544: polySurface43
-    100546: polySurface44
-    100548: polySurface45
-    100550: polySurface46
-    100552: polySurface47
-    100554: polySurface48
-    100556: polySurface49
-    100558: polySurface50
-    100560: polySurface51
-    100562: polySurface52
-    100564: polySurface53
-    100566: polySurface54
-    100568: polySurface55
-    100570: polySurface56
-    100572: polySurface57
-    100574: polySurface58
-    100576: polySurface59
-    100578: polySurface60
-    100580: polySurface61
-    100582: polySurface62
-    100584: polySurface63
-    100586: polySurface64
-    100588: polySurface65
-    100590: polySurface66
-    100592: polySurface67
-    100594: polySurface68
-    100596: polySurface69
-    100598: polySurface70
-    100600: polySurface71
-    100602: polySurface72
-    100604: polySurface73
-    100606: polySurface74
-    100608: polySurface75
-    100610: polySurface76
-    100612: transform27
-    100614: transform28
-    100616: transform29
-    100618: transform30
-    100620: transform31
-    100622: transform32
-    100624: transform33
-    100626: transform34
-    100628: transform35
-    100630: transform36
-    100632: transform37
-    100634: transform38
-    100636: AnvilPark
-    100638: Ledge 4
-    100640: polySurface78
-    100642: polySurface80
-    100644: Slantpart
-    100646: transform39
-    100648: transform40
-    100650: Vent
-    100652: Ledge 5
-    100654: polySurface82
-    100656: transform41
-    100658: Ledge29
-    100660: polySurface84
-    100662: transform42
-    100664: HarshRedLight
-    100666: HarshRedLight1
-    100668: HarshRedLight2
-    100670: HarshRedLight3
-    100672: HarshRedLight6
-    100674: directionalLight1
-    100676: HarshRedLight10
-    100678: HarshRedLight11
-    100680: HarshRedLight7
-    100682: HarshRedLight9
-    100684: Hook
-    100686: Hook1
-    100688: Hook2
-    100690: Ledge11 1
-    100692: Ledge11 2
-    100694: pCube105
-    100696: pCube106
-    100698: pCube107
-    100700: pCube108
-    100702: pointLight1
-    100704: pointLight2
-    100706: pointLight3
-    100708: pointLight4
-    100710: pointLight5
-    100712: pointLight6
-    100714: pointLight7
-    100716: pointLight8
-    100718: pointLight9
-    100720: polySurface85
-    100722: polySurface85 1
-    100724: polySurface85 2
-    100726: polySurface86
-    100728: polySurface86 1
-    100730: polySurface86 2
-    100732: transform43
-    100734: Ground
-    100736: Hooks
-    100738: Ledge30
-    100740: Ledge31
-    100742: Ledge32
-    100744: Ledge33
-    100746: Ledge34
-    100748: Ledge35
-    100750: polySurface88
-    100752: polySurface89
-    100754: polySurface90
-    100756: polySurface91
-    100758: polySurface92
-    100760: TopLeftLattice
-    100762: transform44
-    100764: polySurface93
-    100766: polySurface94
-    100768: transform45
-    100770: AboveBottomLedge
-    100772: ActualTower
-    100774: ArchLedge
-    100776: BottomLedge
-    100778: DoorInBack
-    100780: HoldsUpBridge
-    100782: HoldsUpBridge1
-    100784: HoldsUpBridge2
-    100786: HoldsUpBridge3
-    100788: HoldsUpBridge4
-    100790: HookBootom
-    100792: HookBootom1
-    100794: HookBootom2
-    100796: HookLedge
-    100798: HookLedge1
-    100800: HookLedge2
-    100802: HookRope
-    100804: HookRope1
-    100806: HookRope2
-    100808: Ledge36
-    100810: Ledge37
-    100812: LowerLedge
-    100814: LowerMIddleLedge
-    100816: RooftopLedge
-    100818: SlantedLedge
-    100820: StreetLight
-    100822: TheGround
-    100824: To_Be_Textured
+    100002: AnvilPark
+    100004: directionalLight1
+    100006: Elevator
+    100008: Fixture
+    100010: Ground
+    100012: Ground1
+    100014: GroundMesh
+    100016: group3
+    100018: group6
+    100020: group7
+    100022: group8
+    100024: group9
+    100026: HarshRedLight
+    100028: HarshRedLight1
+    100030: HarshRedLight10
+    100032: HarshRedLight11
+    100034: HarshRedLight2
+    100036: HarshRedLight3
+    100038: HarshRedLight6
+    100040: HarshRedLight7
+    100042: HarshRedLight9
+    100044: Hook
+    100046: Hook1
+    100048: Hook2
+    100050: Hooks
+    100052: Lattice
+    100054: Lattice2
+    100056: Lattice3
+    100058: Lattice4
+    100060: Lattice5
+    100062: Lattices
+    100064: Ledge
+    100066: Ledge 1
+    100068: Ledge 2
+    100070: Ledge 3
+    100072: Ledge 4
+    100074: Ledge 5
+    100076: Ledge 6
+    100078: Ledge10
+    100080: Ledge11
+    100082: Ledge14
+    100084: Ledge15
+    100086: Ledge17
+    100088: Ledge19
+    100090: Ledge2
+    100092: Ledge21
+    100094: Ledge22
+    100096: Ledge23
+    100098: Ledge27
+    100100: Ledge29
+    100102: Ledge3
+    100104: Ledge30
+    100106: Ledge31
+    100108: Ledge32
+    100110: Ledge33
+    100112: Ledge34
+    100114: Ledge35
+    100116: Ledge36
+    100118: Ledge38
+    100120: Ledge4
+    100122: Ledge41
+    100124: Ledge47
+    100126: Ledge48
+    100128: Ledge5
+    100130: Ledge9
+    100132: LedgeLeftOnly
+    100134: LedgeLeftOnly 1
+    100136: LedgeLeftOnly 2
+    100138: LedgeLeftOnly 3
+    100140: LedgeRight
+    100142: LedgeRightOnly
+    100144: LedgeRightOnly 1
+    100146: LedgeWall
+    100148: Light
+    100150: LowLight
+    100152: Mesh
+    100154: mesh
+    100156: Mesh 1
+    100158: Mesh 2
+    100160: Mesh 3
+    100162: Mesh 4
+    100164: Mesh1
+    100166: Nada
+    100168: Nada1
+    100170: pCube100
+    100172: pCube101
+    100174: pCube102
+    100176: pCube103
+    100178: pCube104
+    100180: pCube105
+    100182: pCube106
+    100184: pCube107
+    100186: pCube108
+    100188: pCube109
+    100190: pCube110
+    100192: pCube111
+    100194: pCube112
+    100196: pCube113
+    100198: pCube114
+    100200: pCube115
+    100202: pCube116
+    100204: pCube117
+    100206: pCube118
+    100208: pCube119
+    100210: pCube120
+    100212: pCube121
+    100214: pCube122
+    100216: pCube123
+    100218: pCube124
+    100220: pCube125
+    100222: pCube126
+    100224: pCube127
+    100226: pCube128
+    100228: pCube129
+    100230: pCube130
+    100232: pCube131
+    100234: pCube132
+    100236: pCube136
+    100238: pCube137
+    100240: pCube138
+    100242: pCube139
+    100244: pCube140
+    100246: pCube141
+    100248: pCube142
+    100250: pCube17
+    100252: pCube26
+    100254: pCube27
+    100256: pCube28
+    100258: pCube29
+    100260: pCube30
+    100262: pCube31
+    100264: pCube32
+    100266: pCube33
+    100268: pCube34
+    100270: pCube35
+    100272: pCube36
+    100274: pCube39
+    100276: pCube4
+    100278: pCube40
+    100280: pCube41
+    100282: pCube42
+    100284: pCube43
+    100286: pCube44
+    100288: pCube47
+    100290: pCube48
+    100292: pCube49
+    100294: pCube50
+    100296: pCube51
+    100298: pCube52
+    100300: pCube53
+    100302: pCube54
+    100304: pCube55
+    100306: pCube56
+    100308: pCube57
+    100310: pCube58
+    100312: pCube59
+    100314: pCube60
+    100316: pCube61
+    100318: pCube62
+    100320: pCube63
+    100322: pCube64
+    100324: pCube65
+    100326: pCube66
+    100328: pCube67
+    100330: pCube68
+    100332: pCube69
+    100334: pCube70
+    100336: pCube71
+    100338: pCube71 1
+    100340: pCube71 2
+    100342: pCube71 3
+    100344: pCube72
+    100346: pCube72 1
+    100348: pCube72 2
+    100350: pCube72 3
+    100352: pCube72 4
+    100354: pCube72 5
+    100356: pCube73
+    100358: pCube73 1
+    100360: pCube73 2
+    100362: pCube73 3
+    100364: pCube74
+    100366: pCube74 1
+    100368: pCube74 2
+    100370: pCube74 3
+    100372: pCube74 4
+    100374: pCube74 5
+    100376: pCube75
+    100378: pCube75 1
+    100380: pCube75 2
+    100382: pCube76
+    100384: pCube76 1
+    100386: pCube76 2
+    100388: pCube76 3
+    100390: pCube76 4
+    100392: pCube77
+    100394: pCube77 1
+    100396: pCube77 2
+    100398: pCube78
+    100400: pCube78 1
+    100402: pCube78 2
+    100404: pCube78 3
+    100406: pCube78 4
+    100408: pCube79
+    100410: pCube79 1
+    100412: pCube79 2
+    100414: pCube79 3
+    100416: pCube80
+    100418: pCube80 1
+    100420: pCube80 2
+    100422: pCube80 3
+    100424: pCube80 4
+    100426: pCube80 5
+    100428: pCube81
+    100430: pCube81 1
+    100432: pCube81 2
+    100434: pCube81 3
+    100436: pCube82
+    100438: pCube82 1
+    100440: pCube82 2
+    100442: pCube82 3
+    100444: pCube82 4
+    100446: pCube82 5
+    100448: pCube83
+    100450: pCube83 1
+    100452: pCube83 2
+    100454: pCube84
+    100456: pCube84 1
+    100458: pCube84 2
+    100460: pCube84 3
+    100462: pCube84 4
+    100464: pCube85
+    100466: pCube85 1
+    100468: pCube85 2
+    100470: pCube86
+    100472: pCube86 1
+    100474: pCube86 2
+    100476: pCube86 3
+    100478: pCube86 4
+    100480: pCube87
+    100482: pCube87 1
+    100484: pCube88
+    100486: pCube88 1
+    100488: pCube89
+    100490: pCube89 1
+    100492: pCube90
+    100494: pCube90 1
+    100496: pCube91
+    100498: pCube91 1
+    100500: pCube91 2
+    100502: pCube92
+    100504: pCube92 1
+    100506: pCube92 2
+    100508: pCube93
+    100510: pCube93 1
+    100512: pCube93 2
+    100514: pCube94
+    100516: pCube94 1
+    100518: pCube94 2
+    100520: pCube97
+    100522: pCube98
+    100524: pCube99
+    100526: pCylinder3
+    100528: pCylinder4
+    100530: pCylinder5
+    100532: pCylinder7
+    100534: pointLight1
+    100536: pointLight2
+    100538: pointLight3
+    100540: pointLight4
+    100542: pointLight5
+    100544: pointLight6
+    100546: pointLight7
+    100548: pointLight8
+    100550: pointLight9
+    100552: polySurface10
+    100554: polySurface100
+    100556: polySurface101
+    100558: polySurface102
+    100560: polySurface104
+    100562: polySurface106
+    100564: polySurface107
+    100566: polySurface108
+    100568: polySurface109
+    100570: polySurface110
+    100572: polySurface111
+    100574: polySurface112
+    100576: polySurface113
+    100578: polySurface114
+    100580: polySurface115
+    100582: polySurface116
+    100584: polySurface117
+    100586: polySurface118
+    100588: polySurface119
+    100590: polySurface120
+    100592: polySurface121
+    100594: polySurface122
+    100596: polySurface124
+    100598: polySurface13
+    100600: polySurface16
+    100602: polySurface2
+    100604: polySurface20
+    100606: polySurface24
+    100608: polySurface26
+    100610: polySurface28
+    100612: polySurface3
+    100614: polySurface30
+    100616: polySurface32
+    100618: polySurface37
+    100620: polySurface39
+    100622: polySurface4
+    100624: polySurface41
+    100626: polySurface42
+    100628: polySurface43
+    100630: polySurface44
+    100632: polySurface45
+    100634: polySurface46
+    100636: polySurface47
+    100638: polySurface48
+    100640: polySurface5
+    100642: polySurface50
+    100644: polySurface51
+    100646: polySurface52
+    100648: polySurface53
+    100650: polySurface54
+    100652: polySurface55
+    100654: polySurface56
+    100656: polySurface57
+    100658: polySurface58
+    100660: polySurface59
+    100662: polySurface60
+    100664: polySurface61
+    100666: polySurface62
+    100668: polySurface63
+    100670: polySurface64
+    100672: polySurface65
+    100674: polySurface66
+    100676: polySurface67
+    100678: polySurface68
+    100680: polySurface69
+    100682: polySurface7
+    100684: polySurface70
+    100686: polySurface71
+    100688: polySurface72
+    100690: polySurface74
+    100692: polySurface75
+    100694: polySurface76
+    100696: polySurface78
+    100698: polySurface8
+    100700: polySurface8 1
+    100702: polySurface8 2
+    100704: polySurface80
+    100706: polySurface82
+    100708: polySurface84
+    100710: polySurface85
+    100712: polySurface86
+    100714: polySurface88
+    100716: polySurface89
+    100718: polySurface90
+    100720: polySurface91
+    100722: polySurface92
+    100724: polySurface93
+    100726: polySurface95
+    100728: polySurface97
+    100730: polySurface98
+    100732: polySurface99
+    100734: Rope
+    100736: Rope1
+    100738: Rope2
+    100740: Rope3
+    100742: TopLeftLattice
+    100744: transform1
+    100746: transform10
+    100748: transform11
+    100750: transform12
+    100752: transform13
+    100754: transform14
+    100756: transform15
+    100758: transform16
+    100760: transform17
+    100762: transform18
+    100764: transform19
+    100766: transform2
+    100768: transform20
+    100770: transform21
+    100772: transform22
+    100774: transform23
+    100776: transform24
+    100778: transform25
+    100780: transform26
+    100782: transform27
+    100784: transform28
+    100786: transform29
+    100788: transform3
+    100790: transform30
+    100792: transform31
+    100794: transform32
+    100796: transform33
+    100798: transform34
+    100800: transform35
+    100802: transform36
+    100804: transform37
+    100806: transform38
+    100808: transform39
+    100810: transform4
+    100812: transform40
+    100814: transform41
+    100816: transform42
+    100818: transform43
+    100820: transform44
+    100822: transform45
+    100824: transform48
+    100826: transform49
+    100828: transform5
+    100830: transform50
+    100832: transform51
+    100834: transform52
+    100836: transform53
+    100838: transform54
+    100840: transform55
+    100842: transform56
+    100844: transform57
+    100846: transform58
+    100848: transform59
+    100850: transform6
+    100852: transform60
+    100854: transform61
+    100856: transform62
+    100858: transform63
+    100860: transform64
+    100862: transform65
+    100864: transform7
+    100866: transform8
+    100868: transform9
+    100870: Vent
+    100872: Wall
+    100874: Wall 1
+    100876: WallLedge
+    100878: WallLedge 1
+    100880: WallLedge 2
+    100882: WallLedge 3
+    100884: WallLedge1
+    100886: WallLedge3
+    100888: WallLedge4
+    100890: WallLedge5
+    100892: polySurface125
+    100894: polySurface126
+    100896: transform66
+    100898: Nada 1
+    100900: pCube143
+    100902: pCube144
+    100904: pCylinder10
+    100906: pCylinder8
+    100908: pCylinder9
+    100910: Ledge 7
+    100912: Ledge49
+    100914: Ledge50
+    100916: Ledge51
+    100918: pCube145
+    100920: polySurface127
+    100922: polySurface128
+    100924: polySurface129
+    100926: polySurface131
+    100928: polySurface132
+    100930: transform67
+    100932: transform68
+    100934: transform69
+    100936: transform70
+    100938: right1
+    100940: Ledge52
+    100942: pCylinder11
+    100944: polySurface133
+    100946: polySurface134
+    100948: transform71
+    100950: curve1
+    100952: curve1 1
+    100954: curve1 2
+    100956: polySurface138
+    100958: polySurface139
+    100960: polySurface140
+    100962: box1
+    100964: HarshRedLight13
+    100966: Ledge53
+    100968: pCube146
+    100970: pCube147
+    100972: polySurface141
+    100974: polySurface142
+    100976: Rope4
+    100978: polySurface143
+    100980: polySurface144
+    100982: polySurface145
+    100984: polySurface146
+    100986: polySurface147
+    100988: polySurface148
+    100990: transform72
+    100992: transform73
+    100994: transform74
+    100996: curve1 3
+    100998: curve1 4
+    101000: curve1 5
+    101002: group10
+    101004: group11
+    101006: Ledge52 1
+    101008: Ledge54
+    101010: Ledge54 1
+    101012: Nadaeee
+    101014: pCylinder12
+    101016: polySurface138 1
+    101018: polySurface139 1
+    101020: polySurface140 1
+    101022: WallLedge3NoCamera
     400000: //RootNode
-    400002: group1
-    400004: group2
-    400006: group3
-    400008: group5
-    400010: group6
-    400012: group7
-    400014: group8
-    400016: Ledge
-    400018: Ledge1
-    400020: Ledge10
-    400022: Ledge11
-    400024: Ledge12
-    400026: Ledge13
-    400028: Ledge14
-    400030: Ledge15
-    400032: Ledge16
-    400034: Ledge17
-    400036: Ledge18
-    400038: Ledge19
-    400040: Ledge2
-    400042: Ledge20
-    400044: Ledge21
-    400046: Ledge22
-    400048: Ledge3
-    400050: Ledge4
-    400052: Ledge5
-    400054: Ledge6
-    400056: Ledge7
-    400058: Ledge8
-    400060: Ledge9
-    400062: pCube100
-    400064: pCube16
-    400066: pCube17
-    400068: pCube20
-    400070: pCube21
-    400072: pCube26
-    400074: pCube27
-    400076: pCube28
-    400078: pCube29
-    400080: pCube30
-    400082: pCube31
-    400084: pCube32
-    400086: pCube33
-    400088: pCube34
-    400090: pCube35
-    400092: pCube36
-    400094: pCube37
-    400096: pCube38
-    400098: pCube39
-    400100: pCube4
-    400102: pCube40
-    400104: pCube41
-    400106: pCube42
-    400108: pCube43
-    400110: pCube44
-    400112: pCube45
-    400114: pCube46
-    400116: pCube47
-    400118: pCube48
-    400120: pCube49
-    400122: pCube5
-    400124: pCube50
-    400126: pCube51
-    400128: pCube52
-    400130: pCube53
-    400132: pCube54
-    400134: pCube55
-    400136: pCube56
-    400138: pCube57
-    400140: pCube58
-    400142: pCube59
-    400144: pCube6
-    400146: pCube60
-    400148: pCube61
-    400150: pCube62
-    400152: pCube63
-    400154: pCube64
-    400156: pCube65
-    400158: pCube66
-    400160: pCube67
-    400162: pCube68
-    400164: pCube69
-    400166: pCube7
-    400168: pCube70
-    400170: pCube71
-    400172: pCube71 1
-    400174: pCube71 2
-    400176: pCube71 3
-    400178: pCube72
-    400180: pCube72 1
-    400182: pCube72 2
-    400184: pCube72 3
-    400186: pCube72 4
-    400188: pCube72 5
-    400190: pCube73
-    400192: pCube73 1
-    400194: pCube73 2
-    400196: pCube73 3
-    400198: pCube74
-    400200: pCube74 1
-    400202: pCube74 2
-    400204: pCube74 3
-    400206: pCube74 4
-    400208: pCube74 5
-    400210: pCube75
-    400212: pCube75 1
-    400214: pCube75 2
-    400216: pCube75 3
-    400218: pCube76
-    400220: pCube76 1
-    400222: pCube76 2
-    400224: pCube76 3
-    400226: pCube76 4
-    400228: pCube76 5
-    400230: pCube77
-    400232: pCube77 1
-    400234: pCube77 2
-    400236: pCube77 3
-    400238: pCube78
-    400240: pCube78 1
-    400242: pCube78 2
-    400244: pCube78 3
-    400246: pCube78 4
-    400248: pCube78 5
-    400250: pCube79
-    400252: pCube79 1
-    400254: pCube79 2
-    400256: pCube79 3
-    400258: pCube8
-    400260: pCube80
-    400262: pCube80 1
-    400264: pCube80 2
-    400266: pCube80 3
-    400268: pCube80 4
-    400270: pCube80 5
-    400272: pCube81
-    400274: pCube81 1
-    400276: pCube81 2
-    400278: pCube81 3
-    400280: pCube82
-    400282: pCube82 1
-    400284: pCube82 2
-    400286: pCube82 3
-    400288: pCube82 4
-    400290: pCube82 5
-    400292: pCube83
-    400294: pCube83 1
-    400296: pCube83 2
-    400298: pCube83 3
-    400300: pCube84
-    400302: pCube84 1
-    400304: pCube84 2
-    400306: pCube84 3
-    400308: pCube84 4
-    400310: pCube84 5
-    400312: pCube85
-    400314: pCube85 1
-    400316: pCube85 2
-    400318: pCube85 3
-    400320: pCube86
-    400322: pCube86 1
-    400324: pCube86 2
-    400326: pCube86 3
-    400328: pCube86 4
-    400330: pCube86 5
-    400332: pCube87
-    400334: pCube87 1
-    400336: pCube87 2
-    400338: pCube88
-    400340: pCube88 1
-    400342: pCube88 2
-    400344: pCube89
-    400346: pCube89 1
-    400348: pCube89 2
-    400350: pCube90
-    400352: pCube90 1
-    400354: pCube90 2
-    400356: pCube91
-    400358: pCube91 1
-    400360: pCube91 2
-    400362: pCube92
-    400364: pCube92 1
-    400366: pCube92 2
-    400368: pCube93
-    400370: pCube93 1
-    400372: pCube93 2
-    400374: pCube94
-    400376: pCube94 1
-    400378: pCube94 2
-    400380: pCube97
-    400382: pCube98
-    400384: pCube99
-    400386: pCylinder1
-    400388: pCylinder2
-    400390: pCylinder3
-    400392: polySurface1
-    400394: polySurface10
-    400396: polySurface13
-    400398: polySurface16
-    400400: polySurface19
-    400402: polySurface2
-    400404: polySurface20
-    400406: polySurface21
-    400408: polySurface22
-    400410: polySurface24
-    400412: polySurface26
-    400414: polySurface28
-    400416: polySurface3
-    400418: polySurface30
-    400420: polySurface32
-    400422: polySurface4
-    400424: polySurface5
-    400426: polySurface7
-    400428: polySurface8
-    400430: polySurface8 1
-    400432: polySurface8 2
-    400434: polySurface8 3
-    400436: pPlane1
-    400438: transform1
-    400440: transform10
-    400442: transform11
-    400444: transform12
-    400446: transform13
-    400448: transform14
-    400450: transform15
-    400452: transform16
-    400454: transform17
-    400456: transform18
-    400458: transform19
-    400460: transform2
-    400462: transform20
-    400464: transform21
-    400466: transform3
-    400468: transform4
-    400470: transform5
-    400472: transform6
-    400474: transform7
-    400476: transform8
-    400478: transform9
-    400480: Ledge23
-    400482: Ledge24
-    400484: Fixture
-    400486: Light
-    400488: LowLight
-    400490: pCube101
-    400492: transform22
-    400494: group9
-    400496: pCube102
-    400498: pCube103
-    400500: pCube104
-    400502: Ledge 1
-    400504: Ledge25
-    400506: Ledge26
-    400508: polySurface37
-    400510: transform23
-    400512: transform24
-    400514: Ledge 2
-    400516: Ledge 3
-    400518: polySurface39
-    400520: polySurface41
-    400522: transform25
-    400524: transform26
-    400526: ElevatorAnvilPark
-    400528: Lattice
-    400530: Lattice2
-    400532: Lattice3
-    400534: Lattice4
-    400536: Lattice5
-    400538: Ledge27
-    400540: Ledge28
-    400542: polySurface42
-    400544: polySurface43
-    400546: polySurface44
-    400548: polySurface45
-    400550: polySurface46
-    400552: polySurface47
-    400554: polySurface48
-    400556: polySurface49
-    400558: polySurface50
-    400560: polySurface51
-    400562: polySurface52
-    400564: polySurface53
-    400566: polySurface54
-    400568: polySurface55
-    400570: polySurface56
-    400572: polySurface57
-    400574: polySurface58
-    400576: polySurface59
-    400578: polySurface60
-    400580: polySurface61
-    400582: polySurface62
-    400584: polySurface63
-    400586: polySurface64
-    400588: polySurface65
-    400590: polySurface66
-    400592: polySurface67
-    400594: polySurface68
-    400596: polySurface69
-    400598: polySurface70
-    400600: polySurface71
-    400602: polySurface72
-    400604: polySurface73
-    400606: polySurface74
-    400608: polySurface75
-    400610: polySurface76
-    400612: transform27
-    400614: transform28
-    400616: transform29
-    400618: transform30
-    400620: transform31
-    400622: transform32
-    400624: transform33
-    400626: transform34
-    400628: transform35
-    400630: transform36
-    400632: transform37
-    400634: transform38
-    400636: AnvilPark
-    400638: Ledge 4
-    400640: polySurface78
-    400642: polySurface80
-    400644: Slantpart
-    400646: transform39
-    400648: transform40
-    400650: Vent
-    400652: Ledge 5
-    400654: polySurface82
-    400656: transform41
-    400658: Ledge29
-    400660: polySurface84
-    400662: transform42
-    400664: HarshRedLight
-    400666: HarshRedLight1
-    400668: HarshRedLight2
-    400670: HarshRedLight3
-    400672: HarshRedLight6
-    400674: directionalLight1
-    400676: HarshRedLight10
-    400678: HarshRedLight11
-    400680: HarshRedLight7
-    400682: HarshRedLight9
-    400684: Hook
-    400686: Hook1
-    400688: Hook2
-    400690: Ledge11 1
-    400692: Ledge11 2
-    400694: pCube105
-    400696: pCube106
-    400698: pCube107
-    400700: pCube108
-    400702: pointLight1
-    400704: pointLight2
-    400706: pointLight3
-    400708: pointLight4
-    400710: pointLight5
-    400712: pointLight6
-    400714: pointLight7
-    400716: pointLight8
-    400718: pointLight9
-    400720: polySurface85
-    400722: polySurface85 1
-    400724: polySurface85 2
-    400726: polySurface86
-    400728: polySurface86 1
-    400730: polySurface86 2
-    400732: transform43
-    400734: Ground
-    400736: Hooks
-    400738: Ledge30
-    400740: Ledge31
-    400742: Ledge32
-    400744: Ledge33
-    400746: Ledge34
-    400748: Ledge35
-    400750: polySurface88
-    400752: polySurface89
-    400754: polySurface90
-    400756: polySurface91
-    400758: polySurface92
-    400760: TopLeftLattice
-    400762: transform44
-    400764: polySurface93
-    400766: polySurface94
-    400768: transform45
-    400770: AboveBottomLedge
-    400772: ActualTower
-    400774: ArchLedge
-    400776: BottomLedge
-    400778: DoorInBack
-    400780: HoldsUpBridge
-    400782: HoldsUpBridge1
-    400784: HoldsUpBridge2
-    400786: HoldsUpBridge3
-    400788: HoldsUpBridge4
-    400790: HookBootom
-    400792: HookBootom1
-    400794: HookBootom2
-    400796: HookLedge
-    400798: HookLedge1
-    400800: HookLedge2
-    400802: HookRope
-    400804: HookRope1
-    400806: HookRope2
-    400808: Ledge36
-    400810: Ledge37
-    400812: LowerLedge
-    400814: LowerMIddleLedge
-    400816: RooftopLedge
-    400818: SlantedLedge
-    400820: StreetLight
-    400822: TheGround
-    400824: To_Be_Textured
-    2300000: Ledge
-    2300002: Ledge1
-    2300004: Ledge10
-    2300006: Ledge11
-    2300008: Ledge12
-    2300010: Ledge13
-    2300012: Ledge14
-    2300014: Ledge15
-    2300016: Ledge16
-    2300018: Ledge17
-    2300020: Ledge18
-    2300022: Ledge19
-    2300024: Ledge2
-    2300026: Ledge20
-    2300028: Ledge21
-    2300030: Ledge22
-    2300032: Ledge3
-    2300034: Ledge4
-    2300036: Ledge5
-    2300038: Ledge6
-    2300040: Ledge7
-    2300042: Ledge8
-    2300044: Ledge9
-    2300046: pCube100
-    2300048: pCube16
-    2300050: pCube20
-    2300052: pCube21
-    2300054: pCube26
-    2300056: pCube31
-    2300058: pCube32
-    2300060: pCube33
-    2300062: pCube34
-    2300064: pCube35
-    2300066: pCube36
-    2300068: pCube37
-    2300070: pCube38
-    2300072: pCube39
-    2300074: pCube4
-    2300076: pCube40
-    2300078: pCube41
-    2300080: pCube42
-    2300082: pCube43
-    2300084: pCube44
-    2300086: pCube45
-    2300088: pCube46
-    2300090: pCube47
-    2300092: pCube48
-    2300094: pCube49
-    2300096: pCube5
-    2300098: pCube50
-    2300100: pCube51
-    2300102: pCube52
-    2300104: pCube53
-    2300106: pCube54
-    2300108: pCube55
-    2300110: pCube56
-    2300112: pCube57
-    2300114: pCube58
-    2300116: pCube59
-    2300118: pCube6
-    2300120: pCube60
-    2300122: pCube61
-    2300124: pCube62
-    2300126: pCube63
-    2300128: pCube64
-    2300130: pCube65
-    2300132: pCube66
-    2300134: pCube67
-    2300136: pCube68
-    2300138: pCube69
-    2300140: pCube7
-    2300142: pCube70
-    2300144: pCube71
-    2300146: pCube71 1
-    2300148: pCube71 2
-    2300150: pCube71 3
-    2300152: pCube72
-    2300154: pCube72 1
-    2300156: pCube72 2
-    2300158: pCube72 3
-    2300160: pCube72 4
-    2300162: pCube72 5
-    2300164: pCube73
-    2300166: pCube73 1
-    2300168: pCube73 2
-    2300170: pCube73 3
-    2300172: pCube74
-    2300174: pCube74 1
-    2300176: pCube74 2
-    2300178: pCube74 3
-    2300180: pCube74 4
-    2300182: pCube74 5
-    2300184: pCube75
-    2300186: pCube75 1
-    2300188: pCube75 2
-    2300190: pCube75 3
-    2300192: pCube76
-    2300194: pCube76 1
-    2300196: pCube76 2
-    2300198: pCube76 3
-    2300200: pCube76 4
-    2300202: pCube76 5
-    2300204: pCube77
-    2300206: pCube77 1
-    2300208: pCube77 2
-    2300210: pCube77 3
-    2300212: pCube78
-    2300214: pCube78 1
-    2300216: pCube78 2
-    2300218: pCube78 3
-    2300220: pCube78 4
-    2300222: pCube78 5
-    2300224: pCube79
-    2300226: pCube79 1
-    2300228: pCube79 2
-    2300230: pCube79 3
-    2300232: pCube8
-    2300234: pCube80
-    2300236: pCube80 1
-    2300238: pCube80 2
-    2300240: pCube80 3
-    2300242: pCube80 4
-    2300244: pCube80 5
-    2300246: pCube81
-    2300248: pCube81 1
-    2300250: pCube81 2
-    2300252: pCube81 3
-    2300254: pCube82
-    2300256: pCube82 1
-    2300258: pCube82 2
-    2300260: pCube82 3
-    2300262: pCube82 4
-    2300264: pCube82 5
-    2300266: pCube83
-    2300268: pCube83 1
-    2300270: pCube83 2
-    2300272: pCube83 3
-    2300274: pCube84
-    2300276: pCube84 1
-    2300278: pCube84 2
-    2300280: pCube84 3
-    2300282: pCube84 4
-    2300284: pCube84 5
-    2300286: pCube85
-    2300288: pCube85 1
-    2300290: pCube85 2
-    2300292: pCube85 3
-    2300294: pCube86
-    2300296: pCube86 1
-    2300298: pCube86 2
-    2300300: pCube86 3
-    2300302: pCube86 4
-    2300304: pCube86 5
-    2300306: pCube87
-    2300308: pCube87 1
-    2300310: pCube87 2
-    2300312: pCube88
-    2300314: pCube88 1
-    2300316: pCube88 2
-    2300318: pCube89
-    2300320: pCube89 1
-    2300322: pCube89 2
-    2300324: pCube90
-    2300326: pCube90 1
-    2300328: pCube90 2
-    2300330: pCube91
-    2300332: pCube91 1
-    2300334: pCube91 2
-    2300336: pCube92
-    2300338: pCube92 1
-    2300340: pCube92 2
-    2300342: pCube93
-    2300344: pCube93 1
-    2300346: pCube93 2
-    2300348: pCube94
-    2300350: pCube94 1
-    2300352: pCube94 2
-    2300354: pCube98
-    2300356: pCube99
-    2300358: pCylinder1
-    2300360: pCylinder2
-    2300362: pCylinder3
-    2300364: polySurface1
-    2300366: polySurface10
-    2300368: polySurface13
-    2300370: polySurface16
-    2300372: polySurface19
-    2300374: polySurface2
-    2300376: polySurface20
-    2300378: polySurface21
-    2300380: polySurface22
-    2300382: polySurface24
-    2300384: polySurface26
-    2300386: polySurface28
-    2300388: polySurface3
-    2300390: polySurface30
-    2300392: polySurface32
-    2300394: polySurface4
-    2300396: polySurface5
-    2300398: polySurface8
-    2300400: polySurface8 1
-    2300402: polySurface8 2
-    2300404: polySurface8 3
-    2300406: pPlane1
-    2300408: Ledge23
-    2300410: Ledge24
-    2300412: Fixture
-    2300414: Light
-    2300416: pCube101
-    2300418: pCube102
-    2300420: pCube103
-    2300422: pCube104
-    2300424: Ledge 1
-    2300426: Ledge25
-    2300428: Ledge26
-    2300430: polySurface37
-    2300432: Ledge 2
-    2300434: Ledge 3
-    2300436: polySurface39
-    2300438: polySurface41
-    2300440: ElevatorAnvilPark
-    2300442: Ledge28
-    2300444: polySurface46
-    2300446: polySurface47
-    2300448: polySurface48
-    2300450: polySurface49
-    2300452: polySurface50
-    2300454: polySurface52
-    2300456: polySurface53
-    2300458: polySurface54
-    2300460: polySurface55
-    2300462: polySurface56
-    2300464: polySurface57
-    2300466: polySurface58
-    2300468: polySurface59
-    2300470: polySurface60
-    2300472: polySurface61
-    2300474: polySurface62
-    2300476: polySurface63
-    2300478: polySurface64
-    2300480: polySurface65
-    2300482: polySurface66
-    2300484: polySurface67
-    2300486: polySurface68
-    2300488: polySurface69
-    2300490: polySurface70
-    2300492: polySurface71
-    2300494: polySurface72
-    2300496: polySurface73
-    2300498: polySurface74
-    2300500: polySurface75
-    2300502: polySurface76
-    2300504: Ledge 4
-    2300506: polySurface78
-    2300508: polySurface80
-    2300510: Slantpart
-    2300512: Ledge 5
-    2300514: polySurface82
-    2300516: Ledge29
-    2300518: polySurface84
-    2300520: HarshRedLight
-    2300522: HarshRedLight1
-    2300524: HarshRedLight2
-    2300526: HarshRedLight3
-    2300528: HarshRedLight6
-    2300530: HarshRedLight10
-    2300532: HarshRedLight11
-    2300534: HarshRedLight7
-    2300536: HarshRedLight9
-    2300538: Ledge11 1
-    2300540: Ledge11 2
-    2300542: pCube105
-    2300544: pCube106
-    2300546: pCube107
-    2300548: pCube108
-    2300550: polySurface85
-    2300552: polySurface85 1
-    2300554: polySurface85 2
-    2300556: polySurface86
-    2300558: polySurface86 1
-    2300560: polySurface86 2
-    2300562: Ground
-    2300564: Ledge30
-    2300566: Ledge31
-    2300568: Ledge32
-    2300570: Ledge33
-    2300572: Ledge34
-    2300574: Ledge35
-    2300576: polySurface88
-    2300578: polySurface89
-    2300580: polySurface90
-    2300582: polySurface91
-    2300584: polySurface92
-    2300586: polySurface93
-    2300588: polySurface94
-    2300590: AboveBottomLedge
-    2300592: ActualTower
-    2300594: ArchLedge
-    2300596: BottomLedge
-    2300598: DoorInBack
-    2300600: HoldsUpBridge
-    2300602: HoldsUpBridge1
-    2300604: HoldsUpBridge2
-    2300606: HoldsUpBridge3
-    2300608: HoldsUpBridge4
-    2300610: HookBootom
-    2300612: HookBootom1
-    2300614: HookBootom2
-    2300616: HookLedge
-    2300618: HookLedge1
-    2300620: HookLedge2
-    2300622: HookRope
-    2300624: HookRope1
-    2300626: HookRope2
-    2300628: Ledge36
-    2300630: Ledge37
-    2300632: LowerLedge
-    2300634: LowerMIddleLedge
-    2300636: RooftopLedge
-    2300638: SlantedLedge
-    2300640: TheGround
-    3300000: Ledge
-    3300002: Ledge1
-    3300004: Ledge10
-    3300006: Ledge11
-    3300008: Ledge12
-    3300010: Ledge13
-    3300012: Ledge14
-    3300014: Ledge15
-    3300016: Ledge16
-    3300018: Ledge17
-    3300020: Ledge18
-    3300022: Ledge19
-    3300024: Ledge2
-    3300026: Ledge20
-    3300028: Ledge21
-    3300030: Ledge22
-    3300032: Ledge3
-    3300034: Ledge4
-    3300036: Ledge5
-    3300038: Ledge6
-    3300040: Ledge7
-    3300042: Ledge8
-    3300044: Ledge9
-    3300046: pCube100
-    3300048: pCube16
-    3300050: pCube20
-    3300052: pCube21
-    3300054: pCube26
-    3300056: pCube31
-    3300058: pCube32
-    3300060: pCube33
-    3300062: pCube34
-    3300064: pCube35
-    3300066: pCube36
-    3300068: pCube37
-    3300070: pCube38
-    3300072: pCube39
-    3300074: pCube4
-    3300076: pCube40
-    3300078: pCube41
-    3300080: pCube42
-    3300082: pCube43
-    3300084: pCube44
-    3300086: pCube45
-    3300088: pCube46
-    3300090: pCube47
-    3300092: pCube48
-    3300094: pCube49
-    3300096: pCube5
-    3300098: pCube50
-    3300100: pCube51
-    3300102: pCube52
-    3300104: pCube53
-    3300106: pCube54
-    3300108: pCube55
-    3300110: pCube56
-    3300112: pCube57
-    3300114: pCube58
-    3300116: pCube59
-    3300118: pCube6
-    3300120: pCube60
-    3300122: pCube61
-    3300124: pCube62
-    3300126: pCube63
-    3300128: pCube64
-    3300130: pCube65
-    3300132: pCube66
-    3300134: pCube67
-    3300136: pCube68
-    3300138: pCube69
-    3300140: pCube7
-    3300142: pCube70
-    3300144: pCube71
-    3300146: pCube71 1
-    3300148: pCube71 2
-    3300150: pCube71 3
-    3300152: pCube72
-    3300154: pCube72 1
-    3300156: pCube72 2
-    3300158: pCube72 3
-    3300160: pCube72 4
-    3300162: pCube72 5
-    3300164: pCube73
-    3300166: pCube73 1
-    3300168: pCube73 2
-    3300170: pCube73 3
-    3300172: pCube74
-    3300174: pCube74 1
-    3300176: pCube74 2
-    3300178: pCube74 3
-    3300180: pCube74 4
-    3300182: pCube74 5
-    3300184: pCube75
-    3300186: pCube75 1
-    3300188: pCube75 2
-    3300190: pCube75 3
-    3300192: pCube76
-    3300194: pCube76 1
-    3300196: pCube76 2
-    3300198: pCube76 3
-    3300200: pCube76 4
-    3300202: pCube76 5
-    3300204: pCube77
-    3300206: pCube77 1
-    3300208: pCube77 2
-    3300210: pCube77 3
-    3300212: pCube78
-    3300214: pCube78 1
-    3300216: pCube78 2
-    3300218: pCube78 3
-    3300220: pCube78 4
-    3300222: pCube78 5
-    3300224: pCube79
-    3300226: pCube79 1
-    3300228: pCube79 2
-    3300230: pCube79 3
-    3300232: pCube8
-    3300234: pCube80
-    3300236: pCube80 1
-    3300238: pCube80 2
-    3300240: pCube80 3
-    3300242: pCube80 4
-    3300244: pCube80 5
-    3300246: pCube81
-    3300248: pCube81 1
-    3300250: pCube81 2
-    3300252: pCube81 3
-    3300254: pCube82
-    3300256: pCube82 1
-    3300258: pCube82 2
-    3300260: pCube82 3
-    3300262: pCube82 4
-    3300264: pCube82 5
-    3300266: pCube83
-    3300268: pCube83 1
-    3300270: pCube83 2
-    3300272: pCube83 3
-    3300274: pCube84
-    3300276: pCube84 1
-    3300278: pCube84 2
-    3300280: pCube84 3
-    3300282: pCube84 4
-    3300284: pCube84 5
-    3300286: pCube85
-    3300288: pCube85 1
-    3300290: pCube85 2
-    3300292: pCube85 3
-    3300294: pCube86
-    3300296: pCube86 1
-    3300298: pCube86 2
-    3300300: pCube86 3
-    3300302: pCube86 4
-    3300304: pCube86 5
-    3300306: pCube87
-    3300308: pCube87 1
-    3300310: pCube87 2
-    3300312: pCube88
-    3300314: pCube88 1
-    3300316: pCube88 2
-    3300318: pCube89
-    3300320: pCube89 1
-    3300322: pCube89 2
-    3300324: pCube90
-    3300326: pCube90 1
-    3300328: pCube90 2
-    3300330: pCube91
-    3300332: pCube91 1
-    3300334: pCube91 2
-    3300336: pCube92
-    3300338: pCube92 1
-    3300340: pCube92 2
-    3300342: pCube93
-    3300344: pCube93 1
-    3300346: pCube93 2
-    3300348: pCube94
-    3300350: pCube94 1
-    3300352: pCube94 2
-    3300354: pCube98
-    3300356: pCube99
-    3300358: pCylinder1
-    3300360: pCylinder2
-    3300362: pCylinder3
-    3300364: polySurface1
-    3300366: polySurface10
-    3300368: polySurface13
-    3300370: polySurface16
-    3300372: polySurface19
-    3300374: polySurface2
-    3300376: polySurface20
-    3300378: polySurface21
-    3300380: polySurface22
-    3300382: polySurface24
-    3300384: polySurface26
-    3300386: polySurface28
-    3300388: polySurface3
-    3300390: polySurface30
-    3300392: polySurface32
-    3300394: polySurface4
-    3300396: polySurface5
-    3300398: polySurface8
-    3300400: polySurface8 1
-    3300402: polySurface8 2
-    3300404: polySurface8 3
-    3300406: pPlane1
-    3300408: Ledge23
-    3300410: Ledge24
-    3300412: Fixture
-    3300414: Light
-    3300416: pCube101
-    3300418: pCube102
-    3300420: pCube103
-    3300422: pCube104
-    3300424: Ledge 1
-    3300426: Ledge25
-    3300428: Ledge26
-    3300430: polySurface37
-    3300432: Ledge 2
-    3300434: Ledge 3
-    3300436: polySurface39
-    3300438: polySurface41
-    3300440: ElevatorAnvilPark
-    3300442: Ledge28
-    3300444: polySurface46
-    3300446: polySurface47
-    3300448: polySurface48
-    3300450: polySurface49
-    3300452: polySurface50
-    3300454: polySurface52
-    3300456: polySurface53
-    3300458: polySurface54
-    3300460: polySurface55
-    3300462: polySurface56
-    3300464: polySurface57
-    3300466: polySurface58
-    3300468: polySurface59
-    3300470: polySurface60
-    3300472: polySurface61
-    3300474: polySurface62
-    3300476: polySurface63
-    3300478: polySurface64
-    3300480: polySurface65
-    3300482: polySurface66
-    3300484: polySurface67
-    3300486: polySurface68
-    3300488: polySurface69
-    3300490: polySurface70
-    3300492: polySurface71
-    3300494: polySurface72
-    3300496: polySurface73
-    3300498: polySurface74
-    3300500: polySurface75
-    3300502: polySurface76
-    3300504: Ledge 4
-    3300506: polySurface78
-    3300508: polySurface80
-    3300510: Slantpart
-    3300512: Ledge 5
-    3300514: polySurface82
-    3300516: Ledge29
-    3300518: polySurface84
-    3300520: HarshRedLight
-    3300522: HarshRedLight1
-    3300524: HarshRedLight2
-    3300526: HarshRedLight3
-    3300528: HarshRedLight6
-    3300530: HarshRedLight10
-    3300532: HarshRedLight11
-    3300534: HarshRedLight7
-    3300536: HarshRedLight9
-    3300538: Ledge11 1
-    3300540: Ledge11 2
-    3300542: pCube105
-    3300544: pCube106
-    3300546: pCube107
-    3300548: pCube108
-    3300550: polySurface85
-    3300552: polySurface85 1
-    3300554: polySurface85 2
-    3300556: polySurface86
-    3300558: polySurface86 1
-    3300560: polySurface86 2
-    3300562: Ground
-    3300564: Ledge30
-    3300566: Ledge31
-    3300568: Ledge32
-    3300570: Ledge33
-    3300572: Ledge34
-    3300574: Ledge35
-    3300576: polySurface88
-    3300578: polySurface89
-    3300580: polySurface90
-    3300582: polySurface91
-    3300584: polySurface92
-    3300586: polySurface93
-    3300588: polySurface94
-    3300590: AboveBottomLedge
-    3300592: ActualTower
-    3300594: ArchLedge
-    3300596: BottomLedge
-    3300598: DoorInBack
-    3300600: HoldsUpBridge
-    3300602: HoldsUpBridge1
-    3300604: HoldsUpBridge2
-    3300606: HoldsUpBridge3
-    3300608: HoldsUpBridge4
-    3300610: HookBootom
-    3300612: HookBootom1
-    3300614: HookBootom2
-    3300616: HookLedge
-    3300618: HookLedge1
-    3300620: HookLedge2
-    3300622: HookRope
-    3300624: HookRope1
-    3300626: HookRope2
-    3300628: Ledge36
-    3300630: Ledge37
-    3300632: LowerLedge
-    3300634: LowerMIddleLedge
-    3300636: RooftopLedge
-    3300638: SlantedLedge
-    3300640: TheGround
-    4300000: pPlane1
-    4300002: pCube4
-    4300004: pCube5
-    4300006: pCube6
-    4300008: pCube7
-    4300010: pCube8
-    4300012: Ledge7
-    4300014: Ledge8
-    4300016: Ledge9
-    4300018: Ledge10
-    4300020: pCube16
-    4300022: pCube20
-    4300024: pCube21
-    4300026: Ledge18
-    4300028: Ledge17
-    4300030: pCube26
-    4300032: pCylinder1
-    4300034: pCylinder2
-    4300036: pCylinder3
-    4300038: pCube31
-    4300040: pCube32
-    4300042: pCube33
-    4300044: pCube34
-    4300046: pCube35
-    4300048: pCube36
-    4300050: pCube37
-    4300052: pCube38
-    4300054: pCube39
-    4300056: pCube40
-    4300058: pCube41
-    4300060: pCube42
-    4300062: pCube43
-    4300064: pCube44
-    4300066: pCube45
-    4300068: pCube46
-    4300070: pCube71
-    4300072: pCube72
-    4300074: pCube73
-    4300076: pCube74
-    4300078: pCube75
-    4300080: pCube76
-    4300082: pCube77
-    4300084: pCube78
-    4300086: pCube79
-    4300088: pCube80
-    4300090: pCube81
-    4300092: pCube82
-    4300094: pCube83
-    4300096: pCube84
-    4300098: pCube85
-    4300100: pCube86
-    4300102: polySurface8
-    4300104: pCube87
-    4300106: pCube88
-    4300108: pCube89
-    4300110: pCube90
-    4300112: pCube91
-    4300114: pCube92
-    4300116: pCube93
-    4300118: pCube94
-    4300120: pCube71
-    4300122: pCube72
-    4300124: pCube73
-    4300126: pCube74
-    4300128: pCube75
-    4300130: pCube76
-    4300132: pCube77
-    4300134: pCube78
-    4300136: pCube79
-    4300138: pCube80
-    4300140: pCube81
-    4300142: pCube82
-    4300144: pCube83
-    4300146: pCube84
-    4300148: pCube85
-    4300150: pCube86
-    4300152: polySurface8
-    4300154: pCube87
-    4300156: pCube88
-    4300158: pCube89
-    4300160: pCube90
-    4300162: pCube91
-    4300164: pCube92
-    4300166: pCube93
-    4300168: pCube94
-    4300170: pCube71
-    4300172: pCube73
-    4300174: pCube75
-    4300176: pCube77
-    4300178: pCube79
-    4300180: pCube81
-    4300182: pCube83
-    4300184: pCube85
-    4300186: polySurface8
-    4300188: pCube72
-    4300190: pCube74
-    4300192: pCube76
-    4300194: pCube78
-    4300196: pCube80
-    4300198: pCube82
-    4300200: pCube84
-    4300202: pCube86
-    4300204: pCube72
-    4300206: pCube74
-    4300208: pCube76
-    4300210: pCube78
-    4300212: pCube80
-    4300214: pCube82
-    4300216: pCube84
-    4300218: pCube86
-    4300220: pCube72
-    4300222: pCube74
-    4300224: pCube76
-    4300226: pCube78
-    4300228: pCube80
-    4300230: pCube82
-    4300232: pCube84
-    4300234: pCube86
-    4300236: Ledge14
-    4300238: Ledge16
-    4300240: pCube98
-    4300242: pCube99
-    4300244: pCube100
-    4300246: pCube71
-    4300248: pCube72
-    4300250: pCube73
-    4300252: pCube74
-    4300254: pCube75
-    4300256: pCube76
-    4300258: pCube77
-    4300260: pCube78
-    4300262: pCube79
-    4300264: pCube80
-    4300266: pCube81
-    4300268: pCube82
-    4300270: pCube83
-    4300272: pCube84
-    4300274: pCube85
-    4300276: pCube86
-    4300278: polySurface8
-    4300280: pCube87
-    4300282: pCube88
-    4300284: pCube89
-    4300286: pCube90
-    4300288: pCube91
-    4300290: pCube92
-    4300292: pCube93
-    4300294: pCube94
-    4300296: Ledge
-    4300298: polySurface10
-    4300300: Ledge1
-    4300302: polySurface13
-    4300304: Ledge2
-    4300306: Ledge3
-    4300308: Ledge4
-    4300310: polySurface16
-    4300312: Ledge5
-    4300314: polySurface3
-    4300316: polySurface4
-    4300318: polySurface5
-    4300320: polySurface1
-    4300322: polySurface2
-    4300324: polySurface19
-    4300326: Ledge6
-    4300328: polySurface20
-    4300330: Ledge11
-    4300332: polySurface21
-    4300334: Ledge12
-    4300336: polySurface22
-    4300338: Ledge13
-    4300340: pCube47
-    4300342: pCube48
-    4300344: pCube49
-    4300346: pCube50
-    4300348: pCube51
-    4300350: pCube52
-    4300352: pCube53
-    4300354: pCube54
-    4300356: pCube55
-    4300358: pCube56
-    4300360: pCube57
-    4300362: pCube58
-    4300364: pCube59
-    4300366: pCube60
-    4300368: pCube61
-    4300370: pCube62
-    4300372: pCube63
-    4300374: pCube64
-    4300376: pCube65
-    4300378: pCube66
-    4300380: pCube67
-    4300382: pCube68
-    4300384: pCube69
-    4300386: pCube70
-    4300388: Ledge15
-    4300390: polySurface24
-    4300392: Ledge19
-    4300394: polySurface26
-    4300396: Ledge20
-    4300398: polySurface28
-    4300400: Ledge21
-    4300402: polySurface30
-    4300404: Ledge22
-    4300406: polySurface32
-    4300408: Ledge23
-    4300410: Ledge24
-    4300412: pCube101
-    4300414: Fixture
-    4300416: Light
-    4300418: pCube102
-    4300420: pCube103
-    4300422: pCube104
-    4300424: Ledge
-    4300426: Ledge25
-    4300428: Ledge26
-    4300430: polySurface37
-    4300432: polySurface41
-    4300434: Ledge
-    4300436: Ledge
-    4300438: polySurface39
-    4300440: polySurface53
-    4300442: polySurface54
-    4300444: polySurface55
-    4300446: polySurface56
-    4300448: polySurface57
-    4300450: polySurface58
-    4300452: polySurface59
-    4300454: polySurface62
-    4300456: polySurface63
-    4300458: polySurface64
-    4300460: polySurface65
-    4300462: polySurface66
+    400002: AnvilPark
+    400004: directionalLight1
+    400006: Elevator
+    400008: Fixture
+    400010: Ground
+    400012: Ground1
+    400014: GroundMesh
+    400016: group3
+    400018: group6
+    400020: group7
+    400022: group8
+    400024: group9
+    400026: HarshRedLight
+    400028: HarshRedLight1
+    400030: HarshRedLight10
+    400032: HarshRedLight11
+    400034: HarshRedLight2
+    400036: HarshRedLight3
+    400038: HarshRedLight6
+    400040: HarshRedLight7
+    400042: HarshRedLight9
+    400044: Hook
+    400046: Hook1
+    400048: Hook2
+    400050: Hooks
+    400052: Lattice
+    400054: Lattice2
+    400056: Lattice3
+    400058: Lattice4
+    400060: Lattice5
+    400062: Lattices
+    400064: Ledge
+    400066: Ledge 1
+    400068: Ledge 2
+    400070: Ledge 3
+    400072: Ledge 4
+    400074: Ledge 5
+    400076: Ledge 6
+    400078: Ledge10
+    400080: Ledge11
+    400082: Ledge14
+    400084: Ledge15
+    400086: Ledge17
+    400088: Ledge19
+    400090: Ledge2
+    400092: Ledge21
+    400094: Ledge22
+    400096: Ledge23
+    400098: Ledge27
+    400100: Ledge29
+    400102: Ledge3
+    400104: Ledge30
+    400106: Ledge31
+    400108: Ledge32
+    400110: Ledge33
+    400112: Ledge34
+    400114: Ledge35
+    400116: Ledge36
+    400118: Ledge38
+    400120: Ledge4
+    400122: Ledge41
+    400124: Ledge47
+    400126: Ledge48
+    400128: Ledge5
+    400130: Ledge9
+    400132: LedgeLeftOnly
+    400134: LedgeLeftOnly 1
+    400136: LedgeLeftOnly 2
+    400138: LedgeLeftOnly 3
+    400140: LedgeRight
+    400142: LedgeRightOnly
+    400144: LedgeRightOnly 1
+    400146: LedgeWall
+    400148: Light
+    400150: LowLight
+    400152: Mesh
+    400154: mesh
+    400156: Mesh 1
+    400158: Mesh 2
+    400160: Mesh 3
+    400162: Mesh 4
+    400164: Mesh1
+    400166: Nada
+    400168: Nada1
+    400170: pCube100
+    400172: pCube101
+    400174: pCube102
+    400176: pCube103
+    400178: pCube104
+    400180: pCube105
+    400182: pCube106
+    400184: pCube107
+    400186: pCube108
+    400188: pCube109
+    400190: pCube110
+    400192: pCube111
+    400194: pCube112
+    400196: pCube113
+    400198: pCube114
+    400200: pCube115
+    400202: pCube116
+    400204: pCube117
+    400206: pCube118
+    400208: pCube119
+    400210: pCube120
+    400212: pCube121
+    400214: pCube122
+    400216: pCube123
+    400218: pCube124
+    400220: pCube125
+    400222: pCube126
+    400224: pCube127
+    400226: pCube128
+    400228: pCube129
+    400230: pCube130
+    400232: pCube131
+    400234: pCube132
+    400236: pCube136
+    400238: pCube137
+    400240: pCube138
+    400242: pCube139
+    400244: pCube140
+    400246: pCube141
+    400248: pCube142
+    400250: pCube17
+    400252: pCube26
+    400254: pCube27
+    400256: pCube28
+    400258: pCube29
+    400260: pCube30
+    400262: pCube31
+    400264: pCube32
+    400266: pCube33
+    400268: pCube34
+    400270: pCube35
+    400272: pCube36
+    400274: pCube39
+    400276: pCube4
+    400278: pCube40
+    400280: pCube41
+    400282: pCube42
+    400284: pCube43
+    400286: pCube44
+    400288: pCube47
+    400290: pCube48
+    400292: pCube49
+    400294: pCube50
+    400296: pCube51
+    400298: pCube52
+    400300: pCube53
+    400302: pCube54
+    400304: pCube55
+    400306: pCube56
+    400308: pCube57
+    400310: pCube58
+    400312: pCube59
+    400314: pCube60
+    400316: pCube61
+    400318: pCube62
+    400320: pCube63
+    400322: pCube64
+    400324: pCube65
+    400326: pCube66
+    400328: pCube67
+    400330: pCube68
+    400332: pCube69
+    400334: pCube70
+    400336: pCube71
+    400338: pCube71 1
+    400340: pCube71 2
+    400342: pCube71 3
+    400344: pCube72
+    400346: pCube72 1
+    400348: pCube72 2
+    400350: pCube72 3
+    400352: pCube72 4
+    400354: pCube72 5
+    400356: pCube73
+    400358: pCube73 1
+    400360: pCube73 2
+    400362: pCube73 3
+    400364: pCube74
+    400366: pCube74 1
+    400368: pCube74 2
+    400370: pCube74 3
+    400372: pCube74 4
+    400374: pCube74 5
+    400376: pCube75
+    400378: pCube75 1
+    400380: pCube75 2
+    400382: pCube76
+    400384: pCube76 1
+    400386: pCube76 2
+    400388: pCube76 3
+    400390: pCube76 4
+    400392: pCube77
+    400394: pCube77 1
+    400396: pCube77 2
+    400398: pCube78
+    400400: pCube78 1
+    400402: pCube78 2
+    400404: pCube78 3
+    400406: pCube78 4
+    400408: pCube79
+    400410: pCube79 1
+    400412: pCube79 2
+    400414: pCube79 3
+    400416: pCube80
+    400418: pCube80 1
+    400420: pCube80 2
+    400422: pCube80 3
+    400424: pCube80 4
+    400426: pCube80 5
+    400428: pCube81
+    400430: pCube81 1
+    400432: pCube81 2
+    400434: pCube81 3
+    400436: pCube82
+    400438: pCube82 1
+    400440: pCube82 2
+    400442: pCube82 3
+    400444: pCube82 4
+    400446: pCube82 5
+    400448: pCube83
+    400450: pCube83 1
+    400452: pCube83 2
+    400454: pCube84
+    400456: pCube84 1
+    400458: pCube84 2
+    400460: pCube84 3
+    400462: pCube84 4
+    400464: pCube85
+    400466: pCube85 1
+    400468: pCube85 2
+    400470: pCube86
+    400472: pCube86 1
+    400474: pCube86 2
+    400476: pCube86 3
+    400478: pCube86 4
+    400480: pCube87
+    400482: pCube87 1
+    400484: pCube88
+    400486: pCube88 1
+    400488: pCube89
+    400490: pCube89 1
+    400492: pCube90
+    400494: pCube90 1
+    400496: pCube91
+    400498: pCube91 1
+    400500: pCube91 2
+    400502: pCube92
+    400504: pCube92 1
+    400506: pCube92 2
+    400508: pCube93
+    400510: pCube93 1
+    400512: pCube93 2
+    400514: pCube94
+    400516: pCube94 1
+    400518: pCube94 2
+    400520: pCube97
+    400522: pCube98
+    400524: pCube99
+    400526: pCylinder3
+    400528: pCylinder4
+    400530: pCylinder5
+    400532: pCylinder7
+    400534: pointLight1
+    400536: pointLight2
+    400538: pointLight3
+    400540: pointLight4
+    400542: pointLight5
+    400544: pointLight6
+    400546: pointLight7
+    400548: pointLight8
+    400550: pointLight9
+    400552: polySurface10
+    400554: polySurface100
+    400556: polySurface101
+    400558: polySurface102
+    400560: polySurface104
+    400562: polySurface106
+    400564: polySurface107
+    400566: polySurface108
+    400568: polySurface109
+    400570: polySurface110
+    400572: polySurface111
+    400574: polySurface112
+    400576: polySurface113
+    400578: polySurface114
+    400580: polySurface115
+    400582: polySurface116
+    400584: polySurface117
+    400586: polySurface118
+    400588: polySurface119
+    400590: polySurface120
+    400592: polySurface121
+    400594: polySurface122
+    400596: polySurface124
+    400598: polySurface13
+    400600: polySurface16
+    400602: polySurface2
+    400604: polySurface20
+    400606: polySurface24
+    400608: polySurface26
+    400610: polySurface28
+    400612: polySurface3
+    400614: polySurface30
+    400616: polySurface32
+    400618: polySurface37
+    400620: polySurface39
+    400622: polySurface4
+    400624: polySurface41
+    400626: polySurface42
+    400628: polySurface43
+    400630: polySurface44
+    400632: polySurface45
+    400634: polySurface46
+    400636: polySurface47
+    400638: polySurface48
+    400640: polySurface5
+    400642: polySurface50
+    400644: polySurface51
+    400646: polySurface52
+    400648: polySurface53
+    400650: polySurface54
+    400652: polySurface55
+    400654: polySurface56
+    400656: polySurface57
+    400658: polySurface58
+    400660: polySurface59
+    400662: polySurface60
+    400664: polySurface61
+    400666: polySurface62
+    400668: polySurface63
+    400670: polySurface64
+    400672: polySurface65
+    400674: polySurface66
+    400676: polySurface67
+    400678: polySurface68
+    400680: polySurface69
+    400682: polySurface7
+    400684: polySurface70
+    400686: polySurface71
+    400688: polySurface72
+    400690: polySurface74
+    400692: polySurface75
+    400694: polySurface76
+    400696: polySurface78
+    400698: polySurface8
+    400700: polySurface8 1
+    400702: polySurface8 2
+    400704: polySurface80
+    400706: polySurface82
+    400708: polySurface84
+    400710: polySurface85
+    400712: polySurface86
+    400714: polySurface88
+    400716: polySurface89
+    400718: polySurface90
+    400720: polySurface91
+    400722: polySurface92
+    400724: polySurface93
+    400726: polySurface95
+    400728: polySurface97
+    400730: polySurface98
+    400732: polySurface99
+    400734: Rope
+    400736: Rope1
+    400738: Rope2
+    400740: Rope3
+    400742: TopLeftLattice
+    400744: transform1
+    400746: transform10
+    400748: transform11
+    400750: transform12
+    400752: transform13
+    400754: transform14
+    400756: transform15
+    400758: transform16
+    400760: transform17
+    400762: transform18
+    400764: transform19
+    400766: transform2
+    400768: transform20
+    400770: transform21
+    400772: transform22
+    400774: transform23
+    400776: transform24
+    400778: transform25
+    400780: transform26
+    400782: transform27
+    400784: transform28
+    400786: transform29
+    400788: transform3
+    400790: transform30
+    400792: transform31
+    400794: transform32
+    400796: transform33
+    400798: transform34
+    400800: transform35
+    400802: transform36
+    400804: transform37
+    400806: transform38
+    400808: transform39
+    400810: transform4
+    400812: transform40
+    400814: transform41
+    400816: transform42
+    400818: transform43
+    400820: transform44
+    400822: transform45
+    400824: transform48
+    400826: transform49
+    400828: transform5
+    400830: transform50
+    400832: transform51
+    400834: transform52
+    400836: transform53
+    400838: transform54
+    400840: transform55
+    400842: transform56
+    400844: transform57
+    400846: transform58
+    400848: transform59
+    400850: transform6
+    400852: transform60
+    400854: transform61
+    400856: transform62
+    400858: transform63
+    400860: transform64
+    400862: transform65
+    400864: transform7
+    400866: transform8
+    400868: transform9
+    400870: Vent
+    400872: Wall
+    400874: Wall 1
+    400876: WallLedge
+    400878: WallLedge 1
+    400880: WallLedge 2
+    400882: WallLedge 3
+    400884: WallLedge1
+    400886: WallLedge3
+    400888: WallLedge4
+    400890: WallLedge5
+    400892: polySurface125
+    400894: polySurface126
+    400896: transform66
+    400898: Nada 1
+    400900: pCube143
+    400902: pCube144
+    400904: pCylinder10
+    400906: pCylinder8
+    400908: pCylinder9
+    400910: Ledge 7
+    400912: Ledge49
+    400914: Ledge50
+    400916: Ledge51
+    400918: pCube145
+    400920: polySurface127
+    400922: polySurface128
+    400924: polySurface129
+    400926: polySurface131
+    400928: polySurface132
+    400930: transform67
+    400932: transform68
+    400934: transform69
+    400936: transform70
+    400938: right1
+    400940: Ledge52
+    400942: pCylinder11
+    400944: polySurface133
+    400946: polySurface134
+    400948: transform71
+    400950: curve1
+    400952: curve1 1
+    400954: curve1 2
+    400956: polySurface138
+    400958: polySurface139
+    400960: polySurface140
+    400962: box1
+    400964: HarshRedLight13
+    400966: Ledge53
+    400968: pCube146
+    400970: pCube147
+    400972: polySurface141
+    400974: polySurface142
+    400976: Rope4
+    400978: polySurface143
+    400980: polySurface144
+    400982: polySurface145
+    400984: polySurface146
+    400986: polySurface147
+    400988: polySurface148
+    400990: transform72
+    400992: transform73
+    400994: transform74
+    400996: curve1 3
+    400998: curve1 4
+    401000: curve1 5
+    401002: group10
+    401004: group11
+    401006: Ledge52 1
+    401008: Ledge54
+    401010: Ledge54 1
+    401012: Nadaeee
+    401014: pCylinder12
+    401016: polySurface138 1
+    401018: polySurface139 1
+    401020: polySurface140 1
+    401022: WallLedge3NoCamera
+    2300000: Fixture
+    2300002: Ground
+    2300004: Ground1
+    2300006: HarshRedLight
+    2300008: HarshRedLight1
+    2300010: HarshRedLight10
+    2300012: HarshRedLight11
+    2300014: HarshRedLight2
+    2300016: HarshRedLight3
+    2300018: HarshRedLight6
+    2300020: HarshRedLight7
+    2300022: HarshRedLight9
+    2300024: Ledge
+    2300026: Ledge 1
+    2300028: Ledge 2
+    2300030: Ledge 3
+    2300032: Ledge 4
+    2300034: Ledge 5
+    2300036: Ledge 6
+    2300038: Ledge10
+    2300040: Ledge11
+    2300042: Ledge14
+    2300044: Ledge15
+    2300046: Ledge17
+    2300048: Ledge19
+    2300050: Ledge2
+    2300052: Ledge22
+    2300054: Ledge23
+    2300056: Ledge29
+    2300058: Ledge3
+    2300060: Ledge30
+    2300062: Ledge31
+    2300064: Ledge32
+    2300066: Ledge33
+    2300068: Ledge34
+    2300070: Ledge35
+    2300072: Ledge4
+    2300074: Ledge41
+    2300076: Ledge47
+    2300078: Ledge48
+    2300080: Ledge5
+    2300082: LedgeLeftOnly
+    2300084: LedgeLeftOnly 1
+    2300086: LedgeLeftOnly 2
+    2300088: LedgeLeftOnly 3
+    2300090: LedgeRight
+    2300092: LedgeRightOnly
+    2300094: LedgeRightOnly 1
+    2300096: LedgeWall
+    2300098: Light
+    2300100: Mesh
+    2300102: Mesh 1
+    2300104: Mesh 2
+    2300106: Mesh 3
+    2300108: Mesh 4
+    2300110: Nada
+    2300112: pCube100
+    2300114: pCube101
+    2300116: pCube102
+    2300118: pCube103
+    2300120: pCube104
+    2300122: pCube105
+    2300124: pCube106
+    2300126: pCube107
+    2300128: pCube108
+    2300130: pCube109
+    2300132: pCube110
+    2300134: pCube111
+    2300136: pCube112
+    2300138: pCube113
+    2300140: pCube114
+    2300142: pCube115
+    2300144: pCube116
+    2300146: pCube117
+    2300148: pCube118
+    2300150: pCube119
+    2300152: pCube120
+    2300154: pCube122
+    2300156: pCube123
+    2300158: pCube124
+    2300160: pCube125
+    2300162: pCube126
+    2300164: pCube127
+    2300166: pCube128
+    2300168: pCube129
+    2300170: pCube130
+    2300172: pCube131
+    2300174: pCube132
+    2300176: pCube136
+    2300178: pCube137
+    2300180: pCube138
+    2300182: pCube139
+    2300184: pCube140
+    2300186: pCube141
+    2300188: pCube142
+    2300190: pCube26
+    2300192: pCube31
+    2300194: pCube32
+    2300196: pCube33
+    2300198: pCube34
+    2300200: pCube35
+    2300202: pCube36
+    2300204: pCube39
+    2300206: pCube4
+    2300208: pCube40
+    2300210: pCube41
+    2300212: pCube42
+    2300214: pCube43
+    2300216: pCube44
+    2300218: pCube47
+    2300220: pCube48
+    2300222: pCube49
+    2300224: pCube50
+    2300226: pCube51
+    2300228: pCube52
+    2300230: pCube53
+    2300232: pCube54
+    2300234: pCube55
+    2300236: pCube56
+    2300238: pCube57
+    2300240: pCube58
+    2300242: pCube59
+    2300244: pCube60
+    2300246: pCube61
+    2300248: pCube62
+    2300250: pCube63
+    2300252: pCube64
+    2300254: pCube65
+    2300256: pCube66
+    2300258: pCube67
+    2300260: pCube68
+    2300262: pCube69
+    2300264: pCube70
+    2300266: pCube71
+    2300268: pCube71 1
+    2300270: pCube71 2
+    2300272: pCube71 3
+    2300274: pCube72
+    2300276: pCube72 1
+    2300278: pCube72 2
+    2300280: pCube72 3
+    2300282: pCube72 4
+    2300284: pCube72 5
+    2300286: pCube73
+    2300288: pCube73 1
+    2300290: pCube73 2
+    2300292: pCube73 3
+    2300294: pCube74
+    2300296: pCube74 1
+    2300298: pCube74 2
+    2300300: pCube74 3
+    2300302: pCube74 4
+    2300304: pCube74 5
+    2300306: pCube75
+    2300308: pCube75 1
+    2300310: pCube75 2
+    2300312: pCube76
+    2300314: pCube76 1
+    2300316: pCube76 2
+    2300318: pCube76 3
+    2300320: pCube76 4
+    2300322: pCube77
+    2300324: pCube77 1
+    2300326: pCube77 2
+    2300328: pCube78
+    2300330: pCube78 1
+    2300332: pCube78 2
+    2300334: pCube78 3
+    2300336: pCube78 4
+    2300338: pCube79
+    2300340: pCube79 1
+    2300342: pCube79 2
+    2300344: pCube79 3
+    2300346: pCube80
+    2300348: pCube80 1
+    2300350: pCube80 2
+    2300352: pCube80 3
+    2300354: pCube80 4
+    2300356: pCube80 5
+    2300358: pCube81
+    2300360: pCube81 1
+    2300362: pCube81 2
+    2300364: pCube81 3
+    2300366: pCube82
+    2300368: pCube82 1
+    2300370: pCube82 2
+    2300372: pCube82 3
+    2300374: pCube82 4
+    2300376: pCube82 5
+    2300378: pCube83
+    2300380: pCube83 1
+    2300382: pCube83 2
+    2300384: pCube84
+    2300386: pCube84 1
+    2300388: pCube84 2
+    2300390: pCube84 3
+    2300392: pCube84 4
+    2300394: pCube85
+    2300396: pCube85 1
+    2300398: pCube85 2
+    2300400: pCube86
+    2300402: pCube86 1
+    2300404: pCube86 2
+    2300406: pCube86 3
+    2300408: pCube86 4
+    2300410: pCube87
+    2300412: pCube87 1
+    2300414: pCube88
+    2300416: pCube88 1
+    2300418: pCube89
+    2300420: pCube89 1
+    2300422: pCube90
+    2300424: pCube90 1
+    2300426: pCube91
+    2300428: pCube91 1
+    2300430: pCube91 2
+    2300432: pCube92
+    2300434: pCube92 1
+    2300436: pCube92 2
+    2300438: pCube93
+    2300440: pCube93 1
+    2300442: pCube93 2
+    2300444: pCube94
+    2300446: pCube94 1
+    2300448: pCube94 2
+    2300450: pCube98
+    2300452: pCube99
+    2300454: pCylinder3
+    2300456: pCylinder4
+    2300458: pCylinder5
+    2300460: pCylinder7
+    2300462: polySurface100
+    2300464: polySurface101
+    2300466: polySurface104
+    2300468: polySurface108
+    2300470: polySurface110
+    2300472: polySurface112
+    2300474: polySurface114
+    2300476: polySurface116
+    2300478: polySurface118
+    2300480: polySurface119
+    2300482: polySurface120
+    2300484: polySurface121
+    2300486: polySurface122
+    2300488: polySurface124
+    2300490: polySurface13
+    2300492: polySurface2
+    2300494: polySurface28
+    2300496: polySurface3
+    2300498: polySurface37
+    2300500: polySurface39
+    2300502: polySurface4
+    2300504: polySurface41
+    2300506: polySurface46
+    2300508: polySurface47
+    2300510: polySurface48
+    2300512: polySurface5
+    2300514: polySurface50
+    2300516: polySurface52
+    2300518: polySurface53
+    2300520: polySurface54
+    2300522: polySurface55
+    2300524: polySurface56
+    2300526: polySurface57
+    2300528: polySurface58
+    2300530: polySurface59
+    2300532: polySurface60
+    2300534: polySurface61
+    2300536: polySurface62
+    2300538: polySurface63
+    2300540: polySurface64
+    2300542: polySurface65
+    2300544: polySurface66
+    2300546: polySurface67
+    2300548: polySurface68
+    2300550: polySurface69
+    2300552: polySurface70
+    2300554: polySurface71
+    2300556: polySurface72
+    2300558: polySurface74
+    2300560: polySurface75
+    2300562: polySurface76
+    2300564: polySurface78
+    2300566: polySurface8
+    2300568: polySurface8 1
+    2300570: polySurface8 2
+    2300572: polySurface82
+    2300574: polySurface84
+    2300576: polySurface85
+    2300578: polySurface86
+    2300580: polySurface89
+    2300582: polySurface90
+    2300584: polySurface91
+    2300586: polySurface92
+    2300588: polySurface95
+    2300590: polySurface97
+    2300592: polySurface99
+    2300594: Rope
+    2300596: Rope1
+    2300598: Rope2
+    2300600: Rope3
+    2300602: Wall
+    2300604: Wall 1
+    2300606: WallLedge
+    2300608: WallLedge 2
+    2300610: WallLedge 3
+    2300612: WallLedge1
+    2300614: WallLedge3
+    2300616: WallLedge4
+    2300618: WallLedge5
+    2300620: polySurface125
+    2300622: polySurface126
+    2300624: pCube143
+    2300626: pCube144
+    2300628: pCylinder10
+    2300630: pCylinder8
+    2300632: pCylinder9
+    2300634: Ledge 7
+    2300636: pCube145
+    2300638: polySurface129
+    2300640: polySurface131
+    2300642: polySurface132
+    2300644: Ledge52
+    2300646: polySurface133
+    2300648: polySurface134
+    2300650: polySurface138
+    2300652: polySurface139
+    2300654: polySurface140
+    2300656: HarshRedLight13
+    2300658: Ledge53
+    2300660: pCube146
+    2300662: pCube147
+    2300664: polySurface141
+    2300666: polySurface142
+    2300668: Rope4
+    2300670: polySurface143
+    2300672: polySurface144
+    2300674: polySurface145
+    2300676: polySurface147
+    2300678: polySurface148
+    2300680: Ledge52 1
+    2300682: Ledge54
+    2300684: Ledge54 1
+    2300686: Nadaeee
+    2300688: pCylinder11
+    2300690: pCylinder12
+    2300692: polySurface138 1
+    2300694: polySurface139 1
+    2300696: polySurface140 1
+    2300698: WallLedge3NoCamera
+    3300000: Fixture
+    3300002: Ground
+    3300004: Ground1
+    3300006: HarshRedLight
+    3300008: HarshRedLight1
+    3300010: HarshRedLight10
+    3300012: HarshRedLight11
+    3300014: HarshRedLight2
+    3300016: HarshRedLight3
+    3300018: HarshRedLight6
+    3300020: HarshRedLight7
+    3300022: HarshRedLight9
+    3300024: Ledge
+    3300026: Ledge 1
+    3300028: Ledge 2
+    3300030: Ledge 3
+    3300032: Ledge 4
+    3300034: Ledge 5
+    3300036: Ledge 6
+    3300038: Ledge10
+    3300040: Ledge11
+    3300042: Ledge14
+    3300044: Ledge15
+    3300046: Ledge17
+    3300048: Ledge19
+    3300050: Ledge2
+    3300052: Ledge22
+    3300054: Ledge23
+    3300056: Ledge29
+    3300058: Ledge3
+    3300060: Ledge30
+    3300062: Ledge31
+    3300064: Ledge32
+    3300066: Ledge33
+    3300068: Ledge34
+    3300070: Ledge35
+    3300072: Ledge4
+    3300074: Ledge41
+    3300076: Ledge47
+    3300078: Ledge48
+    3300080: Ledge5
+    3300082: LedgeLeftOnly
+    3300084: LedgeLeftOnly 1
+    3300086: LedgeLeftOnly 2
+    3300088: LedgeLeftOnly 3
+    3300090: LedgeRight
+    3300092: LedgeRightOnly
+    3300094: LedgeRightOnly 1
+    3300096: LedgeWall
+    3300098: Light
+    3300100: Mesh
+    3300102: Mesh 1
+    3300104: Mesh 2
+    3300106: Mesh 3
+    3300108: Mesh 4
+    3300110: Nada
+    3300112: pCube100
+    3300114: pCube101
+    3300116: pCube102
+    3300118: pCube103
+    3300120: pCube104
+    3300122: pCube105
+    3300124: pCube106
+    3300126: pCube107
+    3300128: pCube108
+    3300130: pCube109
+    3300132: pCube110
+    3300134: pCube111
+    3300136: pCube112
+    3300138: pCube113
+    3300140: pCube114
+    3300142: pCube115
+    3300144: pCube116
+    3300146: pCube117
+    3300148: pCube118
+    3300150: pCube119
+    3300152: pCube120
+    3300154: pCube122
+    3300156: pCube123
+    3300158: pCube124
+    3300160: pCube125
+    3300162: pCube126
+    3300164: pCube127
+    3300166: pCube128
+    3300168: pCube129
+    3300170: pCube130
+    3300172: pCube131
+    3300174: pCube132
+    3300176: pCube136
+    3300178: pCube137
+    3300180: pCube138
+    3300182: pCube139
+    3300184: pCube140
+    3300186: pCube141
+    3300188: pCube142
+    3300190: pCube26
+    3300192: pCube31
+    3300194: pCube32
+    3300196: pCube33
+    3300198: pCube34
+    3300200: pCube35
+    3300202: pCube36
+    3300204: pCube39
+    3300206: pCube4
+    3300208: pCube40
+    3300210: pCube41
+    3300212: pCube42
+    3300214: pCube43
+    3300216: pCube44
+    3300218: pCube47
+    3300220: pCube48
+    3300222: pCube49
+    3300224: pCube50
+    3300226: pCube51
+    3300228: pCube52
+    3300230: pCube53
+    3300232: pCube54
+    3300234: pCube55
+    3300236: pCube56
+    3300238: pCube57
+    3300240: pCube58
+    3300242: pCube59
+    3300244: pCube60
+    3300246: pCube61
+    3300248: pCube62
+    3300250: pCube63
+    3300252: pCube64
+    3300254: pCube65
+    3300256: pCube66
+    3300258: pCube67
+    3300260: pCube68
+    3300262: pCube69
+    3300264: pCube70
+    3300266: pCube71
+    3300268: pCube71 1
+    3300270: pCube71 2
+    3300272: pCube71 3
+    3300274: pCube72
+    3300276: pCube72 1
+    3300278: pCube72 2
+    3300280: pCube72 3
+    3300282: pCube72 4
+    3300284: pCube72 5
+    3300286: pCube73
+    3300288: pCube73 1
+    3300290: pCube73 2
+    3300292: pCube73 3
+    3300294: pCube74
+    3300296: pCube74 1
+    3300298: pCube74 2
+    3300300: pCube74 3
+    3300302: pCube74 4
+    3300304: pCube74 5
+    3300306: pCube75
+    3300308: pCube75 1
+    3300310: pCube75 2
+    3300312: pCube76
+    3300314: pCube76 1
+    3300316: pCube76 2
+    3300318: pCube76 3
+    3300320: pCube76 4
+    3300322: pCube77
+    3300324: pCube77 1
+    3300326: pCube77 2
+    3300328: pCube78
+    3300330: pCube78 1
+    3300332: pCube78 2
+    3300334: pCube78 3
+    3300336: pCube78 4
+    3300338: pCube79
+    3300340: pCube79 1
+    3300342: pCube79 2
+    3300344: pCube79 3
+    3300346: pCube80
+    3300348: pCube80 1
+    3300350: pCube80 2
+    3300352: pCube80 3
+    3300354: pCube80 4
+    3300356: pCube80 5
+    3300358: pCube81
+    3300360: pCube81 1
+    3300362: pCube81 2
+    3300364: pCube81 3
+    3300366: pCube82
+    3300368: pCube82 1
+    3300370: pCube82 2
+    3300372: pCube82 3
+    3300374: pCube82 4
+    3300376: pCube82 5
+    3300378: pCube83
+    3300380: pCube83 1
+    3300382: pCube83 2
+    3300384: pCube84
+    3300386: pCube84 1
+    3300388: pCube84 2
+    3300390: pCube84 3
+    3300392: pCube84 4
+    3300394: pCube85
+    3300396: pCube85 1
+    3300398: pCube85 2
+    3300400: pCube86
+    3300402: pCube86 1
+    3300404: pCube86 2
+    3300406: pCube86 3
+    3300408: pCube86 4
+    3300410: pCube87
+    3300412: pCube87 1
+    3300414: pCube88
+    3300416: pCube88 1
+    3300418: pCube89
+    3300420: pCube89 1
+    3300422: pCube90
+    3300424: pCube90 1
+    3300426: pCube91
+    3300428: pCube91 1
+    3300430: pCube91 2
+    3300432: pCube92
+    3300434: pCube92 1
+    3300436: pCube92 2
+    3300438: pCube93
+    3300440: pCube93 1
+    3300442: pCube93 2
+    3300444: pCube94
+    3300446: pCube94 1
+    3300448: pCube94 2
+    3300450: pCube98
+    3300452: pCube99
+    3300454: pCylinder3
+    3300456: pCylinder4
+    3300458: pCylinder5
+    3300460: pCylinder7
+    3300462: polySurface100
+    3300464: polySurface101
+    3300466: polySurface104
+    3300468: polySurface108
+    3300470: polySurface110
+    3300472: polySurface112
+    3300474: polySurface114
+    3300476: polySurface116
+    3300478: polySurface118
+    3300480: polySurface119
+    3300482: polySurface120
+    3300484: polySurface121
+    3300486: polySurface122
+    3300488: polySurface124
+    3300490: polySurface13
+    3300492: polySurface2
+    3300494: polySurface28
+    3300496: polySurface3
+    3300498: polySurface37
+    3300500: polySurface39
+    3300502: polySurface4
+    3300504: polySurface41
+    3300506: polySurface46
+    3300508: polySurface47
+    3300510: polySurface48
+    3300512: polySurface5
+    3300514: polySurface50
+    3300516: polySurface52
+    3300518: polySurface53
+    3300520: polySurface54
+    3300522: polySurface55
+    3300524: polySurface56
+    3300526: polySurface57
+    3300528: polySurface58
+    3300530: polySurface59
+    3300532: polySurface60
+    3300534: polySurface61
+    3300536: polySurface62
+    3300538: polySurface63
+    3300540: polySurface64
+    3300542: polySurface65
+    3300544: polySurface66
+    3300546: polySurface67
+    3300548: polySurface68
+    3300550: polySurface69
+    3300552: polySurface70
+    3300554: polySurface71
+    3300556: polySurface72
+    3300558: polySurface74
+    3300560: polySurface75
+    3300562: polySurface76
+    3300564: polySurface78
+    3300566: polySurface8
+    3300568: polySurface8 1
+    3300570: polySurface8 2
+    3300572: polySurface82
+    3300574: polySurface84
+    3300576: polySurface85
+    3300578: polySurface86
+    3300580: polySurface89
+    3300582: polySurface90
+    3300584: polySurface91
+    3300586: polySurface92
+    3300588: polySurface95
+    3300590: polySurface97
+    3300592: polySurface99
+    3300594: Rope
+    3300596: Rope1
+    3300598: Rope2
+    3300600: Rope3
+    3300602: Wall
+    3300604: Wall 1
+    3300606: WallLedge
+    3300608: WallLedge 2
+    3300610: WallLedge 3
+    3300612: WallLedge1
+    3300614: WallLedge3
+    3300616: WallLedge4
+    3300618: WallLedge5
+    3300620: polySurface125
+    3300622: polySurface126
+    3300624: pCube143
+    3300626: pCube144
+    3300628: pCylinder10
+    3300630: pCylinder8
+    3300632: pCylinder9
+    3300634: Ledge 7
+    3300636: pCube145
+    3300638: polySurface129
+    3300640: polySurface131
+    3300642: polySurface132
+    3300644: Ledge52
+    3300646: polySurface133
+    3300648: polySurface134
+    3300650: polySurface138
+    3300652: polySurface139
+    3300654: polySurface140
+    3300656: HarshRedLight13
+    3300658: Ledge53
+    3300660: pCube146
+    3300662: pCube147
+    3300664: polySurface141
+    3300666: polySurface142
+    3300668: Rope4
+    3300670: polySurface143
+    3300672: polySurface144
+    3300674: polySurface145
+    3300676: polySurface147
+    3300678: polySurface148
+    3300680: Ledge52 1
+    3300682: Ledge54
+    3300684: Ledge54 1
+    3300686: Nadaeee
+    3300688: pCylinder11
+    3300690: pCylinder12
+    3300692: polySurface138 1
+    3300694: polySurface139 1
+    3300696: polySurface140 1
+    3300698: WallLedge3NoCamera
+    4300000: pCube4
+    4300002: Ledge10
+    4300004: Ledge17
+    4300006: pCube26
+    4300008: Ledge32
+    4300010: Ledge33
+    4300012: pCylinder3
+    4300014: pCube71
+    4300016: pCube73
+    4300018: pCube75
+    4300020: pCube77
+    4300022: pCube79
+    4300024: pCube81
+    4300026: pCube83
+    4300028: pCube85
+    4300030: polySurface8
+    4300032: pCube72
+    4300034: pCube74
+    4300036: pCube76
+    4300038: pCube78
+    4300040: pCube80
+    4300042: pCube82
+    4300044: pCube84
+    4300046: pCube86
+    4300048: pCube72
+    4300050: pCube74
+    4300052: pCube76
+    4300054: pCube78
+    4300056: pCube80
+    4300058: pCube82
+    4300060: pCube84
+    4300062: pCube86
+    4300064: pCube72
+    4300066: pCube74
+    4300068: pCube76
+    4300070: pCube78
+    4300072: pCube80
+    4300074: pCube82
+    4300076: pCube84
+    4300078: pCube86
+    4300080: Ledge14
+    4300082: pCube98
+    4300084: pCube99
+    4300086: pCube100
+    4300088: pCube71
+    4300090: pCube72
+    4300092: pCube73
+    4300094: pCube74
+    4300096: pCube75
+    4300098: pCube76
+    4300100: pCube77
+    4300102: pCube78
+    4300104: pCube79
+    4300106: pCube80
+    4300108: pCube81
+    4300110: pCube82
+    4300112: pCube83
+    4300114: pCube84
+    4300116: pCube85
+    4300118: pCube86
+    4300120: polySurface8
+    4300122: pCube87
+    4300124: pCube88
+    4300126: pCube89
+    4300128: pCube90
+    4300130: pCube91
+    4300132: pCube92
+    4300134: pCube93
+    4300136: pCube94
+    4300138: Ledge3
+    4300140: Ledge4
+    4300142: Ledge5
+    4300144: polySurface4
+    4300146: polySurface2
+    4300148: Mesh
+    4300150: polySurface108
+    4300152: polySurface110
+    4300154: polySurface112
+    4300156: polySurface114
+    4300158: polySurface116
+    4300160: polySurface118
+    4300162: polySurface119
+    4300164: polySurface120
+    4300166: polySurface121
+    4300168: polySurface122
+    4300170: Ledge19
+    4300172: Mesh
+    4300174: LedgeLeftOnly
+    4300176: LedgeRight
+    4300178: polySurface37
+    4300180: polySurface28
+    4300182: Ledge
+    4300184: Ledge22
+    4300186: Ledge23
+    4300188: pCube101
+    4300190: Fixture
+    4300192: Light
+    4300194: pCube102
+    4300196: pCube103
+    4300198: pCube104
+    4300200: LedgeRightOnly
+    4300202: Wall
+    4300204: polySurface124
+    4300206: Ledge
+    4300208: polySurface78
+    4300210: Ledge29
+    4300212: polySurface84
+    4300214: HarshRedLight
+    4300216: HarshRedLight1
+    4300218: HarshRedLight2
+    4300220: HarshRedLight3
+    4300222: HarshRedLight6
+    4300224: HarshRedLight7
+    4300226: pCube105
+    4300228: pCube106
+    4300230: pCube107
+    4300232: pCube108
+    4300234: Ledge30
+    4300236: polySurface82
+    4300238: Rope
+    4300240: Ledge11
+    4300242: Ledge34
+    4300244: Ledge35
+    4300246: HarshRedLight11
+    4300248: Rope2
+    4300250: HarshRedLight9
+    4300252: Rope1
+    4300254: HarshRedLight10
+    4300256: polySurface85
+    4300258: polySurface89
+    4300260: polySurface86
+    4300262: polySurface90
+    4300264: polySurface91
+    4300266: polySurface92
+    4300268: LedgeRightOnly
+    4300270: LedgeLeftOnly
+    4300272: Mesh
+    4300274: pCube31
+    4300276: pCube32
+    4300278: pCube33
+    4300280: pCube34
+    4300282: pCube35
+    4300284: pCube36
+    4300286: pCube39
+    4300288: pCube40
+    4300290: pCube41
+    4300292: pCube42
+    4300294: pCube43
+    4300296: pCube44
+    4300298: Mesh
+    4300300: polySurface41
+    4300302: pCube139
+    4300304: pCube140
+    4300306: pCube141
+    4300308: pCube142
+    4300310: pCube47
+    4300312: pCube48
+    4300314: pCube49
+    4300316: pCube50
+    4300318: pCube51
+    4300320: pCube52
+    4300322: pCube53
+    4300324: pCube54
+    4300326: pCube55
+    4300328: pCube56
+    4300330: pCube57
+    4300332: pCube58
+    4300334: pCube59
+    4300336: pCube60
+    4300338: pCube61
+    4300340: pCube62
+    4300342: pCube63
+    4300344: pCube64
+    4300346: pCube65
+    4300348: pCube66
+    4300350: pCube67
+    4300352: pCube68
+    4300354: pCube69
+    4300356: pCube70
+    4300358: Ledge
+    4300360: polySurface39
+    4300362: Ledge15
+    4300364: pCube75
+    4300366: pCube76
+    4300368: pCube77
+    4300370: pCube78
+    4300372: pCube83
+    4300374: pCube84
+    4300376: pCube85
+    4300378: pCube86
+    4300380: polySurface8
+    4300382: pCube87
+    4300384: pCube88
+    4300386: pCube89
+    4300388: pCube90
+    4300390: pCube91
+    4300392: pCube92
+    4300394: pCube93
+    4300396: pCube94
+    4300398: pCube71
+    4300400: pCube72
+    4300402: pCube73
+    4300404: pCube74
+    4300406: pCube109
+    4300408: pCube110
+    4300410: pCube111
+    4300412: pCube112
+    4300414: pCube79
+    4300416: pCube80
+    4300418: pCube81
+    4300420: pCube82
+    4300422: pCube113
+    4300424: pCube114
+    4300426: pCube115
+    4300428: pCube116
+    4300430: polySurface54
+    4300432: polySurface55
+    4300434: polySurface58
+    4300436: polySurface66
+    4300438: polySurface75
+    4300440: pCube117
+    4300442: pCube118
+    4300444: pCube119
+    4300446: pCube120
+    4300448: polySurface53
+    4300450: polySurface56
+    4300452: polySurface57
+    4300454: polySurface59
+    4300456: polySurface62
+    4300458: polySurface63
+    4300460: polySurface64
+    4300462: polySurface65
     4300464: polySurface67
     4300466: polySurface68
     4300468: polySurface69
@@ -1710,91 +1966,119 @@ ModelImporter:
     4300472: polySurface50
     4300474: polySurface71
     4300476: polySurface72
-    4300478: polySurface73
+    4300478: Ledge
     4300480: polySurface74
-    4300482: polySurface75
-    4300484: polySurface76
-    4300486: polySurface52
-    4300488: polySurface61
-    4300490: polySurface46
-    4300492: polySurface47
-    4300494: polySurface48
-    4300496: polySurface60
-    4300498: ElevatorAnvilPark
-    4300500: polySurface49
-    4300502: Ledge28
-    4300504: Slantpart
-    4300506: polySurface80
-    4300508: Ledge
-    4300510: polySurface78
-    4300512: polySurface82
-    4300514: Ledge
-    4300516: Ledge29
-    4300518: polySurface84
-    4300520: HarshRedLight
-    4300522: HarshRedLight1
-    4300524: HarshRedLight2
-    4300526: HarshRedLight3
-    4300528: HarshRedLight6
-    4300530: HarshRedLight7
-    4300532: HarshRedLight9
-    4300534: HarshRedLight10
-    4300536: HarshRedLight11
-    4300538: pCube105
-    4300540: pCube106
-    4300542: pCube107
-    4300544: pCube108
-    4300546: polySurface85
-    4300548: polySurface86
-    4300550: polySurface85
-    4300552: polySurface86
-    4300554: Ledge11
-    4300556: polySurface85
-    4300558: polySurface86
-    4300560: Ledge11
-    4300562: Ledge32
-    4300564: Ledge33
-    4300566: Ledge31
-    4300568: Ground
-    4300570: polySurface88
-    4300572: Ledge30
-    4300574: Ledge34
-    4300576: Ledge35
-    4300578: polySurface89
-    4300580: polySurface90
-    4300582: polySurface91
-    4300584: polySurface92
-    4300586: polySurface93
-    4300588: polySurface94
-    4300590: ActualTower
-    4300592: LowerLedge
-    4300594: LowerMIddleLedge
-    4300596: SlantedLedge
-    4300598: HoldsUpBridge
-    4300600: HoldsUpBridge1
-    4300602: HoldsUpBridge2
-    4300604: HoldsUpBridge3
-    4300606: HoldsUpBridge4
-    4300608: BottomLedge
-    4300610: AboveBottomLedge
-    4300612: TheGround
-    4300614: ArchLedge
-    4300616: RooftopLedge
-    4300618: HookLedge
-    4300620: HookLedge1
-    4300622: HookLedge2
-    4300624: HookBootom
-    4300626: HookBootom1
-    4300628: HookBootom2
-    4300630: HookRope
-    4300632: HookRope1
-    4300634: HookRope2
-    4300636: DoorInBack
-    4300638: Ledge36
-    4300640: Ledge37
+    4300482: polySurface76
+    4300484: polySurface52
+    4300486: polySurface61
+    4300488: polySurface46
+    4300490: polySurface47
+    4300492: polySurface48
+    4300494: polySurface60
+    4300496: pCube91
+    4300498: pCube92
+    4300500: pCube93
+    4300502: pCube94
+    4300504: pCube71
+    4300506: pCube72
+    4300508: pCube73
+    4300510: pCube74
+    4300512: pCube79
+    4300514: pCube80
+    4300516: pCube81
+    4300518: pCube82
+    4300520: Ledge
+    4300522: polySurface95
+    4300524: WallLedge
+    4300526: Wall
+    4300528: polySurface97
+    4300530: Rope3
+    4300532: WallLedge
+    4300534: polySurface100
+    4300536: polySurface101
+    4300538: Ledge
+    4300540: polySurface104
+    4300542: polySurface99
+    4300544: pCube122
+    4300546: pCube123
+    4300548: pCube124
+    4300550: pCube125
+    4300552: pCube126
+    4300554: pCube127
+    4300556: pCube128
+    4300558: pCube129
+    4300560: pCube130
+    4300562: pCube131
+    4300564: pCube132
+    4300566: pCylinder4
+    4300568: pCylinder5
+    4300570: LedgeLeftOnly
+    4300572: Ledge
+    4300574: WallLedge1
+    4300576: pCube136
+    4300578: pCube137
+    4300580: pCube138
+    4300582: Nada
+    4300584: Ledge41
+    4300586: Ledge2
+    4300588: polySurface13
+    4300590: Ledge31
+    4300592: polySurface5
+    4300594: polySurface3
+    4300596: Ground
+    4300598: WallLedge3
+    4300600: WallLedge4
+    4300602: LedgeLeftOnly
+    4300604: LedgeWall
+    4300606: WallLedge
+    4300608: Mesh
+    4300610: Ledge47
+    4300612: WallLedge5
+    4300614: pCylinder7
+    4300616: Ground1
+    4300618: Ledge48
+    4300620: polySurface125
+    4300622: polySurface126
+    4300624: pCylinder8
+    4300626: pCylinder9
+    4300628: pCube143
+    4300630: pCylinder10
+    4300632: pCube144
+    4300634: polySurface129
+    4300636: Ledge
+    4300638: polySurface131
+    4300640: polySurface132
+    4300642: pCube145
+    4300644: Ledge52
+    4300646: polySurface133
+    4300648: polySurface134
+    4300650: polySurface138
+    4300652: polySurface139
+    4300654: polySurface140
+    4300656: polySurface141
+    4300658: polySurface142
+    4300660: Ledge53
+    4300662: Rope4
+    4300664: HarshRedLight13
+    4300666: pCube146
+    4300668: pCube147
+    4300670: polySurface143
+    4300672: polySurface144
+    4300674: polySurface145
+    4300676: polySurface147
+    4300678: polySurface148
+    4300680: Nadaeee
+    4300682: WallLedge3NoCamera
+    4300684: pCylinder11
+    4300686: Ledge54
+    4300688: pCylinder12
+    4300690: polySurface140
+    4300692: Ledge52
+    4300694: polySurface139
+    4300696: polySurface138
+    4300698: Ledge54
     7400000: Take 001
     9500000: //RootNode
-    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
