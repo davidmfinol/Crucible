@@ -1028,6 +1028,7 @@ public class NewmanAnimator : CharacterAnimator
         Vector3 footStepPosition = transform.position;
         footStepPosition.y -= Height * 0.5f;
         GameObject footstep = new GameObject("Newman Landing Footstep");
+        footstep.layer = LayerMask.NameToLayer("SoundStealth");
         footstep.transform.position = footStepPosition;
         footstep.AddComponent<SoundEvent>();
         AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
@@ -1044,6 +1045,7 @@ public class NewmanAnimator : CharacterAnimator
         Vector3 footStepPosition = transform.position;
         footStepPosition.y -= Height * 0.5f;
         GameObject footstep = new GameObject("Newman Landing Rolling");
+        footstep.layer = LayerMask.NameToLayer("SoundStealth");
         footstep.transform.position = footStepPosition;
         footstep.AddComponent<SoundEvent>();
         AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
