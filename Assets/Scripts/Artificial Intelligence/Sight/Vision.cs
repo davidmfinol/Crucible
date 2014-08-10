@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Vision determines whether an NPC character is seeing the player.
 /// </summary>
-[AddComponentMenu("AI/Sight/Vision")]
+[AddComponentMenu("Artificial Intelligence/Sight/Vision")]
 public class Vision : MonoBehaviour
 {
 	// How far away the enemy can visually see the player from

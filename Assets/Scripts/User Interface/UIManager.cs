@@ -89,7 +89,9 @@ public class UIManager : MonoBehaviour
 	private bool _isTrackingSwipe;
 	private int _swipeID;
 	private Vector3 _swipeStartPos;
-	private float _swipeTime;
+    private float _swipeTime;
+    
+    // All managers need to let the GameManager know when it is ready
 	private bool _ready;
 
 	void Start ()

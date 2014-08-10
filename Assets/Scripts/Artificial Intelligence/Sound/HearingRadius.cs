@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// </summary>
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(Rigidbody))]
-[AddComponentMenu("AI/Sound/Hearing Radius")]
+[AddComponentMenu("Artificial Intelligence/Sound/Hearing Radius")]
 public class HearingRadius : MonoBehaviour
 {
     public float EchoTime = 3;

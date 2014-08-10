@@ -3,17 +3,18 @@ using UnityEditor;
 using System.Collections.Generic;
 
 /// <summary>
-/// Mesh to game objects menu finds all meshes in a selection and produces the corresponding necessary game objects/components.
+/// Create game objects from meshes finds all meshes in a selection and produces the corresponding necessary game objects/components to allow platforming.
 /// This is heavily based off the script found here: http://wiki.unity3d.com/index.php?title=Mesh2Collider
 /// </summary>
-public class MeshToGameObjectsMenu
+public class CreateGameObjectsFromMeshes
 {
     // List of mesh names that we accept as something that needs to be set up as a gameobject
     static List<string> objectNames = new List<string> (new string[] {
-        "ledge",
-        "box",
         "ground",
+        "box",
         "mesh",
+        "ledge",
+        "obstacle",
         "wall",
         "rope",
         "ladder",
@@ -109,7 +110,7 @@ public class MeshToGameObjectsMenu
             SetupObject (transform);
 
             // Create the object
-            if (name.Contains ("ledge"))
+            if (name.Contains ("ledge") || name.Contains ("obstacle"))
                 CreateLedge (transform);
             if (name.Contains ("wall"))
                 CreateWall (transform);

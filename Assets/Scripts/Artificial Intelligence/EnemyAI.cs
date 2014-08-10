@@ -10,7 +10,7 @@ using Pathfinding;
 [RequireComponent(typeof(CharacterAnimator))]
 [RequireComponent(typeof(EnemyAISettings))]
 [RequireComponent(typeof(Seeker))]
-[AddComponentMenu("AI/Basic Enemy AI")]
+[AddComponentMenu("Artificial Intelligence/Enemy AI")]
 public class EnemyAI : MonoBehaviour
 {
     public enum AwarenessLevel : int

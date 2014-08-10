@@ -142,13 +142,13 @@ public abstract class CharacterAnimator : MonoBehaviour
             if (CharInput.UpPressed && !CharInput.Down) {
                 _currentZone = _Zhigher;
 
-				// don't allow movement in a hide zone
+				// Don't allow movement in a hide zone
 				IgnoreXYMovement = true;
 
 			} else if (CharInput.DownPressed && !CharInput.Up) {
                 _currentZone = _Zlower;
 
-				// re-allow movement upon exit hide zone
+				// Re-allow movement upon exit hide zone
 				IgnoreXYMovement = false;
 			}
         }
@@ -203,8 +203,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         float zOffset = newZ - currentZ;
         currentMovementOffset = new Vector3 (currentMovementOffset.x, currentMovementOffset.y, zOffset);
 
-		// if need to ignore XY move, remove them from our offset.
-		// keep a ground vertical speed so we're grounded.
+		// If we need to ignore XY movement, remove them from our offset, but keep a ground vertical speed so we're grounded
 		if(IgnoreXYMovement)
 			currentMovementOffset = new Vector3(0.0f, GroundVerticalSpeed, currentMovementOffset.z);
 
@@ -405,12 +404,12 @@ public abstract class CharacterAnimator : MonoBehaviour
         MecanimAnimator.enabled = true;
     }
 
-    public void DoFloat ()
+    public void DoFloat (float floatTime)
     {
         DisableAnimationSystem();
 
         CharacterSettings.ActivateRagDoll (transform, false, false);
-        Invoke("UndoFloat", 5.0f);
+        Invoke("UndoFloat", floatTime);
 
     }
 
@@ -692,7 +691,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public float GroundVerticalSpeed {
-        get { return (15 * -_characterSettings.Gravity * Time.fixedDeltaTime); }
+        get { return (15 * -_characterSettings.Gravity * Time.fixedDeltaTime); } // NOTE: THIS IS SOMEWHAT ARBITRARY, BUT IT WORKS
     }
 
     public Vector3 Velocity {
@@ -724,7 +723,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     public virtual bool IsSneaking {
-		get { return Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
+		get { return !IsGrounded || Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
     }
 
     public virtual bool IsTurningAround {

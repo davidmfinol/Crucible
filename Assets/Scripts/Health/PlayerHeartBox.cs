@@ -7,22 +7,15 @@ using System.Collections;
 [AddComponentMenu("Health/Player Character Heart Box")]
 public class PlayerHeartBox : HeartBox
 {
+    // TODO: OBJECT POOL
     public Transform HurtEffect;
     public Transform RegenEffect;
 
-    // how fast do we regen HP?
+    // How fast do we regen HP?
     private float _regenTimer = 6.0f;
-    // how long at this health?  how far along in regen?
+
+    // How long at this health?  how far along in regen?
     private float _timeUntilRegen = 0.0f;
-    private NewmanAnimator _player;
-    private CameraScrolling _camScroll;
-
-    protected override void OnStart ()
-    {
-        _player = transform.root.GetComponent<NewmanAnimator> ();
-        _camScroll = Camera.main.GetComponent<CameraScrolling> ();
-
-    }
 
     // NOTE: WE SHOULD ONLY HAVE ONE PLAYERHEARTBOX IN THE SCENE, SO IT SHOULD BE OK TO DO THIS CHECK HERE
     void FixedUpdate ()
@@ -34,7 +27,7 @@ public class PlayerHeartBox : HeartBox
 
     public override void UpdateHealth (float elapsedTime)
     {
-        // process attacks
+        // Process attacks
         if (LastHit != null) {
             Vector2 knockForce;
 
@@ -53,8 +46,7 @@ public class PlayerHeartBox : HeartBox
 
             }
 
-            // adjust health, do particles, etc.
-            // fly in direction of hit
+            // adjust health, do particles, etc., while flying in the direction of the hit
             AdjustHealth (-1 * LastHit.DamageAmount, knockForce);
             Destroy (LastHit.gameObject);
             LastHit = null;
@@ -70,30 +62,29 @@ public class PlayerHeartBox : HeartBox
         _timeUntilRegen = 0.0f;
         HitPoints += deltaHealth;
         
-        // hurt but not killed,
+        // Hurt but not killed,
         if (deltaHealth < 0 && HitPoints > 0) {
             // TODO OBJECT POOL
-            Transform effect = (Transform)Instantiate (HurtEffect, _player.transform.position, HurtEffect.rotation);
+            Transform effect = (Transform)Instantiate (HurtEffect, GameManager.Player.transform.position, HurtEffect.rotation);
 
             if (knockForce.x > 0)
                 effect.Rotate (new Vector3 (0, 180, 0));
             effect.parent = transform;
             Destroy (effect.gameObject, 2.0f);
 
-
             Controller.MakeDamaged (knockForce);
             // shake when hit
-            _camScroll.AddShake (1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f );
+            GameManager.MainCamera.AddShake (1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f );
 
             // killed
         } else if (HitPoints <= 0) {
-            _camScroll.AddShake (1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f );
+            GameManager.MainCamera.AddShake (1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f );
             Controller.OnDeath (knockForce * 1000);
 
             // healed
         } else if (deltaHealth > 0 && HitPoints == MaxHitPoints) {
             // TODO OBJECT POOL
-            Transform effect = (Transform)Instantiate (RegenEffect, _player.transform.position, RegenEffect.rotation);
+            Transform effect = (Transform)Instantiate (RegenEffect, GameManager.Player.transform.position, RegenEffect.rotation);
             effect.parent = transform;
             Destroy (effect.gameObject, 2.0f);
         }

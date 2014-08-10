@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public class LevelManager : MonoBehaviour
 {
     // Where the player starts in the level
-    public Transform DefaultStartPoint;
+    public Transform DefaultStartpoint;
 
     // The boundaries of the level
     public Rect Boundaries = new Rect(0, 0, 100, 100);
@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
 
     // The dynamic objects in the scene
     private AlphaPulse _alarms;
-    private Transform _itemContainer;
+    private Transform _itemPickups;
     private List<Item> _items;
 
     // All managers need to let the GameManager know when it is ready
@@ -39,14 +39,13 @@ public class LevelManager : MonoBehaviour
 
         // Make sure the characters have a defined space in which they can move
         CreateBoundaries ();
-        ConfirmZone ();
 
         // Also make sure we have a start point
-        if (DefaultStartPoint == null) {
-            DefaultStartPoint = new GameObject("Default Start").transform;
-            DefaultStartPoint.position = new Vector3(10, 10, 0);
-            DefaultStartPoint.gameObject.isStatic = true;
-            DefaultStartPoint.parent = transform;
+        if (DefaultStartpoint == null) {
+            DefaultStartpoint = new GameObject("Default Startpoint").transform;
+            DefaultStartpoint.position = new Vector3(10, 10, 0);
+            DefaultStartpoint.gameObject.isStatic = true;
+            DefaultStartpoint.parent = transform;
         }
         
         // Make ourselves static
@@ -60,31 +59,36 @@ public class LevelManager : MonoBehaviour
     // Each level has its own set of physical boundaries
     public void CreateBoundaries ()
     {
+        // We have a container for all the boundaries
         _createdBoundaries = new GameObject ("Created Boundaries");
         _createdBoundaries.isStatic = true;
         _createdBoundaries.transform.parent = transform;
-    
+
+        // Create the left boundary
         _leftBoundary = new GameObject ("Left Boundary");
         BoxCollider boxCollider = _leftBoundary.AddComponent (typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3 (ColliderThickness, Boundaries.height + ColliderThickness * 2.0f + FallOutBuffer, ZLength);
         boxCollider.center = new Vector3 (Boundaries.xMin - ColliderThickness * 0.5f, Boundaries.y + Boundaries.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
         _leftBoundary.isStatic = true;
         _leftBoundary.transform.parent = _createdBoundaries.transform;
-    
+
+        // Create the right boundary
         _rightBoundary = new GameObject ("Right Boundary");
         boxCollider = _rightBoundary.AddComponent (typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3 (ColliderThickness, Boundaries.height + ColliderThickness * 2.0f + FallOutBuffer, ZLength);
         boxCollider.center = new Vector3 (Boundaries.xMax + ColliderThickness * 0.5f, Boundaries.y + Boundaries.height * 0.5f - FallOutBuffer * 0.5f, 0.0f);
         _rightBoundary.isStatic = true;
         _rightBoundary.transform.parent = _createdBoundaries.transform;
-    
+
+        // Create the top boundary
         _topBoundary = new GameObject ("Top Boundary");
         boxCollider = _topBoundary.AddComponent (typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3 (Boundaries.width + ColliderThickness * 2.0f, ColliderThickness, ZLength);
         boxCollider.center = new Vector3 (Boundaries.x + Boundaries.width * 0.5f, Boundaries.yMax + ColliderThickness * 0.5f, 0.0f);
         _topBoundary.isStatic = true;
         _topBoundary.transform.parent = _createdBoundaries.transform;
-    
+
+        // Create the bottom boundary
         _bottomBoundary = new GameObject ("Bottom Boundary (Including Fallout Buffer and Death Trigger)");
         boxCollider = _bottomBoundary.AddComponent (typeof(BoxCollider)) as BoxCollider;
         boxCollider.size = new Vector3 (Boundaries.width + ColliderThickness * 2.0f, ColliderThickness, ZLength);
@@ -93,22 +97,6 @@ public class LevelManager : MonoBehaviour
         _bottomBoundary.AddComponent (typeof(DeathTrigger)); // We die if we fall down too much
         _bottomBoundary.isStatic = true;
         _bottomBoundary.transform.parent = _createdBoundaries.transform;
-
-    }
-
-    // Makes sure there is at least one zone in the scene
-    public void ConfirmZone()
-    {
-        if(GameObject.FindGameObjectWithTag("Zone") != null)
-            return;
-
-        GameObject zone = new GameObject("_Zone");
-        zone.transform.localScale = new Vector3(1000, 1000, 1000);
-        zone.tag = "Zone";
-        BoxCollider col = zone.AddComponent<BoxCollider>();
-        zone.AddComponent<Zone>();
-        col.isTrigger = true;
-        zone.isStatic = true; // TODO: UPDATE ASTARGRAPH WITH ZONE
 
     }
 
@@ -144,8 +132,10 @@ public class LevelManager : MonoBehaviour
         get { 
             if (_alarms == null) {
                 GameObject alarms = GameObject.FindGameObjectWithTag ("Alarms");
-                if(alarms == null)
+                if(alarms == null) {
                     alarms = new GameObject("_Alarms");
+                    alarms.tag = "Alarms";
+                }
                 _alarms = alarms.GetComponent<AlphaPulse> ();
                 if(_alarms == null)
                     _alarms = alarms.AddComponent<AlphaPulse>();
@@ -154,15 +144,15 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public Transform ItemContainer {
+    public Transform ItemPickups {
         get { 
-            if(_itemContainer == null) {
-                GameObject itemContainer = GameObject.FindGameObjectWithTag("Item Pickups");
-                if (itemContainer == null)
-                    itemContainer = new GameObject ("_Pickups");
-                _itemContainer = itemContainer.transform;
+            if(_itemPickups == null) {
+                GameObject itemPickups = GameObject.FindGameObjectWithTag("Item Pickups");
+                if (itemPickups == null)
+                    itemPickups = new GameObject ("_Item Pickups");
+                _itemPickups = itemPickups.transform;
             }
-            return _itemContainer;
+            return _itemPickups;
         }
     }
 

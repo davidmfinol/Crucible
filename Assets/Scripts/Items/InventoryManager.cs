@@ -8,17 +8,20 @@ using System.Collections.Generic;
 [AddComponentMenu("Items/Inventory Manager")]
 public class InventoryManager : MonoBehaviour
 {
-    // Keep track of all the weapons in the player's inventory
-    public List<Weapon> Weapons;
-    
     // Keep track of all the items in the player's inventory
     public List<InventoryItem> Items;
-    
-    // We keep track of the player's hand to put weapons in it
+
+    // Keep track of all the weapons in the player's inventory
+    public List<Weapon> Weapons;
+
+    // We need to be able to find the player's right hand bone to put weapons in it
+    public string PlayerRightHandName = "be_r_wrist01";
     private Transform _rightHand;
     
     // We keep track of which weapon is currently equipped here
     private Weapon _currentWeapon;
+
+    // All managers need to let the GameManager know when it is ready
     private bool _ready;
     
     void Start ()
@@ -38,53 +41,23 @@ public class InventoryManager : MonoBehaviour
         while (GameManager.Player == null)
             yield return null;
 
-        _rightHand = CharacterSettings.SearchHierarchyForBone (GameManager.Player.transform, "be_r_wrist01");
+        _rightHand = CharacterSettings.SearchHierarchyForBone (GameManager.Player.transform, PlayerRightHandName);
 
     }
     
-    public bool HasWeapon (Weapon w)
-    {
-        foreach (Weapon weaponHeld in Weapons)
-            if (weaponHeld.Type == w.Type)
-                return true;
-        
-        return false;
-
-    }
-
     public void AddItem (InventoryItem newItem)
     {
-        // if item already exists, add quantity
+        // If item already exists, add quantity
         foreach (InventoryItem item in Items) {
             if (item.Type == newItem.Type) {
                 item.Quantity += newItem.Quantity;
                 item.Quantity = Mathf.Min (item.MaxQuantity, item.Quantity);
-                //Debug.Log ("Update item: " + item.Quantity + " " + item.Name);
                 return;
-
             }
         }
-
+        
         Items.Add (newItem);
-        //Debug.Log ("New item: " + newItem.Quantity + " " + newItem.Name);
-
-    }
-    
-    public PlayerSaveState SaveState ()
-    {
-        PlayerSaveState save = new PlayerSaveState ();
         
-        // persist weapons as savestates since weapons themselves are monobehaviors
-        List<WeaponSaveState> weaponSaves = new List<WeaponSaveState> ();
-        foreach (Weapon w in Weapons)
-            weaponSaves.Add (w.SaveState ());
-
-        save.WeaponsHeld = weaponSaves.ToArray ();
-        save.ItemsHeld = Items.ToArray ();        
-        save.CurrentWeapon = GameManager.UI.CurrentWeapon;
-        
-        return save;
-
     }
 
     public bool TryAddAmmo (Weapon w, int ammoCount)
@@ -94,13 +67,28 @@ public class InventoryManager : MonoBehaviour
                 weapon.Quantity += ammoCount;
                 weapon.Quantity = Mathf.Min (weapon.Quantity, weapon.MaxQuantity);
                 return true;
-
             }
-
         }
 
         return false;
     
+    }
+    
+    public bool TryRemoveItemQty (Item.ItemType t, int qty)
+    {
+        for (int itemIndex = Items.Count - 1; itemIndex >= 0; itemIndex--) {
+            if (Items [itemIndex].Type == t) {
+                Items [itemIndex].Quantity -= qty;
+                Items [itemIndex].Quantity = Mathf.Max (Items [itemIndex].Quantity, 0);
+                if (Items [itemIndex].Quantity == 0) {
+                    Items.RemoveAt (itemIndex);
+                }
+                return true;
+            }
+        }
+        
+        return false;
+        
     }
 
     public bool TryRemoveAmmo (Weapon.WeaponType t, int ammoCount)
@@ -127,43 +115,52 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    public bool TryRemoveItemQty (Item.ItemType t, int qty)
+    public void RemoveWeapon (Weapon.WeaponType t)
     {
-        for (int itemIndex = Items.Count - 1; itemIndex >= 0; itemIndex--) {
-            if (Items [itemIndex].Type == t) {
-                Items [itemIndex].Quantity -= qty;
-                Items [itemIndex].Quantity = Mathf.Max (Items [itemIndex].Quantity, 0);
-                
-                if (Items [itemIndex].Quantity == 0) {
-                    Items.RemoveAt (itemIndex);
-                }
-                
-                return true;
-            }
-            
+        // Remove in descending order in case of more than one occurrence.
+        for (int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
+            if (Weapons [weaponIndex].Type == t)
+                Weapons.RemoveAt (weaponIndex);
         }
+
+    }
+    
+    public bool HasWeapon (Weapon w)
+    {
+        foreach (Weapon weaponHeld in Weapons)
+            if (weaponHeld.Type == w.Type)
+                return true;
         
         return false;
         
     }
-
-    public void RemoveWeapon (Weapon.WeaponType t)
+    
+    public InventorySaveState SaveState ()
     {
-        // remove in descending order in case more than one occurrence.
-        for (int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
-            if (Weapons [weaponIndex].Type == t)
-                Weapons.RemoveAt (weaponIndex);
-
-        }
-
+        InventorySaveState save = new InventorySaveState ();
+        
+        // persist weapons as savestates since weapons themselves are monobehaviors
+        List<WeaponSaveState> weaponSaves = new List<WeaponSaveState> ();
+        foreach (Weapon w in Weapons)
+            weaponSaves.Add (w.SaveState ());
+        
+        save.WeaponsHeld = weaponSaves.ToArray ();
+        save.ItemsHeld = Items.ToArray ();        
+        save.CurrentWeapon = GameManager.UI.CurrentWeapon;
+        
+        return save;
+        
     }
     
     public Weapon CurrentWeapon {
         get { return _currentWeapon; }
         set {
             // Move the current weapon off screen
-            if (_currentWeapon != null)
+            if (_currentWeapon != null) {
+                _currentWeapon.transform.parent = transform;
                 _currentWeapon.transform.position = GameManager.Level.OffscreenPosition;
+                _currentWeapon.gameObject.SetActive(false);
+            }
 
             // Set the new weapon
             _currentWeapon = value;

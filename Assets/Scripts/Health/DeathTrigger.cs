@@ -5,10 +5,9 @@ using System.Collections;
 /// Death trigger is attached to a game object that will automatically trigger an instant death.
 /// </summary>
 [RequireComponent(typeof(Collider))]
-[AddComponentMenu("Game/Death Trigger")]
+[AddComponentMenu("Health/Death Trigger")]
 public class DeathTrigger : MonoBehaviour
 {
-
     // Triggers death
     void OnTriggerEnter (Collider other)
     {

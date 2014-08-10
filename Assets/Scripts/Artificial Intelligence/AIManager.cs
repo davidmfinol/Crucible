@@ -5,29 +5,34 @@ using System.Collections.Generic;
 /// <summary>
 /// AI manager keeps track of all the AI components used in the game.
 /// </summary>
-[AddComponentMenu("AI/AI Manager")]
+[RequireComponent(typeof(AstarPath))]
+[AddComponentMenu("Artificial Intelligence/AI Manager")]
 public class AIManager : MonoBehaviour
 {
-    // These components are accesible by other classes
+    // We keep track of all the enmies here
     private List<EnemyAI> _enemies;
-    private ZoneGraph _graph;
-
-    // We keep track of the enemy statuses in Update
     private int _enemiesCouldHear;
     private int _enemiesSearching;
     private int _enemiesChasing;
     private int _olympusesAlive;
+
+    // This is the graph used by A* pathfinding
+    private ZoneGraph _graph;
 
     // All managers keep track of their ready status for the game manager
     private bool _ready;
 
     void Awake()
     {
-        // Get the list of enemies ready
-        _enemies = new List<EnemyAI> ();
-
         // Make sure we have the correct tag
         gameObject.tag = "AI Manager";
+        
+        // Confirm that there is a zone for the AI system to use
+        if(GameObject.FindGameObjectWithTag("Zone") == null)
+            Instantiate(Resources.Load("Prefabs/Platforming/_Zone"));
+        
+        // Get the list of enemies ready
+        _enemies = new List<EnemyAI> ();
 
     }
 
@@ -45,6 +50,7 @@ public class AIManager : MonoBehaviour
             _graph = (ZoneGraph)astar.graphs [0];
         }
 
+        // All managers need to report to the main GameManager when they are ready
         _ready = true;
 
     }
@@ -58,6 +64,7 @@ public class AIManager : MonoBehaviour
         _olympusesAlive = 0;
 
         foreach (EnemyAI enemy in _enemies) {
+
             // De-activate enemies that are too far away from the player, to save on performance
             if(enemy.Awareness == EnemyAI.AwarenessLevel.Unaware && GameManager.Player != null && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
                 if(enemy.gameObject.activeSelf)
@@ -69,21 +76,19 @@ public class AIManager : MonoBehaviour
             if(!enemy.gameObject.activeSelf)
                 enemy.gameObject.SetActive(true);
 
-
-            // check for living olympuses WITHIN THE ACTIVE RANGE.
-            if((enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) && !enemy.Animator.IsDead) {
-                _olympusesAlive += 1;
-                
-            }
-
-
             // Count up the number of aware enemies
             if (enemy.CouldHearPlayer)
                 _enemiesCouldHear++;
             if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
                 _enemiesSearching++;
             else if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
-               _enemiesChasing++;
+                _enemiesChasing++;
+            
+            // Check for living olympuses WITHIN THE ACTIVE RANGE.
+            if((enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) && !enemy.Animator.IsDead) {
+                _olympusesAlive += 1;
+                
+            }
         }
 
         // Turn on the alarms if any on the enemies are chasing the player
@@ -92,14 +97,12 @@ public class AIManager : MonoBehaviour
         
     }
 
-	// are there enemies within a radius?
+	// Are there enemies within a radius?
 	public bool EnemiesWithin(float radius) {
 		Vector3 pos = GameManager.Player.transform.position;
-
 		foreach (EnemyAI enemy in _enemies) {
 			if( Vector3.Distance(pos, enemy.transform.position) <= radius )
 				return true;
-
 		}
 
 		return false;

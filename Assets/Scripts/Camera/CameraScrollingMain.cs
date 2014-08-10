@@ -2,11 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Camera scrolling is the main camera script used to make the camera follow the player character.
+/// Camera scrolling main is the main camera script used to make the camera follow the player character.
+/// It is heavily based off the camera script found in the Lerpz 2D platforming Unity tutorial project.
 /// </summary>
 [RequireComponent(typeof(Transform))]
-[AddComponentMenu("Camera/Camera Scrolling")]
-public class CameraScrolling : MonoBehaviour
+[AddComponentMenu("Camera/Camera Scrolling Main")]
+public class CameraScrollingMain : MonoBehaviour
 {
     // How far back should the camera be from the target?
     public float Distance = 15.0f;
@@ -15,7 +16,7 @@ public class CameraScrolling : MonoBehaviour
     public float MovementSpringiness = 4.0f;
     public float EnemyFocusedSpringiness = 1.2f; // Same thing, but for when there is an enemy we're also tracking
 
-    //The range for moving the camera between you and the enemies.
+    // The range for moving the camera between you and the enemies.
     public float EnemyFocus = 50.0f;
     private bool _enemyFocused;
 

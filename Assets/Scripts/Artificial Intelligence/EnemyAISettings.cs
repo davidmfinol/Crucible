@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 ///  Enemy AI settings holds the AI parameters for an enemy.
 /// </summary>
-[AddComponentMenu("AI/Enemy AI Settings")]
+[AddComponentMenu("Artificial Intelligence/Enemy AI Settings")]
 public class EnemyAISettings : MonoBehaviour
 {
     // If the enemy is farther than this distance, deactivate it

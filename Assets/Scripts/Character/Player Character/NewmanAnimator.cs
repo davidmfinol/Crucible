@@ -12,7 +12,7 @@ public class NewmanAnimator : CharacterAnimator
     public GameObject StealthKillEvent;
     // How close do we need to be to initiate a stealth kill?
     public float StealthKillRange;  // = 3.0f;
-    public float IdleChangeSpeed = 2;
+    public float IdleChangeSpeed; // = 2;
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash("Base Layer.Idle");
@@ -134,11 +134,10 @@ public class NewmanAnimator : CharacterAnimator
 
     protected void UpdateWeaponsAnimations()
     {
-        if (GameManager.Inventory.CurrentWeapon == null || IsDead) {
+        Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
+        if (currentWeapon == null || IsDead) {
             return;
         }
-
-        Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
 
         // The stealthkill state is a special weapon/base-layer combat state
         if (CurrentState.nameHash != StealthKillState && currentWeapon.CanStealthKill && 
@@ -1112,7 +1111,7 @@ public class NewmanAnimator : CharacterAnimator
     
     public override bool CanInputPickup {
         get {
-            GameObject itemObj; // TODO: FASTER DETERMINATION (CACHE PER FRAME?)
+            GameObject itemObj;
             return StateMachine[CurrentState.nameHash] == ClimbingVertical || CurrentState.nameHash == WallgrabbingState || CurrentState.nameHash == HangingState || CanPickupItem(out itemObj);
         }
     }

@@ -4,75 +4,68 @@ using System.Collections.Generic;
 using System.IO;
 
 /// <summary>
-/// Game manager is a global class in charge of keeping track of all global components.
-/// The global components include Level, AI, Inventory, UI, Audio, and Subtitles.
-/// Every scene in the game NEEDS to have an instance of the game manager.
+/// Game manager is a static class in charge of keeping strack of all global components.
+/// The global components include the Main Camera, Audio, Subtitles, Level, AI, Object Pool, Inventory, UI, Player, and SaveData.
+/// Every scene in the game NEEDS to have an instance of the game manager, though that should be all it takes besides running the "CreateGameObjectsFromMeshes" editor menu script.
 /// </summary>
 [AddComponentMenu("Game/Game Manager")]
 public class GameManager : MonoBehaviour
-{
-    // The UIManager is rather complicated, so we're going to load it as a prefab instead of creating at runtime
-    public Transform UIPrefab;
-    
+{    
     // Keep track of the current game manager instance
     private static GameManager _instance;
 
-    // Camera is also important
-    private CameraScrolling _mainCamera;
+    // The main camera that follows the player
+    private static CameraScrollingMain _mainCamera;
     
     // Global Managers
-    private LevelManager _currentLevel;
-    private AIManager _aiManager;
-    private InventoryManager _inventory;
-    private UIManager _uiManager;
-    private AudioManager _audioManager;
-    private SubtitlesManager _subtitlesManager;
-    
+    private static AudioManager _audioManager;
+    private static SubtitlesManager _subtitlesManager;
+    private static LevelManager _currentLevel;
+    private static AIManager _aiManager;
+    private static InventoryManager _inventory;
+    private static ObjectPoolManager _objectPool;
+    private static UIManager _uiManager;
+
     // There should always be access to the player and its shader
-    private CharacterAnimator _player;
-    private NewmanShader _playerShader;
+    private static CharacterAnimator _player;
+    private static NewmanShader _playerShader;
 
-    // We keep track of where we save the game here
-    private string _gameSaveStatePath;
-    private string _levelSaveStatePrefix;
-
-    // We also keep track of the save data here
-    private GameSaveState _saveData;
+    // We keep track of the save data here
+    private static string _gameSaveStatePath;
+    private static string _levelSaveStatePrefix;
+    private static GameSaveState _saveData;
     
     // The GameManager keeps track of the last checkpoint, so that the player can go back there after death
-    private Transform _lastCheckPoint;
+    private static Transform _lastCheckPoint;
 
-    // is a cutscene currently playing?  turn it on/off appropriately.
-    private bool _isPlayingCutscene;
+    // Is a cutscene currently playing? Turn it on/off appropriately.
+    private static bool _isPlayingCutscene;
 
-
-    // Set up level, player/camera, and find the Global Managers
+    // Set up the game on Start(); this should happen before all other Start()s
     void Start ()
     {
+        // We need to keep one instance of our Game Manager
         if (_instance != null)
             Destroy (_instance.gameObject);
+        else {
+            _gameSaveStatePath = Path.Combine (Application.persistentDataPath, "game_progress.xml");
+            _levelSaveStatePrefix = Path.Combine (Application.persistentDataPath, "level_");
 
+        }
         _instance = this;
-        _mainCamera = GetComponentInChildren<CameraScrolling> ();
-
-        _gameSaveStatePath = Path.Combine (Application.persistentDataPath, "game_progress.xml");
-        _levelSaveStatePrefix = Path.Combine (Application.persistentDataPath, "level_");
-#if UNITY_WEBPLAYER && !UNITY_EDITOR
-        _gameSaveStatePath = Path.Combine (Application.dataPath, "game_progress.xml");
-        _levelSaveStatePrefix = Path.Combine (Application.dataPath, "level_");
-#endif
+        _mainCamera = GetComponentInChildren<CameraScrollingMain> ();
+        _audioManager = GetComponentInChildren<AudioManager> ();
+        _subtitlesManager = GetComponentInChildren<SubtitlesManager> ();
 
         SetupLevel ();
-
+        
         SetupAI ();
 
+        SetupObjectPool();
+        
         SetupInventory ();
 
         SetupUI ();
-
-        SetupAudio ();
-        
-        SetupSubtitles ();
         
         SetupPlayer ();
 
@@ -87,9 +80,9 @@ public class GameManager : MonoBehaviour
         // And then find or create a new level
         GameObject levelManager = GameObject.FindGameObjectWithTag ("Level Manager");
         if (levelManager != null)
-			GameManager._instance._currentLevel = levelManager.GetComponent<LevelManager> ();
+			GameManager._currentLevel = levelManager.GetComponent<LevelManager> ();
         else
-			GameManager._instance._currentLevel = new GameObject ("_Level Manager").AddComponent<LevelManager> ();
+			GameManager._currentLevel = new GameObject ("_Level Manager").AddComponent<LevelManager> ();
 
     }
     
@@ -99,66 +92,62 @@ public class GameManager : MonoBehaviour
         if (GameManager.AI != null)
             Destroy (GameManager.AI.gameObject);
 
-        // And then find or create a new AI Manager
+        // And then find or create a new AI
         GameObject aiManager = GameObject.FindGameObjectWithTag ("AI Manager");
         if (aiManager != null)
-            GameManager._instance._aiManager = aiManager.GetComponent<AIManager> ();
+            GameManager._aiManager = aiManager.GetComponent<AIManager> ();
         else
-            GameManager._instance._aiManager = new GameObject ("_Enemies").AddComponent<AIManager> ();
+            GameManager._aiManager = new GameObject ("_Enemies").AddComponent<AIManager> ();
 
+    }
+
+    private void SetupObjectPool()
+    {
+        // Destroy the previous Object Pool
+        if (_objectPool != null)
+            Destroy(_objectPool.gameObject);
+
+        // Create the Object Pool
+        GameObject pool = new GameObject ("_Object Pool");
+        _objectPool = pool.AddComponent<ObjectPoolManager>();
     }
     
     private void SetupInventory ()
     {
-        if (_inventory != null) // We don't need to recreate the inventory from scene to scene
-            return;
+        // Destroy the previous Inventory
+        if (_inventory != null)
+            Destroy (_inventory.gameObject);
         
+        // Create the inventory
         GameObject invObj = new GameObject ("_Inventory");
-        // TODO: DontDestroyOnLoad (invObj);
         _inventory = invObj.AddComponent<InventoryManager> ();
-
+        
     }
     
     private void SetupUI ()
     {
-        if (_uiManager != null) // We don't need to recreate the UI from scene to scene
-            return;
+        // Destroy the previous UI
+        if (_uiManager != null)
+            Destroy (_uiManager.gameObject);
 
-        Transform ui = (Transform)Instantiate (UIPrefab, UIPrefab.transform.position, UIPrefab.transform.rotation);
-		// TODO: DontDestroyOnLoad (ui.gameObject);
+        // Create the UI
+        GameObject ui = (GameObject)Instantiate (Resources.Load("Prefabs/User Interface/_UI"));
         _uiManager = ui.GetComponent<UIManager> ();
-
-    }
-    
-    private void SetupAudio ()
-    {
-        // We need to keep one instance of the audio manager
-        if (GameManager.Audio != null)
-            Destroy (GameManager.Audio.gameObject);
-        GameManager._instance._audioManager = GetComponentInChildren<AudioManager> ();
-
-    }
-    
-    private void SetupSubtitles ()
-    {
-        // We need to keep one instance of the audio manager
-        if (GameManager.Subtitles != null)
-			Destroy (GameManager.Subtitles.gameObject);
-        GameManager._instance._subtitlesManager = GetComponentInChildren<SubtitlesManager> ();
 
     }
     
     private void SetupPlayer ()
     {
-        // We don't need to recreate the Player from scene to scene
-        if (_player == null) {
-            GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/Newman"), _currentLevel.OffscreenPosition, Quaternion.identity);
-			// TODO: DontDestroyOnLoad(player);
-            _player = player.GetComponent<CharacterAnimator> ();
-            _player.gameObject.AddComponent<AudioListener>();
-            _player.IgnoreMovement = true;
-            _playerShader = player.GetComponent<NewmanShader>();
-        }
+        // Destroy the previous player
+        if (_player != null)
+            Destroy(_player.gameObject);
+
+        // Create the player
+        GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/Newman"), _currentLevel.OffscreenPosition, Quaternion.identity);
+        _player = player.GetComponent<CharacterAnimator> ();
+        _player.gameObject.AddComponent<AudioListener>();
+        _player.IgnoreMovement = true;
+        _playerShader = player.GetComponent<NewmanShader>();
         
         // Must delay player spawn to make sure all components are ready
         StartCoroutine (DelayedSpawnPlayer ());
@@ -200,29 +189,8 @@ public class GameManager : MonoBehaviour
         // Make sure the camera is looking at the player
 		MainCamera.Target = Player.transform;
 
-        // TODO: MAKE THESE OBJECTIVES BE HANDLED IN ONE CENTRALIZED LOCATION/METHOD
-        // *** load checkpoints he hasn't reached ***
-		/*
-        if (Application.loadedLevelName == "OCourse") {
-            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint1")); //FIXME: EXTREMELY SLOW
-            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint2"));
-            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Checkpoint3"));
-            
-        } else if (Application.loadedLevelName == "Sewer") {
-            if (!_saveData.HasShownWallJump)
-				GameManager.UI.Objectives.AddObjective (GameObject.Find ("TutorialTrigger1"));//FIXME: EXTREMELY SLOW
-
-
-        } else if (Application.loadedLevelName == "Commercial Zone") {
-			GameManager.UI.Objectives.AddObjective (GameObject.Find ("GunParts"));//FIXME: EXTREMELY SLOW
-            GameManager.UI.Objectives.AddObjective (GameObject.Find ("Isolator"));
-            GameManager.UI.Objectives.AddObjective (GameObject.Find ("HiggsDrive"));
-
-		}
-		*/
-
         // Enable the input
-		GameManager.UI.EnableInput ();
+		UI.EnableInput ();
 
     }
 
@@ -244,28 +212,15 @@ public class GameManager : MonoBehaviour
 	{
 		// Set our first checkpoint to the default start point
 		if (_saveData == null)
-			LastCheckPoint = _currentLevel.DefaultStartPoint;
+			LastCheckPoint = _currentLevel.DefaultStartpoint;
 
         // Clear out player inventory
         Inventory.Weapons.Clear ();
         Inventory.Items.Clear ();
-        GameManager.UI.RefreshWeaponWheel ();
+        UI.RefreshWeaponWheel ();
 
-		// Get the saved data
-#if UNITY_WEBPLAYER && !UNITY_EDITOR
-		// TODO: FIX THIS
-        WWW saveData = null;
-		try { 
-			saveData = new WWW (GameSaveStatePath);
-			while (!saveData.isDone && saveData.error == null)
-				yield return null;
-			if (saveData.error != null)
-				_saveData = GameSaveState.LoadFromText (saveData.text); 
-		}
-		finally {}
-#else
+        // Get the saved data
         _saveData = GameSaveState.Load (GameSaveStatePath);
-#endif
 
         // Do nothing if we failed to load a game save
         if (_saveData == null) {
@@ -299,24 +254,24 @@ public class GameManager : MonoBehaviour
         foreach (GameObject obj in spawnPoints) {
             Checkpoint checkpoint = obj.GetComponent<Checkpoint> ();
             if (checkpoint != null && checkpoint.Location == _saveData.Checkpoint) {
-                GameManager.Player.transform.position = checkpoint.transform.position;
+                Player.transform.position = checkpoint.transform.position;
                 LastCheckPoint = checkpoint.transform;
                 checkpointFound = true;
                 break;
             }
         }
         if (!checkpointFound) {
-            //Debug.LogWarning("Saved checkpoint not found!");
-            LastCheckPoint = _currentLevel.DefaultStartPoint;
+            // TODO (SEE TODO BELOW): Debug.LogWarning("Saved checkpoint not found!");
+            LastCheckPoint = _currentLevel.DefaultStartpoint;
         }
 
         // Display the correct weapon
         for (int i = 0; i < Inventory.Items.Count; i++) {
-            if(GameManager.UI.CurrentWeapon == _saveData.PlayerState.CurrentWeapon)
+            if(UI.CurrentWeapon == _saveData.PlayerState.CurrentWeapon)
                 break;
-            GameManager.UI.CycleToNextWeapon ();
+            UI.CycleToNextWeapon ();
         }
-        GameManager.UI.RefreshWeaponWheel ();
+        UI.RefreshWeaponWheel ();
 
         // TODO: THIS CURRENTLY DOESN'T WORK BECAUSE LOAD GAME IS CALLED WHEN YOU START UP A SCENE, AND YOU THEN MOVE TO THE PREVIOUS SCENE
         // ONE SOLUTION IS TO SAVE THE SCENE BEFORE THEN, BUT THAT WOULD REQUIRE KEEPING TRACK OF THE CHECKPOINT
@@ -338,26 +293,14 @@ public class GameManager : MonoBehaviour
         // Get the saved data
         string path = LevelSaveStatePrefix + levelName + ".xml";
 		LevelSaveState levelSave = null;
-#if UNITY_WEBPLAYER && !UNITY_EDITOR
-		WWW saveData = null;
-		try { 
-			saveData = new WWW (path);
-			while (!saveData.isDone && saveData.error == null)
-				yield return null;
-			if (saveData.error != null)
-				levelSave = LevelSaveState.LoadFromText (saveData.text);
-		}
-		finally {}
-#else
 		levelSave = LevelSaveState.Load (path);
-#endif
 
         // Do nothing if we couldn't load any data
         if (levelSave == null)
 			yield break;
 
 		// Restore all the enemies in the level
-		GameManager.AI.ResetEnemies ();
+		AI.ResetEnemies ();
         foreach (EnemySaveState enemyState in levelSave.EnemyStates) {
             string enemyName = enemyState.Type.ToString().Substring(6);
             GameObject newEnemy = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/"+enemyName), enemyState.Position, enemyState.Rotation);
@@ -365,13 +308,13 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning("Failed to load enemy: " + enemyName);
                 continue;
             }
-            newEnemy.transform.parent = GameManager.AI.transform;
+            newEnemy.transform.parent = AI.transform;
             newEnemy.GetComponent<CharacterAnimator> ().Direction = enemyState.Direction;  
             newEnemy.GetComponentInChildren<EnemyHeartBox> ().HitPoints = enemyState.Health;
         }
 
         // Restore all the items in the scene
-        GameManager.Level.ResetItems ();
+        Level.ResetItems ();
         foreach (ItemSaveState itemState in levelSave.ItemStates) {
             string itemName = "Prefabs/Items/" + itemState.ItemType.ToString().Substring(5);
             if (itemState.ItemType == Item.ItemType.Item__Weapon)
@@ -381,7 +324,7 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning("Failed to load item: " + itemName);
                 continue;
             }
-            createdItem.transform.parent = GameManager.Level.ItemContainer;
+            createdItem.transform.parent = Level.ItemPickups;
             Item newItem = createdItem.GetComponent<Item> ();
             newItem.Quantity = itemState.Quantity;
             newItem.WasPlaced = itemState.WasPlaced;
@@ -393,13 +336,10 @@ public class GameManager : MonoBehaviour
 
     public static void SaveGameState (Checkpoint.CheckpointLocation location)
     {
-		if (_instance._saveData == null)
-            _instance._saveData = new GameSaveState ();
-
-		_instance._saveData.LevelName = Application.loadedLevelName;
-		_instance._saveData.Checkpoint = location;
-		_instance._saveData.PlayerState = Inventory.SaveState ();
-		_instance._saveData.Save (GameSaveStatePath);
+		SaveData.LevelName = Application.loadedLevelName;
+		SaveData.Checkpoint = location;
+		SaveData.PlayerState = Inventory.SaveState ();
+		SaveData.Save (GameSaveStatePath);
 
     }
     
@@ -409,12 +349,12 @@ public class GameManager : MonoBehaviour
         LevelSaveState level = new LevelSaveState ();
 
         List<EnemySaveState> enemySaves = new List<EnemySaveState> ();
-        foreach (EnemyAI enemyAI in GameManager.AI.Enemies)
+        foreach (EnemyAI enemyAI in AI.Enemies)
             enemySaves.Add (enemyAI.SaveState ());
         level.EnemyStates = enemySaves.ToArray ();
         
         List<ItemSaveState> itemSaves = new List<ItemSaveState> ();
-            foreach (Item item in GameManager.Level.Items)
+            foreach (Item item in Level.Items)
                 itemSaves.Add (item.SaveState ());
         level.ItemStates = itemSaves.ToArray ();
 
@@ -422,87 +362,90 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public static CameraScrolling MainCamera {
-        get { return _instance._mainCamera; }
+    public static CameraScrollingMain MainCamera {
+        get { return _mainCamera; }
+    }
+    
+    public static AudioManager Audio {
+        get { return _audioManager; }
+    }
+    
+    public static SubtitlesManager Subtitles {
+        get { return _subtitlesManager; }
     }
 
     public static LevelManager Level {
-        get { return _instance._currentLevel; }
+        get { return _currentLevel; }
     }
 
     public static AIManager AI {
-		get { return _instance._aiManager; }
+		get { return _aiManager; }
     }
 
+    public static ObjectPoolManager ObjectPool {
+        get { return _objectPool; }
+    }
+    
     public static InventoryManager Inventory {
-		get { return _instance._inventory; }
+        get { return _inventory; }
     }
 
     public static UIManager UI {
-		get { return _instance._uiManager; }
-    }
-
-    public static AudioManager Audio {
-		get { return _instance._audioManager; }
-    }
-
-    public static SubtitlesManager Subtitles {
-		get { return _instance._subtitlesManager; }
+		get { return _uiManager; }
     }
 
     public static bool AllManagersReady {
         get {
-			return (GameManager.Level != null && GameManager.Level.Ready) && (GameManager.AI != null && GameManager.AI.Ready) && 
-				(GameManager.Inventory != null && GameManager.Inventory.Ready) && (GameManager.UI != null && GameManager.UI.Ready) && 
-                (Audio != null && Audio.Ready) && (Subtitles != null && Subtitles.Ready);
+            return (Audio != null && Audio.Ready) && (Subtitles != null && Subtitles.Ready) &&
+                (Level != null && Level.Ready) && (AI != null && AI.Ready) && (ObjectPool != null && ObjectPool.Ready) && 
+                    (Inventory != null && Inventory.Ready) && (UI != null && UI.Ready);
         }
     }
 
     public static CharacterAnimator Player {
-        get { return _instance._player; }
-		set { _instance._player = value; }
+        get { return _player; }
     }
     
     public static NewmanShader PlayerShader {
-        get { return _instance._playerShader; }
-        set { _instance._playerShader = value; }
+        get { return _playerShader; }
+        set { _playerShader = value; }
     }
 
     public static string GameSaveStatePath {
-		get { return _instance._gameSaveStatePath; }
+		get { return _gameSaveStatePath; }
     }
 
     public static string LevelSaveStatePrefix {
-		get { return _instance._levelSaveStatePrefix; } 
+		get { return _levelSaveStatePrefix; }
     }
 
     public static GameSaveState SaveData {
         get {
-			if (_instance._saveData == null)
-				_instance._saveData = new GameSaveState ();
+			if (_saveData == null)
+				_saveData = new GameSaveState ();
 
-			return _instance._saveData; 
+			return _saveData;
         }
     }
 
     public static Transform LastCheckPoint {
-		get { return _instance._lastCheckPoint; }
-		set { _instance._lastCheckPoint = value; }
+		get { return _lastCheckPoint; }
+		set { _lastCheckPoint = value; }
     }
 
     public static bool IsPlayingCutscene {
-		get { return _instance._isPlayingCutscene; }
+		get { return _isPlayingCutscene; }
         set {
-			_instance._isPlayingCutscene = value;
+			_isPlayingCutscene = value;
 
-			if (_instance._isPlayingCutscene) {
-                GameManager.UI.CraftingMenu.Close ();
+			if (_isPlayingCutscene) {
+                UI.CraftingMenu.Close ();
                 UI.DisableInput ();
             }
             else
                 UI.EnableInput();
 
-			GameManager.UI.CraftingMenu.ShowWeaponWheel(!_instance._isPlayingCutscene);
+			UI.CraftingMenu.ShowWeaponWheel(!_isPlayingCutscene);
         }
     }
 

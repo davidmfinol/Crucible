@@ -87,9 +87,7 @@ public class TouchInput : MonoBehaviour
 
         // Left-hand side GUI
         _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.identity);
-        _horizontalSlider.GetComponent<AlphaPulse> ().On = true;
         _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler (Vector3.forward * 90));
-        _verticalSlider.GetComponent<AlphaPulse> ().On = true;
         Vector3 verticalScale = _verticalSlider.localScale;
         verticalScale.x *= 12;
         _verticalSlider.transform.localScale = verticalScale;
@@ -169,22 +167,6 @@ public class TouchInput : MonoBehaviour
 
     }
 
-    // Co-routines get stopped when the level is loaded, so this re-starts them as required
-    void OnLevelWasLoaded ()
-    {
-        // Make sure we're actually being used 
-        if (!this.enabled || _input.UpdateInputMethod != UpdateInput)
-            return;
-
-        // And make sure the co-routines really did stop 
-        StopAllCoroutines ();
-
-        // Start the co-routines again
-        StartCoroutine (DisplayLeftHandSide ());
-        StartCoroutine (DisplayRightHandSide ());
-
-    }
-
     public void Enable ()
     {
         _input.UpdateInputMethod = this.UpdateInput;
@@ -248,7 +230,7 @@ public class TouchInput : MonoBehaviour
         if (delta.magnitude > _moveMin) {
 
             // Handle horizontal input
-            if (GameManager.Player.CanInputHorizontal && Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) { 
+            if (GameManager.Player.CanInputHorizontal && (!GameManager.Player.CanInputVertical || Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) ) { 
                 _input.Horizontal = delta.x / _distanceForMaxSpeed;
                 if (_input.Horizontal > 0.5f)
                     _input.Horizontal += (_input.Horizontal - 0.5f) * 2.0f;

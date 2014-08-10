@@ -5,7 +5,7 @@ using System.Collections.Generic;
 /// Sound event represents a sound that enemies can hear.
 /// </summary>
 [RequireComponent(typeof(SphereCollider))]
-[AddComponentMenu("AI/Sound/SoundEvent")]
+[AddComponentMenu("Artificial Intelligence/Sound/SoundEvent")]
 public class SoundEvent : MonoBehaviour
 {
     public float DecayTime = 1;

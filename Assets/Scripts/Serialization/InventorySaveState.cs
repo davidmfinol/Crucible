@@ -2,16 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerSaveState
+public class InventorySaveState
 {
-    public WeaponSaveState[] WeaponsHeld;
     public InventoryItem[] ItemsHeld;
+    public WeaponSaveState[] WeaponsHeld;
     public int CurrentWeapon;
 
-    public PlayerSaveState ()
+    public InventorySaveState ()
     {
-        WeaponsHeld = null;
         ItemsHeld = null;
+        WeaponsHeld = null;
         CurrentWeapon = 0;
 
     }

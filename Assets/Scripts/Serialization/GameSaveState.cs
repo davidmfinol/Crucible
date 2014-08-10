@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
@@ -8,7 +8,7 @@ public class GameSaveState
 {
     public string LevelName;
     public Checkpoint.CheckpointLocation Checkpoint;
-    public PlayerSaveState PlayerState;
+    public InventorySaveState PlayerState;
 
     // *** tutorial zone ***
 	public bool HasShownIntroCutscene;

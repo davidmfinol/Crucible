@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// </summary>
 [RequireComponent(typeof(MeshCollider))]
 [RequireComponent(typeof(Rigidbody))]
-[AddComponentMenu("AI/Sight/ViewCone")]
+[AddComponentMenu("Artificial Intelligence/Sight/ViewCone")]
 public class ViewCone : MonoBehaviour
 {
     public Transform RootRotation;

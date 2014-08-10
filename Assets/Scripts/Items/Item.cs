@@ -40,7 +40,8 @@ public class Item : MonoBehaviour
         collider.isTrigger = false;
         rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
         rigidbody.freezeRotation = true;
-        gameObject.layer = LayerMask.NameToLayer ("Item"); // NOTE: THIS DOESN'T WORK WITH HOLOSHIELD OBJECT
+        rigidbody.useGravity = true;
+        gameObject.layer = LayerMask.NameToLayer ("Item");
 
         // Make the item have an indicator appear above it
         string type = Type == ItemType.Item__Weapon ? "Weapon" : "Item";
@@ -60,7 +61,7 @@ public class Item : MonoBehaviour
 
         // Register ourselves with the LevelManager
         GameManager.Level.Items.Add (this);
-        transform.parent = GameManager.Level.ItemContainer;
+        transform.parent = GameManager.Level.ItemPickups;
 
     }
     
@@ -101,13 +102,6 @@ public class Item : MonoBehaviour
         itemSave.WasPlaced = WasPlaced;
 
         return itemSave;
-
-    }
-
-    public void MakeFalling ()
-    {
-        // enable rigid body so it'll fall.
-        rigidbody.useGravity = true;
 
     }
 

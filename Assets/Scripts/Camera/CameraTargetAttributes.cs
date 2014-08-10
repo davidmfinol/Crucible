@@ -35,15 +35,14 @@ public class CameraTargetAttributes : MonoBehaviour
     // How long the character has been staying still?
     private float _timeStationary;
 
-
     // Keep track of the character we are following
     private CharacterAnimator _character;
     private CharacterSettings _settings;
 
     void Start ()
     {
-        _character = GameManager.Player;
-        _settings = GameManager.Player.GetComponent<CharacterSettings> ();
+        _character = GetComponent<CharacterAnimator>();
+        _settings = GetComponent<CharacterSettings> ();
         _timeStationary = 0;
 
     }
