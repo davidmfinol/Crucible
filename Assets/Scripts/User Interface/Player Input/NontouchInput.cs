@@ -8,7 +8,7 @@ using System.Collections;
 public class NontouchInput : MonoBehaviour
 {
     // Analog modifier for keyboard
-    private bool _shift = false;
+    private bool _run = false;
     
     // Where we store the input
     private CharacterInput _input;
@@ -65,12 +65,21 @@ public class NontouchInput : MonoBehaviour
             joystickCycleLeft = Input.GetKey (KeyCode.Joystick1Button4);
             joystickCycleRight = Input.GetKey (KeyCode.Joystick1Button5);
         } else {
-            _shift = Input.GetButton ("Shift");
+            _run = Input.GetButton ("Run");
             float horizontal = Input.GetAxis ("Horizontal");
-            _input.Horizontal = _shift ? horizontal * 0.5f : horizontal;
+            _input.Horizontal = _run ? horizontal : horizontal * 0.5f;
             _input.Vertical = Input.GetAxis ("Vertical");
             _input.Interaction = Input.GetButton ("Interaction");
-            _input.Jump = new Vector2 (Input.GetAxis ("JumpX"), Input.GetAxis ("JumpY"));
+            float jumpX = 0;
+            if (Input.GetButton("JumpX") ) {
+                if (Input.GetAxis ("JumpX") > 0) {
+                    jumpX = 1;
+                }
+                else if (Input.GetAxis ("JumpX") < 0) {
+                    jumpX = -1;
+                }
+            }
+            _input.Jump = new Vector2 (jumpX, Input.GetButton ("JumpY") ? 1 : 0);
             _input.Attack = Input.GetAxis ("Attack");
             _input.Pickup = Input.GetButton ("Pickup") || (Input.GetAxis("Vertical") < -0.1f && GameManager.Player.IsClimbing);
             _input.Any = Input.anyKey;

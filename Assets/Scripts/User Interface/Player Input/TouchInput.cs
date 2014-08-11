@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Touch Input is responsible for accepting the player's input on a mobile device and passing it to the playercharacterinput.
+/// Touch Input is responsible for accepting the player's input on a mobile device and passing it to the playercharacter's input.
 /// </summary>
 [AddComponentMenu("User Interface/Player Input/Touch Input")]
 public class TouchInput : MonoBehaviour

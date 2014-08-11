@@ -134,6 +134,7 @@ public class NewmanAnimator : CharacterAnimator
 
     protected void UpdateWeaponsAnimations()
     {
+        // Only do things on the Weapons layer if we can
         Weapon currentWeapon = GameManager.Inventory.CurrentWeapon;
         if (currentWeapon == null || IsDead) {
             return;
@@ -175,11 +176,6 @@ public class NewmanAnimator : CharacterAnimator
         // Switch between crouching and standing idles based off enemies that could hear
         float idleNum = MecanimAnimator.GetFloat(MecanimHashes.IdleNum);
         float targetIdle = GameManager.AI.EnemiesCouldHear > 0 ? 1 : 0;
-        // Press shift to crouch
-#if UNITY_STANDALONE_WIN || UNITY_EDITOR || UNITY_STANDALONE_OSX
-        if(Input.GetButton ("Shift"))
-            targetIdle = 1;
-#endif
         idleNum = Mathf.Lerp(idleNum, targetIdle, Time.deltaTime * IdleChangeSpeed);
         MecanimAnimator.SetFloat(MecanimHashes.IdleNum, idleNum);
 
@@ -467,7 +463,10 @@ public class NewmanAnimator : CharacterAnimator
 
         // We can let them speed up, but for the most part, we want to slow down
         if (InputMoveForward) {
-            ApplyMovingHorizontal(elapsedTime * 0.5f);
+            elapsedTime *= 0.5f;
+            if (CurrentState.nameHash == LandHighState)
+                elapsedTime *= 0.5f;
+            ApplyMovingHorizontal(elapsedTime);
         }
         else {
             ApplyFriction(elapsedTime);
