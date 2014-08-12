@@ -517,7 +517,7 @@ public class NewmanAnimator : CharacterAnimator
             AllowAirJump();
 
         // You can also just let go
-        } else if (CharInput.Down || CharInput.Pickup) {
+        } else if (CharInput.PickupPressed) {
             DropHangTarget();
             MecanimAnimator.SetBool(MecanimHashes.Fall, true);
         }
@@ -1117,11 +1117,16 @@ public class NewmanAnimator : CharacterAnimator
         }
     }
 
+    public override bool IsOnWall {
+        get { return CurrentState.nameHash == WallgrabbingState; }
+    }
+    
+    public override bool IsHanging {
+        get { return CurrentState.nameHash == HangingState; }
+    }
+
     public override bool IsClimbing {
-        get {
-            return CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == ClimbingLedgeState ||
-                CurrentState.nameHash == ClimbingRopeState || CurrentState.nameHash == WallgrabbingState;
-        }
+        get { return CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == ClimbingLedgeState || CurrentState.nameHash == ClimbingRopeState; }
     }
 
     public override bool IsDead {

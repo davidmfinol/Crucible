@@ -81,7 +81,7 @@ public class NontouchInput : MonoBehaviour
             }
             _input.Jump = new Vector2 (jumpX, Input.GetButton ("JumpY") ? 1 : 0);
             _input.Attack = Input.GetAxis ("Attack");
-            _input.Pickup = Input.GetButton ("Pickup") || (Input.GetAxis("Vertical") < -0.1f && GameManager.Player.IsClimbing);
+            _input.Pickup = Input.GetButton ("Pickup") || (Input.GetAxis("Vertical") < -0.1f && (GameManager.Player.IsHanging || GameManager.Player.IsOnWall));
             _input.Any = Input.anyKey;
         }
         

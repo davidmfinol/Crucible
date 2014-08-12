@@ -717,29 +717,37 @@ public abstract class CharacterAnimator : MonoBehaviour
     public CollisionFlags ControllerCollisionFlags {
         get { return _collisionFlags; }
     }
-
-    public virtual bool IsLanding {
-        get { return false; } 
-    }
     
     public virtual bool IsSneaking {
-		get { return !IsGrounded || Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
+        get { return !IsGrounded || Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
     }
-
+    
     public virtual bool IsTurningAround {
         get { return false; } 
     }
 
+    public virtual bool IsHanging {
+        get { return false; }
+    }
+    
+    public virtual bool IsOnWall {
+        get { return false; }
+    }
+    
     public virtual bool IsClimbing {
+        get { return false; } 
+    }
+    
+    public virtual bool IsJumping {
+        get { return false; } 
+    }
+
+    public virtual bool IsLanding {
         get { return false; } 
     }
 
     public virtual bool IsDead {
         get { return false; }
-    }
-
-    public virtual bool IsJumping {
-        get { return false; } 
     }
 
     // Moving Platform Properties
