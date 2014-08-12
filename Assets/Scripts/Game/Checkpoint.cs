@@ -37,21 +37,15 @@ public class Checkpoint : MonoBehaviour
     public CheckpointLocation Location;
     public string Caption;
     public Color Color;
-    private CheckpointFader _checkpointFader;
-
-    void Start ()
-    {
-        _checkpointFader = GameManager.UI.GetComponent<CheckpointFader> ();
-
-    }
 
     // When the player reaches the checkpoint, do the appropriate logic
     void OnTriggerEnter (Collider other)
     {
+        // Only the player can trigger this event
         if (!other.CompareTag ("Player") || GameManager.Player.IsDead)
             return;
 
-		// if enemies around, don't allow checkpoint
+		// If enemies around are around, don't allow checkpoint
 		if( (GameManager.AI.EnemiesChasing != 0) || (GameManager.AI.EnemiesSearching != 0) ||
 		    GameManager.AI.EnemiesWithin(30.0f)  )
 			return;
@@ -64,15 +58,12 @@ public class Checkpoint : MonoBehaviour
         if (newParticles != null)
             newParticles.Play ();
 
-
         // Set the new spawnpoint
         GameManager.LastCheckPoint = transform;
         
         // Save the game at checkpoints
-        GameManager.SaveGameState (Location);
+        GameManager.SaveGameState (Application.loadedLevelName, Location);
         GameManager.SaveLevelState (Application.loadedLevelName);
-
-        _checkpointFader.StartFading (Caption, Color);
 
     }
 

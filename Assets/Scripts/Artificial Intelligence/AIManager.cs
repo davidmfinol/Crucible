@@ -29,7 +29,7 @@ public class AIManager : MonoBehaviour
         
         // Confirm that there is a zone for the AI system to use
         if(GameObject.FindGameObjectWithTag("Zone") == null)
-            Instantiate(Resources.Load("Prefabs/Platforming/_Zone"));
+            Instantiate(Resources.Load("Prefabs/Platforming/_Zone")); // NOTE: WE DON'T POOL THIS SINCE WE ONLY NEED THE 1
         
         // Get the list of enemies ready
         _enemies = new List<EnemyAI> ();

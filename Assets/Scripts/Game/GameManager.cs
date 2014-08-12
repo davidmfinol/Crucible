@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
     private static SubtitlesManager _subtitlesManager;
     private static LevelManager _currentLevel;
     private static AIManager _aiManager;
-    private static InventoryManager _inventory;
     private static ObjectPoolManager _objectPool;
+    private static InventoryManager _inventory;
     private static UIManager _uiManager;
 
     // There should always be access to the player and its shader
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         if (levelManager != null)
 			GameManager._currentLevel = levelManager.GetComponent<LevelManager> ();
         else
-			GameManager._currentLevel = new GameObject ("_Level Manager").AddComponent<LevelManager> ();
+            GameManager._currentLevel = new GameObject ("_Level Manager").AddComponent<LevelManager> (); // NOTE: NO POOL; JUST 1
 
     }
     
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         if (aiManager != null)
             GameManager._aiManager = aiManager.GetComponent<AIManager> ();
         else
-            GameManager._aiManager = new GameObject ("_Enemies").AddComponent<AIManager> ();
+            GameManager._aiManager = new GameObject ("_Enemies").AddComponent<AIManager> (); // NOTE: NO POOL; JUST 1
 
     }
 
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
             Destroy(_objectPool.gameObject);
 
         // Create the Object Pool
-        GameObject pool = new GameObject ("_Object Pool");
+        GameObject pool = new GameObject ("_Object Pool"); // NOTE: NO POOL; THIS IS THE POOL
         _objectPool = pool.AddComponent<ObjectPoolManager>();
     }
     
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
             Destroy (_inventory.gameObject);
         
         // Create the inventory
-        GameObject invObj = new GameObject ("_Inventory");
+        GameObject invObj = new GameObject ("_Inventory"); // NOTE: NO POOL; JUST 1
         _inventory = invObj.AddComponent<InventoryManager> ();
         
     }
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
             Destroy (_uiManager.gameObject);
 
         // Create the UI
-        GameObject ui = (GameObject)Instantiate (Resources.Load("Prefabs/User Interface/_UI"));
+        GameObject ui = (GameObject)Instantiate (Resources.Load("Prefabs/User Interface/_UI")); // NOTE: NO POOL; JUST 1
         _uiManager = ui.GetComponent<UIManager> ();
 
     }
@@ -143,9 +143,10 @@ public class GameManager : MonoBehaviour
             Destroy(_player.gameObject);
 
         // Create the player
-        GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/Newman"), _currentLevel.OffscreenPosition, Quaternion.identity);
+        GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/Newman"), _currentLevel.OffscreenPosition, Quaternion.identity); // NOTE: NO POOL; JUST 1
         _player = player.GetComponent<CharacterAnimator> ();
         _player.gameObject.AddComponent<AudioListener>();
+        _player.Direction = Vector3.right;
         _player.IgnoreMovement = true;
         _playerShader = player.GetComponent<NewmanShader>();
         
@@ -215,9 +216,7 @@ public class GameManager : MonoBehaviour
 			LastCheckPoint = _currentLevel.DefaultStartpoint;
 
         // Clear out player inventory
-        Inventory.Weapons.Clear ();
-        Inventory.Items.Clear ();
-        UI.RefreshWeaponWheel ();
+        Inventory.Clear();
 
         // Get the saved data
         _saveData = GameSaveState.Load (GameSaveStatePath);
@@ -230,24 +229,13 @@ public class GameManager : MonoBehaviour
                 _saveData.Checkpoint = lastCheckpoint.Location;
 			yield break;
         }
-
-        // Reload the player's weapons
-        foreach (WeaponSaveState weaponSave in _saveData.PlayerState.WeaponsHeld) {
-            string weaponName = "Prefabs/Items/Weapons/InHand/" + weaponSave.WeaponType.ToString().Substring(7);
-            GameObject createdWeapon = (GameObject)Instantiate (Resources.Load (weaponName), _currentLevel.OffscreenPosition, Quaternion.identity);
-            if(createdWeapon == null) {
-                Debug.LogWarning("Failed to load weapon: " + weaponName);
-                continue;
-            }
-            Weapon newWeapon = createdWeapon.GetComponent<Weapon> ();
-            newWeapon.Quantity = weaponSave.Quantity;
-            Inventory.Weapons.Add (newWeapon);
+        
+        // Load up the correct level
+        if (!string.IsNullOrEmpty(SaveData.LevelName) && !SaveData.LevelName.Equals(Application.loadedLevelName)) {
+            Instantiate(Resources.Load("Prefabs/User Interface/Loading Screen")); // NOTE: WE DON'T USE THE OBJECT POOL, SINCE WE ONLY NEED THE 1
+            Application.LoadLevel(SaveData.LevelName);
         }
-
-        // Reload the player's items
-        foreach (InventoryItem invItem in _saveData.PlayerState.ItemsHeld)
-            Inventory.AddItem (InventoryItemFactory.CreateFromType (invItem.Type, invItem.Quantity));
-
+        
         // Move player to his last checkpoint.
         bool checkpointFound = false;
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag ("Respawn");
@@ -261,22 +249,35 @@ public class GameManager : MonoBehaviour
             }
         }
         if (!checkpointFound) {
-            // TODO (SEE TODO BELOW): Debug.LogWarning("Saved checkpoint not found!");
+            Debug.LogWarning("Saved checkpoint not found!");
             LastCheckPoint = _currentLevel.DefaultStartpoint;
+        }
+        
+        // Reload the player's items
+        foreach (InventoryItem invItem in _saveData.InventoryState.ItemsHeld)
+            Inventory.AddItem (InventoryItemFactory.CreateFromType (invItem.Type, invItem.Quantity));
+
+        // Reload the player's weapons
+        foreach (WeaponSaveState weaponSave in _saveData.InventoryState.WeaponsHeld) {
+            string weaponName = "Prefabs/Items/Weapons/InHand/" + weaponSave.WeaponType.ToString().Substring(7);
+            // NOTE: WE MAY WANT TO POOL HERE, BUT I DON'T THINK IT HAPPENS ENOUGH TO BE WORTH IT/NOT SURE IT MAKES SENSE
+            GameObject createdWeapon = (GameObject)Instantiate (Resources.Load (weaponName), _currentLevel.OffscreenPosition, Quaternion.identity);
+            if(createdWeapon == null) {
+                Debug.LogWarning("Failed to load weapon: " + weaponName);
+                continue;
+            }
+            Weapon newWeapon = createdWeapon.GetComponent<Weapon> ();
+            newWeapon.Quantity = weaponSave.Quantity;
+            Inventory.Weapons.Add (newWeapon);
         }
 
         // Display the correct weapon
         for (int i = 0; i < Inventory.Items.Count; i++) {
-            if(UI.CurrentWeapon == _saveData.PlayerState.CurrentWeapon)
+            if(UI.CurrentWeapon == _saveData.InventoryState.CurrentWeapon)
                 break;
             UI.CycleToNextWeapon ();
         }
         UI.RefreshWeaponWheel ();
-
-        // TODO: THIS CURRENTLY DOESN'T WORK BECAUSE LOAD GAME IS CALLED WHEN YOU START UP A SCENE, AND YOU THEN MOVE TO THE PREVIOUS SCENE
-        // ONE SOLUTION IS TO SAVE THE SCENE BEFORE THEN, BUT THAT WOULD REQUIRE KEEPING TRACK OF THE CHECKPOINT
-        //  if (gameSave.LevelName != Application.loadedLevelName)
-		//      Application.LoadLevel(gameSave.LevelName);
 		
 		yield return null;
 
@@ -303,6 +304,7 @@ public class GameManager : MonoBehaviour
 		AI.ResetEnemies ();
         foreach (EnemySaveState enemyState in levelSave.EnemyStates) {
             string enemyName = enemyState.Type.ToString().Substring(6);
+            // NOTE: WE MAY WANT TO POOL HERE, BUT I DON'T THINK IT HAPPENS ENOUGH TO BE WORTH IT/NOT SURE IT MAKES SENSE
             GameObject newEnemy = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/"+enemyName), enemyState.Position, enemyState.Rotation);
             if(newEnemy == null) {
                 Debug.LogWarning("Failed to load enemy: " + enemyName);
@@ -319,6 +321,7 @@ public class GameManager : MonoBehaviour
             string itemName = "Prefabs/Items/" + itemState.ItemType.ToString().Substring(5);
             if (itemState.ItemType == Item.ItemType.Item__Weapon)
                 itemName = "Prefabs/Items/Weapons/OnField/" + itemState.WeaponType.ToString().Substring(7);
+            // NOTE: WE MAY WANT TO POOL HERE, BUT I DON'T THINK IT HAPPENS ENOUGH TO BE WORTH IT/NOT SURE IT MAKES SENSE
             GameObject createdItem = (GameObject)Instantiate (Resources.Load (itemName), itemState.Position, itemState.Rotation);
             if(createdItem == null) {
                 Debug.LogWarning("Failed to load item: " + itemName);
@@ -334,11 +337,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public static void SaveGameState (Checkpoint.CheckpointLocation location)
+    public static void SaveGameState (string levelName, Checkpoint.CheckpointLocation checkpoint)
     {
-		SaveData.LevelName = Application.loadedLevelName;
-		SaveData.Checkpoint = location;
-		SaveData.PlayerState = Inventory.SaveState ();
+        SaveData.LevelName = levelName;
+		SaveData.Checkpoint = checkpoint;
+		SaveData.InventoryState = Inventory.SaveState ();
 		SaveData.Save (GameSaveStatePath);
 
     }

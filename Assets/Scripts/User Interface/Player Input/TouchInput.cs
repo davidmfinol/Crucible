@@ -88,9 +88,6 @@ public class TouchInput : MonoBehaviour
         // Left-hand side GUI
         _horizontalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.identity);
         _verticalSlider = (Transform)Instantiate (SliderPrefab, SliderPrefab.position, Quaternion.Euler (Vector3.forward * 90));
-        Vector3 verticalScale = _verticalSlider.localScale;
-        verticalScale.x *= 12;
-        _verticalSlider.transform.localScale = verticalScale;
         _moveButton = (Transform)Instantiate (MoveButtonPrefab, MoveButtonPrefab.position, MoveButtonPrefab.rotation);
         _radioWaves = (Transform)Instantiate (RadioPrefab, RadioPrefab.position, RadioPrefab.rotation);
 
@@ -230,14 +227,19 @@ public class TouchInput : MonoBehaviour
         if (delta.magnitude > _moveMin) {
 
             // Handle horizontal input
+            float prevHorizontal = _input.Horizontal;
             if (GameManager.Player.CanInputHorizontal && (!GameManager.Player.CanInputVertical || Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) ) { 
                 _input.Horizontal = delta.x / _distanceForMaxSpeed;
-                if (_input.Horizontal > 0.5f)
-                    _input.Horizontal += (_input.Horizontal - 0.5f) * 2.0f;
-                else if (_input.Horizontal < -0.5f)
-                    _input.Horizontal += (_input.Horizontal + 0.5f) * 2.0f;
+                if (_input.Horizontal > 0.66f)
+                    _input.Horizontal += (_input.Horizontal - 0.66f) * 2.0f;
+                else if (_input.Horizontal < -0.66f)
+                    _input.Horizontal += (_input.Horizontal + 0.66f) * 2.0f;
 
-                // Handle vertical input
+                // Let the player know when running by having the phone vibrate
+                if( prevHorizontal < 0.66 && _input.Horizontal >= 0.66f)
+                    Handheld.Vibrate();
+
+            // Handle vertical input
             } else if (GameManager.Player.CanInputVertical)
                 _input.Vertical = delta.y / _distanceForMaxSpeed;
         }
@@ -252,7 +254,7 @@ public class TouchInput : MonoBehaviour
             _actionStartPos = touch.position;
             _lastActionPos = touch.position;
 
-            // Update the touch as appropriate
+        // Update the touch as appropriate
         } else if (touch.fingerId == _actionID) {
             _lastActionPos = touch.position;
             float touchSpeed = touch.deltaPosition.magnitude / touch.deltaTime;
@@ -559,5 +561,9 @@ public class TouchInput : MonoBehaviour
 
     public float ActionID {
         get { return _actionID; }
+    }
+
+    public float SpeedForInstantAction {
+        get { return _speedForInstantAction; } 
     }
 }

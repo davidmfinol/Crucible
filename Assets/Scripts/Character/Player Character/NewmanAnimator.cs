@@ -450,7 +450,7 @@ public class NewmanAnimator : CharacterAnimator
     {
         // We do hard stops unless we're rolling
         if (TimeInCurrentState == 0) {
-            if(CurrentState.nameHash != LandRollState && !(CharInput.Left || CharInput.Right))
+            if( CurrentState.nameHash == LandHighState || (CurrentState.nameHash != LandRollState && !(CharInput.Left || CharInput.Right)) )
                 HorizontalSpeed = 0;
             else if (CurrentState.nameHash != LandRollState)
                 HorizontalSpeed *= 0.5f;
@@ -462,15 +462,17 @@ public class NewmanAnimator : CharacterAnimator
         }
 
         // We can let them speed up, but for the most part, we want to slow down
-        if (InputMoveForward) {
-            elapsedTime *= 0.5f;
-            if (CurrentState.nameHash == LandHighState)
-                elapsedTime *= 0.5f;
-            ApplyMovingHorizontal(elapsedTime);
+        if (CurrentState.nameHash != LandHighState && InputMoveForward) {
+            ApplyMovingHorizontal(elapsedTime * 0.5f);
         }
         else {
+            if (CurrentState.nameHash == LandRollState)
+                elapsedTime *= 1.5f;
             ApplyFriction(elapsedTime);
         }
+
+        // You can jump again even before you finish landing
+        AllowGroundJump();
 
     }
 
@@ -908,11 +910,6 @@ public class NewmanAnimator : CharacterAnimator
         base.OnDeath(knockForce);
         _sound.Play(_sound.Death, _sound.DeathVolume);
         GameManager.MainCamera.Target = Settings.RootRigidBody.transform;
-
-        // TODO: REMOVE THIS HACK:
-        #if UNITY_WEBPLAYER && !UNITY_EDITOR
-        Application.LoadLevel(GameManager.SaveData.LevelName);
-        #endif
         
     }
 

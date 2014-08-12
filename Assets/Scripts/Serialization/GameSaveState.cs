@@ -8,7 +8,7 @@ public class GameSaveState
 {
     public string LevelName;
     public Checkpoint.CheckpointLocation Checkpoint;
-    public InventorySaveState PlayerState;
+    public InventorySaveState InventoryState;
 
     // *** tutorial zone ***
 	public bool HasShownIntroCutscene;

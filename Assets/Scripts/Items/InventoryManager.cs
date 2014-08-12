@@ -134,6 +134,25 @@ public class InventoryManager : MonoBehaviour
         return false;
         
     }
+
+    public void Clear()
+    {
+        Items.Clear();
+        Weapons.Clear();
+        CurrentWeapon = null;
+        DestroyChildren(transform);
+        GameManager.UI.RefreshWeaponWheel();
+    }
+    
+    static void DestroyChildren (Transform transform)
+    {
+        List<Transform> children = new List<Transform> ();
+        for (int i = 0; i < transform.childCount; ++i)
+            children.Add (transform.GetChild (i));
+        foreach (Transform child in children)
+            GameObject.DestroyImmediate (child.gameObject);
+        
+    }
     
     public InventorySaveState SaveState ()
     {
