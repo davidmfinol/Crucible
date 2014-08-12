@@ -188,7 +188,7 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
 
         // You could potentially fall down if the ground disappears beneath you
-        MecanimAnimator.SetBool(MecanimHashes.Fall, !MecanimAnimator.GetBool(MecanimHashes.Fall) && !IsGrounded);
+        MecanimAnimator.SetBool(MecanimHashes.Fall, !IsGrounded);
 
         // You can only pickup items while in idle
         if (CharInput.Pickup) {
@@ -224,7 +224,7 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
         
         // You could potentially fall down by running off a ledge
-        MecanimAnimator.SetBool(MecanimHashes.Fall, !MecanimAnimator.GetBool(MecanimHashes.Fall) && !IsGrounded);
+        MecanimAnimator.SetBool(MecanimHashes.Fall, !IsGrounded);
 
         // You could start rolling over small obstacles in your way
         MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, 
@@ -473,6 +473,9 @@ public class NewmanAnimator : CharacterAnimator
 
         // You can jump again even before you finish landing
         AllowGroundJump();
+
+        // You could fall off a ledge while landing as well
+        MecanimAnimator.SetBool(MecanimHashes.Fall, !IsGrounded);
 
     }
 
@@ -759,54 +762,46 @@ public class NewmanAnimator : CharacterAnimator
     // PickupState = Animator.StringToHash("Kneeling.Pickup");
     protected void Pickup(float elapsedTime)
     {
+        // Everything relevant happens on the first frame
         if (MecanimAnimator.GetBool(MecanimHashes.Pickup)) {
             MecanimAnimator.SetBool(MecanimHashes.Pickup, false);
 
-            // remove the item from the minimap
-            // TODO: GameManager.UI.Map.RemoveMapPoint(_itemPickedup.transform.position.x.ToString());
+            // Horizontal Motion
+            HorizontalSpeed = 0;
+            SetMecanimAnimatorHorizontalSpeedFloat();
 
-            // *** picking up weapon? ***
+            // Vertical Motion
+            VerticalSpeed = GroundVerticalSpeed;
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
+
+            // Pickup a weapon
             if (_itemPickedup.WeaponPrefab != null) {
+
                 int pickupCount = _itemPickedup.Quantity;
                 Weapon pickedUpWeapon = _itemPickedup.WeaponPrefab.GetComponent<Weapon>();
-
-                // try add to an existing weapon
                 if (! GameManager.Inventory.TryAddAmmo(pickedUpWeapon, pickupCount)) {
-                    // Create a new weapon from the item and destroy the item
+                    // NOTE: DON'T USE THE OBJECT POOL BECAUSE IT DOESN'T REALLY HAPPEN THAT OFTEN
                     Transform instantiatedWeapon = (Transform)Instantiate(_itemPickedup.WeaponPrefab);
                     Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
                     newWeapon.Quantity = pickupCount;
                     GameManager.Inventory.Weapons.Add(newWeapon);
-
-                    // Move the weapon offscreen
-                    instantiatedWeapon.position = GameManager.Level.OffscreenPosition;
+                    GameManager.UI.CycleToNextWeapon();
 
                 }
-
                 GameManager.UI.RefreshWeaponWheel();
 
-                // *** auto-equip if we have nothing ***
-                if (GameManager.Inventory.CurrentWeapon == null) {
-                    StartCoroutine(AutoEquip());
-                }
-
-            }
-            // *** must be picking up item... ***
-            else {
-                // generate a new inventory item and add it.
+            // Pickup an inventory item
+            } else {
                 InventoryItem newInvItem = InventoryItemFactory.CreateFromType(_itemPickedup.Type, _itemPickedup.Quantity);
                 GameManager.Inventory.AddItem(newInvItem);
-
                 GameManager.UI.CraftingMenu.RefreshItemWheel();
 
             }
 
+            // Get rid of the picked up item
             Destroy(_itemPickedup.gameObject, 0.5f);
 
         }
-
-        HorizontalSpeed = 0;
-        VerticalSpeed = GroundVerticalSpeed;
     
     }
 
@@ -822,17 +817,6 @@ public class NewmanAnimator : CharacterAnimator
         obj = null;
         return false;
         
-    }
-
-    public IEnumerator AutoEquip()
-    {
-        yield return new WaitForSeconds(0.5f);
-        if (GameManager.Inventory.Weapons.Count == 1) {
-            GameManager.UI.CycleToNextWeapon();
-        } else if (GameManager.Inventory.Weapons.Count <= 3) {
-            GameManager.UI.RefreshWeaponWheel();
-        }
-
     }
     
     public IEnumerator ShowStealthKill()

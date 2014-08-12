@@ -146,7 +146,6 @@ public class GameManager : MonoBehaviour
         GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/Newman"), _currentLevel.OffscreenPosition, Quaternion.identity); // NOTE: NO POOL; JUST 1
         _player = player.GetComponent<CharacterAnimator> ();
         _player.gameObject.AddComponent<AudioListener>();
-        _player.Direction = Vector3.right;
         _player.IgnoreMovement = true;
         _playerShader = player.GetComponent<NewmanShader>();
         
@@ -174,7 +173,8 @@ public class GameManager : MonoBehaviour
 		Player.transform.position = LastCheckPoint.position;
 
         // Allow the player to start moving
-		Player.IgnoreMovement = false;
+        Player.IgnoreMovement = false;
+        Player.Direction = Vector3.right;
         Player.HorizontalSpeed = 0;
         Player.VerticalSpeed = 0;
 

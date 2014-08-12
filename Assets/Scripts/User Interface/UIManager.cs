@@ -254,7 +254,7 @@ public class UIManager : MonoBehaviour
 			GameManager.UI.ShowMap (false);
    */         
 		
-		UpdateVignette ();
+		UpdateVignettes ();
 
 		UpdateMatteBars ();
 
@@ -559,7 +559,7 @@ public class UIManager : MonoBehaviour
 
 	}
 
-	private void UpdateVignette ()
+	private void UpdateVignettes ()
 	{
         // Turn the vignettes on as appropriate
         bool playerDead = GameManager.Player.IsDead;
@@ -630,7 +630,7 @@ public class UIManager : MonoBehaviour
 
 		RefreshWeaponWheel ();
 
-		// select the weapon
+		// Select the weapon
 		if (GameManager.Inventory.Weapons.Count > 0)
 			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
 
@@ -644,7 +644,7 @@ public class UIManager : MonoBehaviour
 
 		RefreshWeaponWheel ();
 
-		// select the weapon
+		// Select the weapon
 		if (GameManager.Inventory.Weapons.Count > 0)
 			GameManager.Inventory.CurrentWeapon = GameManager.Inventory.Weapons [_currentWeapon];
 

@@ -26,9 +26,9 @@ public class InventoryManager : MonoBehaviour
     
     void Start ()
     {
-        Weapons = new List<Weapon> ();
-
         Items = new List<InventoryItem> ();
+
+        Weapons = new List<Weapon> ();
 
         StartCoroutine (FindRightHand ());
 
@@ -188,7 +188,8 @@ public class InventoryManager : MonoBehaviour
                     Debug.LogWarning("Player's right hand not found!");
                 return;
             }
-
+            
+            _currentWeapon.gameObject.SetActive(true);
             _currentWeapon.transform.parent = _rightHand;
             _currentWeapon.transform.localPosition = _currentWeapon.Translation;
             _currentWeapon.transform.localRotation =  Quaternion.Euler(_currentWeapon.Rotation);

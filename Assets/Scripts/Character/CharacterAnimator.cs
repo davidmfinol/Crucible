@@ -97,6 +97,14 @@ public abstract class CharacterAnimator : MonoBehaviour
     
     void Update ()
     {
+        // Make sure we stay in the bounds of the level
+        if (!IgnoreMovement && (transform.position.y < GameManager.Level.Boundaries.yMin ||
+            transform.position.y > GameManager.Level.Boundaries.yMax ||
+            transform.position.x < GameManager.Level.Boundaries.xMin ||
+            transform.position.x > GameManager.Level.Boundaries.xMax) && !IsDead) {
+            OnDeath();
+        }
+
         // Clear out the root-based motion by default
         foreach (Transform rootClear in Settings.RootMotionTransforms)
             rootClear.localPosition = new Vector3(0, rootClear.localPosition.y, 0);
