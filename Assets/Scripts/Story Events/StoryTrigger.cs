@@ -11,11 +11,12 @@ public class StoryTrigger : MonoBehaviour
     // Identifies which story even is triggered.
     public string Message;
 
-    void OnTriggerEnter (Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        CharacterAnimator player = other.GetComponent<CharacterAnimator> ();
-        if (other.CompareTag ("Player") && player != null && !player.IsDead)
-            SendMessageUpwards (Message);
+        CharacterAnimator player = other.GetComponent<CharacterAnimator>();
+        if (other.CompareTag("Player") && player != null && !player.IsDead) {
+            SendMessageUpwards(Message);
+        }
 
     }
 

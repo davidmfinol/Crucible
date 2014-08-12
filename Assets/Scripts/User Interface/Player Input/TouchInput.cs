@@ -274,9 +274,9 @@ public class TouchInput : MonoBehaviour
         if (GameManager.Player.CanInputJump && IsJumpRight (deg))
             _input.Jump = new Vector2 (1, 1);
         else if (GameManager.Player.CanInputJump && IsJumpUp (deg))
-			_input.Jump = new Vector2 (0, 1);
+            _input.Jump = new Vector2 (0, 1);
         else if (GameManager.Player.CanInputJump && IsJumpLeft (deg))
-			_input.Jump = new Vector2 (-1, 1);
+            _input.Jump = new Vector2 (-1, 1);
         else if (GameManager.Player.CanInputAttack && IsAttackLeft (deg))
             _input.Attack = -1;
         else if (GameManager.Player.CanInputPickup && IsPickup (deg))

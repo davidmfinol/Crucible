@@ -11,29 +11,30 @@ public class InputDebugger : MonoBehaviour
     private TouchInput _touchInput;
     private CharacterInput _playerInput;
 
-    void Awake ()
+    void Awake()
     {
         enabled = Debug.isDebugBuild;
 
     }
 
-    void Start ()
+    void Start()
     {
-        _touchInput = GameManager.UI.GetComponent<TouchInput> ();
-        _playerInput = GameManager.Player.GetComponent<CharacterInput> ();
+        _touchInput = GameManager.UI.GetComponent<TouchInput>();
+        _playerInput = GameManager.Player.GetComponent<CharacterInput>();
 
     }
 
-    void OnGUI ()
+    void OnGUI()
     {
-        if (Hide)
+        if (Hide) {
             return;
+        }
 
-        GUI.Box (new Rect (300, 10, 300, 20), "Last Movement: " + _touchInput.LastMovePos + ", ID: " + _touchInput.MoveID);
-        GUI.Box (new Rect (300, 35, 300, 20), "Last Action: " + _touchInput.LastActionPos + ", ID: " + _touchInput.ActionID);
-        GUI.Box (new Rect (300, 60, 300, 20), "H: " + _playerInput.Horizontal + "  V: " + _playerInput.Vertical);
-        GUI.Box (new Rect (300, 85, 300, 20), "Att: " + _playerInput.Attack + "  Jump: " + _playerInput.Jump);
-        GUI.Box (new Rect (300, 110, 300, 20), "Int: " + _playerInput.Interaction + "  Pickup: " + _playerInput.Pickup);
+        GUI.Box(new Rect(300, 10, 300, 20), "Last Movement: " + _touchInput.LastMovePos + ", ID: " + _touchInput.MoveID);
+        GUI.Box(new Rect(300, 35, 300, 20), "Last Action: " + _touchInput.LastActionPos + ", ID: " + _touchInput.ActionID);
+        GUI.Box(new Rect(300, 60, 300, 20), "H: " + _playerInput.Horizontal + "  V: " + _playerInput.Vertical);
+        GUI.Box(new Rect(300, 85, 300, 20), "Att: " + _playerInput.Attack + "  Jump: " + _playerInput.Jump);
+        GUI.Box(new Rect(300, 110, 300, 20), "Int: " + _playerInput.Interaction + "  Pickup: " + _playerInput.Pickup);
     }
 
 }

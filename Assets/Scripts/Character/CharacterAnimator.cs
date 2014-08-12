@@ -22,7 +22,8 @@ public abstract class CharacterAnimator : MonoBehaviour
     private CharacterInput _characterInput;
 
     // This dictionary maps AnimatorState.name hashes to corresponding function delegates to quickly choose the correct actions for a given state
-    public delegate void ProcessState (float elapsedTime);
+    public delegate void ProcessState(float elapsedTime);
+
     public ProcessState ModifyState;
     private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
     private AnimatorStateInfo _previousState;
@@ -35,7 +36,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     private Vector3 _prevDirection = Vector3.right; // The last direction that the player was facing before the current direction
     private bool _ignoreDirection = false; // Some cases want us to ignore our set direction; set this to allow that
     private bool _ignoreMovement = false;  // Some cases want us to ignore our movement; set this to allow that
-	private bool _ignoreXYMovement = false;   // Used to prevent xy movement in hide zones.
+    private bool _ignoreXYMovement = false;   // Used to prevent xy movement in hide zones.
     private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
     private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
     private float _lastGroundHeight = 0.0f; // Keep track of the last y position at which the character was touching the ground
@@ -46,26 +47,26 @@ public abstract class CharacterAnimator : MonoBehaviour
     private Vector3 _activeGlobalPlatformPoint;
 
     // Support for hanging off of objects
-    private List<HangableObject> _hangQueue = new List<HangableObject> ();
+    private List<HangableObject> _hangQueue = new List<HangableObject>();
     private HangableObject _previousHangTarget = null;
 
-    // We need a way to move between zones
+    // We need a way to move between z zones
     private Zone _currentZone = null; // Zone we are currently in
     private Zone _Zlower = null; // Zone we go to if we press down
     private Zone _Zhigher = null; // Zone we go to if we press up
-    private List<Zone> _zones = new List<Zone> (); // All the zones we could currently be in
+    private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
     private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
 
-    void Start ()
+    void Start()
     {
-        _characterController = GetComponent<CharacterController> ();
-        _animator = GetComponent<Animator> ();
-        _characterSettings = GetComponent<CharacterSettings> ();
-        _characterInput = GetComponent<CharacterInput> ();
+        _characterController = GetComponent<CharacterController>();
+        _animator = GetComponent<Animator>();
+        _characterSettings = GetComponent<CharacterSettings>();
+        _characterInput = GetComponent<CharacterInput>();
 
         // Set up the mapping between the mecanim state machine and this class's interpretation of it
-        _stateMachine = new Dictionary<int, ProcessState> ();
-        CreateStateMachine ();
+        _stateMachine = new Dictionary<int, ProcessState>();
+        CreateStateMachine();
         _previousState = CurrentState;
         _timeInCurrentState = 0.0f;
 
@@ -73,13 +74,13 @@ public abstract class CharacterAnimator : MonoBehaviour
         _lastGroundHeight = transform.position.y;
 
         // Let child classes initialize as necessary
-        OnStart ();
+        OnStart();
 
     }
 
-    protected abstract void CreateStateMachine ();// MUST be overwritten by child classes to set up _stateMachine
+    protected abstract void CreateStateMachine();// MUST be overwritten by child classes to set up _stateMachine
 
-    protected virtual void OnStart ()
+    protected virtual void OnStart()
     {
         // Child classes should override this method if they want to initialize variables on Start()
     }
@@ -90,12 +91,12 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Child classes may override
     }
 
-    protected virtual void UpdateMecanimVariables ()
+    protected virtual void UpdateMecanimVariables()
     {
         // Empty by default; child classes should override
     }
     
-    void Update ()
+    void Update()
     {
         // Make sure we stay in the bounds of the level
         if (!IgnoreMovement && (transform.position.y < GameManager.Level.Boundaries.yMin ||
@@ -106,165 +107,180 @@ public abstract class CharacterAnimator : MonoBehaviour
         }
 
         // Clear out the root-based motion by default
-        foreach (Transform rootClear in Settings.RootMotionTransforms)
+        foreach (Transform rootClear in Settings.RootMotionTransforms) {
             rootClear.localPosition = new Vector3(0, rootClear.localPosition.y, 0);
+        }
 
         // Handle all the z-zone stuff in one location
-        UpdateZones ();
+        UpdateZones();
 
         // Let child classes do any additional processing
-        OnUpdate ();
+        OnUpdate();
 
     }
 
-    private void UpdateZones ()
+    private void UpdateZones()
     {
         // Make sure all our zones are valid
-        List<Zone> tempZones = new List<Zone> ();
-        foreach (Zone zone in Zones)
-            if (zone != null)
-                tempZones.Add (zone);
+        List<Zone> tempZones = new List<Zone>();
+        foreach (Zone zone in Zones) {
+            if (zone != null) {
+                tempZones.Add(zone);
+            }
+        }
         Zones = tempZones;
 
         // Do nothing if we're not in any zones
-        if (Zones.Count < 1)
+        if (Zones.Count < 1) {
             return;
+        }
 
         // Correct our Z value when we are in a zone outside our list of zones
         // We do this by just moving to the lowest zone available
-        if (CurrentZone == null)
+        if (CurrentZone == null) {
             CurrentZone = Zones [0];
-        int position = Zones.BinarySearch (CurrentZone, new Zone.CompareZonesByZValue ());
-        if (position < 0)
+        }
+        int position = Zones.BinarySearch(CurrentZone, new Zone.CompareZonesByZValue());
+        if (position < 0) {
             CurrentZone = Zones [0];
+        }
 
         // Handle movement between zones
         if (CanTransitionZ && Zones.Count > 0) {
             // Determine what z up and down are
-            if (position - 1 >= 0)
+            if (position - 1 >= 0) {
                 _Zlower = Zones [position - 1];
-            if (position + 1 < Zones.Count)
+            }
+            if (position + 1 < Zones.Count) {
                 _Zhigher = Zones [position + 1];
+            }
 
             // Move to the z zone requested
             if (CharInput.UpPressed && !CharInput.Down) {
                 _currentZone = _Zhigher;
 
-				// Don't allow movement in a hide zone
-				IgnoreXYMovement = true;
+                // Don't allow movement in a hide zone
+                IgnoreXYMovement = true;
 
-			} else if (CharInput.DownPressed && !CharInput.Up) {
+            } else if (CharInput.DownPressed && !CharInput.Up) {
                 _currentZone = _Zlower;
 
-				// Re-allow movement upon exit hide zone
-				IgnoreXYMovement = false;
-			}
+                // Re-allow movement upon exit hide zone
+                IgnoreXYMovement = false;
+            }
         }
 
     }
 
-    protected virtual void OnUpdate ()
+    protected virtual void OnUpdate()
     {
         // Child classes may override this method if they want to do things during update
     }
 
     // We handle motion in FixedUpdate instead of Update in order to ensure we don't miss collisions due to framerate spikes
-    void FixedUpdate ()
+    void FixedUpdate()
     {
         //Moving Platform support
-        UpdatePlatformBegin ();
+        UpdatePlatformBegin();
         
         // Some variables for mecanim are updated every frame
         bool wasGrounded = IsGrounded || IsClimbing;
-        UpdateMecanimVariables ();
+        UpdateMecanimVariables();
 
         // keep track of time in current state for things like wall sliding, etc.
-        if (CurrentState.nameHash != _previousState.nameHash)
+        if (CurrentState.nameHash != _previousState.nameHash) {
             _timeInCurrentState = 0.0f;
-        else
+        } else {
             _timeInCurrentState += Time.fixedDeltaTime;
+        }
 
         // Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
         _previousState = CurrentState;
         ProcessState processState;
-        if (StateMachine.TryGetValue (CurrentState.nameHash, out processState))
-            processState (Time.fixedDeltaTime);
-        else
-            Debug.LogWarning (this.GetType ().ToString () + "'s state with hash " + CurrentState.nameHash + " does not have a corresponding function delegate.");
+        if (StateMachine.TryGetValue(CurrentState.nameHash, out processState)) {
+            processState(Time.fixedDeltaTime);
+        } else {
+            Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + CurrentState.nameHash + " does not have a corresponding function delegate.");
+        }
 
         // We occasionally need to allow other classes to do additional processing for the HorizontalSpeed, VerticalSpeed, and Direction
-        if (ModifyState != null)
-            ModifyState (Time.fixedDeltaTime);
+        if (ModifyState != null) {
+            ModifyState(Time.fixedDeltaTime);
+        }
 
         // Keep track of where we started out this frame
         Vector3 lastPosition = transform.position;
 
         // Calculate 2D movement
-        Vector3 currentMovementOffset = new Vector3 (_horizontalSpeed, _verticalSpeed, 0);
+        Vector3 currentMovementOffset = new Vector3(_horizontalSpeed, _verticalSpeed, 0);
 
         // Make the motion be time-based instead of frame-based
         currentMovementOffset *= Time.fixedDeltaTime;
 
         // Determine the correct Z-offset
         float currentZ = transform.position.z;
-        float newZ = Mathf.Lerp (currentZ, DesiredZ, _characterSettings.ZLerp * Time.fixedDeltaTime);
+        float newZ = Mathf.Lerp(currentZ, DesiredZ, _characterSettings.ZLerp * Time.fixedDeltaTime);
         float zOffset = newZ - currentZ;
-        currentMovementOffset = new Vector3 (currentMovementOffset.x, currentMovementOffset.y, zOffset);
+        currentMovementOffset = new Vector3(currentMovementOffset.x, currentMovementOffset.y, zOffset);
 
-		// If we need to ignore XY movement, remove them from our offset, but keep a ground vertical speed so we're grounded
-		if(IgnoreXYMovement)
-			currentMovementOffset = new Vector3(0.0f, GroundVerticalSpeed, currentMovementOffset.z);
+        // If we need to ignore XY movement, remove them from our offset, but keep a ground vertical speed so we're grounded
+        if (IgnoreXYMovement) {
+            currentMovementOffset = new Vector3(0.0f, GroundVerticalSpeed, currentMovementOffset.z);
+        }
 
-		// Move our character!
-        if (!IgnoreMovement)
-            _collisionFlags = _characterController.Move (currentMovementOffset);
+        // Move our character!
+        if (!IgnoreMovement) {
+            _collisionFlags = _characterController.Move(currentMovementOffset);
+        }
 
         // Calculate the velocity based on the current and previous position.
         // This means our velocity will only be the amount the character actually moved as a result of collisions.
         _velocity = (transform.position - lastPosition) / Time.fixedDeltaTime;
 
         // We should finally make our character be able to face the correct way
-        if (!IgnoreDirection)
-            UpdateRotation (Time.fixedDeltaTime);
+        if (!IgnoreDirection) {
+            UpdateRotation(Time.fixedDeltaTime);
+        }
 
         // Support for keeping track of fall distances
-        if(wasGrounded)
+        if (wasGrounded) {
             _lastGroundHeight = transform.position.y;
+        }
 
         // Moving Platform support
-        UpdatePlatformEnd ();
+        UpdatePlatformEnd();
         
         // Let child classes do any additional processing
-        OnFixedUpdate ();
+        OnFixedUpdate();
 
     }
 
-    protected virtual void OnFixedUpdate ()
+    protected virtual void OnFixedUpdate()
     {
         // Child classes may override this method if they want to do things during fixedupdate
     }
 
     // Updates the rotation of the character over time to smoothly match the character's direction
-    private void UpdateRotation (float elapsedTime)
+    private void UpdateRotation(float elapsedTime)
     {
-        if (_direction == Vector3.zero)
-            transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
-        else if (_prevDirection == Vector3.zero)
-            transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (_direction), elapsedTime * _characterSettings.RotationSmoothing);
-        else {
+        if (_direction == Vector3.zero) {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), elapsedTime * _characterSettings.RotationSmoothing);
+        } else if (_prevDirection == Vector3.zero) {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), elapsedTime * _characterSettings.RotationSmoothing);
+        } else {
             float crotY = transform.rotation.eulerAngles.y;
-            float drotY = Quaternion.LookRotation (_direction).eulerAngles.y;
-            transform.rotation = Quaternion.Euler (0, Mathf.Lerp (crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
-		
-		}
+            float drotY = Quaternion.LookRotation(_direction).eulerAngles.y;
+            transform.rotation = Quaternion.Euler(0, Mathf.Lerp(crotY, drotY, elapsedTime * _characterSettings.RotationSmoothing), 0);
+        
+        }
 
     }
     
     // Determines the amount that the platform on which we are standing has moved, and moves us correspondingly
-    private void UpdatePlatformBegin ()
+    private void UpdatePlatformBegin()
     {
         if (_activePlatform != null && transform.parent == null) {
-            Vector3 newGlobalPlatformPoint = _activePlatform.TransformPoint (_activeLocalPlatformPoint);
+            Vector3 newGlobalPlatformPoint = _activePlatform.TransformPoint(_activeLocalPlatformPoint);
             Vector3 moveDistance = (newGlobalPlatformPoint - _activeGlobalPlatformPoint);
             transform.position = transform.position + moveDistance;
         }
@@ -273,43 +289,48 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     // Sets up the variables to allow the character to stay on a moving platform
-    private void UpdatePlatformEnd ()
+    private void UpdatePlatformEnd()
     {
-        if (_activePlatform == null)
+        if (_activePlatform == null) {
             return;
+        }
         
         _activeGlobalPlatformPoint = transform.position;
-        _activeLocalPlatformPoint = _activePlatform.InverseTransformPoint (transform.position);
+        _activeLocalPlatformPoint = _activePlatform.InverseTransformPoint(transform.position);
 
     }
 
     // We need to be able to interact with other physical objects in the world
-    public virtual void OnControllerColliderHit (ControllerColliderHit hit)
+    public virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // If we're not already on a platform, check to see if we just hit one
         if (_activePlatform == null) {
             // Support for moving platforms
-            if (Mathf.Abs (hit.moveDirection.y) > 0.9 && Mathf.Abs (hit.normal.y) > 0.9)
+            if (Mathf.Abs(hit.moveDirection.y) > 0.9 && Mathf.Abs(hit.normal.y) > 0.9) {
                 _activePlatform = hit.collider.transform;
+            }
 
             // Support for catching a wall/ledge/rope/etc.
-            if (Mathf.Abs (hit.moveDirection.x) > 0.9 && Mathf.Abs (hit.normal.x) > 0.9)
+            if (Mathf.Abs(hit.moveDirection.x) > 0.9 && Mathf.Abs(hit.normal.x) > 0.9) {
                 _activePlatform = hit.collider.transform;
+            }
         }
 
         // Let's push ragdolls around!
         Rigidbody body = hit.collider.attachedRigidbody;
         if (body != null && !body.isKinematic) {
             // Only push rigidbodies in the ragdoll layer
-            if (body.gameObject.layer != 10)
+            if (body.gameObject.layer != 10) {
                 return;
+            }
 
             // We dont want to push objects below us
-            if (hit.moveDirection.y < -0.3)
+            if (hit.moveDirection.y < -0.3) {
                 return;
+            }
 
             // Calculate push direction from move direction
-            Vector3 pushDir = new Vector3 (hit.moveDirection.x, 0, hit.moveDirection.z);
+            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
 
             // Pushing! Yeah!
             body.velocity = pushDir * 2 * HorizontalSpeed;
@@ -318,79 +339,85 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    public virtual void MakeDamaged (Vector3 knockForce)
+    public virtual void MakeDamaged(Vector3 knockForce)
     {
         // Do nothing by default, by child classes should override if they want some effect when hurt
 
     }
     
-    public virtual void OnStealthDeath ()
+    public virtual void OnStealthDeath()
     {
-        OnDeath ();
+        OnDeath();
         
     }
     
-    public virtual void OnDeath ()
+    public void OnDeath()
     {
-        OnDeath (Vector2.zero);
+        OnDeath(Vector2.zero);
         
     }
     
-    public virtual void OnDeath (Vector3 knockForce)
+    public virtual void OnDeath(Vector3 knockForce)
     {
-        DoRagDoll (knockForce);
+        DoRagDoll(knockForce);
         
         // Remove AI components we won't need anymore (if they exist)
-        EnemyAI ai = GetComponent<EnemyAI> ();
+        EnemyAI ai = GetComponent<EnemyAI>();
         if (ai != null) {
-            CharacterAnimatorDebugger debug1 = GetComponent<CharacterAnimatorDebugger> ();
-            if (debug1 != null)
-                Destroy (debug1);
-            EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger> ();
-            if (debug2 != null)
-                Destroy (debug2);
-            Destroy (ai);
-            Seeker seeker = GetComponent<Seeker> ();
-            if (seeker != null)
-                Destroy (seeker);
-            HeartBox heart = GetComponentInChildren<HeartBox> ();
-            if (heart != null)
-                Destroy (heart);
-            StealthKillTrigger stealthTrigger = GetComponentInChildren<StealthKillTrigger> ();
-            if (stealthTrigger != null)
-                Destroy (stealthTrigger);
+            CharacterAnimatorDebugger debug1 = GetComponent<CharacterAnimatorDebugger>();
+            if (debug1 != null) {
+                Destroy(debug1);
+            }
+            EnemyAIDebugger debug2 = GetComponent<EnemyAIDebugger>();
+            if (debug2 != null) {
+                Destroy(debug2);
+            }
+            Destroy(ai);
+            Seeker seeker = GetComponent<Seeker>();
+            if (seeker != null) {
+                Destroy(seeker);
+            }
+            HeartBox heart = GetComponentInChildren<HeartBox>();
+            if (heart != null) {
+                Destroy(heart);
+            }
+            StealthKillTrigger stealthTrigger = GetComponentInChildren<StealthKillTrigger>();
+            if (stealthTrigger != null) {
+                Destroy(stealthTrigger);
+            }
 
             // Remove ourselves
-            Destroy (this);
-            Destroy (CharInput);
-            Destroy (Controller);
-            Destroy (MecanimAnimator);
+            Destroy(this);
+            Destroy(CharInput);
+            Destroy(Controller);
+            Destroy(MecanimAnimator);
         }
         
     }
 
-	public void DoRagDoll()
-	{
-		DoRagDoll(Vector3.zero);
+    public void DoRagDoll()
+    {
+        DoRagDoll(Vector3.zero);
 
-	}
+    }
     
-    public virtual void DoRagDoll (Vector3 push)
+    public virtual void DoRagDoll(Vector3 push)
     {
         DisableAnimationSystem();
 
         // Start the ragdoll system
-        CharacterSettings.ActivateRagDoll (transform, false, true);
+        CharacterSettings.ActivateRagDoll(transform, false, true);
 
-		// Apply the push
-		if(Settings.RootRigidBody != null)
+        // Apply the push
+        if (Settings.RootRigidBody != null) {
             Settings.RootRigidBody.AddForce(push);
+        }
 
     }
 
     public void UndoRagdoll()
     {
-        CharacterSettings.ActivateRagDoll (transform, true, true);
+        CharacterSettings.ActivateRagDoll(transform, true, true);
         EnableAnimationSystem();
 
     }
@@ -412,18 +439,18 @@ public abstract class CharacterAnimator : MonoBehaviour
         MecanimAnimator.enabled = true;
     }
 
-    public void DoFloat (float floatTime)
+    public void DoFloat(float floatTime)
     {
         DisableAnimationSystem();
 
-        CharacterSettings.ActivateRagDoll (transform, false, false);
+        CharacterSettings.ActivateRagDoll(transform, false, false);
         Invoke("UndoFloat", floatTime);
 
     }
 
-    public void UndoFloat ()
+    public void UndoFloat()
     {
-        CharacterSettings.ActivateRagDoll (transform, true, true);
+        CharacterSettings.ActivateRagDoll(transform, true, true);
 
         // Set the character where the rigidbody is
         transform.position = Settings.RootTransform.position;
@@ -433,74 +460,79 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
     
-    public virtual void StepDown ()
+    public virtual void StepDown()
     {
         // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
     }
     
-    public virtual void StandUp ()
+    public virtual void StandUp()
     {
         // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
     }
     
     // Helper methods for motion
-    protected virtual void ApplyMovingHorizontal (float elapsedTime)
+    protected virtual void ApplyMovingHorizontal(float elapsedTime)
     {
         float accelerationSmoothing = Settings.HorizontalAcceleration * elapsedTime;
-        HorizontalSpeed = Mathf.Lerp (HorizontalSpeed, IgnoreXYMovement ? 0 : Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
+        HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, IgnoreXYMovement ? 0 : Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
 
     }
     
-    protected virtual void ApplyFriction (float elapsedTime)
+    protected virtual void ApplyFriction(float elapsedTime)
     {
         if (HorizontalSpeed > 0.0f) {
             HorizontalSpeed -= Settings.Friction * elapsedTime;
             
-            if (HorizontalSpeed < 0.1f)
+            if (HorizontalSpeed < 0.1f) {
                 HorizontalSpeed = 0.0f;
+            }
             
         } else if (HorizontalSpeed < 0.0f) {
             HorizontalSpeed += Settings.Friction * elapsedTime;
             
-            if (HorizontalSpeed > -0.1f)
+            if (HorizontalSpeed > -0.1f) {
                 HorizontalSpeed = 0.0f;
+            }
             
         }
         
     }
     
-    protected virtual void ApplyBiDirection ()
+    protected virtual void ApplyBiDirection()
     {
-        if (CharInput.Left && !CharInput.Right)
+        if (CharInput.Left && !CharInput.Right) {
             Direction = Vector3.left;
-        else if (CharInput.Right && !CharInput.Left)
+        } else if (CharInput.Right && !CharInput.Left) {
             Direction = Vector3.right;
+        }
         
     }
     
-    protected virtual void ApplyTriDirection ()
+    protected virtual void ApplyTriDirection()
     {
-        if (CharInput.Left && !CharInput.Right)
+        if (CharInput.Left && !CharInput.Right) {
             Direction = Vector3.left;
-        else if (CharInput.Right && !CharInput.Left)
+        } else if (CharInput.Right && !CharInput.Left) {
             Direction = Vector3.right;
-        else if (CharInput.Up)
+        } else if (CharInput.Up) {
             Direction = Vector3.zero;
+        }
         
     }
     
-    protected virtual void ApplyClimbingVertical (float vertical)
+    protected virtual void ApplyClimbingVertical(float vertical)
     {
-        if (vertical > 0.0f) 
+        if (vertical > 0.0f) { 
             VerticalSpeed = Settings.LadderClimbingSpeed;
-        else if (vertical < 0.0f)
+        } else if (vertical < 0.0f) {
             VerticalSpeed = -Settings.LadderClimbingSpeed;
-        else
+        } else {
             VerticalSpeed = 0.0f;
+        }
         
     }
     
-    protected virtual void ApplyClimbingStrafing (float horizontal)
+    protected virtual void ApplyClimbingStrafing(float horizontal)
     {
         // Determine the horizontal bounds of the object(s) we are climbing
         bool insideLeft = false;
@@ -513,67 +545,76 @@ public abstract class CharacterAnimator : MonoBehaviour
         }
         
         // Determine horizontal movement
-        if (horizontal < 0.0f)
+        if (horizontal < 0.0f) {
             HorizontalSpeed = -Settings.LadderStrafingSpeed;
-        else if (horizontal > 0.0f)
+        } else if (horizontal > 0.0f) {
             HorizontalSpeed = Settings.LadderStrafingSpeed;
-        else
+        } else {
             HorizontalSpeed = 0.0f;
+        }
         
     }
 
-    protected virtual void ApplyGravity (float elapsedTime)
+    protected virtual void ApplyGravity(float elapsedTime)
     {
         VerticalSpeed -= Settings.Gravity * elapsedTime;
-        VerticalSpeed = Mathf.Max (-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
+        VerticalSpeed = Mathf.Max(-1.0f * Settings.MaxFallSpeed, VerticalSpeed);
 
     }
 
     // Methods for hanging
-    public void AddHangTarget (HangableObject hangTarget)
+    public void AddHangTarget(HangableObject hangTarget)
     {
-        if (_hangQueue.Contains (hangTarget))
+        if (_hangQueue.Contains(hangTarget)) {
             return;
-        if (hangTarget is Ledge || hangTarget == _previousHangTarget)
-            _hangQueue.Insert (0, hangTarget);
-        else
-            _hangQueue.Add (hangTarget);
+        }
+        if (hangTarget is Ledge || hangTarget == _previousHangTarget) {
+            _hangQueue.Insert(0, hangTarget);
+        } else {
+            _hangQueue.Add(hangTarget);
+        }
 
     }
 
-    public void RemoveHangTarget (HangableObject hangTarget)
+    public void RemoveHangTarget(HangableObject hangTarget)
     {
-        if (!_hangQueue.Contains (hangTarget))
+        if (!_hangQueue.Contains(hangTarget)) {
             return;
+        }
 
-        if (ActiveHangTarget == hangTarget)
+        if (ActiveHangTarget == hangTarget) {
             _previousHangTarget = ActiveHangTarget;
+        }
 
-        _hangQueue.Remove (hangTarget);
+        _hangQueue.Remove(hangTarget);
 
-        if (ActiveHangTarget == null)
+        if (ActiveHangTarget == null) {
             _activePlatform = null;
+        }
 
     }
 
-    public void DropHangTarget ()
+    public void DropHangTarget()
     {
-        if (ActiveHangTarget == null)
+        if (ActiveHangTarget == null) {
             return;
+        }
 
         _previousHangTarget = ActiveHangTarget;
-        _hangQueue.RemoveAt (0);
-        if (ActiveHangTarget == null)
+        _hangQueue.RemoveAt(0);
+        if (ActiveHangTarget == null) {
             _activePlatform = null;
+        }
 
     }
 
     // Movement/Animation Properties
     public AnimatorStateInfo CurrentState {
         get { 
-            if(MecanimAnimator == null)
+            if (MecanimAnimator == null) {
                 return new AnimatorStateInfo();
-            return MecanimAnimator.IsInTransition (0) ? MecanimAnimator.GetNextAnimatorStateInfo (0) : MecanimAnimator.GetCurrentAnimatorStateInfo (0);
+            }
+            return MecanimAnimator.IsInTransition(0) ? MecanimAnimator.GetNextAnimatorStateInfo(0) : MecanimAnimator.GetCurrentAnimatorStateInfo(0);
         }
     }
 
@@ -590,11 +631,11 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public float Height {
-        get { return Controller != null ? transform.localScale.y * Controller.height : transform.localScale.y * GetComponent<CharacterController> ().height; }
+        get { return Controller != null ? transform.localScale.y * Controller.height : transform.localScale.y * GetComponent<CharacterController>().height; }
     }
 
     public float Radius {
-        get { return Controller != null ? transform.localScale.x * Controller.radius : transform.localScale.x * GetComponent<CharacterController> ().radius; }
+        get { return Controller != null ? transform.localScale.x * Controller.radius : transform.localScale.x * GetComponent<CharacterController>().radius; }
     }
 
     public Animator MecanimAnimator {
@@ -640,11 +681,12 @@ public abstract class CharacterAnimator : MonoBehaviour
     public Vector3 Direction {
         get { return _direction; }
         set {
-            if (!_direction.Equals (value)) {
+            if (!_direction.Equals(value)) {
                 _prevDirection = _direction;
                 _direction = value;
-                if (_direction.x * _prevDirection.x < 0)
+                if (_direction.x * _prevDirection.x < 0) {
                     HorizontalSpeed = -HorizontalSpeed;
+                }
             }
         }
     }
@@ -659,10 +701,10 @@ public abstract class CharacterAnimator : MonoBehaviour
         set { _ignoreMovement = value; }
     }
 
-	public bool IgnoreXYMovement {
-		get { return _ignoreXYMovement; }
-		set { _ignoreXYMovement = value; }
-	}
+    public bool IgnoreXYMovement {
+        get { return _ignoreXYMovement; }
+        set { _ignoreXYMovement = value; }
+    }
 
     public virtual bool CanInputHorizontal {
         get { return !IsDead; }
@@ -727,7 +769,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
     
     public virtual bool IsSneaking {
-        get { return !IsGrounded || Mathf.Abs (HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
+        get { return !IsGrounded || Mathf.Abs(HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
     }
     
     public virtual bool IsTurningAround {
@@ -799,11 +841,11 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public bool CanHangOffObjectHorizontally {
-        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceXAxis () && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)); }
+        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceXAxis() && ((Direction.x > 0 && IsHangTargetToRight) || (Direction.x < 0 && !IsHangTargetToRight)); }
     }
 
     public bool CanHangOffObjectVertically {
-        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceZAxis () && !IsGrounded; }
+        get { return ActiveHangTarget != null && ActiveHangTarget.DoesFaceZAxis() && !IsGrounded; }
     }
 
     public bool IsHangTargetToRight {
@@ -815,7 +857,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public bool CanGrabWall {
-        get { return (IsTouchingWall && (ActiveHangTarget is GrabbableObject) && VerticalSpeed > Settings.MinWallGrabSpeed);  }
+        get { return (IsTouchingWall && (ActiveHangTarget is GrabbableObject) && VerticalSpeed > Settings.MinWallgrabSpeed);  }
     }
 
     // Zone Properties
@@ -857,8 +899,8 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     // Character specific meta-data
-	public abstract EnemySaveState.EnemyType EnemyType {
-		get;
-	}
+    public abstract EnemySaveState.EnemyType EnemyType {
+        get;
+    }
 
 }

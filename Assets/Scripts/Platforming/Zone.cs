@@ -9,9 +9,6 @@ using System.Collections.Generic;
 [AddComponentMenu("Platforming/Zone")]
 public class Zone : MonoBehaviour
 {
-    // TODO: If inverse, pressing up means you go down in ZLevel
-    public bool IsInverse = false;
-
     public void OnTriggerEnter(Collider other)
     {
         CharacterAnimator character = other.GetComponent<CharacterAnimator>();

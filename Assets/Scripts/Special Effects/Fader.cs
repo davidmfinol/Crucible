@@ -10,8 +10,8 @@ public class Fader : MonoBehaviour
 {
     // Whether the fade in, stay, then fadeout effect should happen immediately on start
     public bool FadeInAtStart = true;
-	// Whether the object should be destroyed when it finishes fading out
-	public bool DestroyAtFadeOut = false;
+    // Whether the object should be destroyed when it finishes fading out
+    public bool DestroyAtFadeOut = false;
     
     /// How many seconds the fading takes.
     public float FadeInSeconds = 1;
@@ -27,36 +27,39 @@ public class Fader : MonoBehaviour
     private bool _isStaying = false;
     private bool _isFadingOut = false;
     
-    void Start ()
+    void Start()
     {
-        if (!FadeInAtStart)
+        if (!FadeInAtStart) {
             return;
+        }
 
-        FadeIn ();
+        FadeIn();
 
     }
     
-    public void FadeIn (float time = 0, bool dropAlpha = false)
+    public void FadeIn(float time = 0, bool dropAlpha = false)
     {
-        if (_isFadingIn)
+        if (_isFadingIn) {
             return;
+        }
 
         _isFadingIn = false;
         _isStaying = false;
         _isFadingOut = false;
-        StopAllCoroutines ();
+        StopAllCoroutines();
 
-        if (time > 0)
+        if (time > 0) {
             FadeInSeconds = time;
-        StartCoroutine (DoFadeIn (dropAlpha));
+        }
+        StartCoroutine(DoFadeIn(dropAlpha));
 
     }
 
-    private IEnumerator DoFadeIn (bool dropAlpha = false)
+    private IEnumerator DoFadeIn(bool dropAlpha = false)
     {
         _isFadingIn = true;
 
-        if(dropAlpha) {
+        if (dropAlpha) {
             Color alphaed = renderer.material.color;
             alphaed.a = MinAlpha;
             renderer.material.color = alphaed;
@@ -67,47 +70,51 @@ public class Fader : MonoBehaviour
             yield return null;
             Color temp = renderer.material.color;
             temp.a += Time.deltaTime / FadeInSeconds;
-            temp.a = Mathf.Min (temp.a, MaxAlpha);
+            temp.a = Mathf.Min(temp.a, MaxAlpha);
             renderer.material.color = temp;
         }
 
         _isFadingIn = false;
-        if (StaySeconds >= 0)
-            StartCoroutine (Stay ());
+        if (StaySeconds >= 0) {
+            StartCoroutine(Stay());
+        }
 
     }
 
-    private IEnumerator Stay ()
+    private IEnumerator Stay()
     {
         _isStaying = true;
-        yield return new WaitForSeconds (StaySeconds);
+        yield return new WaitForSeconds(StaySeconds);
         _isStaying = false;
-        if (FadeOutSeconds >= 0)
+        if (FadeOutSeconds >= 0) {
             FadeOut();
+        }
 
     }
 
-    public void FadeOut (float time = 0, bool raiseAlpha = true)
+    public void FadeOut(float time = 0, bool raiseAlpha = true)
     {
-        if (_isFadingOut)
+        if (_isFadingOut) {
             return;
+        }
 
         _isFadingIn = false;
         _isStaying = false;
         _isFadingOut = false;
-        StopAllCoroutines ();
+        StopAllCoroutines();
 
-        if (time > 0)
+        if (time > 0) {
             FadeOutSeconds = time;
-        StartCoroutine (DoFadeOut (raiseAlpha));
+        }
+        StartCoroutine(DoFadeOut(raiseAlpha));
 
     }
 
-    private IEnumerator DoFadeOut (bool raiseAlpha = true)
+    private IEnumerator DoFadeOut(bool raiseAlpha = true)
     {
         _isFadingOut = true;
 
-        if(raiseAlpha) {
+        if (raiseAlpha) {
             Color alphaed = renderer.material.color;
             alphaed.a = MaxAlpha;
             renderer.material.color = alphaed;
@@ -117,14 +124,15 @@ public class Fader : MonoBehaviour
             yield return null;
             Color temp = renderer.material.color;
             temp.a -= Time.deltaTime / FadeOutSeconds;
-            temp.a = Mathf.Max (temp.a, MinAlpha);
+            temp.a = Mathf.Max(temp.a, MinAlpha);
             renderer.material.color = temp;
         }
-		renderer.enabled = false;
+        renderer.enabled = false;
 
         _isFadingOut = false;
-		if(DestroyAtFadeOut)
-			Destroy(gameObject);
+        if (DestroyAtFadeOut) {
+            Destroy(gameObject);
+        }
 
     }
 

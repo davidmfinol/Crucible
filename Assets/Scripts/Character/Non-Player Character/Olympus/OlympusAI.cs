@@ -25,9 +25,9 @@ public class OlympusAI : EnemyAI
     // Help prevent getting stuck in certain places
     //private Vector3 _lastFrameLocation = Vector3.zero;
 
-    protected override void OnStart ()
+    protected override void OnStart()
     {
-        _olympusAwareness = GetComponent<OlympusAwareness> ();
+        _olympusAwareness = GetComponent<OlympusAwareness>();
         _headLook = GetComponent<HeadLookController>();
         _timeLeftWandering = Settings.WanderTime;
         _timeSpentIdling = 0;
@@ -36,79 +36,84 @@ public class OlympusAI : EnemyAI
 
     }
 
-    protected override void UpdateAwareness (float elapsedTime)
+    protected override void UpdateAwareness(float elapsedTime)
     {
         AwarenessLevel oldAwareness = Awareness;
 
-        base.UpdateAwareness (elapsedTime);
+        base.UpdateAwareness(elapsedTime);
         
         // Make sure we update our target when we start chasing
         if (oldAwareness != AwarenessLevel.Chasing && Awareness == AwarenessLevel.Chasing) {
-            UpdateAStarTarget (Vector3.zero);
+            UpdateAStarTarget(Vector3.zero);
 
             OlympusAnimator oa = (OlympusAnimator)Animator;
-            if (oa != null)
-                oa.OnAcquireTarget ();
+            if (oa != null) {
+                oa.OnAcquireTarget();
+            }
         }
         
         // Likewise, make sure we update our target when we start wandering
         if (oldAwareness != AwarenessLevel.Unaware && Awareness == AwarenessLevel.Unaware) {
-            GetRandomSearchPoint (_wanderZone);
+            GetRandomSearchPoint(_wanderZone);
 
             OlympusAnimator oa = (OlympusAnimator)Animator;
-            if (oa != null)
-                oa.StartSearch ();
+            if (oa != null) {
+                oa.StartSearch();
+            }
         }
 
-		// initiate the color change on alert
-		if(oldAwareness != Awareness) {
-			_olympusAwareness.ChangeAwareness (Awareness);
+        // initiate the color change on alert
+        if (oldAwareness != Awareness) {
+            _olympusAwareness.ChangeAwareness(Awareness);
 
-		}
+        }
 
     }
 
     // Olympus always looks at his next target position
     public override bool UpdateAStarPath(float elapsedTime, float speedRatio, bool repathOnInvalid)
     {
-        if(base.UpdateAStarPath(elapsedTime, speedRatio, repathOnInvalid)) {
-            Vector3 target = Path.vectorPath[CurrentPathWaypoint];
-            if (CurrentPathWaypoint < Path.vectorPath.Count - 2 && Mathf.Abs(target.x - transform.position.x) < MinimumLook)
-                target = Path.vectorPath[CurrentPathWaypoint + 1];
-            SetLook (target.y < transform.position.y + Animator.Height, target); // We don't look up
+        if (base.UpdateAStarPath(elapsedTime, speedRatio, repathOnInvalid)) {
+            Vector3 target = Path.vectorPath [CurrentPathWaypoint];
+            if (CurrentPathWaypoint < Path.vectorPath.Count - 2 && Mathf.Abs(target.x - transform.position.x) < MinimumLook) {
+                target = Path.vectorPath [CurrentPathWaypoint + 1];
+            }
+            SetLook(target.y < transform.position.y + Animator.Height, target); // We don't look up
             return true;
 
-        }
-        else 
-            SetLook (false, Vector3.zero); // Can't look if we don't know where to look
+        } else { 
+            SetLook(false, Vector3.zero);
+        } // Can't look if we don't know where to look
         return false;
 
     }
 
     // A helper method to make olympus look with his vision cone at a spot
-    public void SetLook (bool shouldLook, Vector3 target) 
+    public void SetLook(bool shouldLook, Vector3 target)
     {
         _headLook.enabled = shouldLook;
         _headLook.target = target;
-        foreach (ViewCone cone in PersonalVision.ViewCones)
+        foreach (ViewCone cone in PersonalVision.ViewCones) {
             cone.renderer.enabled = shouldLook;
+        }
 
     }
 
-    protected override void Wander (float elapsedTime)
+    protected override void Wander(float elapsedTime)
     {
-        if(_wanderZone.extents == Vector3.zero && Animator.CurrentZone != null)
+        if (_wanderZone.extents == Vector3.zero && Animator.CurrentZone != null) {
             _wanderZone = Animator.CurrentZone.collider.bounds;
+        }
 
         // We make sure to limit the amount of time that we wander to allow the player to sneak up
         // It then idles for some time 
         if (_timeLeftWandering < 0) {
             if (_timeSpentIdling < Settings.IdleTime) {
-                SetLook (false, Vector3.zero); // Stop looking while idling
+                SetLook(false, Vector3.zero); // Stop looking while idling
                 _timeSpentIdling += Time.deltaTime;
                 return;
             } else {
-                GetRandomSearchPoint (_wanderZone);
+                GetRandomSearchPoint(_wanderZone);
                 _timeLeftWandering = Settings.WanderTime;
                 _timeSpentIdling = 0;
             }
@@ -116,30 +121,32 @@ public class OlympusAI : EnemyAI
         _timeLeftWandering -= Time.deltaTime;
         
         // We need to retarget either if we lose or reach our target
-        if (Target == Vector3.zero || Animator.Controller.bounds.Contains (Target))
-            GetRandomSearchPoint (_wanderZone);
+        if (Target == Vector3.zero || Animator.Controller.bounds.Contains(Target)) {
+            GetRandomSearchPoint(_wanderZone);
+        }
         
         // We also retarget if our current path fails us
-        if (!UpdateAStarPath (elapsedTime, Settings.WanderSpeedRatio, false)) {
+        if (!UpdateAStarPath(elapsedTime, Settings.WanderSpeedRatio, false)) {
             //Debug.LogWarning("Astar Pathfinding failed while wandering! Choosing new target.");
-            GetRandomSearchPoint (_wanderZone);
+            GetRandomSearchPoint(_wanderZone);
             return;
         }
         
         // Go to our location
-        NavigateToAstarTarget (Settings.WanderSpeedRatio);
+        NavigateToAstarTarget(Settings.WanderSpeedRatio);
 
     }
 
-    protected override void Chase (float elapsedTime)
+    protected override void Chase(float elapsedTime)
     {
         // We honor the parent implementation, but will also add onto it
-        base.Chase (elapsedTime);
+        base.Chase(elapsedTime);
 
         // Don't jump at the player
         bool isLastNode = Path != null && (CurrentPathWaypoint >= Path.vectorPath.Count - 1);
-        if (isLastNode)
+        if (isLastNode) {
             Animator.CharInput.Jump = Vector2.zero;
+        }
         
         // Determine attack
         bool isStunned = Animator.CurrentState.nameHash == OlympusAnimator.StunState;
@@ -147,14 +154,16 @@ public class OlympusAI : EnemyAI
         if (shouldAttack) {
 
             bool isCharging = Animator.MecanimAnimator.GetBool(MecanimHashes.AttackHorizontal);
-            bool isPlayerHittableHorizontally = Mathf.Abs (transform.position.x - GameManager.Player.transform.position.x) < 10;
-            if(isCharging && isPlayerHittableHorizontally) 
-                Animator.CharInput.Attack = 0; // Release attack after charge and when close enough
-            else
+            bool isPlayerHittableHorizontally = Mathf.Abs(transform.position.x - GameManager.Player.transform.position.x) < 10;
+            if (isCharging && isPlayerHittableHorizontally) { 
+                Animator.CharInput.Attack = 0;
+            } // Release attack after charge and when close enough
+            else {
                 Animator.CharInput.Attack = 1;
+            }
 
             bool isPlayerAbove = GameManager.Player.transform.position.y > transform.position.y + Animator.Height * 0.5f;
-            if(isPlayerAbove) {
+            if (isPlayerAbove) {
                 Animator.CharInput.Attack = -1;
             }
 
@@ -162,8 +171,9 @@ public class OlympusAI : EnemyAI
         }
         
         // Stop moving while the player is knocked back
-        if (GameManager.Player.CurrentState.nameHash == NewmanAnimator.DamagedState)
+        if (GameManager.Player.CurrentState.nameHash == NewmanAnimator.DamagedState) {
             Animator.CharInput.Horizontal = 0;
+        }
 
     }
 

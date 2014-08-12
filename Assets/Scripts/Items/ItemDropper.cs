@@ -11,18 +11,18 @@ public class ItemDropper : MonoBehaviour
     public List<Item.ItemType> ItemsToDrop;
         
     // Drop items at the position specified
-    public void AddItem (Item.ItemType t)
+    public void AddItem(Item.ItemType t)
     {
-        ItemsToDrop.Add (t);
+        ItemsToDrop.Add(t);
 
     }
 
-    public void DropItems (Vector3 pos)
+    public void DropItems(Vector3 pos)
     {
         foreach (Item.ItemType t in ItemsToDrop) {
-            float randX = Random.Range (-1.0f, 1.0f); // Randomize the drop a bit.
-            Vector3 dropPos = new Vector3 (pos.x + randX, pos.y, pos.z);
-            InventoryItemFactory.InstantiateFromType (t, dropPos);
+            float randX = Random.Range(-1.0f, 1.0f); // Randomize the drop a bit.
+            Vector3 dropPos = new Vector3(pos.x + randX, pos.y, pos.z);
+            InventoryItemFactory.InstantiateFromType(t, dropPos);
 
         }
 

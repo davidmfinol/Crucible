@@ -10,16 +10,16 @@ public class GameSaveState
     public Checkpoint.CheckpointLocation Checkpoint;
     public InventorySaveState InventoryState;
 
-    // *** tutorial zone ***
-	public bool HasShownIntroCutscene;
+    // Tutorial story events
+    public bool HasShownIntroCutscene;
     public bool HasShownWallJump;
-	public bool HasShownSneak;
-	public bool HasShownSightPuzzle;
-	public bool HasShownOlympusSpawn;
+    public bool HasShownSneak;
+    public bool HasShownSightPuzzle;
+    public bool HasShownOlympusSpawn;
 
-	// *** hint flags ***
-	public bool HasSeenTopHint;
-	public bool HasSeenDoorHint;
+    // *** hint flags ***
+    public bool HasSeenTopHint;
+    public bool HasSeenDoorHint;
     public bool HasSeenJumpHint;
     public bool HasSeenWallJumpHint;
     public bool HasSeenSneakHint;
@@ -34,59 +34,61 @@ public class GameSaveState
     // Jasper tells you what to do
     public bool ShownMeetJasper;
 
-    public void Save (string path)
+    public void Save(string path)
     {
-        XmlSerializer serializer = new XmlSerializer (typeof(GameSaveState));
-        FileStream stream = new FileStream (path, FileMode.Create);
-        serializer.Serialize (stream, this);
-        stream.Close ();
+        XmlSerializer serializer = new XmlSerializer(typeof(GameSaveState));
+        FileStream stream = new FileStream(path, FileMode.Create);
+        serializer.Serialize(stream, this);
+        stream.Close();
 
     }
     
-    public static GameSaveState Load (string path)
+    public static GameSaveState Load(string path)
     {
         GameSaveState gameSave = null;
-		
-		XmlSerializer serializer = new XmlSerializer (typeof(GameSaveState));
+        
+        XmlSerializer serializer = new XmlSerializer(typeof(GameSaveState));
         FileStream stream = null;
         try {
             // Try to load the save file
-            stream = new FileStream (path, FileMode.Open);
-            gameSave = serializer.Deserialize (stream) as GameSaveState;
+            stream = new FileStream(path, FileMode.Open);
+            gameSave = serializer.Deserialize(stream) as GameSaveState;
         } catch {
             // If we fail to load the file just return null
             gameSave = null;
         } finally {
             // Make sure we close the stream
-            if (stream != null)
-                stream.Close ();
+            if (stream != null) {
+                stream.Close();
+            }
         }
 
         return gameSave;
 
-	}
-	
-	public static GameSaveState LoadFromText (string text)
-	{
-		GameSaveState gameSave = null;
-		
-		XmlSerializer serializer = new XmlSerializer (typeof(GameSaveState));
-		StringReader stream = null;
-		try {
-			// Try to load the save file
-			stream = new StringReader (text);
-			gameSave = serializer.Deserialize (stream) as GameSaveState;
-		} catch {
-			// If we fail to load the file just return null
-			gameSave = null;
-		} finally {
-			// Make sure we close the stream
-			if (stream != null)
-				stream.Close ();
-		}
-		
-		return gameSave;
-		
-	}
+    }
+    
+    public static GameSaveState LoadFromText(string text)
+    {
+        GameSaveState gameSave = null;
+        
+        XmlSerializer serializer = new XmlSerializer(typeof(GameSaveState));
+        StringReader stream = null;
+        try {
+            // Try to load the save file
+            stream = new StringReader(text);
+            gameSave = serializer.Deserialize(stream) as GameSaveState;
+        } catch {
+            // If we fail to load the file just return null
+            gameSave = null;
+        } finally {
+            // Make sure we close the stream
+            if (stream != null) {
+                stream.Close();
+            }
+        }
+        
+        return gameSave;
+        
+    }
 
 }

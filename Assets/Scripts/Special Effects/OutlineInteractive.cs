@@ -18,7 +18,8 @@ public class OutlineInteractive : MonoBehaviour
     public float FadeDelay = 0.0f;          //Time to delay before triggering fade.
     public float FadeRate = 1.0f;           //Speed of the fade away
     public float EchoSpeed = 10.0f;          //Speed of the sphere growth.
-    
+
+    // The spheres we are tracking
     private List<EchoSphere> _spheres;
     private int _currentSphere;
 
@@ -26,7 +27,7 @@ public class OutlineInteractive : MonoBehaviour
     {
         _spheres = new List<EchoSphere>();
 
-        for(int i = 0; i < SphereCount; i++) {
+        for (int i = 0; i < SphereCount; i++) {
             EchoSphere es = new EchoSphere {
                 EchoMaterial = renderer.material,
                 EchoColor = Color.white, 
@@ -43,16 +44,17 @@ public class OutlineInteractive : MonoBehaviour
 
     }
 
-	void Update()
-	{
-		// The outline shader expects the _PlayerPos.w to indicate whether or not the object should be able to light up
-		Vector4 playerPos = GameManager.Player.transform.position;
-		playerPos.w =  1;
-		renderer.material.SetVector ("_PlayerPos", playerPos);
+    void Update()
+    {
+        // The outline shader expects the _PlayerPos.w to indicate whether or not the object should be able to light up
+        Vector4 playerPos = GameManager.Player.transform.position;
+        playerPos.w = 1;
+        renderer.material.SetVector("_PlayerPos", playerPos);
 
         // Update the echolocation effects that may be happening on this object
-        foreach (EchoSphere echo in Spheres)
+        foreach (EchoSphere echo in Spheres) {
             echo.Update();
+        }
         
     }
 
@@ -62,7 +64,7 @@ public class OutlineInteractive : MonoBehaviour
 
     public int CurrentSphere {
         get { return _currentSphere; }
-        set { _currentSphere  = value; }
+        set { _currentSphere = value; }
     }
     
 }

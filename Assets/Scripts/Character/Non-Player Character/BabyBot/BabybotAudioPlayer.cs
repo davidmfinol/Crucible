@@ -7,13 +7,16 @@ using System.Collections;
 [AddComponentMenu ("Audio/Sound Effects/BabyBot Audio Player")]
 public class BabybotAudioPlayer : AudioPlayer
 {
-    public AudioClip Giggle;
-    public float GiggleVolume = 1.0f;
-
+    // Snoring sound
+    public AudioClip Snoring;
+    public float SnoringVolume = 1.0f;
+    
+    // Jump sound
     public AudioClip Jump;
     public float JumpVolume = 1.0f;
 
-	public AudioClip Snoring;
-    public float SnoringVolume = 1.0f;
+    // Giggle sound
+    public AudioClip Giggle;
+    public float GiggleVolume = 1.0f;
 
 }

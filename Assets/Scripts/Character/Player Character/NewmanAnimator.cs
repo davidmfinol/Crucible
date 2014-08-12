@@ -670,12 +670,10 @@ public class NewmanAnimator : CharacterAnimator
         SetMecanimAnimatorHorizontalSpeedFloat();
         
         // But we do want to start moving down the wall
-        /*
-        if (_wallJumpCount > 0)
-            VerticalSpeed = 0; // Settings.WallSlideSpeed * elapsedTime; // TODO: MAKE THIS LINEAR BASED OFF WALLJUMPCOUNT?
+        if (_wallJumpCount > 0 || TimeInCurrentState > Settings.WallgrabDuration)
+            VerticalSpeed = Settings.WallSlideSpeed * elapsedTime;
         else
             VerticalSpeed = 0;
-            */
         VerticalSpeed = 0;
         MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         
@@ -1084,9 +1082,7 @@ public class NewmanAnimator : CharacterAnimator
     }
     
     public override bool CanTransitionZ {
-        get {
-            return (base.CanTransitionZ && (GameManager.AI.EnemiesChasing == 0));
-        }
+        get { return (base.CanTransitionZ && (GameManager.AI.EnemiesChasing == 0)); }
     }
     
     public override bool CanInputHorizontal {

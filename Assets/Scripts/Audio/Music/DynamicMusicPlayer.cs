@@ -23,8 +23,7 @@ public class DynamicMusicPlayer : AudioPlayer
     private int _prevSearchingLevel;
     private int _prevChasingLevel;
 
-
-    protected override void OnStart ()
+    protected override void OnStart()
     {
         // Set up the song layers
         _song1FadingOut = false;
@@ -48,24 +47,26 @@ public class DynamicMusicPlayer : AudioPlayer
 
     }
     
-    void Update ()
+    void Update()
     {
-        PlayDanger (SearchingLevel, ChasingLevel);
+        PlayDanger(SearchingLevel, ChasingLevel);
 
     }
     
-    public void PlayDanger (int searchingLevel, int chasingLevel)
+    public void PlayDanger(int searchingLevel, int chasingLevel)
     {
         // Do nothing if the danger level hasn't changed
         if (searchingLevel == _prevSearchingLevel && chasingLevel == _prevChasingLevel) {
-            if (_song1FadingIn)
-                FadeIn (Song1);
-            else if (_song1FadingOut)
-                FadeOut (Song1);
-            if (_song2FadingIn)
-                FadeIn (Song2);
-            else if (_song2FadingOut)
-                FadeOut (Song2);
+            if (_song1FadingIn) {
+                FadeIn(Song1);
+            } else if (_song1FadingOut) {
+                FadeOut(Song1);
+            }
+            if (_song2FadingIn) {
+                FadeIn(Song2);
+            } else if (_song2FadingOut) {
+                FadeOut(Song2);
+            }
             return;
         }
 
@@ -75,35 +76,38 @@ public class DynamicMusicPlayer : AudioPlayer
         if (searchingLevel <= 0 && chasingLevel <= 0) {
             _song1FadingOut = true;
             _song2FadingOut = true;
-            Song2.Stop ();
+            Song2.Stop();
 
-        // ONE ENEMY STARTED SEARCHING
+            // ONE ENEMY STARTED SEARCHING
         } else if (searchingLevel == 1 && chasingLevel == 0) {
             if (!_song1FadingIn && !Song1.isPlaying) {
-                Song1.Play ();
+                Song1.Play();
             }
             _song2FadingOut = true;
             _song1FadingIn = true;
 
-        // ONE ENEMY STARTED CHASING
+            // ONE ENEMY STARTED CHASING
         } else if (searchingLevel == 0 && chasingLevel == 1) {
-            if ( !_song2FadingIn && !Song2.isPlaying )
-                Song2.Play ();
-            if ( !Song1.isPlaying )
-                Song1.Play ();
+            if (!_song2FadingIn && !Song2.isPlaying) {
+                Song2.Play();
+            }
+            if (!Song1.isPlaying) {
+                Song1.Play();
+            }
             Song2.timeSamples = Song1.timeSamples;
             _song2FadingIn = true;
             
-        // TWO ENEMIES STARTED SEARCHING
+            // TWO ENEMIES STARTED SEARCHING
         } else if (searchingLevel == 2) {
             Song2.timeSamples = Song1.timeSamples;
-            if ( !Song2.isPlaying )
-                Song2.Play ();
+            if (!Song2.isPlaying) {
+                Song2.Play();
+            }
 
-        // THREE ENEMIES STARTED SEARCHING
+            // THREE ENEMIES STARTED SEARCHING
         } else if (searchingLevel >= 3) {
             Song3.timeSamples = Song1.timeSamples;
-            Song3.Play ();
+            Song3.Play();
         }
 
         // Keep track of transitions
@@ -113,29 +117,31 @@ public class DynamicMusicPlayer : AudioPlayer
     }
 
     // This method is called on frames where an audioSource needs to fade in over time
-    public void FadeIn (AudioSource audioSource)
+    public void FadeIn(AudioSource audioSource)
     {
         _song1FadingOut = false;
         _song2FadingOut = false;
         if (audioSource.volume >= 0.1f) {
             _song1FadingIn = false;
             _song2FadingIn = false;
-        } else
+        } else {
             audioSource.volume += Fade * Time.deltaTime;
+        }
         
     }
     
     // This method is called on frames where an audioSource needs to fade out over time
-    public void FadeOut (AudioSource audioSource)
+    public void FadeOut(AudioSource audioSource)
     {
         _song1FadingIn = false;
         _song2FadingIn = false;
         if (audioSource.volume <= 0) {
             _song1FadingOut = false;
             audioSource.volume = 0.1f;
-            audioSource.Stop ();
-        } else
+            audioSource.Stop();
+        } else {
             audioSource.volume -= Fade * Time.deltaTime * .025f;
+        }
 
     }
 

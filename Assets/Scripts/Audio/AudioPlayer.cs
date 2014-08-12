@@ -11,29 +11,30 @@ using System.Collections.Generic;
 public class AudioPlayer : MonoBehaviour
 {
     // TODO: public AudioManager.AudioTypes Type;
-    
-    //TODO: add subtitle requirement for each sound public Subtitle[] AssociatedSubtitles;
-    
+    // TODO: add subtitle requirement for each sound public Subtitle[] AssociatedSubtitles;
+
+    // Rolloff settings
     [SerializeField]
-    private AudioRolloffMode rolloffMode = AudioRolloffMode.Linear;
-    
+    private AudioRolloffMode
+        rolloffMode = AudioRolloffMode.Linear;
     [SerializeField]
-    private float maxDistance = 100;
-    
+    private float
+        maxDistance = 100;
     [SerializeField]
-    private float minDistance = 1;
+    private float
+        minDistance = 1;
     
     //Audiosource switching to not clip sounds
     private AudioSource[] _audios;
     private int _audioIndex;
     
-    void Start ()
+    void Start()
     {
         _audios = GetComponents<AudioSource>();
-        foreach(AudioSource audioSource in _audios) {
+        foreach (AudioSource audioSource in _audios) {
             audioSource.rolloffMode = rolloffMode;
-            audioSource.minDistance = minDistance;
             audioSource.maxDistance = maxDistance;
+            audioSource.minDistance = minDistance;
         }
         
         OnStart();
@@ -45,12 +46,12 @@ public class AudioPlayer : MonoBehaviour
         // Child classes may override to do things on Start()
     }
     
-    public void Play (AudioClip clip, float volume)
+    public void Play(AudioClip clip, float volume)
     {
         Audio.clip = clip;
         Audio.volume = volume;
         Audio.loop = false;
-        Audio.Play ();
+        Audio.Play();
         
         AudioIndex = AudioIndex + 1;
         
@@ -61,7 +62,7 @@ public class AudioPlayer : MonoBehaviour
         Audio.clip = clip;
         Audio.volume = volume;
         Audio.loop = true;
-        Audio.Play ();
+        Audio.Play();
         
         AudioIndex = AudioIndex + 1;
         
@@ -69,24 +70,28 @@ public class AudioPlayer : MonoBehaviour
     
     public bool IsPlaying(AudioClip clip)
     {
-        foreach (AudioSource audioSource in Audios)
-            if (audioSource.clip == clip && audioSource.isPlaying)
+        foreach (AudioSource audioSource in Audios) {
+            if (audioSource.clip == clip && audioSource.isPlaying) {
                 return true;
+            }
+        }
         return false;
         
     }
     
     public void DelayedStop()
     {
-        for (int i = 0; i < Audios.Length; i++)
+        for (int i = 0; i < Audios.Length; i++) {
             Audios [i].loop = false;
+        }
         
     }
     
     public void Stop()
     {
-        for (int i = 0; i < Audios.Length; i++)
+        for (int i = 0; i < Audios.Length; i++) {
             Audios [i].Stop();
+        }
         
     }
     
@@ -94,17 +99,9 @@ public class AudioPlayer : MonoBehaviour
         get { return rolloffMode; }
         set {
             rolloffMode = value;
-            foreach(AudioSource audioSource in Audios)
+            foreach (AudioSource audioSource in Audios) {
                 audioSource.rolloffMode = rolloffMode;
-        }
-    }
-    
-    public float MinDistance {
-        get { return minDistance; }
-        set {
-            minDistance = value;
-            foreach(AudioSource audioSource in Audios)
-                audioSource.minDistance = minDistance;
+            }
         }
     }
     
@@ -112,15 +109,27 @@ public class AudioPlayer : MonoBehaviour
         get { return maxDistance; }
         set {
             maxDistance = value;
-            foreach(AudioSource audioSource in Audios)
+            foreach (AudioSource audioSource in Audios) {
                 audioSource.maxDistance = maxDistance;
+            }
+        }
+    }
+    
+    public float MinDistance {
+        get { return minDistance; }
+        set {
+            minDistance = value;
+            foreach (AudioSource audioSource in Audios) {
+                audioSource.minDistance = minDistance;
+            }
         }
     }
     
     protected AudioSource[] Audios {
         get {
-            if(_audios == null)
-                _audios = GetComponents<AudioSource> ();
+            if (_audios == null) {
+                _audios = GetComponents<AudioSource>();
+            }
             return _audios;
         }
     }

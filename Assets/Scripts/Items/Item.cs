@@ -17,20 +17,19 @@ public class Item : MonoBehaviour
         Item_KamiTech = 2,
         Item_GravCtrl = 3,
         Item_EltroidKit = 4
-    };
+    }
+    ;
 
 
     public Item.ItemType Type;
     public int Quantity;
     public Transform WeaponPrefab;
     public bool WasPlaced;
-
     public Transform IndicatorOffset;
     public float IndicatorFadeSpeed = 0.5f;
     public float IndicatorFadeDistance = 15;
     public float IndicatorFadeDistance2 = 3;
     private float _midFadeDistance;
-
     private Fader _itemIndicator;
     private Fader _itemSign;
 
@@ -41,7 +40,7 @@ public class Item : MonoBehaviour
         rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
         rigidbody.freezeRotation = true;
         rigidbody.useGravity = true;
-        gameObject.layer = LayerMask.NameToLayer ("Item");
+        gameObject.layer = LayerMask.NameToLayer("Item");
 
         // Make the item have an indicator appear above it
         string type = Type == ItemType.Item__Weapon ? "Weapon" : "Item";
@@ -60,7 +59,7 @@ public class Item : MonoBehaviour
         _itemSign = sign.AddComponent<Fader>();
 
         // Register ourselves with the LevelManager
-        GameManager.Level.Items.Add (this);
+        GameManager.Level.Items.Add(this);
         transform.parent = GameManager.Level.ItemPickups;
 
     }
@@ -70,31 +69,30 @@ public class Item : MonoBehaviour
     {
         float dist = Vector3.Distance(transform.position, GameManager.Player.transform.position);
         if (dist < IndicatorFadeDistance) {
-            if(dist > _midFadeDistance) {
+            if (dist > _midFadeDistance) {
                 _itemIndicator.FadeIn(IndicatorFadeSpeed, false);
                 _itemSign.FadeIn(IndicatorFadeSpeed, false);
-            }
-            else {
+            } else {
                 Color currColor = _itemIndicator.renderer.material.color;
                 float alpha = 0.3f + 0.7f * ((dist - IndicatorFadeDistance2) / _midFadeDistance);
-                _itemIndicator.renderer.material.color = new Color (currColor.r, currColor.g, currColor.b, Mathf.Max(alpha, 0.3f));
+                _itemIndicator.renderer.material.color = new Color(currColor.r, currColor.g, currColor.b, Mathf.Max(alpha, 0.3f));
             }
-        }
-        else {
+        } else {
             _itemIndicator.FadeOut(IndicatorFadeSpeed, false);
             _itemSign.FadeOut(IndicatorFadeSpeed, false);
         }
 
     }
     
-    public ItemSaveState SaveState ()
+    public ItemSaveState SaveState()
     {
-        ItemSaveState itemSave = new ItemSaveState ();
+        ItemSaveState itemSave = new ItemSaveState();
 
-        if (WeaponPrefab != null)
-            itemSave.WeaponType = WeaponPrefab.GetComponent<Weapon> ().Type;
-        else
+        if (WeaponPrefab != null) {
+            itemSave.WeaponType = WeaponPrefab.GetComponent<Weapon>().Type;
+        } else {
             itemSave.ItemType = Type;
+        }
 
         itemSave.Quantity = Quantity;
         itemSave.Position = transform.position;

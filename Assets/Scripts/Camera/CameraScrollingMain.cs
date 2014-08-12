@@ -29,7 +29,7 @@ public class CameraScrollingMain : MonoBehaviour
     // We track this for a shake effect that we add on to the camera
     private ShakeEffect _shakeEffect;
 
-    // cinematic override for zooming
+    // Cinematic override for zooming
     private bool _cinematicOverride;
     
     void Start()
@@ -230,8 +230,9 @@ public class CameraScrollingMain : MonoBehaviour
             float enemyDistance = Vector3.Distance(enemy.transform.position, playerPos);
 
             // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL
-            if(enemy.PersonalHearingRadius != null && enemy.PersonalHearingRadius.IgnoreAbove && GameManager.Player != null && GameManager.Player.transform.position.y > 70)
+            if (enemy.PersonalHearingRadius != null && enemy.PersonalHearingRadius.IgnoreAbove && GameManager.Player != null && GameManager.Player.transform.position.y > 70) {
                 continue;
+            }
 
             // Track non-cameras who are not chasing, OR cameras who ARE "chasing".
             if ((isCamera || (!isCamera && !isChasing)) && 

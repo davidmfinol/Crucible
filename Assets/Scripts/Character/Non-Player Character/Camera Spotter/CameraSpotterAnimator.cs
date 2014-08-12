@@ -20,7 +20,7 @@ public class CameraSpotterAnimator : CharacterAnimator
     ;
 
     // Mecanim State Hashes
-    public static readonly int ScanState = Animator.StringToHash ("Base Layer.Scan");
+    public static readonly int ScanState = Animator.StringToHash("Base Layer.Scan");
 
     // Scan settings
     public float MinAngle;
@@ -32,34 +32,34 @@ public class CameraSpotterAnimator : CharacterAnimator
     private float _currAngle;
     private float _timeInState;
 
-    // find view cone so we can calculate a direction vector along it for LOS
+    // Find view cone so we can calculate a direction vector along it for LOS
     private Transform _pivot;
     private EnemyAI _ai;
 
     // Camera sounds
     private CameraSpotterAudioPlayer _sound;
     
-    protected override void OnStart ()
+    protected override void OnStart()
     {
-        _pivot = CharacterSettings.SearchHierarchyForBone (transform, "CameraPivot");
-        _ai = GetComponent<EnemyAI> ();
-
         _lastState = CameraState.Paused;
         _state = CameraState.ToMax;
         _currAngle = 0.0f;
         _timeInState = 0.0f;
 
+        _pivot = CharacterSettings.SearchHierarchyForBone(transform, "CameraPivot");
+        _ai = GetComponent<EnemyAI>();
+
         _sound = GetComponentInChildren<CameraSpotterAudioPlayer>();
 
     }
     
-    protected override void CreateStateMachine ()
+    protected override void CreateStateMachine()
     {
         StateMachine [ScanState] = Scan;
 
     }
     
-    protected void Scan (float elapsedTime)
+    protected void Scan(float elapsedTime)
     {
         // seeing player overwrites any existing state and goes into
         // tracking
@@ -76,7 +76,7 @@ public class CameraSpotterAnimator : CharacterAnimator
             _timeInState += Time.deltaTime;
             _currAngle += Speed * Time.deltaTime;
 
-            UpdateDirection (_currAngle);
+            UpdateDirection(_currAngle);
 
             // pause when reach max angle
             if (_currAngle >= MaxAngle) {
@@ -92,7 +92,7 @@ public class CameraSpotterAnimator : CharacterAnimator
             _timeInState += Time.deltaTime;
             _currAngle -= Speed * Time.deltaTime;
 
-            UpdateDirection (_currAngle);
+            UpdateDirection(_currAngle);
             
             if (_currAngle <= MinAngle) {
                 _currAngle = MinAngle;
@@ -108,12 +108,13 @@ public class CameraSpotterAnimator : CharacterAnimator
 
             // resume scanning
             if (_timeInState >= PauseTime) {
-                if (_lastState == CameraState.ToMax)
+                if (_lastState == CameraState.ToMax) {
                     _state = CameraState.ToMin;
-                else if (_lastState == CameraState.ToMin)
+                } else if (_lastState == CameraState.ToMin) {
                     _state = CameraState.ToMax;
-                else if (_lastState == CameraState.Paused)
+                } else if (_lastState == CameraState.Paused) {
                     _state = CameraState.ToMax;
+                }
 
                 _lastState = CameraState.Paused;
                 _timeInState = 0.0f;
@@ -126,31 +127,31 @@ public class CameraSpotterAnimator : CharacterAnimator
             if (_ai.IsSeeingPlayer) {
                 // make the camera face the player
                 Vector3 dirToPlayer = GameManager.Player.transform.position - transform.position;
-                dirToPlayer.Normalize ();
+                dirToPlayer.Normalize();
 
-                float angleToPlayer = Vector3.Angle (Vector3.down, dirToPlayer);
+                float angleToPlayer = Vector3.Angle(Vector3.down, dirToPlayer);
 
-                // TODO: fix this to work for arbitary cameras.
+                // NOTE: WE ASSUME THE PLAYER IS BELOW US
                 // if player on the left, the angle to him is negative
-                if (GameManager.Player.transform.position.x < transform.position.x)
+                if (GameManager.Player.transform.position.x < transform.position.x) {
                     angleToPlayer = -angleToPlayer;
+                }
 
                 // constrain.
                 if (angleToPlayer >= MinAngle && angleToPlayer <= MaxAngle) {
 
                     // Sound based off how it's following
                     bool isStayingStill = Mathf.Abs(_currAngle - angleToPlayer) < 0.5f;
-                    if(isStayingStill && !_sound.IsPlaying(_sound.Still) ) {
+                    if (isStayingStill && !_sound.IsPlaying(_sound.Still)) {
                         _sound.Stop();
                         _sound.PlayLoop(_sound.Still, _sound.StillVolume);
-                    }
-                    else if (!isStayingStill && !_sound.IsPlaying(_sound.Moving) ) {
+                    } else if (!isStayingStill && !_sound.IsPlaying(_sound.Moving)) {
                         _sound.Stop();
                         _sound.PlayLoop(_sound.Moving, _sound.MovingVolume);
                     }
 
                     _currAngle = angleToPlayer;
-                    UpdateDirection (angleToPlayer);
+                    UpdateDirection(angleToPlayer);
 
                 }
 
@@ -165,17 +166,15 @@ public class CameraSpotterAnimator : CharacterAnimator
 
     }
 
-    public void UpdateDirection (float angle)
+    public void UpdateDirection(float angle)
     {
-        // rotate.
-        Direction = Vector3.RotateTowards (Vector3.down, Vector3.right, angle * Mathf.PI / 180.0f, 0.0f);
-
-        // adjust geometry to match.
-        _pivot.rotation = Quaternion.Euler (new Vector3 (angle, 270.0f, 0.0f));
+        // Rotate direction and adjust geometry to match.
+        Direction = Vector3.RotateTowards(Vector3.down, Vector3.right, angle * Mathf.PI / 180.0f, 0.0f);
+        _pivot.rotation = Quaternion.Euler(new Vector3(angle, 270.0f, 0.0f));
 
     }
     
-    public override void OnDeath()
+    public override void OnDeath(Vector3 knockForce)
     {
         Destroy(gameObject);
         

@@ -1,14 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-public enum TeamAllegiance
-{
-    Player = 0,
-    Enemies = 1,
-    Explosions = 2
-}
-;
-
 /// <summary>
 /// Hitbox keeps data about an attack and transfers it to a heartbox.
 /// </summary>

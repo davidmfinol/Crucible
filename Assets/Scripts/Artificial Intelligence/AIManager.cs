@@ -28,25 +28,28 @@ public class AIManager : MonoBehaviour
         gameObject.tag = "AI Manager";
         
         // Confirm that there is a zone for the AI system to use
-        if(GameObject.FindGameObjectWithTag("Zone") == null)
-            Instantiate(Resources.Load("Prefabs/Platforming/_Zone")); // NOTE: WE DON'T POOL THIS SINCE WE ONLY NEED THE 1
+        if (GameObject.FindGameObjectWithTag("Zone") == null) {
+            Instantiate(Resources.Load("Prefabs/Platforming/_Zone"));
+        } // NOTE: WE DON'T POOL THIS SINCE WE ONLY NEED THE 1
         
         // Get the list of enemies ready
-        _enemies = new List<EnemyAI> ();
+        _enemies = new List<EnemyAI>();
 
     }
 
-    void Start ()
+    void Start()
     {
         // Make sure astar is set up in the scene
         AstarPath astar = AstarPath.active;
-        foreach (NavGraph graph in astar.astarData.graphs)
-            if (graph is ZoneGraph)
-                _graph = (ZoneGraph) graph;
+        foreach (NavGraph graph in astar.astarData.graphs) {
+            if (graph is ZoneGraph) {
+                _graph = (ZoneGraph)graph;
+            }
+        }
 
         // If we couldn't find a graph, create one
         if (_graph == null) {
-            astar.astarData.AddGraph (typeof(ZoneGraph));
+            astar.astarData.AddGraph(typeof(ZoneGraph));
             _graph = (ZoneGraph)astar.graphs [0];
         }
 
@@ -55,7 +58,7 @@ public class AIManager : MonoBehaviour
 
     }
 
-    public void Update ()
+    public void Update()
     {
         // We're going to re-count these values each frame, so reset them
         _enemiesCouldHear = 0;
@@ -66,54 +69,62 @@ public class AIManager : MonoBehaviour
         foreach (EnemyAI enemy in _enemies) {
 
             // De-activate enemies that are too far away from the player, to save on performance
-            if(enemy.Awareness == EnemyAI.AwarenessLevel.Unaware && GameManager.Player != null && Vector3.Distance (enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
-                if(enemy.gameObject.activeSelf)
+            if (enemy.Awareness == EnemyAI.AwarenessLevel.Unaware && GameManager.Player != null && Vector3.Distance(enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
+                if (enemy.gameObject.activeSelf) {
                     enemy.gameObject.SetActive(false);
+                }
                 continue;
             }
 
             // Re-activate the enemies as necessary
-            if(!enemy.gameObject.activeSelf)
+            if (!enemy.gameObject.activeSelf) {
                 enemy.gameObject.SetActive(true);
+            }
 
             // Count up the number of aware enemies
-            if (enemy.CouldHearPlayer)
+            if (enemy.CouldHearPlayer) {
                 _enemiesCouldHear++;
-            if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching)
+            }
+            if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching) {
                 _enemiesSearching++;
-            else if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing)
+            } else if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing) {
                 _enemiesChasing++;
+            }
             
             // Check for living olympuses WITHIN THE ACTIVE RANGE.
-            if((enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) && !enemy.Animator.IsDead) {
+            if ((enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) && !enemy.Animator.IsDead) {
                 _olympusesAlive += 1;
                 
             }
         }
 
         // Turn on the alarms if any on the enemies are chasing the player
-        if (GameManager.Level.Alarms != null)
+        if (GameManager.Level.Alarms != null) {
             GameManager.Level.Alarms.On = (_enemiesChasing > 0);
+        }
         
     }
 
-	// Are there enemies within a radius?
-	public bool EnemiesWithin(float radius) {
-		Vector3 pos = GameManager.Player.transform.position;
-		foreach (EnemyAI enemy in _enemies) {
-			if( Vector3.Distance(pos, enemy.transform.position) <= radius )
-				return true;
-		}
-
-		return false;
-
-	}
-
-    public void ResetEnemies ()
+    // Are there enemies within a radius?
+    public bool EnemiesWithin(float radius)
     {
-        foreach (EnemyAI enemy in _enemies)
-            Destroy (enemy.gameObject);
-        _enemies = new List<EnemyAI> ();
+        Vector3 pos = GameManager.Player.transform.position;
+        foreach (EnemyAI enemy in _enemies) {
+            if (Vector3.Distance(pos, enemy.transform.position) <= radius) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    public void ResetEnemies()
+    {
+        foreach (EnemyAI enemy in _enemies) {
+            Destroy(enemy.gameObject);
+        }
+        _enemies = new List<EnemyAI>();
 
     }
     

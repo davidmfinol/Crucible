@@ -15,10 +15,11 @@ public abstract class Weapon : MonoBehaviour
         Weapon_Camo = 3,
         Weapon_VETO = 4,
         Weapon_MINE = 5,
-		Weapon_ASharp = 6,
+        Weapon_ASharp = 6,
         Weapon_MSweep = 7
         
-    };
+    }
+    ;
 
 
     // Refers to the ammo for this weapon
@@ -26,13 +27,13 @@ public abstract class Weapon : MonoBehaviour
     public int MaxQuantity;
 
     // Child classes should override this to allow different actions when the weapon is used
-    public virtual void ActivateAttack (float attackID = 0)
+    public virtual void ActivateAttack(float attackID = 0)
     {
     }
     
-    public WeaponSaveState SaveState ()
+    public WeaponSaveState SaveState()
     {
-        WeaponSaveState weaponSave = new WeaponSaveState ();
+        WeaponSaveState weaponSave = new WeaponSaveState();
         
         weaponSave.WeaponType = Type;
         weaponSave.Quantity = Quantity;

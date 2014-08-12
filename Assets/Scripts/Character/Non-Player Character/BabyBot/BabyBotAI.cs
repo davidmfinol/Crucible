@@ -11,41 +11,43 @@ public class BabyBotAI : EnemyAI
 
     protected override void OnStart()
     {
-        _babyBotAwareness = GetComponent<BabyBotAwareness> ();
+        _babyBotAwareness = GetComponent<BabyBotAwareness>();
 
     }
 
-    protected override void UpdateAwareness (float elapsedTime)
+    protected override void UpdateAwareness(float elapsedTime)
     {
         AwarenessLevel oldAwareness = Awareness;
 
-        base.UpdateAwareness (elapsedTime);
+        base.UpdateAwareness(elapsedTime);
 
         Settings.CanSee = Awareness != AwarenessLevel.Unaware;
 
-		// if baby bot attacking, remain in chasing mode.
-		if(Animator.CurrentState.nameHash == BabyBotAnimator.AttackState)
+        // if baby bot attacking, remain in chasing mode.
+        if (Animator.CurrentState.nameHash == BabyBotAnimator.AttackState) {
             Awareness = AwarenessLevel.Chasing;
+        }
 
         // update the babybot's face as appropriate
-        if(oldAwareness != Awareness)
-            _babyBotAwareness.ChangeAwareness (Awareness);
+        if (oldAwareness != Awareness) {
+            _babyBotAwareness.ChangeAwareness(Awareness);
+        }
 
     }
 
     // It may be un-realistic, but babybot will just go after you even just off hearing
-    protected override void Search (float elapsedTime)
+    protected override void Search(float elapsedTime)
     {
-        Chase (elapsedTime);
+        Chase(elapsedTime);
     }
 
-    protected override void Chase (float elapsedTime)
+    protected override void Chase(float elapsedTime)
     {
-        NavigateToAstarTarget (Settings.ChaseSpeedRatio);
+        NavigateToAstarTarget(Settings.ChaseSpeedRatio);
         Animator.CharInput.Attack = IsPlayerInAttackRange && !Animator.IsDead ? 1 : 0;
     }
 
-    public override void NavigateToAstarTarget (float speedRatio)
+    public override void NavigateToAstarTarget(float speedRatio)
     {
         Animator.CharInput.Horizontal = GameManager.Player.transform.position.x - transform.position.x;
         Animator.CharInput.Jump = Vector2.up;

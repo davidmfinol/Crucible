@@ -21,13 +21,13 @@ public class MecanimHashes
     public static readonly int Die = Animator.StringToHash("Die");
 
     // Used only by Newman
-    public static readonly int Backflip = Animator.StringToHash ("Backflip");
+    public static readonly int Backflip = Animator.StringToHash("Backflip");
     public static readonly int JumpWall = Animator.StringToHash("JumpWall");
     public static readonly int ClimbRope = Animator.StringToHash("ClimbRope");
-    public static readonly int SteppingDown = Animator.StringToHash ("SteppingDown");
-    public static readonly int StandingUp = Animator.StringToHash ("StandingUp");
+    public static readonly int SteppingDown = Animator.StringToHash("SteppingDown");
+    public static readonly int StandingUp = Animator.StringToHash("StandingUp");
     public static readonly int Pickup = Animator.StringToHash("Pickup");
-    public static readonly int StealthKill = Animator.StringToHash ("StealthKill");
+    public static readonly int StealthKill = Animator.StringToHash("StealthKill");
     public static readonly int ShootGun = Animator.StringToHash("ShootGun");
     public static readonly int ActivateCamo = Animator.StringToHash("ActivateCamo");
     public static readonly int PlaceMine = Animator.StringToHash("PlaceMine");
@@ -35,15 +35,15 @@ public class MecanimHashes
     public static readonly int Respawn = Animator.StringToHash("Respawn");
 
     // Used only by Olympus
-    public static readonly int AttackHorizontal = Animator.StringToHash ("AttackHorizontal");
-    public static readonly int Stun = Animator.StringToHash ("Stun");
-    public static readonly int StealthDeath = Animator.StringToHash ("StealthDeath");
-    public static readonly int AcquiringTarget = Animator.StringToHash ("AcquireTarget");
-    public static readonly int TurnAround = Animator.StringToHash ("TurnAround");
-    public static readonly int AttackVertical = Animator.StringToHash ("AttackVertical");
-    public static readonly int Search = Animator.StringToHash ("Search");
+    public static readonly int AttackHorizontal = Animator.StringToHash("AttackHorizontal");
+    public static readonly int Stun = Animator.StringToHash("Stun");
+    public static readonly int StealthDeath = Animator.StringToHash("StealthDeath");
+    public static readonly int AcquiringTarget = Animator.StringToHash("AcquireTarget");
+    public static readonly int TurnAround = Animator.StringToHash("TurnAround");
+    public static readonly int AttackVertical = Animator.StringToHash("AttackVertical");
+    public static readonly int Search = Animator.StringToHash("Search");
 
     // Used only by BabyBot
-    public static readonly int Attack = Animator.StringToHash ("Attack");
+    public static readonly int Attack = Animator.StringToHash("Attack");
 
 }

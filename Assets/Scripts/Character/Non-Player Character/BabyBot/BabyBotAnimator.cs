@@ -11,21 +11,21 @@ public class BabyBotAnimator : CharacterAnimator
     public GameObject MeleeEvent;
 
     // Mecanim State Hashes
-    public static readonly int IdleState = Animator.StringToHash ("Base Layer.Idle");
-    public static readonly int JumpingState = Animator.StringToHash ("Base Layer.Jumping");
-    public static readonly int LandingState = Animator.StringToHash ("Base Layer.Landing");
-    public static readonly int AttackState = Animator.StringToHash ("Base Layer.Attack");
+    public static readonly int IdleState = Animator.StringToHash("Base Layer.Idle");
+    public static readonly int JumpingState = Animator.StringToHash("Base Layer.Jumping");
+    public static readonly int LandingState = Animator.StringToHash("Base Layer.Landing");
+    public static readonly int AttackState = Animator.StringToHash("Base Layer.Attack");
 
     // Making cute baby sounds =)
     private BabybotAudioPlayer _sound;
 
-    protected override void OnStart ()
+    protected override void OnStart()
     {
-        _sound = GetComponentInChildren<BabybotAudioPlayer> ();
+        _sound = GetComponentInChildren<BabybotAudioPlayer>();
 
     }
 
-    protected override void CreateStateMachine ()
+    protected override void CreateStateMachine()
     {
         StateMachine [IdleState] = Idle;
         StateMachine [JumpingState] = Jump;
@@ -34,63 +34,67 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
-    protected override void UpdateMecanimVariables ()
+    protected override void UpdateMecanimVariables()
     {
-        MecanimAnimator.SetBool (MecanimHashes.Jump, CharInput.JumpActive);
-        MecanimAnimator.SetBool (MecanimHashes.IsGrounded, IsGrounded);
-        MecanimAnimator.SetBool (MecanimHashes.Attack, CharInput.AttackActive);
+        MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpActive);
+        MecanimAnimator.SetBool(MecanimHashes.IsGrounded, IsGrounded);
+        MecanimAnimator.SetBool(MecanimHashes.Attack, CharInput.AttackActive);
 
     }
 
-    protected void Idle (float elapsedTime)
+    protected void Idle(float elapsedTime)
     {
-        _sound.DelayedStop ();
+        _sound.DelayedStop();
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
         Direction = Vector3.back;
 
     }
 
-    protected void Jump (float elapsedTime)
+    protected void Jump(float elapsedTime)
     {
         // Babybot does all its movement midair
-        if (CharInput.Left || CharInput.Right)
-            ApplyMovingHorizontal (elapsedTime);
+        if (CharInput.Left || CharInput.Right) {
+            ApplyMovingHorizontal(elapsedTime);
+        }
 
         // Start moving up at the beginning 
         if (TimeInCurrentState == 0) {
-            if (CharInput.JumpLeft || CharInput.JumpLeftReleased)
+            if (CharInput.JumpLeft || CharInput.JumpLeftReleased) {
                 HorizontalSpeed = -1.0f * Settings.MaxHorizontalSpeed;
-            else if (CharInput.JumpRight || CharInput.JumpRightReleased)
+            } else if (CharInput.JumpRight || CharInput.JumpRightReleased) {
                 HorizontalSpeed = 1.0f * Settings.MaxHorizontalSpeed;
+            }
             
-            VerticalSpeed = Mathf.Sqrt (2 * Settings.JumpHeight * Settings.Gravity);
-            MecanimAnimator.SetBool (MecanimHashes.Jump, false);
+            VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
+            MecanimAnimator.SetBool(MecanimHashes.Jump, false);
         }
 
         // Fall down at all other times
-        else
-            ApplyGravity (elapsedTime);
+        else {
+            ApplyGravity(elapsedTime);
+        }
 
         // Babybot is capable of turning around mid-air
-        ApplyBiDirection ();
+        ApplyBiDirection();
 
     }
 
-    protected void Land (float elapsedTime)
+    protected void Land(float elapsedTime)
     {
         HorizontalSpeed = 0;
         VerticalSpeed = GroundVerticalSpeed;
 
     }
     
-    protected void Attack (float elapsedTime)
+    protected void Attack(float elapsedTime)
     {
-        if (!MecanimAnimator.GetBool (MecanimHashes.Attack))
+        if (!MecanimAnimator.GetBool(MecanimHashes.Attack)) {
             return;
+        }
         
         // Set up mecanim
-        MecanimAnimator.SetBool (MecanimHashes.Attack, false);
+        MecanimAnimator.SetBool(MecanimHashes.Attack, false);
         
         // Disable movement
         Controller.enabled = false;
@@ -105,46 +109,47 @@ public class BabyBotAnimator : CharacterAnimator
         
     }
     
-    public void SelfDestruct ()
+    public void SelfDestruct()
     {
         // TODO: OBJECT POOLING
-        GameObject o = (GameObject)Instantiate (MeleeEvent, transform.position, Quaternion.identity);
+        GameObject o = (GameObject)Instantiate(MeleeEvent, transform.position, Quaternion.identity);
         o.transform.parent = GameManager.Player.transform;
-        HitBox d = o.GetComponentInChildren<HitBox> ();
+        HitBox d = o.GetComponentInChildren<HitBox>();
         
         float horizontalDir = 0.0f;
-        if (GameManager.Player.transform.position.x < transform.position.x)
+        if (GameManager.Player.transform.position.x < transform.position.x) {
             horizontalDir = -1.0f;
-        else
+        } else {
             horizontalDir = 1.0f;
+        }
         
-        d.MakeBabyBotExplosion (this.gameObject, horizontalDir);
+        d.MakeBabyBotExplosion(this.gameObject, horizontalDir);
         
     }
 
-    public override void OnDeath()
+    public override void OnDeath(Vector3 knockForce)
     {
         Destroy(gameObject);
 
     }
-
-    public void Giggle ()
+    
+    public void PlaySnore()
     {
-        _sound.Play (_sound.Giggle, _sound.GiggleVolume);
-
+        _sound.Play(_sound.Snoring, _sound.SnoringVolume);
+        
+    }
+    
+    public void PlayJump()
+    {
+        _sound.Play(_sound.Jump, _sound.JumpVolume);
+        
     }
 
-    public void PlayJump ()
+    public void Giggle()
     {
-        _sound.Play (_sound.Jump, _sound.JumpVolume);
+        _sound.Play(_sound.Giggle, _sound.GiggleVolume);
 
     }
-
-	public void PlaySnore()
-	{
-		_sound.Play(_sound.Snoring, _sound.SnoringVolume);
-
-	}
 
     public BabybotAudioPlayer Sound {
         get { return _sound; }

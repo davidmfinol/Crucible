@@ -9,20 +9,20 @@ public class SubtitlesManager : MonoBehaviour
 {
     public Queue<Subtitle> subtitleQueue;
 
-    void Awake ()
+    void Awake()
     {
-        subtitleQueue = new Queue<Subtitle> ();
+        subtitleQueue = new Queue<Subtitle>();
 
     }
 
-    void Update ()
+    void Update()
     {
         // Display subtitles in queue
     }
 
-    public void QueueSubtitle (Subtitle subtitle)
+    public void QueueSubtitle(Subtitle subtitle)
     {
-        subtitleQueue.Enqueue (subtitle);
+        subtitleQueue.Enqueue(subtitle);
 
     }
 

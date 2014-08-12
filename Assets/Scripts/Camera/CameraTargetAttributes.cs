@@ -2,9 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Camera target attributes defines how the CameraScrolling script follows its target.
-/// Attach this script to a game object that you want CameraScrolling to be able to follow.
-/// This entire script may end up being replaced.
+/// Camera target attributes defines how the CameraScrollingMain script follows its target.
+/// Attach this script to a game object that you want CameraScrollingMain to be able to follow.
 /// </summary>
 [AddComponentMenu("Camera/Camera Target Attributes")]
 public class CameraTargetAttributes : MonoBehaviour
@@ -18,7 +17,7 @@ public class CameraTargetAttributes : MonoBehaviour
     public float VelocityLookAheadY = 0.15f;
 
     // What's the maximum distance we should let the camera look ahead?
-    public Vector2 MaxLookAhead = new Vector2 (10.0f, 5.0f);
+    public Vector2 MaxLookAhead = new Vector2(10.0f, 5.0f);
 
     // Allow for dynamic zoom based off speed of the character
     public float ZoomOffset = 1.5f;
@@ -39,34 +38,37 @@ public class CameraTargetAttributes : MonoBehaviour
     private CharacterAnimator _character;
     private CharacterSettings _settings;
 
-    void Start ()
+    void Start()
     {
         _character = GetComponent<CharacterAnimator>();
-        _settings = GetComponent<CharacterSettings> ();
+        _settings = GetComponent<CharacterSettings>();
         _timeStationary = 0;
 
     }
 
     // We handle the camera moving in on the character here
-    void Update ()
+    void Update()
     {
-        if (_character == null || _settings == null)
+        if (_character == null || _settings == null) {
             return;
+        }
 
-        if (Mathf.Abs (_character.HorizontalSpeed) > 0.1) {
+        if (Mathf.Abs(_character.HorizontalSpeed) > 0.1) {
             _timeStationary = 0;
-            float desired = ZoomOffset - (Mathf.Abs (_character.Velocity.x) / _settings.MaxHorizontalSpeed);
-            if (desired < MaxZoomIn)
+            float desired = ZoomOffset - (Mathf.Abs(_character.Velocity.x) / _settings.MaxHorizontalSpeed);
+            if (desired < MaxZoomIn) {
                 desired = MaxZoomIn;
-            else if (desired > 1)
+            } else if (desired > 1) {
                 desired = MaxZoomOut;
+            }
 
-            _distanceModifier = Mathf.Lerp (_distanceModifier, desired, ZoomInAcceleration * Time.deltaTime);
+            _distanceModifier = Mathf.Lerp(_distanceModifier, desired, ZoomInAcceleration * Time.deltaTime);
         } else {
             // Pause for zoom out delay, then zoom out at zoomoutacceleration
             _timeStationary += Time.deltaTime;
-            if (_timeStationary > ZoomOutDelay) //TODO: add a check based on the enemy being focused && !CameraScrolling.EnemyFocused)
-                _distanceModifier = Mathf.Lerp (_distanceModifier, MaxZoomOut, ZoomOutAcceleration * Time.deltaTime);
+            if (_timeStationary > ZoomOutDelay) { //TODO: add a check based on the enemy being focused && !CameraScrolling.EnemyFocused)
+                _distanceModifier = Mathf.Lerp(_distanceModifier, MaxZoomOut, ZoomOutAcceleration * Time.deltaTime);
+            }
         }
 
     }

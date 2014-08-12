@@ -36,9 +36,7 @@ public sealed class CharacterInput : MonoBehaviour
     private bool _attackRightLast = false;
     private bool _pickupLast = false;
     private bool _anyLast = false;
-    
 
-    // Update the character's input, along with the XPressed and XReleased properties
     void Update ()
     {
         // Only update the _Xlast variables once we're certain that they've been recognized
@@ -60,11 +58,13 @@ public sealed class CharacterInput : MonoBehaviour
             _fixedUpdateHappened = false;
         }
 
+        // The defined delegate is responsible for actually updating the variables in this class
         if (_updateInputMethod != null)
             _updateInputMethod (Time.deltaTime);
 
     }
 
+    // Because our movement happens in FixedUpdate(), we need to make sure our input is not missed by waiting until it happens
     void FixedUpdate()
     {
         _fixedUpdateHappened = true;
@@ -82,6 +82,7 @@ public sealed class CharacterInput : MonoBehaviour
             _jump = Vector2.zero;
             _attack = 0;
             _pickup = false;
+            _any = false;
             _updateInputMethod = value;
         }
     }

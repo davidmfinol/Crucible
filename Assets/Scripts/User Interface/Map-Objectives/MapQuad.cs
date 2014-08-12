@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -51,7 +51,7 @@ public class MapQuad : MonoBehaviour
         AlphaPulse ap = newPoint.AddComponent<AlphaPulse> ();
 		ap.MinAlpha = 0.3f;
 		ap.MaxAlpha = 1.0f;
-		ap.Period = 1.5f;
+		ap.PulseSpeed = 1.5f;
 		ap.On = true;
 
 		newPoint.transform.parent = transform;

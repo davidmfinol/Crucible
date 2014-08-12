@@ -24,48 +24,49 @@ public class InventoryManager : MonoBehaviour
     // All managers need to let the GameManager know when it is ready
     private bool _ready;
     
-    void Start ()
+    void Start()
     {
-        Items = new List<InventoryItem> ();
+        Items = new List<InventoryItem>();
 
-        Weapons = new List<Weapon> ();
+        Weapons = new List<Weapon>();
 
-        StartCoroutine (FindRightHand ());
+        StartCoroutine(FindRightHand());
 
         _ready = true;
 
     }
 
-    public IEnumerator FindRightHand ()
+    public IEnumerator FindRightHand()
     {
-        while (GameManager.Player == null)
+        while (GameManager.Player == null) {
             yield return null;
+        }
 
-        _rightHand = CharacterSettings.SearchHierarchyForBone (GameManager.Player.transform, PlayerRightHandName);
+        _rightHand = CharacterSettings.SearchHierarchyForBone(GameManager.Player.transform, PlayerRightHandName);
 
     }
     
-    public void AddItem (InventoryItem newItem)
+    public void AddItem(InventoryItem newItem)
     {
         // If item already exists, add quantity
         foreach (InventoryItem item in Items) {
             if (item.Type == newItem.Type) {
                 item.Quantity += newItem.Quantity;
-                item.Quantity = Mathf.Min (item.MaxQuantity, item.Quantity);
+                item.Quantity = Mathf.Min(item.MaxQuantity, item.Quantity);
                 return;
             }
         }
         
-        Items.Add (newItem);
+        Items.Add(newItem);
         
     }
 
-    public bool TryAddAmmo (Weapon w, int ammoCount)
+    public bool TryAddAmmo(Weapon w, int ammoCount)
     {
         foreach (Weapon weapon in Weapons) {
             if (weapon.Type == w.Type) {
                 weapon.Quantity += ammoCount;
-                weapon.Quantity = Mathf.Min (weapon.Quantity, weapon.MaxQuantity);
+                weapon.Quantity = Mathf.Min(weapon.Quantity, weapon.MaxQuantity);
                 return true;
             }
         }
@@ -74,14 +75,14 @@ public class InventoryManager : MonoBehaviour
     
     }
     
-    public bool TryRemoveItemQty (Item.ItemType t, int qty)
+    public bool TryRemoveItemQty(Item.ItemType t, int qty)
     {
         for (int itemIndex = Items.Count - 1; itemIndex >= 0; itemIndex--) {
             if (Items [itemIndex].Type == t) {
                 Items [itemIndex].Quantity -= qty;
-                Items [itemIndex].Quantity = Mathf.Max (Items [itemIndex].Quantity, 0);
+                Items [itemIndex].Quantity = Mathf.Max(Items [itemIndex].Quantity, 0);
                 if (Items [itemIndex].Quantity == 0) {
-                    Items.RemoveAt (itemIndex);
+                    Items.RemoveAt(itemIndex);
                 }
                 return true;
             }
@@ -91,21 +92,21 @@ public class InventoryManager : MonoBehaviour
         
     }
 
-    public bool TryRemoveAmmo (Weapon.WeaponType t, int ammoCount)
+    public bool TryRemoveAmmo(Weapon.WeaponType t, int ammoCount)
     {
         for (int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
             if (Weapons [weaponIndex].Type == t) {
                 Weapons [weaponIndex].Quantity -= ammoCount;
-                Weapons [weaponIndex].Quantity = Mathf.Max (Weapons [weaponIndex].Quantity, 0);
+                Weapons [weaponIndex].Quantity = Mathf.Max(Weapons [weaponIndex].Quantity, 0);
 
                 if (Weapons [weaponIndex].Quantity == 0) {
                     Destroy(Weapons [weaponIndex].gameObject);
-                    Weapons.RemoveAt (weaponIndex);
+                    Weapons.RemoveAt(weaponIndex);
                     GameManager.Inventory.CurrentWeapon = null;
-                    GameManager.UI.CycleToNextWeapon ();
+                    GameManager.UI.CycleToNextWeapon();
                 }
 
-				GameManager.UI.RefreshWeaponWheel();
+                GameManager.UI.RefreshWeaponWheel();
                 return true;
             }
             
@@ -115,21 +116,24 @@ public class InventoryManager : MonoBehaviour
 
     }
 
-    public void RemoveWeapon (Weapon.WeaponType t)
+    public void RemoveWeapon(Weapon.WeaponType t)
     {
         // Remove in descending order in case of more than one occurrence.
         for (int weaponIndex = Weapons.Count - 1; weaponIndex >= 0; weaponIndex--) {
-            if (Weapons [weaponIndex].Type == t)
-                Weapons.RemoveAt (weaponIndex);
+            if (Weapons [weaponIndex].Type == t) {
+                Weapons.RemoveAt(weaponIndex);
+            }
         }
 
     }
     
-    public bool HasWeapon (Weapon w)
+    public bool HasWeapon(Weapon w)
     {
-        foreach (Weapon weaponHeld in Weapons)
-            if (weaponHeld.Type == w.Type)
+        foreach (Weapon weaponHeld in Weapons) {
+            if (weaponHeld.Type == w.Type) {
                 return true;
+            }
+        }
         
         return false;
         
@@ -144,27 +148,30 @@ public class InventoryManager : MonoBehaviour
         GameManager.UI.RefreshWeaponWheel();
     }
     
-    static void DestroyChildren (Transform transform)
+    static void DestroyChildren(Transform transform)
     {
-        List<Transform> children = new List<Transform> ();
-        for (int i = 0; i < transform.childCount; ++i)
-            children.Add (transform.GetChild (i));
-        foreach (Transform child in children)
-            GameObject.DestroyImmediate (child.gameObject);
+        List<Transform> children = new List<Transform>();
+        for (int i = 0; i < transform.childCount; ++i) {
+            children.Add(transform.GetChild(i));
+        }
+        foreach (Transform child in children) {
+            GameObject.DestroyImmediate(child.gameObject);
+        }
         
     }
     
-    public InventorySaveState SaveState ()
+    public InventorySaveState SaveState()
     {
-        InventorySaveState save = new InventorySaveState ();
+        InventorySaveState save = new InventorySaveState();
         
         // persist weapons as savestates since weapons themselves are monobehaviors
-        List<WeaponSaveState> weaponSaves = new List<WeaponSaveState> ();
-        foreach (Weapon w in Weapons)
-            weaponSaves.Add (w.SaveState ());
+        List<WeaponSaveState> weaponSaves = new List<WeaponSaveState>();
+        foreach (Weapon w in Weapons) {
+            weaponSaves.Add(w.SaveState());
+        }
         
-        save.WeaponsHeld = weaponSaves.ToArray ();
-        save.ItemsHeld = Items.ToArray ();        
+        save.WeaponsHeld = weaponSaves.ToArray();
+        save.ItemsHeld = Items.ToArray();        
         save.CurrentWeapon = GameManager.UI.CurrentWeapon;
         
         return save;
@@ -184,15 +191,16 @@ public class InventoryManager : MonoBehaviour
             // Set the new weapon
             _currentWeapon = value;
             if (_currentWeapon == null || _rightHand == null) {
-                if(_rightHand == null)
+                if (_rightHand == null) {
                     Debug.LogWarning("Player's right hand not found!");
+                }
                 return;
             }
             
             _currentWeapon.gameObject.SetActive(true);
             _currentWeapon.transform.parent = _rightHand;
             _currentWeapon.transform.localPosition = _currentWeapon.Translation;
-            _currentWeapon.transform.localRotation =  Quaternion.Euler(_currentWeapon.Rotation);
+            _currentWeapon.transform.localRotation = Quaternion.Euler(_currentWeapon.Rotation);
         }
     }
 

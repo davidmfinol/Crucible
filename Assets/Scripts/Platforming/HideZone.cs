@@ -16,8 +16,7 @@ public class HideZone : MonoBehaviour
     private Quaternion _upArrowRotation;
     private Quaternion _downArrowRotation;
 
-
-    void Start ()
+    void Start()
     {
         _upArrowRotation = Arrow.transform.rotation;
         Arrow.transform.Rotate(0, 0, 180);
@@ -28,36 +27,40 @@ public class HideZone : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.AI.EnemiesChasing > 0 || Arrow.On) 
+        if (GameManager.AI.EnemiesChasing > 0 || Arrow.On) { 
             CircleIndicator.FadeOut(CircleIndicator.FadeOutSeconds, false);
-        else if (!Arrow.On)
-            CircleIndicator.FadeIn (CircleIndicator.FadeInSeconds, false);
+        } else if (!Arrow.On) {
+            CircleIndicator.FadeIn(CircleIndicator.FadeInSeconds, false);
+        }
 
     }
 
-    void OnTriggerEnter (Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) 
+        if (!other.CompareTag("Player")) { 
             return;
+        }
         
         Arrow.On = GameManager.Player.CanTransitionZ;
 
     }
 
-    void OnTriggerStay (Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) {
             return;
+        }
         
         Arrow.On = GameManager.Player.CanTransitionZ;
-        Arrow.transform.rotation = Quaternion.Lerp (Arrow.transform.rotation, GameManager.PlayerShader.IsInShadow ? _downArrowRotation : _upArrowRotation, Time.deltaTime * ArrowRotationSpeed);
+        Arrow.transform.rotation = Quaternion.Lerp(Arrow.transform.rotation, GameManager.PlayerShader.IsInShadow ? _downArrowRotation : _upArrowRotation, Time.deltaTime * ArrowRotationSpeed);
 
     }
 
-    void OnTriggerExit (Collider other)
+    void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) {
             return;
+        }
         
         Arrow.On = false;
 

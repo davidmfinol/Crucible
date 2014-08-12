@@ -2,7 +2,7 @@
 using System.Collections;
 
 /// <summary>
-/// Ragdoll audio player.
+/// Ragdoll audio player plays audio on ragdoll.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioSource))]
@@ -12,10 +12,11 @@ public class RagdollAudioPlayer : AudioPlayer
     public AudioClip Hit;
     public float HitVolume = 1.0f;
 
-    void OnCollisionEnter (Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
-        if (collision.relativeVelocity.magnitude > 10)
+        if (collision.relativeVelocity.magnitude > 10) {
             Play(Hit, HitVolume);
+        }
         
     }
 

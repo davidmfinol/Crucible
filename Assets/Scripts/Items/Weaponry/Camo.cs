@@ -37,8 +37,9 @@ public class Camo : Weapon
     
     public override Texture2D IconTexture {
         get {
-            if (_texture == null)
-                _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/CamoIcon");
+            if (_texture == null) {
+                _texture = Resources.Load <Texture2D>("Textures/Item Icons/Weapon Icons/CamoIcon");
+            }
             return _texture;
         }
     }

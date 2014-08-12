@@ -8,29 +8,35 @@ using System.Collections.Generic;
 [AddComponentMenu("Artificial Intelligence/Sound/SoundEvent")]
 public class SoundEvent : MonoBehaviour
 {
+    // How long the sound event exists within the scene before it is deleted
     public float DecayTime = 1;
     private float _existTime = 0;
+
+    // Who has heard this sound event?
     private List<HearingRadius> _heardBy;
 
-    void Awake ()
+    void Awake()
     {
-        _heardBy = new List<HearingRadius> ();
+        _heardBy = new List<HearingRadius>();
 
     }
     
-    void Update ()
+    void Update()
     {
         _existTime += Time.deltaTime;
-        if (_existTime > DecayTime)
-            Destroy (this.gameObject);
+        if (_existTime > DecayTime) {
+            Destroy(this.gameObject);
+        }
         
     }
     
-    void OnDestroy ()
+    void OnDestroy()
     {
-        foreach (HearingRadius hearingRadius in _heardBy)
-            if (hearingRadius.ObjectsHeard.Contains (this))
-                hearingRadius.ObjectsHeard.Remove (this);
+        foreach (HearingRadius hearingRadius in _heardBy) {
+            if (hearingRadius.ObjectsHeard.Contains(this)) {
+                hearingRadius.ObjectsHeard.Remove(this);
+            }
+        }
 
     }
 

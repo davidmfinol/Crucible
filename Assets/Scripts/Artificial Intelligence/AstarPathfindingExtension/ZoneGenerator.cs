@@ -11,26 +11,30 @@ using Pathfinding.Serialization.JsonFx;
 [JsonOptIn]
 public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 {
-    [JsonMember]
     // Game Objects tagged with this tag will be considered nodes on the ZoneGraph
+    [JsonMember]
     public string
         WaypointTag = "Waypoint";
-    [JsonMember]
+
     // Game Objects tagged with this tag will be considered areas on the ZoneGraph
     // These game objects must contain colliders with bounds indicating the area of the zone
+    [JsonMember]
     public string
         ZonesTag = "Zone";
-    [JsonMember]
+
     // Game Objects tagged with this tag will be considered transition areas on the ZoneGraph
     // These game objects must contain colliders with bounds indicating the area of the transition zone
+    [JsonMember]
     public string
         TransitionZonesTag = "TransitionZone";
-    [JsonMember]
+
     // Game Objects on this layer will be considered objects we can't pass through
+    [JsonMember]
     public LayerMask
         CollisionMask = 1 << 12;
-    [JsonMember]
+
     // Waypoints with bounds will be subdivided into more points that are this distance away from each other for fidelity of traversal
+    [JsonMember]
     public float
         WaypointSubdivisionSize = 7;
 
@@ -61,6 +65,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
         for (int i=0; i < _nodes.Length && del (_nodes[i]); i++) {
         }
+
     }
     
     /// <summary>
@@ -76,6 +81,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // Then, create the nodes and connect them
         GenerateNodes();
         ConnectNodes();
+
     }
 
     /// <summary>
@@ -161,7 +167,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
             // If it's not one of our three types of game objects, then we did something wrong
             else {
-                Debug.Log("Astar node generation found a gameobject that it doesn't know how to use!");
+                Debug.LogWarning("Astar node generation found a gameobject that it doesn't know how to use!");
             }
         }
 
@@ -206,7 +212,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     }
 
     /// <summary>
-    /// Creates a list of way points a long a side of the object that we define
+    /// Creates a list of way points along a side of the object that we define
     /// </summary>
     /// <returns>The list of waypoints.</returns>
     /// <param name="waypointGO">GameObject to get waypoints from.</param>
@@ -733,7 +739,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         }
 
     }
-
 
     /// <summary>
     /// Gets all the nodes in the ZoneGraph.

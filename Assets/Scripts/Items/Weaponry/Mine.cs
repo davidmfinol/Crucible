@@ -11,20 +11,19 @@ public class Mine : Weapon
     public Transform OnFieldMine;
     public Transform Explosion1;
     public Transform Explosion2;
-
     private static Texture2D _texture;
 
-    public override void ActivateAttack (float attackID)
+    public override void ActivateAttack(float attackID)
     {
         // Create the new mine on the field
-        Vector3 minePos = new Vector3 (transform.position.x, transform.position.y, transform.position.z);// + 1.5f);
-        Transform mineCopy = (Transform)Instantiate (OnFieldMine, minePos, Quaternion.identity);
+        Vector3 minePos = new Vector3(transform.position.x, transform.position.y, transform.position.z);// + 1.5f);
+        Transform mineCopy = (Transform)Instantiate(OnFieldMine, minePos, Quaternion.identity);
         mineCopy.animation ["MineAboutToExplode"].speed = 2.0f;
 
     }
     
     public override Vector3 Translation {
-        get { return new Vector3 (0.15f, 0.33f, 0.45f); }
+        get { return new Vector3(0.15f, 0.33f, 0.45f); }
     }
     
     public override WeaponType Type {
@@ -41,8 +40,9 @@ public class Mine : Weapon
     
     public override Texture2D IconTexture {
         get {
-            if (_texture == null)
-                _texture = Resources.Load <Texture2D> ("Textures/Item Icons/Weapon Icons/MINEIcon");
+            if (_texture == null) {
+                _texture = Resources.Load <Texture2D>("Textures/Item Icons/Weapon Icons/MINEIcon");
+            }
             return _texture;
         }
     }

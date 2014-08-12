@@ -9,16 +9,17 @@ public class SoundDebugger : MonoBehaviour
 {
     public Transform SoundPrefab;
     
-    void Awake ()
+    void Awake()
     {
         enabled = Debug.isDebugBuild;
 
     }
 
-    void Update ()
+    void Update()
     {
-        if (Input.GetKeyDown (KeyCode.J))
-            Instantiate (SoundPrefab, GameManager.Player.transform.position, Quaternion.identity);
+        if (Input.GetKeyDown(KeyCode.J)) {
+            Instantiate(SoundPrefab, GameManager.Player.transform.position, Quaternion.identity);
+        }
 
     }
 }

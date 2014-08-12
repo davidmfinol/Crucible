@@ -11,29 +11,30 @@ public class CameraSpotterAI : EnemyAI
     
     protected override void OnStart()
     {
-        _cameraSpotterAwareness = GetComponent<CameraSpotterAwareness> ();
+        _cameraSpotterAwareness = GetComponent<CameraSpotterAwareness>();
         
     }
 
-    protected override void UpdateAwareness (float elapsedTime)
+    protected override void UpdateAwareness(float elapsedTime)
     {
         AwarenessLevel oldAwareness = Awareness;
         
-        base.UpdateAwareness (elapsedTime);
+        base.UpdateAwareness(elapsedTime);
 
-        if(oldAwareness != Awareness)
-            _cameraSpotterAwareness.ChangeAwareness (Awareness);
+        if (oldAwareness != Awareness) {
+            _cameraSpotterAwareness.ChangeAwareness(Awareness);
+        }
         
     }
 
     // We're not going to use astar with the camera
-    public override bool UpdateAStarPath (float elapsedTime, float speedRatio, bool repathOnInvalid)
+    public override bool UpdateAStarPath(float elapsedTime, float speedRatio, bool repathOnInvalid)
     {
         return false;
 
     }
 
-    protected override void Chase (float elapsedTime)
+    protected override void Chase(float elapsedTime)
     {
         // We don't chase as a static camera
     }

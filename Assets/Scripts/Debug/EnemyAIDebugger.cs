@@ -19,47 +19,51 @@ public class EnemyAIDebugger : MonoBehaviour
     private EnemyAI _brain;
     private CharacterInput _input;
 
-    void Awake ()
+    void Awake()
     {
         enabled = Debug.isDebugBuild;
         
-        _node = ((Transform)Instantiate (HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
+        _node = ((Transform)Instantiate(HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
         _node.transform.parent = transform;
         _node.renderer.enabled = false;
 
     }
     
-    void Start ()
+    void Start()
     {
-        _brain = GetComponent<EnemyAI> ();
-        _input = GetComponent<CharacterInput> ();
+        _brain = GetComponent<EnemyAI>();
+        _input = GetComponent<CharacterInput>();
 
     }
     
-    void Update ()
+    void Update()
     {
         if (!Hide && HighlightCurrentNode && _brain != null && _brain.Path != null && !_brain.Path.error && _brain.CurrentPathWaypoint < _brain.Path.vectorPath.Count) {
             _node.renderer.enabled = true;
             _node.transform.position = _brain.Path.vectorPath [_brain.CurrentPathWaypoint];
-        } else
+        } else {
             _node.renderer.enabled = false;
+        }
 
     }
     
-    void OnGUI ()
+    void OnGUI()
     {
-        if (Hide || !ShowAI)
+        if (Hide || !ShowAI) {
             return;
+        }
         
-        if (_brain == null)
-            _brain = GetComponent<EnemyAI> ();
+        if (_brain == null) {
+            _brain = GetComponent<EnemyAI>();
+        }
 
-        GUI.Box (new Rect (10, 160, 300, 20), "V: " + _input.Vertical + ", H: " + _input.Horizontal + ", J: " + _input.Jump + ", A:" + (Mathf.Abs (_input.Attack) >= 0.1));
-        GUI.Box (new Rect (10, 185, 300, 20), "Repathed: " + _brain.TimeSinceRepath);
-        GUI.Box (new Rect (10, 210, 300, 20), "Target: " + _brain.Target + ", Searching: " + _brain.IsSearchingForPath);
-        GUI.Box (new Rect (10, 235, 300, 20), "AI Mode: " + _brain.Awareness);
-        if (_brain.Path != null)
-            GUI.Box (new Rect (10, 260, 300, 20), "At node " + (_brain.CurrentPathWaypoint) + " of vectorPath length " + _brain.Path.vectorPath.Count + "& path length " + _brain.Path.path.Count);
+        GUI.Box(new Rect(10, 160, 300, 20), "V: " + _input.Vertical + ", H: " + _input.Horizontal + ", J: " + _input.Jump + ", A:" + (Mathf.Abs(_input.Attack) >= 0.1));
+        GUI.Box(new Rect(10, 185, 300, 20), "Repathed: " + _brain.TimeSinceRepath);
+        GUI.Box(new Rect(10, 210, 300, 20), "Target: " + _brain.Target + ", Searching: " + _brain.IsSearchingForPath);
+        GUI.Box(new Rect(10, 235, 300, 20), "AI Mode: " + _brain.Awareness);
+        if (_brain.Path != null) {
+            GUI.Box(new Rect(10, 260, 300, 20), "At node " + (_brain.CurrentPathWaypoint) + " of vectorPath length " + _brain.Path.vectorPath.Count + "& path length " + _brain.Path.path.Count);
+        }
 
     }
 

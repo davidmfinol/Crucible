@@ -42,135 +42,144 @@ public class GameManager : MonoBehaviour
     private static bool _isPlayingCutscene;
 
     // Set up the game on Start(); this should happen before all other Start()s
-    void Start ()
+    void Start()
     {
         // We need to keep one instance of our Game Manager
-        if (_instance != null)
-            Destroy (_instance.gameObject);
-        else {
-            _gameSaveStatePath = Path.Combine (Application.persistentDataPath, "game_progress.xml");
-            _levelSaveStatePrefix = Path.Combine (Application.persistentDataPath, "level_");
+        if (_instance != null) {
+            Destroy(_instance.gameObject);
+        } else {
+            _gameSaveStatePath = Path.Combine(Application.persistentDataPath, "game_progress.xml");
+            _levelSaveStatePrefix = Path.Combine(Application.persistentDataPath, "level_");
 
         }
         _instance = this;
-        _mainCamera = GetComponentInChildren<CameraScrollingMain> ();
-        _audioManager = GetComponentInChildren<AudioManager> ();
-        _subtitlesManager = GetComponentInChildren<SubtitlesManager> ();
+        _mainCamera = GetComponentInChildren<CameraScrollingMain>();
+        _audioManager = GetComponentInChildren<AudioManager>();
+        _subtitlesManager = GetComponentInChildren<SubtitlesManager>();
 
-        SetupLevel ();
+        SetupLevel();
         
-        SetupAI ();
+        SetupAI();
 
         SetupObjectPool();
         
-        SetupInventory ();
+        SetupInventory();
 
-        SetupUI ();
+        SetupUI();
         
-        SetupPlayer ();
+        SetupPlayer();
 
     }
     
-    private void SetupLevel ()
+    private void SetupLevel()
     {
         // Destroy the previous level
-        if (GameManager.Level != null)
-			Destroy (GameManager.Level.gameObject);
+        if (GameManager.Level != null) {
+            Destroy(GameManager.Level.gameObject);
+        }
 
         // And then find or create a new level
-        GameObject levelManager = GameObject.FindGameObjectWithTag ("Level Manager");
-        if (levelManager != null)
-			GameManager._currentLevel = levelManager.GetComponent<LevelManager> ();
-        else
-            GameManager._currentLevel = new GameObject ("_Level Manager").AddComponent<LevelManager> (); // NOTE: NO POOL; JUST 1
+        GameObject levelManager = GameObject.FindGameObjectWithTag("Level Manager");
+        if (levelManager != null) {
+            GameManager._currentLevel = levelManager.GetComponent<LevelManager>();
+        } else {
+            GameManager._currentLevel = new GameObject("_Level Manager").AddComponent<LevelManager>();
+        } // NOTE: NO POOL; JUST 1
 
     }
     
-    private void SetupAI ()
+    private void SetupAI()
     {
         // Destroy the previous AI
-        if (GameManager.AI != null)
-            Destroy (GameManager.AI.gameObject);
+        if (GameManager.AI != null) {
+            Destroy(GameManager.AI.gameObject);
+        }
 
         // And then find or create a new AI
-        GameObject aiManager = GameObject.FindGameObjectWithTag ("AI Manager");
-        if (aiManager != null)
-            GameManager._aiManager = aiManager.GetComponent<AIManager> ();
-        else
-            GameManager._aiManager = new GameObject ("_Enemies").AddComponent<AIManager> (); // NOTE: NO POOL; JUST 1
+        GameObject aiManager = GameObject.FindGameObjectWithTag("AI Manager");
+        if (aiManager != null) {
+            GameManager._aiManager = aiManager.GetComponent<AIManager>();
+        } else {
+            GameManager._aiManager = new GameObject("_Enemies").AddComponent<AIManager>();
+        } // NOTE: NO POOL; JUST 1
 
     }
 
     private void SetupObjectPool()
     {
         // Destroy the previous Object Pool
-        if (_objectPool != null)
+        if (_objectPool != null) {
             Destroy(_objectPool.gameObject);
+        }
 
         // Create the Object Pool
-        GameObject pool = new GameObject ("_Object Pool"); // NOTE: NO POOL; THIS IS THE POOL
+        GameObject pool = new GameObject("_Object Pool"); // NOTE: NO POOL; THIS IS THE POOL
         _objectPool = pool.AddComponent<ObjectPoolManager>();
     }
     
-    private void SetupInventory ()
+    private void SetupInventory()
     {
         // Destroy the previous Inventory
-        if (_inventory != null)
-            Destroy (_inventory.gameObject);
+        if (_inventory != null) {
+            Destroy(_inventory.gameObject);
+        }
         
         // Create the inventory
-        GameObject invObj = new GameObject ("_Inventory"); // NOTE: NO POOL; JUST 1
-        _inventory = invObj.AddComponent<InventoryManager> ();
+        GameObject invObj = new GameObject("_Inventory"); // NOTE: NO POOL; JUST 1
+        _inventory = invObj.AddComponent<InventoryManager>();
         
     }
     
-    private void SetupUI ()
+    private void SetupUI()
     {
         // Destroy the previous UI
-        if (_uiManager != null)
-            Destroy (_uiManager.gameObject);
+        if (_uiManager != null) {
+            Destroy(_uiManager.gameObject);
+        }
 
         // Create the UI
-        GameObject ui = (GameObject)Instantiate (Resources.Load("Prefabs/User Interface/_UI")); // NOTE: NO POOL; JUST 1
-        _uiManager = ui.GetComponent<UIManager> ();
+        GameObject ui = (GameObject)Instantiate(Resources.Load("Prefabs/User Interface/_UI")); // NOTE: NO POOL; JUST 1
+        _uiManager = ui.GetComponent<UIManager>();
 
     }
     
-    private void SetupPlayer ()
+    private void SetupPlayer()
     {
         // Destroy the previous player
-        if (_player != null)
+        if (_player != null) {
             Destroy(_player.gameObject);
+        }
 
         // Create the player
-        GameObject player = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/Newman"), _currentLevel.OffscreenPosition, Quaternion.identity); // NOTE: NO POOL; JUST 1
-        _player = player.GetComponent<CharacterAnimator> ();
+        GameObject player = (GameObject)Instantiate(Resources.Load("Prefabs/Characters/Newman"), _currentLevel.OffscreenPosition, Quaternion.identity); // NOTE: NO POOL; JUST 1
+        _player = player.GetComponent<CharacterAnimator>();
         _player.gameObject.AddComponent<AudioListener>();
         _player.IgnoreMovement = true;
         _playerShader = player.GetComponent<NewmanShader>();
         
         // Must delay player spawn to make sure all components are ready
-        StartCoroutine (DelayedSpawnPlayer ());
+        StartCoroutine(DelayedSpawnPlayer());
 
     }
 
-    public IEnumerator DelayedSpawnPlayer ()
+    public IEnumerator DelayedSpawnPlayer()
     {
-        while (!AllManagersReady)
+        while (!AllManagersReady) {
             yield return null;
+        }
 
-        SpawnPlayer ();
+        SpawnPlayer();
 
     }
 
-    public static void SpawnPlayer ()
+    public static void SpawnPlayer()
     {
-		// Load from the last save files
-        LoadGameState ();
-		LoadLevelState ();
+        // Load from the last save files
+        LoadGameState();
+        LoadLevelState();
 
         // Move the player to the correct spot
-		Player.transform.position = LastCheckPoint.position;
+        Player.transform.position = LastCheckPoint.position;
 
         // Allow the player to start moving
         Player.IgnoreMovement = false;
@@ -179,55 +188,60 @@ public class GameManager : MonoBehaviour
         Player.VerticalSpeed = 0;
 
         // Reset it's health to max
-        HeartBox heart = Player.GetComponentInChildren<HeartBox> ();
-        if (heart != null)
-			heart.HitPoints = heart.MaxHitPoints;
+        HeartBox heart = Player.GetComponentInChildren<HeartBox>();
+        if (heart != null) {
+            heart.HitPoints = heart.MaxHitPoints;
+        }
         
         // Turn off ragdoll if coming back to life
-        if(Player.IsDead && Player.Settings.RootRigidBody.collider.enabled)
+        if (Player.IsDead && Player.Settings.RootRigidBody.collider.enabled) {
             Player.UndoRagdoll();
+        }
 
         // Make sure the camera is looking at the player
-		MainCamera.Target = Player.transform;
+        MainCamera.Target = Player.transform;
 
         // Enable the input
-		UI.EnableInput ();
+        UI.EnableInput();
 
     }
 
-    public static void DeleteSaves ()
+    public static void DeleteSaves()
     {
-        string[] files = Directory.GetFiles (Application.persistentDataPath);
-        foreach (string filePath in files)
-            File.Delete (filePath);
+        string[] files = Directory.GetFiles(Application.persistentDataPath);
+        foreach (string filePath in files) {
+            File.Delete(filePath);
+        }
 
     }
     
-    public static void LoadGameState ()
+    public static void LoadGameState()
     {
-		_instance.StartCoroutine (_instance.LoadGameStateHelper ());
+        _instance.StartCoroutine(_instance.LoadGameStateHelper());
 
     }
 
-    private IEnumerator LoadGameStateHelper ()
-	{
-		// Set our first checkpoint to the default start point
-		if (_saveData == null)
-			LastCheckPoint = _currentLevel.DefaultStartpoint;
+    private IEnumerator LoadGameStateHelper()
+    {
+        // Set our first checkpoint to the default start point
+        if (_saveData == null) {
+            LastCheckPoint = _currentLevel.DefaultStartpoint;
+        }
 
         // Clear out player inventory
         Inventory.Clear();
 
         // Get the saved data
-        _saveData = GameSaveState.Load (GameSaveStatePath);
+        _saveData = GameSaveState.Load(GameSaveStatePath);
 
         // Do nothing if we failed to load a game save
         if (_saveData == null) {
-            _saveData = new GameSaveState ();
-            Checkpoint lastCheckpoint = LastCheckPoint.GetComponent<Checkpoint> ();
-            if(lastCheckpoint != null)
+            _saveData = new GameSaveState();
+            Checkpoint lastCheckpoint = LastCheckPoint.GetComponent<Checkpoint>();
+            if (lastCheckpoint != null) {
                 _saveData.Checkpoint = lastCheckpoint.Location;
-			yield break;
+            }
+            yield break;
         }
         
         // Load up the correct level
@@ -238,9 +252,9 @@ public class GameManager : MonoBehaviour
         
         // Move player to his last checkpoint.
         bool checkpointFound = false;
-        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag ("Respawn");
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Respawn");
         foreach (GameObject obj in spawnPoints) {
-            Checkpoint checkpoint = obj.GetComponent<Checkpoint> ();
+            Checkpoint checkpoint = obj.GetComponent<Checkpoint>();
             if (checkpoint != null && checkpoint.Location == _saveData.Checkpoint) {
                 Player.transform.position = checkpoint.transform.position;
                 LastCheckPoint = checkpoint.transform;
@@ -254,114 +268,120 @@ public class GameManager : MonoBehaviour
         }
         
         // Reload the player's items
-        foreach (InventoryItem invItem in _saveData.InventoryState.ItemsHeld)
-            Inventory.AddItem (InventoryItemFactory.CreateFromType (invItem.Type, invItem.Quantity));
+        foreach (InventoryItem invItem in _saveData.InventoryState.ItemsHeld) {
+            Inventory.AddItem(InventoryItemFactory.CreateFromType(invItem.Type, invItem.Quantity));
+        }
 
         // Reload the player's weapons
         foreach (WeaponSaveState weaponSave in _saveData.InventoryState.WeaponsHeld) {
             string weaponName = "Prefabs/Items/Weapons/InHand/" + weaponSave.WeaponType.ToString().Substring(7);
             // NOTE: WE MAY WANT TO POOL HERE, BUT I DON'T THINK IT HAPPENS ENOUGH TO BE WORTH IT/NOT SURE IT MAKES SENSE
-            GameObject createdWeapon = (GameObject)Instantiate (Resources.Load (weaponName), _currentLevel.OffscreenPosition, Quaternion.identity);
-            if(createdWeapon == null) {
+            GameObject createdWeapon = (GameObject)Instantiate(Resources.Load(weaponName), _currentLevel.OffscreenPosition, Quaternion.identity);
+            if (createdWeapon == null) {
                 Debug.LogWarning("Failed to load weapon: " + weaponName);
                 continue;
             }
-            Weapon newWeapon = createdWeapon.GetComponent<Weapon> ();
+            Weapon newWeapon = createdWeapon.GetComponent<Weapon>();
             newWeapon.Quantity = weaponSave.Quantity;
-            Inventory.Weapons.Add (newWeapon);
+            Inventory.Weapons.Add(newWeapon);
         }
 
         // Display the correct weapon
         for (int i = 0; i < Inventory.Items.Count; i++) {
-            if(UI.CurrentWeapon == _saveData.InventoryState.CurrentWeapon)
+            if (UI.CurrentWeapon == _saveData.InventoryState.CurrentWeapon) {
                 break;
-            UI.CycleToNextWeapon ();
+            }
+            UI.CycleToNextWeapon();
         }
-        UI.RefreshWeaponWheel ();
-		
-		yield return null;
+        UI.RefreshWeaponWheel();
+        
+        yield return null;
 
     }
 
-    public static void LoadLevelState ()
+    public static void LoadLevelState()
     {
-		_instance.StartCoroutine (_instance.LoadLevelStateHelper (Application.loadedLevelName));
+        _instance.StartCoroutine(_instance.LoadLevelStateHelper(Application.loadedLevelName));
 
     }
 
-    private IEnumerator LoadLevelStateHelper (string levelName)
+    private IEnumerator LoadLevelStateHelper(string levelName)
     {
         // Get the saved data
         string path = LevelSaveStatePrefix + levelName + ".xml";
-		LevelSaveState levelSave = null;
-		levelSave = LevelSaveState.Load (path);
+        LevelSaveState levelSave = null;
+        levelSave = LevelSaveState.Load(path);
 
         // Do nothing if we couldn't load any data
-        if (levelSave == null)
-			yield break;
+        if (levelSave == null) {
+            yield break;
+        }
 
-		// Restore all the enemies in the level
-		AI.ResetEnemies ();
+        // Restore all the enemies in the level
+        AI.ResetEnemies();
         foreach (EnemySaveState enemyState in levelSave.EnemyStates) {
             string enemyName = enemyState.Type.ToString().Substring(6);
             // NOTE: WE MAY WANT TO POOL HERE, BUT I DON'T THINK IT HAPPENS ENOUGH TO BE WORTH IT/NOT SURE IT MAKES SENSE
-            GameObject newEnemy = (GameObject)Instantiate (Resources.Load ("Prefabs/Characters/"+enemyName), enemyState.Position, enemyState.Rotation);
-            if(newEnemy == null) {
+            GameObject newEnemy = (GameObject)Instantiate(Resources.Load("Prefabs/Characters/" + enemyName), enemyState.Position, enemyState.Rotation);
+            if (newEnemy == null) {
                 Debug.LogWarning("Failed to load enemy: " + enemyName);
                 continue;
             }
             newEnemy.transform.parent = AI.transform;
-            newEnemy.GetComponent<CharacterAnimator> ().Direction = enemyState.Direction;  
-            newEnemy.GetComponentInChildren<EnemyHeartBox> ().HitPoints = enemyState.Health;
+            newEnemy.GetComponent<CharacterAnimator>().Direction = enemyState.Direction;  
+            newEnemy.GetComponentInChildren<EnemyHeartBox>().HitPoints = enemyState.Health;
         }
 
         // Restore all the items in the scene
-        Level.ResetItems ();
+        Level.ResetItems();
         foreach (ItemSaveState itemState in levelSave.ItemStates) {
             string itemName = "Prefabs/Items/" + itemState.ItemType.ToString().Substring(5);
-            if (itemState.ItemType == Item.ItemType.Item__Weapon)
+            if (itemState.ItemType == Item.ItemType.Item__Weapon) {
                 itemName = "Prefabs/Items/Weapons/OnField/" + itemState.WeaponType.ToString().Substring(7);
+            }
             // NOTE: WE MAY WANT TO POOL HERE, BUT I DON'T THINK IT HAPPENS ENOUGH TO BE WORTH IT/NOT SURE IT MAKES SENSE
-            GameObject createdItem = (GameObject)Instantiate (Resources.Load (itemName), itemState.Position, itemState.Rotation);
-            if(createdItem == null) {
+            GameObject createdItem = (GameObject)Instantiate(Resources.Load(itemName), itemState.Position, itemState.Rotation);
+            if (createdItem == null) {
                 Debug.LogWarning("Failed to load item: " + itemName);
                 continue;
             }
             createdItem.transform.parent = Level.ItemPickups;
-            Item newItem = createdItem.GetComponent<Item> ();
+            Item newItem = createdItem.GetComponent<Item>();
             newItem.Quantity = itemState.Quantity;
             newItem.WasPlaced = itemState.WasPlaced;
         }
 
-		yield return null;
+        yield return null;
 
     }
 
-    public static void SaveGameState (string levelName, Checkpoint.CheckpointLocation checkpoint)
+    public static void SaveGameState(string levelName, Checkpoint.CheckpointLocation checkpoint)
     {
         SaveData.LevelName = levelName;
-		SaveData.Checkpoint = checkpoint;
-		SaveData.InventoryState = Inventory.SaveState ();
-		SaveData.Save (GameSaveStatePath);
+        SaveData.Checkpoint = checkpoint;
+        SaveData.InventoryState = Inventory.SaveState();
+        SaveData.Save(GameSaveStatePath);
 
     }
     
-    public static void SaveLevelState (string levelName)
+    public static void SaveLevelState(string levelName)
     {
         string path = LevelSaveStatePrefix + levelName + ".xml";
-        LevelSaveState level = new LevelSaveState ();
+        LevelSaveState level = new LevelSaveState();
 
-        List<EnemySaveState> enemySaves = new List<EnemySaveState> ();
-        foreach (EnemyAI enemyAI in AI.Enemies)
-            enemySaves.Add (enemyAI.SaveState ());
-        level.EnemyStates = enemySaves.ToArray ();
+        List<EnemySaveState> enemySaves = new List<EnemySaveState>();
+        foreach (EnemyAI enemyAI in AI.Enemies) {
+            enemySaves.Add(enemyAI.SaveState());
+        }
+        level.EnemyStates = enemySaves.ToArray();
         
-        List<ItemSaveState> itemSaves = new List<ItemSaveState> ();
-            foreach (Item item in Level.Items)
-                itemSaves.Add (item.SaveState ());
-        level.ItemStates = itemSaves.ToArray ();
+        List<ItemSaveState> itemSaves = new List<ItemSaveState>();
+        foreach (Item item in Level.Items) {
+            itemSaves.Add(item.SaveState());
+        }
+        level.ItemStates = itemSaves.ToArray();
 
-        level.Save (path);
+        level.Save(path);
 
     }
 
@@ -382,7 +402,7 @@ public class GameManager : MonoBehaviour
     }
 
     public static AIManager AI {
-		get { return _aiManager; }
+        get { return _aiManager; }
     }
 
     public static ObjectPoolManager ObjectPool {
@@ -394,14 +414,14 @@ public class GameManager : MonoBehaviour
     }
 
     public static UIManager UI {
-		get { return _uiManager; }
+        get { return _uiManager; }
     }
 
     public static bool AllManagersReady {
         get {
             return (Audio != null && Audio.Ready) && (Subtitles != null && Subtitles.Ready) &&
                 (Level != null && Level.Ready) && (AI != null && AI.Ready) && (ObjectPool != null && ObjectPool.Ready) && 
-                    (Inventory != null && Inventory.Ready) && (UI != null && UI.Ready);
+                (Inventory != null && Inventory.Ready) && (UI != null && UI.Ready);
         }
     }
 
@@ -415,40 +435,41 @@ public class GameManager : MonoBehaviour
     }
 
     public static string GameSaveStatePath {
-		get { return _gameSaveStatePath; }
+        get { return _gameSaveStatePath; }
     }
 
     public static string LevelSaveStatePrefix {
-		get { return _levelSaveStatePrefix; }
+        get { return _levelSaveStatePrefix; }
     }
 
     public static GameSaveState SaveData {
         get {
-			if (_saveData == null)
-				_saveData = new GameSaveState ();
+            if (_saveData == null) {
+                _saveData = new GameSaveState();
+            }
 
-			return _saveData;
+            return _saveData;
         }
     }
 
     public static Transform LastCheckPoint {
-		get { return _lastCheckPoint; }
-		set { _lastCheckPoint = value; }
+        get { return _lastCheckPoint; }
+        set { _lastCheckPoint = value; }
     }
 
     public static bool IsPlayingCutscene {
-		get { return _isPlayingCutscene; }
+        get { return _isPlayingCutscene; }
         set {
-			_isPlayingCutscene = value;
+            _isPlayingCutscene = value;
 
-			if (_isPlayingCutscene) {
-                UI.CraftingMenu.Close ();
-                UI.DisableInput ();
-            }
-            else
+            if (_isPlayingCutscene) {
+                UI.CraftingMenu.Close();
+                UI.DisableInput();
+            } else {
                 UI.EnableInput();
+            }
 
-			UI.CraftingMenu.ShowWeaponWheel(!_isPlayingCutscene);
+            UI.CraftingMenu.ShowWeaponWheel(!_isPlayingCutscene);
         }
     }
 

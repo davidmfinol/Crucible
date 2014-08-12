@@ -12,9 +12,10 @@ public class ConstantRotation : MonoBehaviour
 
     void Update()
     {
-        Quaternion rot = Quaternion.Euler (Vector3.forward * RotationSpeed * Time.deltaTime);
-        if (RotatesLeft)
-            rot = Quaternion.Euler (Vector3.back * RotationSpeed * Time.deltaTime);
+        Quaternion rot = Quaternion.Euler(Vector3.forward * RotationSpeed * Time.deltaTime);
+        if (RotatesLeft) {
+            rot = Quaternion.Euler(Vector3.back * RotationSpeed * Time.deltaTime);
+        }
         transform.rotation = rot * transform.rotation;
     }
 }

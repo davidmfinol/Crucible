@@ -8,15 +8,15 @@ public class ItemQuad : MonoBehaviour
     public InventoryItem invItem;
     private bool _isDraggedCopy;
     
-    public GameObject CreateDraggableCopy ()
+    public GameObject CreateDraggableCopy()
     {
-        GameObject quadCopy = (GameObject)Instantiate (gameObject);
-        quadCopy.renderer.material.color = new Color (quadCopy.renderer.material.color.r,
+        GameObject quadCopy = (GameObject)Instantiate(gameObject);
+        quadCopy.renderer.material.color = new Color(quadCopy.renderer.material.color.r,
                                                      quadCopy.renderer.material.color.g,
                                                      quadCopy.renderer.material.color.b,
                                                      1.0f);
 
-        ItemQuad itemQuad = quadCopy.GetComponent<ItemQuad> ();
+        ItemQuad itemQuad = quadCopy.GetComponent<ItemQuad>();
         itemQuad.invItem = invItem;
         itemQuad.IsDraggedCopy = true;
 

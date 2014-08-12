@@ -11,23 +11,25 @@ using System.Collections.Generic;
 [AddComponentMenu("Artificial Intelligence/Sight/ViewCone")]
 public class ViewCone : MonoBehaviour
 {
+    // We need to be able to orient the viewcone correctly
     public Transform RootRotation;
     // HACK: CAMERA VIEW CONE DOESN'T HAVE MESH FORWARD SET CORRECTLY
     public bool IsCamera = false;
 
+    // Objects obstructing our vision
     private Dictionary<Collider, GameObject> _barriers;
-    private List<HeartBox> _charactersSeen;
-
     private int _groundLayer;
     private Shader _shaderMask;
 
+    // The characters we've seen
+    private List<HeartBox> _charactersSeen;
+
 	void Awake()
 	{
-		_charactersSeen = new List<HeartBox>();
         _barriers = new Dictionary<Collider, GameObject>();
-
         _groundLayer = LayerMask.NameToLayer("Ground");
         _shaderMask = Shader.Find("ViewMask");
+        _charactersSeen = new List<HeartBox>();
 
 	}
 
