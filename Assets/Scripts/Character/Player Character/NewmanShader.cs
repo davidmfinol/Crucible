@@ -16,18 +16,19 @@ public class NewmanShader : MonoBehaviour
     }
     ;
 
+    // These are the materials we are going to be changing
     private List<Material> _changeableMaterials;
 
-    // used to see if moving slow enough to sneak
+    // Used to see if the character this is attached to is moving slow enough to sneak
     private CharacterAnimator _anim;
 
-    // currently hidden
+    // Currently hidden in shadow?
     private bool _inShadow = false;
 
-    // how much longer the camo will be active
+    // How much longer the camo will be active
     private float _camoTime = 0;
 
-    // current shader that we need to LERP our color info to.
+    // Current shader that we need to LERP our color info to.
     private ShaderType _currShader;
     
     void Start()
@@ -84,22 +85,19 @@ public class NewmanShader : MonoBehaviour
     
     void Update()
     {
-        _camoTime-= Time.deltaTime;
+        _camoTime -= Time.deltaTime;
 
-        if (_camoTime > 0)
-                _currShader = ShaderType.Shader_Camo;
-
-        else if (GameManager.AI.EnemiesChasing > 0)
+        if (_camoTime > 0) {
+            _currShader = ShaderType.Shader_Camo;
+        } else if (GameManager.AI.EnemiesChasing > 0) {
             _currShader = ShaderType.Shader_Default;
-
-        else if (_inShadow)
+        } else if (_inShadow) {
             _currShader = ShaderType.Shader_Shadow;
-
-        else if (_anim.IsGrounded && _anim.IsSneaking) 
+        } else if (_anim.IsGrounded && _anim.IsSneaking) { 
             _currShader = ShaderType.Shader_Sneak;
-
-        else
+        } else {
             _currShader = ShaderType.Shader_Default;
+        }
         
         ModulateColors();
         
@@ -109,12 +107,11 @@ public class NewmanShader : MonoBehaviour
     {
         Color srcColor = _changeableMaterials [0].GetColor("_Color");
         Color srcOutlineColor = _changeableMaterials [0].GetColor("_OutlineColor");
-        
-        Color newColor;
-        Color newOutlineColor;
 
+        // Choose new color
         float rate = 5.0f * Time.deltaTime;
-
+        Color newColor = Color.Lerp(srcColor, new Color(0.8f, 0.8f, 0.8f, 1.0f), rate);
+        Color newOutlineColor = Color.Lerp(srcOutlineColor, Color.clear, rate);
         if (_currShader == ShaderType.Shader_Sneak) {
             newColor = Color.Lerp(srcColor, new Color(0.5f, 0.5f, 0.5f, 1.0f), rate);
             newOutlineColor = Color.Lerp(srcOutlineColor, new Color(0.7f, 0.7f, 0.7f, 0.2f), rate);
@@ -127,32 +124,26 @@ public class NewmanShader : MonoBehaviour
             newColor = Color.Lerp(srcColor, new Color(0f, 0f, 0f, 0f), rate);
             newOutlineColor = Color.Lerp(srcOutlineColor, new Color(0f, 0f, 0f, 0.1f), rate);
 
-            if((_camoTime < 1.0f && _camoTime > 0.75f) || (_camoTime < 0.5f && _camoTime > 0.25f)) {
+            if ((_camoTime < 1.0f && _camoTime > 0.75f) || (_camoTime < 0.5f && _camoTime > 0.25f)) {
                 newColor = Color.Lerp(srcColor, new Color(1.0f, 1.0f, 1.0f, 0.0f), rate);
                 newOutlineColor = Color.Lerp(srcOutlineColor, new Color(1.0f, 1.0f, 1.0f, 0.3f), rate);
             }
-
-            // default shader if none else.
-        } else {
-            newColor = Color.Lerp(srcColor, new Color(0.8f, 0.8f, 0.8f, 1.0f), rate);
-            newOutlineColor = Color.Lerp(srcOutlineColor, Color.clear, rate);
-
         }
 
+        // Actually apply the colors
         foreach (Material mat in _changeableMaterials) {
             mat.SetColor("_Color", newColor);
             mat.SetColor("_OutlineColor", newOutlineColor);
-            
         }
                 
-    }
-
-    public bool IsCamoActive {
-        get { return _camoTime > 0; }
     }
     
     public bool IsInShadow {
         get { return _inShadow; }
+    }
+
+    public bool IsCamoActive {
+        get { return _camoTime > 0; }
     }
     
 }

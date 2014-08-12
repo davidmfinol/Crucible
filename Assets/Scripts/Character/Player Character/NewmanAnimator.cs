@@ -185,7 +185,7 @@ public class NewmanAnimator : CharacterAnimator
 
         // You stick to the ground
         VerticalSpeed = GroundVerticalSpeed;
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
 
         // You could potentially fall down if the ground disappears beneath you
         MecanimAnimator.SetBool(MecanimHashes.Fall, !IsGrounded);
@@ -221,7 +221,7 @@ public class NewmanAnimator : CharacterAnimator
 
         // You stick to the ground
         VerticalSpeed = GroundVerticalSpeed;
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         
         // You could potentially fall down by running off a ledge
         MecanimAnimator.SetBool(MecanimHashes.Fall, !IsGrounded);
@@ -229,7 +229,7 @@ public class NewmanAnimator : CharacterAnimator
         // You could start rolling over small obstacles in your way
         MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, 
                                 ActiveHangTarget != null && ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle &&
-                                ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left) || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)) );
+            ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left) || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)));
 
         // You can re-grab ropes you just let go of
         bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.collider.bounds.Contains(transform.position);
@@ -239,11 +239,11 @@ public class NewmanAnimator : CharacterAnimator
         }
 
         // You can only do a backflip if you're running
-        if ( !IsSneaking && ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight)) ) {
+        if (!IsSneaking && ((Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight))) {
             MecanimAnimator.SetBool(MecanimHashes.Backflip, true);
             MecanimAnimator.SetBool(MecanimHashes.Jump, false);
 
-        // You can do a jump
+            // You can do a jump
         } else { 
             AllowGroundJump();
             MecanimAnimator.SetBool(MecanimHashes.Backflip, false);
@@ -280,7 +280,7 @@ public class NewmanAnimator : CharacterAnimator
         // Vertical motion
         float distanceToClimb = ledgeBounds.max.y - Controller.bounds.min.y;
         VerticalSpeed = distanceToClimb / animationTime;
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
 
     }
 
@@ -293,7 +293,7 @@ public class NewmanAnimator : CharacterAnimator
             _desiredDirectionX = -Direction.x;
             _desiredSpeed = -HorizontalSpeed;
             VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * 1.5f * Settings.Gravity);
-            MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         } else {
             ApplyGravity(elapsedTime);
         }
@@ -327,7 +327,7 @@ public class NewmanAnimator : CharacterAnimator
     {
         // Maintain horizontal speed by default, but allow 1/2 the normal movement for horizontal input
         if (CharInput.Right || CharInput.Left) {
-            ApplyMovingHorizontal (elapsedTime * 0.5f);
+            ApplyMovingHorizontal(elapsedTime * 0.5f);
         }
 
         // Vertical Motion
@@ -345,7 +345,7 @@ public class NewmanAnimator : CharacterAnimator
             VerticalSpeed = 0;
             HorizontalSpeed = 0;
             SetMecanimAnimatorHorizontalSpeedFloat();
-            MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         } else {
             MecanimAnimator.SetBool(MecanimHashes.Hang, false);
         }
@@ -359,15 +359,16 @@ public class NewmanAnimator : CharacterAnimator
             if (CharInput.JumpLeft) {
                 Direction = Vector3.left;
                 float jumpSpeedRatio = -1.1f;
-                if (IsSneaking)
+                if (IsSneaking) {
                     jumpSpeedRatio = -0.79f;
+                }
                 HorizontalSpeed = jumpSpeedRatio * Settings.MaxHorizontalSpeed;
-            }
-            else if (CharInput.JumpRight) {
+            } else if (CharInput.JumpRight) {
                 Direction = Vector3.right;
                 float jumpSpeedRatio = 1.1f;
-                if (IsSneaking)
+                if (IsSneaking) {
                     jumpSpeedRatio = 0.79f;
+                }
                 HorizontalSpeed = jumpSpeedRatio * Settings.MaxHorizontalSpeed;
             }
             SetMecanimAnimatorHorizontalSpeedFloat();
@@ -384,8 +385,7 @@ public class NewmanAnimator : CharacterAnimator
             if (CharInput.JumpLeft) {
                 Direction = Vector3.left;
                 HorizontalSpeed = -0.79f * Settings.MaxHorizontalSpeed;
-            }
-            else if (CharInput.JumpRight) {
+            } else if (CharInput.JumpRight) {
                 Direction = Vector3.right;
                 HorizontalSpeed = 0.79f * Settings.MaxHorizontalSpeed;
             }
@@ -403,10 +403,11 @@ public class NewmanAnimator : CharacterAnimator
         // We only determine vertical speed (Horizontal Speed is maintained throughout the jump)
         if (MecanimAnimator.GetBool(MecanimHashes.Jump)) {
             float jumpHeight = Settings.JumpHeight;
-            if(CurrentState.nameHash == FrontflipState)
+            if (CurrentState.nameHash == FrontflipState) {
                 jumpHeight *= 1.5f;
+            }
             VerticalSpeed = Mathf.Sqrt(2 * jumpHeight * Settings.Gravity);
-            MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
             MecanimAnimator.SetBool(MecanimHashes.Jump, false);
         } else {
             ApplyGravity(elapsedTime);
@@ -415,13 +416,14 @@ public class NewmanAnimator : CharacterAnimator
         // You can increase horizontal speed midair ONLY if doing a sneak jump and you weren't already at max speed
         if (CurrentState.nameHash == JumpingState && (CharInput.Left || CharInput.Right)) {
             float prevSpeed = HorizontalSpeed;
-            ApplyMovingHorizontal (elapsedTime * 0.5f);
-            if ( Mathf.Abs(HorizontalSpeed) < Mathf.Abs(prevSpeed) )
+            ApplyMovingHorizontal(elapsedTime * 0.5f);
+            if (Mathf.Abs(HorizontalSpeed) < Mathf.Abs(prevSpeed)) {
                 HorizontalSpeed = prevSpeed;
-            else if (Direction.x > 0 && HorizontalSpeed > 0.79f * Settings.MaxHorizontalSpeed)
+            } else if (Direction.x > 0 && HorizontalSpeed > 0.79f * Settings.MaxHorizontalSpeed) {
                 HorizontalSpeed = 0.79f * Settings.MaxHorizontalSpeed;
-            else if (Direction.x < 0 && HorizontalSpeed < -0.79f * Settings.MaxHorizontalSpeed)
+            } else if (Direction.x < 0 && HorizontalSpeed < -0.79f * Settings.MaxHorizontalSpeed) {
                 HorizontalSpeed = -0.79f * Settings.MaxHorizontalSpeed;
+            }
             SetMecanimAnimatorHorizontalSpeedFloat();
         }
 
@@ -448,34 +450,42 @@ public class NewmanAnimator : CharacterAnimator
     // LandRollState = Animator.StringToHash("Landing.Rolling");
     protected void Landing(float elapsedTime)
     {
-        // We do hard stops unless we're rolling
+        // We do hard stops on land unless we're rolling
         if (TimeInCurrentState == 0) {
-            if( CurrentState.nameHash == LandHighState || (CurrentState.nameHash != LandRollState && !(CharInput.Left || CharInput.Right)) )
+            if (CurrentState.nameHash == LandHighState || (CurrentState.nameHash != LandRollState && !(CharInput.Left || CharInput.Right))) {
                 HorizontalSpeed = 0;
-            else if (CurrentState.nameHash != LandRollState)
+            } else if (CurrentState.nameHash != LandRollState) {
                 HorizontalSpeed *= 0.5f;
-            else
+            } else {
                 ApplyFriction(elapsedTime);
-            VerticalSpeed = GroundVerticalSpeed;
+            }
             SetMecanimAnimatorHorizontalSpeedFloat();
-            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, GroundVerticalSpeed);
         }
 
-        // We can let them speed up, but for the most part, we want to slow down
+        // Horizontal Motion mainly wants us to slow down
         if (CurrentState.nameHash != LandHighState && InputMoveForward) {
             ApplyMovingHorizontal(elapsedTime * 0.5f);
-        }
-        else {
-            if (CurrentState.nameHash == LandRollState)
+        } else {
+            if (CurrentState.nameHash == LandRollState) {
                 elapsedTime *= 1.5f;
+            }
             ApplyFriction(elapsedTime);
         }
 
+        // Vertical Motion depends on whether we're on the ground
+        if (!IsGrounded) {
+            if (CurrentState.nameHash != LandRollState || CurrentState.normalizedTime > 0.99f) {
+                MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+            } else {
+                ApplyGravity(elapsedTime);
+            }
+        } else {
+            VerticalSpeed = GroundVerticalSpeed;
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, GroundVerticalSpeed);
+        }
+        
         // You can jump again even before you finish landing
         AllowGroundJump();
-
-        // You could fall off a ledge while landing as well
-        MecanimAnimator.SetBool(MecanimHashes.Fall, !IsGrounded);
 
     }
 
@@ -517,11 +527,11 @@ public class NewmanAnimator : CharacterAnimator
             _ledge = ActiveHangTarget as Ledge;
             MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, true);
 
-        // You can jump off whatever you're hanging 
+            // You can jump off whatever you're hanging 
         } else if (CharInput.JumpPressed) {
             AllowAirJump();
 
-        // You can also just let go
+            // You can also just let go
         } else if (CharInput.PickupPressed) {
             DropHangTarget();
             MecanimAnimator.SetBool(MecanimHashes.Fall, true);
@@ -557,7 +567,7 @@ public class NewmanAnimator : CharacterAnimator
             }
         }
         SetMecanimAnimatorHorizontalSpeedFloat();
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         MecanimAnimator.SetBool(MecanimHashes.Fall, false);
 
     }
@@ -574,7 +584,7 @@ public class NewmanAnimator : CharacterAnimator
         }
         
         // We let go when we touch the floor
-        if(IsGrounded && TimeInCurrentState > 0) {
+        if (IsGrounded && TimeInCurrentState > 0) {
             DropHangTarget();
             return;
         }
@@ -606,7 +616,7 @@ public class NewmanAnimator : CharacterAnimator
             } else if (InputMoveBackward) {
                 VerticalSpeed = -Settings.LadderClimbingSpeed;
             }
-            MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
             MecanimAnimator.SetBool(MecanimHashes.Fall, false);
         }
         
@@ -615,7 +625,7 @@ public class NewmanAnimator : CharacterAnimator
             _ledge = ActiveHangTarget as Ledge;
             MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, true);
 
-        // You can let go of what you're climbing with the pickup button
+            // You can let go of what you're climbing with the pickup button
         } else if (CharInput.PickupPressed) {
             MecanimAnimator.SetBool(MecanimHashes.Fall, true);
             MecanimAnimator.SetBool(MecanimHashes.ClimbRope, false);
@@ -667,7 +677,7 @@ public class NewmanAnimator : CharacterAnimator
             VerticalSpeed = 0;
             */
         VerticalSpeed = 0;
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         
         // You can let go of the wall
         if (CharInput.PickupPressed) {
@@ -675,8 +685,8 @@ public class NewmanAnimator : CharacterAnimator
             MecanimAnimator.SetBool(MecanimHashes.GrabWall, false);
             DropHangTarget();
 
-        // But the expectation is that you will jump off
-        } else if ( CharInput.JumpPressed ) {
+            // But the expectation is that you will jump off
+        } else if (CharInput.JumpPressed) {
             MecanimAnimator.SetBool(MecanimHashes.JumpWall, true);
             MecanimAnimator.SetBool(MecanimHashes.GrabWall, false);
             DropHangTarget();
@@ -690,10 +700,10 @@ public class NewmanAnimator : CharacterAnimator
         // Determine motion on the first frame
         if (MecanimAnimator.GetBool(MecanimHashes.JumpWall)) {
             Direction = -Direction;
-            HorizontalSpeed = Settings.MaxHorizontalSpeed * Direction.x  * 0.79f;
+            HorizontalSpeed = Settings.MaxHorizontalSpeed * Direction.x * 0.79f;
             SetMecanimAnimatorHorizontalSpeedFloat();
             VerticalSpeed = Mathf.Sqrt(2 * Settings.JumpHeight * Settings.Gravity);
-            MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
             _wallJumpCount++;
             MecanimAnimator.SetBool(MecanimHashes.JumpWall, false);
         } else {
@@ -716,7 +726,7 @@ public class NewmanAnimator : CharacterAnimator
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up)) {
             MecanimAnimator.SetBool(MecanimHashes.Hang, true);
             VerticalSpeed = 0;
-            MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
             HorizontalSpeed = 0;
         } else {
             MecanimAnimator.SetBool(MecanimHashes.Hang, false);
@@ -790,7 +800,7 @@ public class NewmanAnimator : CharacterAnimator
                 }
                 GameManager.UI.RefreshWeaponWheel();
 
-            // Pickup an inventory item
+                // Pickup an inventory item
             } else {
                 InventoryItem newInvItem = InventoryItemFactory.CreateFromType(_itemPickedup.Type, _itemPickedup.Quantity);
                 GameManager.Inventory.AddItem(newInvItem);
@@ -904,6 +914,7 @@ public class NewmanAnimator : CharacterAnimator
         if (IsGrounded) {
             ApplyFriction(elapsedTime);
             VerticalSpeed = GroundVerticalSpeed;
+            MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
             
         } else {
             ApplyGravity(elapsedTime);
@@ -939,14 +950,14 @@ public class NewmanAnimator : CharacterAnimator
     protected override void ApplyClimbingVertical(float vertical)
     {
         base.ApplyClimbingVertical(vertical);
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
 
     }
 
     protected override void ApplyGravity(float elapsedTime)
     {
         base.ApplyGravity(elapsedTime);
-        MecanimAnimator.SetFloat (MecanimHashes.VerticalSpeed, VerticalSpeed);
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
 
     }
     
@@ -957,10 +968,11 @@ public class NewmanAnimator : CharacterAnimator
         
     }
     
-    public void CreateFootstep ()
+    public void CreateFootstep()
     {
-        if (IsSneaking || _sound == null || _sound.Footsteps == null || _sound.Footsteps.Length <= 0)
+        if (IsSneaking || _sound == null || _sound.Footsteps == null || _sound.Footsteps.Length <= 0) {
             return;
+        }
         
         // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
         Vector3 footStepPosition = transform.position;
@@ -971,7 +983,7 @@ public class NewmanAnimator : CharacterAnimator
         footstep.AddComponent<SoundEvent>();
         AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
         int footIndex = Random.Range(0, _sound.Footsteps.Length);
-        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Footsteps[footIndex], _sound.FootstepsVolume);
+        footAudio.GetComponent<AudioPlayer>().Play(_sound.Footsteps [footIndex], _sound.FootstepsVolume);
         
     }
     
@@ -999,10 +1011,11 @@ public class NewmanAnimator : CharacterAnimator
 
     }
     
-    public void PlayLand () // Where dreams come true
+    public void PlayLand() // Where dreams come true
     {
-        if (IsSneaking)
+        if (IsSneaking) {
             return;
+        }
         
         // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
         Vector3 footStepPosition = transform.position;
@@ -1012,14 +1025,15 @@ public class NewmanAnimator : CharacterAnimator
         footstep.transform.position = footStepPosition;
         footstep.AddComponent<SoundEvent>();
         AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        footAudio.GetComponent<AudioPlayer> ().Play (_sound.Landing, _sound.LandingVolume);
+        footAudio.GetComponent<AudioPlayer>().Play(_sound.Landing, _sound.LandingVolume);
         
     }
 
     public void PlayLandRoll()
     {
-        if (IsSneaking)
+        if (IsSneaking) {
             return;
+        }
         
         // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
         Vector3 footStepPosition = transform.position;
@@ -1029,7 +1043,7 @@ public class NewmanAnimator : CharacterAnimator
         footstep.transform.position = footStepPosition;
         footstep.AddComponent<SoundEvent>();
         AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        footAudio.GetComponent<AudioPlayer> ().Play (_sound.LandRoll, _sound.LandRollingVolume);
+        footAudio.GetComponent<AudioPlayer>().Play(_sound.LandRoll, _sound.LandRollingVolume);
 
     }
 
@@ -1084,7 +1098,7 @@ public class NewmanAnimator : CharacterAnimator
     }
 
     public override bool CanInputJump {
-        get { return StateMachine[CurrentState.nameHash] != Jumping && StateMachine[CurrentState.nameHash] != Falling; }
+        get { return StateMachine [CurrentState.nameHash] != Jumping && StateMachine [CurrentState.nameHash] != Falling; }
     }
     
     public override bool CanInputAttack {
@@ -1094,7 +1108,7 @@ public class NewmanAnimator : CharacterAnimator
     public override bool CanInputPickup {
         get {
             GameObject itemObj;
-            return StateMachine[CurrentState.nameHash] == ClimbingVertical || CurrentState.nameHash == WallgrabbingState || CurrentState.nameHash == HangingState || CanPickupItem(out itemObj);
+            return StateMachine [CurrentState.nameHash] == ClimbingVertical || CurrentState.nameHash == WallgrabbingState || CurrentState.nameHash == HangingState || CanPickupItem(out itemObj);
         }
     }
 
