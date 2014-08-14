@@ -571,6 +571,8 @@ public abstract class CharacterAnimator : MonoBehaviour
         if (hangTarget is Ledge || hangTarget == _previousHangTarget) {
             _hangQueue.Insert(0, hangTarget);
         } else {
+            if (hangTarget is GrabbableObject)
+                Debug.Log("got it");
             _hangQueue.Add(hangTarget);
         }
 

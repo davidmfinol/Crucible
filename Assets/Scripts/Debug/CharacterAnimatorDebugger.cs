@@ -47,6 +47,7 @@ public class CharacterAnimatorDebugger : MonoBehaviour
             GUI.Box(new Rect(10, 135, 350, 20), "Z_Down: " + _character.Z_Down + ", Z_Up: " + _character.Z_Up + ", TransitionZ: " + _character.CanTransitionZ);
         }
         GUI.Box(new Rect(10, 160, 350, 20), "Jump: " + _character.CharInput.Jump + ", JF: " + _character.InputJumpForward + ", JB: " + _character.InputJumpBackward);
+        GUI.Box(new Rect(10, 185, 250, 20), "Grab Wall: " + _character.CanGrabWall);
 
     }
 }

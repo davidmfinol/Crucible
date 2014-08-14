@@ -24,7 +24,6 @@ public class Item : MonoBehaviour
     public Item.ItemType Type;
     public int Quantity;
     public Transform WeaponPrefab;
-    public bool WasPlaced;
     public Transform IndicatorOffset;
     public float IndicatorFadeSpeed = 0.5f;
     public float IndicatorFadeDistance = 15;
@@ -97,7 +96,6 @@ public class Item : MonoBehaviour
         itemSave.Quantity = Quantity;
         itemSave.Position = transform.position;
         itemSave.Rotation = transform.rotation;
-        itemSave.WasPlaced = WasPlaced;
 
         return itemSave;
 

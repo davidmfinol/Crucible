@@ -150,7 +150,7 @@ public class NewmanAnimator : CharacterAnimator
 
         // Enable weapon usage when not in the stealthkill state
         if (CurrentState.nameHash != StealthKillState) {
-            MecanimAnimator.SetBool(MecanimHashes.ShootGun, CharInput.AttackPressed && currentWeapon.Type == Weapon.WeaponType.Weapon_GravityGun); 
+            MecanimAnimator.SetBool(MecanimHashes.ShootGun, CharInput.AttackPressed && (currentWeapon.Type == Weapon.WeaponType.Weapon_GravityGun || currentWeapon.Type == Weapon.WeaponType.Weapon_VETO)); 
             MecanimAnimator.SetBool(MecanimHashes.ActivateCamo, CharInput.AttackPressed && currentWeapon.Type == Weapon.WeaponType.Weapon_Camo);
             MecanimAnimator.SetBool(MecanimHashes.PlaceMine, CharInput.AttackPressed && currentWeapon.Type == Weapon.WeaponType.Weapon_MINE);
         }

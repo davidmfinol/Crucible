@@ -348,7 +348,6 @@ public class GameManager : MonoBehaviour
             createdItem.transform.parent = Level.ItemPickups;
             Item newItem = createdItem.GetComponent<Item>();
             newItem.Quantity = itemState.Quantity;
-            newItem.WasPlaced = itemState.WasPlaced;
         }
 
         yield return null;

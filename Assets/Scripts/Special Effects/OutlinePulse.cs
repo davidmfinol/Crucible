@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Outline pulse makes an object's outline pulse synchronized to time.
+/// Primarily designed to be used to highlight items.
 /// NOTE: MUST USE OUTLINED SHADER.
 /// </summary>
 [AddComponentMenu("Special Effects/Outline Pulse")]
