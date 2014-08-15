@@ -110,7 +110,7 @@ public class OlympusAI : EnemyAI
         if (_timeLeftWandering < 0) {
             if (_timeSpentIdling < Settings.IdleTime) {
                 SetLook(false, Vector3.zero); // Stop looking while idling
-                _timeSpentIdling += Time.deltaTime;
+                _timeSpentIdling += elapsedTime;
                 return;
             } else {
                 GetRandomSearchPoint(_wanderZone);
@@ -118,7 +118,7 @@ public class OlympusAI : EnemyAI
                 _timeSpentIdling = 0;
             }
         }
-        _timeLeftWandering -= Time.deltaTime;
+        _timeLeftWandering -= elapsedTime;
         
         // We need to retarget either if we lose or reach our target
         if (Target == Vector3.zero || Animator.Controller.bounds.Contains(Target)) {
@@ -149,8 +149,7 @@ public class OlympusAI : EnemyAI
         }
         
         // Determine attack
-        bool isStunned = Animator.CurrentState.nameHash == OlympusAnimator.StunState;
-        bool shouldAttack = IsPlayerInAttackRange && !isStunned && !Animator.IsDead;
+        bool shouldAttack = IsPlayerInAttackRange && !Animator.IsDead;
         if (shouldAttack) {
 
             bool isCharging = Animator.MecanimAnimator.GetBool(MecanimHashes.AttackHorizontal);

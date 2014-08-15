@@ -85,8 +85,8 @@ public class NewmanShader : MonoBehaviour
     
     void Update()
     {
+        // Choose the correct shader effect
         _camoTime -= Time.deltaTime;
-
         if (_camoTime > 0) {
             _currShader = ShaderType.Shader_Camo;
         } else if (GameManager.AI.EnemiesChasing > 0) {
@@ -99,17 +99,17 @@ public class NewmanShader : MonoBehaviour
             _currShader = ShaderType.Shader_Default;
         }
         
-        ModulateColors();
+        ModulateColors(Time.deltaTime);
         
     }
     
-    public void ModulateColors()
+    public void ModulateColors(float elapsedTime)
     {
         Color srcColor = _changeableMaterials [0].GetColor("_Color");
         Color srcOutlineColor = _changeableMaterials [0].GetColor("_OutlineColor");
 
         // Choose new color
-        float rate = 5.0f * Time.deltaTime;
+        float rate = 5.0f * elapsedTime;
         Color newColor = Color.Lerp(srcColor, new Color(0.8f, 0.8f, 0.8f, 1.0f), rate);
         Color newOutlineColor = Color.Lerp(srcOutlineColor, Color.clear, rate);
         if (_currShader == ShaderType.Shader_Sneak) {

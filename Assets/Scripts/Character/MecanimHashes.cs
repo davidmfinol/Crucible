@@ -33,17 +33,16 @@ public class MecanimHashes
     public static readonly int PlaceMine = Animator.StringToHash("PlaceMine");
     public static readonly int Damaged = Animator.StringToHash("Damaged");
     public static readonly int Respawn = Animator.StringToHash("Respawn");
+    
+    // Used only by BabyBot
+    public static readonly int Attack = Animator.StringToHash("Attack");
 
     // Used only by Olympus
     public static readonly int AttackHorizontal = Animator.StringToHash("AttackHorizontal");
-    public static readonly int Stun = Animator.StringToHash("Stun");
     public static readonly int StealthDeath = Animator.StringToHash("StealthDeath");
     public static readonly int AcquiringTarget = Animator.StringToHash("AcquireTarget");
     public static readonly int TurnAround = Animator.StringToHash("TurnAround");
     public static readonly int AttackVertical = Animator.StringToHash("AttackVertical");
     public static readonly int Search = Animator.StringToHash("Search");
-
-    // Used only by BabyBot
-    public static readonly int Attack = Animator.StringToHash("Attack");
 
 }

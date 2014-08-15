@@ -31,9 +31,7 @@ public class OlympusAnimator : CharacterAnimator
     public static readonly int ClimbingLedgeState = Animator.StringToHash("Climbing.ClimbingLedge");
     public static readonly int ClimbingLadderState = Animator.StringToHash("Climbing.ClimbingLadder");
     public static readonly int ClimbingRopeState = Animator.StringToHash("Climbing.ClimbingRope");
-    public static readonly int StunState = Animator.StringToHash("Combat.Stun");
-    public static readonly int DeathState = Animator.StringToHash("Combat.Death");
-    public static readonly int StealthDeathState = Animator.StringToHash("Combat.Stealth Death");
+    public static readonly int StealthDeathState = Animator.StringToHash("Base Layer.Stealth Death");
     
     // Used to keep track of a ledge we are climbing
     private Ledge _ledge;
@@ -73,8 +71,6 @@ public class OlympusAnimator : CharacterAnimator
         StateMachine [ClimbingLedgeState] = ClimbingLedge;
         StateMachine [ClimbingLadderState] = ClimbingVertical;
         StateMachine [ClimbingRopeState] = ClimbingVertical;
-        StateMachine [StunState] = Stun;
-        StateMachine [DeathState] = Death;
         StateMachine [StealthDeathState] = StealthDeath;
 
     }
@@ -437,35 +433,6 @@ public class OlympusAnimator : CharacterAnimator
         
     }
     
-    protected void Stun(float elapsedTime)
-    {
-        HorizontalSpeed = 0;
-        if (IsGrounded) {
-            VerticalSpeed = GroundVerticalSpeed;
-        } else {
-            ApplyGravity(elapsedTime);
-        }
-        MecanimAnimator.SetBool(MecanimHashes.Stun, false);
-        
-    }
-
-    protected void Death(float elapsedTime)
-    {
-        if (MecanimAnimator.GetBool(MecanimHashes.Die)) {
-            MecanimAnimator.SetBool(MecanimHashes.Die, false);
-        }
-
-        if (IsGrounded) {   
-            ApplyFriction(elapsedTime);
-            VerticalSpeed = GroundVerticalSpeed;
-
-        } else {
-            ApplyGravity(elapsedTime);
-
-        }
-
-    }
-    
     protected void StealthDeath(float elapsedTime)
     {
         if (MecanimAnimator.GetBool(MecanimHashes.StealthDeath)) {
@@ -494,7 +461,7 @@ public class OlympusAnimator : CharacterAnimator
         Vector3 directional = isToRightOfPlayer ? Vector3.right : Vector3.left;
         directional *= 25000;
 
-        base.OnDeath(Vector3.up * 15000 + directional);
+        base.OnDeath(directional + Vector3.up * 15000);
         _itemDropper.DropItems(transform.position);
 
     }
@@ -526,7 +493,6 @@ public class OlympusAnimator : CharacterAnimator
         // Olympus needs to get rid of his screens when he dies.
         IdleScreens = new Fader[0];
         Destroy(IdleScreenAnimation.gameObject);
-
         base.DoRagDoll(push);
 
     }
@@ -534,7 +500,6 @@ public class OlympusAnimator : CharacterAnimator
     protected override void ApplyMovingHorizontal(float elapsedTime)
     {
         base.ApplyMovingHorizontal(elapsedTime);
-        
         MecanimAnimator.SetFloat(MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
 
     }
@@ -543,6 +508,7 @@ public class OlympusAnimator : CharacterAnimator
     {
         _sound.Play(_sound.Attacking, _sound.AttackingVolume);
         
+        // TODO: OBJECT POOLING
         // Attack in front of us
         Vector3 meleePos = transform.position;
         meleePos.x += (2.5f * Direction.x);
@@ -556,8 +522,7 @@ public class OlympusAnimator : CharacterAnimator
         } else {
             horizontalDir = 1.0f;
         }
-        
-        d.MakeOlympusMelee(this.gameObject, horizontalDir);
+        d.MakeOlympusMelee(horizontalDir);
         
     }
     
@@ -565,6 +530,7 @@ public class OlympusAnimator : CharacterAnimator
     {
         _sound.Play(_sound.Attacking, _sound.AttackingVolume);
         
+        // TODO: OBJECT POOLING
         // Attack above us
         Vector3 meleePos = transform.position;
         meleePos.y += Height * 0.5f;
@@ -578,8 +544,7 @@ public class OlympusAnimator : CharacterAnimator
         } else {
             horizontalDir = 1.0f;
         }
-        
-        d.MakeOlympusMelee(this.gameObject, horizontalDir);
+        d.MakeOlympusMelee(horizontalDir);
         
     }
     
@@ -611,7 +576,8 @@ public class OlympusAnimator : CharacterAnimator
         if (IsSneaking) {
             return;
         }
-        
+
+        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
         Vector3 footStepPosition = transform.position;
         footStepPosition.y -= Height * 0.5f;
         GameObject footstep = new GameObject("Olympus Landing Footstep");
@@ -620,35 +586,25 @@ public class OlympusAnimator : CharacterAnimator
         footAudio.GetComponent<AudioPlayer>().Play(_sound.Landing, _sound.LandingVolume);
         
     }
-
-    public void PlayServo()
-    {
-        _sound.Play(_sound.Idling, _sound.IdlingVolume);
-
-    }
-
-    public override bool IsLanding {
-        get {
-            return CurrentState.nameHash == LandingState || (IsGrounded && (CurrentState.nameHash == JumpingState || CurrentState.nameHash == FallingState));
-        }
-    }
-
-    public override bool IsClimbing {
-        get {
-            return CurrentState.nameHash == ClimbingLedgeState || CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == WallclimbingState;
-        }
-    }
-
+    
     public override bool IsTurningAround {
         get { return CurrentState.nameHash == TurnAroundState; }
     }
     
-    public override bool IsDead {
-        get { return CurrentState.nameHash == DeathState; } //TODO: || CurrentState.nameHash == StealthDeathState; }
-    }
-
     public override bool IsJumping {
         get { return CurrentState.nameHash == JumpingState; }
+    }
+
+    public override bool IsLanding {
+        get { return CurrentState.nameHash == LandingState || (IsGrounded && (CurrentState.nameHash == JumpingState || CurrentState.nameHash == FallingState)); }
+    }
+
+    public override bool IsClimbing {
+        get { return CurrentState.nameHash == ClimbingLedgeState || CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == WallclimbingState; }
+    }
+    
+    public override bool IsDead {
+        get { return CurrentState.nameHash == StealthDeathState || Settings.RootRigidBody.collider.enabled; }
     }
 
     public override bool CanTransitionZ {

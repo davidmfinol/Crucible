@@ -2,13 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 /// <summary>
-/// Death trigger is attached to a game object that will automatically trigger an instant death.
+/// Death trigger is attached to a game object that will automatically trigger an instant death for a character.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 [AddComponentMenu("Health/Death Trigger")]
 public class DeathTrigger : MonoBehaviour
 {
-    // Triggers death
     void OnTriggerEnter(Collider other)
     {
         CharacterAnimator animator = other.GetComponent<CharacterAnimator>();

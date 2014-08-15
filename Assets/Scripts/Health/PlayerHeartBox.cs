@@ -4,18 +4,24 @@ using System.Collections;
 /// <summary>
 /// Player heart box indicates where the player can be hit and tracks health.
 /// </summary>
-[AddComponentMenu("Health/Player Character Heart Box")]
+[AddComponentMenu("Health/Player Heart Box")]
 public class PlayerHeartBox : HeartBox
 {
-    // TODO: OBJECT POOL
-    public Transform HurtEffect;
-    public Transform RegenEffect;
-
-    // How fast do we regen HP?
-    private float _regenTimer = 6.0f;
-
-    // How long at this health?  how far along in regen?
+    // How much time does it take to regenerate HP?
+    public float RegenerationTime = 6.0f;
     private float _timeUntilRegen = 0.0f;
+
+    // The particle effects that indicate player health change
+    private ParticleSystem _damageEffect;
+    private ParticleSystem _regenerationEffect;
+
+    protected override void OnStart()
+    {
+        // NOTE: I CONSIDERED POOLING THESE TWO PARTICLE EFFECTS, BUT THAT DOESN'T REALLY MAKE SENSE SINCE WE CAN GET AWAY WITH JUST 1 INSTANCE OF EACH
+        _damageEffect = ((GameObject)Instantiate(Resources.Load("Prefabs/Particles/Damage Effect"))).particleSystem;
+        _regenerationEffect = ((GameObject)Instantiate(Resources.Load("Prefabs/Particles/Regeneration Effect"))).particleSystem;
+
+    }
 
     // NOTE: WE SHOULD ONLY HAVE ONE PLAYERHEARTBOX IN THE SCENE, SO IT SHOULD BE OK TO DO THIS CHECK HERE
     void FixedUpdate()
@@ -28,79 +34,51 @@ public class PlayerHeartBox : HeartBox
 
     public override void UpdateHealth(float elapsedTime)
     {
-        // Process attacks
-        if (LastHit != null) {
-            Vector2 knockForce;
-
-            if (LastHit.MustCalculateKnockback) {
-                if (transform.position.x < LastHit.transform.position.x) {
-                    knockForce.x = -1 * LastHit.KnockBackAmount;
-                } else {
-                    knockForce.x = 1 * LastHit.KnockBackAmount;
-                }
-
-                knockForce.y = LastHit.KnockUpAmount;
-
-                // just use provided.
-            } else {
-                knockForce.x = LastHit.KnockBackAmount;
-                knockForce.y = LastHit.KnockUpAmount;
-
-            }
-
-            // adjust health, do particles, etc., while flying in the direction of the hit
-            AdjustHealth(-1 * LastHit.DamageAmount, knockForce);
-            Destroy(LastHit.gameObject);
-            LastHit = null;
-
-        } else {
-            TryRegenHealth();
+        // If we weren't hit this frame, try to regain health
+        if (LastHit == null) {
+            TryRegenHealth(elapsedTime);
+            return;
         }
 
+        // Adjust health, do particles, etc., while flying in the direction of the hit
+        AdjustHealth(-LastHit.Damage, LastHit.KnockForce);
+        LastHit.gameObject.SetActive(false);
+        LastHit = null;
+
+    }
+    
+    private void TryRegenHealth(float elapsedTime)
+    {
+        _timeUntilRegen -= elapsedTime;
+        if ( (_timeUntilRegen <= 0) && (HitPoints < MaxHitPoints) && (HitPoints > 0) && !GameManager.Player.IsDead ) {
+            AdjustHealth(1, Vector2.zero);
+        }
+        
     }
 
     private void AdjustHealth(int deltaHealth, Vector2 knockForce)
     {
-        _timeUntilRegen = 0.0f;
         HitPoints += deltaHealth;
+        HitPoints = Mathf.Clamp(HitPoints, 0, MaxHitPoints);
         
         // Hurt but not killed,
         if (deltaHealth < 0 && HitPoints > 0) {
-            // TODO OBJECT POOL
-            Transform effect = (Transform)Instantiate(HurtEffect, GameManager.Player.transform.position, HurtEffect.rotation);
-
-            if (knockForce.x > 0) {
-                effect.Rotate(new Vector3(0, 180, 0));
-            }
-            effect.parent = transform;
-            Destroy(effect.gameObject, 2.0f);
-
-            Controller.MakeDamaged(knockForce);
-            // shake when hit
+            _damageEffect.transform.rotation = Quaternion.Euler(Vector3.up * (knockForce.x > 0 ? 180 : 0) ); 
+            _damageEffect.Play();
             GameManager.MainCamera.AddShake(1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f);
+            Controller.MakeDamaged(knockForce);
 
             // killed
         } else if (HitPoints <= 0) {
             GameManager.MainCamera.AddShake(1.5f, new Vector3(10.0f, 10.0f, 5.0f), 175.0f, 250.0f);
-            Controller.OnDeath(knockForce * 1000);
+            Controller.OnDeath(knockForce);
 
             // healed
         } else if (deltaHealth > 0 && HitPoints == MaxHitPoints) {
-            // TODO OBJECT POOL
-            Transform effect = (Transform)Instantiate(RegenEffect, GameManager.Player.transform.position, RegenEffect.rotation);
-            effect.parent = transform;
-            Destroy(effect.gameObject, 2.0f);
+            _regenerationEffect.Play();
         }
 
-    }
-
-    private void TryRegenHealth()
-    {
-        // try to regen actual HP
-        _timeUntilRegen += Time.deltaTime;
-        if ((_timeUntilRegen >= _regenTimer) && (HitPoints < MaxHitPoints) && (HitPoints > 0)) {
-            AdjustHealth(1, new Vector2(0.0f, 0.0f));
-        }
+        _timeUntilRegen = RegenerationTime;
 
     }
 }

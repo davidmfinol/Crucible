@@ -4,89 +4,76 @@ using System.Collections;
 /// <summary>
 /// Hitbox keeps data about an attack and transfers it to a heartbox.
 /// </summary>
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
 [AddComponentMenu("Health/HitBox")]
 public class HitBox : MonoBehaviour
 {
     public TeamAllegiance Allegiance;
-    public GameObject FromObject;
-    public Weapon.WeaponType FromWeapon;         // used to reduce our pipe durability on a successful hit.
-    public int DamageAmount;
-    public bool MustCalculateKnockback;   // some attacks have a builtin direction and some, like explosions, must create one.
-    // for each thing that they hit.
-    public float KnockBackAmount;
-    public float KnockUpAmount;
-    public bool CanStun;
-    public bool CanStealthKill;
+    public int Damage;
+    public Vector2 KnockForce;
     public bool DoesFloat;
-    public float DestroyTime = Mathf.NegativeInfinity;
-    private float _radius = 0.0f;
+    public bool DoesVETO;
+    public bool CanStealthKill;
+    public float Lifetime = 0.1f;
+
+    void Start() 
+    {
+        gameObject.layer = LayerMask.NameToLayer("Hitboxes");
+        rigidbody.useGravity = false;
+        rigidbody.isKinematic = true;
+    }
+
+    public void MakePlayerFloat()
+    {
+        // TODO: 
+
+    }
+
+    public void MakePlayerVETO ()
+    {
+        // TODO:
+
+    }
     
-    public void MakeOlympusMelee (GameObject from, float HorizontalDir)
-    {
-        Allegiance = TeamAllegiance.Enemies;
-        FromObject = from;
-        DamageAmount = 1;
-        MustCalculateKnockback = false;
-        KnockBackAmount = HorizontalDir * 15.0f;   // give proper direction
-        KnockUpAmount = 10.0f;
-        CanStun = false;
-        DestroyTime = 0.3f;
-        Radius = 2.0f;
-
-    }
-
-    public void MakeBabyBotExplosion (GameObject from, float HorizontalDir)
-    {
-        Allegiance = TeamAllegiance.Explosions;
-        FromObject = from;
-        DamageAmount = 5;
-        MustCalculateKnockback = false;
-        KnockBackAmount = HorizontalDir * 20.0f;
-        KnockUpAmount = 15.0f;
-        CanStun = false;
-        DestroyTime = 0.1f;
-        Radius = 5.0f;
-
-    }
-
-    public void MakePlayerStealthKill (GameObject from)
+    public void MakePlayerStealthKill ()
     {
         Allegiance = TeamAllegiance.Player;
-        FromObject = from;
-        DamageAmount = 1;
-        MustCalculateKnockback = false;
-        KnockBackAmount = 0.0f;
-        KnockUpAmount = 0.0f;
-        CanStun = false;
         CanStealthKill = true;
-        DestroyTime = 0.1f;
-        Radius = 2.0f;
+        
+    }
+
+    public void MakePlayerMINEExplosion()
+    {
+        // TODO: 
+
+    }
+    
+    public void MakeBabyBotExplosion (float HorizontalDir)
+    {
+        Allegiance = TeamAllegiance.Explosions;
+        Damage = 3;
+        KnockForce = Vector3.right * HorizontalDir * 20.0f + Vector3.up * 15.0f;
+        // TODO: Radius = 5.0f;
+        
+    }
+    
+    public void MakeOlympusMelee (float HorizontalDir)
+    {
+        Allegiance = TeamAllegiance.Enemies;
+        Damage = 1;
+        KnockForce = Vector3.right * HorizontalDir * 15.0f + Vector3.up * 10.0f;
+        // TODO: Radius = 5.0f;
 
     }
     
     void Update ()
     {
-        if (DestroyTime == Mathf.NegativeInfinity)
-            return;
-
-        DestroyTime -= Time.deltaTime;
+        Lifetime -= Time.deltaTime;
         
-        if (DestroyTime <= 0.0f)
-            Destroy (this.gameObject);
+        if (Lifetime <= 0.0f)
+            gameObject.SetActive(false);
 
-    }
-
-    public float Radius {
-        get { return _radius; }
-        set { 
-            _radius = value; 
-            SphereCollider coll = GetComponent<SphereCollider> ();
-            if (coll != null)
-                coll.radius = value * 0.5f; 
-            transform.localScale = new Vector3 (value, value, value);
-        }
     }
     
 }

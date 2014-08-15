@@ -111,19 +111,8 @@ public class BabyBotAnimator : CharacterAnimator
     
     public void SelfDestruct()
     {
-        // TODO: OBJECT POOLING
-        GameObject o = (GameObject)Instantiate(MeleeEvent, transform.position, Quaternion.identity);
-        o.transform.parent = GameManager.Player.transform;
-        HitBox d = o.GetComponentInChildren<HitBox>();
-        
-        float horizontalDir = 0.0f;
-        if (GameManager.Player.transform.position.x < transform.position.x) {
-            horizontalDir = -1.0f;
-        } else {
-            horizontalDir = 1.0f;
-        }
-        
-        d.MakeBabyBotExplosion(this.gameObject, horizontalDir);
+        GameManager.ObjectPool.CreateBabyBotExplosion(transform.position);
+        OnDeath();
         
     }
 

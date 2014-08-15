@@ -32,7 +32,7 @@ public class CameraSpotterAnimator : CharacterAnimator
     private float _currAngle;
     private float _timeInState;
 
-    // Find view cone so we can calculate a direction vector along it for LOS
+    // Find view cone so we can calculate a direction vector along it for Line Of Sight
     private Transform _pivot;
     private EnemyAI _ai;
 
@@ -73,8 +73,8 @@ public class CameraSpotterAnimator : CharacterAnimator
 
         // *** perform action based on state ***
         if (_state == CameraState.ToMax) {
-            _timeInState += Time.deltaTime;
-            _currAngle += Speed * Time.deltaTime;
+            _timeInState += elapsedTime;
+            _currAngle += Speed * elapsedTime;
 
             UpdateDirection(_currAngle);
 
@@ -89,8 +89,8 @@ public class CameraSpotterAnimator : CharacterAnimator
             }
 
         } else if (_state == CameraState.ToMin) {
-            _timeInState += Time.deltaTime;
-            _currAngle -= Speed * Time.deltaTime;
+            _timeInState += elapsedTime;
+            _currAngle -= Speed * elapsedTime;
 
             UpdateDirection(_currAngle);
             
@@ -104,7 +104,7 @@ public class CameraSpotterAnimator : CharacterAnimator
             }
 
         } else if (_state == CameraState.Paused) {
-            _timeInState += Time.deltaTime;
+            _timeInState += elapsedTime;
 
             // resume scanning
             if (_timeInState >= PauseTime) {

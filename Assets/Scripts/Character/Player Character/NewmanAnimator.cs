@@ -8,10 +8,6 @@ using System.Collections.Generic;
 [AddComponentMenu("Character/Player Character/Newman Animator")]
 public class NewmanAnimator : CharacterAnimator
 {
-    // TODO: REPLACE THIS WITH OBJECT POOLING
-    public GameObject StealthKillEvent;
-    // How close do we need to be to initiate a stealth kill?
-    public float StealthKillRange;  // = 3.0f;
     public float IdleChangeSpeed; // = 2;
 
     // Mecanim State Hashes
@@ -141,8 +137,7 @@ public class NewmanAnimator : CharacterAnimator
         }
 
         // The stealthkill state is a special weapon/base-layer combat state
-        if (CurrentState.nameHash != StealthKillState && currentWeapon.CanStealthKill && 
-            CharInput.AttackPressed && StealthKillable != null) {
+        if (CurrentState.nameHash != StealthKillState && StealthKillable != null && currentWeapon.CanStealthKill &&  CharInput.AttackPressed) {
             MecanimAnimator.SetBool(MecanimHashes.StealthKill, true);
             StartCoroutine(ShowStealthKill());
 
@@ -176,7 +171,7 @@ public class NewmanAnimator : CharacterAnimator
         // Switch between crouching and standing idles based off enemies that could hear
         float idleNum = MecanimAnimator.GetFloat(MecanimHashes.IdleNum);
         float targetIdle = GameManager.AI.EnemiesCouldHear > 0 ? 1 : 0;
-        idleNum = Mathf.Lerp(idleNum, targetIdle, Time.deltaTime * IdleChangeSpeed);
+        idleNum = Mathf.Lerp(idleNum, targetIdle, elapsedTime * IdleChangeSpeed);
         MecanimAnimator.SetFloat(MecanimHashes.IdleNum, idleNum);
 
         // You can start moving left or right at any point
@@ -751,8 +746,10 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetBool(MecanimHashes.SteppingDown, false);
 
         // This is a completely stationary action
-        HorizontalSpeed = 0;
-        VerticalSpeed = 0;
+        HorizontalSpeed = 0.0f;
+        VerticalSpeed = 0.0f;
+        SetMecanimAnimatorHorizontalSpeedFloat();
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         
     }
 
@@ -762,8 +759,10 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetBool(MecanimHashes.StandingUp, false);
 
         // This is a completely stationary action
-        HorizontalSpeed = 0;
-        VerticalSpeed = 0;
+        HorizontalSpeed = 0.0f;
+        VerticalSpeed = 0.0f;
+        SetMecanimAnimatorHorizontalSpeedFloat();
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         
     }
 
@@ -827,45 +826,33 @@ public class NewmanAnimator : CharacterAnimator
         
     }
     
+    // StealthKillState = Animator.StringToHash("Combat.Stealth Kill");
+    protected void StealthKill(float elapsedTime)
+    {
+        MecanimAnimator.SetBool(MecanimHashes.StealthKill, false);
+
+        // This is a completely stationary action
+        HorizontalSpeed = 0.0f;
+        VerticalSpeed = 0.0f;
+        SetMecanimAnimatorHorizontalSpeedFloat();
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
+        
+    }
+    
     public IEnumerator ShowStealthKill()
     {
-        GenerateStealthKillEvent();
+        // Show the stealth kill
+        GameManager.ObjectPool.CreatePlayerStealthKillEvent(StealthKillable.transform.position);
+        GameManager.IsPlayingCutscene = true;
         GameManager.MainCamera.CinematicOverride = true;
         
         yield return new WaitForSeconds(4.0f);
         
-        // remove a charge from weapon.
-        GameManager.Inventory.TryRemoveAmmo(GameManager.Inventory.CurrentWeapon.Type, 1);
-
         // Restore normal gameplay
+        GameManager.Inventory.TryRemoveAmmo(GameManager.Inventory.CurrentWeapon.Type, 1);
         GameManager.MainCamera.CinematicOverride = false;
+        GameManager.IsPlayingCutscene = false;
         StealthKillable = null;
-        
-    }
-    
-    void GenerateStealthKillEvent()
-    {
-        // find where to place the attack event
-        Vector3 killPos = transform.position;
-        killPos.x += (Direction.x * StealthKillRange);
-        
-        // place so enemy can die appropriately
-        // TODO: OBJECT POOLING
-        GameObject o = (GameObject)Instantiate(StealthKillEvent, killPos, Quaternion.identity);
-        HitBox d = o.GetComponent<HitBox>();
-        d.MakePlayerStealthKill(this.gameObject);
-        
-    }
-    
-    // StealthKillState = Animator.StringToHash("Combat.Stealth Kill");
-    protected void StealthKill(float elapsedTime)
-    {
-        if (MecanimAnimator.GetBool(MecanimHashes.StealthKill)) {
-            MecanimAnimator.SetBool(MecanimHashes.StealthKill, false);
-        }
-
-        HorizontalSpeed = 0.0f;
-        VerticalSpeed = 0.0f;
         
     }
     
@@ -874,6 +861,8 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetBool(MecanimHashes.Damaged, true);
         HorizontalSpeed = knockForce.x;
         VerticalSpeed = knockForce.y;
+        SetMecanimAnimatorHorizontalSpeedFloat();
+        MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         
     }
 
@@ -968,20 +957,18 @@ public class NewmanAnimator : CharacterAnimator
     
     public void CreateFootstep()
     {
-        if (IsSneaking || _sound == null || _sound.Footsteps == null || _sound.Footsteps.Length <= 0) {
-            return;
+        if (!IsSneaking) {
+            int footIndex = Random.Range(0, _sound.Footsteps.Length);
+            Vector3 footStepPosition = transform.position;
+            footStepPosition.y -= Height * 0.5f;
+            GameManager.ObjectPool.CreatePlayerFootstep(footStepPosition, _sound.Footsteps[footIndex], _sound.FootstepsVolume);
         }
         
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
-        Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height * 0.5f;
-        GameObject footstep = new GameObject("Newman Footstep");
-        footstep.layer = LayerMask.NameToLayer("SoundStealth");
-        footstep.transform.position = footStepPosition;
-        footstep.AddComponent<SoundEvent>();
-        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        int footIndex = Random.Range(0, _sound.Footsteps.Length);
-        footAudio.GetComponent<AudioPlayer>().Play(_sound.Footsteps [footIndex], _sound.FootstepsVolume);
+    }
+    
+    public void PlayBackflip()
+    {
+        _sound.Play(_sound.Backflip, _sound.BackflipVolume);
         
     }
     
@@ -991,10 +978,12 @@ public class NewmanAnimator : CharacterAnimator
         
     }
     
-    public void PlayBackflip()
+    public void PlayLandRoll()
     {
-        _sound.Play(_sound.Backflip, _sound.BackflipVolume);
-        
+        Vector3 footStepPosition = transform.position;
+        footStepPosition.y -= Height * 0.5f;
+        GameManager.ObjectPool.CreatePlayerLandRoll(footStepPosition, _sound.LandRoll, _sound.LandRollingVolume);
+
     }
     
     public void PlayWallGrab()
@@ -1009,46 +998,10 @@ public class NewmanAnimator : CharacterAnimator
 
     }
     
-    public void PlayLand() // Where dreams come true
+    public void PlayCrafting()
     {
-        if (IsSneaking) {
-            return;
-        }
+        _sound.Play(_sound.Craft, _sound.CraftVolume);
         
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
-        Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height * 0.5f;
-        GameObject footstep = new GameObject("Newman Landing Footstep");
-        footstep.layer = LayerMask.NameToLayer("SoundStealth");
-        footstep.transform.position = footStepPosition;
-        footstep.AddComponent<SoundEvent>();
-        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        footAudio.GetComponent<AudioPlayer>().Play(_sound.Landing, _sound.LandingVolume);
-        
-    }
-
-    public void PlayLandRoll()
-    {
-        if (IsSneaking) {
-            return;
-        }
-        
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
-        Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height * 0.5f;
-        GameObject footstep = new GameObject("Newman Landing Rolling");
-        footstep.layer = LayerMask.NameToLayer("SoundStealth");
-        footstep.transform.position = footStepPosition;
-        footstep.AddComponent<SoundEvent>();
-        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        footAudio.GetComponent<AudioPlayer>().Play(_sound.LandRoll, _sound.LandRollingVolume);
-
-    }
-
-    public void PlayHit()
-    {
-        _sound.Play(_sound.Hit, _sound.HitVolume);
-
     }
 
     public void PlayPickup()
@@ -1056,11 +1009,11 @@ public class NewmanAnimator : CharacterAnimator
         _sound.Play(_sound.ItemPickup, _sound.ItemPickupVolume);
 
     }
-
-    public void PlayCrafting()
+    
+    public void PlayHit()
     {
-        _sound.Play(_sound.Craft, _sound.CraftVolume);
-
+        _sound.Play(_sound.Hit, _sound.HitVolume);
+        
     }
 
     public void PlaySparkplugCharge()

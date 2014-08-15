@@ -66,7 +66,7 @@ public class CameraTargetAttributes : MonoBehaviour
         } else {
             // Pause for zoom out delay, then zoom out at zoomoutacceleration
             _timeStationary += Time.deltaTime;
-            if (_timeStationary > ZoomOutDelay) { //TODO: add a check based on the enemy being focused && !CameraScrolling.EnemyFocused)
+            if (_timeStationary > ZoomOutDelay) {
                 _distanceModifier = Mathf.Lerp(_distanceModifier, MaxZoomOut, ZoomOutAcceleration * Time.deltaTime);
             }
         }

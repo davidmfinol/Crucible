@@ -434,7 +434,7 @@ public class UIManager : MonoBehaviour
 
             // swiping, so see if ending or completed
         } else {
-            _swipeTime += Time.deltaTime;
+            _swipeTime += Time.deltaTime; // TODO: ELAPSEDTIME
 
             if (TryCompleteSwipe(out deg)) {
                 // swipe - take proper action based on angle.
@@ -511,7 +511,7 @@ public class UIManager : MonoBehaviour
     public void UpdateHint()
     {
         if (_hintQuad.renderer.enabled) {
-            _hintElapsed += Time.deltaTime;
+            _hintElapsed += Time.deltaTime; // TODO: ELAPSEDTIME
 
             float fadeInBoundary = (_hintDuration * 1.0f / 10.0f);
             float fadeOutBoundary = (_hintDuration * 9.0f / 10.0f);
@@ -624,6 +624,7 @@ public class UIManager : MonoBehaviour
     {
         float yScale = 0.0f;
 
+        // TODO: ELAPSEDTIME
         if (GameManager.IsPlayingCutscene) {
             yScale = Mathf.Lerp(_matteBars.localScale.y, MatteBars.localScale.y, Time.deltaTime * 2.0f);
         } else {

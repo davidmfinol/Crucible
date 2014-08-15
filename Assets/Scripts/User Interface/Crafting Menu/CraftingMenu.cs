@@ -494,7 +494,7 @@ public class CraftingMenu : MonoBehaviour
     // animation of crafting menu
     void AnimateCraftingMenu()
     {
-        _timeInState += Time.deltaTime;
+        _timeInState += Time.deltaTime; // TODO: ELAPSEDTIME
 
         if (_state == CraftingMenuState.CraftingMenu_Opening) {
             float alpha = Mathf.Min(_timeInState / FadeTime, 1.0f);

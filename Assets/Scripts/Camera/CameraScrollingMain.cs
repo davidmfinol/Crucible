@@ -19,15 +19,15 @@ public class CameraScrollingMain : MonoBehaviour
     // The range for moving the camera between you and the enemies.
     public float EnemyFocus = 50.0f;
     private bool _enemyFocused;
+    
+    // We track this for a shake effect that we add on to the camera
+    private ShakeEffect _shakeEffect;
 
     // The object being tracked, and it's properties
     private Transform _target;
     private CameraTargetAttributes _cameraTargetAttributes;
     private CharacterAnimator _targetAnimator;
     private Rigidbody _targetRigidbody;
-
-    // We track this for a shake effect that we add on to the camera
-    private ShakeEffect _shakeEffect;
 
     // Cinematic override for zooming
     private bool _cinematicOverride;
@@ -48,12 +48,12 @@ public class CameraScrollingMain : MonoBehaviour
             return;
         }
 
-        Vector3 goalPosition = GetGoalPosition();
+        Vector3 goalPosition = GetGoalPosition(Time.fixedDeltaTime);
         float springiness = MovementSpringiness;
         if (_enemyFocused) {
             springiness = EnemyFocusedSpringiness;
         }
-        transform.position = Vector3.Lerp(transform.position, goalPosition, Time.deltaTime * springiness);
+        transform.position = Vector3.Lerp(transform.position, goalPosition, Time.fixedDeltaTime * springiness);
 
     }
 
@@ -67,7 +67,7 @@ public class CameraScrollingMain : MonoBehaviour
     
     // Based on the camera attributes and the target's special camera attributes, find out where the
     // camera should move to.
-    public Vector3 GetGoalPosition()
+    public Vector3 GetGoalPosition(float elapsedTime)
     {
         // Our camera script can take attributes from the target.  If there are no attributes attached, we have
         // the following defaults.
@@ -156,7 +156,7 @@ public class CameraScrollingMain : MonoBehaviour
         // Shake the camera if told
         if (_shakeEffect != null) {
             if (! _shakeEffect.IsDone) {
-                goalPosition += _shakeEffect.Shake(Time.deltaTime);
+                goalPosition += _shakeEffect.Shake(elapsedTime);
             } else {
                 _shakeEffect = null;
             }

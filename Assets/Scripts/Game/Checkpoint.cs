@@ -69,4 +69,6 @@ public class Checkpoint : MonoBehaviour
 
     }
 
+    // TODO: ON DRAW GIZMOS, SHOW WHERE THESE INVISBLE CHECKPOINTS ARE?
+
 }

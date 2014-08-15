@@ -35,18 +35,16 @@ public abstract class HeartBox : MonoBehaviour
     {
     }
 
-    // NOTE: OnTriggerStay causes repeated executes.
     void OnTriggerEnter(Collider other)
     {
         HitBox attackData = other.GetComponent<HitBox>();
         if (attackData != null && attackData.enabled && attackData.Allegiance != this.Allegiance) {
             _lastHit = attackData;
-
         }
 
     }
 
-    // Child classes must override updatehealth
+    // Child classes MUST override UpdateHealth to modify the character's HitPoints/Animator based off LastHit
     public abstract void UpdateHealth(float elapsedTime);
 
     public CharacterAnimator Controller {
