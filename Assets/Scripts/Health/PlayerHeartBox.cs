@@ -19,7 +19,9 @@ public class PlayerHeartBox : HeartBox
     {
         // NOTE: I CONSIDERED POOLING THESE TWO PARTICLE EFFECTS, BUT THAT DOESN'T REALLY MAKE SENSE SINCE WE CAN GET AWAY WITH JUST 1 INSTANCE OF EACH
         _damageEffect = ((GameObject)Instantiate(Resources.Load("Prefabs/Particles/Damage Effect"))).particleSystem;
+        _damageEffect.transform.parent = transform;
         _regenerationEffect = ((GameObject)Instantiate(Resources.Load("Prefabs/Particles/Regeneration Effect"))).particleSystem;
+        _regenerationEffect.transform.parent = transform;
 
     }
 

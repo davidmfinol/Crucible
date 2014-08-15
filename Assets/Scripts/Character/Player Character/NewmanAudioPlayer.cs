@@ -24,7 +24,7 @@ public class NewmanAudioPlayer : AudioPlayer
     public float JumpVolume = 1.0f;
     
     // Landing sound
-    public AudioClip Landing; //TODO: THIS IS CURRENTLY UNUSED. USE IT OR DELETE IT.
+    public AudioClip Landing;
     public float LandingVolume = 1.0f;
     
     // Landroll sound

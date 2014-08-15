@@ -9,9 +9,6 @@ using System.Collections.Generic;
 [AddComponentMenu("Character/Non-Player Character/Olympus/Olympus Animator")]
 public class OlympusAnimator : CharacterAnimator
 {
-    // TODO: REPLACE THIS WITH SOME KIND OF POOL OF HITBOX OBJECTS
-    public GameObject MeleeEvent;
-
     // Olympus has screens in front that we need to fade in/out based off idle state
     public Animation IdleScreenAnimation;
     public Fader[] IdleScreens;
@@ -42,16 +39,11 @@ public class OlympusAnimator : CharacterAnimator
     // Olympus drops items on death
     private ItemDropper _itemDropper;
 
-    // We don't enter the stealthdeath state immediately, so we need to prevent other animations before we start it
-    private bool _isStealthDying;
-
     protected override void OnStart()
     {
         _sound = gameObject.GetComponentInChildren<OlympusAudioPlayer>();
 
         _itemDropper = (ItemDropper)gameObject.GetComponentInChildren<ItemDropper>();
-
-        _isStealthDying = false;
 
     }
     
@@ -77,7 +69,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected override void UpdateMecanimVariables()
     {
-        if (_isStealthDying) {
+        if (IgnoreXYMovement) {
             return;
         }
 
@@ -132,7 +124,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected virtual void Idle(float elapsedTime)
     {
-        if (_isStealthDying) {
+        if (IgnoreXYMovement) {
             return;
         }
         
@@ -449,7 +441,7 @@ public class OlympusAnimator : CharacterAnimator
 
     public IEnumerator ShowStealthDeath()
     {
-        _isStealthDying = true;
+        IgnoreXYMovement = true;
 
         yield return new WaitForSeconds(3.0f);
 
@@ -507,61 +499,33 @@ public class OlympusAnimator : CharacterAnimator
     protected void Punch(float elapsedTime)
     {
         _sound.Play(_sound.Attacking, _sound.AttackingVolume);
-        
-        // TODO: OBJECT POOLING
+
         // Attack in front of us
         Vector3 meleePos = transform.position;
         meleePos.x += (2.5f * Direction.x);
-        GameObject o = (GameObject)Instantiate(MeleeEvent, meleePos, Quaternion.identity);
-        HitBox d = o.GetComponent<HitBox>();
-        
-        // Make the attack push in the correct direction
-        float horizontalDir = 0.0f;
-        if (GameManager.Player.transform.position.x < transform.position.x) {
-            horizontalDir = -1.0f;
-        } else {
-            horizontalDir = 1.0f;
-        }
-        d.MakeOlympusMelee(horizontalDir);
+        GameManager.ObjectPool.CreateOlympusMelee(meleePos);
         
     }
     
     protected void PunchUp(float elapsedTime)
     {
         _sound.Play(_sound.Attacking, _sound.AttackingVolume);
-        
-        // TODO: OBJECT POOLING
+
         // Attack above us
         Vector3 meleePos = transform.position;
         meleePos.y += Height * 0.5f;
-        GameObject o = (GameObject)Instantiate(MeleeEvent, meleePos, Quaternion.identity);
-        HitBox d = o.GetComponent<HitBox>();
-        
-        // Make the attack push in the correct direction
-        float horizontalDir = 0.0f;
-        if (GameManager.Player.transform.position.x < transform.position.x) {
-            horizontalDir = -1.0f;
-        } else {
-            horizontalDir = 1.0f;
-        }
-        d.MakeOlympusMelee(horizontalDir);
+        GameManager.ObjectPool.CreateOlympusMelee(meleePos);
         
     }
     
     public void CreateFootstep()
     {
-        if (IsSneaking) {
-            return;
+        if (!IsSneaking) {
+            int footIndex = Random.Range(0, _sound.Footsteps.Length);
+            Vector3 footStepPosition = transform.position;
+            footStepPosition.y -= Height * 0.5f;
+            GameManager.ObjectPool.CreateRobotFootstep(footStepPosition, _sound.Footsteps[footIndex], _sound.FootstepsVolume);
         }
-        
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
-        Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height * 0.5f;
-        GameObject footstep = new GameObject("Olympus Footstep");
-        footstep.transform.position = footStepPosition;
-        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        int footIndex = Random.Range(0, _sound.Footsteps.Length);
-        footAudio.GetComponent<AudioPlayer>().Play(_sound.Footsteps [footIndex], _sound.FootstepsVolume);
         
     }
 
@@ -573,17 +537,11 @@ public class OlympusAnimator : CharacterAnimator
     
     public void PlayLand() // Where dreams come true
     {
-        if (IsSneaking) {
-            return;
+        if (!IsSneaking) {
+            Vector3 footStepPosition = transform.position;
+            footStepPosition.y -= Height * 0.5f;
+            GameManager.ObjectPool.CreateRobotFootstep(footStepPosition, _sound.Landing, _sound.LandingVolume);
         }
-
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
-        Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height * 0.5f;
-        GameObject footstep = new GameObject("Olympus Landing Footstep");
-        footstep.transform.position = footStepPosition;
-        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        footAudio.GetComponent<AudioPlayer>().Play(_sound.Landing, _sound.LandingVolume);
         
     }
     

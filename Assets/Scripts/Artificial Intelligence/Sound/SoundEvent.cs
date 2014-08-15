@@ -8,25 +8,12 @@ using System.Collections.Generic;
 [AddComponentMenu("Artificial Intelligence/Sound/SoundEvent")]
 public class SoundEvent : MonoBehaviour
 {
-    // How long the sound event exists within the scene before it is deleted
-    public float Lifetime = 1;
-
-    // Who has heard this sound event?
     private List<HearingRadius> _heardBy;
 
     void Awake()
     {
         _heardBy = new List<HearingRadius>();
 
-    }
-    
-    void Update ()
-    {
-        Lifetime -= Time.deltaTime;
-        
-        if (Lifetime <= 0.0f)
-            gameObject.SetActive(false);
-        
     }
 
     void OnDisable()

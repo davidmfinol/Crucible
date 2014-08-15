@@ -8,12 +8,10 @@ using System.Collections.Generic;
 public class ObjectPoolManager : MonoBehaviour
 {
     // The first set of objects we pool is the footsteps
-    private Transform _footstepContainer;
-    private List<AudioPlayer> _playerFootsteps;
-    private List<AudioPlayer> _robotFootsteps;
+    private List<FootstepAudioPlayer> _playerFootsteps;
+    private List<FootstepAudioPlayer> _robotFootsteps;
 
     // The second set of objects we pool is the hitboxes
-    private Transform _hitboxContainer;
     private List<HitBox> _hitboxes;
 
     // All managers need to let the GameManager know when it is ready
@@ -21,52 +19,119 @@ public class ObjectPoolManager : MonoBehaviour
 
     void Start()
     {
-        GameObject footstepContainer = new GameObject("Footsteps");
-        _footstepContainer = footstepContainer.transform;
-        _footstepContainer.parent = transform;
-        //_robotFootsteps = new List<AudioPlayer>();
-        // TODO:
+        _playerFootsteps = new List<FootstepAudioPlayer>();
+        for (int i = 0; i < 60; i++) {
+            GameObject footstep = new GameObject("Footstep - Player");
+            footstep.layer = LayerMask.NameToLayer("SoundStealth");
+            footstep.transform.parent = transform;
+            footstep.AddComponent<SoundEvent>();
+            FootstepAudioPlayer footAudio = footstep.AddComponent<FootstepAudioPlayer>();
+            footAudio.Lifetime = 10;
+            footstep.gameObject.SetActive(false);
+            _playerFootsteps.Add(footAudio);
+        }
 
-        /*
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
-        Vector3 footStepPosition = transform.position;
-        footStepPosition.y -= Height * 0.5f;
-        GameObject footstep = new GameObject("Newman Footstep");
-        footstep.layer = LayerMask.NameToLayer("SoundStealth");
-        footstep.transform.position = footStepPosition;
-        footstep.AddComponent<SoundEvent>();
-        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        footAudio.GetComponent<AudioPlayer>().Play(_sound.Footsteps [footIndex], _sound.FootstepsVolume);
-        
-        // TODO: object pooling (IT IS REALLY SLOW RIGHT NOW TO CREATE FOOTSTEPS)
-        GameObject footstep = new GameObject("Newman Landrolling");
-        footstep.layer = LayerMask.NameToLayer("SoundStealth");
-        footstep.transform.position = footStepPosition;
-        footstep.AddComponent<SoundEvent>();
-        AudioPlayer footAudio = footstep.AddComponent<AudioPlayer>();
-        footAudio.GetComponent<AudioPlayer>().Play(_sound.LandRoll, _sound.LandRollingVolume);
-        */
+        _robotFootsteps = new List<FootstepAudioPlayer>();
+        for (int i = 0; i < 50; i++) {
+            GameObject footstep = new GameObject("Footstep - Robot"); 
+            footstep.layer = LayerMask.NameToLayer("SoundStealth");
+            footstep.transform.parent = transform;
+            FootstepAudioPlayer footAudio = footstep.AddComponent<FootstepAudioPlayer>();
+            _robotFootsteps.Add(footAudio);
+        }
+
+        _hitboxes = new List<HitBox>();
+        for (int i = 0; i < 25; i++) {
+            GameObject hitbox = new GameObject("Hitbox");
+            hitbox.transform.parent = transform;
+            _hitboxes.Add(hitbox.AddComponent<HitBox>());
+        }
+
         _ready = true;
 
     }
 
-    public void CreatePlayerFootstep(Vector3 position, AudioClip clip, float volume)
+    public FootstepAudioPlayer GetPlayerFootstep()
     {
+        FootstepAudioPlayer playerFootstep = null;
+        foreach (FootstepAudioPlayer footstep in _playerFootsteps) {
+            if (!footstep.gameObject.activeSelf) {
+                footstep.gameObject.SetActive(true);
+                playerFootstep = footstep;
+                break;
+            }
+        }
+        if(playerFootstep == null) {
+            Debug.LogWarning("PlayerFootstep object pool not big enough! Adding.");
+            GameObject footstep = new GameObject("Player Footstep");
+            footstep.layer = LayerMask.NameToLayer("SoundStealth");
+            footstep.transform.parent = transform;
+            footstep.AddComponent<SoundEvent>();
+            playerFootstep = footstep.AddComponent<FootstepAudioPlayer>();
+            playerFootstep.Lifetime = 10;
+            _playerFootsteps.Add(playerFootstep);
+        }
+        return playerFootstep;
 
     }
 
-    public void CreatePlayerLandRoll(Vector3 position, AudioClip clip, float volume)
+    public FootstepAudioPlayer GetRobotFootstep()
     {
+        FootstepAudioPlayer robotFootstep = null;
+        foreach (FootstepAudioPlayer footstep in _robotFootsteps) {
+            if (!footstep.gameObject.activeSelf) {
+                footstep.gameObject.SetActive(true);
+                robotFootstep = footstep;
+                break;
+            }
+        }
+        if(robotFootstep == null) {
+            Debug.LogWarning("RobotFootstep object pool not big enough! Adding.");
+            GameObject footstep = new GameObject("Robot Footstep"); 
+            footstep.layer = LayerMask.NameToLayer("SoundStealth");
+            footstep.transform.parent = transform;
+            robotFootstep = footstep.AddComponent<FootstepAudioPlayer>();
+            _robotFootsteps.Add(robotFootstep);
+        }
+        return robotFootstep;
 
     }
 
-    public void CreateOlympusFootstep(Vector3 position, AudioClip clip, float volume)
+    public FootstepAudioPlayer CreatePlayerFootstep(Vector3 position, AudioClip clip, float volume)
     {
+        FootstepAudioPlayer playerFootstep = GetPlayerFootstep();
+        playerFootstep.transform.position = position;
+        playerFootstep.Play(clip, volume);
+        return playerFootstep;
 
     }
 
-    public void CreateOlympusLanding(Vector3 position, AudioClip clip, float volume)
+    public FootstepAudioPlayer CreateRobotFootstep(Vector3 position, AudioClip clip, float volume)
     {
+        FootstepAudioPlayer robotFootstep = GetRobotFootstep();
+        robotFootstep.transform.position = position;
+        robotFootstep.Play(clip, volume);
+        return robotFootstep;
+
+    }
+
+    public HitBox CreatePlayerGravityGun(Vector3 position)
+    {
+        // TODO: 
+        /*
+        GameObject hitbox = (GameObject)Instantiate(GunHitbox, GameManager.Player.transform.position, Quaternion.identity);
+        float offsetX = hitbox.collider.bounds.extents.x;
+        Vector3 offset = new Vector3((GameManager.Player.Direction.x > 0 ? offsetX : -offsetX), 0, 0);
+        hitbox.transform.position = hitbox.transform.position + offset;
+        */
+        return null;
+
+    }
+
+    public HitBox CreatePlayerVETO(Vector3 position)
+    {
+        // TODO:
+        return null;
 
     }
 
@@ -101,6 +166,21 @@ public class ObjectPoolManager : MonoBehaviour
     
     public HitBox CreateOlympusMelee(Vector3 position)
     {
+        // TODO: 
+        /*
+        GameObject o = (GameObject)Instantiate(MeleeEvent, meleePos, Quaternion.identity);
+        HitBox d = o.GetComponent<HitBox>();
+        
+        // Make the attack push in the correct direction
+        float horizontalDir = 0.0f;
+        if (GameManager.Player.transform.position.x < transform.position.x) {
+            horizontalDir = -1.0f;
+        } else {
+            horizontalDir = 1.0f;
+        }
+        d.MakeOlympusMelee(horizontalDir);
+*/
+
         return null;
     }
     

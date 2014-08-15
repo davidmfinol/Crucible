@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         if (aiManager != null) {
             GameManager._aiManager = aiManager.GetComponent<AIManager>();
         } else {
-            GameManager._aiManager = new GameObject("_Enemies").AddComponent<AIManager>();
+            GameManager._aiManager = new GameObject("_AI").AddComponent<AIManager>();
         } // NOTE: NO POOL; JUST 1
 
     }

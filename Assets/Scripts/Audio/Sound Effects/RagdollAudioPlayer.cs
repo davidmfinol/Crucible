@@ -5,7 +5,6 @@ using System.Collections;
 /// Ragdoll audio player plays audio on ragdoll.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(AudioSource))]
 [AddComponentMenu("Audio/Sound Effects/Ragdoll Audio Player")]
 public class RagdollAudioPlayer : AudioPlayer
 {

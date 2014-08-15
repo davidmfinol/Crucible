@@ -978,11 +978,21 @@ public class NewmanAnimator : CharacterAnimator
         
     }
     
+    public void PlayLand()
+    {
+        if (!IsSneaking) {
+            Vector3 footStepPosition = transform.position;
+            footStepPosition.y -= Height * 0.5f;
+            GameManager.ObjectPool.CreatePlayerFootstep(footStepPosition, _sound.Landing, _sound.LandingVolume);
+        }
+        
+    }
+    
     public void PlayLandRoll()
     {
         Vector3 footStepPosition = transform.position;
         footStepPosition.y -= Height * 0.5f;
-        GameManager.ObjectPool.CreatePlayerLandRoll(footStepPosition, _sound.LandRoll, _sound.LandRollingVolume);
+        GameManager.ObjectPool.CreatePlayerFootstep(footStepPosition, _sound.LandRoll, _sound.LandRollingVolume);
 
     }
     

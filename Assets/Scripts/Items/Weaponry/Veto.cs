@@ -7,17 +7,12 @@ using System.Collections;
 [AddComponentMenu("Items/Weaponry/Veto")]
 public class Veto : Weapon
 {
-    // TODO: OBJECT POOLING FOR HITBOXES
-    public GameObject GunHitbox;
     private static Texture2D _texture;
     
     public override void ActivateAttack(float attackID)
     {
-        // TODO: OBJECT POOLING FOR HITBOXES
-        GameObject hitbox = (GameObject)Instantiate(GunHitbox, GameManager.Player.transform.position, Quaternion.identity);
-        float offsetX = hitbox.collider.bounds.extents.x;
-        Vector3 offset = new Vector3((GameManager.Player.Direction.x > 0 ? offsetX : -offsetX), 0, 0);
-        hitbox.transform.position = hitbox.transform.position + offset;
+        GameManager.ObjectPool.CreatePlayerVETO(transform.position);
+        // TODO: COOL PARTICLE EFFECT
         
     }
     
