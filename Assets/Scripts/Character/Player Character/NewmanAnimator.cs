@@ -491,6 +491,7 @@ public class NewmanAnimator : CharacterAnimator
         if (ActiveHangTarget == null) {
             DropHangTarget();
             MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+            Debug.LogWarning("Player lost track of hang target and fell!");
             return;
         }
 

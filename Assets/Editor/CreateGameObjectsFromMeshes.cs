@@ -53,11 +53,11 @@ public class CreateGameObjectsFromMeshes
     // Helper Method to add all the children to a selection
     private static void AddChildren (List<Transform> selected, Transform current)
     {
-        // activate the ragdoll for all child bones
+        // Activate the ragdoll for all child bones
         for (int i = 0; i < current.childCount; ++i)
             AddChildren (selected, current.GetChild (i));
         
-        // add the child to the selection
+        // Add the child to the selection
         if (!selected.Contains (current))
             selected.Add (current);
 
@@ -157,17 +157,15 @@ public class CreateGameObjectsFromMeshes
 		DestroyChildren (transform);
 
 		// Change the shader so that it will be outlined as appropriate
-        /*
 		if ( !transform.renderer.sharedMaterial.shader.name.Contains("Interactive") ) {
 			transform.renderer.sharedMaterial.shader = Shader.Find ("Outlined/Interactive");
 			transform.renderer.sharedMaterial.SetFloat ("_FadeDis", 15);
         }
-        */
-        transform.renderer.sharedMaterial.shader = Shader.Find ("Diffuse");
+        //transform.renderer.sharedMaterial.shader = Shader.Find ("Diffuse");
 		OutlineInteractive outlineFader = transform.GetComponent<OutlineInteractive> ();
 		if(outlineFader == null)
 			outlineFader = transform.gameObject.AddComponent<OutlineInteractive> ();
-		outlineFader.enabled = false;
+		outlineFader.enabled = true;
 
     }
     
@@ -200,8 +198,18 @@ public class CreateGameObjectsFromMeshes
             leftLedge.name = "Left Ledge";
             leftLedge.GetComponent<Ledge> ().Left = true;
             leftLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower ().Contains ("obstacle"));
+
+            // Size the z
             BoxCollider col = leftLedge.GetComponent<BoxCollider> ();
-            col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100); // NOTE: 100 is an arbitrary number that should be large enough
+            Bounds colBounds = col.bounds;
+            Vector3 temp = colBounds.min;
+            temp.z = ledgeBounds.min.z;
+            colBounds.min = temp;
+            temp = colBounds.max;
+            temp.z = ledgeBounds.max.z;
+            colBounds.max = temp;
+            col.size = colBounds.size;
+            col.center = colBounds.center;
 
             // And put it at the right spot
             Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
@@ -229,8 +237,18 @@ public class CreateGameObjectsFromMeshes
             rightLedge.name = "Right Ledge";
             rightLedge.GetComponent<Ledge> ().Left = false;
             rightLedge.GetComponent<Ledge> ().Obstacle = (ledge.name.ToLower ().Contains ("obstacle"));
+
+            // Size the z
             BoxCollider col = rightLedge.GetComponent<BoxCollider> ();
-            col.size = new Vector3 (col.size.x, col.size.y, col.size.z * 100); // NOTE: 100 is an arbitrary number that should be large enough
+            Bounds colBounds = col.bounds;
+            Vector3 temp = colBounds.min;
+            temp.z = ledgeBounds.min.z;
+            colBounds.min = temp;
+            temp = colBounds.max;
+            temp.z = ledgeBounds.max.z;
+            colBounds.max = temp;
+            col.size = colBounds.size;
+            col.center = colBounds.center;
             
             // And put it at the right spot
             Vector3 rightOffset = new Vector3 (ledgeBounds.extents.x, ledgeBounds.extents.y, 0);

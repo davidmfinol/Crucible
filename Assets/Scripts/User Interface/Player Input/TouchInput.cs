@@ -80,7 +80,7 @@ public class TouchInput : MonoBehaviour
         _actionStartPos = Vector2.zero;
         _actionMin = Screen.width / 32.0f; // TODO: MAKE SURE THIS VALUE NEVER BECOMES TOO LARGE
         _lastActionPos = Vector2.zero;
-        _speedForInstantAction = _distanceForMaxSpeed * 10.0f; // TODO: DETERMINE A GOOD VALUE FOR THIS
+        _speedForInstantAction = _distanceForMaxSpeed * 100.0f; // TODO: DETERMINE A GOOD VALUE FOR THIS
 
         // Gonna store the input here
         _input = GameManager.Player.GetComponent<CharacterInput> ();
@@ -227,7 +227,7 @@ public class TouchInput : MonoBehaviour
         if (delta.magnitude > _moveMin) {
 
             // Handle horizontal input
-            float prevHorizontal = _input.Horizontal;
+            // TODO: float prevHorizontal = _input.Horizontal;
             if (GameManager.Player.CanInputHorizontal && (!GameManager.Player.CanInputVertical || Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) ) { 
                 _input.Horizontal = delta.x / _distanceForMaxSpeed;
                 if (_input.Horizontal > 0.66f)
@@ -236,8 +236,8 @@ public class TouchInput : MonoBehaviour
                     _input.Horizontal += (_input.Horizontal + 0.66f) * 2.0f;
 
                 // Let the player know when running by having the phone vibrate
-                if( prevHorizontal < 0.66 && _input.Horizontal >= 0.66f)
-                    Handheld.Vibrate();
+                // TODO: if( prevHorizontal < 0.66 && _input.Horizontal >= 0.66f)
+                //    Handheld.Vibrate();
 
             // Handle vertical input
             } else if (GameManager.Player.CanInputVertical)
