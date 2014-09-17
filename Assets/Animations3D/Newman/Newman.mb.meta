@@ -102,6 +102,7 @@ ModelImporter:
     100192: rp_r_arm01
     100194: rp_r_leg01
     100196: Skeleton
+    100198: pCube2
     400000: anim_back01
     400002: anim_chest01
     400004: anim_COG01
@@ -201,16 +202,20 @@ ModelImporter:
     400192: rp_r_arm01
     400194: rp_r_leg01
     400196: Skeleton
+    400198: pCube2
     2300000: Armguard
     2300002: Plane_001
     2300004: pPlane1
+    2300006: pCube2
     3300000: Armguard
     3300002: Plane_001
     3300004: pPlane1
+    3300006: pCube2
     4300000: Plane_001
     4300002: Armguard
     4300004: Char
     4300006: pPlane1
+    4300008: pCube2
     7400000: Take 001
     9500000: //RootNode
     13700000: Char
