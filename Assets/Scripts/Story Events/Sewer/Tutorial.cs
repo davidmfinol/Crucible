@@ -187,8 +187,10 @@ public class Tutorial : MonoBehaviour
                 babyBot = ai;
             }
         }
-        babyBot.PersonalHearingRadius.IgnoreAbove = true;
-        ((BabyBotAnimator)(babyBot.Animator)).Sound.MaxDistance = 5;
+        if (babyBot != null) {
+            babyBot.PersonalHearingRadius.IgnoreAbove = true;
+            ((BabyBotAnimator)(babyBot.Animator)).Sound.MaxDistance = 5;
+        }
 
         // Mainly just affects the door
         if (!GameManager.SaveData.HasShownSightPuzzle) {
