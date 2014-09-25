@@ -102,6 +102,23 @@ ModelImporter:
     100192: rp_r_arm01
     100194: rp_r_leg01
     100196: Skeleton
+    100198: camera1
+    100200: camera1 1
+    100202: camera1 2
+    100204: camera1 3
+    100206: camera1_aim
+    100208: camera1_aim 1
+    100210: camera1_aim 2
+    100212: camera1_aim 3
+    100214: camera1_aim1
+    100216: camera1_aim1 1
+    100218: camera1_aim1 2
+    100220: camera1_aim1 3
+    100222: directionalLight1
+    100224: directionalLight2
+    100226: directionalLight3
+    100228: directionalLight4
+    100230: front1
     400000: anim_back01
     400002: anim_chest01
     400004: anim_COG01
@@ -201,6 +218,23 @@ ModelImporter:
     400192: rp_r_arm01
     400194: rp_r_leg01
     400196: Skeleton
+    400198: camera1
+    400200: camera1 1
+    400202: camera1 2
+    400204: camera1 3
+    400206: camera1_aim
+    400208: camera1_aim 1
+    400210: camera1_aim 2
+    400212: camera1_aim 3
+    400214: camera1_aim1
+    400216: camera1_aim1 1
+    400218: camera1_aim1 2
+    400220: camera1_aim1 3
+    400222: directionalLight1
+    400224: directionalLight2
+    400226: directionalLight3
+    400228: directionalLight4
+    400230: front1
     2300000: Armguard
     2300002: Plane_001
     2300004: pPlane1

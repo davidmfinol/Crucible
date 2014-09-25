@@ -127,6 +127,11 @@ ModelImporter:
     100242: pCube13
     100244: pCube14
     100246: pCube15
+    100248: camera1
+    100250: camera1_aim
+    100252: camera1_aim1
+    100254: camera1_group
+    100256: camera2
     400000: ambientLight1
     400002: CenterJoint
     400004: FirstLeg
@@ -251,6 +256,11 @@ ModelImporter:
     400242: pCube13
     400244: pCube14
     400246: pCube15
+    400248: camera1
+    400250: camera1_aim
+    400252: camera1_aim1
+    400254: camera1_group
+    400256: camera2
     2300000: FirstLeg
     2300002: FirstLeg 1
     2300004: FirstLeg 2
