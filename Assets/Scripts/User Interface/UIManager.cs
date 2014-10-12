@@ -448,7 +448,7 @@ public class UIManager : MonoBehaviour
                     CycleToPreviousWeapon();
                     
                 } else if (deg >= -180.0f && deg <= -90.0f) {
-                    _craftingMenu.TryOpen();
+                   // TODO: _craftingMenu.TryOpen();
                 
                 } 
 
