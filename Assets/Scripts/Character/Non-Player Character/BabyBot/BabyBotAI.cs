@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Baby bot AI specifies AI behaviour specific to the BabyBot enemy type.
 /// </summary>
-[AddComponentMenu("AI/BabyBot AI")]
+[AddComponentMenu("Artificial Intelligence/BabyBot AI")]
 public class BabyBotAI : EnemyAI
 {
     private BabyBotAwareness _babyBotAwareness;
@@ -23,12 +23,17 @@ public class BabyBotAI : EnemyAI
 
         Settings.CanSee = Awareness != AwarenessLevel.Unaware;
 
-        // if baby bot attacking, remain in chasing mode.
+        // If babybot is attacking, remain in the chasing mode
         if (Animator.CurrentState.nameHash == BabyBotAnimator.AttackState) {
             Awareness = AwarenessLevel.Chasing;
         }
+        
+        // Make sure we update our target when we start chasing
+        if (Awareness != AwarenessLevel.Unaware) {
+            UpdateAStarTarget(Vector3.zero);
+        }
 
-        // update the babybot's face as appropriate
+        // Update the babybot's face as appropriate
         if (oldAwareness != Awareness) {
             _babyBotAwareness.ChangeAwareness(Awareness);
         }
@@ -39,18 +44,26 @@ public class BabyBotAI : EnemyAI
     protected override void Search(float elapsedTime)
     {
         Chase(elapsedTime);
+
     }
 
     protected override void Chase(float elapsedTime)
     {
+        if (!UpdateAStarPath(elapsedTime, Settings.ChaseSpeedRatio)) {
+            return;
+        }
         NavigateToAstarTarget(Settings.ChaseSpeedRatio);
         Animator.CharInput.Attack = IsPlayerInAttackRange && !Animator.IsDead ? 1 : 0;
+
     }
 
     public override void NavigateToAstarTarget(float speedRatio)
     {
-        Animator.CharInput.Horizontal = GameManager.Player.transform.position.x - transform.position.x;
-        Animator.CharInput.Jump = Vector2.up;
+        base.NavigateToAstarTarget(speedRatio);
+        if (Animator.IsGrounded) {
+            Animator.CharInput.Jump = Vector2.up + Vector2.right * (GameManager.Player.transform.position.x - Animator.transform.position.x);
+        }
+
     }
 
 }

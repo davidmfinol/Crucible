@@ -868,6 +868,11 @@ ModelImporter:
     101724: transform151
     101726: transform152
     101728: transform153
+    101730: box9
+    101732: transform154
+    101734: ledgerightonly
+    101736: mesh1
+    101738: LedgeRightOnly3
     400000: Attached_on_the_side
     400002: curve1
     400004: curve2
@@ -1733,6 +1738,11 @@ ModelImporter:
     401724: transform151
     401726: transform152
     401728: transform153
+    401730: box9
+    401732: transform154
+    401734: ledgerightonly
+    401736: mesh1
+    401738: LedgeRightOnly3
     2300000: pasted__pasted__pasted__polySurface45
     2300002: pasted__pasted__pasted__polySurface46
     2300004: pasted__pasted__pasted__polySurface47
@@ -2290,6 +2300,10 @@ ModelImporter:
     2301108: polySurface345
     2301110: polySurface346
     2301112: polySurface347
+    2301114: box9
+    2301116: ledgerightonly
+    2301118: mesh1
+    2301120: LedgeRightOnly3
     3300000: pasted__pasted__pasted__polySurface45
     3300002: pasted__pasted__pasted__polySurface46
     3300004: pasted__pasted__pasted__polySurface47
@@ -2847,6 +2861,10 @@ ModelImporter:
     3301108: polySurface345
     3301110: polySurface346
     3301112: polySurface347
+    3301114: box9
+    3301116: ledgerightonly
+    3301118: mesh1
+    3301120: LedgeRightOnly3
     4300000: pCube24
     4300002: pCube11
     4300004: pCube12
@@ -3397,6 +3415,11 @@ ModelImporter:
     4301094: polySurface343
     4301096: ObstacleBox
     4301098: polySurface345
+    4301100: box9
+    4301102: mesh1
+    4301104: mesh
+    4301106: ledgerightonly
+    4301108: LedgeRightOnly3
     7400000: Take 001
     9500000: //RootNode
   materials:

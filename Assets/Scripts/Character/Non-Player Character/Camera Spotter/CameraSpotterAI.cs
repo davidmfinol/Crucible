@@ -4,7 +4,7 @@ using System.Collections;
 /// <summary>
 /// Camera spotter AI overrides most of the important AI, since it doesn't actually move.
 /// </summary>
-[AddComponentMenu("AI/Camera Spotter AI")]
+[AddComponentMenu("Artificial Intelligence/Camera Spotter AI")]
 public class CameraSpotterAI : EnemyAI
 {
     private CameraSpotterAwareness _cameraSpotterAwareness;

@@ -137,6 +137,14 @@ public class BabyBotAnimator : CharacterAnimator
 
     }
 
+    public override Vector3 Velocity {
+        get {
+            if (CurrentState.nameHash == AttackState)
+                return GameManager.Player.Velocity;
+            return base.Velocity;
+        }
+    }
+
     public BabybotAudioPlayer Sound {
         get { return _sound; }
     }

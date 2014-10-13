@@ -437,6 +437,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         IgnoreMovement = false;
         Controller.enabled = true;
         MecanimAnimator.enabled = true;
+
     }
 
     public void DoFloat(float floatTime)
@@ -744,7 +745,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return (15 * -_characterSettings.Gravity * Time.fixedDeltaTime); } // NOTE: THIS IS SOMEWHAT ARBITRARY, BUT IT WORKS
     }
 
-    public Vector3 Velocity {
+    public virtual Vector3 Velocity {
         get { return _velocity; }
     }
 
