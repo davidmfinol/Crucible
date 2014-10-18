@@ -5,8 +5,6 @@ Temp/
 Obj/
 UnityGenerated/
 Library/
-ProjectSettings/Physics2DSettings.asset
-ProjectSettings/EditorBuildSettings*
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
