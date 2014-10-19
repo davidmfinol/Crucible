@@ -212,7 +212,7 @@ public class CreateGameObjectsFromMeshes
             col.center = colBounds.center;
 
             // And put it at the right spot
-            Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, ledgeBounds.extents.y, 0);
+            Vector3 leftOffset = new Vector3 (-ledgeBounds.extents.x, ledgeBounds.extents.y, -ledgeBounds.center.z);
             Vector3 topLeft = ledgeBounds.center + leftOffset;
             leftLedge.transform.position = topLeft;
             leftLedge.isStatic = true;

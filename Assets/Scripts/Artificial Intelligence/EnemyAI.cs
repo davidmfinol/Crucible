@@ -276,6 +276,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         // We get a path from a point near the feet, since that's where the nodes are
+        Debug.Log("We're looking for: " + FootPosition + " and " + _target);
         _seeker.StartPath(FootPosition, _target, OnPathFound);
         _isSearchingForPath = true;
 

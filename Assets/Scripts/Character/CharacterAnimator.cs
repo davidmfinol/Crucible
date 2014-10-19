@@ -437,6 +437,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         IgnoreMovement = false;
         Controller.enabled = true;
         MecanimAnimator.enabled = true;
+
     }
 
     public void DoFloat(float floatTime)
@@ -571,8 +572,6 @@ public abstract class CharacterAnimator : MonoBehaviour
         if (hangTarget is Ledge || hangTarget == _previousHangTarget) {
             _hangQueue.Insert(0, hangTarget);
         } else {
-            if (hangTarget is GrabbableObject)
-                Debug.Log("got it");
             _hangQueue.Add(hangTarget);
         }
 
@@ -612,7 +611,7 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     // Movement/Animation Properties
     public AnimatorStateInfo CurrentState {
-        get { 
+        get {
             if (MecanimAnimator == null) {
                 return new AnimatorStateInfo();
             }
@@ -746,7 +745,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return (15 * -_characterSettings.Gravity * Time.fixedDeltaTime); } // NOTE: THIS IS SOMEWHAT ARBITRARY, BUT IT WORKS
     }
 
-    public Vector3 Velocity {
+    public virtual Vector3 Velocity {
         get { return _velocity; }
     }
 

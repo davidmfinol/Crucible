@@ -12,7 +12,6 @@ public class GravityGun : Weapon
     public override void ActivateAttack(float attackID)
     {
         GameManager.ObjectPool.CreatePlayerGravityGun(transform.position);
-        // TODO: COOL PARTICLE EFFECT
 
     }
     

@@ -5,7 +5,7 @@ using System.Collections;
 /// Olympus AI specifies AI behaviour specific to the Olympus enemy type.
 /// </summary>
 [RequireComponent(typeof(HeadLookController))]
-[AddComponentMenu("AI/Olympus AI")]
+[AddComponentMenu("Artificial Intelligence/Olympus AI")]
 public class OlympusAI : EnemyAI
 {
     // If Olympus's next node is within MinimumLook, Olympus will look at the node after it

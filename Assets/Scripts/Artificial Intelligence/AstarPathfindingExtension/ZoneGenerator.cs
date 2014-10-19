@@ -653,13 +653,15 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                 // Make sure there's no object in the way, and calculate the distance
                 bool isValid = !ObstructedByGround(position, nodePos, out nodeDist);
 
-                // If the distance is 0, we know this is an absolute nearest node, and can quit early
-                if (nodeDist == 0) {
-                    return new NNInfo(currentNode);
-                }
-
                 // If the distance is the smallest found so far, set it as the current nearest node
                 if (isValid && nodeDist < nearestDist) {
+
+                    // If the distance is 0, we know this is an absolute nearest node, and can quit early
+                    if (nodeDist == 0) {
+                        return new NNInfo(currentNode);
+                    }
+
+                    // Otherwise, this is currently in the lead for the top
                     nearestDist = nodeDist;
                     nearestNode = currentNode;
                 }

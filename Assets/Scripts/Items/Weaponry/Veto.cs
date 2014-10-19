@@ -12,7 +12,6 @@ public class Veto : Weapon
     public override void ActivateAttack(float attackID)
     {
         GameManager.ObjectPool.CreatePlayerVETO(transform.position);
-        // TODO: COOL PARTICLE EFFECT
         
     }
     

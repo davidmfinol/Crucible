@@ -7,9 +7,6 @@ using System.Collections.Generic;
 [AddComponentMenu("Character/Non-Player Character/BabyBot/BabyBot Animator")]
 public class BabyBotAnimator : CharacterAnimator
 {
-    // TODO: REPLACE THIS WITH SOME KIND OF POOL OF HITBOX OBJECTS
-    public GameObject MeleeEvent;
-
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash("Base Layer.Idle");
     public static readonly int JumpingState = Animator.StringToHash("Base Layer.Jumping");
@@ -138,6 +135,14 @@ public class BabyBotAnimator : CharacterAnimator
     {
         _sound.Play(_sound.Giggle, _sound.GiggleVolume);
 
+    }
+
+    public override Vector3 Velocity {
+        get {
+            if (CurrentState.nameHash == AttackState)
+                return GameManager.Player.Velocity;
+            return base.Velocity;
+        }
     }
 
     public BabybotAudioPlayer Sound {

@@ -66,6 +66,9 @@ public class HearingRadius : MonoBehaviour
         }
 
         foreach (OutlineInteractive barrier in _barriers) {
+            if (barrier.Spheres == null || barrier.Spheres.Count >= barrier.CurrentSphere)
+                continue;
+
             barrier.Spheres [barrier.CurrentSphere].TriggerPulse();
             barrier.Spheres [barrier.CurrentSphere].Position = transform.position;
             barrier.Spheres [barrier.CurrentSphere].EchoColor = EchoColor;
