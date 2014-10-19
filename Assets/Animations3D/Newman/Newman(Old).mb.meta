@@ -123,6 +123,9 @@ ModelImporter:
     100234: camera3
     100236: group2
     100238: ambientLight1
+    100240: camera4
+    100242: directionalLight5
+    100244: pointLight1
     400000: anim_back01
     400002: anim_chest01
     400004: anim_COG01
@@ -243,6 +246,9 @@ ModelImporter:
     400234: camera3
     400236: group2
     400238: ambientLight1
+    400240: camera4
+    400242: directionalLight5
+    400244: pointLight1
     2300000: Armguard
     2300002: Plane_001
     2300004: pPlane1

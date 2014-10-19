@@ -132,6 +132,7 @@ ModelImporter:
     100252: camera1_aim1
     100254: camera1_group
     100256: camera2
+    100258: directionalLight1
     400000: ambientLight1
     400002: CenterJoint
     400004: FirstLeg
@@ -261,6 +262,7 @@ ModelImporter:
     400252: camera1_aim1
     400254: camera1_group
     400256: camera2
+    400258: directionalLight1
     2300000: FirstLeg
     2300002: FirstLeg 1
     2300004: FirstLeg 2

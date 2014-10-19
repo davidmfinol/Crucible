@@ -144,6 +144,8 @@ ModelImporter:
     100276: transform8
     100278: UpperShinR1
     100280: UpperShinR2
+    100282: pointLight1
+    100284: pointLight2
     400000: anim_CenterofGravity
     400002: anim_ChestControl
     400004: anim_global01
@@ -285,6 +287,8 @@ ModelImporter:
     400276: transform8
     400278: UpperShinR1
     400280: UpperShinR2
+    400282: pointLight1
+    400284: pointLight2
     2300000: LeftFoot
     2300002: LeftSocket
     2300004: LeftThigh
@@ -410,6 +414,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
+    motionNodeName: 
     animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
