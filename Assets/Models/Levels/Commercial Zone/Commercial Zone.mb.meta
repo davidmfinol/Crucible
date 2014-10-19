@@ -2017,6 +2017,7 @@ ModelImporter:
     104022: pCube958
     104024: pCube959
     104026: pCube960
+    104028: pCube961
     400000: Airport
     400002: Box
     400004: box
@@ -4031,6 +4032,7 @@ ModelImporter:
     404022: pCube958
     404024: pCube959
     404026: pCube960
+    404028: pCube961
     2300000: box
     2300002: Box 1
     2300004: box 1
@@ -5359,6 +5361,7 @@ ModelImporter:
     2302650: pCube958
     2302652: pCube959
     2302654: pCube960
+    2302656: pCube961
     3300000: box
     3300002: Box 1
     3300004: box 1
@@ -6687,6 +6690,7 @@ ModelImporter:
     3302650: pCube958
     3302652: pCube959
     3302654: pCube960
+    3302656: pCube961
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -8015,6 +8019,7 @@ ModelImporter:
     4302650: MiddleCommercialBuilding:pCube968
     4302652: MiddleCommercialBuilding:pCube969
     4302654: MiddleCommercialBuilding:pCube970
+    4302656: pCube961
     7400000: Take 001
     9500000: //RootNode
   materials:

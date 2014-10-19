@@ -243,6 +243,39 @@ ModelImporter:
     100474: transform9
     100476: WallBoxLedge
     100478: pTorus1
+    100480: Camera
+    100482: Camera1
+    100484: Camera2
+    100486: group4
+    100488: group5
+    100490: group6
+    100492: pCube234
+    100494: pCube235
+    100496: pCube236
+    100498: pCylinder1
+    100500: pCylinder10
+    100502: pCylinder2
+    100504: pCylinder3
+    100506: pCylinder5
+    100508: pCylinder6
+    100510: pCylinder7
+    100512: pCylinder8
+    100514: pCylinder9
+    100516: polySurface61
+    100518: pPlane2
+    100520: pTorus2
+    100522: pTorus3
+    100524: transform12
+    100526: pPlane3
+    100528: box 2
+    100530: group7
+    100532: polySurface62
+    100534: polySurface63
+    100536: polySurface64
+    100538: polySurface65
+    100540: polySurface66
+    100542: transform13
+    100544: transform14
     400000: box
     400002: box 1
     400004: BoxWall
@@ -483,6 +516,39 @@ ModelImporter:
     400474: transform9
     400476: WallBoxLedge
     400478: pTorus1
+    400480: Camera
+    400482: Camera1
+    400484: Camera2
+    400486: group4
+    400488: group5
+    400490: group6
+    400492: pCube234
+    400494: pCube235
+    400496: pCube236
+    400498: pCylinder1
+    400500: pCylinder10
+    400502: pCylinder2
+    400504: pCylinder3
+    400506: pCylinder5
+    400508: pCylinder6
+    400510: pCylinder7
+    400512: pCylinder8
+    400514: pCylinder9
+    400516: polySurface61
+    400518: pPlane2
+    400520: pTorus2
+    400522: pTorus3
+    400524: transform12
+    400526: pPlane3
+    400528: box 2
+    400530: group7
+    400532: polySurface62
+    400534: polySurface63
+    400536: polySurface64
+    400538: polySurface65
+    400540: polySurface66
+    400542: transform13
+    400544: transform14
     2300000: box 1
     2300002: BoxWall
     2300004: MinuteRing
@@ -697,6 +763,28 @@ ModelImporter:
     2300422: WallBoxLedge
     2300424: polySurface56
     2300426: pTorus1
+    2300428: pCube234
+    2300430: pCube235
+    2300432: pCube236
+    2300434: pCylinder1
+    2300436: pCylinder10
+    2300438: pCylinder2
+    2300440: pCylinder3
+    2300442: pCylinder5
+    2300444: pCylinder6
+    2300446: pCylinder7
+    2300448: pCylinder8
+    2300450: pCylinder9
+    2300452: polySurface61
+    2300454: pPlane2
+    2300456: pTorus2
+    2300458: pTorus3
+    2300460: pPlane3
+    2300462: box 2
+    2300464: polySurface62
+    2300466: polySurface64
+    2300468: polySurface65
+    2300470: polySurface66
     3300000: box 1
     3300002: BoxWall
     3300004: MinuteRing
@@ -911,6 +999,28 @@ ModelImporter:
     3300422: WallBoxLedge
     3300424: polySurface56
     3300426: pTorus1
+    3300428: pCube234
+    3300430: pCube235
+    3300432: pCube236
+    3300434: pCylinder1
+    3300436: pCylinder10
+    3300438: pCylinder2
+    3300440: pCylinder3
+    3300442: pCylinder5
+    3300444: pCylinder6
+    3300446: pCylinder7
+    3300448: pCylinder8
+    3300450: pCylinder9
+    3300452: polySurface61
+    3300454: pPlane2
+    3300456: pTorus2
+    3300458: pTorus3
+    3300460: pPlane3
+    3300462: box 2
+    3300464: polySurface62
+    3300466: polySurface64
+    3300468: polySurface65
+    3300470: polySurface66
     4300000: polySurface58
     4300002: WallBoxLedge
     4300004: polySurface18
@@ -1125,6 +1235,28 @@ ModelImporter:
     4300422: polySurface60
     4300424: polySurface56
     4300426: pTorus1
+    4300428: polySurface61
+    4300430: pCube234
+    4300432: pTorus2
+    4300434: pCylinder1
+    4300436: pPlane2
+    4300438: pCube235
+    4300440: pCylinder2
+    4300442: pCylinder3
+    4300444: pCube236
+    4300446: pCylinder7
+    4300448: pCylinder10
+    4300450: pCylinder5
+    4300452: pCylinder9
+    4300454: pCylinder6
+    4300456: pCylinder8
+    4300458: pTorus3
+    4300460: pPlane3
+    4300462: box
+    4300464: polySurface62
+    4300466: polySurface66
+    4300468: polySurface64
+    4300470: polySurface65
     7400000: Take 001
     9500000: //RootNode
   materials:
