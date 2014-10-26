@@ -41,8 +41,8 @@ public class HearingRadius : MonoBehaviour
             sound.HeardBy.Add(this);
             // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL
             if (!IgnoreAbove || other.transform.position.y < 70) {
-                _objectsHeard.AddLast(sound);
-            } // NOTE: WE ADD TO THE END OF THE LIST TO ALLOW THE AI TO FINISH ITS CURRENT PATH
+                _objectsHeard.AddFirst(sound);
+            }
         }
 
         HeartBox heart = other.GetComponent<HeartBox>();

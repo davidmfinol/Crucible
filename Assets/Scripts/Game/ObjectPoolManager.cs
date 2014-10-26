@@ -26,7 +26,7 @@ public class ObjectPoolManager : MonoBehaviour
     void Start()
     {
         _playerFootsteps = new List<FootstepAudioPlayer>();
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 75; i++) {
             GameObject footstep = new GameObject("Footstep - Player");
             footstep.layer = LayerMask.NameToLayer("SoundStealth");
             footstep.transform.parent = transform;
@@ -38,7 +38,7 @@ public class ObjectPoolManager : MonoBehaviour
         }
 
         _robotFootsteps = new List<FootstepAudioPlayer>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             GameObject footstep = new GameObject("Footstep - Robot"); 
             footstep.layer = LayerMask.NameToLayer("SoundStealth");
             footstep.transform.parent = transform;
@@ -158,7 +158,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     public HitBox CreatePlayerGravityGun(Vector3 position)
     {
-        // Create the visual effect
+        // Create the visual effect // TODO: POOL THE VISUAL
         GameObject clonedParticle = (GameObject)Instantiate(_gravityGunShot, position, Quaternion.identity);
         Destroy(clonedParticle, 5.0f);
 
@@ -174,7 +174,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     public HitBox CreatePlayerVETO(Vector3 position)
     {
-        // Create the visual effect (NOTE: THIS ISN'T ACTUALLY POOLED, BUT OH WELL)
+        // Create the visual effect // TODO: POOL THE VISUAL
         GameObject clonedParticle = (GameObject)Instantiate(_vetoGunShot, position, Quaternion.identity);
         Destroy(clonedParticle, 5.0f);
         
@@ -190,7 +190,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     public HitBox CreatePlayerMineExplosion(Vector3 position)
     {
-        // Create the visual effect (NOTE: THIS ISN'T ACTUALLY POOLED, BUT OH WELL)
+        // Create the visual effect // TODO: POOL THE VISUAL
         GameObject clonedParticle = (GameObject)Instantiate(_mineExplosion, position, Quaternion.identity);
         Destroy(clonedParticle, 5.0f);
         
@@ -204,7 +204,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     public HitBox CreateBabyBotExplosion(Vector3 position)
     {
-        // Create the visual effect (NOTE: THIS ISN'T ACTUALLY POOLED, BUT OH WELL)
+        // Create the visual effect // TODO: POOL THE VISUAL
         GameObject clonedParticle = (GameObject)Instantiate(_babyBotExplosion, position, Quaternion.identity);
         Destroy(clonedParticle, 5.0f);
 

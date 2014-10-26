@@ -496,7 +496,7 @@ public class OlympusAnimator : CharacterAnimator
 
     }
     
-    protected void Punch(float elapsedTime)
+    public void Punch()
     {
         _sound.Play(_sound.Attacking, _sound.AttackingVolume);
 
@@ -507,7 +507,7 @@ public class OlympusAnimator : CharacterAnimator
         
     }
     
-    protected void PunchUp(float elapsedTime)
+    public void PunchUp()
     {
         _sound.Play(_sound.Attacking, _sound.AttackingVolume);
 

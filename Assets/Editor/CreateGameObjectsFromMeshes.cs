@@ -209,6 +209,7 @@ public class CreateGameObjectsFromMeshes
             temp.z = ledgeBounds.max.z;
             colBounds.max = temp;
             col.size = colBounds.size;
+            colBounds.center = new Vector3 ( colBounds.center.x, colBounds.center.y, 0);
             col.center = colBounds.center;
 
             // And put it at the right spot
@@ -248,6 +249,7 @@ public class CreateGameObjectsFromMeshes
             temp.z = ledgeBounds.max.z;
             colBounds.max = temp;
             col.size = colBounds.size;
+            colBounds.center = new Vector3 ( colBounds.center.x, colBounds.center.y, 0);
             col.center = colBounds.center;
             
             // And put it at the right spot

@@ -36,7 +36,7 @@ public class EnemyAI : MonoBehaviour
     private int _currentPathWaypoint = 0; // where it is on that path
     private bool _isSearchingForPath = false; // Is the enemy currently looking for a path?
     private float _timeSinceRepath = 0; // how long has it been since it found a path
-    private bool _hasTouchedNextNode = false; // keep track of whether we've already reached the node we're going to 
+    private Vector3 _lastNodeTouched; // keep track of the last node we touched, so we don't keep going back to it
 
     // How aware is the enemy of the player?
     private AwarenessLevel _awareness = AwarenessLevel.Unaware;
@@ -290,7 +290,6 @@ public class EnemyAI : MonoBehaviour
         if (!p.error) {
             _path = p;
             _currentPathWaypoint = _path.vectorPath.Count - _path.path.Count; // If the first point on the vectorpath is not a node, we account for that
-            _hasTouchedNextNode = false;
         }// else
         // Debug.LogWarning ("Pathfinding errored!: " + p.errorLog);
 
@@ -327,8 +326,11 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Move on if we reached our waypoint
-        bool isTouchingNextNode = _animator.Controller.bounds.Contains(_path.vectorPath [_currentPathWaypoint]);
-        _hasTouchedNextNode = _hasTouchedNextNode || isTouchingNextNode;
+        Vector3 nextNode = _path.vectorPath [_currentPathWaypoint];
+        bool isTouchingNextNode = _animator.Controller.bounds.Contains(nextNode);
+        if(isTouchingNextNode)
+            _lastNodeTouched = nextNode;
+        bool hasTouchedNextNode = nextNode == _lastNodeTouched;
 
         // We only want to move on if the player is grounded when he's going to a ground node
         // TODO: FIXME, AS THIS STILL ALLOWS THE CHARACTER TO MOVE ON EVEN WHILE CLIMBING UP AND NOT GROUNDED? (SEE JIRA ISSUE)
@@ -340,9 +342,8 @@ public class EnemyAI : MonoBehaviour
         }
         bool isCharacterTouchingGround = _animator.IsGrounded;
 
-        if (!isFinalNode && (isTouchingNextNode || _hasTouchedNextNode) && (!doesNodeRequireGround || isCharacterTouchingGround)) {
+        if (!isFinalNode && (isTouchingNextNode || hasTouchedNextNode) && (!doesNodeRequireGround || isCharacterTouchingGround)) {
             _currentPathWaypoint++;
-            _hasTouchedNextNode = false;
         }
 
         // Return whether we're still on the current path

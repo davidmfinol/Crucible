@@ -62,7 +62,7 @@ public class OlympusAI : EnemyAI
             }
         }
 
-        // initiate the color change on alert
+        // Initiate the color change on alert
         if (oldAwareness != Awareness) {
             _olympusAwareness.ChangeAwareness(Awareness);
 
