@@ -115,6 +115,7 @@ public class NewmanAnimator : CharacterAnimator
 				UpdateBaseAnimations ();
 				UpdateWeaponsAnimations ();
 				if (CharInput.PickupPressed && sparkPlugOutlet != null) {
+						Debug.Log ("Got Pressed");
 						sparkPlugOutlet.TogglePlug ();
 				}
 		}

@@ -298,8 +298,9 @@ public class Tutorial : StoryPlug
         
 				// Close the door behind you
 				StopCoroutine ("OperateDoor");
-				SewerDoor.animation.Play ("Close");
-
+				if (_sewerDoorOpen) {
+						SewerDoor.animation.Play ("Close");
+				}
 				// Power down
 				while (SpinningFan.animation["SpinningLoop"].speed > 0.1f) {
 						SpinningFan.animation ["SpinningLoop"].speed -= (0.5f * Time.deltaTime);
