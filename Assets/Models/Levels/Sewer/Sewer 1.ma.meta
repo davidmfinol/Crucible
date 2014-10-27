@@ -705,6 +705,7 @@ ModelImporter:
     101398: Box12
     101400: Mesh10
     101402: Wall10
+    101404: WaypointlessMesh
     400000: Attached_on_the_side
     400002: Box
     400004: box
@@ -1407,6 +1408,7 @@ ModelImporter:
     401398: Box12
     401400: Mesh10
     401402: Wall10
+    401404: WaypointlessMesh
     2300000: Box
     2300002: box
     2300004: Box 1
@@ -1740,6 +1742,7 @@ ModelImporter:
     2300660: Box12
     2300662: Mesh10
     2300664: Wall10
+    2300666: WaypointlessMesh
     3300000: Box
     3300002: box
     3300004: Box 1
@@ -2073,6 +2076,7 @@ ModelImporter:
     3300660: Box12
     3300662: Mesh10
     3300664: Wall10
+    3300666: WaypointlessMesh
     4300000: pCube11
     4300002: pCube12
     4300004: pCube13
@@ -2405,6 +2409,7 @@ ModelImporter:
     4300658: Box12
     4300660: Mesh10
     4300662: Wall10
+    4300664: WaypointlessMesh
     7400000: Take 001
     9500000: //RootNode
   materials:

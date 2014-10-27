@@ -1,6 +1,6 @@
 //Maya ASCII 2014 scene
 //Name: Sewer 1.ma
-//Last modified: Mon, Oct 27, 2014 01:13:37 AM
+//Last modified: Mon, Oct 27, 2014 01:46:45 AM
 //Codeset: 1252
 requires maya "2014";
 requires -nodeType "ilrOptionsNode" -nodeType "ilrUIOptionsNode" -nodeType "ilrBakeLayerManager"
@@ -17,10 +17,10 @@ fileInfo "application" "maya";
 fileInfo "product" "Maya 2014";
 fileInfo "version" "2014";
 fileInfo "cutIdentifier" "201307170459-880822";
-fileInfo "osv" "Microsoft Windows 8 Home Premium Edition, 64-bit  (Build 9200)\n";
+fileInfo "osv" "Microsoft Windows 8 Business Edition, 64-bit  (Build 9200)\n";
 fileInfo "license" "student";
 createNode transform -s -n "persp";
-	setAttr ".t" -type "double3" 13.867911286563414 -14.232148672176667 85.354265882643062 ;
+	setAttr ".t" -type "double3" -1.8122538553371452 -59.352615845881971 191.54013636892961 ;
 	setAttr ".r" -type "double3" 22.80000000000005 -8.4000000000000856 -1.004701440482451e-015 ;
 	setAttr ".rp" -type "double3" -7.1054273576010019e-015 0 0 ;
 	setAttr ".rpt" -type "double3" -2.7162642537313047e-014 4.7996800173270457e-014 
@@ -28,7 +28,7 @@ createNode transform -s -n "persp";
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v";
 	setAttr ".fl" 30.44216994994995;
-	setAttr ".coi" 107.1125680809574;
+	setAttr ".coi" 223.54779998170596;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
@@ -24622,11 +24622,11 @@ createNode mesh -n "polySurfaceShape311" -p "polySurface253";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "Mesh10";
+createNode transform -n "WaypointlessMesh";
 	setAttr ".t" -type "double3" 23.657677264533746 33.807333236422345 -2.0953807802795854 ;
 	setAttr ".r" -type "double3" 0 0 -126.03689297450202 ;
 	setAttr ".s" -type "double3" 0.40747374077558801 0.40747374077558801 0.40747374077558801 ;
-createNode mesh -n "MeshShape10" -p "Mesh10";
+createNode mesh -n "WaypointlessMeshShape" -p "WaypointlessMesh";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -51712,7 +51712,7 @@ connectAttr "groupId424.id" "polySurfaceShape307.iog.og[0].gid";
 connectAttr "lambert16SG.mwc" "polySurfaceShape307.iog.og[0].gco";
 connectAttr "polyAutoProj38.out" "polySurfaceShape311.i";
 connectAttr "polyTweakUV40.uvtk[0]" "polySurfaceShape311.uvst[0].uvtw";
-connectAttr "deleteComponent166.og" "MeshShape10.i";
+connectAttr "deleteComponent166.og" "WaypointlessMeshShape.i";
 connectAttr "groupParts480.og" "polySurfaceShape312.i";
 connectAttr "groupId432.id" "polySurfaceShape312.iog.og[0].gid";
 connectAttr "blinn5SG.mwc" "polySurfaceShape312.iog.og[0].gco";
@@ -53478,7 +53478,7 @@ connectAttr "WallShape4.iog.og[0]" "blinn6SG.dsm" -na;
 connectAttr "WallShape4.ciog.cog[0]" "blinn6SG.dsm" -na;
 connectAttr "WallShape6.iog.og[0]" "blinn6SG.dsm" -na;
 connectAttr "WallShape6.ciog.cog[0]" "blinn6SG.dsm" -na;
-connectAttr "MeshShape10.iog" "blinn6SG.dsm" -na;
+connectAttr "WaypointlessMeshShape.iog" "blinn6SG.dsm" -na;
 connectAttr "LedgeShape7.iog" "blinn6SG.dsm" -na;
 connectAttr "LedgeShape8.iog" "blinn6SG.dsm" -na;
 connectAttr "LedgeShape9.iog" "blinn6SG.dsm" -na;
@@ -55018,12 +55018,12 @@ connectAttr "polySurfaceShape311.wm" "polyBridgeEdge102.mp";
 connectAttr "polyBridgeEdge102.out" "polySoftEdge40.ip";
 connectAttr "polySurfaceShape311.wm" "polySoftEdge40.mp";
 connectAttr "polyCylinder4.out" "polyExtrudeFace51.ip";
-connectAttr "MeshShape10.wm" "polyExtrudeFace51.mp";
+connectAttr "WaypointlessMeshShape.wm" "polyExtrudeFace51.mp";
 connectAttr "polyTweak192.out" "polyExtrudeFace52.ip";
-connectAttr "MeshShape10.wm" "polyExtrudeFace52.mp";
+connectAttr "WaypointlessMeshShape.wm" "polyExtrudeFace52.mp";
 connectAttr "polyExtrudeFace51.out" "polyTweak192.ip";
 connectAttr "polyTweak193.out" "polyExtrudeFace53.ip";
-connectAttr "MeshShape10.wm" "polyExtrudeFace53.mp";
+connectAttr "WaypointlessMeshShape.wm" "polyExtrudeFace53.mp";
 connectAttr "polyExtrudeFace52.out" "polyTweak193.ip";
 connectAttr "polyExtrudeFace53.out" "deleteComponent166.ig";
 connectAttr "polyDelEdge18.out" "polyNormal16.ip";
