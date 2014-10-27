@@ -4,54 +4,36 @@ using System.Collections;
 /// <summary>
 /// Baby bot AI specifies AI behaviour specific to the BabyBot enemy type.
 /// </summary>
+[RequireComponent(typeof(BabyBotAwareness))]
 [AddComponentMenu("Artificial Intelligence/BabyBot AI")]
 public class BabyBotAI : EnemyAI
 {
-    private BabyBotAwareness _babyBotAwareness;
 
-    protected override void OnStart()
+    // Babybot does not wander, as he just sleeps all the time
+    protected override void Wander(float elapsedTime, bool awarenessChanged)
     {
-        _babyBotAwareness = GetComponent<BabyBotAwareness>();
+        Settings.CanSee = false;
 
     }
 
-    protected override void UpdateAwareness(float elapsedTime)
+    // It may be un-realistic, but babybot will just hunt the player down even just off hearing
+    protected override void Search(float elapsedTime, bool awarenessChanged)
     {
-        AwarenessLevel oldAwareness = Awareness;
+        Chase(elapsedTime, awarenessChanged);
 
-        base.UpdateAwareness(elapsedTime);
+    }
 
-        Settings.CanSee = Awareness != AwarenessLevel.Unaware;
-
-        // If babybot is attacking, remain in the chasing mode
-        if (Animator.CurrentState.nameHash == BabyBotAnimator.AttackState) {
-            Awareness = AwarenessLevel.Chasing;
-        }
-        
-        // Make sure we update our target when we start chasing
-        if (Awareness != AwarenessLevel.Unaware) {
+    protected override void Chase(float elapsedTime, bool awarenessChanged)
+    {
+        // Target the player when it starts chasing
+        Settings.CanSee = false;
+        if (awarenessChanged) {
             UpdateAStarTarget(Vector3.zero);
         }
 
-        // Update the babybot's face as appropriate
-        if (oldAwareness != Awareness) {
-            _babyBotAwareness.ChangeAwareness(Awareness);
-        }
-
-    }
-
-    // It may be un-realistic, but babybot will just go after you even just off hearing
-    protected override void Search(float elapsedTime)
-    {
-        Chase(elapsedTime);
-
-    }
-
-    protected override void Chase(float elapsedTime)
-    {
         // Use Astar by default
         if (UpdateAStarPath(elapsedTime, Settings.ChaseSpeedRatio)) {
-            //NavigateToAstarTarget(Settings.ChaseSpeedRatio);
+            NavigateToAstarTarget(Settings.ChaseSpeedRatio);
 
             // Ignore the astar if they're on the same platform
             int nodeOffset = Path.vectorPath.Count - Path.path.Count;
@@ -59,31 +41,32 @@ public class BabyBotAI : EnemyAI
             if (CurrentPathWaypoint - nodeOffset < Path.path.Count) {
                 nextNode = (ZoneNode)Path.path [CurrentPathWaypoint - nodeOffset];
             }
-            if(nextNode != null && GameManager.Player.ActivePlatform != null && nextNode.GO == GameManager.Player.ActivePlatform.gameObject) {
-                Animator.CharInput.Horizontal = GameManager.Player.transform.position.x > transform.position.x ? 1.0f : -1.0f;
-                Animator.CharInput.Jump = Vector2.up + Vector2.right * (GameManager.Player.transform.position.x - Animator.transform.position.x);
+            if (nextNode != null && GameManager.Player.ActivePlatform != null && nextNode.GO == GameManager.Player.ActivePlatform.gameObject) {
+                CharAnimator.CharInput.Horizontal = GameManager.Player.transform.position.x > transform.position.x ? 1.0f : -1.0f;
             }
-        }
 
-        // Keep moving towards the player if we're at the end of the path
+        }  // Keep moving towards the player if we're at the end of the path
         else if (Path != null && CurrentPathWaypoint >= Path.vectorPath.Count) {
-            Animator.CharInput.Horizontal = GameManager.Player.transform.position.x > transform.position.x ? 1.0f : -1.0f;
-            Animator.CharInput.Jump = Vector2.up + Vector2.right * (GameManager.Player.transform.position.x - Animator.transform.position.x);
+            CharAnimator.CharInput.Horizontal = GameManager.Player.transform.position.x > transform.position.x ? 1.0f : -1.0f;
         }
 
-        Animator.CharInput.Attack = IsPlayerInAttackRange && !Animator.IsDead ? 1 : 0;
+        // Jump if on ground
+        if (CharAnimator.IsGrounded) {
+            CharAnimator.CharInput.Jump = Vector2.up + Vector2.right * (GameManager.Player.transform.position.x - CharAnimator.transform.position.x);
+        }
+        // Attack if in range
+        CharAnimator.CharInput.Attack = IsPlayerInAttackRange && !CharAnimator.IsDead ? 1 : 0;
 
     }
 
+    // Since babybot is always mid-air, he modifies his path midair
     public override bool UpdateAStarPath(float elapsedTime, float speedRatio = 1.0f, bool repathOnInvalid = true)
     {
         if (!base.UpdateAStarPath(elapsedTime, speedRatio, repathOnInvalid)) {
             return false;
         } 
 
-        // Babybot is more lenient about when it can repath (since it doesn't need to be on the ground)
-        bool isTouchingNextNode = Mathf.Abs(FootPosition.x - Path.vectorPath [CurrentPathWaypoint].x) < Settings.TargetLeniency;
-        if (!Animator.IsGrounded && isTouchingNextNode) {
+        if (!CharAnimator.IsGrounded && IsTouchingNextWaypoint) {
             CurrentPathWaypoint++;
         }
 
@@ -91,18 +74,20 @@ public class BabyBotAI : EnemyAI
         
     }
 
+    // Babybot is super simple: move left or right
     public override void NavigateToAstarTarget(float speedRatio)
     {
-        // Determine horizontal
-        Vector3 targetPos = Path.vectorPath [CurrentPathWaypoint];
-        bool isNodeToRight = targetPos.x - transform.position.x > 0;
-        Animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
-        
-        // Determine Jump
-        if (Animator.IsGrounded) {
-            Animator.CharInput.Jump = Vector2.up + Vector2.right * (GameManager.Player.transform.position.x - Animator.transform.position.x);
-        }
+        CharAnimator.CharInput.Horizontal = NextWaypoint.x - transform.position.x > 0 ? speedRatio : -speedRatio;
 
+    }
+
+    public override bool IsSeeingPlayer {
+        get { return base.IsSeeingPlayer || CharAnimator.CurrentState.nameHash == BabyBotAnimator.AttackState; }
+    }
+
+    // Babybot only cares about x-position on waypoints
+    public override bool IsTouchingNextWaypoint { 
+        get { return Mathf.Abs(FootPosition.x - NextWaypoint.x) < Settings.TargetLeniency && Mathf.Abs(FootPosition.y - NextWaypoint.y) < CharAnimator.Settings.JumpHeight; }
     }
 
 }

@@ -221,12 +221,12 @@ public class CameraScrollingMain : MonoBehaviour
         Vector3 playerPos = GameManager.Player.transform.position;
 
         foreach (EnemyAI enemy in GameManager.AI.Enemies) {
-            if (enemy == null || enemy.Animator == null || enemy.Animator.IsDead) {
+            if (enemy == null || enemy.CharAnimator == null || enemy.CharAnimator.IsDead) {
                 continue;
             }
 
-            bool isCamera = (enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_CameraSpotter);
-            bool isChasing = (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing);
+            bool isCamera = (enemy.CharAnimator.EnemyType == EnemySaveState.EnemyType.Enemy_CameraSpotter);
+            bool isChasing = (enemy.Awareness.Level == EnemyAwareness.AwarenessLevel.Chasing);
             float enemyDistance = Vector3.Distance(enemy.transform.position, playerPos);
 
             // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL

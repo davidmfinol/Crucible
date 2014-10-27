@@ -8,7 +8,7 @@ using System.Collections;
 [AddComponentMenu("Story Events/Story Trigger")]
 public class StoryTrigger : MonoBehaviour
 {
-    // Identifies which story even is triggered.
+    // Identifies which story event is triggered.
     public string Message;
 
     void OnTriggerEnter(Collider other)

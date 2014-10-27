@@ -13,15 +13,21 @@ public class FootstepAudioPlayer : AudioPlayer
     void OnEnable()
     {
         _lifetimeLived = 0;
+
     }
     
-    void Update ()
+    void Update()
     {
         _lifetimeLived += Time.deltaTime;
         
-        if (_lifetimeLived > Lifetime)
+        if (_lifetimeLived > Lifetime) {
             gameObject.SetActive(false);
+        }
         
+    }
+
+    public float LifetimeLived { 
+        get { return _lifetimeLived; }
     }
 
 }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 /// <summary>
@@ -54,7 +54,7 @@ public class NewmanHologram : MonoBehaviour
         GameManager.MainCamera.CinematicOverride = true;
         EnemyAI babyBot = null;
         foreach (EnemyAI ai in GameManager.AI.Enemies) {
-            if (ai.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_BabyBot) {
+            if (ai.CharAnimator.EnemyType == EnemySaveState.EnemyType.Enemy_BabyBot) {
                 babyBot = ai;
             }
         }

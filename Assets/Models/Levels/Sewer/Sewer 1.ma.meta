@@ -702,6 +702,9 @@ ModelImporter:
     101392: WaterStorage4
     101394: Wall 8
     101396: Wall9
+    101398: Box12
+    101400: Mesh10
+    101402: Wall10
     400000: Attached_on_the_side
     400002: Box
     400004: box
@@ -1401,6 +1404,9 @@ ModelImporter:
     401392: WaterStorage4
     401394: Wall 8
     401396: Wall9
+    401398: Box12
+    401400: Mesh10
+    401402: Wall10
     2300000: Box
     2300002: box
     2300004: Box 1
@@ -1731,6 +1737,9 @@ ModelImporter:
     2300654: Wall 5
     2300656: Wall 8
     2300658: Wall9
+    2300660: Box12
+    2300662: Mesh10
+    2300664: Wall10
     3300000: Box
     3300002: box
     3300004: Box 1
@@ -2061,6 +2070,9 @@ ModelImporter:
     3300654: Wall 5
     3300656: Wall 8
     3300658: Wall9
+    3300660: Box12
+    3300662: Mesh10
+    3300664: Wall10
     4300000: pCube11
     4300002: pCube12
     4300004: pCube13
@@ -2390,6 +2402,9 @@ ModelImporter:
     4300652: Mesh9
     4300654: Wall9
     4300656: Wall
+    4300658: Box12
+    4300660: Mesh10
+    4300662: Wall10
     7400000: Take 001
     9500000: //RootNode
   materials:

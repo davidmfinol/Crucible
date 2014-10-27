@@ -69,7 +69,7 @@ public class AIManager : MonoBehaviour
         foreach (EnemyAI enemy in _enemies) {
 
             // De-activate enemies that are too far away from the player, to save on performance
-            if (enemy.Awareness == EnemyAI.AwarenessLevel.Unaware && GameManager.Player != null && Vector3.Distance(enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
+            if (enemy.Awareness.Level == EnemyAwareness.AwarenessLevel.Unaware && GameManager.Player != null && Vector3.Distance(enemy.transform.position, GameManager.Player.transform.position) > enemy.Settings.MaxActiveDistance) {
                 if (enemy.gameObject.activeSelf) {
                     enemy.gameObject.SetActive(false);
                 }
@@ -85,14 +85,14 @@ public class AIManager : MonoBehaviour
             if (enemy.CouldHearPlayer) {
                 _enemiesCouldHear++;
             }
-            if (enemy.Awareness == EnemyAI.AwarenessLevel.Searching) {
+            if (enemy.Awareness.Level == EnemyAwareness.AwarenessLevel.Searching) {
                 _enemiesSearching++;
-            } else if (enemy.Awareness == EnemyAI.AwarenessLevel.Chasing) {
+            } else if (enemy.Awareness.Level == EnemyAwareness.AwarenessLevel.Chasing) {
                 _enemiesChasing++;
             }
             
             // Check for living olympuses WITHIN THE ACTIVE RANGE.
-            if ((enemy.Animator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) && !enemy.Animator.IsDead) {
+            if ((enemy.CharAnimator.EnemyType == EnemySaveState.EnemyType.Enemy_Olympus) && !enemy.CharAnimator.IsDead) {
                 _olympusesAlive += 1;
                 
             }

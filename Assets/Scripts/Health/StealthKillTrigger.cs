@@ -19,8 +19,8 @@ public class StealthKillTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         NewmanAnimator player = other.GetComponent<NewmanAnimator>();
-        if (player != null && _ai != null && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware) {
-            player.StealthKillable = _ai.Animator;
+        if (player != null && _ai != null && _ai.Awareness.Level == EnemyAwareness.AwarenessLevel.Unaware) {
+            player.StealthKillable = _ai.CharAnimator;
         }
 
     }

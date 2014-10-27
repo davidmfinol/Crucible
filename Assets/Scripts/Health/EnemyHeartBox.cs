@@ -27,7 +27,7 @@ public class EnemyHeartBox : HeartBox
             return;
         }
 
-        if (LastHit.DoesStealthKill && _ai.Awareness == EnemyAI.AwarenessLevel.Unaware) {
+        if (LastHit.DoesStealthKill && _ai.Awareness.Level == EnemyAwareness.AwarenessLevel.Unaware) {
             Controller.OnStealthDeath();
         } else if (LastHit.DoesVETO) {
             // TODO: 

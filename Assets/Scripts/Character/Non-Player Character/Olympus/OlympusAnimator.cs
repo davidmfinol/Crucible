@@ -5,7 +5,6 @@ using System.Collections.Generic;
 /// <summary>
 /// Olympus animator animates/moves the Olympus enemy type.
 /// </summary>
-[RequireComponent(typeof(OlympusAwareness))]
 [AddComponentMenu("Character/Non-Player Character/Olympus/Olympus Animator")]
 public class OlympusAnimator : CharacterAnimator
 {
@@ -524,7 +523,7 @@ public class OlympusAnimator : CharacterAnimator
             int footIndex = Random.Range(0, _sound.Footsteps.Length);
             Vector3 footStepPosition = transform.position;
             footStepPosition.y -= Height * 0.5f;
-            GameManager.ObjectPool.CreateRobotFootstep(footStepPosition, _sound.Footsteps[footIndex], _sound.FootstepsVolume);
+            GameManager.ObjectPool.CreateRobotFootstep(footStepPosition, _sound.Footsteps [footIndex], _sound.FootstepsVolume);
         }
         
     }

@@ -36,7 +36,8 @@ public class HearingRadius : MonoBehaviour
     {
         // Manage the list of sounds this character has heard
         SoundEvent sound = other.GetComponent<SoundEvent>();
-        if (sound) {
+        FootstepAudioPlayer footstep = other.GetComponent<FootstepAudioPlayer>();
+        if (sound && footstep != null && footstep.LifetimeLived == 0) {
             // NOTE: THE SIMPLICITY OF THIS SPHERECOLLIDER ALLOWS SOUNDS TO BE HEARD THROUGH WALLS
             sound.HeardBy.Add(this);
             // HACK: THIS CHECK ALLOWS BABYBOT TO NOT HEAR THE SIGHT PUZZLE IN THE SEWER TUTORIAL
@@ -66,8 +67,9 @@ public class HearingRadius : MonoBehaviour
         }
 
         foreach (OutlineInteractive barrier in _barriers) {
-            if (barrier.Spheres == null || barrier.Spheres.Count >= barrier.CurrentSphere)
+            if (barrier.Spheres == null || barrier.Spheres.Count >= barrier.CurrentSphere) {
                 continue;
+            }
 
             barrier.Spheres [barrier.CurrentSphere].TriggerPulse();
             barrier.Spheres [barrier.CurrentSphere].Position = transform.position;

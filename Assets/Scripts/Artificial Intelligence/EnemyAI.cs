@@ -8,22 +8,16 @@ using Pathfinding;
 /// Mostly, this AI is just an interpretation A* Shortest-Pathfinding.
 /// </summary>
 [RequireComponent(typeof(CharacterAnimator))]
+[RequireComponent(typeof(EnemyAwareness))]
 [RequireComponent(typeof(EnemyAISettings))]
 [RequireComponent(typeof(Seeker))]
 [AddComponentMenu("Artificial Intelligence/Enemy AI")]
-public class EnemyAI : MonoBehaviour
+public abstract class EnemyAI : MonoBehaviour
 {
-    public enum AwarenessLevel : int
-    {
-        Unaware = 0,
-        Searching = 1,
-        Chasing = 2
-    }
-
-
     // Generic enemy AI components
     private CharacterAnimator _animator;
     private EnemyAISettings _settings;
+    private EnemyAwareness _awareness;
     private CharacterAnimator _playerAnimator;
     private HearingRadius _personalHearingRadius;
     private Vision _personalVision;
@@ -36,16 +30,14 @@ public class EnemyAI : MonoBehaviour
     private int _currentPathWaypoint = 0; // where it is on that path
     private bool _isSearchingForPath = false; // Is the enemy currently looking for a path?
     private float _timeSinceRepath = 0; // how long has it been since it found a path
-    private Vector3 _lastNodeTouched; // keep track of the last node we touched, so we don't keep going back to it
-
-    // How aware is the enemy of the player?
-    private AwarenessLevel _awareness = AwarenessLevel.Unaware;
+    private Vector3 _lastTouchedWaypoint; // keep track of the last waypoint we touched, so we don't keep going back to it
 
     void Start()
     {
         // Set up the generic AI components
         _animator = GetComponent<CharacterAnimator>();
         _settings = GetComponent<EnemyAISettings>();
+        _awareness = GetComponent<EnemyAwareness>();
         _personalHearingRadius = GetComponentInChildren<HearingRadius>();
         _personalVision = GetComponentInChildren<Vision>();
         _timeSincePlayerSeen = 0;
@@ -74,70 +66,75 @@ public class EnemyAI : MonoBehaviour
     }
 
     // The CharacterAnimator calls this method, so we will do all of the AI processing within it
-    public virtual void UpdateInput(float elapsedTime)
+    public void UpdateInput(float elapsedTime)
     {
         // By default, have the enemy do nothing
-        Animator.CharInput.Horizontal = 0;
-        Animator.CharInput.Vertical = 0;
-        Animator.CharInput.Jump = Vector2.zero;
-        Animator.CharInput.Attack = 0;
-        Animator.CharInput.Pickup = false;
+        CharAnimator.CharInput.Horizontal = 0;
+        CharAnimator.CharInput.Vertical = 0;
+        CharAnimator.CharInput.Jump = Vector2.zero;
+        CharAnimator.CharInput.Attack = 0;
+        CharAnimator.CharInput.Pickup = false;
 
         // Based off the awareness level of the enemy, it'll do 1 of 3 things
-        UpdateAwareness(elapsedTime);
-        switch (Awareness) {
-            case AwarenessLevel.Unaware:
+        bool awarenessChanged = UpdateAwareness(elapsedTime);
+        if (awarenessChanged) {
+            Awareness.ChangeAwareness();
+        }
+        switch (Awareness.Level) {
+            case EnemyAwareness.AwarenessLevel.Unaware:
                 if (Settings.ShouldWander) { 
-                    Wander(elapsedTime);
+                    Wander(elapsedTime, awarenessChanged);
                 }
                 break;
-            case AwarenessLevel.Searching:
-                Search(elapsedTime);
+            case EnemyAwareness.AwarenessLevel.Searching:
+                Search(elapsedTime, awarenessChanged);
                 break;
-            case AwarenessLevel.Chasing:
-                Chase(elapsedTime);
+            case EnemyAwareness.AwarenessLevel.Chasing:
+                Chase(elapsedTime, awarenessChanged);
                 break;
         }
 
     }
     
-    protected virtual void UpdateAwareness(float elapsedTime)
+    protected virtual bool UpdateAwareness(float elapsedTime)
     {
+        EnemyAwareness.AwarenessLevel oldAwareness = Awareness.Level;
+
         // Check vision first
         if (Settings.CanSee && IsSeeingPlayer) {
-            Awareness = AwarenessLevel.Chasing;
+            Awareness.Level = EnemyAwareness.AwarenessLevel.Chasing;
             _timeSincePlayerSeen = _settings.VisionMemory; // How long we remember seeing a player
         }
 
         // Then hearing
         else if (_timeSincePlayerSeen <= 0.0f && _settings.CanHear && HasHeardSound) {
-            Awareness = AwarenessLevel.Searching;
+            Awareness.Level = EnemyAwareness.AwarenessLevel.Searching;
         }
 
         // If we can't see or hear the player, wait a while before we completely forget where the player is
         else if (_timeSincePlayerSeen <= 0.0f) { 
-            Awareness = AwarenessLevel.Unaware;
+            Awareness.Level = EnemyAwareness.AwarenessLevel.Unaware;
         } else {
             _timeSincePlayerSeen -= elapsedTime;
         }
 
+        return Awareness.Level != oldAwareness;
+
     }
 
     // Have the enemy wander around the map
-    protected virtual void Wander(float elapsedTime)
-    {
-        // Child classes should have their own implementation
-    }
+    // Child classes should have their own implementation
+    protected abstract void Wander(float elapsedTime, bool awarenessChanged);
 
     // Enemy is kind of aware of player, but not really
-    protected virtual void Search(float elapsedTime)
+    // It goes to where it heard noises
+    protected virtual void Search(float elapsedTime, bool awarenessChanged)
     {
         // Stop searching if we can't hear
         if (!Settings.CanHear || PersonalHearingRadius == null) {
             return;
         }
-        
-        //TODO: KEEP TRACK OF ONLY ONE SOUND?
+
         // Pop off sounds we can identify until we find one we haven't reached yet
         while (PersonalHearingRadius.ObjectsHeard.Count > 0 && Vector3.Distance(PersonalHearingRadius.ObjectsHeard.First.Value.transform.position, transform.position) < Settings.SoundInspectionRange) {
             PersonalHearingRadius.ObjectsHeard.RemoveFirst();
@@ -161,15 +158,20 @@ public class EnemyAI : MonoBehaviour
     }
 
     // The enemy actively hunts the player down!
-    protected virtual void Chase(float elapsedTime)
+    protected virtual void Chase(float elapsedTime, bool awarenessChanged)
     {
+        // Make ourselves target the player when we first start chasing
+        if (awarenessChanged) {
+            UpdateAStarTarget(Vector3.zero);
+        }
+
         // Use astar while we have a valid path, but keep going even when we don't
         bool validPath = UpdateAStarPath(elapsedTime);
         if (validPath) {
             NavigateToAstarTarget(Settings.ChaseSpeedRatio);
         } else {
             Vector3 playerPos = GameManager.Player.transform.position;
-            Animator.CharInput.Horizontal = playerPos.x - transform.position.x;
+            CharAnimator.CharInput.Horizontal = playerPos.x - transform.position.x;
         }
 
     }
@@ -282,7 +284,7 @@ public class EnemyAI : MonoBehaviour
     }
     
     // This method is called by A* when it finds a path for us
-    public virtual void OnPathFound(Path p)
+    public void OnPathFound(Path p)
     {
         _isSearchingForPath = false;
         _timeSinceRepath = 0;
@@ -326,23 +328,20 @@ public class EnemyAI : MonoBehaviour
         }
 
         // Move on if we reached our waypoint
-        Vector3 nextNode = _path.vectorPath [_currentPathWaypoint];
-        bool isTouchingNextNode = _animator.Controller.bounds.Contains(nextNode);
-        if(isTouchingNextNode)
-            _lastNodeTouched = nextNode;
-        bool hasTouchedNextNode = nextNode == _lastNodeTouched;
+        if (IsTouchingNextWaypoint) {
+            _lastTouchedWaypoint = NextWaypoint;
+        }
+        bool hasTouchedNextWaypoint = NextWaypoint == _lastTouchedWaypoint;
 
         // We only want to move on if the player is grounded when he's going to a ground node
-        // TODO: FIXME, AS THIS STILL ALLOWS THE CHARACTER TO MOVE ON EVEN WHILE CLIMBING UP AND NOT GROUNDED? (SEE JIRA ISSUE)
         bool isWaypointLongerThanPath = (_currentPathWaypoint >= _path.path.Count);
         bool doesNodeRequireGround = false;
         if (!isWaypointLongerThanPath) {
             bool isNodeGround = (((ZoneNode)_path.path [_currentPathWaypoint]).Tag & (1 << 0)) != 0;
             doesNodeRequireGround = isNodeGround;
         }
-        bool isCharacterTouchingGround = _animator.IsGrounded;
 
-        if (!isFinalNode && (isTouchingNextNode || hasTouchedNextNode) && (!doesNodeRequireGround || isCharacterTouchingGround)) {
+        if (!isFinalNode && hasTouchedNextWaypoint && (!doesNodeRequireGround || _animator.IsGrounded)) {
             _currentPathWaypoint++;
         }
 
@@ -354,15 +353,6 @@ public class EnemyAI : MonoBehaviour
     // Make the AI input to the Animator the values that will make it reach it's defined A* Target
     public virtual void NavigateToAstarTarget(float speedRatio)
     {
-        // Store the target position
-        Vector3 targetPos = Path.vectorPath [CurrentPathWaypoint];
-        Vector3 xExtension = Vector3.right * Animator.Radius;
-
-        // A check to make sure we don't get stuck someplace
-        //TODO: see if we can use this with a larger threshold for doing the jump (a higher amount of frames in the same spot than just one)?
-        //bool wasAtSameLocationLastFrame = Vector3.Distance(_lastFrameLocation, transform.position) < 0.01;
-        //_lastFrameLocation = transform.position;
-
         // We find the difference between the nodes path and the vectorpath (in case they're different), to find the nodes
         int nodeOffset = Path.vectorPath.Count - Path.path.Count;
         ZoneNode prevNode = null;
@@ -381,29 +371,29 @@ public class EnemyAI : MonoBehaviour
         bool isNextNodeWall = nextNode != null && (nextNode.Tag & (1 << 4)) != 0;
         
         // Determine horizontal
-        float horizontalDifference = targetPos.x - transform.position.x;
+        float horizontalDifference = NextWaypoint.x - transform.position.x;
         bool isNodeToRight = horizontalDifference > 0;
-        bool isMidAir = !Animator.IsGrounded;
-        bool atTarget = AtTarget(targetPos);
+        bool isMidAir = !CharAnimator.IsGrounded;
+        bool atTarget = AtTarget(NextWaypoint);
         bool shouldStayStillMidair = atTarget && isMidAir;
-        float timeToJump = TimeToJump(transform.position + Vector3.down * (Animator.Height * 0.5f), targetPos); // TODO: CONFIRM THIS
+        float timeToJump = TimeToJump(transform.position + Vector3.down * (CharAnimator.Height * 0.5f), NextWaypoint); // TODO: CONFIRM THIS
         float desiredHorizontalJumpSpeed = horizontalDifference / timeToJump;
 
         // Try to stay still while midair and at our target location
         if (shouldStayStillMidair) {
             // Make sure we grab onto things when we can 
-            if (Animator.CanHangOffObject) {
+            if (CharAnimator.CanHangOffObject) {
                 if (isNextNodeRightLedge) {
-                    Animator.CharInput.Horizontal = -speedRatio;
+                    CharAnimator.CharInput.Horizontal = -speedRatio;
                 } else if (isNextNodeLeftLedge) {
-                    Animator.CharInput.Horizontal = speedRatio;
+                    CharAnimator.CharInput.Horizontal = speedRatio;
                 } else {
-                    Animator.CharInput.Horizontal = 0;
+                    CharAnimator.CharInput.Horizontal = 0;
                 }
             } else {
                 // Get our speedratio down towards 0 (when it's less than 0.1, it's ignored)
-                float currentSpeedRatio = Animator.HorizontalSpeed / Animator.Settings.MaxHorizontalSpeed;
-                Animator.CharInput.Horizontal = -currentSpeedRatio;
+                float currentSpeedRatio = CharAnimator.HorizontalSpeed / CharAnimator.Settings.MaxHorizontalSpeed;
+                CharAnimator.CharInput.Horizontal = -currentSpeedRatio;
             }
         }
         // Basic horizontal movement while in the air
@@ -411,47 +401,47 @@ public class EnemyAI : MonoBehaviour
             // If it's in range, let's do a controlled jump
             if (timeToJump > 0) {
                 float normalizedDesiredSpeed = desiredHorizontalJumpSpeed / _animator.Settings.MaxHorizontalSpeed;
-                Animator.CharInput.Horizontal = normalizedDesiredSpeed;
+                CharAnimator.CharInput.Horizontal = normalizedDesiredSpeed;
             }
             // But if it's too far, go all out
             else {
-                Animator.CharInput.Horizontal = isNodeToRight ? 1 : -1;
+                CharAnimator.CharInput.Horizontal = isNodeToRight ? 1 : -1;
             }
         }
         // Basic horizontal movement while on the ground
         else {
             // Normally it's easy to just move left or right depending on location of next node
-            Animator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
+            CharAnimator.CharInput.Horizontal = isNodeToRight ? speedRatio : -speedRatio;
 
             // But it's important to stop moving while landing
-            if (Animator.IsLanding) {
-                Animator.CharInput.Horizontal = 0;
+            if (CharAnimator.IsLanding) {
+                CharAnimator.CharInput.Horizontal = 0;
             }
         }
         
         // Determine vertical
-        Animator.CharInput.Vertical = targetPos.y - transform.position.y;
+        CharAnimator.CharInput.Vertical = NextWaypoint.y - transform.position.y;
         if (atTarget && nextNode != null && isNextNodeLedge) {
-            Animator.CharInput.Vertical = 1;
+            CharAnimator.CharInput.Vertical = 1;
         } // Press up whenever we're on a ledge
 
         // Determine jump
         bool isClimbing = _animator.IsClimbing;
         bool isTurningAround = _animator.IsTurningAround; 
-        bool isNodeAbove = targetPos.y - _animator.transform.position.y > 0;
+        bool isNodeAbove = NextWaypoint.y - _animator.transform.position.y > 0;
         bool isNodeOnOtherPlatform = false;
         if (prevNode != null && nextNode != null) {
             isNodeOnOtherPlatform = (prevNode.GO != nextNode.GO) && !prevNode.GO.collider.bounds.Intersects(nextNode.GO.collider.bounds);
         }
-        bool canFall = GameManager.AI.Graph.CanFall(transform.position, targetPos);
+        bool canFall = GameManager.AI.Graph.CanFall(transform.position, NextWaypoint);
         bool shouldJump = isNodeAbove || (isNodeOnOtherPlatform && !canFall);
-        bool canJump = !isTurningAround && !Animator.IsLanding && (!isMidAir || isClimbing);
+        bool canJump = !isTurningAround && !CharAnimator.IsLanding && (!isMidAir || isClimbing);
         bool jump = canJump && shouldJump;
 
         // We need to determine how we jump on the one frame that we do decide to jump
         if (jump) {
             // Always clear out our horizontal input on the frame that we jump
-            Animator.CharInput.Horizontal = 0;
+            CharAnimator.CharInput.Horizontal = 0;
             
             // NOTE: WE HAVE THIS CHECK BECAUSE WE CAN GET A NEGATIVE TIME TO JUMP IF WE'RE GOING TO A LEDGE REALLY HIGH UP.
             // THIS THROWS OFF OUR HORIZONTAL SPEED CALCULATION.
@@ -459,38 +449,39 @@ public class EnemyAI : MonoBehaviour
             bool highJumpHasBadHorizontal = (timeToJump < 0) && isNextNodeLedge;
 
             // Do a normal jump if we can make the jump using our normal speedRatio
-            if (!isNextNodeWall && (highJumpHasBadHorizontal || Mathf.Abs(desiredHorizontalJumpSpeed) < Mathf.Abs(speedRatio * Animator.Settings.MaxHorizontalSpeed))) {
-                Animator.CharInput.Jump = Vector2.up;
+            if (!isNextNodeWall && (highJumpHasBadHorizontal || Mathf.Abs(desiredHorizontalJumpSpeed) < Mathf.Abs(speedRatio * CharAnimator.Settings.MaxHorizontalSpeed))) {
+                CharAnimator.CharInput.Jump = Vector2.up;
             }
 
             // But sometimes we need to take big jumps
             else if (isNodeToRight) {
-                Animator.CharInput.Jump = new Vector2(1, 1);
+                CharAnimator.CharInput.Jump = new Vector2(1, 1);
             } else {
-                Animator.CharInput.Jump = new Vector2(-1, 1);
+                CharAnimator.CharInput.Jump = new Vector2(-1, 1);
             }
 
 
             // Always make sure we face the direction of the ledge before we jump (since we can't change direction midair)
-            if ((isNextNodeLeftLedge && Animator.Direction.x < 0) || (isNextNodeRightLedge && Animator.Direction.x > 0)) {
-                Animator.CharInput.Pickup = true;
-                Animator.CharInput.Jump = Vector2.zero;
+            if ((isNextNodeLeftLedge && CharAnimator.Direction.x < 0) || (isNextNodeRightLedge && CharAnimator.Direction.x > 0)) {
+                CharAnimator.CharInput.Pickup = true;
+                CharAnimator.CharInput.Jump = Vector2.zero;
             }
         } else {
-            Animator.CharInput.Jump = Vector2.zero;
+            CharAnimator.CharInput.Jump = Vector2.zero;
         }
         
         
         // Account for things that might be in the way of our movement
         // This might include obstacles above our head and nodes that are below the ground under our feet
-        bool isLeftClear = CheckClear(FootPosition - xExtension, targetPos);
-        bool isMiddleClear = CheckClear(FootPosition, targetPos);
-        bool isRightClear = CheckClear(FootPosition + xExtension, targetPos);
+        Vector3 xExtension = Vector3.right * CharAnimator.Radius;
+        bool isLeftClear = CheckClear(FootPosition - xExtension, NextWaypoint);
+        bool isMiddleClear = CheckClear(FootPosition, NextWaypoint);
+        bool isRightClear = CheckClear(FootPosition + xExtension, NextWaypoint);
 
         if (isLeftClear && (!isMiddleClear || !isRightClear)) {
-            Animator.CharInput.Horizontal = -speedRatio;
+            CharAnimator.CharInput.Horizontal = -speedRatio;
         } else if (isRightClear && (!isMiddleClear || !isLeftClear)) {
-            Animator.CharInput.Horizontal = speedRatio;
+            CharAnimator.CharInput.Horizontal = speedRatio;
         }
 
     }
@@ -570,7 +561,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     // Generic Properties
-    public CharacterAnimator Animator {
+    public CharacterAnimator CharAnimator {
         get { return _animator; }
     }
 
@@ -578,9 +569,8 @@ public class EnemyAI : MonoBehaviour
         get { return _settings; }
     }
 
-    public virtual AwarenessLevel Awareness {
+    public EnemyAwareness Awareness {
         get { return _awareness; }
-        set { _awareness = value; }
     }
 
     public HearingRadius PersonalHearingRadius {
@@ -610,7 +600,7 @@ public class EnemyAI : MonoBehaviour
         get { return _personalVision; }
     }
 
-    public bool IsSeeingPlayer {
+    public virtual bool IsSeeingPlayer {
         get { return _personalVision != null && _personalVision.IsSeeingPlayer(_animator.Direction) && !GameManager.Player.IsDead; }
     }
 
@@ -654,6 +644,14 @@ public class EnemyAI : MonoBehaviour
 
     public Vector3 FootPosition {
         get { return transform.position + (Vector3.down * _animator.Height * 0.5f) + Vector3.up; }
+    }
+
+    public Vector3 NextWaypoint {
+        get { return Path != null && Path.vectorPath != null ? Path.vectorPath [CurrentPathWaypoint] : Vector3.zero; }
+    }
+
+    public virtual bool IsTouchingNextWaypoint {
+        get { return CharAnimator.Controller.bounds.Contains(NextWaypoint); }
     }
 
 }

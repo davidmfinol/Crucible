@@ -5,41 +5,26 @@ using System.Collections.Generic;
 /// Olympus awareness updates olympus's material so that it's color changes to reflect it's current awareness level.
 /// </summary>
 [AddComponentMenu("Character/Non-Player Character/Olympus/Olympus Awareness")]
-public class OlympusAwareness : MonoBehaviour
+public class OlympusAwareness : EnemyAwareness
 {
-    public Color ChasingColor = Color.red;
-    public Color SearchingColor = Color.yellow;
-    public Color WanderingColor = Color.white;
-    private List<Material> _changeableMaterials;
+    private OlympusAnimator _anim;
 
-    void Start()
+    protected override void OnStart()
     {
-        _changeableMaterials = new List<Material>();
-        foreach (MeshRenderer render in GetComponentsInChildren<MeshRenderer>()) {
-            if (render.gameObject.CompareTag("Changeable Material")) {
-                _changeableMaterials.Add(render.material);
-            }
-        }
+        _anim = GetComponent<OlympusAnimator>();
 
     }
 
-    public void ChangeAwareness(EnemyAI.AwarenessLevel awareness)
+    public override void ChangeAwareness()
     {
-        Color newColor = Color.black;
-        switch (awareness) {
-            case EnemyAI.AwarenessLevel.Unaware:
-                newColor = WanderingColor;
-                break;
-            case EnemyAI.AwarenessLevel.Searching:
-                newColor = SearchingColor;
-                break;
-            case EnemyAI.AwarenessLevel.Chasing:
-                newColor = ChasingColor;
-                break;
+        base.ChangeAwareness();
+        
+        if (Level == AwarenessLevel.Searching) {
+            _anim.StartSearch();
         }
 
-        foreach (Material mat in _changeableMaterials) {
-            mat.color = newColor;
+        if (Level == AwarenessLevel.Chasing) {
+            _anim.OnAcquireTarget();
         }
 
     }
