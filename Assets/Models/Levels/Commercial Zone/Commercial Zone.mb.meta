@@ -2018,6 +2018,92 @@ ModelImporter:
     104024: pCube959
     104026: pCube960
     104028: pCube961
+    104030: box3
+    104032: group6
+    104034: group7
+    104036: group8
+    104038: polySurface378
+    104040: polySurface379
+    104042: Skyhold
+    104044: transform304
+    104046: Box20
+    104048: Ledge 2
+    104050: polySurface380
+    104052: polySurface381
+    104054: polySurface382
+    104056: polySurface383
+    104058: polySurface384
+    104060: polySurface385
+    104062: polySurface386
+    104064: transform305
+    104066: transform306
+    104068: transform307
+    104070: transform308
+    104072: nada
+    104074: polySurface387
+    104076: transform309
+    104078: group10
+    104080: group11
+    104082: group9
+    104084: pasted__anim_l_elbow_01
+    104086: pasted__anim_l_elbow_01 1
+    104088: pasted__anim_l_elbow_01 2
+    104090: pasted__controls01
+    104092: pasted__controls01 1
+    104094: pasted__controls01 2
+    104096: pasted__global01
+    104098: pasted__global01 1
+    104100: pasted__global01 2
+    104102: pasted__global02
+    104104: pasted__global02 1
+    104106: pasted__global02 2
+    104108: pTorus1
+    104110: pTorus2
+    104112: pTorus3
+    104114: polySurface388
+    104116: polySurface389
+    104118: polySurface390
+    104120: polySurface391
+    104122: polySurface392
+    104124: polySurface393
+    104126: polySurface394
+    104128: Puzzle2
+    104130: Transparent
+    104132: block
+    104134: block1
+    104136: block2
+    104138: ledge
+    104140: ledge1
+    104142: ledge2
+    104144: LedgeRightOnlyWall 1
+    104146: polySurface397
+    104148: polySurface398
+    104150: polySurface399
+    104152: polySurface400
+    104154: polySurface401
+    104156: polySurface402
+    104158: polySurface403
+    104160: polySurface404
+    104162: polySurface405
+    104164: transform310
+    104166: transform311
+    104168: transform312
+    104170: transform313
+    104172: transform314
+    104174: transform315
+    104176: transform316
+    104178: transform317
+    104180: transform318
+    104182: Wall 1
+    104184: Wall11
+    104186: Wall12
+    104188: ledge3
+    104190: Wall13
+    104192: box4
+    104194: nada 1
+    104196: transform319
+    104198: pCube962
+    104200: Ledge235
     400000: Airport
     400002: Box
     400004: box
@@ -4033,6 +4119,92 @@ ModelImporter:
     404024: pCube959
     404026: pCube960
     404028: pCube961
+    404030: box3
+    404032: group6
+    404034: group7
+    404036: group8
+    404038: polySurface378
+    404040: polySurface379
+    404042: Skyhold
+    404044: transform304
+    404046: Box20
+    404048: Ledge 2
+    404050: polySurface380
+    404052: polySurface381
+    404054: polySurface382
+    404056: polySurface383
+    404058: polySurface384
+    404060: polySurface385
+    404062: polySurface386
+    404064: transform305
+    404066: transform306
+    404068: transform307
+    404070: transform308
+    404072: nada
+    404074: polySurface387
+    404076: transform309
+    404078: group10
+    404080: group11
+    404082: group9
+    404084: pasted__anim_l_elbow_01
+    404086: pasted__anim_l_elbow_01 1
+    404088: pasted__anim_l_elbow_01 2
+    404090: pasted__controls01
+    404092: pasted__controls01 1
+    404094: pasted__controls01 2
+    404096: pasted__global01
+    404098: pasted__global01 1
+    404100: pasted__global01 2
+    404102: pasted__global02
+    404104: pasted__global02 1
+    404106: pasted__global02 2
+    404108: pTorus1
+    404110: pTorus2
+    404112: pTorus3
+    404114: polySurface388
+    404116: polySurface389
+    404118: polySurface390
+    404120: polySurface391
+    404122: polySurface392
+    404124: polySurface393
+    404126: polySurface394
+    404128: Puzzle2
+    404130: Transparent
+    404132: block
+    404134: block1
+    404136: block2
+    404138: ledge
+    404140: ledge1
+    404142: ledge2
+    404144: LedgeRightOnlyWall 1
+    404146: polySurface397
+    404148: polySurface398
+    404150: polySurface399
+    404152: polySurface400
+    404154: polySurface401
+    404156: polySurface402
+    404158: polySurface403
+    404160: polySurface404
+    404162: polySurface405
+    404164: transform310
+    404166: transform311
+    404168: transform312
+    404170: transform313
+    404172: transform314
+    404174: transform315
+    404176: transform316
+    404178: transform317
+    404180: transform318
+    404182: Wall 1
+    404184: Wall11
+    404186: Wall12
+    404188: ledge3
+    404190: Wall13
+    404192: box4
+    404194: nada 1
+    404196: transform319
+    404198: pCube962
+    404200: Ledge235
     2300000: box
     2300002: Box 1
     2300004: box 1
@@ -5362,6 +5534,39 @@ ModelImporter:
     2302652: pCube959
     2302654: pCube960
     2302656: pCube961
+    2302658: box3
+    2302660: polySurface378
+    2302662: polySurface379
+    2302664: Box20
+    2302666: Ledge 2
+    2302668: polySurface382
+    2302670: polySurface384
+    2302672: polySurface385
+    2302674: polySurface386
+    2302676: polySurface387
+    2302678: pTorus1
+    2302680: pTorus2
+    2302682: pTorus3
+    2302684: polySurface390
+    2302686: polySurface392
+    2302688: polySurface394
+    2302690: Transparent
+    2302692: block
+    2302694: block1
+    2302696: block2
+    2302698: ledge
+    2302700: ledge1
+    2302702: ledge2
+    2302704: LedgeRightOnlyWall
+    2302706: polySurface402
+    2302708: polySurface403
+    2302710: polySurface405
+    2302712: Wall12
+    2302714: ledge3
+    2302716: Wall13
+    2302718: box4
+    2302720: pCube962
+    2302722: Ledge235
     3300000: box
     3300002: Box 1
     3300004: box 1
@@ -6691,6 +6896,39 @@ ModelImporter:
     3302652: pCube959
     3302654: pCube960
     3302656: pCube961
+    3302658: box3
+    3302660: polySurface378
+    3302662: polySurface379
+    3302664: Box20
+    3302666: Ledge 2
+    3302668: polySurface382
+    3302670: polySurface384
+    3302672: polySurface385
+    3302674: polySurface386
+    3302676: polySurface387
+    3302678: pTorus1
+    3302680: pTorus2
+    3302682: pTorus3
+    3302684: polySurface390
+    3302686: polySurface392
+    3302688: polySurface394
+    3302690: Transparent
+    3302692: block
+    3302694: block1
+    3302696: block2
+    3302698: ledge
+    3302700: ledge1
+    3302702: ledge2
+    3302704: LedgeRightOnlyWall
+    3302706: polySurface402
+    3302708: polySurface403
+    3302710: polySurface405
+    3302712: Wall12
+    3302714: ledge3
+    3302716: Wall13
+    3302718: box4
+    3302720: pCube962
+    3302722: Ledge235
     4300000: Ledge1
     4300002: Ledge211
     4300004: Ledge7
@@ -8020,6 +8258,39 @@ ModelImporter:
     4302652: MiddleCommercialBuilding:pCube969
     4302654: MiddleCommercialBuilding:pCube970
     4302656: pCube961
+    4302658: polySurface378
+    4302660: polySurface379
+    4302662: box3
+    4302664: polySurface384
+    4302666: polySurface385
+    4302668: polySurface386
+    4302670: Ledge
+    4302672: polySurface382
+    4302674: Box20
+    4302676: polySurface387
+    4302678: pTorus1
+    4302680: pTorus2
+    4302682: pTorus3
+    4302684: polySurface392
+    4302686: polySurface394
+    4302688: polySurface390
+    4302690: Transparent
+    4302692: block
+    4302694: block1
+    4302696: block2
+    4302698: ledge
+    4302700: ledge2
+    4302702: ledge1
+    4302704: polySurface402
+    4302706: polySurface403
+    4302708: polySurface405
+    4302710: LedgeRightOnlyWall
+    4302712: Wall12
+    4302714: ledge3
+    4302716: Wall13
+    4302718: box4
+    4302720: pCube962
+    4302722: Ledge235
     7400000: Take 001
     9500000: //RootNode
   materials:
