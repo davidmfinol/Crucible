@@ -566,6 +566,31 @@ ModelImporter:
     101120: pCube153
     101122: pCube154
     101124: pTorus1
+    101126: group12
+    101128: group13
+    101130: group14
+    101132: pCube155
+    101134: polySurface170
+    101136: polySurface171
+    101138: polySurface172
+    101140: polySurface173
+    101142: pPlane1
+    101144: transform92
+    101146: transform93
+    101148: transform94
+    101150: Box
+    101152: Mesh2
+    101154: pCylinder15
+    101156: pCylinder16
+    101158: pCylinder17
+    101160: polySurface174
+    101162: transform95
+    101164: Ledge 8
+    101166: Box1
+    101168: Box2
+    101170: polySurface175
+    101172: transform96
+    101174: pCylinder18
     400000: //RootNode
     400002: AnvilPark
     400004: directionalLight1
@@ -1129,6 +1154,31 @@ ModelImporter:
     401120: pCube153
     401122: pCube154
     401124: pTorus1
+    401126: group12
+    401128: group13
+    401130: group14
+    401132: pCube155
+    401134: polySurface170
+    401136: polySurface171
+    401138: polySurface172
+    401140: polySurface173
+    401142: pPlane1
+    401144: transform92
+    401146: transform93
+    401148: transform94
+    401150: Box
+    401152: Mesh2
+    401154: pCylinder15
+    401156: pCylinder16
+    401158: pCylinder17
+    401160: polySurface174
+    401162: transform95
+    401164: Ledge 8
+    401166: Box1
+    401168: Box2
+    401170: polySurface175
+    401172: transform96
+    401174: pCylinder18
     2300000: Fixture
     2300002: Ground
     2300004: Ground1
@@ -1500,6 +1550,21 @@ ModelImporter:
     2300736: pCube153
     2300738: pCube154
     2300740: pTorus1
+    2300742: pCube155
+    2300744: polySurface170
+    2300746: polySurface173
+    2300748: pPlane1
+    2300750: Box
+    2300752: Mesh2
+    2300754: pCylinder15
+    2300756: pCylinder16
+    2300758: pCylinder17
+    2300760: polySurface174
+    2300762: Ledge 8
+    2300764: Box1
+    2300766: Box2
+    2300768: polySurface175
+    2300770: pCylinder18
     3300000: Fixture
     3300002: Ground
     3300004: Ground1
@@ -1871,6 +1936,21 @@ ModelImporter:
     3300736: pCube153
     3300738: pCube154
     3300740: pTorus1
+    3300742: pCube155
+    3300744: polySurface170
+    3300746: polySurface173
+    3300748: pPlane1
+    3300750: Box
+    3300752: Mesh2
+    3300754: pCylinder15
+    3300756: pCylinder16
+    3300758: pCylinder17
+    3300760: polySurface174
+    3300762: Ledge 8
+    3300764: Box1
+    3300766: Box2
+    3300768: polySurface175
+    3300770: pCylinder18
     4300000: pCube4
     4300002: Ledge10
     4300004: Ledge17
@@ -2242,6 +2322,21 @@ ModelImporter:
     4300736: pTorus1
     4300738: pCube153
     4300740: pCube154
+    4300742: polySurface170
+    4300744: pPlane1
+    4300746: polySurface173
+    4300748: pCube155
+    4300750: Box
+    4300752: Mesh2
+    4300754: polySurface174
+    4300756: pCylinder15
+    4300758: pCylinder16
+    4300760: pCylinder17
+    4300762: Ledge
+    4300764: Box2
+    4300766: Box1
+    4300768: polySurface175
+    4300770: pCylinder18
     7400000: Take 001
     9500000: //RootNode
   materials:
