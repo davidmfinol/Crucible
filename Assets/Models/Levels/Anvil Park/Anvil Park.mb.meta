@@ -954,6 +954,169 @@ ModelImporter:
     101896: pTorus6
     101898: pTorus7
     101900: pCube213
+    101902: Box 8
+    101904: Box10
+    101906: Box11
+    101908: Box12
+    101910: Box9
+    101912: group67
+    101914: LedgeLeftOnly 4
+    101916: pCube215
+    101918: pCube216
+    101920: pCube217
+    101922: pCube218
+    101924: pCube219
+    101926: pCube220
+    101928: pCube221
+    101930: pCube222
+    101932: pCube223
+    101934: pCube224
+    101936: pCube225
+    101938: pCube226
+    101940: pCube227
+    101942: pCube228
+    101944: pCube229
+    101946: pCube230
+    101948: Plane
+    101950: polySurface352
+    101952: polySurface353
+    101954: polySurface354
+    101956: polySurface355
+    101958: polySurface357
+    101960: pTorus8
+    101962: RightLedgeOnly 1
+    101964: transform106
+    101966: transform107
+    101968: transform108
+    101970: transform109
+    101972: LedgeLeftOnlyWall
+    101974: Mesh 6
+    101976: RightLedgeOnlyWall
+    101978: LedgeRightOnly 2
+    101980: Nada 13
+    101982: pCube232
+    101984: pCylinder50
+    101986: pCylinder51
+    101988: pCylinder52
+    101990: pCylinder53
+    101992: polySurface359
+    101994: transform110
+    101996: pCube233
+    101998: pCube234
+    102000: Nada103
+    102002: pCylinder54
+    102004: pCylinder55
+    102006: Box 9
+    102008: Box13
+    102010: group68
+    102012: group69
+    102014: LedgeRightOnly 3
+    102016: LedgeRightOnly1
+    102018: Nada 14
+    102020: Nada104
+    102022: Nada105
+    102024: Nada106
+    102026: Nada107
+    102028: Nada108
+    102030: Nada109
+    102032: polySurface360
+    102034: polySurface361
+    102036: polySurface361 1
+    102038: polySurface362
+    102040: polySurface362 1
+    102042: polySurface363
+    102044: polySurface363 1
+    102046: polySurface364
+    102048: polySurface364 1
+    102050: polySurface366
+    102052: polySurface367
+    102054: polySurface368
+    102056: pPlane2
+    102058: transform111
+    102060: transform112
+    102062: transform113
+    102064: Wall 5
+    102066: group70
+    102068: polySurface361 2
+    102070: polySurface362 2
+    102072: polySurface363 2
+    102074: polySurface364 2
+    102076: polySurface369
+    102078: transform114
+    102080: transform115
+    102082: Box14
+    102084: group71
+    102086: polySurface370
+    102088: polySurface371
+    102090: polySurface372
+    102092: Rope7
+    102094: Box 10
+    102096: Box15
+    102098: group72
+    102100: Ledge70
+    102102: Ledge71
+    102104: LedgeRightOnly2
+    102106: pCube235
+    102108: pCube236
+    102110: pCube237
+    102112: pCylinder56
+    102114: pCylinder57
+    102116: transform116
+    102118: transform117
+    102120: group73
+    102122: group74
+    102124: Nada110
+    102126: pCube238
+    102128: pCube239
+    102130: pCube240
+    102132: pCube241
+    102134: Box 11
+    102136: Box 12
+    102138: Box 13
+    102140: Box 14
+    102142: Box16
+    102144: group75
+    102146: LedgeRightOnly3
+    102148: Mesh 7
+    102150: Mesh 8
+    102152: Nada 15
+    102154: Nada 16
+    102156: Nada111
+    102158: Nada112
+    102160: Nada113
+    102162: pCube242
+    102164: pCylinder58
+    102166: polySurface374
+    102168: polySurface375
+    102170: polySurface377
+    102172: polySurface381
+    102174: polySurface383
+    102176: polySurface384
+    102178: polySurface385
+    102180: transform118
+    102182: transform119
+    102184: transform120
+    102186: transform121
+    102188: transform122
+    102190: transform123
+    102192: Wall 6
+    102194: Wall 7
+    102196: WallLedge11
+    102198: Box 15
+    102200: Box 16
+    102202: Box18
+    102204: Bpx
+    102206: LedgeRightOnly4
+    102208: LedgeRightOnly5
+    102210: LedgeRightOnly6
+    102212: Nada114
+    102214: polySurface386
+    102216: polySurface387
+    102218: TopLeft
+    102220: transform124
+    102222: transform125
+    102224: transform126
+    102226: Wall 8
     400000: //RootNode
     400002: AnvilPark
     400004: Box
@@ -1905,6 +2068,169 @@ ModelImporter:
     401896: pTorus6
     401898: pTorus7
     401900: pCube213
+    401902: Box 8
+    401904: Box10
+    401906: Box11
+    401908: Box12
+    401910: Box9
+    401912: group67
+    401914: LedgeLeftOnly 4
+    401916: pCube215
+    401918: pCube216
+    401920: pCube217
+    401922: pCube218
+    401924: pCube219
+    401926: pCube220
+    401928: pCube221
+    401930: pCube222
+    401932: pCube223
+    401934: pCube224
+    401936: pCube225
+    401938: pCube226
+    401940: pCube227
+    401942: pCube228
+    401944: pCube229
+    401946: pCube230
+    401948: Plane
+    401950: polySurface352
+    401952: polySurface353
+    401954: polySurface354
+    401956: polySurface355
+    401958: polySurface357
+    401960: pTorus8
+    401962: RightLedgeOnly 1
+    401964: transform106
+    401966: transform107
+    401968: transform108
+    401970: transform109
+    401972: LedgeLeftOnlyWall
+    401974: Mesh 6
+    401976: RightLedgeOnlyWall
+    401978: LedgeRightOnly 2
+    401980: Nada 13
+    401982: pCube232
+    401984: pCylinder50
+    401986: pCylinder51
+    401988: pCylinder52
+    401990: pCylinder53
+    401992: polySurface359
+    401994: transform110
+    401996: pCube233
+    401998: pCube234
+    402000: Nada103
+    402002: pCylinder54
+    402004: pCylinder55
+    402006: Box 9
+    402008: Box13
+    402010: group68
+    402012: group69
+    402014: LedgeRightOnly 3
+    402016: LedgeRightOnly1
+    402018: Nada 14
+    402020: Nada104
+    402022: Nada105
+    402024: Nada106
+    402026: Nada107
+    402028: Nada108
+    402030: Nada109
+    402032: polySurface360
+    402034: polySurface361
+    402036: polySurface361 1
+    402038: polySurface362
+    402040: polySurface362 1
+    402042: polySurface363
+    402044: polySurface363 1
+    402046: polySurface364
+    402048: polySurface364 1
+    402050: polySurface366
+    402052: polySurface367
+    402054: polySurface368
+    402056: pPlane2
+    402058: transform111
+    402060: transform112
+    402062: transform113
+    402064: Wall 5
+    402066: group70
+    402068: polySurface361 2
+    402070: polySurface362 2
+    402072: polySurface363 2
+    402074: polySurface364 2
+    402076: polySurface369
+    402078: transform114
+    402080: transform115
+    402082: Box14
+    402084: group71
+    402086: polySurface370
+    402088: polySurface371
+    402090: polySurface372
+    402092: Rope7
+    402094: Box 10
+    402096: Box15
+    402098: group72
+    402100: Ledge70
+    402102: Ledge71
+    402104: LedgeRightOnly2
+    402106: pCube235
+    402108: pCube236
+    402110: pCube237
+    402112: pCylinder56
+    402114: pCylinder57
+    402116: transform116
+    402118: transform117
+    402120: group73
+    402122: group74
+    402124: Nada110
+    402126: pCube238
+    402128: pCube239
+    402130: pCube240
+    402132: pCube241
+    402134: Box 11
+    402136: Box 12
+    402138: Box 13
+    402140: Box 14
+    402142: Box16
+    402144: group75
+    402146: LedgeRightOnly3
+    402148: Mesh 7
+    402150: Mesh 8
+    402152: Nada 15
+    402154: Nada 16
+    402156: Nada111
+    402158: Nada112
+    402160: Nada113
+    402162: pCube242
+    402164: pCylinder58
+    402166: polySurface374
+    402168: polySurface375
+    402170: polySurface377
+    402172: polySurface381
+    402174: polySurface383
+    402176: polySurface384
+    402178: polySurface385
+    402180: transform118
+    402182: transform119
+    402184: transform120
+    402186: transform121
+    402188: transform122
+    402190: transform123
+    402192: Wall 6
+    402194: Wall 7
+    402196: WallLedge11
+    402198: Box 15
+    402200: Box 16
+    402202: Box18
+    402204: Bpx
+    402206: LedgeRightOnly4
+    402208: LedgeRightOnly5
+    402210: LedgeRightOnly6
+    402212: Nada114
+    402214: polySurface386
+    402216: polySurface387
+    402218: TopLeft
+    402220: transform124
+    402222: transform125
+    402224: transform126
+    402226: Wall 8
     2300000: Box
     2300002: box
     2300004: Box1
@@ -2611,6 +2937,122 @@ ModelImporter:
     2301406: pTorus6
     2301408: pTorus7
     2301410: pCube213
+    2301412: Box 8
+    2301414: Box10
+    2301416: Box11
+    2301418: Box12
+    2301420: Box9
+    2301422: LedgeLeftOnly 4
+    2301424: pCube216
+    2301426: pCube217
+    2301428: pCube218
+    2301430: pCube219
+    2301432: pCube220
+    2301434: pCube221
+    2301436: pCube224
+    2301438: pCube225
+    2301440: pCube226
+    2301442: pCube227
+    2301444: pCube228
+    2301446: pCube229
+    2301448: pCube230
+    2301450: polySurface352
+    2301452: polySurface353
+    2301454: polySurface354
+    2301456: polySurface355
+    2301458: pTorus8
+    2301460: RightLedgeOnly 1
+    2301462: LedgeLeftOnlyWall
+    2301464: Mesh 6
+    2301466: RightLedgeOnlyWall
+    2301468: LedgeRightOnly 2
+    2301470: Nada 13
+    2301472: pCube232
+    2301474: pCylinder50
+    2301476: pCylinder51
+    2301478: pCylinder52
+    2301480: pCylinder53
+    2301482: polySurface359
+    2301484: pCube233
+    2301486: pCube234
+    2301488: Nada103
+    2301490: pCylinder54
+    2301492: pCylinder55
+    2301494: Box 9
+    2301496: Box13
+    2301498: LedgeRightOnly 3
+    2301500: LedgeRightOnly1
+    2301502: Nada 14
+    2301504: Nada104
+    2301506: Nada105
+    2301508: Nada106
+    2301510: Nada107
+    2301512: Nada108
+    2301514: Nada109
+    2301516: polySurface360
+    2301518: polySurface361
+    2301520: polySurface361 1
+    2301522: polySurface362
+    2301524: polySurface362 1
+    2301526: polySurface363
+    2301528: polySurface363 1
+    2301530: polySurface364
+    2301532: polySurface364 1
+    2301534: polySurface367
+    2301536: pPlane2
+    2301538: Wall 5
+    2301540: polySurface361 2
+    2301542: polySurface362 2
+    2301544: polySurface363 2
+    2301546: polySurface364 2
+    2301548: polySurface369
+    2301550: Box14
+    2301552: polySurface370
+    2301554: polySurface371
+    2301556: polySurface372
+    2301558: Rope7
+    2301560: Box 10
+    2301562: Box15
+    2301564: Ledge70
+    2301566: Ledge71
+    2301568: pCube235
+    2301570: pCube236
+    2301572: pCube237
+    2301574: pCylinder56
+    2301576: Nada110
+    2301578: pCube238
+    2301580: pCube239
+    2301582: pCube240
+    2301584: pCube241
+    2301586: Box 11
+    2301588: Box 12
+    2301590: Box 13
+    2301592: Box 14
+    2301594: Box16
+    2301596: LedgeRightOnly3
+    2301598: Mesh 7
+    2301600: Mesh 8
+    2301602: Nada 15
+    2301604: Nada 16
+    2301606: Nada111
+    2301608: Nada112
+    2301610: Nada113
+    2301612: pCube242
+    2301614: pCylinder58
+    2301616: polySurface384
+    2301618: polySurface385
+    2301620: Wall 6
+    2301622: Wall 7
+    2301624: WallLedge11
+    2301626: Box 15
+    2301628: Box 16
+    2301630: Box18
+    2301632: Bpx
+    2301634: LedgeRightOnly4
+    2301636: Nada114
+    2301638: polySurface386
+    2301640: polySurface387
+    2301642: Wall 8
     3300000: Box
     3300002: box
     3300004: Box1
@@ -3317,6 +3759,122 @@ ModelImporter:
     3301406: pTorus6
     3301408: pTorus7
     3301410: pCube213
+    3301412: Box 8
+    3301414: Box10
+    3301416: Box11
+    3301418: Box12
+    3301420: Box9
+    3301422: LedgeLeftOnly 4
+    3301424: pCube216
+    3301426: pCube217
+    3301428: pCube218
+    3301430: pCube219
+    3301432: pCube220
+    3301434: pCube221
+    3301436: pCube224
+    3301438: pCube225
+    3301440: pCube226
+    3301442: pCube227
+    3301444: pCube228
+    3301446: pCube229
+    3301448: pCube230
+    3301450: polySurface352
+    3301452: polySurface353
+    3301454: polySurface354
+    3301456: polySurface355
+    3301458: pTorus8
+    3301460: RightLedgeOnly 1
+    3301462: LedgeLeftOnlyWall
+    3301464: Mesh 6
+    3301466: RightLedgeOnlyWall
+    3301468: LedgeRightOnly 2
+    3301470: Nada 13
+    3301472: pCube232
+    3301474: pCylinder50
+    3301476: pCylinder51
+    3301478: pCylinder52
+    3301480: pCylinder53
+    3301482: polySurface359
+    3301484: pCube233
+    3301486: pCube234
+    3301488: Nada103
+    3301490: pCylinder54
+    3301492: pCylinder55
+    3301494: Box 9
+    3301496: Box13
+    3301498: LedgeRightOnly 3
+    3301500: LedgeRightOnly1
+    3301502: Nada 14
+    3301504: Nada104
+    3301506: Nada105
+    3301508: Nada106
+    3301510: Nada107
+    3301512: Nada108
+    3301514: Nada109
+    3301516: polySurface360
+    3301518: polySurface361
+    3301520: polySurface361 1
+    3301522: polySurface362
+    3301524: polySurface362 1
+    3301526: polySurface363
+    3301528: polySurface363 1
+    3301530: polySurface364
+    3301532: polySurface364 1
+    3301534: polySurface367
+    3301536: pPlane2
+    3301538: Wall 5
+    3301540: polySurface361 2
+    3301542: polySurface362 2
+    3301544: polySurface363 2
+    3301546: polySurface364 2
+    3301548: polySurface369
+    3301550: Box14
+    3301552: polySurface370
+    3301554: polySurface371
+    3301556: polySurface372
+    3301558: Rope7
+    3301560: Box 10
+    3301562: Box15
+    3301564: Ledge70
+    3301566: Ledge71
+    3301568: pCube235
+    3301570: pCube236
+    3301572: pCube237
+    3301574: pCylinder56
+    3301576: Nada110
+    3301578: pCube238
+    3301580: pCube239
+    3301582: pCube240
+    3301584: pCube241
+    3301586: Box 11
+    3301588: Box 12
+    3301590: Box 13
+    3301592: Box 14
+    3301594: Box16
+    3301596: LedgeRightOnly3
+    3301598: Mesh 7
+    3301600: Mesh 8
+    3301602: Nada 15
+    3301604: Nada 16
+    3301606: Nada111
+    3301608: Nada112
+    3301610: Nada113
+    3301612: pCube242
+    3301614: pCylinder58
+    3301616: polySurface384
+    3301618: polySurface385
+    3301620: Wall 6
+    3301622: Wall 7
+    3301624: WallLedge11
+    3301626: Box 15
+    3301628: Box 16
+    3301630: Box18
+    3301632: Bpx
+    3301634: LedgeRightOnly4
+    3301636: Nada114
+    3301638: polySurface386
+    3301640: polySurface387
+    3301642: Wall 8
     4300000: pCube4
     4300002: Ledge10
     4300004: Ledge17
@@ -4017,6 +4575,120 @@ ModelImporter:
     4301394: pCube212
     4301396: pCylinder49
     4301398: pCube213
+    4301400: Box
+    4301402: RightLedgeOnly
+    4301404: Box10
+    4301406: pCube216
+    4301408: pCube217
+    4301410: pCube218
+    4301412: pCube219
+    4301414: pCube220
+    4301416: pCube221
+    4301418: LedgeLeftOnly
+    4301420: Box11
+    4301422: Box12
+    4301424: Box9
+    4301426: pCube225
+    4301428: pCube226
+    4301430: pCube227
+    4301432: pCube228
+    4301434: pCube229
+    4301436: pCube230
+    4301438: polySurface352
+    4301440: polySurface353
+    4301442: polySurface354
+    4301444: polySurface355
+    4301446: pCube224
+    4301448: pTorus8
+    4301450: RightLedgeOnlyWall
+    4301452: LedgeLeftOnlyWall
+    4301454: Mesh
+    4301456: LedgeRightOnly
+    4301458: polySurface359
+    4301460: pCylinder50
+    4301462: pCube232
+    4301464: pCylinder51
+    4301466: pCylinder52
+    4301468: pCylinder53
+    4301470: pCube233
+    4301472: pCube234
+    4301474: pCylinder54
+    4301476: pCylinder55
+    4301478: Nada103
+    4301480: LedgeRightOnly1
+    4301482: polySurface360
+    4301484: polySurface367
+    4301486: LedgeRightOnly
+    4301488: polySurface361
+    4301490: polySurface362
+    4301492: polySurface363
+    4301494: polySurface364
+    4301496: polySurface361
+    4301498: polySurface362
+    4301500: polySurface363
+    4301502: polySurface364
+    4301504: Wall
+    4301506: Box
+    4301508: Box13
+    4301510: Nada
+    4301512: Nada104
+    4301514: Nada105
+    4301516: Nada106
+    4301518: Nada107
+    4301520: Nada108
+    4301522: Nada109
+    4301524: pPlane2
+    4301526: polySurface361
+    4301528: polySurface362
+    4301530: polySurface363
+    4301532: polySurface364
+    4301534: polySurface369
+    4301536: Box14
+    4301538: polySurface370
+    4301540: polySurface371
+    4301542: polySurface372
+    4301544: Rope7
+    4301546: Ledge70
+    4301548: Ledge71
+    4301550: pCylinder56
+    4301552: pCube235
+    4301554: pCube236
+    4301556: pCube237
+    4301558: Box
+    4301560: Box15
+    4301562: Nada110
+    4301564: pCube238
+    4301566: pCube239
+    4301568: pCube240
+    4301570: pCube241
+    4301572: Box
+    4301574: Nada111
+    4301576: WallLedge11
+    4301578: Mesh
+    4301580: polySurface384
+    4301582: polySurface385
+    4301584: Wall
+    4301586: Wall
+    4301588: Box
+    4301590: Mesh
+    4301592: Box
+    4301594: Box
+    4301596: Nada
+    4301598: pCube242
+    4301600: LedgeRightOnly3
+    4301602: Nada112
+    4301604: Nada113
+    4301606: Box16
+    4301608: pCylinder58
+    4301610: LedgeRightOnly4
+    4301612: polySurface386
+    4301614: Box18
+    4301616: Bpx
+    4301618: Wall
+    4301620: Box
+    4301622: Box
+    4301624: Nada114
+    4301626: polySurface387
     9500000: //RootNode
   materials:
     importMaterials: 1
