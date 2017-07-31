@@ -1,4 +1,6 @@
-﻿Shader "Outlined/Sneak" {
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Outlined/Sneak" {
 Properties {
 	_Color ("Main Color", Color) = (.5,.5,.5,1)
 	_MainTex ("Base (RGB)", 2D) = "white" { }
@@ -58,7 +60,7 @@ SubShader {
 		// For the outline effect, just make a copy of incoming vertex data but scaled according to normal direction
 		v2f vert(appdata v) {
 		    v2f o;
-		    o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		    o.pos = UnityObjectToClipPos(v.vertex);
 		 	
 		    float3 norm   = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal);
 		    float2 offset = TransformViewToProjection(norm.xy);

@@ -161,41 +161,41 @@ public class ViewCone : MonoBehaviour
         
         // Project onto horizontal axis
         float diff = 0;
-        bool isObjectToLeft = bottomLeft.x + center.x < collider.bounds.max.x;
-        bool isObjectToRight = bottomRight.x + center.x > collider.bounds.min.x;
+        bool isObjectToLeft = bottomLeft.x + center.x < GetComponent<Collider>().bounds.max.x;
+        bool isObjectToRight = bottomRight.x + center.x > GetComponent<Collider>().bounds.min.x;
         bool isFacingLeft = forward.x < -0.1f;
         bool isFacingRight = forward.x > 0.1f;
         if(isFacingLeft && (isObjectToLeft || isObjectToRight)) { // Project left
-            diff = collider.bounds.min.x - 10 - (bounds.center.x + Mathf.Min(bottomLeft.x, topLeft.x));
+            diff = GetComponent<Collider>().bounds.min.x - 10 - (bounds.center.x + Mathf.Min(bottomLeft.x, topLeft.x));
             bottomLeft.x += diff;
             topLeft.x += diff;
         }
         else if(isFacingRight && (isObjectToLeft || isObjectToRight)) { // Project right
-            diff = collider.bounds.max.x + 10 - (bounds.center.x + Mathf.Max(bottomRight.x, topRight.x));
+            diff = GetComponent<Collider>().bounds.max.x + 10 - (bounds.center.x + Mathf.Max(bottomRight.x, topRight.x));
             bottomRight.x += diff;
             topRight.x += diff;
         }
 
         // Project onto vertical axis
         diff = 0;
-        bool isObjectBelow = bottomLeft.y + center.y < collider.bounds.max.y;
-        bool isObjectAbove = topLeft.y + center.y > collider.bounds.min.y;
+        bool isObjectBelow = bottomLeft.y + center.y < GetComponent<Collider>().bounds.max.y;
+        bool isObjectAbove = topLeft.y + center.y > GetComponent<Collider>().bounds.min.y;
         bool isFacingDown = forward.y < -0.1f;
         bool isFacingUp = forward.y > 0.1f;
         if(isFacingDown && (isObjectBelow || isObjectAbove)) { // Project down
-            diff = collider.bounds.min.y - 10 - (bounds.center.y + Mathf.Min(bottomLeft.y, bottomRight.y));
+            diff = GetComponent<Collider>().bounds.min.y - 10 - (bounds.center.y + Mathf.Min(bottomLeft.y, bottomRight.y));
             bottomLeft.y += diff;
             bottomRight.y += diff;
         }
         else if(isFacingUp && (isObjectBelow || isObjectAbove)) { // Project up
-            diff = collider.bounds.max.y + 10 - (bounds.center.y + Mathf.Max(topLeft.y, topRight.y));
+            diff = GetComponent<Collider>().bounds.max.y + 10 - (bounds.center.y + Mathf.Max(topLeft.y, topRight.y));
             topLeft.y += diff;
             topRight.y += diff;
         }
 
         // Then set it
-        float minZ = bounds.min.z - collider.bounds.extents.z;
-        float maxZ = bounds.max.z + collider.bounds.extents.z;
+        float minZ = bounds.min.z - GetComponent<Collider>().bounds.extents.z;
+        float maxZ = bounds.max.z + GetComponent<Collider>().bounds.extents.z;
         prevMask.transform.position = center;
         Vector3[] newVertices = new Vector3 [] {
             new Vector3(bottomLeft.x, bottomLeft.y, minZ),

@@ -139,7 +139,7 @@ public class BabyBotAnimator : CharacterAnimator
 
     public override Vector3 Velocity {
         get {
-            if (CurrentState.nameHash == AttackState)
+            if (CurrentState.fullPathHash == AttackState)
                 return GameManager.Player.Velocity;
             return base.Velocity;
         }

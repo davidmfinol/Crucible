@@ -34,8 +34,8 @@ public class Tutorial : StoryPlug
 
     void Start()
     {
-        SewerDoor.animation.Play("Close");
-        SpinningFan.animation.Play("SpinningLoop");
+        SewerDoor.GetComponent<Animation>().Play("Close");
+        SpinningFan.GetComponent<Animation>().Play("SpinningLoop");
         StartCoroutine(KeepFanSpinning());
 
     }
@@ -127,9 +127,9 @@ public class Tutorial : StoryPlug
             }
 
             leftPulse.On = !leftSideTouched;
-            leftThumb.renderer.enabled = !leftSideTouched;
+            leftThumb.GetComponent<Renderer>().enabled = !leftSideTouched;
             rightPulse.On = !rightSideTouched;
-            rightThumb.renderer.enabled = !rightSideTouched;
+            rightThumb.GetComponent<Renderer>().enabled = !rightSideTouched;
 
             if (leftSideTouched && rightSideTouched) {
                 hasUsed2Hands = true;
@@ -197,7 +197,7 @@ public class Tutorial : StoryPlug
         if (!GameManager.SaveData.HasShownSightPuzzle) {
             GameManager.SaveData.HasShownSightPuzzle = true;
 
-            SewerDoor.animation.Play("Open");
+            SewerDoor.GetComponent<Animation>().Play("Open");
             StartCoroutine("OperateDoor");
         }
 
@@ -208,13 +208,13 @@ public class Tutorial : StoryPlug
         while (true) {
             // see player & open? close.
             if ((GameManager.AI.EnemiesChasing > 0) && _sewerDoorOpen) {
-                SewerDoor.animation.Play("Close");
+                SewerDoor.GetComponent<Animation>().Play("Close");
                 DoorSounds.Play(DoorSounds.DoorSlam, DoorSounds.DoorSlamVolume);
                 _sewerDoorOpen = false;
                 
                 // no longer see player & closed? open.
             } else if ((GameManager.AI.EnemiesChasing == 0) && !_sewerDoorOpen) {
-                SewerDoor.animation.Play("Open");
+                SewerDoor.GetComponent<Animation>().Play("Open");
                 DoorSounds.Play(DoorSounds.DoorOpen, DoorSounds.DoorOpenVolume);
                 _sewerDoorOpen = true;
                 
@@ -302,14 +302,14 @@ public class Tutorial : StoryPlug
         // Close the door behind you
         StopCoroutine("OperateDoor");
         if (_sewerDoorOpen) {
-            SewerDoor.animation.Play("Close");
+            SewerDoor.GetComponent<Animation>().Play("Close");
         }
         // Power down
-        while (SpinningFan.animation["SpinningLoop"].speed > 0.1f) {
-            SpinningFan.animation ["SpinningLoop"].speed -= (0.5f * Time.deltaTime);
+        while (SpinningFan.GetComponent<Animation>()["SpinningLoop"].speed > 0.1f) {
+            SpinningFan.GetComponent<Animation>() ["SpinningLoop"].speed -= (0.5f * Time.deltaTime);
             yield return null;
         }
-        SpinningFan.animation.Stop();
+        SpinningFan.GetComponent<Animation>().Stop();
     
     }
 

@@ -130,19 +130,19 @@ public class UIManager : MonoBehaviour
         Transform stealthKillVignette = (Transform)Instantiate(StealthKillVignette, StealthKillVignette.position, StealthKillVignette.rotation);
         stealthKillVignette.parent = transform;
         _stealthKillVignette = stealthKillVignette.GetComponent<Fader>();
-        Color stealthColor = _stealthKillVignette.renderer.material.color;
+        Color stealthColor = _stealthKillVignette.GetComponent<Renderer>().material.color;
         stealthColor.a = 0;
-        _stealthKillVignette.renderer.material.color = stealthColor;
+        _stealthKillVignette.GetComponent<Renderer>().material.color = stealthColor;
 
         Transform stealthKillVignette1 = (Transform)Instantiate(StealthKillVignette1, StealthKillVignette1.position, StealthKillVignette1.rotation);
         stealthKillVignette1.parent = transform;
         _stealthKillVignette1 = stealthKillVignette1.GetComponent<Fader>();
-        _stealthKillVignette1.renderer.material.color = stealthColor;
+        _stealthKillVignette1.GetComponent<Renderer>().material.color = stealthColor;
 
         Transform stealthKillVignette2 = (Transform)Instantiate(StealthKillVignette2, StealthKillVignette2.position, StealthKillVignette2.rotation);
         stealthKillVignette2.parent = transform;
         _stealthKillVignette2 = stealthKillVignette2.GetComponent<Fader>();
-        _stealthKillVignette2.renderer.material.color = stealthColor;
+        _stealthKillVignette2.GetComponent<Renderer>().material.color = stealthColor;
 
         _weaponWheelPos = new Vector3(1, 1, 8);
         _weaponWheelPos = _uiCamera.ViewportToWorldPoint(_weaponWheelPos);
@@ -207,7 +207,7 @@ public class UIManager : MonoBehaviour
         // *** set up hints ***
         _hintQuad = (GameObject)Instantiate(HintQuadPrefab, _uiCamera.ViewportToWorldPoint(new Vector3(0.20f, 0.80f, 7.0f)), Quaternion.identity);
         _hintQuad.transform.parent = transform;
-        _hintQuad.renderer.enabled = false;
+        _hintQuad.GetComponent<Renderer>().enabled = false;
         _hintDuration = 0.0f;
         _hintElapsed = 0.0f;
 
@@ -475,7 +475,7 @@ public class UIManager : MonoBehaviour
         bool bFound = _playerObjectives.GetNearest(out pNearest);
 
         if (bFound) {
-            _objectiveQuad.renderer.enabled = true;
+            _objectiveQuad.GetComponent<Renderer>().enabled = true;
 
             // get direction and distance to objective
             Vector3 vDir = pNearest - GameManager.Player.transform.position;        
@@ -490,9 +490,9 @@ public class UIManager : MonoBehaviour
 
             // rotate the quad by the degrees.
             _objectiveQuad.transform.rotation = Quaternion.Euler(0.0f, 0.0f, deg);
-            _objectiveQuad.renderer.material.color = new Color(_objectiveQuad.renderer.material.color.r, 
-                                                               _objectiveQuad.renderer.material.color.g, 
-                                                               _objectiveQuad.renderer.material.color.b, 
+            _objectiveQuad.GetComponent<Renderer>().material.color = new Color(_objectiveQuad.GetComponent<Renderer>().material.color.r, 
+                                                               _objectiveQuad.GetComponent<Renderer>().material.color.g, 
+                                                               _objectiveQuad.GetComponent<Renderer>().material.color.b, 
                                                                alpha);
 
 
@@ -502,7 +502,7 @@ public class UIManager : MonoBehaviour
             //_objectiveQuad.transform.localScale = vScale;
 
         } else {
-            _objectiveQuad.renderer.enabled = false;
+            _objectiveQuad.GetComponent<Renderer>().enabled = false;
 
         }
 
@@ -510,7 +510,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHint()
     {
-        if (_hintQuad.renderer.enabled) {
+        if (_hintQuad.GetComponent<Renderer>().enabled) {
             _hintElapsed += Time.deltaTime; // TODO: ELAPSEDTIME
 
             float fadeInBoundary = (_hintDuration * 1.0f / 10.0f);
@@ -530,7 +530,7 @@ public class UIManager : MonoBehaviour
 
             // done
             else if (_hintElapsed >= _hintDuration) {
-                _hintQuad.renderer.enabled = false;
+                _hintQuad.GetComponent<Renderer>().enabled = false;
             }
 
             // fade out
@@ -539,10 +539,10 @@ public class UIManager : MonoBehaviour
             }
 
             // not done?  set color
-            if (_hintQuad.renderer.enabled) {
-                _hintQuad.renderer.material.color = new Color(_hintQuad.renderer.material.color.r,
-                                                              _hintQuad.renderer.material.color.g,
-                                                              _hintQuad.renderer.material.color.b,
+            if (_hintQuad.GetComponent<Renderer>().enabled) {
+                _hintQuad.GetComponent<Renderer>().material.color = new Color(_hintQuad.GetComponent<Renderer>().material.color.r,
+                                                              _hintQuad.GetComponent<Renderer>().material.color.g,
+                                                              _hintQuad.GetComponent<Renderer>().material.color.b,
                                                               alpha);
                                                             
             }
@@ -582,7 +582,7 @@ public class UIManager : MonoBehaviour
 
         // try to flash if needed
         if ((GameManager.AI.EnemiesChasing > 0 || GameManager.AI.EnemiesSearching > 0)) {
-            float alpha = _flashAlpha.renderer.material.color.a;
+            float alpha = _flashAlpha.GetComponent<Renderer>().material.color.a;
             float flashAlphaDir = 0;
             if (alpha >= 0.95f) {
                 flashAlphaDir = -1;
@@ -599,7 +599,7 @@ public class UIManager : MonoBehaviour
         }
         if (GameManager.AI.EnemiesChasing == 0 && GameManager.AI.EnemiesSearching == 0) {
             _flashAlpha.On = false;
-            if (_flashAlpha.renderer.material.color.a < 0.1f) {
+            if (_flashAlpha.GetComponent<Renderer>().material.color.a < 0.1f) {
                 _hasFlashed = false;
             }
         } else if (_hasFlashed) {
@@ -678,15 +678,15 @@ public class UIManager : MonoBehaviour
 
         while (!bPlacedAll) {
             // show proper texture
-            _weaponQuads [weaponPos].gameObject.renderer.enabled = true;
-            _weaponQuads [weaponPos].gameObject.renderer.material.mainTexture = GameManager.Inventory.Weapons [weaponToShow].IconTexture;
+            _weaponQuads [weaponPos].gameObject.GetComponent<Renderer>().enabled = true;
+            _weaponQuads [weaponPos].gameObject.GetComponent<Renderer>().material.mainTexture = GameManager.Inventory.Weapons [weaponToShow].IconTexture;
 
             WeaponQuad wq = _weaponQuads [weaponPos].gameObject.GetComponent<WeaponQuad>();
             wq.Title = GameManager.Inventory.Weapons [weaponToShow].Title;
             wq.Description = GameManager.Inventory.Weapons [weaponToShow].Description;
 
-            _weaponCountQuads [weaponPos].gameObject.renderer.enabled = true;
-            _weaponCountQuads [weaponPos].gameObject.renderer.material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Weapons [weaponToShow].Quantity);
+            _weaponCountQuads [weaponPos].gameObject.GetComponent<Renderer>().enabled = true;
+            _weaponCountQuads [weaponPos].gameObject.GetComponent<Renderer>().material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Weapons [weaponToShow].Quantity);
 
             weaponToShow = (weaponToShow + 1) % GameManager.Inventory.Weapons.Count;
             weaponPos = (weaponPos + 1) % 3;
@@ -700,8 +700,8 @@ public class UIManager : MonoBehaviour
 
         // *** hide the slots that didn't get filled *** 
         while (weaponsShown < 3) {
-            _weaponQuads [weaponPos].gameObject.renderer.enabled = false;
-            _weaponCountQuads [weaponPos].gameObject.renderer.enabled = false;
+            _weaponQuads [weaponPos].gameObject.GetComponent<Renderer>().enabled = false;
+            _weaponCountQuads [weaponPos].gameObject.GetComponent<Renderer>().enabled = false;
 
 
             weaponPos = (weaponPos + 1) % 3;
@@ -721,9 +721,9 @@ public class UIManager : MonoBehaviour
     
     public void ShowHint(Texture2D tex, float duration)
     {
-        _hintQuad.renderer.enabled = true;
-        _hintQuad.renderer.material.mainTexture = tex;
-        _hintQuad.renderer.material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        _hintQuad.GetComponent<Renderer>().enabled = true;
+        _hintQuad.GetComponent<Renderer>().material.mainTexture = tex;
+        _hintQuad.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         _hintDuration = duration;
         _hintElapsed = 0.0f;

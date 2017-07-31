@@ -1,32 +1,51 @@
 fileFormatVersion: 2
 guid: d3e03cc8d7d874a1aa1824331998393d
 TextureImporter:
-  serializedVersion: 2
+  fileIDToRecycleName:
+    21300000: RadioWaves_0
+    21300002: RadioWaves_1
+    21300004: RadioWaves_2
+    21300006: RadioWaves_3
+    21300008: RadioWaves_4
+    21300010: RadioWaves_5
+    21300012: RadioWaves_6
+    21300014: RadioWaves_7
+    21300016: RadioWaves_8
+    21300018: RadioWaves_9
+    21300020: RadioWaves_10
+    21300022: RadioWaves_11
+  serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 4096
   textureSettings:
+    serializedVersion: 2
     filterMode: -1
     aniso: 1
     mipBias: -1
-    wrapMode: 1
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -34,14 +53,31 @@ TextureImporter:
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: RadioWaves_0
+    - serializedVersion: 2
+      name: RadioWaves_0
       rect:
         serializedVersion: 2
         x: 0
@@ -50,7 +86,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_1
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_1
       rect:
         serializedVersion: 2
         x: 1024
@@ -59,7 +100,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_2
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_2
       rect:
         serializedVersion: 2
         x: 2048
@@ -68,7 +114,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_3
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_3
       rect:
         serializedVersion: 2
         x: 0
@@ -77,7 +128,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_4
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_4
       rect:
         serializedVersion: 2
         x: 1024
@@ -86,7 +142,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_5
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_5
       rect:
         serializedVersion: 2
         x: 2048
@@ -95,7 +156,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_6
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_6
       rect:
         serializedVersion: 2
         x: 0
@@ -104,7 +170,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_7
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_7
       rect:
         serializedVersion: 2
         x: 1024
@@ -113,7 +184,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_8
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_8
       rect:
         serializedVersion: 2
         x: 2048
@@ -122,7 +198,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_9
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_9
       rect:
         serializedVersion: 2
         x: 0
@@ -131,7 +212,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_10
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_10
       rect:
         serializedVersion: 2
         x: 1024
@@ -140,7 +226,12 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
-    - name: RadioWaves_11
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    - serializedVersion: 2
+      name: RadioWaves_11
       rect:
         serializedVersion: 2
         x: 2048
@@ -149,5 +240,13 @@ TextureImporter:
         height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+    outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

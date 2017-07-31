@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Game manager is a static class in charge of keeping strack of all global components.
@@ -10,7 +11,7 @@ using System.IO;
 /// </summary>
 [AddComponentMenu("Game/Game Manager")]
 public class GameManager : MonoBehaviour
-{    
+{
     // Keep track of the current game manager instance
     private static GameManager _instance;
 
@@ -70,7 +71,7 @@ public class GameManager : MonoBehaviour
         SetupPlayer();
 
     }
-    
+
     private void SetupLevel()
     {
         // Destroy the previous level
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
         } // NOTE: NO POOL; JUST 1
 
     }
-    
+
     private void SetupAI()
     {
         // Destroy the previous AI
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour
         GameObject pool = new GameObject("_Object Pool"); // NOTE: NO POOL; THIS IS THE POOL
         _objectPool = pool.AddComponent<ObjectPoolManager>();
     }
-    
+
     private void SetupInventory()
     {
         // Destroy the previous Inventory
@@ -129,7 +130,7 @@ public class GameManager : MonoBehaviour
         _inventory = invObj.AddComponent<InventoryManager>();
         
     }
-    
+
     private void SetupUI()
     {
         // Destroy the previous UI
@@ -142,7 +143,7 @@ public class GameManager : MonoBehaviour
         _uiManager = ui.GetComponent<UIManager>();
 
     }
-    
+
     private void SetupPlayer()
     {
         // Destroy the previous player
@@ -194,7 +195,7 @@ public class GameManager : MonoBehaviour
         }
         
         // Turn off ragdoll if coming back to life
-        if (Player.IsDead && Player.Settings.RootRigidBody.collider.enabled) {
+        if (Player.IsDead && Player.Settings.RootRigidBody.GetComponent<Collider>().enabled) {
             Player.UndoRagdoll();
         }
 
@@ -214,7 +215,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    
+
     public static void LoadGameState()
     {
         _instance.StartCoroutine(_instance.LoadGameStateHelper());
@@ -245,9 +246,9 @@ public class GameManager : MonoBehaviour
         }
         
         // Load up the correct level
-        if (!string.IsNullOrEmpty(SaveData.LevelName) && !SaveData.LevelName.Equals(Application.loadedLevelName)) {
+        if (!string.IsNullOrEmpty(SaveData.LevelName) && !SaveData.LevelName.Equals(SceneManager.GetActiveScene().name)) {
             Instantiate(Resources.Load("Prefabs/User Interface/Loading Screen")); // NOTE: WE DON'T USE THE OBJECT POOL, SINCE WE ONLY NEED THE 1
-            Application.LoadLevel(SaveData.LevelName);
+            SceneManager.LoadScene(SaveData.LevelName);
         }
         
         // Move player to his last checkpoint.
@@ -301,7 +302,7 @@ public class GameManager : MonoBehaviour
 
     public static void LoadLevelState()
     {
-        _instance.StartCoroutine(_instance.LoadLevelStateHelper(Application.loadedLevelName));
+        _instance.StartCoroutine(_instance.LoadLevelStateHelper(SceneManager.GetActiveScene().name));
 
     }
 
@@ -362,7 +363,7 @@ public class GameManager : MonoBehaviour
         SaveData.Save(GameSaveStatePath);
 
     }
-    
+
     public static void SaveLevelState(string levelName)
     {
         string path = LevelSaveStatePrefix + levelName + ".xml";
@@ -387,11 +388,11 @@ public class GameManager : MonoBehaviour
     public static CameraScrollingMain MainCamera {
         get { return _mainCamera; }
     }
-    
+
     public static AudioManager Audio {
         get { return _audioManager; }
     }
-    
+
     public static SubtitlesManager Subtitles {
         get { return _subtitlesManager; }
     }
@@ -407,7 +408,7 @@ public class GameManager : MonoBehaviour
     public static ObjectPoolManager ObjectPool {
         get { return _objectPool; }
     }
-    
+
     public static InventoryManager Inventory {
         get { return _inventory; }
     }
@@ -419,15 +420,15 @@ public class GameManager : MonoBehaviour
     public static bool AllManagersReady {
         get {
             return (Audio != null && Audio.Ready) && (Subtitles != null && Subtitles.Ready) &&
-                (Level != null && Level.Ready) && (AI != null && AI.Ready) && (ObjectPool != null && ObjectPool.Ready) && 
-                (Inventory != null && Inventory.Ready) && (UI != null && UI.Ready);
+            (Level != null && Level.Ready) && (AI != null && AI.Ready) && (ObjectPool != null && ObjectPool.Ready) &&
+            (Inventory != null && Inventory.Ready) && (UI != null && UI.Ready);
         }
     }
 
     public static CharacterAnimator Player {
         get { return _player; }
     }
-    
+
     public static NewmanShader PlayerShader {
         get { return _playerShader; }
         set { _playerShader = value; }

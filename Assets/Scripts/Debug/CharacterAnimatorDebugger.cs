@@ -35,7 +35,7 @@ public class CharacterAnimatorDebugger : MonoBehaviour
         if (ShowCharacterMotion) {
             GUI.Box(new Rect(10, 10, 350, 20), "H: " + _character.HorizontalSpeed + ", V: " + _character.VerticalSpeed + ", D: " + _character.Direction.ToString());
             GUI.Box(new Rect(10, 35, 350, 20), "Hang: " + _character.CanHangOffObject + ", Grab Rope: " + _character.CanClimbRope + ", Grab Ladder: " + _character.CanClimbLadder);
-            GUI.Box(new Rect(10, 60, 350, 20), "Current State: " + _character.StateMachine [_character.CurrentState.nameHash].Method.Name.ToString() + ", Current Zone: " + _character.CurrentZone);
+            GUI.Box(new Rect(10, 60, 350, 20), "Current State: " + _character.StateMachine [_character.CurrentState.fullPathHash].Method.Name.ToString() + ", Current Zone: " + _character.CurrentZone);
             GUI.Box(new Rect(10, 85, 350, 20), "IsGrounded: " + _character.IsGrounded);
         }
         if (ShowZLevels) {

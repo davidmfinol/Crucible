@@ -115,7 +115,7 @@ public class HearingRadius : MonoBehaviour
     }
 
     public float Radius {
-        get { return ((SphereCollider)collider).radius * transform.lossyScale.x; }
+        get { return ((SphereCollider)GetComponent<Collider>()).radius * transform.lossyScale.x; }
     }
 
     public LinkedList<SoundEvent> ObjectsHeard {

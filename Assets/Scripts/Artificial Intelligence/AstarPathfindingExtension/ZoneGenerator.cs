@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
 using Pathfinding.Serialization;
-using Pathfinding.Serialization.JsonFx;
+using Pathfinding.Util;
 
 /// <summary>
 ///  Creates a custom A* graph to be used to traverse through zones in the game.
@@ -46,42 +46,85 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     private ZoneNode[] _nodes;
 
     // Map of all the waypoints (as nodes on the node graph) to their respective zones (areas indicated by Bounds)
-    private Dictionary< Bounds, List<ZoneNode> > _zonesWithWaypoints;
+    private Dictionary<Bounds, List<ZoneNode>> _zonesWithWaypoints;
 
     // Map of all the transition waypoints (as nodes on the node graph) to their respective transition zones (areas indicated by Bounds)
-    private Dictionary< Bounds, List<ZoneNode> > _transitionZonesWithWaypoints;
+    private Dictionary<Bounds, List<ZoneNode>> _transitionZonesWithWaypoints;
 
 
     /// <summary>
-    /// A required method for the A* Pathfinding Project that gets the all the nodes in the graph.
-    /// Note that we don't actually use this method ourselves, as we can just use the Nodes property that we define.
+    /// Not used. We are required to provide this method by the A* project.
     /// </summary>
-    /// <param name="del">A delegate method defined by the A* Pathfinding Project to get a specific node.</param>
-    public override void GetNodes(GraphNodeDelegateCancelable del)
+    /// <param name="action">An action to be run on all the nodes</param>
+    public override void GetNodes(System.Action<GraphNode> action)
     {
-        if (_nodes == null) {
+        if (_nodes == null)
             return;
-        }
-
-        for (int i=0; i < _nodes.Length && del (_nodes[i]); i++) {
-        }
-
+        int count = _nodes.Length;
+        for (int i = 0; i < count; i++)
+            action(_nodes [i]);
     }
-    
+
     /// <summary>
     /// Scans the scene and creates the zone graph to be used by A* for pathfinding.
     /// </summary>
-    public override void ScanInternal(OnScanStatus statusCallback)
+    public override IEnumerable<Progress> ScanInternal()
     {
         // First, get the components we need
+        yield return new Progress(0, "Loading Olympus Prefab");
         GameObject OlympusPrefab = (GameObject)Resources.Load("Prefabs/Characters/Olympus");
         _olympusAnimator = OlympusPrefab.GetComponent<CharacterAnimator>();
         _olympusSettings = OlympusPrefab.GetComponent<CharacterSettings>();
 
-        // Then, create the nodes and connect them
+        // Then, create the nodes
+        yield return new Progress(0.1f, "Creating nodes");
         GenerateNodes();
-        ConnectNodes();
 
+        // Finally, connect the nodes
+        yield return new Progress(0.2f, "Connecting nodes");
+        List<Connection> connections = new List<Connection>(3);
+
+        // Build the graph based for each zone, using the transitionZoneWaypoints to link them together
+        foreach (KeyValuePair<Bounds, List<ZoneNode>> zoneWaypointsPair in _zonesWithWaypoints) {
+            // Each node in the zone needs to have it's connections set
+            foreach (ZoneNode node in zoneWaypointsPair.Value) {
+                connections.Clear();
+
+                // Each zone starts by only connecting the nodes in that zone together
+                foreach (ZoneNode other in zoneWaypointsPair.Value) {
+                    if (node == other)
+                        continue;
+
+                    float dist = 0;
+                    if (IsValidConnection(node, other, out dist)) {
+                        connections.Add(new Connection {
+                            node = other,
+                            cost = (uint)Mathf.RoundToInt(dist * Int3.FloatPrecision)
+                        });
+                    }
+                }
+
+                // Stitch the zones together if there are transitionZone(s) that indicates we should do so
+                foreach (KeyValuePair<Bounds, List<ZoneNode>> transitionZoneWaypointsPair in _transitionZonesWithWaypoints) {
+                    if (!zoneWaypointsPair.Key.Intersects(transitionZoneWaypointsPair.Key))
+                        continue;
+
+                    foreach (ZoneNode other in transitionZoneWaypointsPair.Value) {
+                        if (!zoneWaypointsPair.Key.Contains((Vector3)other.position))
+                            continue;
+
+                        float dist = 0;
+                        if (IsValidConnection(node, other, out dist)) {
+                            connections.Add(new Connection {
+                                node = other,
+                                cost = (uint)Mathf.RoundToInt(dist * Int3.FloatPrecision)
+                            });
+                        }
+                    }
+                }
+                node.connections = connections.ToArray();
+            }
+        }
     }
 
     /// <summary>
@@ -133,7 +176,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                     waypointNodes.Add(newNode);
                 }
             }
-                
+
             // Walls have extra waypoints to the sides
             else if (waypointGO.GetComponent<GrabbableObject>() != null) {
                 List<Vector3> waypoints = GetGameObjectWaypoints(waypointGO, 1);
@@ -163,7 +206,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                     newNode.Tag |= (1 << 3); // Set Climbable
                     waypointNodes.Add(newNode);
                 }
-            } 
+            }
 
             // If it's not one of our three types of game objects, then we did something wrong
             else {
@@ -173,20 +216,20 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
         // Save all the nodes we found
         _nodes = waypointNodes.ToArray();
-        
+
         // Set up the mappings of nodes to zones
-        _zonesWithWaypoints = new Dictionary< Bounds, List<ZoneNode> >();
+        _zonesWithWaypoints = new Dictionary<Bounds, List<ZoneNode>>();
         foreach (GameObject zoneGO in zoneGOs) {
-            if (!_zonesWithWaypoints.ContainsKey(zoneGO.collider.bounds)) {
-                _zonesWithWaypoints.Add(zoneGO.collider.bounds, new List<ZoneNode>());
+            if (!_zonesWithWaypoints.ContainsKey(zoneGO.GetComponent<Collider>().bounds)) {
+                _zonesWithWaypoints.Add(zoneGO.GetComponent<Collider>().bounds, new List<ZoneNode>());
             }
         }
-        
+
         // Set up the mappings of nodes to transition zones
-        _transitionZonesWithWaypoints = new Dictionary< Bounds, List<ZoneNode> >();
+        _transitionZonesWithWaypoints = new Dictionary<Bounds, List<ZoneNode>>();
         foreach (GameObject transitionZoneGO in transitionZoneGOs) {
-            if (!_transitionZonesWithWaypoints.ContainsKey(transitionZoneGO.collider.bounds)) {
-                _transitionZonesWithWaypoints.Add(transitionZoneGO.collider.bounds, new List<ZoneNode>());
+            if (!_transitionZonesWithWaypoints.ContainsKey(transitionZoneGO.GetComponent<Collider>().bounds)) {
+                _transitionZonesWithWaypoints.Add(transitionZoneGO.GetComponent<Collider>().bounds, new List<ZoneNode>());
             }
         }
 
@@ -228,8 +271,8 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // Get the way point and its bounds
         Vector3 waypoint = waypointGO.transform.position;
         Bounds waypointBounds = new Bounds(waypoint, Vector3.zero);
-        if (waypointGO.collider != null) {
-            waypointBounds = waypointGO.collider.bounds;
+        if (waypointGO.GetComponent<Collider>() != null) {
+            waypointBounds = waypointGO.GetComponent<Collider>().bounds;
         }
 
         // We also find a Boxcollider if we can to subtract out it's world space
@@ -337,63 +380,6 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     }
 
     /// <summary>
-    /// Connects all the nodes in the graph.
-    /// </summary>
-    public void ConnectNodes()
-    {
-        // To avoid too many allocations, these lists are reused for each node
-        List<ZoneNode> connections = new List<ZoneNode>(3);
-        List<uint> costs = new List<uint>(3);
-
-        // Build the graph based for each zone, using the transitionZoneWaypoints to link them together
-        foreach (KeyValuePair< Bounds, List<ZoneNode> > zoneWaypointsPair in _zonesWithWaypoints) {
-
-            // Each node in the zone needs to have it's connections set
-            foreach (ZoneNode node in zoneWaypointsPair.Value) {
-                connections.Clear();
-                costs.Clear();
-                
-                // Each zone starts by only connecting the nodes in that zone together
-                foreach (ZoneNode other in zoneWaypointsPair.Value) {
-                    if (node == other) {
-                        continue;
-                    }
-
-                    float dist = 0;
-                    if (IsValidConnection(node, other, out dist)) {
-                        connections.Add(other);
-                        costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
-                    }
-                }
-
-                // Stitch the zones together if there are transitionZone(s) that indicates we should do so
-                foreach (KeyValuePair< Bounds, List<ZoneNode> > transitionZoneWaypointsPair in _transitionZonesWithWaypoints) {
-                    if (!zoneWaypointsPair.Key.Intersects(transitionZoneWaypointsPair.Key)) {
-                        continue;
-                    }
-
-                    foreach (ZoneNode other in transitionZoneWaypointsPair.Value) {
-                        if (!zoneWaypointsPair.Key.Contains((Vector3)other.position)) {
-                            continue;
-                        }
-
-                        float dist = 0;
-                        if (IsValidConnection(node, other, out dist)) {
-                            connections.Add(other);
-                            costs.Add((uint)Mathf.RoundToInt(dist * Int3.FloatPrecision));
-                        }
-                    }
-                }
-
-                // Set the connections that we found for the node
-                node.connections = connections.ToArray();
-                node.connectionCosts = costs.ToArray();
-            }
-        }
-
-    }
-    
-    /// <summary>
     /// Checks if going from Node A to Node B is a valid movement for a character.
     /// </summary>
     /// <param name="A">The first node.</param>
@@ -412,7 +398,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // We'll be using these positions a lot, so cache them
         Vector3 posA = (Vector3)A.position;
         Vector3 posB = (Vector3)B.position;
-        
+
         // Then check that the character is capable of jumping from the first node to the second
         if (!CanJump(posA, posB)) {
             return false;
@@ -421,10 +407,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // Then do a basic check to see if there's any ground objects in the way
         Vector3 dir = posB - posA;
         dist = dir.magnitude;
-        
+
         Ray ray = new Ray(posA, posB - posA);
         Ray invertRay = new Ray(posB, posA - posB);
-        
+
         bool obstructedByGround = Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
         if (obstructedByGround) {
             return false;
@@ -440,25 +426,25 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         // Find out some values we'll be using
         bool canFall = CanFall(posA, posB) && FallClear(posA, posB);
         bool canJump = JumpClear(posA, posB);
-        bool samePlatForm = (A.GO == B.GO) || A.GO.collider.bounds.Intersects(B.GO.collider.bounds);
-        
+        bool samePlatForm = (A.GO == B.GO) || A.GO.GetComponent<Collider>().bounds.Intersects(B.GO.GetComponent<Collider>().bounds);
+
         // If the waypoint are on two different platforms, make sure we are either capable of jumping over or falling over
         if (!samePlatForm && !canFall && !canJump) {
             return false;
         }
 
         // avoid situations where there is already an existing path.
-//        if (A.GO != null && B.GO != null) { 
-//            RaycastHit[] hits = Physics.RaycastAll(ray, dist); 
-//
-//            foreach (RaycastHit hit in hits) { 
-//                // If there's already a path, return false
-//                if (hit.collider.CompareTag(WaypointTag) && hit.collider.gameObject != A.GO && hit.collider.gameObject != B.GO) { 
-//                    return false;
-//                }
-//            }
-//        
-//        }
+        //        if (A.GO != null && B.GO != null) { 
+        //            RaycastHit[] hits = Physics.RaycastAll(ray, dist); 
+        //
+        //            foreach (RaycastHit hit in hits) { 
+        //                // If there's already a path, return false
+        //                if (hit.collider.CompareTag(WaypointTag) && hit.collider.gameObject != A.GO && hit.collider.gameObject != B.GO) { 
+        //                    return false;
+        //                }
+        //            }
+        //        
+        //        }
 
         /*
         // TODO: We penalize required jumps
@@ -470,7 +456,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         if ((isAWall && isBWall) && posA.x != posB.x) {
             return false;
         }
-        
+
         // If we pass all the tests, return true
         return true;
 
@@ -499,7 +485,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         return Physics.Raycast(ray, dist, CollisionMask) || Physics.Raycast(invertRay, dist, CollisionMask);
 
     }
-    
+
     /// <summary>
     /// Determines whether an enemy character is small enough to walk at the specified point.
     /// </summary>
@@ -511,7 +497,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         return !ObstructedByGround(point, point + Vector3.up * _olympusAnimator.Height + Vector3.down, out dist);
 
     }
-    
+
     /// <summary>
     /// Determines whether the enemy character can fall (without jumping) from point a to point b.
     /// </summary>
@@ -523,14 +509,14 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         if (b.y > a.y) {
             return false;
         }
-        
+
         float yDist = Mathf.Abs(b.y - a.y);
         float t = Mathf.Sqrt(2.0f * yDist / _olympusSettings.Gravity);
         float xDist = Mathf.Abs(b.x - a.x);
         return xDist < _olympusSettings.MaxHorizontalSpeed * t;
 
     }
-    
+
     /// <summary>
     /// Returns whether an enemy can jump from one position to another.
     /// </summary>
@@ -551,7 +537,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         return yDist < yMax;
 
     }
-    
+
     /// <summary>
     /// Returns whether the area between two points is clear of obstacles, so that the character may fall between those points.
     /// </summary>
@@ -608,10 +594,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         Vector3 midPoint = (start + end) * 0.5f;
         float radius = Vector3.Distance(start, midPoint);
         Collider[] colliders = Physics.OverlapSphere(midPoint, radius, CollisionMask);
-        
+
         float slope = (end.y - start.y) / (end.x - start.x);
         float b = -1.0f * slope * start.x + start.y;
-        
+
         foreach (Collider collider in colliders) {
             Vector3 closestPoint = collider.ClosestPointOnBounds(midPoint);
             float yAtX = slope * closestPoint.x + b;
@@ -619,7 +605,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
                 return false;
             }
         }
-        
+
         return true;
 
     }
@@ -631,14 +617,14 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
     /// <param name="position">The position examined.</param>
     /// <param name="constraint">Ignored.</param>
     /// <param name="hint">Ignored.</param>
-    public override NNInfo GetNearest(Vector3 position, NNConstraint constraint, GraphNode hint)
+    public override NNInfoInternal GetNearest(Vector3 position, NNConstraint constraint, GraphNode hint)
     {
         // We are going to look for the nearest node by constantly looking for smaller and smaller distances
         ZoneNode nearestNode = null;
         float nearestDist = float.MaxValue;
 
         // We can go through each of our zones and check to see if the nearest node could be in that zone
-        foreach (KeyValuePair<Bounds, List<ZoneNode> > zoneWithWaypoints in _zonesWithWaypoints) {
+        foreach (KeyValuePair<Bounds, List<ZoneNode>> zoneWithWaypoints in _zonesWithWaypoints) {
             if (!zoneWithWaypoints.Key.Contains(position)) {
                 continue;
             }
@@ -658,7 +644,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
 
                     // If the distance is 0, we know this is an absolute nearest node, and can quit early
                     if (nodeDist == 0) {
-                        return new NNInfo(currentNode);
+                        return new NNInfoInternal(currentNode);
                     }
 
                     // Otherwise, this is currently in the lead for the top
@@ -669,40 +655,40 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
         }
 
         // Return an NNInfo for the Nearest Node that we found
-        return nearestNode != null ? new NNInfo(nearestNode) : new NNInfo();
+        return nearestNode != null ? new NNInfoInternal(nearestNode) : new NNInfoInternal();
 
     }
 
-    /// <summary>
-    /// Used to draw the graph connections for debugging purposes.
-    /// </summary>
-    public override void OnDrawGizmos(bool drawNodes)
-    {
-        if (AstarPath.active.debugMode != GraphDebugMode.Areas && AstarPath.active.debugMode != GraphDebugMode.Connections) {
-            base.OnDrawGizmos(drawNodes);
-            return;
-        }
-        
-        if (!drawNodes || _nodes == null) {
-            return;
-        }
-        
-        for (int i=0; i<_nodes.Length; i++) {
-            ZoneNode node = (ZoneNode)_nodes [i];
-            if (node.connections != null) {
-                for (int q=0; q<node.connections.Length; q++) {
-                    bool doublyLinked = node.connections [q].ContainsConnection(node);
-                    if (AstarPath.active.debugMode == GraphDebugMode.Areas || doublyLinked) {
-                        Gizmos.color = doublyLinked ? AstarColor.MeshColor : AstarColor.MeshEdgeColor;
-                        Gizmos.DrawLine((Vector3)node.position, (Vector3)node.connections [q].position);
-                    }
-                }
-            }
-            
-        }
-        
-    }
-    
+    ///// <summary>
+    ///// Used to draw the graph connections for debugging purposes.
+    ///// </summary>
+    //public override void OnDrawGizmos(RetainedGizmos gizmos, bool drawNodes)
+    //{
+    //    if (AstarPath.active.debugMode != GraphDebugMode.Areas && AstarPath.active.debugMode != GraphDebugMode.Connections) {
+    //        base.OnDrawGizmos(gizmos, drawNodes);
+    //        return;
+    //    }
+
+    //    if (!drawNodes || _nodes == null) {
+    //        return;
+    //    }
+
+    //    for (int i = 0; i < _nodes.Length; i++) {
+    //        ZoneNode node = (ZoneNode)_nodes [i];
+    //        if (node.connections != null) {
+    //            for (int q = 0; q < node.connections.Length; q++) {
+    //                bool doublyLinked = node.connections [q].ContainsConnection(node);
+    //                if (AstarPath.active.debugMode == GraphDebugMode.Areas || doublyLinked) {
+    //                    Gizmos.color = doublyLinked ? AstarColor.MeshColor : AstarColor.MeshEdgeColor;
+    //                    Gizmos.DrawLine((Vector3)node.position, (Vector3)node.connections [q].position);
+    //                }
+    //            }
+    //        }
+
+    //    }
+
+    //}
+
     // TODO: FINISH/IMPROVE SERIALIZATION OF NODES
     public override void SerializeExtraInfo(GraphSerializationContext ctx)
     {
@@ -710,7 +696,7 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             ctx.writer.Write(-1);
         }
         ctx.writer.Write(_nodes.Length);
-        for (int i=0; i<_nodes.Length; i++) {
+        for (int i = 0; i < _nodes.Length; i++) {
             if (_nodes [i] == null) {
                 ctx.writer.Write(-1);
             } else {
@@ -729,10 +715,10 @@ public class ZoneGraph : NavGraph // TODO: IUpdatableGraph
             _nodes = null;
             return;
         }
-        
+
         _nodes = new ZoneNode[count];
-        
-        for (int i=0; i<_nodes.Length; i++) {
+
+        for (int i = 0; i < _nodes.Length; i++) {
             if (ctx.reader.ReadInt32() == -1) {
                 continue;
             }

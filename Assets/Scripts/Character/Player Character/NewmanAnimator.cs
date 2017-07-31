@@ -8,37 +8,37 @@ using System.Collections.Generic;
 [AddComponentMenu("Character/Player Character/Newman Animator")]
 public class NewmanAnimator : CharacterAnimator
 {
-    public float IdleChangeSpeed; // = 2;
+    public float IdleChangeSpeed;
 
     // Mecanim State Hashes
     public static readonly int IdleState = Animator.StringToHash("Base Layer.Idle");
-    public static readonly int SneakState = Animator.StringToHash("Locomotion.Sneaking");
-    public static readonly int RunningState = Animator.StringToHash("Locomotion.Running");
-    public static readonly int RollingState = Animator.StringToHash("Ground.Rolling");
-    public static readonly int BackflipState = Animator.StringToHash("Air.Backflip");
-    public static readonly int FallingState = Animator.StringToHash("Air.Falling");
-    public static readonly int JumpingState = Animator.StringToHash("Jumping.Jumping");
-    public static readonly int FrontflipState = Animator.StringToHash("Jumping.Frontflip");
-    public static readonly int FrontflipLoopState = Animator.StringToHash("Jumping.FrontflipLoop");
-    public static readonly int LandingState = Animator.StringToHash("Landing.Landing");
-    public static readonly int LandSneakState = Animator.StringToHash("Landing.SneakLanding");
-    public static readonly int LandHighState = Animator.StringToHash("Landing.HighLanding");
-    public static readonly int LandRollState = Animator.StringToHash("Landing.RollLanding");
-    public static readonly int HangingState = Animator.StringToHash("Climbing.Hanging");
-    public static readonly int ClimbingLedgeState = Animator.StringToHash("Climbing.ClimbingLedge");
-    public static readonly int ClimbingLadderState = Animator.StringToHash("Climbing.ClimbingLadder");
-    public static readonly int ClimbingRopeState = Animator.StringToHash("Climbing.ClimbingRope");
-    //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
-    public static readonly int WallgrabbingState = Animator.StringToHash("Wall.Wallgrabbing");
-    public static readonly int WalljumpingState = Animator.StringToHash("Wall.Walljumping");
-    public static readonly int SteppingDownState = Animator.StringToHash("Kneeling.Stepping Down");
-    public static readonly int StandingUpState = Animator.StringToHash("Kneeling.Standing Up");
-    public static readonly int PickupState = Animator.StringToHash("Kneeling.Pickup");
-    public static readonly int StealthKillState = Animator.StringToHash("Combat.Stealth Kill");
-    public static readonly int DamagedState = Animator.StringToHash("Combat.Damaged");
-    public static readonly int DeathState = Animator.StringToHash("Combat.Death");
-    public static readonly int DeadState = Animator.StringToHash("Combat.Waiting For Respawn");
-    public static readonly int ReviveState = Animator.StringToHash("Combat.Revive");
+    public static readonly int SneakState = Animator.StringToHash("Base Layer.Ground.Locomotion.Sneaking");
+    public static readonly int RunningState = Animator.StringToHash("Base Layer.Ground.Locomotion.Running");
+    public static readonly int RollingState = Animator.StringToHash("Base Layer.Ground.Rolling");
+    public static readonly int BackflipState = Animator.StringToHash("Base Layer.Air.Backflip");
+    public static readonly int FallingState = Animator.StringToHash("Base Layer.Air.Falling");
+    public static readonly int JumpingState = Animator.StringToHash("Base Layer.Air.Jumping.Jumping");
+    public static readonly int FrontflipState = Animator.StringToHash("Base Layer.Air.Jumping.Frontflip");
+    public static readonly int FrontflipLoopState = Animator.StringToHash("Base Layer.Air.Jumping.FrontflipLoop");
+    public static readonly int LandingState = Animator.StringToHash("Base Layer.Air.Landing.Landing");
+    public static readonly int LandSneakState = Animator.StringToHash("Base Layer.Air.Landing.SneakLanding");
+    public static readonly int LandHighState = Animator.StringToHash("Base Layer.Air.Landing.HighLanding");
+    public static readonly int LandRollState = Animator.StringToHash("Base Layer.Air.Landing.RollLanding");
+    public static readonly int HangingState = Animator.StringToHash("Base Layer.Climbing.Hanging");
+    public static readonly int ClimbingLedgeState = Animator.StringToHash("Base Layer.Climbing.ClimbingLedge");
+    public static readonly int ClimbingLadderState = Animator.StringToHash("Base Layer.Climbing.ClimbingLadder");
+    public static readonly int ClimbingRopeState = Animator.StringToHash("Base Layer.Climbing.ClimbingRope");
+    //public static readonly int ClimbingStrafeState = Animator.StringToHash ("Base Layer.Climbing.ClimbingStrafe");
+    public static readonly int WallgrabbingState = Animator.StringToHash("Base Layer.Climbing.Wall.Wallgrabbing");
+    public static readonly int WalljumpingState = Animator.StringToHash("Base Layer.Climbing.Wall.Walljumping");
+    public static readonly int SteppingDownState = Animator.StringToHash("Base Layer.Ground.Kneeling.Stepping Down");
+    public static readonly int StandingUpState = Animator.StringToHash("Base Layer.Ground.Kneeling.Standing Up");
+    public static readonly int PickupState = Animator.StringToHash("Base Layer.Ground.Kneeling.Pickup");
+    public static readonly int StealthKillState = Animator.StringToHash("Base Layer.Combat.Stealth Kill");
+    public static readonly int DamagedState = Animator.StringToHash("Base Layer.Combat.Damaged");
+    public static readonly int DeathState = Animator.StringToHash("Base Layer.Combat.Death");
+    public static readonly int DeadState = Animator.StringToHash("Base Layer.Combat.Waiting For Respawn");
+    public static readonly int ReviveState = Animator.StringToHash("Base Layer.Combat.Revive");
 
     // The player's sound effects, yeah!
     private NewmanAudioPlayer _sound;
@@ -67,7 +67,7 @@ public class NewmanAnimator : CharacterAnimator
         _sound = gameObject.GetComponentInChildren<NewmanAudioPlayer>();
 
     }
-    
+
     protected override void CreateStateMachine()
     {
         StateMachine [IdleState] = Idle;
@@ -100,13 +100,13 @@ public class NewmanAnimator : CharacterAnimator
         StateMachine [ReviveState] = Revive;
 
     }
-    
+
     private void SetMecanimAnimatorHorizontalSpeedFloat()
     {
         MecanimAnimator.SetFloat(MecanimHashes.HorizontalSpeed, Direction.x * HorizontalSpeed / Settings.MaxHorizontalSpeed);
         
     }
-    
+
     protected override void UpdateMecanimVariables()
     {
         if (IsGrounded) {
@@ -120,7 +120,7 @@ public class NewmanAnimator : CharacterAnimator
         }
 
     }
-    
+
     protected void UpdateBaseAnimations()
     {
         bool facingRightLadder = (ActiveHangTarget && ActiveHangTarget.transform.position.x - transform.position.x > 0.0f);
@@ -143,14 +143,14 @@ public class NewmanAnimator : CharacterAnimator
         }
 
         // The stealthkill state is a special weapon/base-layer combat state
-        if (CurrentState.nameHash != StealthKillState && StealthKillable != null && currentWeapon.CanStealthKill && CharInput.AttackPressed) {
+        if (CurrentState.fullPathHash != StealthKillState && StealthKillable != null && currentWeapon.CanStealthKill && CharInput.AttackPressed) {
             MecanimAnimator.SetBool(MecanimHashes.StealthKill, true);
             StartCoroutine(ShowStealthKill());
 
         }
 
         // Enable weapon usage when not in the stealthkill state
-        if (CurrentState.nameHash != StealthKillState) {
+        if (CurrentState.fullPathHash != StealthKillState) {
             MecanimAnimator.SetBool(MecanimHashes.ShootGun, CharInput.AttackPressed && (currentWeapon.Type == Weapon.WeaponType.Weapon_GravityGun || currentWeapon.Type == Weapon.WeaponType.Weapon_VETO)); 
             MecanimAnimator.SetBool(MecanimHashes.ActivateCamo, CharInput.AttackPressed && currentWeapon.Type == Weapon.WeaponType.Weapon_Camo);
             MecanimAnimator.SetBool(MecanimHashes.PlaceMine, CharInput.AttackPressed && currentWeapon.Type == Weapon.WeaponType.Weapon_MINE);
@@ -202,7 +202,7 @@ public class NewmanAnimator : CharacterAnimator
         }
         
         // You can re-grab ropes you just let go of
-        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.collider.bounds.Contains(transform.position);
+        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.GetComponent<Collider>().bounds.Contains(transform.position);
         if (shouldRegrabRope) {
             AddHangTarget(PreviousHangTarget);
             MecanimAnimator.SetBool(MecanimHashes.ClimbRope, true);
@@ -229,11 +229,11 @@ public class NewmanAnimator : CharacterAnimator
 
         // You could start rolling over small obstacles in your way
         MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, 
-                                ActiveHangTarget != null && ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle &&
+            ActiveHangTarget != null && ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle &&
             ((Direction.x > 0 && ((Ledge)ActiveHangTarget).Left) || (Direction.x < 0 && !((Ledge)ActiveHangTarget).Left)));
 
         // You can re-grab ropes you just let go of
-        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.collider.bounds.Contains(transform.position);
+        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.GetComponent<Collider>().bounds.Contains(transform.position);
         if (shouldRegrabRope) {
             AddHangTarget(PreviousHangTarget);
             MecanimAnimator.SetBool(MecanimHashes.ClimbRope, true);
@@ -268,7 +268,7 @@ public class NewmanAnimator : CharacterAnimator
 
         // Meta-data about the motion we need to do
         MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, false);
-        Bounds ledgeBounds = ActiveHangTarget.collider.bounds;
+        Bounds ledgeBounds = ActiveHangTarget.GetComponent<Collider>().bounds;
         float animationTime = MecanimAnimator.GetCurrentAnimatorStateInfo(0).length;
 
         // Horizontal motion
@@ -313,8 +313,8 @@ public class NewmanAnimator : CharacterAnimator
         SetMecanimAnimatorHorizontalSpeedFloat();
 
         // You can grab onto objects even in the middle of a backflip
-        bool shouldHang = (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-            || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up);
+        bool shouldHang = (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0)
+                          || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up);
         MecanimAnimator.SetBool(MecanimHashes.Hang, shouldHang);
 
         // Make sure we don't enter the other Air states
@@ -340,7 +340,7 @@ public class NewmanAnimator : CharacterAnimator
 
         // You can regrab the hangable object you last let go of
         if (!(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
-            (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+            (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0)
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up)) {
             MecanimAnimator.SetBool(MecanimHashes.Hang, true);
             VerticalSpeed = 0;
@@ -404,7 +404,7 @@ public class NewmanAnimator : CharacterAnimator
         // We only determine vertical speed (Horizontal Speed is maintained throughout the jump)
         if (MecanimAnimator.GetBool(MecanimHashes.Jump)) {
             float jumpHeight = Settings.JumpHeight;
-            if (CurrentState.nameHash == FrontflipState) {
+            if (CurrentState.fullPathHash == FrontflipState) {
                 jumpHeight *= 1.5f;
             }
             VerticalSpeed = Mathf.Sqrt(2 * jumpHeight * Settings.Gravity);
@@ -415,7 +415,7 @@ public class NewmanAnimator : CharacterAnimator
         }
 
         // You can increase horizontal speed midair ONLY if doing a sneak jump and you weren't already at max speed
-        if (CurrentState.nameHash == JumpingState && (CharInput.Left || CharInput.Right)) {
+        if (CurrentState.fullPathHash == JumpingState && (CharInput.Left || CharInput.Right)) {
             float prevSpeed = HorizontalSpeed;
             ApplyMovingHorizontal(elapsedTime * 0.5f);
             if (Mathf.Abs(HorizontalSpeed) < Mathf.Abs(prevSpeed)) {
@@ -432,12 +432,12 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetBool(MecanimHashes.GrabWall, CanGrabWall);
 
         // You can hang off most objects while jumping
-        bool shouldHang = (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
-            || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up);
+        bool shouldHang = (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0)
+                          || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up);
         MecanimAnimator.SetBool(MecanimHashes.Hang, shouldHang);
 
         // You can re-grab ropes you just let go of
-        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.collider.bounds.Contains(transform.position);
+        bool shouldRegrabRope = CharInput.Up && PreviousHangTarget != null && PreviousHangTarget.GetComponent<Collider>().bounds.Contains(transform.position);
         if (shouldRegrabRope) {
             AddHangTarget(PreviousHangTarget);
             MecanimAnimator.SetBool(MecanimHashes.ClimbRope, true);
@@ -453,9 +453,9 @@ public class NewmanAnimator : CharacterAnimator
     {
         // We do hard stops on land unless we're rolling
         if (TimeInCurrentState == 0) {
-            if (CurrentState.nameHash == LandHighState || (CurrentState.nameHash != LandRollState && !(CharInput.Left || CharInput.Right))) {
+            if (CurrentState.fullPathHash == LandHighState || (CurrentState.fullPathHash != LandRollState && !(CharInput.Left || CharInput.Right))) {
                 HorizontalSpeed = 0;
-            } else if (CurrentState.nameHash != LandRollState) {
+            } else if (CurrentState.fullPathHash != LandRollState) {
                 HorizontalSpeed *= 0.5f;
             } else {
                 ApplyFriction(elapsedTime);
@@ -464,10 +464,10 @@ public class NewmanAnimator : CharacterAnimator
         }
 
         // Horizontal Motion mainly wants us to slow down
-        if (CurrentState.nameHash != LandHighState && InputMoveForward) {
+        if (CurrentState.fullPathHash != LandHighState && InputMoveForward) {
             ApplyMovingHorizontal(elapsedTime * 0.5f);
         } else {
-            if (CurrentState.nameHash == LandRollState) {
+            if (CurrentState.fullPathHash == LandRollState) {
                 elapsedTime *= 1.5f;
             }
             ApplyFriction(elapsedTime);
@@ -475,7 +475,7 @@ public class NewmanAnimator : CharacterAnimator
 
         // Vertical Motion depends on whether we're on the ground
         if (!IsGrounded) {
-            if (CurrentState.nameHash != LandRollState || CurrentState.normalizedTime > 0.99f) {
+            if (CurrentState.fullPathHash != LandRollState || CurrentState.normalizedTime > 0.99f) {
                 MecanimAnimator.SetBool(MecanimHashes.Fall, true);
             } else {
                 ApplyGravity(elapsedTime);
@@ -552,12 +552,12 @@ public class NewmanAnimator : CharacterAnimator
         }
 
         // The motion for climbing ledges is somewhat complicated...
-        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
-            || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
+        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.GetComponent<Collider>().bounds.extents.x)
+            || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.GetComponent<Collider>().bounds.extents.x)
             || CurrentState.normalizedTime > 0.9) {
             MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, false);
             VerticalSpeed = GroundVerticalSpeed;
-        } else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2) {
+        } else if (transform.position.y > _ledge.transform.position.y + _ledge.GetComponent<Collider>().bounds.extents.y + Height / 2) {
             VerticalSpeed = 0;
         } else {
             if (_ledge.DoesFaceZAxis()) {
@@ -642,27 +642,27 @@ public class NewmanAnimator : CharacterAnimator
     }
 
     //ClimbingStrafeState = Animator.StringToHash ("Climbing.ClimbingStrafe");
-//  protected void ClimbingStrafe(float elapsedTime)
-//  {
-//      if(ActiveHangTarget == null) {
-//          DropHangTarget();
-//          MecanimAnimator.SetBool(MecanimHashes.Fall, true);
-//          return;
-//      }
-//  
-//      ApplyClimbingStrafing(CharInput.Horizontal);
-//      
-//      if(HorizontalSpeed != 0)
-//          ApplyClimbingVertical(vertical);
-//      else
-//          VerticalSpeed = 0.0f;
-//
-//      if(ActiveHangTarget.DoesFaceZAxis())
-//          Direction = Vector3.zero;
-//      
-//      MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpPressed);
-//
-//  }
+    //  protected void ClimbingStrafe(float elapsedTime)
+    //  {
+    //      if(ActiveHangTarget == null) {
+    //          DropHangTarget();
+    //          MecanimAnimator.SetBool(MecanimHashes.Fall, true);
+    //          return;
+    //      }
+    //
+    //      ApplyClimbingStrafing(CharInput.Horizontal);
+    //
+    //      if(HorizontalSpeed != 0)
+    //          ApplyClimbingVertical(vertical);
+    //      else
+    //          VerticalSpeed = 0.0f;
+    //
+    //      if(ActiveHangTarget.DoesFaceZAxis())
+    //          Direction = Vector3.zero;
+    //
+    //      MecanimAnimator.SetBool(MecanimHashes.Jump, CharInput.JumpPressed);
+    //
+    //  }
     
     // WallgrabbingState = Animator.StringToHash("Wall.Wallgrabbing");
     protected void Wallgrabbing(float elapsedTime)
@@ -723,7 +723,7 @@ public class NewmanAnimator : CharacterAnimator
         
         // You can grab onto ledges
         if (!(ActiveHangTarget is Ledge && ((Ledge)ActiveHangTarget).Obstacle) &&
-            (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0) 
+            (CanHangOffObject && ActiveHangTarget.DoesFaceXAxis() && VerticalSpeed < 0)
             || (CanHangOffObject && ActiveHangTarget.DoesFaceZAxis() && CharInput.Up)) {
             MecanimAnimator.SetBool(MecanimHashes.Hang, true);
             VerticalSpeed = 0;
@@ -734,14 +734,14 @@ public class NewmanAnimator : CharacterAnimator
         }
         
     }
-    
+
     public override void StepDown()
     {
         MecanimAnimator.SetFloat(MecanimHashes.XDirection, Direction.x);
         MecanimAnimator.SetBool(MecanimHashes.SteppingDown, true);
         
     }
-    
+
     public override void StandUp()
     {
         MecanimAnimator.SetBool(MecanimHashes.StandingUp, true);
@@ -794,7 +794,7 @@ public class NewmanAnimator : CharacterAnimator
 
                 int pickupCount = _itemPickedup.Quantity;
                 Weapon pickedUpWeapon = _itemPickedup.WeaponPrefab.GetComponent<Weapon>();
-                if (! GameManager.Inventory.TryAddAmmo(pickedUpWeapon, pickupCount)) {
+                if (!GameManager.Inventory.TryAddAmmo(pickedUpWeapon, pickupCount)) {
                     // NOTE: DON'T USE THE OBJECT POOL BECAUSE IT DOESN'T REALLY HAPPEN THAT OFTEN
                     Transform instantiatedWeapon = (Transform)Instantiate(_itemPickedup.WeaponPrefab);
                     Weapon newWeapon = instantiatedWeapon.GetComponent<Weapon>();
@@ -846,7 +846,7 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
         
     }
-    
+
     public IEnumerator ShowStealthKill()
     {
         // Show the stealth kill
@@ -863,7 +863,7 @@ public class NewmanAnimator : CharacterAnimator
         StealthKillable = null;
         
     }
-    
+
     public override void MakeDamaged(Vector3 knockForce)
     {
         MecanimAnimator.SetBool(MecanimHashes.Damaged, true);
@@ -955,14 +955,14 @@ public class NewmanAnimator : CharacterAnimator
         MecanimAnimator.SetFloat(MecanimHashes.VerticalSpeed, VerticalSpeed);
 
     }
-    
+
     public void PlayRun()
     {
         int runIndex = Random.Range(0, _sound.Running.Length);
         _sound.Play(_sound.Running [runIndex], Mathf.Abs(CharInput.Horizontal));
         
     }
-    
+
     public void CreateFootstep()
     {
         if (!IsSneaking) {
@@ -973,19 +973,19 @@ public class NewmanAnimator : CharacterAnimator
         }
         
     }
-    
+
     public void PlayBackflip()
     {
         _sound.Play(_sound.Backflip, _sound.BackflipVolume);
         
     }
-    
+
     public void PlayJump()
     {
         _sound.Play(_sound.Jump, _sound.JumpVolume);
         
     }
-    
+
     public void PlayLand()
     {
         if (!IsSneaking) {
@@ -995,7 +995,7 @@ public class NewmanAnimator : CharacterAnimator
         }
         
     }
-    
+
     public void PlayLandRoll()
     {
         Vector3 footStepPosition = transform.position;
@@ -1003,7 +1003,7 @@ public class NewmanAnimator : CharacterAnimator
         GameManager.ObjectPool.CreatePlayerFootstep(footStepPosition, _sound.LandRoll, _sound.LandRollingVolume);
 
     }
-    
+
     public void PlayWallGrab()
     {
         _sound.Play(_sound.WallGrab, _sound.WallGrabVolume);
@@ -1015,7 +1015,7 @@ public class NewmanAnimator : CharacterAnimator
         _sound.Play(_sound.WallJump, _sound.WallJumpVolume); 
 
     }
-    
+
     public void PlayCrafting()
     {
         _sound.Play(_sound.Craft, _sound.CraftVolume);
@@ -1027,7 +1027,7 @@ public class NewmanAnimator : CharacterAnimator
         _sound.Play(_sound.ItemPickup, _sound.ItemPickupVolume);
 
     }
-    
+
     public void PlayHit()
     {
         _sound.Play(_sound.Hit, _sound.HitVolume);
@@ -1051,50 +1051,50 @@ public class NewmanAnimator : CharacterAnimator
         _sound.Play(_sound.SparkplugHit, _sound.SparkplugHitVolume);
 
     }
-    
+
     public override bool CanTransitionZ {
         get { return (base.CanTransitionZ && (GameManager.AI.EnemiesChasing == 0)); }
     }
-    
+
     public override bool CanInputHorizontal {
-        get { return !IgnoreXYMovement && CurrentState.nameHash != ClimbingRopeState; }
+        get { return !IgnoreXYMovement && CurrentState.fullPathHash != ClimbingRopeState; }
     }
-    
+
     public override bool CanInputVertical {
-        get { return CanTransitionZ || CurrentState.nameHash == ClimbingRopeState || CurrentState.nameHash == ClimbingLadderState; }
+        get { return CanTransitionZ || CurrentState.fullPathHash == ClimbingRopeState || CurrentState.fullPathHash == ClimbingLadderState; }
     }
 
     public override bool CanInputJump {
-        get { return StateMachine [CurrentState.nameHash] != Jumping && StateMachine [CurrentState.nameHash] != Falling; }
+        get { return StateMachine [CurrentState.fullPathHash] != Jumping && StateMachine [CurrentState.fullPathHash] != Falling; }
     }
-    
+
     public override bool CanInputAttack {
         get { return GameManager.Inventory.CanWeaponStealthKill && StealthKillable != null; }
     }
-    
+
     public override bool CanInputPickup {
         get {
             GameObject itemObj;
-            return StateMachine [CurrentState.nameHash] == ClimbingVertical || CurrentState.nameHash == WallgrabbingState || CurrentState.nameHash == HangingState || CanPickupItem(out itemObj);
+            return StateMachine [CurrentState.fullPathHash] == ClimbingVertical || CurrentState.fullPathHash == WallgrabbingState || CurrentState.fullPathHash == HangingState || CanPickupItem(out itemObj);
         }
     }
 
     public override bool IsOnWall {
-        get { return CurrentState.nameHash == WallgrabbingState; }
+        get { return CurrentState.fullPathHash == WallgrabbingState; }
     }
-    
+
     public override bool IsHanging {
-        get { return CurrentState.nameHash == HangingState; }
+        get { return CurrentState.fullPathHash == HangingState; }
     }
 
     public override bool IsClimbing {
-        get { return CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == ClimbingLedgeState || CurrentState.nameHash == ClimbingRopeState; }
+        get { return CurrentState.fullPathHash == ClimbingLadderState || CurrentState.fullPathHash == ClimbingLedgeState || CurrentState.fullPathHash == ClimbingRopeState; }
     }
 
     public override bool IsDead {
-        get { return CurrentState.nameHash == DeathState || CurrentState.nameHash == DeadState || (Settings.RootRigidBody != null && Settings.RootRigidBody.collider.enabled); }
+        get { return CurrentState.fullPathHash == DeathState || CurrentState.fullPathHash == DeadState || (Settings.RootRigidBody != null && Settings.RootRigidBody.GetComponent<Collider>().enabled); }
     }
-    
+
     public CharacterAnimator StealthKillable {
         get { return _stealthKillable; }
         set { _stealthKillable = value; } 

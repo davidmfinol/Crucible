@@ -9,7 +9,7 @@ using System.Collections.Generic;
 [AddComponentMenu("Artificial Intelligence/AI Manager")]
 public class AIManager : MonoBehaviour
 {
-    // We keep track of all the enmies here
+    // We keep track of all the enemies here
     private List<EnemyAI> _enemies;
     private int _enemiesCouldHear;
     private int _enemiesSearching;
@@ -41,7 +41,7 @@ public class AIManager : MonoBehaviour
     {
         // Make sure astar is set up in the scene
         AstarPath astar = AstarPath.active;
-        foreach (NavGraph graph in astar.astarData.graphs) {
+        foreach (NavGraph graph in astar.data.graphs) {
             if (graph is ZoneGraph) {
                 _graph = (ZoneGraph)graph;
             }
@@ -49,7 +49,7 @@ public class AIManager : MonoBehaviour
 
         // If we couldn't find a graph, create one
         if (_graph == null) {
-            astar.astarData.AddGraph(typeof(ZoneGraph));
+            astar.data.AddGraph(typeof(ZoneGraph));
             _graph = (ZoneGraph)astar.graphs [0];
         }
 

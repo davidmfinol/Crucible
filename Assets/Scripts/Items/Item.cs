@@ -35,10 +35,10 @@ public class Item : MonoBehaviour
     void Start()
     {
         // Make sure our settings are correct
-        collider.isTrigger = false;
-        rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
-        rigidbody.freezeRotation = true;
-        rigidbody.useGravity = true;
+        GetComponent<Collider>().isTrigger = false;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+        GetComponent<Rigidbody>().freezeRotation = true;
+        GetComponent<Rigidbody>().useGravity = true;
         gameObject.layer = LayerMask.NameToLayer("Item");
 
         // Make the item have an indicator appear above it
@@ -49,7 +49,7 @@ public class Item : MonoBehaviour
         GameObject sign = Instantiate(indicator) as GameObject;
         sign.transform.position = indicator.transform.position + Vector3.up * 0.75f + Vector3.back * 0.01f;
         sign.transform.localScale = new Vector3(2, 2, 2);
-        sign.renderer.material.mainTexture = Type == ItemType.Item__Weapon ? WeaponPrefab.GetComponent<Weapon>().IconTexture : InventoryItemFactory.CreateFromType(Type, 1).GetTexture();
+        sign.GetComponent<Renderer>().material.mainTexture = Type == ItemType.Item__Weapon ? WeaponPrefab.GetComponent<Weapon>().IconTexture : InventoryItemFactory.CreateFromType(Type, 1).GetTexture();
 
         indicator.transform.parent = transform;
         sign.transform.parent = transform;
@@ -72,9 +72,9 @@ public class Item : MonoBehaviour
                 _itemIndicator.FadeIn(IndicatorFadeSpeed, false);
                 _itemSign.FadeIn(IndicatorFadeSpeed, false);
             } else {
-                Color currColor = _itemIndicator.renderer.material.color;
+                Color currColor = _itemIndicator.GetComponent<Renderer>().material.color;
                 float alpha = 0.3f + 0.7f * ((dist - IndicatorFadeDistance2) / _midFadeDistance);
-                _itemIndicator.renderer.material.color = new Color(currColor.r, currColor.g, currColor.b, Mathf.Max(alpha, 0.3f));
+                _itemIndicator.GetComponent<Renderer>().material.color = new Color(currColor.r, currColor.g, currColor.b, Mathf.Max(alpha, 0.3f));
             }
         } else {
             _itemIndicator.FadeOut(IndicatorFadeSpeed, false);

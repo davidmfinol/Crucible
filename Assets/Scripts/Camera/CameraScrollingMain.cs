@@ -173,14 +173,14 @@ public class CameraScrollingMain : MonoBehaviour
 
         // Get the target position in viewport space.  Viewport space is relative to the camera.
         // The bottom left is (0,0) and the upper right is (1,1)
-        Vector3 targetViewportPosition = camera.WorldToViewportPoint(Target.position);
+        Vector3 targetViewportPosition = GetComponent<Camera>().WorldToViewportPoint(Target.position);
 
         // First clamp to the right and top.  After this we will clamp to the bottom and left, so it will override this
         // clamping if it needs to.  This only occurs if the level is really small so that the camera sees more than
         // the entire level at once.
 
         // What is the world position of the very upper right corner of the camera?
-        Vector3 upperRightCameraInWorld = camera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, targetViewportPosition.z));
+        Vector3 upperRightCameraInWorld = GetComponent<Camera>().ViewportToWorldPoint(new Vector3(1.0f, 1.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
         clampOffset.x = Mathf.Min(GameManager.Level.Boundaries.xMax - upperRightCameraInWorld.x, 0.0f);
@@ -194,7 +194,7 @@ public class CameraScrollingMain : MonoBehaviour
         // zoomed out too far for the level size, you will see past the right or top of the level.
 
         transform.position = goalPosition;
-        Vector3 lowerLeftCameraInWorld = camera.ViewportToWorldPoint(new Vector3(0.0f, 0.0f, targetViewportPosition.z));
+        Vector3 lowerLeftCameraInWorld = GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.0f, 0.0f, targetViewportPosition.z));
 
         // Find out how far outside the world the camera is right now.
         clampOffset.x = Mathf.Max((GameManager.Level.Boundaries.xMin - lowerLeftCameraInWorld.x), 0.0f);

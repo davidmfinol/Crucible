@@ -88,7 +88,7 @@ public class OlympusAnimator : CharacterAnimator
         if(startClimbLadder)
             _autoClimbDir = AutoClimbDirection.AutoClimb_Up;
         // if not in a climb, reset our auto-climb direction for use next climb.
-        if(  (CurrentState.nameHash != ClimbingLadderState || CurrentState.nameHash != ClimbingPipeState) )
+        if(  (CurrentState.fullPathHash != ClimbingLadderState || CurrentState.fullPathHash != ClimbingPipeState) )
             _autoClimbDir = AutoClimbDirection.AutoClimb_None;
         */
         
@@ -164,7 +164,7 @@ public class OlympusAnimator : CharacterAnimator
     {
         IgnoreDirection = true;
         
-        while (CurrentState.nameHash == TurnAroundState) {
+        while (CurrentState.fullPathHash == TurnAroundState) {
             yield return null;
         }
         
@@ -176,7 +176,7 @@ public class OlympusAnimator : CharacterAnimator
     
     protected override void OnAnimatorMove()
     {
-        if (MecanimAnimator != null && CurrentState.nameHash == TurnAroundState) {
+        if (MecanimAnimator != null && CurrentState.fullPathHash == TurnAroundState) {
             transform.rotation *= MecanimAnimator.deltaRotation;
         }
         
@@ -359,12 +359,12 @@ public class OlympusAnimator : CharacterAnimator
         
         MecanimAnimator.SetBool(MecanimHashes.Fall, false);
         
-        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.collider.bounds.extents.x)
-            || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.collider.bounds.extents.x)
+        if ((Direction.x > 0 && transform.position.x > _ledge.transform.position.x + _ledge.GetComponent<Collider>().bounds.extents.x)
+            || (Direction.x < 0 && transform.position.x < _ledge.transform.position.x - _ledge.GetComponent<Collider>().bounds.extents.x)
             || CurrentState.normalizedTime > 0.9) {
             MecanimAnimator.SetBool(MecanimHashes.ClimbLedge, false);
             VerticalSpeed = GroundVerticalSpeed;
-        } else if (transform.position.y > _ledge.transform.position.y + _ledge.collider.bounds.extents.y + Height / 2) {
+        } else if (transform.position.y > _ledge.transform.position.y + _ledge.GetComponent<Collider>().bounds.extents.y + Height / 2) {
             VerticalSpeed = 0;
         } else {
             if (_ledge.DoesFaceZAxis()) {
@@ -551,23 +551,23 @@ public class OlympusAnimator : CharacterAnimator
     }
     
     public override bool IsTurningAround {
-        get { return CurrentState.nameHash == TurnAroundState; }
+        get { return CurrentState.fullPathHash == TurnAroundState; }
     }
     
     public override bool IsJumping {
-        get { return CurrentState.nameHash == JumpingState; }
+        get { return CurrentState.fullPathHash == JumpingState; }
     }
 
     public override bool IsLanding {
-        get { return CurrentState.nameHash == LandingState || (IsGrounded && (CurrentState.nameHash == JumpingState || CurrentState.nameHash == FallingState)); }
+        get { return CurrentState.fullPathHash == LandingState || (IsGrounded && (CurrentState.fullPathHash == JumpingState || CurrentState.fullPathHash == FallingState)); }
     }
 
     public override bool IsClimbing {
-        get { return CurrentState.nameHash == ClimbingLedgeState || CurrentState.nameHash == ClimbingLadderState || CurrentState.nameHash == WallclimbingState; }
+        get { return CurrentState.fullPathHash == ClimbingLedgeState || CurrentState.fullPathHash == ClimbingLadderState || CurrentState.fullPathHash == WallclimbingState; }
     }
     
     public override bool IsDead {
-        get { return CurrentState.nameHash == StealthDeathState || Settings.RootRigidBody.collider.enabled; }
+        get { return CurrentState.fullPathHash == StealthDeathState || Settings.RootRigidBody.GetComponent<Collider>().enabled; }
     }
 
     public override bool CanTransitionZ {

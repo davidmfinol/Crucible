@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 /// <summary>
@@ -64,8 +65,8 @@ public class Checkpoint : MonoBehaviour
         GameManager.LastCheckPoint = transform;
         
         // Save the game at checkpoints
-        GameManager.SaveGameState(Application.loadedLevelName, Location);
-        GameManager.SaveLevelState(Application.loadedLevelName);
+        GameManager.SaveGameState(SceneManager.GetActiveScene().name, Location);
+        GameManager.SaveLevelState(SceneManager.GetActiveScene().name);
 
     }
 

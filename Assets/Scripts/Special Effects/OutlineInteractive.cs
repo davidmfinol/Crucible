@@ -29,7 +29,7 @@ public class OutlineInteractive : MonoBehaviour
 
         for (int i = 0; i < SphereCount; i++) {
             EchoSphere es = new EchoSphere {
-                EchoMaterial = renderer.material,
+                EchoMaterial = GetComponent<Renderer>().material,
                 EchoColor = Color.white, 
                 SphereMaxRadius = SphereMaxRadius,
                 FadeDelay = FadeDelay,
@@ -49,7 +49,7 @@ public class OutlineInteractive : MonoBehaviour
         // The outline shader expects the _PlayerPos.w to indicate whether or not the object should be able to light up
         Vector4 playerPos = GameManager.Player.transform.position;
         playerPos.w = 1;
-        renderer.material.SetVector("_PlayerPos", playerPos);
+        GetComponent<Renderer>().material.SetVector("_PlayerPos", playerPos);
 
         // Update the echolocation effects that may be happening on this object
         foreach (EchoSphere echo in Spheres) {

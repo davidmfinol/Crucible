@@ -28,8 +28,8 @@ public class HiResScreenShots : MonoBehaviour
     {
         if (Input.GetKeyDown("j")) {
             string filename = ScreenShotName(ResolutionWidth);
-            float supersize = ResolutionWidth / camera.pixelWidth;
-            Application.CaptureScreenshot(filename, Mathf.CeilToInt(supersize));
+            float supersize = ResolutionWidth / GetComponent<Camera>().pixelWidth;
+            ScreenCapture.CaptureScreenshot(filename, Mathf.CeilToInt(supersize));
             Debug.Log(string.Format("Took screenshot to: {0}", filename));
         }
 

@@ -1,3 +1,6 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Outlined/Interactive" {
 Properties {
 	_Color ("Main Color", Color) = (1,1,1,1)
@@ -59,14 +62,14 @@ SubShader {
 		v2f vert(appdata v) {
 		    // Make a copy of incoming vertex data but scaled according to normal direction (make the outline)
 		    v2f o;
-		    o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		    o.pos = UnityObjectToClipPos(v.vertex);
 		    float3 norm   = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal);
 		    float2 offset = TransformViewToProjection(norm.xy);
 		    o.pos.xy += offset * o.pos.z * _OutlineWidth;
 		    
 		    // Set the alpha of the color so that it fades based on distance to the player
 		    float alpha = 0;
-		    float4 worldPos = mul(_Object2World, v.vertex);
+		    float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
 		   	float dist = distance(worldPos.xy, _PlayerPos.xy);
 		    alpha = _PlayerPos.w * (1.0 - (dist / 20 ));//_OutlineFadeDis));
 		    alpha = max(0.0, alpha);

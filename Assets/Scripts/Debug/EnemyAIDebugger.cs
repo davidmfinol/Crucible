@@ -25,7 +25,7 @@ public class EnemyAIDebugger : MonoBehaviour
         
         _node = ((Transform)Instantiate(HighlightNode, Vector3.zero, Quaternion.identity)).gameObject;
         _node.transform.parent = transform;
-        _node.renderer.enabled = false;
+        _node.GetComponent<Renderer>().enabled = false;
 
     }
     
@@ -39,10 +39,10 @@ public class EnemyAIDebugger : MonoBehaviour
     void Update()
     {
         if (!Hide && HighlightCurrentNode && _brain != null && _brain.Path != null && !_brain.Path.error && _brain.CurrentPathWaypoint < _brain.Path.vectorPath.Count) {
-            _node.renderer.enabled = true;
+            _node.GetComponent<Renderer>().enabled = true;
             _node.transform.position = _brain.Path.vectorPath [_brain.CurrentPathWaypoint];
         } else {
-            _node.renderer.enabled = false;
+            _node.GetComponent<Renderer>().enabled = false;
         }
 
     }

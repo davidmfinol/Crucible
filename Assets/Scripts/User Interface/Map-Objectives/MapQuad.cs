@@ -45,7 +45,7 @@ public class MapQuad : MonoBehaviour
         // make a quad with the proper texture.
         GameObject newPoint = (GameObject)Instantiate (MapPointPrefab, new Vector3 (mapPoint.x, mapPoint.y, -3.0f), Quaternion.identity);
         newPoint.name = objectName;
-        newPoint.renderer.material.mainTexture = Resources.Load<Texture2D> (textureName);
+        newPoint.GetComponent<Renderer>().material.mainTexture = Resources.Load<Texture2D> (textureName);
 //		newPoint.transform.localScale = new Vector3 (scale, scale, scale);
 
         AlphaPulse ap = newPoint.AddComponent<AlphaPulse> ();

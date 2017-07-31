@@ -60,18 +60,18 @@ public class Fader : MonoBehaviour
         _isFadingIn = true;
 
         if (dropAlpha) {
-            Color alphaed = renderer.material.color;
+            Color alphaed = GetComponent<Renderer>().material.color;
             alphaed.a = MinAlpha;
-            renderer.material.color = alphaed;
+            GetComponent<Renderer>().material.color = alphaed;
         }
         
-        renderer.enabled = true;
-        while (renderer.material.color.a < MaxAlpha) {
+        GetComponent<Renderer>().enabled = true;
+        while (GetComponent<Renderer>().material.color.a < MaxAlpha) {
             yield return null;
-            Color temp = renderer.material.color;
+            Color temp = GetComponent<Renderer>().material.color;
             temp.a += Time.deltaTime / FadeInSeconds;
             temp.a = Mathf.Min(temp.a, MaxAlpha);
-            renderer.material.color = temp;
+            GetComponent<Renderer>().material.color = temp;
         }
 
         _isFadingIn = false;
@@ -115,19 +115,19 @@ public class Fader : MonoBehaviour
         _isFadingOut = true;
 
         if (raiseAlpha) {
-            Color alphaed = renderer.material.color;
+            Color alphaed = GetComponent<Renderer>().material.color;
             alphaed.a = MaxAlpha;
-            renderer.material.color = alphaed;
+            GetComponent<Renderer>().material.color = alphaed;
         }
 
-        while (renderer.material.color.a > MinAlpha) {
+        while (GetComponent<Renderer>().material.color.a > MinAlpha) {
             yield return null;
-            Color temp = renderer.material.color;
+            Color temp = GetComponent<Renderer>().material.color;
             temp.a -= Time.deltaTime / FadeOutSeconds;
             temp.a = Mathf.Max(temp.a, MinAlpha);
-            renderer.material.color = temp;
+            GetComponent<Renderer>().material.color = temp;
         }
-        renderer.enabled = false;
+        GetComponent<Renderer>().enabled = false;
 
         _isFadingOut = false;
         if (DestroyAtFadeOut) {

@@ -20,8 +20,8 @@ public class HitBox : MonoBehaviour
     void Start() 
     {
         gameObject.layer = LayerMask.NameToLayer("Hitboxes");
-        rigidbody.useGravity = false;
-        rigidbody.isKinematic = true;
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().isKinematic = true;
 
     }
     
@@ -34,7 +34,7 @@ public class HitBox : MonoBehaviour
         DoesFloat = false; 
         DoesVETO = false;
         Lifetime = 0.1f;
-        BoxCollider col = (BoxCollider)collider;
+        BoxCollider col = (BoxCollider)GetComponent<Collider>();
         col.size = 2 * (Vector3.right + Vector3.up + Vector3.forward);
         
     }
@@ -48,7 +48,7 @@ public class HitBox : MonoBehaviour
         DoesFloat = true;
         DoesVETO = false;
         Lifetime = 0.5f;
-        BoxCollider col = (BoxCollider)collider;
+        BoxCollider col = (BoxCollider)GetComponent<Collider>();
         col.size = 100 * Vector3.right + 5 * Vector3.up + Vector3.forward;
 
     }
@@ -62,7 +62,7 @@ public class HitBox : MonoBehaviour
         DoesFloat = false;
         DoesVETO = true;
         Lifetime = 0.5f;
-        BoxCollider col = (BoxCollider)collider;
+        BoxCollider col = (BoxCollider)GetComponent<Collider>();
         col.size = 100 * Vector3.right + 5 * Vector3.up + Vector3.forward;
 
     }
@@ -76,7 +76,7 @@ public class HitBox : MonoBehaviour
         DoesFloat = false;
         DoesVETO = false;
         Lifetime = 1.0f;
-        BoxCollider col = (BoxCollider)collider;
+        BoxCollider col = (BoxCollider)GetComponent<Collider>();
         col.size = 10 * (Vector3.right + Vector3.up + Vector3.forward);
 
     }
@@ -90,7 +90,7 @@ public class HitBox : MonoBehaviour
         DoesFloat = false;
         DoesVETO = false;
         Lifetime = 1.0f;
-        BoxCollider col = (BoxCollider)collider;
+        BoxCollider col = (BoxCollider)GetComponent<Collider>();
         col.size = 10 * (Vector3.right + Vector3.up + Vector3.forward);
         
     }
@@ -104,7 +104,7 @@ public class HitBox : MonoBehaviour
         DoesFloat = false;
         DoesVETO = false;
         Lifetime = 0.1f;
-        BoxCollider col = (BoxCollider)collider;
+        BoxCollider col = (BoxCollider)GetComponent<Collider>();
         col.size = 10 * (Vector3.right + Vector3.up + Vector3.forward);
 
     }

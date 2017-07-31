@@ -431,7 +431,7 @@ public abstract class EnemyAI : MonoBehaviour
         bool isNodeAbove = NextWaypoint.y - _animator.transform.position.y > 0;
         bool isNodeOnOtherPlatform = false;
         if (prevNode != null && nextNode != null) {
-            isNodeOnOtherPlatform = (prevNode.GO != nextNode.GO) && !prevNode.GO.collider.bounds.Intersects(nextNode.GO.collider.bounds);
+            isNodeOnOtherPlatform = (prevNode.GO != nextNode.GO) && !prevNode.GO.GetComponent<Collider>().bounds.Intersects(nextNode.GO.GetComponent<Collider>().bounds);
         }
         bool canFall = GameManager.AI.Graph.CanFall(transform.position, NextWaypoint);
         bool shouldJump = isNodeAbove || (isNodeOnOtherPlatform && !canFall);

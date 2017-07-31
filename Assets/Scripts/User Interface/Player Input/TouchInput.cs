@@ -98,16 +98,16 @@ public class TouchInput : MonoBehaviour
         _radioWaves.parent = transform;
 
         // And hide them
-        _horizontalSlider.renderer.enabled = false;
-        _verticalSlider.renderer.enabled = false;
-        _moveButton.renderer.enabled = false;
-        _radioWaves.renderer.enabled = false;
+        _horizontalSlider.GetComponent<Renderer>().enabled = false;
+        _verticalSlider.GetComponent<Renderer>().enabled = false;
+        _moveButton.GetComponent<Renderer>().enabled = false;
+        _radioWaves.GetComponent<Renderer>().enabled = false;
 
         // Right-hand side GUI
         _blueCircle = (Transform)Instantiate (BlueCirclePrefab, BlueCirclePrefab.position, BlueCirclePrefab.rotation);
-        Color blueAlpha = _blueCircle.renderer.material.color;
+        Color blueAlpha = _blueCircle.GetComponent<Renderer>().material.color;
         blueAlpha.a = blueAlpha.a * 0.5f;
-        _blueCircle.renderer.material.color = blueAlpha;
+        _blueCircle.GetComponent<Renderer>().material.color = blueAlpha;
         _selections = (Transform)Instantiate (SelectionsPrefab, SelectionsPrefab.position, SelectionsPrefab.rotation);
         _jumpSign = (Transform)Instantiate (JumpSignPrefab, JumpSignPrefab.position, JumpSignPrefab.rotation);
         _attack1Sign = (Transform)Instantiate (AttackSignPrefab, AttackSignPrefab.position, AttackSignPrefab.rotation);
@@ -127,19 +127,19 @@ public class TouchInput : MonoBehaviour
         _glowOff.parent = transform;
 
         // And hide them
-        _blueCircle.renderer.enabled = false;
-        _selections.renderer.enabled = false;
-        _jumpSign.renderer.enabled = false;
-        _attack1Sign.renderer.enabled = false;
-        _attack2Sign.renderer.enabled = false;
-        _pickupSign.renderer.enabled = false;
-        _glowOff.renderer.enabled = false;
+        _blueCircle.GetComponent<Renderer>().enabled = false;
+        _selections.GetComponent<Renderer>().enabled = false;
+        _jumpSign.GetComponent<Renderer>().enabled = false;
+        _attack1Sign.GetComponent<Renderer>().enabled = false;
+        _attack2Sign.GetComponent<Renderer>().enabled = false;
+        _pickupSign.GetComponent<Renderer>().enabled = false;
+        _glowOff.GetComponent<Renderer>().enabled = false;
 
         // The dots indicating the action to the player
         _uiDots = new List<Transform> (9);
         for (int i = 0; i < 9; i++) {
             Transform dot = (Transform)Instantiate (DotPrefab, DotPrefab.position, DotPrefab.rotation);
-            dot.renderer.enabled = false;
+            dot.GetComponent<Renderer>().enabled = false;
             dot.parent = transform;
             _uiDots.Add (dot);
         }
@@ -330,17 +330,17 @@ public class TouchInput : MonoBehaviour
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
             bool shouldShowHorizontal = moveTouched && GameManager.Player.CanInputHorizontal;
-            if (!_horizontalSlider.renderer.enabled && shouldShowHorizontal)
-                _horizontalSlider.renderer.enabled = true;
-            else if (_horizontalSlider.renderer.enabled && !shouldShowHorizontal)
-                _horizontalSlider.renderer.enabled = false;
+            if (!_horizontalSlider.GetComponent<Renderer>().enabled && shouldShowHorizontal)
+                _horizontalSlider.GetComponent<Renderer>().enabled = true;
+            else if (_horizontalSlider.GetComponent<Renderer>().enabled && !shouldShowHorizontal)
+                _horizontalSlider.GetComponent<Renderer>().enabled = false;
             bool shouldShowVertical = moveTouched && GameManager.Player.CanInputVertical;
-            if (!_verticalSlider.renderer.enabled && shouldShowVertical)
-                _verticalSlider.renderer.enabled = true;
-            else if (_verticalSlider.renderer.enabled && !shouldShowVertical)
-                _verticalSlider.renderer.enabled = false;
-            _moveButton.renderer.enabled = moveTouched;
-            _radioWaves.renderer.enabled = false;
+            if (!_verticalSlider.GetComponent<Renderer>().enabled && shouldShowVertical)
+                _verticalSlider.GetComponent<Renderer>().enabled = true;
+            else if (_verticalSlider.GetComponent<Renderer>().enabled && !shouldShowVertical)
+                _verticalSlider.GetComponent<Renderer>().enabled = false;
+            _moveButton.GetComponent<Renderer>().enabled = moveTouched;
+            _radioWaves.GetComponent<Renderer>().enabled = false;
             if (!moveTouched)
                 continue;
 
@@ -370,20 +370,20 @@ public class TouchInput : MonoBehaviour
 
             // Have certain effects to show the player's noise status
             if (GameManager.Player.IsSneaking) {
-                _horizontalSlider.renderer.material.color = Color.white;
-                _verticalSlider.renderer.material.color = Color.white;
+                _horizontalSlider.GetComponent<Renderer>().material.color = Color.white;
+                _verticalSlider.GetComponent<Renderer>().material.color = Color.white;
 
                 // Yellow indicates we're getting close to making noise
                 if(Mathf.Abs(GameManager.Player.HorizontalSpeed) > GameManager.Player.Settings.MaxHorizontalSpeed * 0.5f) {
-                    _horizontalSlider.renderer.material.color = Color.yellow;
-                    _verticalSlider.renderer.material.color = Color.yellow;
+                    _horizontalSlider.GetComponent<Renderer>().material.color = Color.yellow;
+                    _verticalSlider.GetComponent<Renderer>().material.color = Color.yellow;
                 }
 
             // Red with radio waves indicates making noise
             } else {
-                _horizontalSlider.renderer.material.color = Color.red;
-                _verticalSlider.renderer.material.color = Color.red;
-                _radioWaves.renderer.enabled = true;
+                _horizontalSlider.GetComponent<Renderer>().material.color = Color.red;
+                _verticalSlider.GetComponent<Renderer>().material.color = Color.red;
+                _radioWaves.GetComponent<Renderer>().enabled = true;
                 _radioWaves.transform.position = startPos;
             }
         }
@@ -399,24 +399,24 @@ public class TouchInput : MonoBehaviour
 
             // Make the images visible as appropriate
             bool actTouched = _actionID != -1;
-            _blueCircle.renderer.enabled = actTouched;
-            _selections.renderer.enabled = actTouched;
-            _jumpSign.renderer.enabled = actTouched && GameManager.Player.CanInputJump;
-            _attack1Sign.renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
-            _attack2Sign.renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
-            _pickupSign.renderer.enabled = actTouched && GameManager.Player.CanInputPickup;
-            _glowOff.renderer.enabled = actTouched;
+            _blueCircle.GetComponent<Renderer>().enabled = actTouched;
+            _selections.GetComponent<Renderer>().enabled = actTouched;
+            _jumpSign.GetComponent<Renderer>().enabled = actTouched && GameManager.Player.CanInputJump;
+            _attack1Sign.GetComponent<Renderer>().enabled = actTouched && GameManager.Player.CanInputAttack;
+            _attack2Sign.GetComponent<Renderer>().enabled = actTouched && GameManager.Player.CanInputAttack;
+            _pickupSign.GetComponent<Renderer>().enabled = actTouched && GameManager.Player.CanInputPickup;
+            _glowOff.GetComponent<Renderer>().enabled = actTouched;
 
             // Make the dots visible as appropriate
-            _uiDots [0].renderer.enabled = actTouched;
-            _uiDots [1].renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
-            _uiDots [2].renderer.enabled = actTouched && (GameManager.Player.CanInputAttack || GameManager.Player.CanInputJump);
-            _uiDots [3].renderer.enabled = actTouched && GameManager.Player.CanInputJump;
-            _uiDots [4].renderer.enabled = actTouched && (GameManager.Player.CanInputJump || GameManager.Player.CanInputAttack);
-            _uiDots [5].renderer.enabled = actTouched && GameManager.Player.CanInputAttack;
-            _uiDots [6].renderer.enabled = actTouched && (GameManager.Player.CanInputAttack || GameManager.Player.CanInputPickup);
-            _uiDots [7].renderer.enabled = actTouched && GameManager.Player.CanInputPickup;
-            _uiDots [8].renderer.enabled = actTouched && (GameManager.Player.CanInputPickup || GameManager.Player.CanInputAttack);
+            _uiDots [0].GetComponent<Renderer>().enabled = actTouched;
+            _uiDots [1].GetComponent<Renderer>().enabled = actTouched && GameManager.Player.CanInputAttack;
+            _uiDots [2].GetComponent<Renderer>().enabled = actTouched && (GameManager.Player.CanInputAttack || GameManager.Player.CanInputJump);
+            _uiDots [3].GetComponent<Renderer>().enabled = actTouched && GameManager.Player.CanInputJump;
+            _uiDots [4].GetComponent<Renderer>().enabled = actTouched && (GameManager.Player.CanInputJump || GameManager.Player.CanInputAttack);
+            _uiDots [5].GetComponent<Renderer>().enabled = actTouched && GameManager.Player.CanInputAttack;
+            _uiDots [6].GetComponent<Renderer>().enabled = actTouched && (GameManager.Player.CanInputAttack || GameManager.Player.CanInputPickup);
+            _uiDots [7].GetComponent<Renderer>().enabled = actTouched && GameManager.Player.CanInputPickup;
+            _uiDots [8].GetComponent<Renderer>().enabled = actTouched && (GameManager.Player.CanInputPickup || GameManager.Player.CanInputAttack);
 
             // We don't need to move + color things if they're not visible
             if (!actTouched)
@@ -426,20 +426,20 @@ public class TouchInput : MonoBehaviour
             Vector3 pos = ConvertTouchPosToWorldPoint (_actionStartPos);
             _blueCircle.position = pos;
             _selections.position = pos + SelectionsPrefab.position;
-            _selections.renderer.material.color = Color.white;
+            _selections.GetComponent<Renderer>().material.color = Color.white;
             _jumpSign.position = pos + JumpSignPrefab.position;
-            _jumpSign.renderer.material.color = Color.white;
+            _jumpSign.GetComponent<Renderer>().material.color = Color.white;
             _attack1Sign.position = pos + AttackSignPrefab.position;
-            _attack1Sign.renderer.material.color = Color.white;
+            _attack1Sign.GetComponent<Renderer>().material.color = Color.white;
             _attack2Sign.position = pos + AttackSignPrefab.position + Vector3.left * 2 * AttackSignPrefab.position.x;
-            _attack2Sign.renderer.material.color = Color.white;
+            _attack2Sign.GetComponent<Renderer>().material.color = Color.white;
             _pickupSign.position = pos + ItemPickupSignPrefab.position;
-            _pickupSign.renderer.material.color = Color.white;
+            _pickupSign.GetComponent<Renderer>().material.color = Color.white;
 
             // Put the dots at the correct position
             for (int dot = 0; dot < _uiDots.Count; dot++) {
                 _uiDots [dot].transform.position = pos + _dotPositions [dot];
-                _uiDots [dot].renderer.material.color = Color.white;
+                _uiDots [dot].GetComponent<Renderer>().material.color = Color.white;
             }
             
             // Put the glow-off at the correct location
@@ -448,47 +448,47 @@ public class TouchInput : MonoBehaviour
             Vector3 zeroRotation = originPoint + Vector3.right * 9.0f;
             _glowOff.position = ZoneGraph.RotatePointAroundPivot (zeroRotation, originPoint, Vector3.forward * deg);
             _glowOff.rotation = Quaternion.Euler (Vector3.forward * deg);
-            _glowOff.renderer.material.color = Color.white;
+            _glowOff.GetComponent<Renderer>().material.color = Color.white;
 
             // Color as appropriate
             if (IsInteraction (deg)) {
-                _selections.renderer.material.color = Color.black;
-                _glowOff.renderer.enabled = false;
-                _uiDots [0].renderer.material.color = Color.black;
+                _selections.GetComponent<Renderer>().material.color = Color.black;
+                _glowOff.GetComponent<Renderer>().enabled = false;
+                _uiDots [0].GetComponent<Renderer>().material.color = Color.black;
 
             } else if (GameManager.Player.CanInputJump && (IsJumpLeft (deg) || IsJumpUp (deg) || IsJumpRight (deg))) {
-                _selections.renderer.material.color = Color.blue;
-                _jumpSign.renderer.material.color = Color.blue;
-                _glowOff.renderer.material.color = Color.blue;
+                _selections.GetComponent<Renderer>().material.color = Color.blue;
+                _jumpSign.GetComponent<Renderer>().material.color = Color.blue;
+                _glowOff.GetComponent<Renderer>().material.color = Color.blue;
                 if (IsJumpRight (deg))
-                    _uiDots [2].renderer.material.color = Color.blue;
+                    _uiDots [2].GetComponent<Renderer>().material.color = Color.blue;
                 else if (IsJumpUp (deg))
-                    _uiDots [3].renderer.material.color = Color.blue;
+                    _uiDots [3].GetComponent<Renderer>().material.color = Color.blue;
                 if (IsJumpLeft (deg))
-                    _uiDots [4].renderer.material.color = Color.blue;
+                    _uiDots [4].GetComponent<Renderer>().material.color = Color.blue;
 
             } else if (GameManager.Player.CanInputAttack && (IsAttackLeft (deg) || IsAttackRight (deg))) {
-                _selections.renderer.material.color = Color.red;
-                _glowOff.renderer.material.color = Color.red;
+                _selections.GetComponent<Renderer>().material.color = Color.red;
+                _glowOff.GetComponent<Renderer>().material.color = Color.red;
                 if (IsAttackRight (deg)) {
-                    _attack1Sign.renderer.material.color = Color.red; 
-                    _uiDots [1].renderer.material.color = Color.red; 
-                    _uiDots [2].renderer.material.color = Color.red; 
-                    _uiDots [7].renderer.material.color = Color.red; 
+                    _attack1Sign.GetComponent<Renderer>().material.color = Color.red; 
+                    _uiDots [1].GetComponent<Renderer>().material.color = Color.red; 
+                    _uiDots [2].GetComponent<Renderer>().material.color = Color.red; 
+                    _uiDots [7].GetComponent<Renderer>().material.color = Color.red; 
                 } else if (IsAttackLeft (deg)) {
-                    _attack2Sign.renderer.material.color = Color.red;
-                    _uiDots [4].renderer.material.color = Color.red; 
-                    _uiDots [5].renderer.material.color = Color.red; 
-                    _uiDots [6].renderer.material.color = Color.red; 
+                    _attack2Sign.GetComponent<Renderer>().material.color = Color.red;
+                    _uiDots [4].GetComponent<Renderer>().material.color = Color.red; 
+                    _uiDots [5].GetComponent<Renderer>().material.color = Color.red; 
+                    _uiDots [6].GetComponent<Renderer>().material.color = Color.red; 
                 }
 
             } else if (GameManager.Player.CanInputPickup && IsPickup (deg)) {
-                _selections.renderer.material.color = Color.green;
-                _pickupSign.renderer.material.color = Color.green;
-                _glowOff.renderer.material.color = Color.green;
-                _uiDots [6].renderer.material.color = Color.green;
-                _uiDots [7].renderer.material.color = Color.green;
-                _uiDots [8].renderer.material.color = Color.green;
+                _selections.GetComponent<Renderer>().material.color = Color.green;
+                _pickupSign.GetComponent<Renderer>().material.color = Color.green;
+                _glowOff.GetComponent<Renderer>().material.color = Color.green;
+                _uiDots [6].GetComponent<Renderer>().material.color = Color.green;
+                _uiDots [7].GetComponent<Renderer>().material.color = Color.green;
+                _uiDots [8].GetComponent<Renderer>().material.color = Color.green;
 
             }
 

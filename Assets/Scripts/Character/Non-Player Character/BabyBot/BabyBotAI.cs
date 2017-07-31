@@ -82,7 +82,7 @@ public class BabyBotAI : EnemyAI
     }
 
     public override bool IsSeeingPlayer {
-        get { return base.IsSeeingPlayer || CharAnimator.CurrentState.nameHash == BabyBotAnimator.AttackState; }
+        get { return base.IsSeeingPlayer || CharAnimator.CurrentState.fullPathHash == BabyBotAnimator.AttackState; }
     }
 
     // Babybot only cares about x-position on waypoints

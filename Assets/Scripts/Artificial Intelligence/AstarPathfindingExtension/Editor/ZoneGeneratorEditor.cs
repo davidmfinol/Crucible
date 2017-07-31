@@ -27,31 +27,31 @@ public class ZoneGraphEditor : GraphEditor
         graph.WaypointSubdivisionSize = EditorGUILayout.FloatField ("Waypoint Subdivison", graph.WaypointSubdivisionSize);
     }
 
-    /// <summary>
-    /// Draws the nodes of the zone graph as the appropriate color.
-    /// </summary>
-    public override void OnDrawGizmos ()
-    {
-        ZoneGraph graph = target as ZoneGraph;
+    ///// <summary>
+    ///// Draws the nodes of the zone graph as the appropriate color.
+    ///// </summary>
+    //public override void OnDrawGizmos ()
+    //{
+    //    ZoneGraph graph = target as ZoneGraph;
 
-        if (graph == null)
-            return;
+    //    if (graph == null)
+    //        return;
 
-        if (graph.Nodes != null) {
-            foreach (ZoneNode node in graph.Nodes) {
-                Gizmos.color = AstarColor.NodeConnection;
-                if ((node.Tag & (1 << 0)) != 0)
-                    Gizmos.color = AstarColor.ConnectionLowLerp;
-                if (((node.Tag & (1 << 1)) != 0) || ((node.Tag & (1 << 2)) != 0))
-                    Gizmos.color = AstarColor.ConnectionHighLerp;
-                if ((node.Tag & (1 << 3)) != 0)
-                    Gizmos.color = AstarColor.MeshEdgeColor;
-                if ((node.Tag & (1 << 4)) != 0)
-                    Gizmos.color = AstarColor.BoundsHandles;
-                if (!node.Walkable)
-                    Gizmos.color = AstarColor.UnwalkableNode;
-                Gizmos.DrawCube ((Vector3)node.position, Vector3.one * HandleUtility.GetHandleSize ((Vector3)node.position) * 0.1F);
-            }
-        }
-    }
+    //    if (graph.Nodes != null) {
+    //        foreach (ZoneNode node in graph.Nodes) {
+    //            Gizmos.color = AstarColor.NodeConnection;
+    //            if ((node.Tag & (1 << 0)) != 0)
+    //                Gizmos.color = AstarColor.ConnectionLowLerp;
+    //            if (((node.Tag & (1 << 1)) != 0) || ((node.Tag & (1 << 2)) != 0))
+    //                Gizmos.color = AstarColor.ConnectionHighLerp;
+    //            if ((node.Tag & (1 << 3)) != 0)
+    //                Gizmos.color = AstarColor.MeshEdgeColor;
+    //            if ((node.Tag & (1 << 4)) != 0)
+    //                Gizmos.color = AstarColor.BoundsHandles;
+    //            if (!node.Walkable)
+    //                Gizmos.color = AstarColor.UnwalkableNode;
+    //            Gizmos.DrawCube ((Vector3)node.position, Vector3.one * HandleUtility.GetHandleSize ((Vector3)node.position) * 0.1F);
+    //        }
+    //    }
+    //}
 }

@@ -35,7 +35,7 @@ public class OlympusAI : EnemyAI
         _headLook.enabled = shouldLook;
         _headLook.target = target;
         foreach (ViewCone cone in PersonalVision.ViewCones) {
-            cone.renderer.enabled = shouldLook;
+            cone.GetComponent<Renderer>().enabled = shouldLook;
         }
 
     }
@@ -43,7 +43,7 @@ public class OlympusAI : EnemyAI
     protected override void Wander(float elapsedTime, bool awarenessChanged)
     {
         if (_wanderZone.extents == Vector3.zero && CharAnimator.CurrentZone != null) {
-            _wanderZone = CharAnimator.CurrentZone.collider.bounds;
+            _wanderZone = CharAnimator.CurrentZone.GetComponent<Collider>().bounds;
         }
 
         // We make sure to limit the amount of time that we wander to allow the player to sneak up
@@ -111,7 +111,7 @@ public class OlympusAI : EnemyAI
         }
         
         // Stop moving while the player is knocked back
-        if (GameManager.Player.CurrentState.nameHash == NewmanAnimator.DamagedState) {
+        if (GameManager.Player.CurrentState.fullPathHash == NewmanAnimator.DamagedState) {
             CharAnimator.CharInput.Horizontal = 0;
         }
 

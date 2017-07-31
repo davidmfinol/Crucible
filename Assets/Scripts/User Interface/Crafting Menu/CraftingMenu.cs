@@ -89,22 +89,22 @@ public class CraftingMenu : MonoBehaviour
         Vector3 wheelCenter = _uiCamera.ViewportToWorldPoint(new Vector3(1.0f, 1.0f, 7.0f));
         _weaponWheel = (GameObject)Instantiate(WeaponWheelPrefab, wheelCenter, Quaternion.identity);
         _weaponWheel.transform.parent = transform;
-        _weaponWheel.renderer.enabled = true;
+        _weaponWheel.GetComponent<Renderer>().enabled = true;
 
 
         _itemWheel = (GameObject)Instantiate(ItemWheelPrefab, wheelCenter, Quaternion.identity);
         _itemWheel.transform.parent = transform;
-        _itemWheel.renderer.enabled = false;
+        _itemWheel.GetComponent<Renderer>().enabled = false;
 
         _craftingBackdrop = (GameObject)Instantiate(CraftingBackdropPrefab, Vector3.zero, Quaternion.identity);
         _craftingBackdrop.transform.parent = transform;
-        _craftingBackdrop.renderer.enabled = false;
+        _craftingBackdrop.GetComponent<Renderer>().enabled = false;
 
         // position crafting button in screen coords.
         CraftButtonPos = _uiCamera.ViewportToWorldPoint(CraftButtonPos);
         _craftingButton = (GameObject)Instantiate(CraftButtonPrefab, CraftButtonPos, Quaternion.identity);
         _craftingButton.transform.parent = transform;
-        _craftingButton.renderer.enabled = false;
+        _craftingButton.GetComponent<Renderer>().enabled = false;
 
 
         _currentItem = 0;
@@ -212,9 +212,9 @@ public class CraftingMenu : MonoBehaviour
 
     public void TryOpen()
     {
-        if (GameManager.Player.CurrentState.nameHash == NewmanAnimator.IdleState ||
-            GameManager.Player.CurrentState.nameHash == NewmanAnimator.RunningState ||
-            GameManager.Player.CurrentState.nameHash == NewmanAnimator.StandingUpState) {
+        if (GameManager.Player.CurrentState.fullPathHash == NewmanAnimator.IdleState ||
+            GameManager.Player.CurrentState.fullPathHash == NewmanAnimator.RunningState ||
+            GameManager.Player.CurrentState.fullPathHash == NewmanAnimator.StandingUpState) {
             GameManager.UI.DisableInput();
             GameManager.Player.StepDown();
             Open();
@@ -225,7 +225,7 @@ public class CraftingMenu : MonoBehaviour
 
     public void TryClose()
     {
-        if (GameManager.Player.CurrentState.nameHash == NewmanAnimator.SteppingDownState) {
+        if (GameManager.Player.CurrentState.fullPathHash == NewmanAnimator.SteppingDownState) {
             GameManager.UI.EnableInput();
             GameManager.Player.StandUp();
             Close();
@@ -483,10 +483,10 @@ public class CraftingMenu : MonoBehaviour
 
     void ShowWithAlpha(GameObject obj, float alpha)
     {
-        obj.renderer.enabled = (alpha == 1.0f);
-        obj.renderer.material.color = new Color(obj.renderer.material.color.r, 
-                                                obj.renderer.material.color.g, 
-                                                obj.renderer.material.color.b, 
+        obj.GetComponent<Renderer>().enabled = (alpha == 1.0f);
+        obj.GetComponent<Renderer>().material.color = new Color(obj.GetComponent<Renderer>().material.color.r, 
+                                                obj.GetComponent<Renderer>().material.color.g, 
+                                                obj.GetComponent<Renderer>().material.color.b, 
                                                 alpha);
 
     }
@@ -516,7 +516,7 @@ public class CraftingMenu : MonoBehaviour
             // nothing
         
         } else if (_state == CraftingMenuState.CraftingMenu_Closing) {
-            _craftingButton.renderer.enabled = false;
+            _craftingButton.GetComponent<Renderer>().enabled = false;
 
             float alpha = Mathf.Max(1.0f - (float)(_timeInState / FadeTime), 0.0f);
 
@@ -555,18 +555,18 @@ public class CraftingMenu : MonoBehaviour
         int itemIndex = 0;
 
         // dont use first slot for now
-        _itemQuads [slot].renderer.enabled = false;
-        _itemCountQuads [slot].renderer.enabled = false;
+        _itemQuads [slot].GetComponent<Renderer>().enabled = false;
+        _itemCountQuads [slot].GetComponent<Renderer>().enabled = false;
         slot++;
 
         // show what we can
         while ((slot < 5 ) && (itemIndex <= GameManager.Inventory.Items.Count - 1)) {
-            _itemQuads [slot].renderer.enabled = true;
-            _itemQuads [slot].renderer.material.mainTexture = GameManager.Inventory.Items [itemIndex].GetTexture();
+            _itemQuads [slot].GetComponent<Renderer>().enabled = true;
+            _itemQuads [slot].GetComponent<Renderer>().material.mainTexture = GameManager.Inventory.Items [itemIndex].GetTexture();
             _itemQuads [slot].GetComponent<ItemQuad>().invItem = GameManager.Inventory.Items [itemIndex];
             
-            _itemCountQuads [slot].renderer.enabled = true;
-            _itemCountQuads [slot].renderer.material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Items [itemIndex].Quantity);
+            _itemCountQuads [slot].GetComponent<Renderer>().enabled = true;
+            _itemCountQuads [slot].GetComponent<Renderer>().material.mainTexture = CountQuadFactory.GetTextureForCount(GameManager.Inventory.Items [itemIndex].Quantity);
 
             slot++;
             itemIndex++;
@@ -575,8 +575,8 @@ public class CraftingMenu : MonoBehaviour
 
         // hide any unfilled.
         while (slot < 5) {
-            _itemQuads [slot].renderer.enabled = false;
-            _itemCountQuads [slot].renderer.enabled = false;
+            _itemQuads [slot].GetComponent<Renderer>().enabled = false;
+            _itemCountQuads [slot].GetComponent<Renderer>().enabled = false;
             slot++;
 
         }
@@ -599,10 +599,10 @@ public class CraftingMenu : MonoBehaviour
 
         if (_craftResult != null) {
             // show proper icon with create button.
-            _craftingButton.renderer.enabled = true;
+            _craftingButton.GetComponent<Renderer>().enabled = true;
 
         } else {
-            _craftingButton.renderer.enabled = false;
+            _craftingButton.GetComponent<Renderer>().enabled = false;
             //_sound.Play(_sound.NotACombination,0.5f);
 
         }

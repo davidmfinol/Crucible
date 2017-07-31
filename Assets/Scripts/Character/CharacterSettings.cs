@@ -93,10 +93,10 @@ public sealed class CharacterSettings : MonoBehaviour
         }
         
         // Activate the ragdoll for the bone we're on
-        if (current.rigidbody != null && current.collider != null) {
-            current.collider.enabled = !disable;
-            current.rigidbody.isKinematic = disable;
-            current.rigidbody.useGravity = useGravity;
+        if (current.GetComponent<Rigidbody>() != null && current.GetComponent<Collider>() != null) {
+            current.GetComponent<Collider>().enabled = !disable;
+            current.GetComponent<Rigidbody>().isKinematic = disable;
+            current.GetComponent<Rigidbody>().useGravity = useGravity;
         }
 
     }

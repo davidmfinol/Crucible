@@ -36,7 +36,7 @@ public class DynamicMusicPlayer : AudioPlayer
             AudioSource audioSource = Audios [i];
             audioSource.dopplerLevel = 0;
             audioSource.volume = 0.1f;
-            audioSource.panLevel = 0;
+            audioSource.spatialBlend = 0;
             audioSource.loop = true;
             audioSource.clip = EnemyDangerClips [i];
         }

@@ -24,10 +24,10 @@ public class WindAudioPlayer : AudioPlayer
     void Update()
     {
         foreach (AudioSource audioSource in Audios) {
-            if (audioSource.pan >= 0) {
-                audioSource.pan += 0.05f * Time.deltaTime;
+            if (audioSource.panStereo >= 0) {
+                audioSource.panStereo += 0.05f * Time.deltaTime;
             } else {
-                audioSource.pan -= 0.05f * Time.deltaTime;
+                audioSource.panStereo -= 0.05f * Time.deltaTime;
             }
         }
 
@@ -44,7 +44,7 @@ public class WindAudioPlayer : AudioPlayer
             int windex = Random.Range(0, WindNoises.Length);
             float pan = Random.Range(-MaxPanSpread, MaxPanSpread);
             Audio.clip = WindNoises [windex];
-            Audio.pan = pan;
+            Audio.panStereo = pan;
             Audio.Play();
 
             // Then wait until this wind sound is nearing completion

@@ -157,9 +157,9 @@ public class CreateGameObjectsFromMeshes
 		DestroyChildren (transform);
 
 		// Change the shader so that it will be outlined as appropriate
-		if ( !transform.renderer.sharedMaterial.shader.name.Contains("Interactive") ) {
-			transform.renderer.sharedMaterial.shader = Shader.Find ("Outlined/Interactive");
-			transform.renderer.sharedMaterial.SetFloat ("_FadeDis", 15);
+		if ( !transform.GetComponent<Renderer>().sharedMaterial.shader.name.Contains("Interactive") ) {
+			transform.GetComponent<Renderer>().sharedMaterial.shader = Shader.Find ("Outlined/Interactive");
+			transform.GetComponent<Renderer>().sharedMaterial.SetFloat ("_FadeDis", 15);
         }
         //transform.renderer.sharedMaterial.shader = Shader.Find ("Diffuse");
 		OutlineInteractive outlineFader = transform.GetComponent<OutlineInteractive> ();
@@ -189,7 +189,7 @@ public class CreateGameObjectsFromMeshes
         // Deal with rotation
         Quaternion storedRotation = ledge.localRotation;
         ledge.localRotation = Quaternion.identity;
-        Bounds ledgeBounds = ledge.collider.bounds;
+        Bounds ledgeBounds = ledge.GetComponent<Collider>().bounds;
 
         // Set up the left ledge
         if (createLeftLedge) {
@@ -285,10 +285,10 @@ public class CreateGameObjectsFromMeshes
         BoxCollider createdWallCollider = createdWall.GetComponent<BoxCollider> ();
         createdWall.isStatic = true; 
         createdWall.transform.parent = wallContainer.transform;
-        createdWallCollider.center = wall.collider.bounds.center - wall.transform.position;
+        createdWallCollider.center = wall.GetComponent<Collider>().bounds.center - wall.transform.position;
         
         // Scale the wall so that it encompasses the physical wall and the player
-        createdWallCollider.size = wall.collider.bounds.size;
+        createdWallCollider.size = wall.GetComponent<Collider>().bounds.size;
         Vector3 size = createdWallCollider.size;
         CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
         size.x += charController.radius * playerPrefab.transform.localScale.z;
@@ -303,10 +303,10 @@ public class CreateGameObjectsFromMeshes
         BoxCollider createdRopeCollider = createdRope.GetComponent<BoxCollider> ();
         createdRope.isStatic = true;
         createdRope.transform.parent = wallContainer.transform;
-        createdRopeCollider.center = rope.collider.bounds.center - rope.transform.position;
+        createdRopeCollider.center = rope.GetComponent<Collider>().bounds.center - rope.transform.position;
         
         // Scale the rope so that it encompasses the physical pipe and the player
-        createdRopeCollider.size = rope.collider.bounds.size;
+        createdRopeCollider.size = rope.GetComponent<Collider>().bounds.size;
         Vector3 size = createdRopeCollider.size;
         size.z *= 100; // NOTE: 100 is an arbitrary number that should be large enough
         createdRopeCollider.size = size;
@@ -321,10 +321,10 @@ public class CreateGameObjectsFromMeshes
         bool facesZAxis = !ladder.name.Contains ("X");
         createdLadder.isStatic = true;
         createdLadder.transform.parent = wallContainer.transform;
-        createdLadderCollider.center = ladder.collider.bounds.center - ladder.transform.position;
+        createdLadderCollider.center = ladder.GetComponent<Collider>().bounds.center - ladder.transform.position;
 
         // Scale the ladder so that it encompasses the physical ladder and the player
-        createdLadderCollider.size = ladder.collider.bounds.size;
+        createdLadderCollider.size = ladder.GetComponent<Collider>().bounds.size;
         Vector3 size = createdLadderCollider.size;
         CharacterController charController = playerPrefab.GetComponent<CharacterController> ();
         if (facesZAxis)

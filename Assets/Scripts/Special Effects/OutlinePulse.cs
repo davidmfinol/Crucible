@@ -28,7 +28,7 @@ public class OutlinePulse : MonoBehaviour
             _changeableMaterials = FindChangeableMaterials();
         } else {
             _changeableMaterials = new List<Material>();
-            _changeableMaterials.Add(renderer.material);
+            _changeableMaterials.Add(GetComponent<Renderer>().material);
         }
 
         if (PulseToWhite) {

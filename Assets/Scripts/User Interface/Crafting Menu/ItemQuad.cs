@@ -11,9 +11,9 @@ public class ItemQuad : MonoBehaviour
     public GameObject CreateDraggableCopy()
     {
         GameObject quadCopy = (GameObject)Instantiate(gameObject);
-        quadCopy.renderer.material.color = new Color(quadCopy.renderer.material.color.r,
-                                                     quadCopy.renderer.material.color.g,
-                                                     quadCopy.renderer.material.color.b,
+        quadCopy.GetComponent<Renderer>().material.color = new Color(quadCopy.GetComponent<Renderer>().material.color.r,
+                                                     quadCopy.GetComponent<Renderer>().material.color.g,
+                                                     quadCopy.GetComponent<Renderer>().material.color.b,
                                                      1.0f);
 
         ItemQuad itemQuad = quadCopy.GetComponent<ItemQuad>();

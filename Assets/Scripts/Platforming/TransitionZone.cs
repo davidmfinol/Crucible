@@ -25,9 +25,9 @@ public class TransitionZone : MonoBehaviour
         if (character != null) {
             bool transit = false;
             if (UsesFloorCheck) {
-                transit = transit || (character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y);
+                transit = transit || (character.GetComponent<Collider>().bounds.center.y - character.Height / 2 >= GetComponent<Collider>().bounds.min.y);
             } else if (UsesCeilingCheck) { 
-                transit = transit || (character.collider.bounds.center.y + character.Height / 2 <= collider.bounds.max.y);
+                transit = transit || (character.GetComponent<Collider>().bounds.center.y + character.Height / 2 <= GetComponent<Collider>().bounds.max.y);
             }
             character.CanTransitionZ = transit;
         }
@@ -43,9 +43,9 @@ public class TransitionZone : MonoBehaviour
         if (character != null) {
             bool transit = false;
             if (UsesFloorCheck) {
-                transit = transit || (character.collider.bounds.center.y - character.Height / 2 >= collider.bounds.min.y);
+                transit = transit || (character.GetComponent<Collider>().bounds.center.y - character.Height / 2 >= GetComponent<Collider>().bounds.min.y);
             } else if (UsesCeilingCheck) {
-                transit = transit || (character.collider.bounds.center.y + character.Height / 2 <= collider.bounds.max.y);
+                transit = transit || (character.GetComponent<Collider>().bounds.center.y + character.Height / 2 <= GetComponent<Collider>().bounds.max.y);
             }
             character.CanTransitionZ = transit;
         }

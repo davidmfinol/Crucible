@@ -18,7 +18,7 @@ public class Mine : Weapon
         // Create the new mine on the field
         Vector3 minePos = new Vector3(transform.position.x, transform.position.y, transform.position.z);// + 1.5f);
         Transform mineCopy = (Transform)Instantiate(OnFieldMine, minePos, Quaternion.identity);
-        mineCopy.animation ["MineAboutToExplode"].speed = 2.0f;
+        mineCopy.GetComponent<Animation>() ["MineAboutToExplode"].speed = 2.0f;
 
     }
     

@@ -25,21 +25,32 @@ public abstract class CharacterAnimator : MonoBehaviour
     public delegate void ProcessState(float elapsedTime);
 
     public ProcessState ModifyState;
-    private Dictionary<int, ProcessState> _stateMachine; // <Hash of State name, corresponding function delegate for State>
+    private Dictionary<int, ProcessState> _stateMachine;
+    // <Hash of State name, corresponding function delegate for State>
     private AnimatorStateInfo _previousState;
     private float _timeInCurrentState;
     
     // We use these to determine movement
-    private float _horizontalSpeed = 0.0f; // How fast does the character want to move on the x-axis?
-    private float _verticalSpeed = 0.0f; // How fast does the character want to move on the y-axis?
-    private Vector3 _direction = Vector3.right; // The current direction the character is facing in x-y.
-    private Vector3 _prevDirection = Vector3.right; // The last direction that the player was facing before the current direction
-    private bool _ignoreDirection = false; // Some cases want us to ignore our set direction; set this to allow that
-    private bool _ignoreMovement = false;  // Some cases want us to ignore our movement; set this to allow that
-    private bool _ignoreXYMovement = false;   // Used to prevent xy movement in hide zones.
-    private CollisionFlags _collisionFlags = CollisionFlags.None; // The last collision flags returned from characterController.Move()
-    private Vector3 _velocity = Vector3.zero; // The last velocity moved as a result of the characterController.Move()
-    private float _lastGroundHeight = 0.0f; // Keep track of the last y position at which the character was touching the ground
+    private float _horizontalSpeed = 0.0f;
+    // How fast does the character want to move on the x-axis?
+    private float _verticalSpeed = 0.0f;
+    // How fast does the character want to move on the y-axis?
+    private Vector3 _direction = Vector3.right;
+    // The current direction the character is facing in x-y.
+    private Vector3 _prevDirection = Vector3.right;
+    // The last direction that the player was facing before the current direction
+    private bool _ignoreDirection = false;
+    // Some cases want us to ignore our set direction; set this to allow that
+    private bool _ignoreMovement = false;
+    // Some cases want us to ignore our movement; set this to allow that
+    private bool _ignoreXYMovement = false;
+    // Used to prevent xy movement in hide zones.
+    private CollisionFlags _collisionFlags = CollisionFlags.None;
+    // The last collision flags returned from characterController.Move()
+    private Vector3 _velocity = Vector3.zero;
+    // The last velocity moved as a result of the characterController.Move()
+    private float _lastGroundHeight = 0.0f;
+    // Keep track of the last y position at which the character was touching the ground
 
     // Moving platform support
     private Transform _activePlatform;
@@ -51,11 +62,16 @@ public abstract class CharacterAnimator : MonoBehaviour
     private HangableObject _previousHangTarget = null;
 
     // We need a way to move between z zones
-    private Zone _currentZone = null; // Zone we are currently in
-    private Zone _Zlower = null; // Zone we go to if we press down
-    private Zone _Zhigher = null; // Zone we go to if we press up
-    private List<Zone> _zones = new List<Zone>(); // All the zones we could currently be in
-    private bool _canTransitionZ = false; // Does our current location allow us to to move between zones?
+    private Zone _currentZone = null;
+    // Zone we are currently in
+    private Zone _Zlower = null;
+    // Zone we go to if we press down
+    private Zone _Zhigher = null;
+    // Zone we go to if we press up
+    private List<Zone> _zones = new List<Zone>();
+    // All the zones we could currently be in
+    private bool _canTransitionZ = false;
+    // Does our current location allow us to to move between zones?
 
     void Start()
     {
@@ -78,7 +94,8 @@ public abstract class CharacterAnimator : MonoBehaviour
 
     }
 
-    protected abstract void CreateStateMachine();// MUST be overwritten by child classes to set up _stateMachine
+    protected abstract void CreateStateMachine();
+    // MUST be overwritten by child classes to set up _stateMachine
 
     protected virtual void OnStart()
     {
@@ -95,7 +112,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     {
         // Empty by default; child classes should override
     }
-    
+
     void Update()
     {
         // Make sure we stay in the bounds of the level
@@ -188,7 +205,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         UpdateMecanimVariables();
 
         // keep track of time in current state for things like wall sliding, etc.
-        if (CurrentState.nameHash != _previousState.nameHash) {
+        if (CurrentState.fullPathHash != _previousState.fullPathHash) {
             _timeInCurrentState = 0.0f;
         } else {
             _timeInCurrentState += Time.fixedDeltaTime;
@@ -197,10 +214,10 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Process the state we are in (mainly updating horizontal speed, vertical speed, and direction; can also update mecanim variables)
         _previousState = CurrentState;
         ProcessState processState;
-        if (StateMachine.TryGetValue(CurrentState.nameHash, out processState)) {
+        if (StateMachine.TryGetValue(CurrentState.fullPathHash, out processState)) {
             processState(Time.fixedDeltaTime);
         } else {
-            Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + CurrentState.nameHash + " does not have a corresponding function delegate.");
+            Debug.LogWarning(this.GetType().ToString() + "'s state with hash " + CurrentState.fullPathHash + " does not have a corresponding function delegate.");
         }
 
         // We occasionally need to allow other classes to do additional processing for the HorizontalSpeed, VerticalSpeed, and Direction
@@ -344,19 +361,19 @@ public abstract class CharacterAnimator : MonoBehaviour
         // Do nothing by default, by child classes should override if they want some effect when hurt
 
     }
-    
+
     public virtual void OnStealthDeath()
     {
         OnDeath();
         
     }
-    
+
     public void OnDeath()
     {
         OnDeath(Vector2.zero);
         
     }
-    
+
     public virtual void OnDeath(Vector3 knockForce)
     {
         DoRagDoll(knockForce);
@@ -400,7 +417,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         DoRagDoll(Vector3.zero);
 
     }
-    
+
     public virtual void DoRagDoll(Vector3 push)
     {
         DisableAnimationSystem();
@@ -460,12 +477,12 @@ public abstract class CharacterAnimator : MonoBehaviour
         EnableAnimationSystem();
 
     }
-    
+
     public virtual void StepDown()
     {
         // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
     }
-    
+
     public virtual void StandUp()
     {
         // Called by the UIManager/CraftingMenu to make the player kneel when appropriate
@@ -478,7 +495,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         HorizontalSpeed = Mathf.Lerp(HorizontalSpeed, IgnoreXYMovement ? 0 : Settings.MaxHorizontalSpeed * CharInput.Horizontal, accelerationSmoothing);
 
     }
-    
+
     protected virtual void ApplyFriction(float elapsedTime)
     {
         if (HorizontalSpeed > 0.0f) {
@@ -498,7 +515,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         }
         
     }
-    
+
     protected virtual void ApplyBiDirection()
     {
         if (CharInput.Left && !CharInput.Right) {
@@ -508,7 +525,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         }
         
     }
-    
+
     protected virtual void ApplyTriDirection()
     {
         if (CharInput.Left && !CharInput.Right) {
@@ -520,7 +537,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         }
         
     }
-    
+
     protected virtual void ApplyClimbingVertical(float vertical)
     {
         if (vertical > 0.0f) { 
@@ -532,17 +549,17 @@ public abstract class CharacterAnimator : MonoBehaviour
         }
         
     }
-    
+
     protected virtual void ApplyClimbingStrafing(float horizontal)
     {
         // Determine the horizontal bounds of the object(s) we are climbing
         bool insideLeft = false;
         bool insideRight = false;
         foreach (HangableObject obj in HangQueue) {
-            insideLeft = insideLeft || transform.position.x - Controller.collider.bounds.extents.x >
-                obj.transform.position.x - obj.collider.bounds.extents.x;
-            insideRight = insideRight || transform.position.x + Controller.collider.bounds.extents.x <
-                obj.transform.position.x + obj.collider.bounds.extents.x;
+            insideLeft = insideLeft || transform.position.x - Controller.GetComponent<Collider>().bounds.extents.x >
+            obj.transform.position.x - obj.GetComponent<Collider>().bounds.extents.x;
+            insideRight = insideRight || transform.position.x + Controller.GetComponent<Collider>().bounds.extents.x <
+            obj.transform.position.x + obj.GetComponent<Collider>().bounds.extents.x;
         }
         
         // Determine horizontal movement
@@ -658,11 +675,11 @@ public abstract class CharacterAnimator : MonoBehaviour
     public bool InputMoveBackward {
         get { return (Direction.x > 0 && CharInput.Left) || (Direction.x < 0 && CharInput.Right); }
     }
-    
+
     public bool InputJumpForward {
         get { return (Direction.x > 0 && CharInput.JumpRight) || (Direction.x < 0 && CharInput.JumpLeft); }
     }
-    
+
     public bool InputJumpBackward {
         get { return (Direction.x > 0 && CharInput.JumpLeft) || (Direction.x < 0 && CharInput.JumpRight); }
     }
@@ -710,23 +727,23 @@ public abstract class CharacterAnimator : MonoBehaviour
     public virtual bool CanInputHorizontal {
         get { return !IsDead; }
     }
-    
+
     public virtual bool CanInputVertical {
         get { return !IsDead; }
     }
-    
+
     public virtual bool CanInputJump {
         get { return !IsDead; }
     }
-    
+
     public virtual bool CanInputAttack {
         get { return !IsDead; }
     }
-    
+
     public virtual bool CanInputPickup {
         get { return !IsDead; }
     }
-    
+
     public virtual bool CanInputInteraction {
         get { return !IsDead; }
     }
@@ -768,11 +785,11 @@ public abstract class CharacterAnimator : MonoBehaviour
     public CollisionFlags ControllerCollisionFlags {
         get { return _collisionFlags; }
     }
-    
+
     public virtual bool IsSneaking {
         get { return !IsGrounded || Mathf.Abs(HorizontalSpeed) < 0.66f * Settings.MaxHorizontalSpeed; }
     }
-    
+
     public virtual bool IsTurningAround {
         get { return false; } 
     }
@@ -780,15 +797,15 @@ public abstract class CharacterAnimator : MonoBehaviour
     public virtual bool IsHanging {
         get { return false; }
     }
-    
+
     public virtual bool IsOnWall {
         get { return false; }
     }
-    
+
     public virtual bool IsClimbing {
         get { return false; } 
     }
-    
+
     public virtual bool IsJumping {
         get { return false; } 
     }
@@ -830,7 +847,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public bool CanHangOffObject {
-        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is GrabbableObject) && !(ActiveHangTarget is ClimbableObject);}
+        get { return (CanHangOffObjectHorizontally || CanHangOffObjectVertically) && !(ActiveHangTarget is GrabbableObject) && !(ActiveHangTarget is ClimbableObject); }
     }
 
     public bool CanClimbLadder {
@@ -858,7 +875,7 @@ public abstract class CharacterAnimator : MonoBehaviour
     }
 
     public bool CanGrabWall {
-        get { return (IsTouchingWall && (ActiveHangTarget is GrabbableObject) && VerticalSpeed > Settings.MinWallgrabSpeed);  }
+        get { return (IsTouchingWall && (ActiveHangTarget is GrabbableObject) && VerticalSpeed > Settings.MinWallgrabSpeed); }
     }
 
     // Zone Properties
@@ -893,7 +910,7 @@ public abstract class CharacterAnimator : MonoBehaviour
         get { return _zones; }
         set { _zones = value; }
     }
-    
+
     public virtual bool CanTransitionZ {
         get { return _canTransitionZ; }
         set { _canTransitionZ = value; }

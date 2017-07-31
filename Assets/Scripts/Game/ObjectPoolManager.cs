@@ -165,7 +165,7 @@ public class ObjectPoolManager : MonoBehaviour
         // Make the hitbox
         HitBox hitbox = GetHitbox();
         hitbox.MakePlayerGravityShot();
-        float offsetX = hitbox.collider.bounds.extents.x;
+        float offsetX = hitbox.GetComponent<Collider>().bounds.extents.x;
         Vector3 offset = new Vector3((GameManager.Player.Direction.x > 0 ? offsetX : -offsetX), 0, 0);
         hitbox.transform.position = GameManager.Player.transform.position + offset;
         return hitbox;
@@ -181,7 +181,7 @@ public class ObjectPoolManager : MonoBehaviour
         // Make the hitbox
         HitBox hitbox = GetHitbox();
         hitbox.MakePlayerVETO();
-        float offsetX = hitbox.collider.bounds.extents.x;
+        float offsetX = hitbox.GetComponent<Collider>().bounds.extents.x;
         Vector3 offset = new Vector3((GameManager.Player.Direction.x > 0 ? offsetX : -offsetX), 0, 0);
         hitbox.transform.position = GameManager.Player.transform.position + offset;
         return hitbox;
