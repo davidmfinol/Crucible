@@ -5,7 +5,7 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Game manager is a static class in charge of keeping strack of all global components.
+/// Game manager is a static class in charge of keeping track of all global components.
 /// The global components include the Main Camera, Audio, Subtitles, Level, AI, Object Pool, Inventory, UI, Player, and SaveData.
 /// Every scene in the game NEEDS to have an instance of the game manager, though that should be all it takes besides running the "CreateGameObjectsFromMeshes" editor menu script.
 /// </summary>
