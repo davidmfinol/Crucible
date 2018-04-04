@@ -50,14 +50,14 @@ public class TouchInput : MonoBehaviour
     private float _moveMin;
     private Vector2 _lastMovePos;
     private float _distanceForMaxSpeed;
-    
+
     // Swipe information related to actions
     private int _actionID;
     private Vector2 _actionStartPos;
     private float _actionMin;
     private Vector2 _lastActionPos;
     private float _speedForInstantAction;
-    
+
     // Where we store the input
     private CharacterInput _input;
 
@@ -169,7 +169,7 @@ public class TouchInput : MonoBehaviour
         _input.UpdateInputMethod = this.UpdateInput;
 
     }
-    
+
     public void Disable ()
     {
         _input.UpdateInputMethod = null;
@@ -180,7 +180,7 @@ public class TouchInput : MonoBehaviour
 
     // The input class will call this method while touch input is enabled
     public void UpdateInput (float elapsedTime)
-    {   
+    {
         // Reset inputs
         _input.Horizontal = 0;
         _input.Vertical = 0;
@@ -200,7 +200,7 @@ public class TouchInput : MonoBehaviour
 
     private void InterpretMovementSwipe (Touch touch)
     {
-        // Keep track of when we start touching the left-hand side of the screen 
+        // Keep track of when we start touching the left-hand side of the screen
         if (touch.phase == TouchPhase.Began && _moveID == -1 && touch.position.x < Screen.width / 2) {
             _moveID = touch.fingerId;
             _moveStartPos = touch.position;
@@ -228,7 +228,7 @@ public class TouchInput : MonoBehaviour
 
             // Handle horizontal input
             // TODO: float prevHorizontal = _input.Horizontal;
-            if (GameManager.Player.CanInputHorizontal && (!GameManager.Player.CanInputVertical || Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) ) { 
+            if (GameManager.Player.CanInputHorizontal && (!GameManager.Player.CanInputVertical || Mathf.Abs (delta.x) > Mathf.Abs (delta.y)) ) {
                 _input.Horizontal = delta.x / _distanceForMaxSpeed;
                 if (_input.Horizontal > 0.66f)
                     _input.Horizontal += (_input.Horizontal - 0.66f) * 2.0f;
@@ -281,7 +281,7 @@ public class TouchInput : MonoBehaviour
             _input.Attack = -1;
         else if (GameManager.Player.CanInputPickup && IsPickup (deg))
             _input.Pickup = true;
-        else if (GameManager.Player.CanInputAttack && IsAttackRight (deg)) 
+        else if (GameManager.Player.CanInputAttack && IsAttackRight (deg))
             _input.Attack = 1;
         else if (GameManager.Player.CanInputInteraction && IsInteraction (deg))
             _input.Interaction = true;
@@ -298,7 +298,7 @@ public class TouchInput : MonoBehaviour
         cameraPos.y /= Screen.height;
         cameraPos.z = -GameManager.UI.UICamera.transform.position.z;
         return GameManager.UI.UICamera.ViewportToWorldPoint (cameraPos);
-        
+
     }
 
     public void DisplayParticles (float degrees)
@@ -307,15 +307,17 @@ public class TouchInput : MonoBehaviour
         Quaternion rot = Quaternion.Euler(Vector3.forward * degrees) * ParticlePrefab.rotation;
         _particles.transform.rotation = rot;
 
-        _particles.startColor = Color.white;
+        var mainParticle = _particles.main;
+        var startColor = Color.white;
         if (GameManager.Player.CanInputJump && (IsJumpLeft (degrees) || IsJumpUp (degrees) || IsJumpRight (degrees)))
-            _particles.startColor = Color.blue;
+            startColor = Color.blue;
         else if (GameManager.Player.CanInputAttack && (IsAttackLeft (degrees) || IsAttackRight (degrees)))
-            _particles.startColor = Color.red;
+            startColor = Color.red;
         else if (GameManager.Player.CanInputPickup && IsPickup (degrees))
-            _particles.startColor = Color.green;
+            startColor = Color.green;
+        // TODO: _particles.SetParticles(mainParticle with startColor);
 
-        if(_particles.startColor != Color.white)
+        if(startColor != Color.white)
             _particles.Play ();
 
     }
@@ -326,7 +328,7 @@ public class TouchInput : MonoBehaviour
         // We're essentially replicating another update loop for rendering the left hand side
         while (true) {
             yield return null;
-            
+
             // Make the left-hand side appear only when touching the screen
             bool moveTouched = _moveID != -1 && _input.UpdateInputMethod != null;
             bool shouldShowHorizontal = moveTouched && GameManager.Player.CanInputHorizontal;
@@ -357,14 +359,14 @@ public class TouchInput : MonoBehaviour
             float targetScale = 1 + 15 * _input.Horizontal;
             horizontalScale.x = targetScale;
             _horizontalSlider.transform.localScale = horizontalScale;
-            
+
             // Move the button to the correct spot
             _moveButton.position = currentPos;
             Vector2 delta = _lastMovePos - _moveStartPos;
             if (delta.magnitude > _moveMin) {
                 if (GameManager.Player.CanInputVertical && Mathf.Abs (delta.x) < Mathf.Abs (delta.y))
                     _moveButton.position = new Vector3 (startPos.x, currentPos.y, currentPos.z);
-                else if (GameManager.Player.CanInputHorizontal) 
+                else if (GameManager.Player.CanInputHorizontal)
                     _moveButton.position = new Vector3 (currentPos.x, startPos.y, currentPos.z);
             }
 
@@ -441,7 +443,7 @@ public class TouchInput : MonoBehaviour
                 _uiDots [dot].transform.position = pos + _dotPositions [dot];
                 _uiDots [dot].GetComponent<Renderer>().material.color = Color.white;
             }
-            
+
             // Put the glow-off at the correct location
             float deg = CalculateActionDegree ();
             Vector3 originPoint = pos + GlowOffPrefab.position;
@@ -471,15 +473,15 @@ public class TouchInput : MonoBehaviour
                 _selections.GetComponent<Renderer>().material.color = Color.red;
                 _glowOff.GetComponent<Renderer>().material.color = Color.red;
                 if (IsAttackRight (deg)) {
-                    _attack1Sign.GetComponent<Renderer>().material.color = Color.red; 
-                    _uiDots [1].GetComponent<Renderer>().material.color = Color.red; 
-                    _uiDots [2].GetComponent<Renderer>().material.color = Color.red; 
-                    _uiDots [7].GetComponent<Renderer>().material.color = Color.red; 
+                    _attack1Sign.GetComponent<Renderer>().material.color = Color.red;
+                    _uiDots [1].GetComponent<Renderer>().material.color = Color.red;
+                    _uiDots [2].GetComponent<Renderer>().material.color = Color.red;
+                    _uiDots [7].GetComponent<Renderer>().material.color = Color.red;
                 } else if (IsAttackLeft (deg)) {
                     _attack2Sign.GetComponent<Renderer>().material.color = Color.red;
-                    _uiDots [4].GetComponent<Renderer>().material.color = Color.red; 
-                    _uiDots [5].GetComponent<Renderer>().material.color = Color.red; 
-                    _uiDots [6].GetComponent<Renderer>().material.color = Color.red; 
+                    _uiDots [4].GetComponent<Renderer>().material.color = Color.red;
+                    _uiDots [5].GetComponent<Renderer>().material.color = Color.red;
+                    _uiDots [6].GetComponent<Renderer>().material.color = Color.red;
                 }
 
             } else if (GameManager.Player.CanInputPickup && IsPickup (deg)) {
@@ -564,6 +566,6 @@ public class TouchInput : MonoBehaviour
     }
 
     public float SpeedForInstantAction {
-        get { return _speedForInstantAction; } 
+        get { return _speedForInstantAction; }
     }
 }
